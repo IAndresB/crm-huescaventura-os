@@ -2,9 +2,9 @@
 
 ## Current Step
 
-Crear:
+Revisar y aprobar docs/domain-model.md
 
-docs/domain-model.md
+Versión actual: 0.1 — DRAFT, pendiente de revisión y aprobación humana.
 
 ## Approved Order
 
@@ -22,7 +22,9 @@ docs/domain-model.md
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-docs/business-rules.md está aprobado en su versión 0.2. El siguiente paso es docs/domain-model.md. Work NO debe iniciarlo dentro de la tarea que formaliza esta aprobación: requiere una nueva instrucción humana.
+docs/business-rules.md continúa APPROVED en su versión 0.2. docs/domain-model.md v0.1 está redactado como DRAFT y no está aprobado. Work debe limitarse a su revisión y a los ajustes autorizados de esta fase.
+
+state-machines.md permanece bloqueado / no iniciado, como placeholder. Solo podrá iniciarse tras aprobación humana explícita del modelo de dominio y autorización de la siguiente fase. No avanzar a arquitectura, Specs, planes, tareas de implementación o código dentro de esta revisión.
 
 Si durante el trabajo aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 
