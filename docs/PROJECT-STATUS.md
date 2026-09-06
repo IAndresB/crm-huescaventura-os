@@ -29,7 +29,7 @@ Last updated: 2026-09-06
 
 ## Last Approved Commit
 
-- 14bb3d2 — docs: approve product definition v0.1
+- d139bc7 — docs: approve business rules v0.2
 
 ## Notes
 
