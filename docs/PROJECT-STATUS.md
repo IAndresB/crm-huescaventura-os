@@ -13,7 +13,7 @@ Last updated: 2026-09-06
 
 ## In Progress
 
-- docs/business-rules.md — redactado; pendiente de revisión/aprobación humana.
+- docs/business-rules.md — ampliamente refinado con decisiones operativas aprobadas; continúa en DRAFT, pendiente de revisión humana final mediante ChatGPT.
 
 ## Pending
 
@@ -24,7 +24,7 @@ Last updated: 2026-09-06
 
 ## Current Blockers
 
-- La siguiente fase no puede iniciarse hasta la aprobación humana de docs/business-rules.md. No hay bloqueos para revisar el borrador.
+- La siguiente fase no puede iniciarse hasta la aprobación humana final de docs/business-rules.md. Los aspectos aún abiertos están delimitados y no bloquean su revisión ni su futura aprobación.
 
 ## Last Approved Commit
 
@@ -32,6 +32,6 @@ Last updated: 2026-09-06
 
 ## Notes
 
-docs/product.md está completado y aprobado. docs/business-rules.md está redactado en DRAFT, pendiente de revisión/aprobación humana. Sus decisiones pendientes están identificadas en el propio documento. domain-model.md permanece pendiente y no se ha iniciado.
+docs/product.md está completado y aprobado. docs/business-rules.md incorpora las decisiones operativas expresamente aprobadas por el propietario, agrupadas en D010–D017, y permanece en DRAFT v0.2 para revisión humana final. El documento distingue pendientes resueltos, aspectos residuales y validaciones futuras. domain-model.md permanece bloqueado/no iniciado.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.

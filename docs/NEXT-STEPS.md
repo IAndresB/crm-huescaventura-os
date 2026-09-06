@@ -22,7 +22,7 @@ docs/business-rules.md
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-El paso actual es revisar y aprobar docs/business-rules.md. La siguiente fase permanece bloqueada hasta aprobación humana; no debe iniciarse domain-model.md.
+El paso actual es revisar y aprobar docs/business-rules.md, refinado con las decisiones operativas aprobadas y todavía en DRAFT. Corresponde ahora la revisión humana final mediante ChatGPT. La siguiente fase permanece bloqueada hasta aprobación humana; no debe iniciarse domain-model.md.
 
 Si durante el trabajo aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 
