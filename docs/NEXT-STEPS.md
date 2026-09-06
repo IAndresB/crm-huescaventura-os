@@ -2,7 +2,7 @@
 
 ## Current Step
 
-Crear y aprobar:
+Revisar y aprobar:
 
 docs/business-rules.md
 
@@ -22,7 +22,7 @@ docs/business-rules.md
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-El paso actual es crear y aprobar docs/business-rules.md.
+El paso actual es revisar y aprobar docs/business-rules.md. La siguiente fase permanece bloqueada hasta aprobación humana; no debe iniciarse domain-model.md.
 
 Si durante el trabajo aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 
