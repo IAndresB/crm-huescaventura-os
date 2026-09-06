@@ -1,7 +1,8 @@
 # CRM HUESCAVENTURA OS — Product Definition
 
-Status: DRAFT
+Status: APPROVED
 Version: 0.1
+Approved: 2026-09-06
 Last updated: 2026-09-06
 
 ## 1. Identidad, visión y problema
@@ -30,7 +31,7 @@ En el futuro podrán existir accesos para clientes, responsables de grupo, prove
 
 ## 4. Experiencia de usuario
 
-El usuario debe distinguir hechos confirmados, propuestas, estimaciones y datos pendientes; entender qué requiere acción; ver contexto antes de actuar; conocer la procedencia de datos integrados; y encontrar cambios importantes en el historial. Las acciones sensibles deben mostrar sus consecuencias y pedir confirmación. La experiencia debe funcionar en Work Local y el acceso remoto previsto.
+El usuario debe distinguir hechos confirmados, propuestas, estimaciones y datos pendientes; entender qué requiere acción; ver contexto antes de actuar; conocer la procedencia de datos integrados; y encontrar cambios importantes en el historial. Las acciones sensibles deben mostrar sus consecuencias y pedir confirmación. La experiencia del CRM deberá ser accesible desde los dispositivos y entornos previstos para sus usuarios, con una interfaz adaptable y coherente con los permisos definidos.
 
 ## 5. Alcance funcional general
 

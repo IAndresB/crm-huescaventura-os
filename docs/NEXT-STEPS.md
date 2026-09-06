@@ -2,9 +2,9 @@
 
 ## Current Step
 
-Revisar y aprobar:
+Crear y aprobar:
 
-docs/product.md
+docs/business-rules.md
 
 ## Approved Order
 
@@ -22,7 +22,7 @@ docs/product.md
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-El paso actual es revisar y aprobar docs/product.md. No debe iniciarse business-rules.md hasta recibir esa aprobación.
+El paso actual es crear y aprobar docs/business-rules.md.
 
 Si durante el trabajo aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 

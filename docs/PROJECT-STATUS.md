@@ -1,7 +1,7 @@
 # CRM HUESCAVENTURA OS — Project Status
 
 Status: ACTIVE
-Last updated: 2026-09-05
+Last updated: 2026-09-06
 
 ## Completed
 
@@ -9,15 +9,14 @@ Last updated: 2026-09-05
 - Repositorio GitHub privado conectado.
 - Estructura SDD inicial creada.
 - Constitution v1.0 aprobada.
+- docs/product.md creado y aprobado.
 
 ## In Progress
 
-- docs/product.md — pendiente de revisión/aprobación.
+- docs/business-rules.md — siguiente trabajo.
 
 ## Pending
 
-- Aprobación de docs/product.md.
-- business-rules.md
 - domain-model.md
 - state-machines.md
 - architecture.md
@@ -29,10 +28,10 @@ Last updated: 2026-09-05
 
 ## Last Approved Commit
 
-- 0c96934 — docs: approve project constitution v1.0
+- 7eee37d — docs: approve product definition v0.1
 
 ## Notes
 
-docs/product.md ha sido creado y está pendiente de revisión/aprobación. El siguiente paso permanece bloqueado hasta recibir esa aprobación.
+docs/product.md está completado y aprobado. El siguiente paso es docs/business-rules.md.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.
