@@ -6,7 +6,7 @@ Last updated: 2026-09-06
 ## Completed
 
 - Repositorio Git inicializado.
-- Repositorio GitHub privado conectado.
+- Repositorio GitHub conectado.
 - Estructura SDD inicial creada.
 - Constitution v1.0 aprobada.
 - docs/product.md creado y aprobado.
