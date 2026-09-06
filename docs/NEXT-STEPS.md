@@ -2,9 +2,9 @@
 
 ## Current Step
 
-Revisar y aprobar:
+Crear:
 
-docs/business-rules.md
+docs/domain-model.md
 
 ## Approved Order
 
@@ -22,7 +22,7 @@ docs/business-rules.md
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-El paso actual es revisar y aprobar docs/business-rules.md, refinado con las decisiones operativas aprobadas y todavía en DRAFT. Corresponde ahora la revisión humana final mediante ChatGPT. La siguiente fase permanece bloqueada hasta aprobación humana; no debe iniciarse domain-model.md.
+docs/business-rules.md está aprobado en su versión 0.2. El siguiente paso es docs/domain-model.md. Work NO debe iniciarlo dentro de la tarea que formaliza esta aprobación: requiere una nueva instrucción humana.
 
 Si durante el trabajo aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 

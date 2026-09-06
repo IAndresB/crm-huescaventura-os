@@ -1,7 +1,8 @@
 # CRM HUESCAVENTURA OS — Business Rules
 
-Status: DRAFT
+Status: APPROVED
 Version: 0.2
+Approved: 2026-09-06
 Last updated: 2026-09-06
 
 ## 1. Propósito y alcance
@@ -10,9 +11,9 @@ Este documento desarrolla las reglas lógicas, comerciales y operativas de CRM H
 
 Fuentes revisadas íntegramente: [Constitution v1.0](constitution.md), [Product Definition v0.1](product.md), [decisiones registradas](DECISIONS.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el borrador de reglas publicado en 6fe23d7. La revisión del propietario de 2026-09-06 aporta las decisiones operativas expresamente aprobadas que se incorporan aquí y se agrupan en D010–D017. La Constitución se conserva con su nombre real en Git: docs/constitution.md.
 
-Las referencias «C Pxx», «Producto §n» y «Dxxx» identifican las fuentes aprobadas. «O §n» remite al apartado numerado de la revisión operativa del propietario incorporada en esta versión; los valores comerciales indicados proceden de esa revisión, no de estimaciones del redactor. Cada regla hereda las fuentes de su sección. Se conservan los identificadores BR existentes y se añaden nuevos sin reutilizar identificadores. El documento integrado sigue DRAFT, pendiente de revisión humana final mediante ChatGPT; esto no deshace la aprobación expresa de las decisiones de negocio incorporadas.
+Las referencias «C Pxx», «Producto §n» y «Dxxx» identifican las fuentes aprobadas. «O §n» remite al apartado numerado de la revisión operativa del propietario incorporada en esta versión; los valores comerciales indicados proceden de esa revisión, no de estimaciones del redactor. Cada regla hereda las fuentes de su sección. Se conservan los identificadores BR existentes y se añaden nuevos sin reutilizar identificadores. El documento integrado está aprobado por el propietario; los aspectos expresamente identificados como pendientes conservan ese carácter.
 
-- **BR-GOV-001 — Autoridad y aprobación.** Rige la jerarquía Constitución → decisiones aprobadas / definición de producto → reglas de negocio → documentos posteriores. Un conflicto se resuelve a favor de la Constitución; una contradicción no resuelta entre otras fuentes aprobadas exige decisión humana sobre la parte afectada. La redacción de una regla derivada no constituye su aprobación: todo este documento queda DRAFT para revisión.
+- **BR-GOV-001 — Autoridad y aprobación.** Rige la jerarquía Constitución → decisiones aprobadas / definición de producto → reglas de negocio → documentos posteriores. Un conflicto se resuelve a favor de la Constitución; una contradicción no resuelta entre otras fuentes aprobadas exige decisión humana sobre la parte afectada. La aprobación de este documento no constituye aprobación automática de reglas derivadas o futuras.
 - **BR-GOV-002 — Límite documental.** Se recogen reglas lógicas y estados base aprobados, sin diseñar tablas, campos físicos, SQL, contratos técnicos, componentes o transiciones detalladas. Las máquinas de estados, arquitectura, Specs e implementación corresponden a fases posteriores. Solo permanecen BR-PENDING sobre aspectos aún abiertos; los resueltos se trasladan a reglas y se registran en el cuadro de resolución.
 
 Fuentes: autoridad de la Constitución, C P03–P04 y P18–P19; Producto §19–20; D006.
@@ -342,7 +343,7 @@ Fuentes: C P06–P08 y P20; O §72; D012 y D017.
 
 ## Decisiones pendientes
 
-Las políticas de esta revisión han sido aprobadas expresamente por el propietario; los aspectos siguientes son únicamente su parte no resuelta. Ninguno bloquea la revisión ni la futura aprobación del documento si queda delimitado: sí impide ejecutar la acción concreta que requiera la validación o dato ausente. El estado integrado de business-rules.md sigue siendo DRAFT hasta la revisión humana final.
+Las políticas de esta revisión han sido aprobadas expresamente por el propietario; los aspectos siguientes son únicamente su parte no resuelta. Estos pendientes no invalidan la aprobación del documento porque están delimitados, pero sí impiden ejecutar la acción concreta que requiera la validación o dato ausente.
 
 ### Pendientes activos
 
@@ -407,14 +408,14 @@ Este cuadro conserva trazabilidad de la revisión de los 32 pendientes originale
 
 ## Control de calidad y trazabilidad constitucional
 
-Esta revisión documental incorpora las decisiones operativas aprobadas y verifica compatibilidad; no aprueba el documento completo ni ejecuta pruebas de aplicación.
+Esta revisión documental incorpora las decisiones operativas aprobadas y verifica compatibilidad. El documento completo está aprobado; no se han ejecutado pruebas de aplicación porque esta fase es documental.
 
 | Principio | Reglas / resultado de la revisión |
 |---|---|
 | P01 — Datos | BR-GEN-008, BR-AVAIL-004–005, BR-INT-002: expediente canónico separado de autoridad externa verificada. |
 | P02 — GitHub | BR-GEN-008, BR-GOV-001: revisión y decisiones agrupadas quedan versionadas en el repositorio. |
 | P03 — SDD | BR-GOV-002: solo reglas y coordinación; no se inicia dominio ni implementación. |
-| P04 — Especificar primero | DRAFT y pendientes delimitados: aprobación del documento y futuras Specs siguen siendo necesarias. |
+| P04 — Especificar primero | Documento APPROVED y pendientes delimitados: las futuras Specs siguen siendo necesarias antes de implementar. |
 | P05 — Veracidad | BR-GEN-001–003, BR-AI-004–005: origen explícito, sin inferir confirmación ni inventar valores faltantes. |
 | P06 — Trazabilidad | BR-HIST-001–005, BR-ID-001–002: quién, cuándo, motivo, antes/después, fuentes y vínculos conservados. |
 | P07 — Historial | BR-PROP-006, BR-DOC-005, BR-SEC-005: inmutabilidad de aceptaciones, archivado recuperable y borrado excepcional controlado. |
@@ -429,13 +430,13 @@ Esta revisión documental incorpora las decisiones operativas aprobadas y verifi
 | P16 — Facturación | BR-BILL-001–005, BR-SUPL-001: registro operativo no habilita emisión legal ni sustituye validación profesional. |
 | P17 — Modularidad | BR-INT-001–008: prioridad coordinada de telefonía/WhatsApp, módulos sustituibles y capacidades por validar. |
 | P18 — Verificación | Identificadores estables, umbrales explícitos y evidencias permiten futuros criterios de aceptación; ninguna funcionalidad se declara implementada. |
-| P19 — Documentación | D010–D017 registran refinamientos aprobados; el borrador completo continúa pendiente de revisión y la coordinación mantiene el paso actual. |
+| P19 — Documentación | D010–D017 registran refinamientos aprobados y el documento completo queda formalmente aprobado y coordinado. |
 | P20 — Economía reproducible | BR-ECON-001–007, BR-PACK-004, BR-TAR-001–003, BR-SUPL-001–004: componentes, versión, precisión y recálculos conservados. |
 
 Producto v0.1 conserva el qué y para qué. Esta revisión concreta sus puntos abiertos mediante decisiones del propietario: los perfiles de su §3 se mantienen como capacidades previstas y D015 delimita que en V1 solo opera el Administrador/Propietario; los pagos/costes de su §11 distinguen ahora fondos de terceros y economía propia. No se reescribe el producto ni se concede autonomía sensible por esa concreción.
 
 D001–D009 se mantienen sin alterar. D010–D017 agrupan las decisiones nuevas sin sustituir la Constitución. La fecha de los registros identifica esta revisión, no una validación legal ni una implementación. El motivo de cambios materiales sigue siendo trazable conforme a P06–P07 aunque un comentario manual adicional sea opcional.
 
-La política temporal aprobada es expresa en sus umbrales; el ancla exacta multifecha y los repartos de promociones/cancelación sobre precios fijos siguen delimitados en 036 y 023. El modelo de suplidos/Tararí no se presenta como conclusión fiscal definitiva. Estas dudas parciales no impiden revisar y aprobar posteriormente las reglas sustentadas.
+La política temporal aprobada es expresa en sus umbrales; el ancla exacta multifecha y los repartos de promociones/cancelación sobre precios fijos siguen delimitados en 036 y 023. El modelo de suplidos/Tararí no se presenta como conclusión fiscal definitiva. Estas dudas parciales permanecen abiertas sin invalidar la aprobación de las reglas sustentadas.
 
-El paso actual continúa siendo revisar y aprobar docs/business-rules.md mediante revisión humana final. domain-model.md permanece bloqueado/no iniciado.
+docs/business-rules.md queda aprobado como base del siguiente paso. docs/domain-model.md está habilitado, pero permanece no iniciado y requiere una nueva instrucción humana.

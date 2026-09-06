@@ -10,10 +10,11 @@ Last updated: 2026-09-06
 - Estructura SDD inicial creada.
 - Constitution v1.0 aprobada.
 - docs/product.md creado y aprobado.
+- docs/business-rules.md v0.2 aprobado.
 
 ## In Progress
 
-- docs/business-rules.md — ampliamente refinado con decisiones operativas aprobadas; continúa en DRAFT, pendiente de revisión humana final mediante ChatGPT.
+- Ninguno.
 
 ## Pending
 
@@ -24,7 +25,7 @@ Last updated: 2026-09-06
 
 ## Current Blockers
 
-- La siguiente fase no puede iniciarse hasta la aprobación humana final de docs/business-rules.md. Los aspectos aún abiertos están delimitados y no bloquean su revisión ni su futura aprobación.
+- Ninguno. docs/domain-model.md está habilitado como siguiente fase, pero no se ha iniciado y requiere una nueva instrucción humana.
 
 ## Last Approved Commit
 
@@ -32,6 +33,6 @@ Last updated: 2026-09-06
 
 ## Notes
 
-docs/product.md está completado y aprobado. docs/business-rules.md incorpora las decisiones operativas expresamente aprobadas por el propietario, agrupadas en D010–D017, y permanece en DRAFT v0.2 para revisión humana final. El documento distingue pendientes resueltos, aspectos residuales y validaciones futuras. domain-model.md permanece bloqueado/no iniciado.
+docs/product.md y docs/business-rules.md v0.2 están completados y aprobados. Los BR-PENDING deliberadamente abiertos permanecen documentados. docs/domain-model.md es la siguiente fase habilitada, pero sigue no iniciado hasta recibir una nueva instrucción humana.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.
