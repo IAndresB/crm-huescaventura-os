@@ -2,7 +2,7 @@
 
 ## Current Step
 
-Crear y aprobar:
+Revisar y aprobar:
 
 docs/product.md
 
@@ -21,6 +21,8 @@ docs/product.md
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
+
+El paso actual es revisar y aprobar docs/product.md. No debe iniciarse business-rules.md hasta recibir esa aprobación.
 
 Si durante el trabajo aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 

@@ -12,11 +12,11 @@ Last updated: 2026-09-05
 
 ## In Progress
 
-- Documentación fundacional SDD.
+- docs/product.md — pendiente de revisión/aprobación.
 
 ## Pending
 
-- product.md
+- Aprobación de docs/product.md.
 - business-rules.md
 - domain-model.md
 - state-machines.md
@@ -32,5 +32,7 @@ Last updated: 2026-09-05
 - 0c96934 — docs: approve project constitution v1.0
 
 ## Notes
+
+docs/product.md ha sido creado y está pendiente de revisión/aprobación. El siguiente paso permanece bloqueado hasta recibir esa aprobación.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.
