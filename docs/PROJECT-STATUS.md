@@ -28,7 +28,7 @@ Last updated: 2026-09-06
 
 ## Last Approved Commit
 
-- 7eee37d — docs: approve product definition v0.1
+- 14bb3d2 — docs: approve product definition v0.1
 
 ## Notes
 
