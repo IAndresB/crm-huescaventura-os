@@ -1,10 +1,11 @@
 # CRM HUESCAVENTURA OS — Domain Model
 
-Status: DRAFT
+Status: APPROVED
 Version: 0.1
+Approved: 2026-09-06
 Last updated: 2026-09-06
 
-Pendiente de revisión y aprobación humana. Las entidades, relaciones y límites propuestos en este documento no constituyen una implementación ni aprueban la siguiente fase.
+Aprobado por revisión humana. Este documento formaliza el modelo de dominio conceptual y no constituye una implementación ni inicia la siguiente fase.
 
 ## 1. Purpose / Scope — Propósito y alcance
 
@@ -587,4 +588,4 @@ Tarifas completas, capacidades, importes/condiciones de fianza, costes de upsell
 | C P20; D010/D013 | Unidades, versiones y snapshots de cantidades/precios/promociones/ajustes; fondos ajenos separados de remuneración y costes propios. |
 | D002/D005 | Entorno local y plataforma de despliegue aprobados se mantienen como contexto; esta fase no diseña arquitectura ni despliega. |
 
-D001–D017 permanecen sin cambios. Los DM-PENDING no son decisiones resueltas ni requieren introducir una decisión inventada en DECISIONS.md. La siguiente acción es revisar y aprobar este modelo; state-machines.md permanece no iniciado y bloqueado hasta aprobación humana y autorización de su fase.
+D001–D017 permanecen sin cambios. Los DM-PENDING no son decisiones resueltas ni requieren introducir una decisión inventada en DECISIONS.md. La siguiente fase habilitada es state-machines.md, que permanece no iniciado y requiere una nueva instrucción humana específica.

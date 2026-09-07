@@ -11,31 +11,30 @@ Last updated: 2026-09-06
 - Constitution v1.0 aprobada.
 - docs/product.md creado y aprobado.
 - docs/business-rules.md v0.2 aprobado.
-- docs/domain-model.md v0.1 creado/refinado como borrador DRAFT; pendiente de revisión y aprobación humana.
+- docs/domain-model.md v0.1 aprobado tras revisión humana.
 
 ## In Progress
 
-- Revisión humana de docs/domain-model.md v0.1 DRAFT.
+- Ninguno.
 
 ## Pending
 
-- Aprobación de docs/domain-model.md.
-- state-machines.md — bloqueado / no iniciado hasta aprobación humana del modelo de dominio y autorización de su fase.
+- state-machines.md — siguiente fase habilitada, todavía no iniciada; requiere nueva instrucción humana específica.
 - architecture.md
 - SPEC 001 Core CRM
 
 ## Current Blockers
 
-- La siguiente fase está bloqueada hasta revisar y aprobar docs/domain-model.md v0.1 DRAFT. Los DM-PENDING delimitan únicamente las partes dependientes de decisiones o validaciones aún abiertas.
+- state-machines.md queda habilitado como siguiente fase, pero no debe iniciarse automáticamente ni dentro de esta tarea. Los DM-PENDING delimitan únicamente las partes dependientes de decisiones o validaciones aún abiertas.
 
 ## Last Approved Commit
 
-- d139bc7 — docs: approve business rules v0.2
+- 1843912 — docs: refine domain model after review (último commit previo a la formalización de la aprobación; el SHA de aprobación se registrará en un commit documental posterior).
 
 ## Notes
 
-docs/product.md y docs/business-rules.md v0.2 continúan APPROVED. Los BR-PENDING deliberadamente abiertos permanecen documentados. docs/domain-model.md v0.1 se ha creado/refinado como DRAFT basado en esas fuentes y queda pendiente de revisión humana; su redacción no constituye aprobación.
+docs/product.md y docs/business-rules.md v0.2 continúan APPROVED. docs/domain-model.md v0.1 está APPROVED tras revisión humana. Los seis DM-PENDING deliberadamente abiertos permanecen documentados.
 
-El paso actual es revisar y aprobar docs/domain-model.md. state-machines.md permanece como placeholder, bloqueado y no iniciado. No se ha avanzado a arquitectura, Specs ni implementación. Last Approved Commit conserva la referencia de aprobación de las reglas de negocio; el commit del borrador de dominio no es una aprobación del modelo.
+El siguiente paso habilitado es crear docs/state-machines.md, pero state-machines.md permanece como placeholder y no iniciado: requiere una nueva instrucción humana específica. No se ha avanzado a arquitectura, Specs ni implementación. La aprobación del documento y el commit que la formaliza se mantienen como hechos trazables separados.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.

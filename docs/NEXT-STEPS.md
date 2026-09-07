@@ -2,9 +2,9 @@
 
 ## Current Step
 
-Revisar y aprobar docs/domain-model.md
+Crear docs/state-machines.md
 
-Versión actual: 0.1 — DRAFT, pendiente de revisión y aprobación humana.
+docs/domain-model.md v0.1 está APPROVED. state-machines.md está habilitado como siguiente fase, pero NO debe iniciarse dentro de esta tarea: requiere una nueva instrucción humana específica.
 
 ## Approved Order
 
@@ -22,9 +22,9 @@ Versión actual: 0.1 — DRAFT, pendiente de revisión y aprobación humana.
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-docs/business-rules.md continúa APPROVED en su versión 0.2. docs/domain-model.md v0.1 está redactado como DRAFT y no está aprobado. Work debe limitarse a su revisión y a los ajustes autorizados de esta fase.
+docs/business-rules.md continúa APPROVED en su versión 0.2. docs/domain-model.md v0.1 está APPROVED. Work no debe iniciar state-machines.md sin una nueva instrucción humana específica.
 
-state-machines.md permanece bloqueado / no iniciado, como placeholder. Solo podrá iniciarse tras aprobación humana explícita del modelo de dominio y autorización de la siguiente fase. No avanzar a arquitectura, Specs, planes, tareas de implementación o código dentro de esta revisión.
+state-machines.md permanece como placeholder y no iniciado. Solo podrá iniciarse con esa instrucción humana específica. No avanzar a arquitectura, Specs, planes, tareas de implementación o código dentro de esta revisión.
 
 Si durante el trabajo aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 
