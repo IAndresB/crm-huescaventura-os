@@ -2,9 +2,11 @@
 
 ## Current Step
 
-Crear docs/state-machines.md
+Revisar y aprobar docs/state-machines.md
 
-docs/domain-model.md v0.1 está APPROVED. state-machines.md está habilitado como siguiente fase, pero NO debe iniciarse dentro de esta tarea: requiere una nueva instrucción humana específica.
+docs/state-machines.md está DRAFT v0.1, con fecha 2026-09-07 y pendiente de revisión humana. docs/domain-model.md v0.1 continúa APPROVED.
+
+La revisión debe comprobar estados y transiciones, guardas/evidencias, independencia comercial/operativa/económica, revalidación sin pérdida de hechos, excepciones y trazabilidad. Los BR-PENDING, DM-PENDING y SM-PENDING siguen vigentes en sus ámbitos. Aprobar este documento requiere decisión humana explícita; el commit/push del borrador no constituye aprobación.
 
 ## Approved Order
 
@@ -22,9 +24,9 @@ docs/domain-model.md v0.1 está APPROVED. state-machines.md está habilitado com
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-docs/business-rules.md continúa APPROVED en su versión 0.2. docs/domain-model.md v0.1 está APPROVED. Work no debe iniciar state-machines.md sin una nueva instrucción humana específica.
+docs/business-rules.md continúa APPROVED en su versión 0.2. docs/domain-model.md v0.1 continúa APPROVED. El trabajo actual se limita a la revisión de docs/state-machines.md DRAFT v0.1 y a las correcciones documentales que se autoricen.
 
-state-machines.md permanece como placeholder y no iniciado. Solo podrá iniciarse con esa instrucción humana específica. No avanzar a arquitectura, Specs, planes, tareas de implementación o código dentro de esta revisión.
+architecture.md permanece bloqueado/no iniciado hasta la aprobación humana explícita de State Machines y una nueva instrucción específica para iniciar arquitectura. No avanzar a arquitectura, Specs, planes, tareas de implementación, código ni despliegues dentro de esta fase.
 
 Si durante el trabajo aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 

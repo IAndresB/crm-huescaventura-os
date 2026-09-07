@@ -1,7 +1,7 @@
 # CRM HUESCAVENTURA OS — Project Status
 
 Status: ACTIVE
-Last updated: 2026-09-06
+Last updated: 2026-09-07
 
 ## Completed
 
@@ -12,20 +12,23 @@ Last updated: 2026-09-06
 - docs/product.md creado y aprobado.
 - docs/business-rules.md v0.2 aprobado.
 - docs/domain-model.md v0.1 aprobado tras revisión humana.
+- docs/state-machines.md v0.1 creado como DRAFT; redacción documental completada, sin aprobación.
 
 ## In Progress
 
-- Ninguno.
+- Revisión humana pendiente de docs/state-machines.md DRAFT v0.1.
 
 ## Pending
 
-- state-machines.md — siguiente fase habilitada, todavía no iniciada; requiere nueva instrucción humana específica.
-- architecture.md
-- SPEC 001 Core CRM
+- Revisar y aprobar docs/state-machines.md.
+- architecture.md — bloqueado/no iniciado.
+- SPEC 001 Core CRM — no iniciado.
 
 ## Current Blockers
 
-- state-machines.md queda habilitado como siguiente fase, pero no debe iniciarse automáticamente ni dentro de esta tarea. Los DM-PENDING delimitan únicamente las partes dependientes de decisiones o validaciones aún abiertas.
+- State Machines v0.1 requiere revisión y aprobación humana explícita. Publicar el borrador no lo aprueba ni habilita iniciar arquitectura.
+- architecture.md permanece bloqueado/no iniciado hasta aprobar State Machines y recibir una instrucción humana específica para la siguiente fase.
+- Los BR-PENDING, los seis DM-PENDING y los tres SM-PENDING siguen abiertos y delimitan únicamente las partes dependientes.
 
 ## Last Approved Commit
 
@@ -33,8 +36,10 @@ Last updated: 2026-09-06
 
 ## Notes
 
-docs/product.md y docs/business-rules.md v0.2 continúan APPROVED. docs/domain-model.md v0.1 está APPROVED tras revisión humana. Los seis DM-PENDING deliberadamente abiertos permanecen documentados.
+docs/product.md y docs/business-rules.md v0.2 continúan APPROVED. docs/domain-model.md v0.1 continúa APPROVED; no se modifica su contenido ni su aprobación.
 
-El siguiente paso habilitado es crear docs/state-machines.md, pero state-machines.md permanece como placeholder y no iniciado: requiere una nueva instrucción humana específica. No se ha avanzado a arquitectura, Specs ni implementación. La aprobación del documento y el commit que la formaliza se mantienen como hechos trazables separados.
+docs/state-machines.md queda DRAFT v0.1, con fecha 2026-09-07 y pendiente de revisión humana. Formaliza estados, transiciones, guardas, evidencias, revalidaciones, excepciones y relaciones entre máquinas comerciales, operativas y económicas independientes. Los tres SM-PENDING trasladan límites de aceptación parcial/conversiones extraordinarias, repartos económicos no aprobados y cómputo temporal ambiguo, sin resolver los pendientes heredados.
+
+El siguiente paso es revisar y aprobar docs/state-machines.md. architecture.md permanece bloqueado/no iniciado. No se ha avanzado a arquitectura, Specs, planes, tareas de implementación, código ni despliegues. D001–D017 se mantienen sin cambios. La publicación de este borrador y la aprobación del Domain Model son hechos separados.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.
