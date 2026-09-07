@@ -13,7 +13,7 @@ Traducir las reglas aprobadas a un modelo conceptual del negocio: identidades, e
 
 Se han leído íntegramente esas fuentes, [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de este documento. README y los documentos de coordinación orientan la fase; no añaden reglas de negocio. No se utilizan fuentes externas, supuestos fiscales ni valores de catálogo ajenos a la documentación aprobada.
 
-Las referencias BR-xxx remiten a identificadores de business-rules.md; C Pxx, a principios constitucionales; Dxxx, a decisiones aprobadas. Las elecciones de representación son propuestas de modelado DRAFT, no nuevas políticas. Los puntos de producto ya concretados por D010–D017 se interpretan con esas decisiones, sin reabrirlos. Las notas de cierre de business-rules.md describen el final de su propia fase; el paso vigente se consulta en los documentos de coordinación.
+Las referencias BR-xxx remiten a identificadores de business-rules.md; C Pxx, a principios constitucionales; Dxxx, a decisiones aprobadas. Las elecciones de representación forman parte del modelo conceptual aprobado y no crean nuevas políticas de negocio. Los puntos de producto ya concretados por D010–D017 se interpretan con esas decisiones, sin reabrirlos. Las notas de cierre de business-rules.md describen el final de su propia fase; el paso vigente se consulta en los documentos de coordinación.
 
 Quedan fuera SQL, tablas físicas, migraciones, contratos API, componentes UI, máquinas de estados detalladas, arquitectura técnica, Specs, planes, tareas de implementación y código. Tampoco se crea contabilidad general ni un motor fiscal. Los nombres ingleses sirven como vocabulario estable, sin prescribir nombres físicos futuros.
 
@@ -472,7 +472,7 @@ Sustituir/desactivar una integración no destruye originales, vínculos ni histo
 
 ## 14. Invariants — Invariantes del dominio
 
-Los identificadores DM-INV son referencias estables de este borrador para revisión y trazabilidad, no reglas de negocio nuevas. Las fuentes siguen siendo normativas. Se agrupan obligaciones estrechamente relacionadas para evitar repetir cada BR literalmente.
+Los identificadores DM-INV son referencias estables del modelo para trazabilidad, no reglas de negocio nuevas. Las fuentes siguen siendo normativas. Se agrupan obligaciones estrechamente relacionadas para evitar repetir cada BR literalmente.
 
 | ID | Invariante | Fuente |
 |---|---|---|
@@ -575,7 +575,7 @@ Tarifas completas, capacidades, importes/condiciones de fianza, costes de upsell
 | Principios / decisiones | Cumplimiento conceptual / frontera |
 |---|---|
 | C P01/P02; D001/D003/D004 | Nombre oficial, expediente canónico y autoridad externa diferenciados; documentación versionada en el repositorio. No se diseña almacenamiento. |
-| C P03/P04/P18/P19; D006 | Documento DRAFT para revisión, trazable a reglas aprobadas. Ninguna implementación ni aprobación de fases posteriores. |
+| C P03/P04/P18/P19; D006 | Documento APPROVED tras revisión humana, trazable a reglas aprobadas. Ninguna implementación ni aprobación de fases posteriores. |
 | C P05 | Fuentes, alcance, certeza, vigencia y bloqueo material sin inventar valores ni políticas. |
 | C P06/P07; D017 | Identidades estables, versiones/snapshots, cambios y evidencias reconstruibles; archivado y privacidad sin event sourcing obligatorio. |
 | C P08/P09; D011/D012 | Opportunity separada de Booking; prestación, cantidades y noches independientes; cierres comercial/operativo/económico distinguibles. |
