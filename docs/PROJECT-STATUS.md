@@ -29,7 +29,7 @@ Last updated: 2026-09-06
 
 ## Last Approved Commit
 
-- 1843912 — docs: refine domain model after review (último commit previo a la formalización de la aprobación; el SHA de aprobación se registrará en un commit documental posterior).
+- a3ff9406aa12046732bc1da0b5eae804cfba7136 — docs: approve domain model v0.1
 
 ## Notes
 
