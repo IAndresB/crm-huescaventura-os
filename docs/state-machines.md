@@ -2,15 +2,15 @@
 
 Status: DRAFT
 Version: 0.1
-Last updated: 2026-09-07
+Last updated: 2026-09-08
 
 Primera versión formal, pendiente de revisión y aprobación humana. Describe comportamiento conceptual propuesto a partir de fuentes aprobadas; no declara funcionalidad implementada ni autoriza avanzar a arquitectura.
 
 ## 1. Purpose / Scope — Propósito y alcance
 
-Formalizar estados, transiciones, eventos/intenciones, guardas, evidencias, efectos, prohibiciones, revalidaciones y dependencias de las entidades aprobadas en [Domain Model v0.1 APPROVED](domain-model.md), usando como fuente principal [Business Rules v0.2 APPROVED](business-rules.md). Rigen [Constitution v1.0](constitution.md), [Product Definition v0.1](product.md) y [D001–D017](DECISIONS.md), sin reabrir decisiones.
+Formalizar estados, transiciones, eventos/intenciones, guardas, evidencias, efectos, prohibiciones, revalidaciones y dependencias de las entidades aprobadas en [Domain Model v0.1 APPROVED](domain-model.md), usando como fuente principal [Business Rules v0.2 APPROVED](business-rules.md). Rigen [Constitution v1.0](constitution.md), [Product Definition v0.1](product.md) y [D001–D018](DECISIONS.md), sin reabrir decisiones. D018 incorpora la decisión humana de 2026-09-08 sobre aceptación parcial, reserva directa y ausencia de división/agrupación automática V1; resuelve SM-PENDING-001 en ese alcance sin aprobar globalmente este documento.
 
-Se han leído íntegramente esas fuentes, [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de este documento antes de editar. Las notas finales de documentos anteriores describen su propia fase; la coordinación actual identifica el paso vigente. Las elecciones de representación de este documento son DRAFT y requieren revisión humana.
+Se han leído íntegramente esas fuentes, [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de este documento antes de editar. Las notas finales de documentos anteriores describen su propia fase; la coordinación actual identifica el paso vigente. Las elecciones de representación de este documento continúan DRAFT y requieren revisión humana global; la decisión concreta D018 ya está aprobada. BR-PENDING-027 y DM-PENDING-001 conservan su formulación anterior en sus documentos de origen y se interpretan, para el alcance resuelto aquí, conforme a D018 y §19; no bloquean las entradas V1 expresamente aprobadas.
 
 Quedan fuera arquitectura, Specs, planes/tareas de implementación, SQL, tablas físicas, migraciones, APIs, UI, código, jobs, webhooks, motores técnicos de aprobación, automatizaciones concretas, implementación Supabase y despliegues. Las Task descritas son trabajo del negocio. No se diseña fiscalidad, contabilidad general ni event sourcing.
 
@@ -88,13 +88,13 @@ En esta sección «activa» significa cualquiera de los seis estados anteriores 
 
 | ID / origen | Evento/intención | Guardas y evidencia requerida | Destino | Efectos conceptuales |
 |---|---|---|---|---|
-| SM-OP-01 · Sin Opportunity | Conversión normal de Lead | Método válido de contacto, necesidad/evento identificable y posibilidad comercial real; procedencia | Nueva | Crear proceso comercial y conservar Lead/origen, responsable y datos conocidos; sin scoring. |
+| SM-OP-01 · Sin Opportunity | Conversión de Lead o registro de Opportunity para reserva directa por el Administrador (D018) | Método válido de contacto, necesidad/evento identificable y posibilidad comercial real; procedencia y actor | Nueva | Crear proceso comercial y conservar origen, responsable y datos conocidos; Lead cuando exista, sin fabricar uno para el alta directa. Sin scoring ni aceptación implícita. |
 | SM-OP-02 · Nueva | Iniciar contacto comercial | Actuación/contacto registrado con canal, destinatario y resultado conocido | En contacto | Conservar comunicaciones; intento de contacto no acredita respuesta. |
 | SM-OP-03 · Nueva / En contacto | Concretar necesidad | Necesidad trabajada y alcance comercial identificable; fuente y pendientes visibles | Necesidad definida | No exigir fecha, personas, servicios o presupuesto finales si aún no son materiales. |
 | SM-OP-04 · Nueva / En contacto / Necesidad definida / Propuesta enviada / Negociación / cambios | Preparar propuesta o revisión | Opportunity válida y alcance suficiente para preparar; vincular alternativa y pendientes | Propuesta en preparación | Trabajar Proposal; conservar envíos/versiones anteriores. |
 | SM-OP-05 · Activa | Registrar envío de propuesta exacta | Versión fijada, guardas de §5 y evidencia real del envío | Propuesta enviada | Vincular Communication y versión enviada; no aceptación. Puede omitir etapas de preparación no registradas, sin inventarlas. |
 | SM-OP-06 · Propuesta enviada / Propuesta en preparación / Necesidad definida | Cliente plantea negociación/cambios | Petición o intercambio identificable y alcance afectado | Negociación / cambios | Evaluar alternativas/versiones; petición no modifica lo ofrecido ni confirma proveedor. |
-| SM-OP-07 · Activa | Verificar aceptación comercial | Acceptance válida según §§5/14, versión exacta y vigencia/revalidación resuelta para ese acto | Aceptada / Ganada | Acreditar acuerdo y habilitar conversión normal/preparación de Booking; no crear ni confirmar Booking por el mero estado. |
+| SM-OP-07 · Activa | Verificar aceptación comercial | Acceptance válida según §§5/14 y D018, versión y alcance exactos, vigencia/revalidación resuelta para ese acto | Aceptada / Ganada | Acreditar acuerdo únicamente sobre el alcance aceptado y habilitar SM-BK-01; no contratar partes no seleccionadas ni crear/confirmar Booking por el mero estado. |
 | SM-OP-08 · Activa / En pausa | Declarar pérdida | Motivo obligatorio y comunicaciones/contexto; usar «desconocido» si no se conoce | Perdida | Conservar causa y alternativas; rechazar una alternativa no pierde necesariamente toda la Opportunity. |
 | SM-OP-09 · Activa | Pausar venta | Decisión de pausa, motivo y contexto de seguimiento | En pausa | Conservar estado previo; vigencias externas continúan sujetas a sus límites. |
 | SM-OP-10 · Perdida / En pausa | Reactivar | Nuevo interés o decisión de seguimiento documentada; revisar situación comercial actual | En contacto / Necesidad definida / Propuesta en preparación | Elegir destino sustentado en datos actuales; conservar pérdida/pausa previa y revalidar precios/disponibilidad necesarios. No saltar directamente a Ganada por una aceptación antigua. |
@@ -138,7 +138,7 @@ Proposal mantiene su identidad y alternativas. La **preparación editable** pert
 | Contenido | Preparación editable; versión fijada | Fijar conserva contenido exacto, fuentes, composición/modalidades, importes, términos, emisión y vencimiento aplicados. Editar materialmente lo fijado crea nueva versión. |
 | Comunicación | No consta envío; enviada | El envío requiere Communication/evidencia referida a esa versión. No determina recepción ni respuesta. |
 | Vigencia para un compromiso | Vigente; caducada / pendiente de revalidación; revisión acreditada para el acto concreto | 7 días por defecto configurables, con límite material más restrictivo. No modifica el contenido ni la caducidad histórica. |
-| Respuesta comercial | Sin respuesta decisiva; aceptada; rechazada cuando corresponda | Acceptance o rechazo identificado. Caducidad, silencio y leído no son rechazo ni aceptación. |
+| Respuesta comercial | Sin respuesta decisiva; aceptada en alcance exacto; rechazada cuando corresponda | Acceptance o rechazo identificado por alcance. La selección válida de §5.1 no contrata ni rechaza implícitamente el resto. Caducidad, silencio y leído no son rechazo ni aceptación. |
 | Relación entre versiones | Referencia ofrecida; sustituida por nueva versión | Conserva vínculo anterior/nueva y motivo. Varias alternativas pueden coexistir; sustitución no anula una aceptación histórica. |
 
 | ID / origen | Evento/intención | Guardas y evidencia requerida | Destino / hecho | Efectos conceptuales |
@@ -146,17 +146,25 @@ Proposal mantiene su identidad y alternativas. La **preparación editable** pert
 | SM-PV-01 · Proposal sin preparación / con versiones | Preparar alternativa/revisión | Opportunity y alcance conocidos; fuentes y pendientes | Preparación editable | Crear contenido de trabajo sin editar versiones fijadas. |
 | SM-PV-02 · Preparación editable | Fijar edición | Alcance, composición, cantidades por servicio/noche, fuentes y condiciones reproducibles; distinguir estimaciones autorizadas | Nueva Proposal Version fijada | Conservar snapshot exacto e identidad/versionado. Fijar no acredita verificación ni envío. |
 | SM-PV-03 · Versión fijada | Enviar propuesta | Datos materiales del compromiso verificados; coste final relevante confirmado si afecta al precio definitivo; vigencia utilizable o revisión previa; G3 si sensible IA | Hecho Enviada de esa versión | Evidencia de envío/destinatario; presentación comercial respeta BR-PACK-003 y economía reservada. |
-| SM-PV-04 · Vigente, aún no aceptada | Alcanzar vencimiento efectivo o detectar incertidumbre material | Fecha realmente aplicada o evidencia de la incertidumbre; alcance | Caducada y/o Pendiente de revalidación | Impedir aceptación sin revisión; no registrar rechazo. |
+| SM-PV-04 · Alcance ofrecido vigente, aún no aceptado | Alcanzar vencimiento efectivo o detectar incertidumbre material | Fecha realmente aplicada o evidencia de la incertidumbre; alcance | Caducada y/o Pendiente de revalidación | Impedir aceptación sin revisión; no registrar rechazo. |
 | SM-PV-05 · Pendiente de revalidación | Ratificar contenido para aceptación concreta | Nueva evidencia de precios, disponibilidad, condiciones/capacidad materiales; revisión y momento aplicables | Revalidación acreditada para el acto revisado | Conservar emisión/vencimiento originales. No «extender» silenciosamente la versión. Si cambia el contenido, incluida una nueva vigencia ofrecida como condición, usar SM-PV-06. |
 | SM-PV-06 · Cualquier versión fijada | Ofrecer cambio material | Antes/después y motivo; datos materiales revisados | Nueva preparación → nueva versión fijada | Relacionar sustitución cuando corresponda; conservar versiones, alternativas y términos anteriores. |
-| SM-PV-07 · Versión fijada sin aceptación válida ya registrada del mismo hecho | Registrar/verificar aceptación | Aceptante facultado, versión/términos exactos, canal/momento/evidencia inequívocos; vigente en el momento del acto o revalidación previa acreditada | Hecho Aceptada | Acceptance inmutable y términos exactos; permite SM-OP-07. No exige envío digital si otro canal acredita presentación y aceptación del contenido exacto. |
-| SM-PV-08 · Versión no aceptada | Registrar rechazo | Respuesta atribuible, versión/alternativa afectada y motivo conocido | Hecho Rechazada | Mantener resto de alternativas. Nueva negociación conserva el rechazo y revalida antes de nuevo compromiso. |
+| SM-PV-07 · Versión fijada sin aceptación válida ya registrada del mismo hecho | Registrar/verificar aceptación total o selección parcial válida | Aceptante facultado, versión/términos y alcance exactos según §5.1 y D018; canal/momento/evidencia inequívocos; vigente en el momento del acto o revalidación previa acreditada | Hecho Aceptada en el alcance acreditado | Acceptance inmutable y términos exactos; permite SM-OP-07. No incluye partes no seleccionadas ni exige envío digital si otro canal acredita presentación y aceptación del contenido exacto. |
+| SM-PV-08 · Alcance no aceptado de versión fijada | Registrar rechazo | Respuesta atribuible, versión/alternativa y alcance afectados, motivo conocido | Hecho Rechazada en ese alcance | Mantener alternativas y partes aceptadas. No seleccionar una parte no prueba rechazo. Nueva negociación conserva el rechazo y revalida antes de nuevo compromiso. |
 
 La validez actual de una oferta no es la vigencia histórica de un acuerdo ya aceptado: el paso del tiempo no «desacepta» una versión. Una aceptación registrada tarde requiere distinguir momento del acto y registro; no se inventa una fecha anterior ni una revalidación retroactiva. Si no se puede acreditar que el acto cumplía vigencia/revalidación, se conserva la comunicación pendiente y se vuelve a solicitar aceptación válida tras revisar.
 
-Una versión sustituida o rechazada no se acepta silenciosamente como si siguiera siendo la oferta actual: primero se confirma qué contenido exacto vuelve a ofrecerse y su cobertura; si cambian condiciones se fija otra versión. La aceptación parcial no descrita queda en SM-PENDING-001.
+Una versión sustituida o rechazada no se acepta silenciosamente como si siguiera siendo la oferta actual: primero se confirma qué contenido exacto vuelve a ofrecerse y su cobertura; si cambian condiciones se fija otra versión. La aceptación parcial se rige por §5.1 y D018; no permite modificar retrospectivamente la versión fijada.
 
 Fuentes: BR-PROP-001–008, BR-ECON-001–003/006–007, BR-PACK-001–004, BR-DOC-005; DM §§4.2, 9.1–9.3; DM-INV-008–011/024–029.
+
+### 5.1. Aceptación parcial válida — D018
+
+La aceptación parcial solo se permite si la Proposal Version contiene partes, modalidades o alcances **expresamente seleccionables**. Que un servicio figure en una lista o un desglose no lo convierte por sí solo en seleccionable. Acceptance identifica exactamente la parte/modalidad/alcance aceptados, su versión y las condiciones aplicables; no se presume aceptado el resto.
+
+Seleccionar una opción ya prevista como seleccionable no modifica el contenido fijado ni exige por ese solo hecho otra versión. Si el cliente quiere una parte que no estaba definida como independiente o seleccionable, primero se prepara y fija una **nueva Proposal Version** mediante SM-PV-06; solo después se registra Acceptance sobre esa versión y su alcance exacto conforme a SM-AC-01/02. La petición se conserva como tal mientras falta esa base; no se registra una aceptación histórica para subsanarla después.
+
+No se alteran Proposal Version ni Acceptance anteriores. Continúan las guardas de identidad, evidencia, vigencia/revalidación y condiciones/importes verificables del alcance elegido. Esta autorización no resuelve repartos económicos no aprobados de SM-PENDING-002 ni el cómputo ambiguo de SM-PENDING-003.
 
 ## 6. Booking Operational State
 
@@ -168,7 +176,7 @@ La política económica por defecto es 50 % al confirmar y 50 % restante a 7 dí
 
 | ID / origen | Evento/intención | Guardas y evidencia requerida | Destino | Efectos conceptuales |
 |---|---|---|---|---|
-| SM-BK-01 · Sin Booking | Convertir venta aceptada | Opportunity, Acceptance y Proposal Version exactas, términos y alcance trazables; G3 para creación IA | Pendiente de preparación | Crear expediente y servicios con su certeza real; conservar composición por servicio/noche y pendientes. No duplicar la conversión al repetir la evidencia. |
+| SM-BK-01 · Sin Booking para esa Opportunity aceptada | Convertir venta aceptada por vía normal o reserva directa del Administrador (D018; §6.1) | Opportunity, Proposal/Proposal Version y condiciones exactas, Acceptance verificada y alcance total o parcial seleccionable según §5.1; cadena comercial completa con evidencia real; G3 para creación IA | Pendiente de preparación | Crear una Booking para esa Opportunity y únicamente el alcance aceptado, conservando modalidades, servicios/noches/cantidades y su certeza real. No duplicar Booking por repetir el alta, la evidencia o por coexistir modalidades. |
 | SM-BK-02 · Pendiente de preparación | Iniciar coordinación | Servicios/dependencias identificados y actuaciones de preparación/confirmación registradas | En confirmación con proveedores | Abrir trabajo de confirmación; el nombre base también admite coordinación de servicios internos sin inventar proveedor externo. |
 | SM-BK-03 · Pendiente / En confirmación | Evaluar cobertura parcial | Algún alcance de servicio confirmado válidamente; aún no se cumple toda la guarda de confirmación de Booking | Parcialmente confirmada | Identificar lo cubierto y lo pendiente, incluidas condiciones económicas; no prometer confirmación completa. |
 | SM-BK-04 · Cualquier fase de preparación anterior a En curso | Evaluar confirmación completa | Guarda conjunta anterior, revisiones materiales resueltas y requisitos imprescindibles de esa decisión satisfechos; G3 | Confirmada operativamente | Registrar evaluación y evidencia; no cambia Opportunity, no concilia movimientos ni confirma servicios por arrastre. |
@@ -180,7 +188,7 @@ La política económica por defecto es 50 % al confirmar y 50 % restante a 7 dí
 | SM-BK-10 · Cualquier fase | Abrir/gestionar incidencia con impacto operativo | Incident y alcance/efecto identificados, gravedad separada | Misma fase + Incidencia | Conservar progreso previo y partes independientes; bloqueos según necesidad material y §15. |
 | SM-BK-11 · Fase + Incidencia | Verificar resolución del impacto | Evidencia de solución y revisión de todas las incidencias que sostienen la condición | Fase reevaluada, sin esa condición si procede | No restituir confirmaciones que hayan perdido cobertura ni cerrar economía automáticamente. |
 
-«Pendiente» en SM-BK-03 abrevia Pendiente de preparación. «Fase de preparación» comprende los cuatro estados anteriores a En curso. No hay reactivación ordinaria Cancelada → Confirmada: un nuevo compromiso requiere evaluación comercial/operativa y el proceso aplicable, conservando la cancelación; no se habilitan conversiones extraordinarias (§19).
+«Pendiente» en SM-BK-03 abrevia Pendiente de preparación. «Fase de preparación» comprende los cuatro estados anteriores a En curso. No hay reactivación ordinaria Cancelada → Confirmada: un nuevo compromiso requiere evaluación comercial/operativa y el proceso aplicable, conservando la cancelación; D018 admite la reserva directa con la cadena de §6.1, sin habilitar división/agrupación extraordinarias ni borrar una cancelación anterior.
 
 ```mermaid
 stateDiagram-v2
@@ -189,7 +197,7 @@ stateDiagram-v2
     state "Parcialmente confirmada" as Parcial
     state "Confirmada operativamente" as Confirmada
     state "En curso" as Curso
-    [*] --> Pendiente: conversión normal
+    [*] --> Pendiente: alta con cadena comercial verificada
     Pendiente --> Preparacion
     Preparacion --> Parcial
     Parcial --> Confirmada: servicios críticos y economía aplicable
@@ -203,7 +211,19 @@ stateDiagram-v2
     end note
 ```
 
-Fuentes: BR-BOOK-001–004, BR-CONV-001–004, BR-DIM-002–005, BR-PAY-002, BR-CLOSE-001–002, BR-INC-002; DM-INV-006/012/023/031/038/041–042.
+### 6.1. Regla normal y reserva directa V1 — D018
+
+La regla normal es **1 Opportunity aceptada → 1 Booking → N Booking Services / modalidades / noches / cantidades**. Las modalidades mantienen la identidad y procedencia de Proposal Version establecidas en el Domain Model: esta regla expresa su continuidad dentro de un expediente, sin convertirlas en nuevas entidades. Un grupo de 10 personas con un pack y 2 con otro permanece en una única Booking, con el detalle propio de cada prestación.
+
+El Administrador/Propietario puede utilizar en V1 una futura acción conceptual «Crear reserva directa». Su finalidad es evitar trabajo manual innecesario, conservando la cadena mínima **Opportunity → Proposal Version / condiciones → Acceptance → Booking**. Proposal Version pertenece a una Proposal vinculada a Opportunity, según el modelo aprobado; abreviar la cadena no elimina esa relación. La acción genera o registra los hechos y vínculos necesarios, reutilizando los existentes cuando corresponda, sin exigir un Lead ficticio.
+
+La reserva directa aplica SM-OP-01, SM-PV-02/06, SM-AC-01/02, SM-OP-07 y SM-BK-01 según los hechos que falte registrar, sin simular pasos intermedios ni duplicar registros. El Administrador debe contar con evidencia real del acuerdo del cliente sobre la versión/condiciones y alcance exactos: su acción interna o Human Approval no sustituyen Acceptance ni permiten inventarla. Si la selección no estaba prevista, se fija la nueva versión antes de registrar Acceptance (§5.1). Si falta una guarda material, puede prepararse la cadena pero no completar el alta de Booking como venta aceptada.
+
+Registrar hechos ya ocurridos conserva sus momentos reales y de registro, sin inventar fechas, envíos ni aceptación retroactiva. El alta deja Booking Pendiente de preparación; no acredita pago conciliado ni confirmación operativa. No se diseña UI, tablas, API ni implementación de la futura acción.
+
+En V1 no se realiza división ni agrupación automática de Opportunities o Bookings. Una futura división de Booking solo podrá realizarse mediante acción explícita y trazable del Administrador y deberá especificarse posteriormente; esta corrección no diseña ni habilita esa operación extraordinaria ni otra operación de agrupación por analogía. Las modificaciones ordinarias siguen §12 sin generar otra Booking por el mero cambio.
+
+Fuentes: D018; BR-BOOK-001–004, BR-CONV-001–004, BR-DIM-002–005, BR-PAY-002, BR-CLOSE-001–002, BR-INC-002; DM-INV-006/008–012/023/031/038/041–042.
 
 ## 7. Booking Service State
 
@@ -463,7 +483,7 @@ Aprobada autoriza un alcance concreto; Aplicada acredita los cambios realmente e
 | SM-MO-09 · Aprobada sin completar aplicación | Cambiar materialmente alcance | Nueva petición/evidencia y comparación | En evaluación para nuevo alcance | La aprobación previa permanece histórica y no autoriza contenido nuevo; partes ya aplicadas permanecen registradas. |
 | SM-MO-10 · Cualquier progreso | Fallo o discrepancia de aplicación | Intento, efectos realmente conocidos y parte incierta | Incidencia sobre progreso base | Resolver con evidencia, volver a evaluación/aplicación según corresponda y comprobar efecto previo antes de repetir. |
 
-Una modificación Aplicada no se revierte editando el historial: se registra corrección o nueva modificación enlazada con su autorización. Las versiones aceptadas permanecen inmutables; cambio material comercial se vincula a nueva Proposal Version y aceptación correspondiente cuando proceda. Aceptación parcial extraordinaria sigue SM-PENDING-001.
+Una modificación Aplicada no se revierte editando el historial: se registra corrección o nueva modificación enlazada con su autorización. Las versiones aceptadas permanecen inmutables; cambio material comercial se vincula a nueva Proposal Version y aceptación correspondiente cuando proceda. La selección parcial válida y la necesidad de nueva versión se rigen por §5.1 y D018; ampliar/cambiar un acuerdo ya aceptado conserva el proceso de modificación y nunca edita Acceptance histórica.
 
 Una cancelación parcial conserva servicios, cantidades, noches y partes no canceladas. Para cancelar operativamente un servicio externo se necesita evidencia de su proveedor; para un interno, hecho autorizado y registrado del responsable interno. Una petición total del cliente no cancela todos los proveedores ni libera todas las opciones.
 
@@ -573,8 +593,8 @@ No hay máquina comercial autónoma de Acceptance. Se distinguen **Registrada**,
 
 | ID / origen | Evento | Guardas y evidencia requerida | Resultado | Efectos conceptuales |
 |---|---|---|---|---|
-| SM-AC-01 · Evidencia candidata | Registrar hecho de aceptación identificado | Versión exacta de Proposal y términos, aceptante y facultad/contexto, alcance, canal y momento; registrador si manual | Acceptance registrada inmutable; verificación explícita | Si falta identificación material, conservar candidato en revisión. Registrada no autoriza Ganada hasta SM-AC-02. |
-| SM-AC-02 · Acceptance registrada | Verificar suficiencia | Evidencia inequívoca y atribuible; versión/términos y vigencia en el acto o revalidación previa; no aceptación parcial no descrita | Verificación válida vinculada al hecho | Puede registrarse junto a SM-AC-01 si todas las guardas están ya comprobadas, sin inventar espera. Habilita evaluación comercial y conversión normal. |
+| SM-AC-01 · Evidencia candidata | Registrar hecho de aceptación identificado | Versión exacta de Proposal y términos, aceptante y facultad/contexto, canal y momento; alcance total o parte/modalidad/alcance expresamente seleccionable identificado exactamente (§5.1; D018); registrador si manual | Acceptance registrada inmutable; verificación explícita | Si falta identificación material o la selección exige nueva versión aún no fijada, conservar petición/candidato en revisión. Registrada no autoriza Ganada hasta SM-AC-02; no corregir luego el alcance editando Acceptance. |
+| SM-AC-02 · Acceptance registrada | Verificar suficiencia total o parcial | Evidencia inequívoca y atribuible; versión/términos y vigencia en el acto o revalidación previa; selección parcial solo si estaba expresamente prevista en esa versión y queda exactamente identificada; nueva versión previa a Acceptance si la parte no era independiente/seleccionable (§5.1; D018) | Verificación válida vinculada al hecho y alcance exactos | Puede registrarse junto a SM-AC-01 si todas las guardas están comprobadas. Habilita evaluación comercial y SM-BK-01 por vía normal o directa con la misma cadena/evidencia; no presume aceptación del resto ni sustituye al cliente por el Administrador. |
 | SM-AC-03 · Acceptance registrada/verificada | Acreditar error de registro/atribución | Revisión humana, evidencia del error y motivo; identificar efectos dependientes | Rectificación o anulación por error enlazada | Conservar original y verificación previa; reevaluar efectos dependientes de forma explícita, sin fingir cancelación de proveedor ni reversión bancaria. |
 
 No se modifica una Acceptance histórica válida ni se anula por el mero cambio de opinión del cliente: un nuevo acuerdo o cancelación sigue §12. La rectificación corrige un error acreditado, no sirve para evitar las políticas aceptadas. Nueva aceptación de otra versión es otro hecho con relación al anterior.
@@ -639,7 +659,8 @@ Cada fila permite registrar un hecho vinculado o evaluar una guarda. No prescrib
 |---|---|---|
 | Lead con requisitos mínimos | Crear Opportunity normal (SM-OP-01) | Scoring, datos finales, aceptación o Booking. |
 | Proposal Version fijada y Communication enviada | Registrar propuesta enviada y evaluar avance comercial (SM-PV-03, SM-OP-05) | Recepción, aceptación o disponibilidad. |
-| Acceptance verificada sobre versión exacta | Registrar versión aceptada, evaluar Ganada y conversión normal (SM-AC-02, SM-OP-07, SM-BK-01) | Pago conciliado ni Booking Confirmada operativamente. |
+| Acceptance verificada sobre versión y alcance exactos | Registrar aceptación total o parcial seleccionable válida, evaluar Ganada y crear una Booking por Opportunity (SM-AC-02, SM-OP-07, SM-BK-01; D018) | Contratación del resto no seleccionado, pago conciliado ni Booking Confirmada operativamente. |
+| Intención del Administrador de crear reserva directa | Generar/registrar cadena Opportunity → Proposal Version / condiciones → Acceptance → Booking con las guardas de §6.1 | Acceptance ficticia, conversión sin evidencia comercial ni varias Bookings por modalidades. |
 | Anticipo inequívocamente ligado | Puede ser evidencia tanto de Acceptance como de Customer Payment | No reemplaza la verificación propia de cada hecho. |
 | Availability Evidence o Hold verificado | Trabajar disponibilidad/opción y vigencia de propuesta | Provider Confirmation firme ni servicio ejecutado. |
 | Provider Confirmation válida / confirmación interna verificada | Confirmar solo Booking Service/alcance cubierto (SM-BS-04) | Otros servicios, otras noches o acuerdo del cliente sobre condiciones cambiadas. |
@@ -697,7 +718,7 @@ Estas prohibiciones se añaden a las guardas de todas las tablas; no representan
 | SM-FORB-28 | Dato externo/calendario → cambio silencioso; consulta Avaibook → crear/modificar/cancelar allí | BR-INT-002/006–007; BR-TASK-007. |
 | SM-FORB-29 | Rol previsto/relación comercial → permiso activo; timeline → divulgación de economía/datos personales no autorizados | BR-SEC-001–004; BR-HIST-004. |
 | SM-FORB-30 | Pérdida sin motivo; reactivar → borrar pérdida o renovar tarifas/disponibilidad | BR-LEAD-005. |
-| SM-FORB-31 | Alta directa/división/agrupación/aceptación parcial extraordinarias → conversión normal por analogía | BR-PENDING-027; DM-PENDING-001. |
+| SM-FORB-31 | Aceptar parte no independiente/seleccionable sin nueva versión previa; reserva directa sin cadena comercial/Acceptance real; división/agrupación automática V1 o varias Bookings por modalidades; habilitar una división extraordinaria sin especificación posterior y acción explícita trazable del Administrador | D018; §§5.1, 6.1 y 14.2; BR-PROP-006; DM-INV-008–012. |
 | SM-FORB-32 | Anular/fusionar/archivar → borrar historia o reutilizar identificadores | BR-ID-002; BR-CON-005; BR-SEC-005. |
 
 ## 18. Transition audit/history — Historial de transiciones
@@ -719,15 +740,24 @@ La conservación respeta minimización, finalidad, economía reservada y políti
 
 ## 19. SM-PENDING — Límites de transiciones aún abiertos
 
-Todos los BR-PENDING activos y los seis DM-PENDING siguen vigentes. Se crean solo tres SM-PENDING porque impiden concretar transiciones específicas; no son decisiones nuevas ni sustituyen sus fuentes. Los demás límites se mantienen mediante exclusión explícita sin duplicarlos.
+Quedan **dos SM-PENDING abiertos: SM-PENDING-002 y SM-PENDING-003**. SM-PENDING-001 se retira de la lista activa tras la decisión humana aprobada de 2026-09-08, registrada en D018; se conserva su resolución histórica a continuación sin reutilizar su identificador. Los demás límites heredados siguen vigentes en sus ámbitos.
+
+### 19.1. Pendientes activos
 
 | Identificador | Origen | Transición/parte sin concretar | Parte independiente definida |
 |---|---|---|---|
-| SM-PENDING-001 — Aceptación parcial y conversiones extraordinarias | BR-PENDING-027; DM-PENDING-001 | Cómo aceptar solo una parte no descrita, crear reserva directamente o dividir/agrupar oportunidades/reservas y sus efectos/cardinalidades. Esas entradas no están autorizadas por SM-AC-02/SM-BK-01. | Conversión normal, versiones/alternativas, modalidades en un acuerdo y cancelación parcial del alcance ya contratado. |
 | SM-PENDING-002 — Importes dependientes de reparto no aprobado | BR-PENDING-023; DM-PENDING-003 | Determinación de importes, asignaciones/conciliación y autorización/aplicación económica dependientes de promoción multimodal o cancelación parcial de precio fijo/promociones/fondos sin reparto decidido: SM-RF-02, SM-RC-02, SM-MO-05/06. | Investigación y efectos operativos independientes, promoción homogénea aprobada y cálculos/conciliaciones con base inequívoca. No prorratear por invención. |
 | SM-PENDING-003 — Cómputo temporal ambiguo | BR-PENDING-036; DM-PENDING-004 | Fecha/hora de referencia y convención exacta cuando varias fechas hagan ambiguos vencimientos, cifra final o intervalos: SM-EP-01/03, SM-BK-04, SM-RF-02 y avisos dependientes. | Umbrales aprobados de 7 días y cancelación ≥7, ≥3 y <3; conservar política y referencia cuando están determinadas. No elegir ancla ficticia ni automatizar caso ambiguo. |
 
-Límites heredados que no requieren una nueva máquina o transición en esta fase:
+### 19.2. Resolución registrada
+
+**SM-PENDING-001 — Resuelto para V1 por D018 (2026-09-08).** Aceptación parcial únicamente sobre partes/modalidades/alcances expresamente seleccionables; nueva Proposal Version previa a Acceptance si la selección no estaba definida como independiente/seleccionable; reserva directa del Administrador con cadena comercial íntegra; regla normal 1 Opportunity aceptada → 1 Booking con su detalle, sin división/agrupación automática V1. La futura división explícita y trazable por el Administrador queda fuera de esta fase y requiere especificación posterior.
+
+BR-PENDING-027 y DM-PENDING-001 son los antecedentes documentales de esta resolución. Sus textos anteriores permanecen en Business Rules v0.2 y Domain Model v0.1, ambos APPROVED y sin modificaciones en esta corrección. D018 concreta las entradas V1 antes diferidas y la regla normal, sin imponer una restricción global para toda evolución futura ni autorizar operaciones extraordinarias no especificadas. Se aplican conjuntamente con esta resolución; no se interpretan como un bloqueo vigente contra lo expresamente aprobado en D018. Resolver este punto no aprueba globalmente State Machines.
+
+### 19.3. Otros límites heredados
+
+Límites que no requieren una nueva máquina o transición en esta fase:
 
 | Pendiente vigente | Delimitación |
 |---|---|
@@ -746,7 +776,7 @@ Tarifas, capacidades, fianzas, costes y parámetros de avisos ausentes son datos
 |---|---|---|
 | §§1–3: autoridad, separación, guardas, revalidación | BR-GOV-001–002; BR-GEN-001–008; BR-DIM-001–005 | DM-INV-001/006/017/047–050 |
 | §4: Opportunity e identidad/facultad | BR-CON-001–006; BR-LEAD-001–005; BR-CONV-001–004 | DM-INV-002–007/012 |
-| §5 y §14: versiones, términos y aceptación | BR-PROP-001–008; BR-DOC-005 | DM-INV-008–011 |
+| §§5, 6.1 y 14: versiones, aceptación seleccionable y reserva directa trazable | D018; BR-PROP-001–008; BR-CONV-001–004; BR-DOC-005 | DM-INV-008–012; resolución V1 de DM-PENDING-001 en §19.2 |
 | §§5–7: composición y economía aplicada | BR-PACK-001–004; BR-PROMO-001–002; BR-ECON-001–007 | DM-INV-024–029/035 |
 | §§6–7: Booking, servicios y cantidades | BR-BOOK-001–004; BR-SVC-001–009; BR-PAX-001–008; BR-NIGHT-001–004 | DM-INV-013–019/023 |
 | §8: fuentes, opciones y confirmaciones | BR-SUP-001–004; BR-AVAIL-001–006 | DM-INV-020–022 |
@@ -758,11 +788,11 @@ Tarifas, capacidades, fianzas, costes y parámetros de avisos ausentes son datos
 | §14: comunicación, supervisión y resultado | BR-COMM-001–006; BR-AI-001–006; BR-AUTO-001–002 | DM-INV-045–048 |
 | §15: cierres y conservación | BR-CLOSE-001–002; BR-INC-002; BR-SEC-005 | DM-INV-034/037/041–042/051 |
 | §§16–18: dependencias, prohibiciones e historial | BR-HIST-001–005; BR-ID-001–002; BR-SEC-001–005; BR-INT-001–008 | DM-INV-047–052 |
-| §19: fronteras sin resolver | BR-PENDING activos y DM-PENDING-001–006 | Se conservan los límites; ninguna resolución implícita |
+| §19: pendientes y resolución V1 | D018; SM-PENDING-002/003; restantes BR-PENDING y DM-PENDING aplicables | SM-PENDING-001 resuelto expresamente; antecedentes BR-PENDING-027/DM-PENDING-001 delimitados en §19.2; demás límites conservados |
 
 C P01/P02 mantienen fuente canónica y autoridad externa/documental; P03/P04/P18/P19, fase DRAFT y verificación previa a aprobación; P05–P09/P20, veracidad, trazabilidad, independencia y cantidades/cálculos; P10–P12, privacidad y economía/secretos restringidos; P14/P15, auditoría y supervisión; P16, prohibición fiscal; P17, independencia de proveedores. P13 sigue vigente para una futura fase de datos, sin cambios de base de datos aquí.
 
-D001–D017 permanecen íntegros. D002/D005 no se desarrollan como arquitectura; D007/D014 no habilitan integraciones; D008/D013 no se presentan como validación fiscal; D010–D012, D015–D017 se aplican como límites de negocio, supervisión e historial. No hay una decisión nueva que registrar en DECISIONS.md.
+D001–D017 permanecen íntegros. D002/D005 no se desarrollan como arquitectura; D007/D014 no habilitan integraciones; D008/D013 no se presentan como validación fiscal; D010–D012, D015–D017 se aplican como límites de negocio, supervisión e historial. D018 registra la decisión humana específica sobre aceptación parcial, reserva directa y regla normal V1, resuelve SM-PENDING-001 y no aprueba globalmente State Machines. D001–D017 no se modifican.
 
 ### 20.2. Casos de contraste documental
 
@@ -771,6 +801,10 @@ Son ejemplos de revisión de reglas, no pruebas de aplicación ejecutadas ni dat
 | Caso | Resultado exigido por el borrador |
 |---|---|
 | Cliente acepta versión vigente sin pagar | Puede acreditarse Ganada y preparar Booking; confirmación operacional espera su guarda económica y servicios críticos. |
+| Cliente selecciona una modalidad expresamente seleccionable de una versión vigente | Acceptance identifica exactamente esa modalidad y condiciones; el resto no queda contratado ni rechazado por inferencia. |
+| Cliente pide solo una parte que no era independiente/seleccionable | Preparar/fijar nueva Proposal Version antes de registrar Acceptance; conservar petición y versiones previas. |
+| Administrador utiliza la futura reserva directa | Generar/registrar la cadena mínima y verificar Acceptance real antes de SM-BK-01; no simular aceptación, pago ni confirmación operativa. |
+| Un grupo de 10 personas con un pack y 2 con otro | Una Opportunity aceptada y una Booking con el detalle de modalidades, servicios, noches y cantidades; sin división automática. |
 | Propuesta caducada y cliente responde «sí» | Conservar comunicación; revalidar antes de nueva aceptación válida, sin aprobación retroactiva ficticia. |
 | 18 confirmados y mensaje «creo que 16» | Conservar 18, registrar petición/revisión de partes materiales; no propagar cifra global. |
 | Proveedor confirma solo una noche | Solo esa noche/alcance cubierto; resto pendiente según sus pruebas. |

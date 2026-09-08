@@ -4,9 +4,9 @@
 
 Revisar y aprobar docs/state-machines.md
 
-docs/state-machines.md está DRAFT v0.1, con fecha 2026-09-07 y pendiente de revisión humana. docs/domain-model.md v0.1 continúa APPROVED.
+docs/state-machines.md continúa DRAFT v0.1, actualizado el 2026-09-08 y pendiente de revisión humana global. docs/domain-model.md v0.1 continúa APPROVED.
 
-La revisión debe comprobar estados y transiciones, guardas/evidencias, independencia comercial/operativa/económica, revalidación sin pérdida de hechos, excepciones y trazabilidad. Los BR-PENDING, DM-PENDING y SM-PENDING siguen vigentes en sus ámbitos. Aprobar este documento requiere decisión humana explícita; el commit/push del borrador no constituye aprobación.
+La revisión debe comprobar estados y transiciones, guardas/evidencias, independencia comercial/operativa/económica, revalidación sin pérdida de hechos, excepciones y trazabilidad. D018 resuelve SM-PENDING-001 para V1: aceptación parcial expresamente seleccionable, nueva versión previa a Acceptance si la parte no era independiente/seleccionable, reserva directa con cadena comercial completa y una Booking por Opportunity aceptada, sin división/agrupación automática. La futura división explícita y trazable del Administrador requiere especificación posterior. Quedan dos SM-PENDING abiertos: SM-PENDING-002 y SM-PENDING-003. Los demás pendientes heredados conservan su alcance; BR-PENDING-027/DM-PENDING-001 se interpretan junto con la resolución V1 de D018. Aprobar globalmente este documento requiere decisión humana explícita; ni D018 ni el commit/push de esta corrección constituyen esa aprobación.
 
 ## Approved Order
 
