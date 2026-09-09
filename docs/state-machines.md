@@ -8,9 +8,9 @@ Primera versión formal, pendiente de revisión y aprobación humana. Describe c
 
 ## 1. Purpose / Scope — Propósito y alcance
 
-Formalizar estados, transiciones, eventos/intenciones, guardas, evidencias, efectos, prohibiciones, revalidaciones y dependencias de las entidades aprobadas en [Domain Model v0.1 APPROVED](domain-model.md), usando como fuente principal [Business Rules v0.2 APPROVED](business-rules.md). Rigen [Constitution v1.0](constitution.md), [Product Definition v0.1](product.md) y [D001–D019](DECISIONS.md), sin reabrir decisiones. D018 incorpora la decisión humana de 2026-09-08 sobre aceptación parcial, reserva directa y ausencia de división/agrupación automática V1; D019 fija las bases económicas reproducibles para promociones y cancelaciones. Resuelven respectivamente SM-PENDING-001 y SM-PENDING-002 en su alcance sin aprobar globalmente este documento.
+Formalizar estados, transiciones, eventos/intenciones, guardas, evidencias, efectos, prohibiciones, revalidaciones y dependencias de las entidades aprobadas en [Domain Model v0.1 APPROVED](domain-model.md), usando como fuente principal [Business Rules v0.2 APPROVED](business-rules.md). Rigen [Constitution v1.0](constitution.md), [Product Definition v0.1](product.md) y [D001–D020](DECISIONS.md), sin reabrir decisiones. D018 incorpora la decisión humana sobre aceptación parcial, reserva directa y ausencia de división/agrupación automática V1; D019 fija las bases económicas reproducibles para promociones y cancelaciones; D020 establece el cómputo por días naturales y sus fechas de referencia. Resuelven respectivamente SM-PENDING-001, SM-PENDING-002 y SM-PENDING-003 en su alcance sin aprobar globalmente este documento.
 
-Se han leído íntegramente esas fuentes, [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de este documento antes de editar. Las notas finales de documentos anteriores describen su propia fase; la coordinación actual identifica el paso vigente. Las elecciones de representación de este documento continúan DRAFT y requieren revisión humana global; las decisiones concretas D018 y D019 ya están aprobadas. BR-PENDING-027/023 y DM-PENDING-001/003 conservan su formulación anterior en sus documentos de origen y se interpretan, para los alcances resueltos aquí, conforme a D018/D019 y §19; no bloquean las reglas V1 expresamente aprobadas.
+Se han leído íntegramente esas fuentes, [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de este documento antes de editar. Las notas finales de documentos anteriores describen su propia fase; la coordinación actual identifica el paso vigente. Las elecciones de representación de este documento continúan DRAFT y requieren revisión humana global; las decisiones concretas D018–D020 ya están aprobadas. BR-PENDING-023/027/036 y DM-PENDING-001/003/004 conservan su formulación anterior en sus documentos de origen y se interpretan, para los alcances resueltos aquí, conforme a D018–D020 y §19; no bloquean las reglas V1 expresamente aprobadas.
 
 Quedan fuera arquitectura, Specs, planes/tareas de implementación, SQL, tablas físicas, migraciones, APIs, UI, código, jobs, webhooks, motores técnicos de aprobación, automatizaciones concretas, implementación Supabase y despliegues. Las Task descritas son trabajo del negocio. No se diseña fiscalidad, contabilidad general ni event sourcing.
 
@@ -59,6 +59,14 @@ Ejemplos: «18 confirmados; quizá 16» conserva 18 y abre revisión de cantidad
 Una confirmación histórica puede seguir siendo un hecho verdadero mientras deja de acreditar el compromiso actual. En fases de preparación, Booking se reevalúa conforme a §6; en ejecución se conserva el progreso real y se señala el riesgo. No se comunica «confirmado» para el nuevo alcance pendiente.
 
 Fuentes: BR-GEN-001–008, BR-DIM-001–005, BR-AVAIL-003–006, BR-PAX-005, BR-AI-002–005, BR-HIST-001–005; DM-INV-001/006/017/020/046–050.
+
+### 2.4. Cómputo por días naturales — D020
+
+Los umbrales temporales de pagos, cifra final de participantes y cancelaciones resueltos por D020 se calculan por **fechas y días naturales**. La diferencia relevante es entre la fecha local de referencia del servicio/alcance y la fecha local del acto o vencimiento; la hora concreta del servicio no cambia el intervalo. El último día perteneciente a cada intervalo se concede completo. La zona horaria solo determina correctamente la fecha local y no crea un corte horario dentro del día.
+
+No se convierten los umbrales en 168 horas, 72 horas ni duraciones horarias equivalentes, y no se inventan las 00:00, la hora de check-in, la hora de actividad u otra hora comercial de corte. Aunque la hora real sea conocida, todo ese día recibe el mismo tratamiento contractual. Si una condición aceptada establece expresamente otra fecha de referencia válida para el caso, prevalece esa referencia contractual conservada; no se presume una excepción por la hora.
+
+Toda evaluación conserva fecha de referencia, alcance al que pertenece, política/versionado y resultado del cálculo. Cambiar la fecha del servicio reevalúa únicamente los plazos afectados, con antes/después y sin reescribir decisiones históricas ya ejecutadas. Cambiar la hora dentro de la misma fecha no modifica estos plazos.
 
 ## 3. Machine inventory — Inventario
 
@@ -164,7 +172,7 @@ La aceptación parcial solo se permite si la Proposal Version contiene partes, m
 
 Seleccionar una opción ya prevista como seleccionable no modifica el contenido fijado ni exige por ese solo hecho otra versión. Si el cliente quiere una parte que no estaba definida como independiente o seleccionable, primero se prepara y fija una **nueva Proposal Version** mediante SM-PV-06; solo después se registra Acceptance sobre esa versión y su alcance exacto conforme a SM-AC-01/02. La petición se conserva como tal mientras falta esa base; no se registra una aceptación histórica para subsanarla después.
 
-No se alteran Proposal Version ni Acceptance anteriores. Continúan las guardas de identidad, evidencia, vigencia/revalidación y condiciones/importes verificables del alcance elegido. Las bases económicas de promociones y cancelaciones se rigen por §5.2, §12.2 y D019; el cómputo ambiguo continúa abierto en SM-PENDING-003.
+No se alteran Proposal Version ni Acceptance anteriores. Continúan las guardas de identidad, evidencia, vigencia/revalidación y condiciones/importes verificables del alcance elegido. Las bases económicas de promociones y cancelaciones se rigen por §5.2, §12.2 y D019; los umbrales temporales se calculan conforme a §2.4 y D020.
 
 ### 5.2. Promoción novio/a gratis con varias modalidades — D019
 
@@ -178,14 +186,14 @@ Fases base: **Pendiente de preparación; En confirmación con proveedores; Parci
 
 La confirmación exige identificar los servicios críticos necesarios del alcance real y acreditar su cobertura actual. La guarda es: **todos los servicios críticos necesarios confirmados AND condiciones económicas aplicables satisfechas (o excepción económica autorizada y documentada)**. La excepción de BR-PAY-002 no dispensa confirmación de servicios críticos, capacidad, seguridad ni evidencia. No se inventa una lista universal de servicios críticos; su necesidad debe justificarse en el expediente.
 
-La política económica por defecto es 50 % al confirmar y 50 % restante a 7 días; a menos de 7 días, 100 % antes de confirmar salvo excepción autorizada. Solo fondos verificados y conciliación/asignaciones pertinentes pueden acreditar la parte exigible; no un pago esperado o justificante aislado. El ancla temporal ambigua sigue SM-PENDING-003.
+La política económica por defecto es 50 % al confirmar y 50 % restante 7 días naturales antes de la fecha del primer servicio contratado de la Booking. El cliente dispone completo del día situado 7 días antes para satisfacer el saldo. Si la reserva se produce a menos de 7 días naturales respecto a esa fecha, se exige 100 % antes de confirmar operativamente salvo excepción autorizada. No vence a la hora de inicio del servicio. Solo fondos verificados y conciliación/asignaciones pertinentes pueden acreditar la parte exigible; no un pago esperado o justificante aislado (§2.4; D020).
 
 | ID / origen | Evento/intención | Guardas y evidencia requerida | Destino | Efectos conceptuales |
 |---|---|---|---|---|
 | SM-BK-01 · Sin Booking para esa Opportunity aceptada | Convertir venta aceptada por vía normal o reserva directa del Administrador (D018; §6.1) | Opportunity, Proposal/Proposal Version y condiciones exactas, Acceptance verificada y alcance total o parcial seleccionable según §5.1; cadena comercial completa con evidencia real; G3 para creación IA | Pendiente de preparación | Crear una Booking para esa Opportunity y únicamente el alcance aceptado, conservando modalidades, servicios/noches/cantidades y su certeza real. No duplicar Booking por repetir el alta, la evidencia o por coexistir modalidades. |
 | SM-BK-02 · Pendiente de preparación | Iniciar coordinación | Servicios/dependencias identificados y actuaciones de preparación/confirmación registradas | En confirmación con proveedores | Abrir trabajo de confirmación; el nombre base también admite coordinación de servicios internos sin inventar proveedor externo. |
 | SM-BK-03 · Pendiente / En confirmación | Evaluar cobertura parcial | Algún alcance de servicio confirmado válidamente; aún no se cumple toda la guarda de confirmación de Booking | Parcialmente confirmada | Identificar lo cubierto y lo pendiente, incluidas condiciones económicas; no prometer confirmación completa. |
-| SM-BK-04 · Cualquier fase de preparación anterior a En curso | Evaluar confirmación completa | Guarda conjunta anterior, revisiones materiales resueltas y requisitos imprescindibles de esa decisión satisfechos; G3 | Confirmada operativamente | Registrar evaluación y evidencia; no cambia Opportunity, no concilia movimientos ni confirma servicios por arrastre. |
+| SM-BK-04 · Cualquier fase de preparación anterior a En curso | Evaluar confirmación completa | Guarda conjunta anterior; exigencia económica evaluada por días naturales conforme a SM-EP-01 y §2.4/D020, por defecto desde la fecha del primer servicio contratado; revisiones materiales resueltas y requisitos imprescindibles satisfechos; G3 | Confirmada operativamente | Registrar fecha de referencia, política, resultado y evidencia; no cambia Opportunity, no concilia movimientos ni confirma servicios por arrastre. Dentro de menos de 7 días exige 100 % antes de confirmar salvo excepción autorizada. |
 | SM-BK-05 · Confirmada operativamente / Parcialmente confirmada, antes de iniciar | Cambio/discrepancia invalida cobertura actual | Revisión material documentada de servicios/economía; conservar confirmación histórica | Parcialmente confirmada si queda cobertura válida; En confirmación si no | Reevaluar preparación actual y señalar alcance pendiente; no cancelar compromisos externos por esta reevaluación. |
 | SM-BK-06 · Confirmada operativamente | Inicio real de prestación | Hecho de inicio, alcance, momento y evidencia del responsable/fuente pertinente | En curso | Registrar progreso real; fecha prevista por sí sola no inicia. |
 | SM-BK-07 · Fase de preparación sin confirmación completa | Conocer un inicio real excepcional | Evidencia de ejecución sobrevenida y revisión humana de pendientes/incumplimientos | En curso + Incidencia cuando corresponda | Registrar lo ocurrido sin fingir confirmación previa ni autorizar ejecución insegura; mantener pendientes y responsables. |
@@ -229,7 +237,7 @@ Registrar hechos ya ocurridos conserva sus momentos reales y de registro, sin in
 
 En V1 no se realiza división ni agrupación automática de Opportunities o Bookings. Una futura división de Booking solo podrá realizarse mediante acción explícita y trazable del Administrador y deberá especificarse posteriormente; esta corrección no diseña ni habilita esa operación extraordinaria ni otra operación de agrupación por analogía. Las modificaciones ordinarias siguen §12 sin generar otra Booking por el mero cambio.
 
-Fuentes: D018; BR-BOOK-001–004, BR-CONV-001–004, BR-DIM-002–005, BR-PAY-002, BR-CLOSE-001–002, BR-INC-002; DM-INV-006/008–012/023/031/038/041–042.
+Fuentes: D018, D020; BR-BOOK-001–004, BR-CONV-001–004, BR-DIM-002–005, BR-PAY-002, BR-CLOSE-001–002, BR-INC-002; DM-INV-006/008–012/023/031/038/041–042.
 
 ## 7. Booking Service State
 
@@ -332,9 +340,9 @@ La obligación conserva importe, política/versionado, vencimiento y alcance. Su
 
 | ID / origen | Evento | Guardas y evidencia requerida | Resultado | Efectos conceptuales |
 |---|---|---|---|---|
-| SM-EP-01 · Sin vencimiento | Determinar cobro aplicable | Acuerdo, Payment Policy Version y alcance identificados; base/importe y referencia temporal con su fuente cuando se conocen, o pendientes explícitos antes de determinar el compromiso dependiente | Esperado; cobertura pendiente | Incorporar a Payment Schedule; no crear Customer Payment ni disponer de fondos. |
+| SM-EP-01 · Sin vencimiento | Determinar cobro aplicable | Acuerdo, Payment Policy Version y alcance identificados; base/importe; por defecto, fecha del primer servicio contratado de la Booking como referencia, o referencia contractual distinta válida; cálculo por días naturales según §2.4/D020 | Esperado; cobertura pendiente | Incorporar a Payment Schedule con fecha de referencia y día límite. El saldo a 7 días puede satisfacerse durante todo ese día; no crear Customer Payment ni disponer de fondos. |
 | SM-EP-02 · Esperado con cualquier cobertura | Validar asignación/conciliación | Movimiento real y porción comprobada, destino inequívoco, sin doble cómputo | Cobertura reevaluada: pendiente/parcial/cubierta | Conservar pagos y asignaciones independientes; solo cobertura válida satisface obligación. |
-| SM-EP-03 · Esperado con saldo debido | Alcanzar vencimiento | Fecha/política aplicables determinadas y saldo verificado | Condición Vencida | Tarea/alerta pertinente; no cargo, cancelación o conciliación automática. |
+| SM-EP-03 · Esperado con saldo debido | Superar el día límite completo | Fecha local de referencia, política y saldo verificados; el día límite aplicable ha finalizado según calendario local, sin corte por la hora del servicio; para el saldo general, ha finalizado el día situado 7 días antes | Condición Vencida | Tarea/alerta pertinente desde el día natural siguiente; conservar cálculo. No cargo, cancelación o conciliación automática. |
 | SM-EP-04 · Obligación existente | Aplicar modificación, devolución o corrección | Política/acuerdo/ajuste autorizado con importe y causa verificables | Obligación y cobertura ajustadas con historial | No borrar importe anterior; devolver dinero no genera automáticamente nueva deuda si la política resolvió esa obligación. |
 
 ### 9.2. Customer Payment
@@ -379,7 +387,7 @@ flowchart LR
     C -->|Refund ejecutado por todo el importe| V["Devuelto"]
 ```
 
-El diagrama no hace de Esperado el origen del movimiento; la devolución parcial conserva su propio importe y no etiqueta todo como Devuelto. Fuentes: BR-PAY-001–007, BR-SUPL-002–004, BR-ECON-002–003; DM §11.1–11.3; DM-INV-030–034/040.
+El diagrama no hace de Esperado el origen del movimiento; la devolución parcial conserva su propio importe y no etiqueta todo como Devuelto. Fuentes: D020; BR-PAY-001–007, BR-SUPL-002–004, BR-ECON-002–003; DM §11.1–11.3; DM-INV-030–034/040.
 
 ## 10. Suplidos / Provider Invoice / Provider Payment
 
@@ -436,7 +444,7 @@ Se distinguen **Solicitada; Determinada/debida; Autorizada; Ejecutada**, con **I
 | ID / origen | Evento/intención | Guardas y evidencia requerida | Destino / hecho | Efectos conceptuales |
 |---|---|---|---|---|
 | SM-RF-01 · Sin devolución | Registrar solicitud | Solicitante, cobro(s), causa y parte afectada identificados | Solicitada | No reconocer importe debido ni ejecución por la petición. |
-| SM-RF-02 · Solicitada / sin solicitud previa | Determinar derecho/importe | Causa, política/versiones aceptadas, parte cancelada y base económica conforme a D019; base temporal inequívoca; importe atribuible verificable o decisión explícita del Administrador cuando D019 la exige | Determinada/debida si corresponde | Determinar primero el derecho contractual y después ajustar fondos, conciliación, asignaciones, Refund u obligaciones. Conservar componentes, importes anteriores/nuevos, cálculo, regla, actor y evidencia. Si no procede devolución, registrar resultado motivado; no inventar importe cero, media ni prorrateo. |
+| SM-RF-02 · Solicitada / sin solicitud previa | Determinar derecho/importe | Causa, política/versiones aceptadas, parte cancelada y base económica conforme a D019; fecha de referencia del alcance según §12.2, diferencia por días naturales y día límite completo según §2.4/D020; importe atribuible verificable o decisión explícita del Administrador cuando D019 la exige | Determinada/debida si corresponde | Determinar primero el derecho contractual y después ajustar fondos, conciliación, asignaciones, Refund u obligaciones. Conservar alcance, fecha de referencia, política, componentes, importes anteriores/nuevos, cálculo, regla, actor y evidencia. Si no procede devolución, registrar resultado motivado; no inventar hora, importe cero, media ni prorrateo. |
 | SM-RF-03 · Determinada/debida | Autorizar devolución | Administrador, importe, destinatario, origen/porción, método y efecto concretos; G3 si propuesta IA | Autorizada | No alterar saldo bancario ni declarar ejecutada. Cambio material requiere nueva autorización. |
 | SM-RF-04 · Autorizada | Verificar devolución real | Evidencia del movimiento de salida por importe y destinatario autorizados, fecha/medio/referencia, sin duplicidad | Ejecutada si se completó todo el alcance autorizado | Ejecución parcial conserva importe devuelto y resto autorizado pendiente. Vincular cobro(s)/asignaciones; normalmente mismo medio. |
 | SM-RF-05 · Cualquier progreso | Fallo, discrepancia o resultado incierto | Intento, fuente y porción afectada | Incidencia sobre último progreso acreditado | Verificar antes de repetir; conservar importe ya ejecutado si existe. |
@@ -445,7 +453,7 @@ Se distinguen **Solicitada; Determinada/debida; Autorizada; Ejecutada**, con **I
 
 No se crea una devolución bancaria como consecuencia automática de una cancelación; SM-RF-02 determina la obligación y SM-RF-03/04 requieren sus propios hechos. Si se conoce una devolución ya realizada sin autorización registrada, se conserva el hecho económico con Incidencia/revisión humana; no se fabrica aprobación retroactiva ni se considera autorizado ese camino.
 
-La política de determinación se detalla en §12.2. Si falta un valor atribuible verificable, la determinación económica permanece pendiente hasta la decisión explícita prevista por D019; la operación independiente puede continuar. Una fecha o ancla temporal ambigua mantiene abierta únicamente la parte afectada por SM-PENDING-003 (§19).
+La política de determinación se detalla en §12.2. Si falta un valor atribuible verificable, la determinación económica permanece pendiente hasta la decisión explícita prevista por D019; la operación independiente puede continuar. D020 determina el calendario y el ancla por alcance sin introducir cortes horarios.
 
 ### 11.2. Deposit / Fianza
 
@@ -466,7 +474,7 @@ Se separa progreso de entrega (**Requerida; Pendiente de entrega; Entregada; Pen
 
 Requerida pero no entregada no se declara resuelta porque termine el servicio: se revisa obligación y resultado conforme a condiciones reales. Un cambio acreditado de aplicabilidad conserva antes/después y no borra entregas, retenciones o devoluciones previas.
 
-Fuentes: BR-PAY-004, BR-CHANGE-005–007, BR-NIGHT-005, BR-CLOSE-001; DM §§11.1, 11.3; DM-INV-037–040.
+Fuentes: D019–D020; BR-PAY-004, BR-CHANGE-005–007, BR-NIGHT-005, BR-CLOSE-001; DM §§11.1, 11.3; DM-INV-037–040.
 
 ## 12. Booking Modification / Cancellation
 
@@ -498,22 +506,24 @@ Una cancelación parcial conserva servicios, cantidades, noches y partes no canc
 | Causa / supuesto | Regla aprobada para la parte afectada | Evidencia/límite |
 |---|---|---|
 | Atribuible a Huescaventura/proveedor: meteorología, disponibilidad, operación u otra causa acreditada | Devolución del 100 % del servicio/parte cancelada, aunque figure no reembolsable | Causa, alcance e importe correspondientes. No extender al resto de la reserva. |
-| Cancelación voluntaria con antelación ≥7 días | Devolución del importe correspondiente | Política aceptada y referencia temporal inequívoca; exactamente 7 pertenece aquí. |
-| Cancelación voluntaria con antelación ≥3 y <7 días | Retención del 50 % de personas/servicios cancelados | Exactamente 3 pertenece aquí; no repartir arbitrariamente precio fijo/promoción. |
-| Cancelación voluntaria con antelación <3 días | Retención/cobro del 100 % de la parte cancelada | Distinguir cobrado/retenido y pendiente de cobro; obligación no acredita movimiento. |
+| Cancelación voluntaria con antelación ≥7 días naturales | Devolución del importe correspondiente | Política aceptada y fecha de referencia del alcance según D020; el día situado exactamente 7 días antes pertenece completo aquí. |
+| Cancelación voluntaria con antelación ≥3 y <7 días naturales | Retención del 50 % de personas/servicios cancelados | El día situado exactamente 3 días antes pertenece completo aquí; no repartir arbitrariamente precio fijo/promoción. |
+| Cancelación voluntaria con antelación <3 días naturales | Retención/cobro del 100 % de la parte cancelada | Desde el segundo día anterior a la fecha de referencia; distinguir cobrado/retenido y pendiente de cobro. La obligación no acredita movimiento. |
 | No reembolsable | Puede prevalecer solo en voluntaria del cliente si fue comunicada y aceptada expresamente | Conservar términos exactos; no usarla contra devolución por causa de Huescaventura/proveedor. |
 | No-show, retraso que impida prestar, alcohol/drogas o exclusión por incumplir seguridad | Sin devolución de la parte afectada | Evidencia del supuesto concreto; no inferirlo de una ausencia de mensaje. |
 | Modificación | Sujeta a disponibilidad y ajustes de precio aplicables | No inventar recargo ni costes; confirmar impactos antes del efecto dependiente. |
 
-Para la **cancelación total de una persona** con precio por persona, la base es el precio real de la modalidad contratada por esa persona, nunca el precio medio del grupo. Sobre esa base se aplican exactamente los intervalos anteriores: ≥7 días, devolución correspondiente; ≥3 y <7 días, retención/cobro del 50 %; <3 días, retención/cobro del 100 %. SM-PENDING-003 conserva íntegramente el pendiente sobre el cómputo temporal cuando el ancla sea ambigua.
+La fecha de referencia depende del alcance cancelado: para la cancelación total de Booking, la fecha del primer servicio contratado de la Booking; para la modalidad o participación completa de una persona, la fecha del primer servicio incluido en esa modalidad; para un Booking Service concreto, la fecha de ese servicio; para alojamiento/noche u otro alcance específico, la fecha de inicio del alcance afectado. Una referencia diferente, expresa y válida en las condiciones aceptadas prevalece para ese caso. Se calcula por fechas locales y días naturales conforme a §2.4, sin usar la hora del servicio.
+
+Para la **cancelación total de una persona** con precio por persona, la base es el precio real de la modalidad contratada por esa persona, nunca el precio medio del grupo. Sobre esa base se aplican exactamente los intervalos anteriores: ≥7 días naturales, devolución correspondiente; ≥3 y <7 días naturales, retención/cobro del 50 %; <3 días naturales, retención/cobro del 100 %. El día situado exactamente 7 días antes pertenece completo al primer intervalo y el situado exactamente 3 días antes pertenece completo al segundo.
 
 Un **precio fijo o grupal** no se divide automáticamente entre participantes. El compromiso existente permanece salvo regla contractual aprobada, reducción real y verificada del coste/precio aplicable, o ajuste comercial explícito, trazable y aprobado por el Administrador. Si se cancela parcialmente un componente de un pack, puede usarse su valor comercial atribuible y verificable; si no existe una distribución económica aprobada/verificable, el importe queda pendiente de determinación y requiere decisión explícita del Administrador antes de aplicar devolución, retención, nueva obligación o ajuste. Los efectos operativos independientes pueden avanzar si no dependen de ese importe.
 
 Primero se determina qué corresponde devolver, retener o cobrar conforme al acuerdo y política; después se ajustan Reconciliation, Payment Allocation, Refund, Expected Payment u otras obligaciones. Que los fondos estén cobrados, conciliados, asignados o utilizados para pagar a un proveedor no sustituye esa determinación. Todo reparto debe ser reproducible y trazable, sin medias, prorrateos ni distribuciones implícitas: se conservan componentes, importes anteriores/nuevos, causa, regla aplicada, actor y evidencias.
 
-Se conservan cancelante, motivo, política, solicitante/aprobador, comunicaciones, antes/después y pagado/devuelto/retenido/pendiente por parte afectada. SM-PENDING-003 impide concretar solo cómputos ambiguos; no cambia umbrales aprobados ni impide registrar hechos operativos o económicos independientes cuya base sea inequívoca.
+Se conservan cancelante, motivo, política, solicitante/aprobador, comunicaciones, fecha de referencia y alcance, resultado del cálculo, antes/después y pagado/devuelto/retenido/pendiente por parte afectada. Un cambio posterior de fecha reevalúa los plazos afectados sin reescribir decisiones históricas ejecutadas; un cambio de hora dentro de la misma fecha no cambia el intervalo.
 
-Fuentes: D019; BR-CHANGE-001–007, BR-PROP-006, BR-PAY-004, BR-SUP-004; DM §§4.3, 9.3, 11.3; DM-INV-017/038–040.
+Fuentes: D019–D020; BR-CHANGE-001–007, BR-PROP-006, BR-PAY-004, BR-SUP-004; DM §§4.3, 9.3, 11.3; DM-INV-017/038–040.
 
 ## 13. Documents / Tasks / Incidents
 
@@ -535,13 +545,13 @@ Ciclo mínimo **Pendiente → Completada**, o **Cancelada/sin efecto** con motiv
 
 | ID / origen | Evento | Guardas y evidencia requerida | Destino / condición | Efectos conceptuales |
 |---|---|---|---|---|
-| SM-TA-01 · Sin tarea equivalente pendiente | Necesidad manual o disparador aprobado | Causa, contexto, prioridad, responsable V1 y fecha conocida o necesidad de concretarla | Pendiente | Crear/actualizar seguimiento sin duplicar mismo efecto. |
+| SM-TA-01 · Sin tarea equivalente pendiente | Necesidad manual o disparador aprobado | Causa, contexto, prioridad, responsable V1 y fecha conocida o necesidad de concretarla; para umbrales de este ámbito, fecha de referencia y alcance según §2.4/D020 | Pendiente | Crear/actualizar seguimiento sin duplicar mismo efecto; conservar política y resultado del cálculo cuando determine el aviso. |
 | SM-TA-02 · Pendiente | Registrar terminación de trabajo | Resultado, actor y momento, con referencias a lo realizado | Completada | Cerrar trabajo, sin acreditar el hecho de negocio que motivó la tarea. |
 | SM-TA-03 · Pendiente | Dejar sin efecto | Motivo y actor | Cancelada/sin efecto | Conservar antecedentes, sin cancelar Booking o proveedor. |
-| SM-TA-04 · Pendiente | Superar deadline real | Fecha/política conocida; sin cierre acreditado | Pendiente + Vencida | Aviso; sin fecha conocida no se inventa vencimiento. |
+| SM-TA-04 · Pendiente | Superar deadline real | Fecha/política conocida; si depende de estos umbrales, día límite completo ya transcurrido por calendario local según §2.4/D020; sin cierre acreditado | Pendiente + Vencida | Aviso desde el día natural siguiente; sin fecha conocida no se inventa vencimiento ni hora de corte. |
 | SM-TA-05 · Completada / Cancelada | Corregir cierre erróneo o verificar que el mismo trabajo sigue pendiente | Motivo y evidencia de revisión, resultado anterior conservado | Pendiente mediante reapertura explícita | No borrar cierre previo ni duplicar tarea de la misma causa. Si es otra necesidad, registrar otra tarea vinculada. |
 
-Disparadores de BR-TASK-005: bloqueo de alojamiento; anticipo/saldo a 7 días; proveedor pendiente; factura; pago de suplido; documentación; lista necesaria; disponibilidad por revalidar; modificación/cancelación; seguimiento de propuesta; cifra final de participantes. Propuesta: recordatorio a 2–3 días y previo a caducidad con parámetros conocidos; no envío al cliente sin supervisión V1. Cifra final: 7 días configurables; el aviso no confirma una estimación.
+Disparadores de BR-TASK-005: bloqueo de alojamiento; anticipo/saldo a 7 días; proveedor pendiente; factura; pago de suplido; documentación; lista necesaria; disponibilidad por revalidar; modificación/cancelación; seguimiento de propuesta; cifra final de participantes. Propuesta: recordatorio a 2–3 días y previo a caducidad con parámetros conocidos; no envío al cliente sin supervisión V1. Cifra final: 7 días configurables y día límite completo. Si es global, usa por defecto la fecha del primer servicio contratado de Booking; si es específica de servicio/proveedor/reserva, usa la fecha del alcance correspondiente. Una cifra final de un servicio no se propaga a otros servicios/noches. El aviso no confirma una estimación (§2.4; D020).
 
 Todos los avisos internos V1 se dirigen al Administrador/Propietario: todos en CRM, Críticos/Importantes también en WhatsApp, ninguno por email. No se ejecutan avisos ni se diseña el automatismo aquí. El calendario operacional es una vista; cambios críticos de Google Calendar requieren validación/regla explícita.
 
@@ -576,7 +586,7 @@ stateDiagram-v2
     end note
 ```
 
-Fuentes: BR-DOC-001–005, BR-TASK-001–007, BR-INC-001–002, BR-CLOSE-001–002; DM §§5.2, 10.3; DM-INV-041–045/049.
+Fuentes: D020; BR-DOC-001–005, BR-TASK-001–007, BR-INC-001–002, BR-CLOSE-001–002; DM §§5.2, 10.3; DM-INV-041–045/049.
 
 ## 14. Communications / Acceptance / Human Approval
 
@@ -679,6 +689,7 @@ Cada fila permite registrar un hecho vinculado o evaluar una guarda. No prescrib
 | Servicios críticos confirmados + economía aplicable satisfecha/excepción | Evaluar Booking Confirmada operativamente (SM-BK-04) | Crear confirmaciones o movimientos faltantes. |
 | Customer Payment Conciliado + asignación válida | Reevaluar Expected Payment y guarda económica aplicable | Confirmación de proveedores, pago al proveedor o ingreso propio de todo lo cobrado. |
 | Derecho/importe de cancelación determinado según D019 | Ajustar Reconciliation, Payment Allocation, Refund, Expected Payment u obligación correspondiente | Que la ubicación o uso físico previo de los fondos haya determinado el derecho del cliente. |
+| Fecha de servicio/alcance modificada | Reevaluar solo vencimientos, intervalos y avisos dependientes mediante fechas locales y días naturales (D020) | Reescribir decisiones históricas ya ejecutadas o cambiar el intervalo por modificar solo la hora dentro de la misma fecha. |
 | Cambio material / fuente externa nueva verificada | Revalidar solo dependencias materiales; evaluar modificación/versión | Sobrescribir términos aceptados, total de grupo o confirmaciones previas. |
 | Booking Modification Aprobada | Habilitar aplicación de efectos concretos con sus guardas | Aplicación efectiva, aceptación del proveedor o Refund Ejecutada. |
 | Cancelación acreditada | Determinar alcance operativo y derecho/importe de Refund cuando corresponda | Dinero devuelto ni liberación de todo Hold. |
@@ -733,6 +744,7 @@ Estas prohibiciones se añaden a las guardas de todas las tablas; no representan
 | SM-FORB-30 | Pérdida sin motivo; reactivar → borrar pérdida o renovar tarifas/disponibilidad | BR-LEAD-005. |
 | SM-FORB-31 | Aceptar parte no independiente/seleccionable sin nueva versión previa; reserva directa sin cadena comercial/Acceptance real; división/agrupación automática V1 o varias Bookings por modalidades; habilitar una división extraordinaria sin especificación posterior y acción explícita trazable del Administrador | D018; §§5.1, 6.1 y 14.2; BR-PROP-006; DM-INV-008–012. |
 | SM-FORB-32 | Anular/fusionar/archivar → borrar historia o reutilizar identificadores | BR-ID-002; BR-CON-005; BR-SEC-005. |
+| SM-FORB-33 | Usar 168/72 horas, 00:00, hora de servicio/check-in/actividad u otra hora ficticia para cambiar durante un día los intervalos de 7/3 días; propagar la cifra final de un alcance a otro | D020; §2.4; BR-PAY-002; BR-PAX-006/008; BR-CHANGE-006–007; BR-PENDING-036. |
 
 ## 18. Transition audit/history — Historial de transiciones
 
@@ -744,6 +756,7 @@ Toda transición material, cambio de condición, evaluación, rectificación o e
 - Actor/origen del hecho, CRM Actor registrador y aprobador/responsable cuando corresponda. La automatización conserva identidad y versión propias, sin atribuir ejecución automática al humano aprobador.
 - Momento conocido del hecho y momento de registro si difieren; no inventar hora o secuencia no acreditadas.
 - Fuente/evidencia, alcance y vigencia utilizados, resultado de las guardas/revisión y pendientes conservados.
+- En cálculos temporales, fecha local de referencia, alcance, política/versionado y resultado; si cambia la fecha, antes/después y reevaluaciones afectadas, sin convertir un cambio de hora dentro del día en otro intervalo.
 - Human Approval concreta cuando requerida, con vínculo al efecto ejecutado; aprobación, intento, ejecución, fallo y corrección separados.
 - Referencia al original y motivo de rectificación/reapertura, sin borrar versiones, conciliaciones, pérdidas, confirmaciones o cierres históricos.
 
@@ -753,13 +766,11 @@ La conservación respeta minimización, finalidad, economía reservada y políti
 
 ## 19. SM-PENDING — Límites de transiciones aún abiertos
 
-Queda **un SM-PENDING abierto: SM-PENDING-003**. SM-PENDING-001 y SM-PENDING-002 se retiran de la lista activa tras las decisiones humanas registradas respectivamente en D018 (2026-09-08) y D019 (2026-09-09); se conservan sus resoluciones históricas a continuación sin reutilizar sus identificadores. Los demás límites heredados siguen vigentes en sus ámbitos.
+No queda **ningún SM-PENDING activo**. SM-PENDING-001, SM-PENDING-002 y SM-PENDING-003 se retiraron de la lista activa tras las decisiones humanas registradas en D018, D019 y D020; se conservan sus resoluciones históricas a continuación sin reutilizar sus identificadores. Los demás límites heredados siguen vigentes en sus ámbitos.
 
 ### 19.1. Pendientes activos
 
-| Identificador | Origen | Transición/parte sin concretar | Parte independiente definida |
-|---|---|---|---|
-| SM-PENDING-003 — Cómputo temporal ambiguo | BR-PENDING-036; DM-PENDING-004 | Fecha/hora de referencia y convención exacta cuando varias fechas hagan ambiguos vencimientos, cifra final o intervalos: SM-EP-01/03, SM-BK-04, SM-RF-02 y avisos dependientes. | Umbrales aprobados de 7 días y cancelación ≥7, ≥3 y <3; conservar política y referencia cuando están determinadas. No elegir ancla ficticia ni automatizar caso ambiguo. |
+Ninguno.
 
 ### 19.2. Resoluciones registradas
 
@@ -770,6 +781,10 @@ BR-PENDING-027 y DM-PENDING-001 son los antecedentes documentales de esta resolu
 **SM-PENDING-002 — Resuelto por D019 (2026-09-09).** En promociones multimodales, la gratuidad usa el precio final por persona de la modalidad identificada del/de la novi@. En cancelación total individual con precio por persona, la base es el precio real de su modalidad y se aplican los intervalos aprobados. Los precios fijos/grupales no se prorratean automáticamente. La cancelación parcial de componentes usa un valor comercial atribuible y verificable; cuando no exista, exige determinación económica explícita del Administrador antes del efecto económico, sin bloquear efectos operativos independientes. El derecho contractual se determina antes de ajustar fondos, conciliación, asignaciones, Refund u obligaciones.
 
 BR-PENDING-023 y DM-PENDING-003 son los antecedentes documentales de esta resolución. Sus textos anteriores permanecen en Business Rules v0.2 y Domain Model v0.1, ambos APPROVED y sin modificaciones en esta corrección. D019 concreta las bases y el procedimiento V1: todo reparto debe ser reproducible y trazable, sin medias, prorrateos o distribuciones implícitas. Se aplican conjuntamente con esta resolución; no se interpretan como bloqueo contra los casos resueltos por D019. Resolver este punto no aprueba globalmente State Machines ni resuelve SM-PENDING-003.
+
+**SM-PENDING-003 — Resuelto por D020 (2026-09-09).** Los umbrales de este ámbito se calculan por fechas locales y días naturales, sin usar la hora del servicio; cada último día se concede completo. El saldo general usa por defecto la fecha del primer servicio contratado de Booking y puede satisfacerse durante todo el día situado 7 días antes. La cifra final global usa esa misma referencia; una cifra específica usa la fecha de su alcance y no se propaga. Las cancelaciones usan la fecha del primer servicio de Booking, de la modalidad de la persona, del Booking Service o del inicio del alcance cancelado, según corresponda, salvo referencia contractual expresa y válida diferente. Cambiar una fecha reevalúa los plazos afectados; cambiar solo la hora dentro de esa fecha no los modifica.
+
+BR-PENDING-036 y DM-PENDING-004 son los antecedentes documentales de esta resolución. Sus textos anteriores permanecen en Business Rules v0.2 y Domain Model v0.1, ambos APPROVED y sin modificaciones en esta corrección. D020 concreta la convención y las referencias antes diferidas, sin cambiar la política económica ni los umbrales aprobados. Se aplican conjuntamente con esta resolución y no se interpretan como bloqueo vigente contra este alcance. Resolver el punto no aprueba globalmente State Machines.
 
 ### 19.3. Otros límites heredados
 
@@ -794,21 +809,21 @@ Tarifas, capacidades, fianzas, costes y parámetros de avisos ausentes son datos
 | §4: Opportunity e identidad/facultad | BR-CON-001–006; BR-LEAD-001–005; BR-CONV-001–004 | DM-INV-002–007/012 |
 | §§5, 6.1 y 14: versiones, aceptación seleccionable y reserva directa trazable | D018; BR-PROP-001–008; BR-CONV-001–004; BR-DOC-005 | DM-INV-008–012; resolución V1 de DM-PENDING-001 en §19.2 |
 | §§5–7: composición y economía aplicada | D019; BR-PACK-001–004; BR-PROMO-001–002; BR-ECON-001–007 | DM-INV-024–029/035; alcance de DM-PENDING-003 delimitado por D019 en §19.2 |
-| §§6–7: Booking, servicios y cantidades | BR-BOOK-001–004; BR-SVC-001–009; BR-PAX-001–008; BR-NIGHT-001–004 | DM-INV-013–019/023 |
+| §§6–7: Booking, servicios y cantidades | D020; BR-BOOK-001–004; BR-SVC-001–009; BR-PAX-001–008; BR-NIGHT-001–004 | DM-INV-013–019/023; alcance de DM-PENDING-004 delimitado por D020 en §19.2 |
 | §8: fuentes, opciones y confirmaciones | BR-SUP-001–004; BR-AVAIL-001–006 | DM-INV-020–022 |
-| §9: cobros, asignaciones y conciliación | D019; BR-PAY-001–007; BR-ECON-002–003 | DM-INV-030–032 |
+| §9: cobros, asignaciones y conciliación | D019–D020; BR-PAY-001–007; BR-ECON-002–003 | DM-INV-030–032; alcance de DM-PENDING-004 delimitado por D020 en §19.2 |
 | §10: facturas externas, fondos y pagos | BR-SUPL-001–004; BR-PAY-005; BR-TAR-001–003; BR-BILL-001–005 | DM-INV-033–036/052 |
-| §11: devolución y fianza | D019; BR-PAY-004; BR-NIGHT-005; BR-CHANGE-005–007 | DM-INV-037/039–040 |
-| §12: modificación/cancelación | D019; BR-CHANGE-001–007; BR-PROP-006; BR-SUP-004 | DM-INV-017/038–040; alcance de DM-PENDING-003 delimitado por D019 en §19.2 |
-| §13: requisitos, tareas e incidencias | BR-DOC-001–004; BR-TASK-001–007; BR-INC-001–002 | DM-INV-042–044/049 |
+| §11: devolución y fianza | D019–D020; BR-PAY-004; BR-NIGHT-005; BR-CHANGE-005–007 | DM-INV-037/039–040 |
+| §12: modificación/cancelación | D019–D020; BR-CHANGE-001–007; BR-PROP-006; BR-SUP-004 | DM-INV-017/038–040; alcances de DM-PENDING-003/004 delimitados por D019/D020 en §19.2 |
+| §13: requisitos, tareas e incidencias | D020; BR-DOC-001–004; BR-TASK-001–007; BR-INC-001–002 | DM-INV-042–044/049; alcance de DM-PENDING-004 delimitado por D020 en §19.2 |
 | §14: comunicación, supervisión y resultado | BR-COMM-001–006; BR-AI-001–006; BR-AUTO-001–002 | DM-INV-045–048 |
 | §15: cierres y conservación | BR-CLOSE-001–002; BR-INC-002; BR-SEC-005 | DM-INV-034/037/041–042/051 |
 | §§16–18: dependencias, prohibiciones e historial | BR-HIST-001–005; BR-ID-001–002; BR-SEC-001–005; BR-INT-001–008 | DM-INV-047–052 |
-| §19: pendiente activo y resoluciones | D018–D019; SM-PENDING-003; restantes BR-PENDING y DM-PENDING aplicables | SM-PENDING-001/002 resueltos expresamente; antecedentes delimitados en §19.2; demás límites conservados |
+| §19: resoluciones y límites heredados | D018–D020; restantes BR-PENDING y DM-PENDING aplicables | SM-PENDING-001/002/003 resueltos expresamente; antecedentes delimitados en §19.2; demás límites conservados |
 
 C P01/P02 mantienen fuente canónica y autoridad externa/documental; P03/P04/P18/P19, fase DRAFT y verificación previa a aprobación; P05–P09/P20, veracidad, trazabilidad, independencia y cantidades/cálculos; P10–P12, privacidad y economía/secretos restringidos; P14/P15, auditoría y supervisión; P16, prohibición fiscal; P17, independencia de proveedores. P13 sigue vigente para una futura fase de datos, sin cambios de base de datos aquí.
 
-D001–D018 permanecen íntegros. D002/D005 no se desarrollan como arquitectura; D007/D014 no habilitan integraciones; D008/D013 no se presentan como validación fiscal; D010–D012, D015–D017 se aplican como límites de negocio, supervisión e historial. D018 registra la decisión sobre aceptación parcial, reserva directa y regla normal V1. D019 registra las bases económicas reproducibles para promociones, cancelaciones y ajuste posterior de fondos. Resuelven SM-PENDING-001/002 sin aprobar globalmente State Machines. D001–D018 no se modifican.
+D001–D019 permanecen íntegros. D002/D005 no se desarrollan como arquitectura; D007/D014 no habilitan integraciones; D008/D013 no se presentan como validación fiscal; D010–D012, D015–D017 se aplican como límites de negocio, supervisión e historial. D018 registra aceptación parcial, reserva directa y regla normal V1; D019, bases económicas reproducibles; D020, cómputo por días naturales y referencias por alcance. Resuelven SM-PENDING-001/002/003 sin aprobar globalmente State Machines. D001–D019 no se modifican.
 
 ### 20.2. Casos de contraste documental
 
@@ -828,7 +843,10 @@ Son ejemplos de revisión de reglas, no pruebas de aplicación ejecutadas ni dat
 | Opción sin vencimiento y petición de liberación enviada | Necesidad de revalidación y liberación solicitada; no fecha ficticia ni liberación acreditada. |
 | Transferencia detectada, luego varias porciones verificadas | Un movimiento con conciliación/asignaciones; sin doble cómputo ni pago global. |
 | Pago al proveedor sin factura | Pago real registrado; suplido documentalmente pendiente y cierre económico sin resolver si aplica. |
-| Cancela una persona con modalidad de precio por persona | Base igual al precio real de su modalidad; aplicar el intervalo temporal aprobado, manteniendo SM-PENDING-003 si el ancla es ambigua. |
+| Cancela una persona con modalidad de precio por persona | Base igual al precio real de su modalidad; usar como referencia el primer servicio incluido en esa modalidad y aplicar el intervalo por días naturales completos. |
+| Servicio el sábado 20; cancelación voluntaria | Hasta el sábado 13 completo: ≥7; del domingo 14 al miércoles 17 completos: ≥3 y <7; desde el jueves 18: <3. La hora del servicio no altera la clasificación. |
+| Saldo general para Booking cuyo primer servicio es el sábado 20 | El sábado 13 es día límite completo; solo se considera vencido desde el domingo 14, sin usar la hora de inicio. |
+| Cifra final específica de un servicio posterior | Usar la fecha de ese alcance y conceder completo el día límite; no propagar la cifra a otros servicios/noches. |
 | Cancela una persona de un alojamiento grupal de 900 EUR | No devolver automáticamente 900 dividido por participantes; mantener compromiso salvo regla, reducción verificada o ajuste explícito aprobado. |
 | Se cancela un componente de pack sin valor atribuible verificable | Avanzar efectos operativos independientes; mantener importe pendiente hasta decisión económica explícita del Administrador. |
 | Cancelación parcial aprobada, devolución aún no realizada | Partes operativas aplicadas solo con evidencia; Refund pendiente/autorizada conserva importe aún no ejecutado. |
