@@ -2,15 +2,15 @@
 
 Status: DRAFT
 Version: 0.1
-Last updated: 2026-09-08
+Last updated: 2026-09-09
 
 Primera versión formal, pendiente de revisión y aprobación humana. Describe comportamiento conceptual propuesto a partir de fuentes aprobadas; no declara funcionalidad implementada ni autoriza avanzar a arquitectura.
 
 ## 1. Purpose / Scope — Propósito y alcance
 
-Formalizar estados, transiciones, eventos/intenciones, guardas, evidencias, efectos, prohibiciones, revalidaciones y dependencias de las entidades aprobadas en [Domain Model v0.1 APPROVED](domain-model.md), usando como fuente principal [Business Rules v0.2 APPROVED](business-rules.md). Rigen [Constitution v1.0](constitution.md), [Product Definition v0.1](product.md) y [D001–D018](DECISIONS.md), sin reabrir decisiones. D018 incorpora la decisión humana de 2026-09-08 sobre aceptación parcial, reserva directa y ausencia de división/agrupación automática V1; resuelve SM-PENDING-001 en ese alcance sin aprobar globalmente este documento.
+Formalizar estados, transiciones, eventos/intenciones, guardas, evidencias, efectos, prohibiciones, revalidaciones y dependencias de las entidades aprobadas en [Domain Model v0.1 APPROVED](domain-model.md), usando como fuente principal [Business Rules v0.2 APPROVED](business-rules.md). Rigen [Constitution v1.0](constitution.md), [Product Definition v0.1](product.md) y [D001–D019](DECISIONS.md), sin reabrir decisiones. D018 incorpora la decisión humana de 2026-09-08 sobre aceptación parcial, reserva directa y ausencia de división/agrupación automática V1; D019 fija las bases económicas reproducibles para promociones y cancelaciones. Resuelven respectivamente SM-PENDING-001 y SM-PENDING-002 en su alcance sin aprobar globalmente este documento.
 
-Se han leído íntegramente esas fuentes, [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de este documento antes de editar. Las notas finales de documentos anteriores describen su propia fase; la coordinación actual identifica el paso vigente. Las elecciones de representación de este documento continúan DRAFT y requieren revisión humana global; la decisión concreta D018 ya está aprobada. BR-PENDING-027 y DM-PENDING-001 conservan su formulación anterior en sus documentos de origen y se interpretan, para el alcance resuelto aquí, conforme a D018 y §19; no bloquean las entradas V1 expresamente aprobadas.
+Se han leído íntegramente esas fuentes, [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de este documento antes de editar. Las notas finales de documentos anteriores describen su propia fase; la coordinación actual identifica el paso vigente. Las elecciones de representación de este documento continúan DRAFT y requieren revisión humana global; las decisiones concretas D018 y D019 ya están aprobadas. BR-PENDING-027/023 y DM-PENDING-001/003 conservan su formulación anterior en sus documentos de origen y se interpretan, para los alcances resueltos aquí, conforme a D018/D019 y §19; no bloquean las reglas V1 expresamente aprobadas.
 
 Quedan fuera arquitectura, Specs, planes/tareas de implementación, SQL, tablas físicas, migraciones, APIs, UI, código, jobs, webhooks, motores técnicos de aprobación, automatizaciones concretas, implementación Supabase y despliegues. Las Task descritas son trabajo del negocio. No se diseña fiscalidad, contabilidad general ni event sourcing.
 
@@ -156,7 +156,7 @@ La validez actual de una oferta no es la vigencia histórica de un acuerdo ya ac
 
 Una versión sustituida o rechazada no se acepta silenciosamente como si siguiera siendo la oferta actual: primero se confirma qué contenido exacto vuelve a ofrecerse y su cobertura; si cambian condiciones se fija otra versión. La aceptación parcial se rige por §5.1 y D018; no permite modificar retrospectivamente la versión fijada.
 
-Fuentes: BR-PROP-001–008, BR-ECON-001–003/006–007, BR-PACK-001–004, BR-DOC-005; DM §§4.2, 9.1–9.3; DM-INV-008–011/024–029.
+Fuentes: D018–D019; BR-PROP-001–008, BR-ECON-001–003/006–007, BR-PACK-001–004, BR-PROMO-001–002, BR-DOC-005; DM §§4.2, 9.1–9.3; DM-INV-008–011/024–029.
 
 ### 5.1. Aceptación parcial válida — D018
 
@@ -164,7 +164,13 @@ La aceptación parcial solo se permite si la Proposal Version contiene partes, m
 
 Seleccionar una opción ya prevista como seleccionable no modifica el contenido fijado ni exige por ese solo hecho otra versión. Si el cliente quiere una parte que no estaba definida como independiente o seleccionable, primero se prepara y fija una **nueva Proposal Version** mediante SM-PV-06; solo después se registra Acceptance sobre esa versión y su alcance exacto conforme a SM-AC-01/02. La petición se conserva como tal mientras falta esa base; no se registra una aceptación histórica para subsanarla después.
 
-No se alteran Proposal Version ni Acceptance anteriores. Continúan las guardas de identidad, evidencia, vigencia/revalidación y condiciones/importes verificables del alcance elegido. Esta autorización no resuelve repartos económicos no aprobados de SM-PENDING-002 ni el cómputo ambiguo de SM-PENDING-003.
+No se alteran Proposal Version ni Acceptance anteriores. Continúan las guardas de identidad, evidencia, vigencia/revalidación y condiciones/importes verificables del alcance elegido. Las bases económicas de promociones y cancelaciones se rigen por §5.2, §12.2 y D019; el cómputo ambiguo continúa abierto en SM-PENDING-003.
+
+### 5.2. Promoción novio/a gratis con varias modalidades — D019
+
+Cuando una propuesta contiene varias modalidades o precios, la gratuidad se atribuye a la modalidad concreta asignada al/a la novi@. Su importe es el **precio final por persona de esa modalidad**: no se usa la media del grupo, no se elige automáticamente la modalidad más barata o más cara y no se hace reparto proporcional. Por ejemplo, si 10 personas tienen Pack A a 150 EUR/persona, 5 tienen Pack B a 120 EUR/persona y el/la novi@ está en Pack A, la promoción es de 150 EUR.
+
+La modalidad del/de la novi@ debe estar identificada antes de aplicar definitivamente la promoción. Puede prepararse Proposal y su contenido mientras falte ese dato, pero el efecto económico definitivo permanece pendiente y no se presenta como cálculo final. Una asignación o cambio material conserva modalidad, precio anterior/nuevo, causa, regla, actor y evidencia; una Proposal Version ya fijada o aceptada nunca se edita retrospectivamente.
 
 ## 6. Booking Operational State
 
@@ -355,11 +361,11 @@ Reconciliation mantiene propuesta de correspondencia, validación y rectificaci�
 | ID / origen | Evento | Guardas y evidencia requerida | Resultado | Efectos conceptuales |
 |---|---|---|---|---|
 | SM-RC-01 · Sin correspondencia / con diferencia | Proponer correspondencia | Fuente, pagos, obligaciones, importes/destinos candidatos | Propuesta pendiente de validar | IA puede proponer; no mueve fondos ni alcanza Conciliado. |
-| SM-RC-02 · Propuesta | Verificar correspondencia/asignaciones | Fuente autorizada, porciones y destinos reconstruibles, sin sobreasignación ni doble cómputo; validación humana si duda | Comprobación válida en alcance identificado | Permitir reevaluar cobertura y SM-CP-04. Una propuesta y su validación son hechos distintos incluso si se registran consecutivamente. |
+| SM-RC-02 · Propuesta | Verificar correspondencia/asignaciones | Fuente autorizada, porciones y destinos reconstruibles, sin sobreasignación ni doble cómputo; derecho e importe determinados previamente conforme a D019 cuando la asignación ajusta una cancelación, devolución o nueva obligación; validación humana si duda | Comprobación válida en alcance identificado | Permitir reevaluar cobertura y SM-CP-04. Cobro, conciliación, asignación o pago a proveedor no determinan por sí solos el derecho económico del cliente; primero se determina este y después se ajustan porciones y obligaciones. Una propuesta y su validación son hechos distintos incluso si se registran consecutivamente. |
 | SM-RC-03 · Propuesta / comprobación válida | Encontrar discrepancia | Evidencia de diferencia y porciones afectadas | Revisión pendiente | Preservar correspondencia anterior; no ajustar silenciosamente importes para cuadrar. |
 | SM-RC-04 · Revisión pendiente | Rectificar | Actor, motivo, fuente, antes/después y destinos justificados | Nuevo resultado verificado enlazado | Reevaluar obligaciones, fondos disponibles/consumidos/devueltos y cierres afectados. |
 
-Varios pagos pueden cubrir un vencimiento y un pago varios vencimientos/destinos dentro del expediente. Las porciones asignadas no exceden los fondos comprobados disponibles para esa finalidad; previsiones, consumos y devoluciones se distinguen. Pagar a proveedor exige su propio hecho. Repartos no aprobados permanecen SM-PENDING-002.
+Varios pagos pueden cubrir un vencimiento y un pago varios vencimientos/destinos dentro del expediente. Las porciones asignadas no exceden los fondos comprobados disponibles para esa finalidad; previsiones, consumos y devoluciones se distinguen. Pagar a proveedor exige su propio hecho. Todo reparto económico sigue D019: debe ser reproducible y trazable, sin medias, prorrateos ni distribuciones implícitas carentes de regla aprobada.
 
 ```mermaid
 flowchart LR
@@ -430,7 +436,7 @@ Se distinguen **Solicitada; Determinada/debida; Autorizada; Ejecutada**, con **I
 | ID / origen | Evento/intención | Guardas y evidencia requerida | Destino / hecho | Efectos conceptuales |
 |---|---|---|---|---|
 | SM-RF-01 · Sin devolución | Registrar solicitud | Solicitante, cobro(s), causa y parte afectada identificados | Solicitada | No reconocer importe debido ni ejecución por la petición. |
-| SM-RF-02 · Solicitada / sin solicitud previa | Determinar derecho/importe | Causa, política/versiones aceptadas, parte cancelada, importes cobrados y base temporal inequívocos; reparto aprobado | Determinada/debida si corresponde | Conservar cálculo y evidencia. Si no procede devolución, registrar resultado motivado de evaluación; no inventar movimiento de importe cero. |
+| SM-RF-02 · Solicitada / sin solicitud previa | Determinar derecho/importe | Causa, política/versiones aceptadas, parte cancelada y base económica conforme a D019; base temporal inequívoca; importe atribuible verificable o decisión explícita del Administrador cuando D019 la exige | Determinada/debida si corresponde | Determinar primero el derecho contractual y después ajustar fondos, conciliación, asignaciones, Refund u obligaciones. Conservar componentes, importes anteriores/nuevos, cálculo, regla, actor y evidencia. Si no procede devolución, registrar resultado motivado; no inventar importe cero, media ni prorrateo. |
 | SM-RF-03 · Determinada/debida | Autorizar devolución | Administrador, importe, destinatario, origen/porción, método y efecto concretos; G3 si propuesta IA | Autorizada | No alterar saldo bancario ni declarar ejecutada. Cambio material requiere nueva autorización. |
 | SM-RF-04 · Autorizada | Verificar devolución real | Evidencia del movimiento de salida por importe y destinatario autorizados, fecha/medio/referencia, sin duplicidad | Ejecutada si se completó todo el alcance autorizado | Ejecución parcial conserva importe devuelto y resto autorizado pendiente. Vincular cobro(s)/asignaciones; normalmente mismo medio. |
 | SM-RF-05 · Cualquier progreso | Fallo, discrepancia o resultado incierto | Intento, fuente y porción afectada | Incidencia sobre último progreso acreditado | Verificar antes de repetir; conservar importe ya ejecutado si existe. |
@@ -439,7 +445,7 @@ Se distinguen **Solicitada; Determinada/debida; Autorizada; Ejecutada**, con **I
 
 No se crea una devolución bancaria como consecuencia automática de una cancelación; SM-RF-02 determina la obligación y SM-RF-03/04 requieren sus propios hechos. Si se conoce una devolución ya realizada sin autorización registrada, se conserva el hecho económico con Incidencia/revisión humana; no se fabrica aprobación retroactiva ni se considera autorizado ese camino.
 
-La política de determinación se detalla en §12.2. Casos de reparto no aprobado o fecha ambigua mantienen la determinación dependiente en revisión (§19); puede continuar la investigación y la operación independiente.
+La política de determinación se detalla en §12.2. Si falta un valor atribuible verificable, la determinación económica permanece pendiente hasta la decisión explícita prevista por D019; la operación independiente puede continuar. Una fecha o ancla temporal ambigua mantiene abierta únicamente la parte afectada por SM-PENDING-003 (§19).
 
 ### 11.2. Deposit / Fianza
 
@@ -476,8 +482,8 @@ Aprobada autoriza un alcance concreto; Aplicada acredita los cambios realmente e
 | SM-MO-02 · Solicitada | Evaluar impactos | Situación anterior, alcance deseado, política/versión, efectos comerciales, operativos y económicos distinguibles | En evaluación | Abrir revalidaciones solo materiales: servicios/noches/personas, horario, precio, capacidad, proveedor y condiciones afectados. |
 | SM-MO-03 · En evaluación | Requerir respuesta de proveedor | Qué compromiso externo debe confirmar/cambiar/cancelar y evidencia de petición si enviada | Pendiente de proveedor | Conservar última confirmación; ni solicitud cliente ni envío acredita aceptación del proveedor. |
 | SM-MO-04 · Pendiente de proveedor | Revisar respuesta | Fuente y alcance inequívocos, o discrepancia/alternativas explícitas | En evaluación si respuesta suficiente; sigue pendiente si ambigua | Registrar lo aceptado/rechazado/ofrecido; nueva alternativa se somete a revisión comercial pertinente. |
-| SM-MO-05 · En evaluación | Aprobar aplicación concreta | Administrador, antes/después, impactos conocidos y evidencia; acuerdo del cliente cuando cambia compromiso y confirmación del proveedor para efectos que la necesiten; G3 | Aprobada | La aprobación puede delimitar solo la parte evaluada. Lo dependiente de importes/repartos sin decidir no queda autorizado por aprobar otra parte. |
-| SM-MO-06 · Aprobada | Aplicar cambio | Alcance sin cambio material, guardas específicas de cada efecto satisfechas y hechos de aplicación acreditados | Aplicada cuando se completó todo el alcance aprobado | Conservar partes aplicadas/pendientes si incompleta; actualizar solo datos/estados cubiertos. Registrar obligación económica determinada sin fingir su pago/devolución. |
+| SM-MO-05 · En evaluación | Aprobar aplicación concreta | Administrador, antes/después, impactos conocidos y evidencia; acuerdo del cliente cuando cambia compromiso y confirmación del proveedor para efectos que la necesiten; base económica conforme a D019 o determinación económica todavía separada; G3 | Aprobada | La aprobación puede delimitar solo la parte evaluada. Aprobar un efecto operativo no autoriza por sí solo devolución, retención, nueva obligación o ajuste cuyo importe siga pendiente; la determinación económica exige decisión explícita del Administrador cuando no existe distribución aprobada/verificable. |
+| SM-MO-06 · Aprobada | Aplicar cambio | Alcance sin cambio material, guardas específicas de cada efecto satisfechas y hechos de aplicación acreditados; para efectos económicos, importe y regla determinados según D019 | Aplicada cuando se completó todo el alcance aprobado | Conservar partes aplicadas/pendientes si incompleta y permitir que efectos operativos independientes avancen. Actualizar solo datos/estados cubiertos; registrar obligación económica determinada sin fingir pago/devolución ni usar la situación física de los fondos como política contractual. |
 | SM-MO-07 · Solicitada / En evaluación / Pendiente de proveedor | Rechazar modificación | Decisión/respuesta y motivo conocidos | Rechazada | Mantener acuerdo anterior y comprobar que no haya perdido cobertura; rechazo no revalida automáticamente condiciones anteriores. |
 | SM-MO-08 · Solicitada / En evaluación / Pendiente de proveedor / Aprobada sin aplicación | Retirar/dejar sin efecto | Actor, motivo y verificación de que no quedan compromisos/efectos externos sin resolver | Cancelada/sin efecto | Conservar solicitud y aprobación; si hubo aplicación parcial, resolver esa parte con ajuste/modificación vinculada, sin ocultarla. |
 | SM-MO-09 · Aprobada sin completar aplicación | Cambiar materialmente alcance | Nueva petición/evidencia y comparación | En evaluación para nuevo alcance | La aprobación previa permanece histórica y no autoriza contenido nuevo; partes ya aplicadas permanecen registradas. |
@@ -499,9 +505,15 @@ Una cancelación parcial conserva servicios, cantidades, noches y partes no canc
 | No-show, retraso que impida prestar, alcohol/drogas o exclusión por incumplir seguridad | Sin devolución de la parte afectada | Evidencia del supuesto concreto; no inferirlo de una ausencia de mensaje. |
 | Modificación | Sujeta a disponibilidad y ajustes de precio aplicables | No inventar recargo ni costes; confirmar impactos antes del efecto dependiente. |
 
-Se conservan cancelante, motivo, política, solicitante/aprobador, comunicaciones, antes/después y pagado/devuelto/retenido/pendiente por parte afectada. SM-PENDING-002/003 impiden concretar solo repartos o cómputos ambiguos; no cambian umbrales aprobados ni impiden registrar hechos operativos independientes.
+Para la **cancelación total de una persona** con precio por persona, la base es el precio real de la modalidad contratada por esa persona, nunca el precio medio del grupo. Sobre esa base se aplican exactamente los intervalos anteriores: ≥7 días, devolución correspondiente; ≥3 y <7 días, retención/cobro del 50 %; <3 días, retención/cobro del 100 %. SM-PENDING-003 conserva íntegramente el pendiente sobre el cómputo temporal cuando el ancla sea ambigua.
 
-Fuentes: BR-CHANGE-001–007, BR-PROP-006, BR-PAY-004, BR-SUP-004; DM §§4.3, 9.3, 11.3; DM-INV-017/038–040.
+Un **precio fijo o grupal** no se divide automáticamente entre participantes. El compromiso existente permanece salvo regla contractual aprobada, reducción real y verificada del coste/precio aplicable, o ajuste comercial explícito, trazable y aprobado por el Administrador. Si se cancela parcialmente un componente de un pack, puede usarse su valor comercial atribuible y verificable; si no existe una distribución económica aprobada/verificable, el importe queda pendiente de determinación y requiere decisión explícita del Administrador antes de aplicar devolución, retención, nueva obligación o ajuste. Los efectos operativos independientes pueden avanzar si no dependen de ese importe.
+
+Primero se determina qué corresponde devolver, retener o cobrar conforme al acuerdo y política; después se ajustan Reconciliation, Payment Allocation, Refund, Expected Payment u otras obligaciones. Que los fondos estén cobrados, conciliados, asignados o utilizados para pagar a un proveedor no sustituye esa determinación. Todo reparto debe ser reproducible y trazable, sin medias, prorrateos ni distribuciones implícitas: se conservan componentes, importes anteriores/nuevos, causa, regla aplicada, actor y evidencias.
+
+Se conservan cancelante, motivo, política, solicitante/aprobador, comunicaciones, antes/después y pagado/devuelto/retenido/pendiente por parte afectada. SM-PENDING-003 impide concretar solo cómputos ambiguos; no cambia umbrales aprobados ni impide registrar hechos operativos o económicos independientes cuya base sea inequívoca.
+
+Fuentes: D019; BR-CHANGE-001–007, BR-PROP-006, BR-PAY-004, BR-SUP-004; DM §§4.3, 9.3, 11.3; DM-INV-017/038–040.
 
 ## 13. Documents / Tasks / Incidents
 
@@ -666,6 +678,7 @@ Cada fila permite registrar un hecho vinculado o evaluar una guarda. No prescrib
 | Provider Confirmation válida / confirmación interna verificada | Confirmar solo Booking Service/alcance cubierto (SM-BS-04) | Otros servicios, otras noches o acuerdo del cliente sobre condiciones cambiadas. |
 | Servicios críticos confirmados + economía aplicable satisfecha/excepción | Evaluar Booking Confirmada operativamente (SM-BK-04) | Crear confirmaciones o movimientos faltantes. |
 | Customer Payment Conciliado + asignación válida | Reevaluar Expected Payment y guarda económica aplicable | Confirmación de proveedores, pago al proveedor o ingreso propio de todo lo cobrado. |
+| Derecho/importe de cancelación determinado según D019 | Ajustar Reconciliation, Payment Allocation, Refund, Expected Payment u obligación correspondiente | Que la ubicación o uso físico previo de los fondos haya determinado el derecho del cliente. |
 | Cambio material / fuente externa nueva verificada | Revalidar solo dependencias materiales; evaluar modificación/versión | Sobrescribir términos aceptados, total de grupo o confirmaciones previas. |
 | Booking Modification Aprobada | Habilitar aplicación de efectos concretos con sus guardas | Aplicación efectiva, aceptación del proveedor o Refund Ejecutada. |
 | Cancelación acreditada | Determinar alcance operativo y derecho/importe de Refund cuando corresponda | Dinero devuelto ni liberación de todo Hold. |
@@ -697,7 +710,7 @@ Estas prohibiciones se añaden a las guardas de todas las tablas; no representan
 | SM-FORB-07 | Consulta/disponibilidad/opción → reserva firme, o Confirmado → Ejecutado por fecha prevista | BR-SUP-002; BR-SVC-004; BR-AVAIL-002. |
 | SM-FORB-08 | Pendiente de revalidación → borrar último hecho confirmado o extenderlo a alcance nuevo | BR-DIM-004; BR-AVAIL-005; DM-INV-017. |
 | SM-FORB-09 | Mensaje tentativo o extracción IA → sobrescribir confirmación manual | BR-AI-004–005. |
-| SM-FORB-10 | Cantidad global/gratuidad → sobrescribir servicios/noches, reducir asistentes reales o deuda de proveedor | BR-PAX-002/005–006; BR-NIGHT-001–004; BR-PROMO-001–002. |
+| SM-FORB-10 | Cantidad global/gratuidad → sobrescribir servicios/noches, reducir asistentes reales o deuda de proveedor; promoción multimodal → media, modalidad elegida automáticamente o efecto definitivo sin identificar la modalidad del/de la novi@ | D019; BR-PAX-002/005–006; BR-NIGHT-001–004; BR-PROMO-001–002. |
 | SM-FORB-11 | Hora alternativa → hora definitiva sin acuerdo; aviso de agenda justificado → dispensa de seguridad/capacidad | BR-SVC-007–009; BR-PAX-005/007. |
 | SM-FORB-12 | Opción sin vencimiento → caducidad inventada; paso del tiempo/petición/aviso → liberación acreditada | BR-AVAIL-003/006. |
 | SM-FORB-13 | Solicitud cliente → cancelación/aceptación del proveedor; cancelación parcial → cancelar resto no afectado | BR-SUP-004; BR-CHANGE-001–004. |
@@ -713,7 +726,7 @@ Estas prohibiciones se añaden a las guardas de todas las tablas; no representan
 | SM-FORB-23 | Finalizada → Cerrada / Histórico sin tres cierres; archivar → cierre completo | BR-CLOSE-001–002; BR-SEC-005. |
 | SM-FORB-24 | Crítica Abierta/En gestión → cierre completo sin justificación; justificación → pago/documento/devolución inexistentes | BR-INC-002; BR-CLOSE-001–002. |
 | SM-FORB-25 | Tararí → proveedor externo/suplido/factura interna por defecto; costes desconocidos → rentabilidad definitiva | BR-TAR-001–003; BR-ECON-004. |
-| SM-FORB-26 | No reembolsable → denegar devolución por causa Huescaventura/proveedor; repartir cancelación/promoción sin regla | BR-CHANGE-005–007; BR-PROMO-002; BR-PENDING-023. |
+| SM-FORB-26 | No reembolsable → denegar devolución por causa Huescaventura/proveedor; usar media o prorrateo implícito para cancelación/promoción/precio fijo; tomar fondos cobrados, asignados o pagados a proveedor como sustituto del derecho contractual | D019; BR-CHANGE-005–007; BR-PROMO-002; BR-PENDING-023. |
 | SM-FORB-27 | Fallo/resultado incierto → éxito o reintento sensible sin comprobar efecto previo; repetición → duplicado económico | BR-AUTO-001–002. |
 | SM-FORB-28 | Dato externo/calendario → cambio silencioso; consulta Avaibook → crear/modificar/cancelar allí | BR-INT-002/006–007; BR-TASK-007. |
 | SM-FORB-29 | Rol previsto/relación comercial → permiso activo; timeline → divulgación de economía/datos personales no autorizados | BR-SEC-001–004; BR-HIST-004. |
@@ -740,20 +753,23 @@ La conservación respeta minimización, finalidad, economía reservada y políti
 
 ## 19. SM-PENDING — Límites de transiciones aún abiertos
 
-Quedan **dos SM-PENDING abiertos: SM-PENDING-002 y SM-PENDING-003**. SM-PENDING-001 se retira de la lista activa tras la decisión humana aprobada de 2026-09-08, registrada en D018; se conserva su resolución histórica a continuación sin reutilizar su identificador. Los demás límites heredados siguen vigentes en sus ámbitos.
+Queda **un SM-PENDING abierto: SM-PENDING-003**. SM-PENDING-001 y SM-PENDING-002 se retiran de la lista activa tras las decisiones humanas registradas respectivamente en D018 (2026-09-08) y D019 (2026-09-09); se conservan sus resoluciones históricas a continuación sin reutilizar sus identificadores. Los demás límites heredados siguen vigentes en sus ámbitos.
 
 ### 19.1. Pendientes activos
 
 | Identificador | Origen | Transición/parte sin concretar | Parte independiente definida |
 |---|---|---|---|
-| SM-PENDING-002 — Importes dependientes de reparto no aprobado | BR-PENDING-023; DM-PENDING-003 | Determinación de importes, asignaciones/conciliación y autorización/aplicación económica dependientes de promoción multimodal o cancelación parcial de precio fijo/promociones/fondos sin reparto decidido: SM-RF-02, SM-RC-02, SM-MO-05/06. | Investigación y efectos operativos independientes, promoción homogénea aprobada y cálculos/conciliaciones con base inequívoca. No prorratear por invención. |
 | SM-PENDING-003 — Cómputo temporal ambiguo | BR-PENDING-036; DM-PENDING-004 | Fecha/hora de referencia y convención exacta cuando varias fechas hagan ambiguos vencimientos, cifra final o intervalos: SM-EP-01/03, SM-BK-04, SM-RF-02 y avisos dependientes. | Umbrales aprobados de 7 días y cancelación ≥7, ≥3 y <3; conservar política y referencia cuando están determinadas. No elegir ancla ficticia ni automatizar caso ambiguo. |
 
-### 19.2. Resolución registrada
+### 19.2. Resoluciones registradas
 
 **SM-PENDING-001 — Resuelto para V1 por D018 (2026-09-08).** Aceptación parcial únicamente sobre partes/modalidades/alcances expresamente seleccionables; nueva Proposal Version previa a Acceptance si la selección no estaba definida como independiente/seleccionable; reserva directa del Administrador con cadena comercial íntegra; regla normal 1 Opportunity aceptada → 1 Booking con su detalle, sin división/agrupación automática V1. La futura división explícita y trazable por el Administrador queda fuera de esta fase y requiere especificación posterior.
 
 BR-PENDING-027 y DM-PENDING-001 son los antecedentes documentales de esta resolución. Sus textos anteriores permanecen en Business Rules v0.2 y Domain Model v0.1, ambos APPROVED y sin modificaciones en esta corrección. D018 concreta las entradas V1 antes diferidas y la regla normal, sin imponer una restricción global para toda evolución futura ni autorizar operaciones extraordinarias no especificadas. Se aplican conjuntamente con esta resolución; no se interpretan como un bloqueo vigente contra lo expresamente aprobado en D018. Resolver este punto no aprueba globalmente State Machines.
+
+**SM-PENDING-002 — Resuelto por D019 (2026-09-09).** En promociones multimodales, la gratuidad usa el precio final por persona de la modalidad identificada del/de la novi@. En cancelación total individual con precio por persona, la base es el precio real de su modalidad y se aplican los intervalos aprobados. Los precios fijos/grupales no se prorratean automáticamente. La cancelación parcial de componentes usa un valor comercial atribuible y verificable; cuando no exista, exige determinación económica explícita del Administrador antes del efecto económico, sin bloquear efectos operativos independientes. El derecho contractual se determina antes de ajustar fondos, conciliación, asignaciones, Refund u obligaciones.
+
+BR-PENDING-023 y DM-PENDING-003 son los antecedentes documentales de esta resolución. Sus textos anteriores permanecen en Business Rules v0.2 y Domain Model v0.1, ambos APPROVED y sin modificaciones en esta corrección. D019 concreta las bases y el procedimiento V1: todo reparto debe ser reproducible y trazable, sin medias, prorrateos o distribuciones implícitas. Se aplican conjuntamente con esta resolución; no se interpretan como bloqueo contra los casos resueltos por D019. Resolver este punto no aprueba globalmente State Machines ni resuelve SM-PENDING-003.
 
 ### 19.3. Otros límites heredados
 
@@ -777,22 +793,22 @@ Tarifas, capacidades, fianzas, costes y parámetros de avisos ausentes son datos
 | §§1–3: autoridad, separación, guardas, revalidación | BR-GOV-001–002; BR-GEN-001–008; BR-DIM-001–005 | DM-INV-001/006/017/047–050 |
 | §4: Opportunity e identidad/facultad | BR-CON-001–006; BR-LEAD-001–005; BR-CONV-001–004 | DM-INV-002–007/012 |
 | §§5, 6.1 y 14: versiones, aceptación seleccionable y reserva directa trazable | D018; BR-PROP-001–008; BR-CONV-001–004; BR-DOC-005 | DM-INV-008–012; resolución V1 de DM-PENDING-001 en §19.2 |
-| §§5–7: composición y economía aplicada | BR-PACK-001–004; BR-PROMO-001–002; BR-ECON-001–007 | DM-INV-024–029/035 |
+| §§5–7: composición y economía aplicada | D019; BR-PACK-001–004; BR-PROMO-001–002; BR-ECON-001–007 | DM-INV-024–029/035; alcance de DM-PENDING-003 delimitado por D019 en §19.2 |
 | §§6–7: Booking, servicios y cantidades | BR-BOOK-001–004; BR-SVC-001–009; BR-PAX-001–008; BR-NIGHT-001–004 | DM-INV-013–019/023 |
 | §8: fuentes, opciones y confirmaciones | BR-SUP-001–004; BR-AVAIL-001–006 | DM-INV-020–022 |
-| §9: cobros, asignaciones y conciliación | BR-PAY-001–007; BR-ECON-002–003 | DM-INV-030–032 |
+| §9: cobros, asignaciones y conciliación | D019; BR-PAY-001–007; BR-ECON-002–003 | DM-INV-030–032 |
 | §10: facturas externas, fondos y pagos | BR-SUPL-001–004; BR-PAY-005; BR-TAR-001–003; BR-BILL-001–005 | DM-INV-033–036/052 |
-| §11: devolución y fianza | BR-PAY-004; BR-NIGHT-005; BR-CHANGE-005–007 | DM-INV-037/039–040 |
-| §12: modificación/cancelación | BR-CHANGE-001–007; BR-PROP-006; BR-SUP-004 | DM-INV-017/038–040 |
+| §11: devolución y fianza | D019; BR-PAY-004; BR-NIGHT-005; BR-CHANGE-005–007 | DM-INV-037/039–040 |
+| §12: modificación/cancelación | D019; BR-CHANGE-001–007; BR-PROP-006; BR-SUP-004 | DM-INV-017/038–040; alcance de DM-PENDING-003 delimitado por D019 en §19.2 |
 | §13: requisitos, tareas e incidencias | BR-DOC-001–004; BR-TASK-001–007; BR-INC-001–002 | DM-INV-042–044/049 |
 | §14: comunicación, supervisión y resultado | BR-COMM-001–006; BR-AI-001–006; BR-AUTO-001–002 | DM-INV-045–048 |
 | §15: cierres y conservación | BR-CLOSE-001–002; BR-INC-002; BR-SEC-005 | DM-INV-034/037/041–042/051 |
 | §§16–18: dependencias, prohibiciones e historial | BR-HIST-001–005; BR-ID-001–002; BR-SEC-001–005; BR-INT-001–008 | DM-INV-047–052 |
-| §19: pendientes y resolución V1 | D018; SM-PENDING-002/003; restantes BR-PENDING y DM-PENDING aplicables | SM-PENDING-001 resuelto expresamente; antecedentes BR-PENDING-027/DM-PENDING-001 delimitados en §19.2; demás límites conservados |
+| §19: pendiente activo y resoluciones | D018–D019; SM-PENDING-003; restantes BR-PENDING y DM-PENDING aplicables | SM-PENDING-001/002 resueltos expresamente; antecedentes delimitados en §19.2; demás límites conservados |
 
 C P01/P02 mantienen fuente canónica y autoridad externa/documental; P03/P04/P18/P19, fase DRAFT y verificación previa a aprobación; P05–P09/P20, veracidad, trazabilidad, independencia y cantidades/cálculos; P10–P12, privacidad y economía/secretos restringidos; P14/P15, auditoría y supervisión; P16, prohibición fiscal; P17, independencia de proveedores. P13 sigue vigente para una futura fase de datos, sin cambios de base de datos aquí.
 
-D001–D017 permanecen íntegros. D002/D005 no se desarrollan como arquitectura; D007/D014 no habilitan integraciones; D008/D013 no se presentan como validación fiscal; D010–D012, D015–D017 se aplican como límites de negocio, supervisión e historial. D018 registra la decisión humana específica sobre aceptación parcial, reserva directa y regla normal V1, resuelve SM-PENDING-001 y no aprueba globalmente State Machines. D001–D017 no se modifican.
+D001–D018 permanecen íntegros. D002/D005 no se desarrollan como arquitectura; D007/D014 no habilitan integraciones; D008/D013 no se presentan como validación fiscal; D010–D012, D015–D017 se aplican como límites de negocio, supervisión e historial. D018 registra la decisión sobre aceptación parcial, reserva directa y regla normal V1. D019 registra las bases económicas reproducibles para promociones, cancelaciones y ajuste posterior de fondos. Resuelven SM-PENDING-001/002 sin aprobar globalmente State Machines. D001–D018 no se modifican.
 
 ### 20.2. Casos de contraste documental
 
@@ -805,12 +821,16 @@ Son ejemplos de revisión de reglas, no pruebas de aplicación ejecutadas ni dat
 | Cliente pide solo una parte que no era independiente/seleccionable | Preparar/fijar nueva Proposal Version antes de registrar Acceptance; conservar petición y versiones previas. |
 | Administrador utiliza la futura reserva directa | Generar/registrar la cadena mínima y verificar Acceptance real antes de SM-BK-01; no simular aceptación, pago ni confirmación operativa. |
 | Un grupo de 10 personas con un pack y 2 con otro | Una Opportunity aceptada y una Booking con el detalle de modalidades, servicios, noches y cantidades; sin división automática. |
+| 10 personas Pack A a 150 EUR, 5 Pack B a 120 EUR y novi@ en Pack A | Promoción de 150 EUR; modalidad identificada y sin media, prorrateo ni elección automática de otra modalidad. |
 | Propuesta caducada y cliente responde «sí» | Conservar comunicación; revalidar antes de nueva aceptación válida, sin aprobación retroactiva ficticia. |
 | 18 confirmados y mensaje «creo que 16» | Conservar 18, registrar petición/revisión de partes materiales; no propagar cifra global. |
 | Proveedor confirma solo una noche | Solo esa noche/alcance cubierto; resto pendiente según sus pruebas. |
 | Opción sin vencimiento y petición de liberación enviada | Necesidad de revalidación y liberación solicitada; no fecha ficticia ni liberación acreditada. |
 | Transferencia detectada, luego varias porciones verificadas | Un movimiento con conciliación/asignaciones; sin doble cómputo ni pago global. |
 | Pago al proveedor sin factura | Pago real registrado; suplido documentalmente pendiente y cierre económico sin resolver si aplica. |
+| Cancela una persona con modalidad de precio por persona | Base igual al precio real de su modalidad; aplicar el intervalo temporal aprobado, manteniendo SM-PENDING-003 si el ancla es ambigua. |
+| Cancela una persona de un alojamiento grupal de 900 EUR | No devolver automáticamente 900 dividido por participantes; mantener compromiso salvo regla, reducción verificada o ajuste explícito aprobado. |
+| Se cancela un componente de pack sin valor atribuible verificable | Avanzar efectos operativos independientes; mantener importe pendiente hasta decisión económica explícita del Administrador. |
 | Cancelación parcial aprobada, devolución aún no realizada | Partes operativas aplicadas solo con evidencia; Refund pendiente/autorizada conserva importe aún no ejecutado. |
 | Fianza retenida parcialmente y resto sin devolver | Retención documentada; devolución del resto pendiente y Economic Closure no resuelto. |
 | Booking Finalizada con crítica abierta o factura pendiente | Evaluaciones independientes; no Closed sin tres cierres y guarda de incidencia. |
