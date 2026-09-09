@@ -2,7 +2,7 @@
 
 Status: DRAFT
 Version: 0.1
-Last updated: 2026-09-09
+Last updated: 2026-09-10
 
 Primera iteración pendiente de revisión humana. Las decisiones ARCH-DEC son propuestas de este borrador, no decisiones humanas APPROVED. Publicar este documento no aprueba Architecture ni autoriza iniciar SPEC 001, plan, tasks o implementación.
 
@@ -36,7 +36,7 @@ Se propone un **monolito modular**, desplegable como una única aplicación web 
 
 La lógica de negocio, las autorizaciones y las mutaciones materiales se ejecutan en servidor. El cliente presenta información permitida y solicita operaciones; no acredita permisos, transiciones, cálculos definitivos ni ejecución por haberlos mostrado. Las lecturas, búsquedas, proyecciones y exportaciones también se filtran en servidor según finalidad y autorización.
 
-El repositorio leído fija Supabase y Vercel, pero no establece Next.js como framework aprobado. Esta arquitectura es compatible con Next.js y sus Server Actions si se concreta posteriormente; no lo presenta como una elección ya aprobada ni introduce dependencias. “Server Actions o equivalente servidor” expresa la interfaz conceptual para mutaciones internas, sin prescribir una implementación.
+**Propuesta ARCH-DEC-018 — Framework de aplicación V1:** Next.js App Router será el framework de la aplicación CRM V1, desplegada en Vercel. Es una decisión arquitectónica que permanece **PROPUESTA EN DRAFT, pendiente de revisión humana**. Architecture no congela la versión concreta de Next.js; los componentes UI, contratos/API físicos y endpoints definitivos siguen fuera de alcance. Se mantiene el monolito modular con Vercel y Supabase: elegir Next.js no elimina los límites internos ni convierte componentes UI en dominio. La lógica de negocio sensible continúa en servidor y en la capa de aplicación; Server Actions y handlers HTTP actúan como interfaces según §6.
 
 No se incorporan microservicios, Kafka, RabbitMQ, event sourcing, CQRS complejo, Kubernetes, service mesh, locks distribuidos ni motores genéricos de workflow/BPM. Separar consultas de mutaciones por responsabilidad no crea un sistema CQRS independiente. V1 debe funcionar sin infraestructura distribuida adicional.
 
@@ -111,6 +111,8 @@ Fuentes: C P10/P11/P15; D015; BR-SEC-001–004; DM §5.2 y DM-INV-050; SM G1/G3.
 
 **Propuesta ARCH-DEC-004:** utilizar Supabase Auth para identificar al único usuario operativo V1, Administrador / Propietario, y relacionar esa identidad autenticada con Internal User / CRM Actor. Esta selección forma parte del DRAFT; D004 por sí sola no la había aprobado.
 
+Como requisito arquitectónico propuesto de ARCH-DEC-004, **en Production el usuario Administrador/Propietario deberá utilizar MFA cuando la capacidad de autenticación seleccionada lo soporte**. Supabase Auth continúa siendo la propuesta V1; MFA no introduce roles ni usuarios operativos adicionales. Development y Staging podrán tener una política proporcional, pero Production deberá contemplar MFA para el Administrador. La configuración concreta, factores admitidos, recuperación y políticas de sesión se definirán posteriormente. No se configura MFA ni se diseñan pantallas o flujos UI de MFA en esta fase.
+
 El servidor verifica la autenticación y la habilitación vigente del actor antes de permitir lecturas o mutaciones internas. Estar autenticado, conocer un identificador o aparecer como Contact/Provider no otorga acceso. La identidad de autenticación, el actor del dominio y sus facultades se distinguen; no se deducen permisos de datos editables por el cliente ni de un rol solicitado por este.
 
 V1 aplica acceso del Administrador a todo el CRM, con mínimo privilegio técnico y denegación por defecto. No se habilitan altas públicas de usuarios operativos ni facultades a terceros por relaciones comerciales. Autenticación no significa ejecutar todas las operaciones con una credencial privilegiada de plataforma.
@@ -135,7 +137,7 @@ Para una mutación, esta capa:
 4. Coordina los cambios internos que formen una unidad material, su auditoría, resultado idempotente e intención externa persistida si existe.
 5. Registra resultado conocido, rechazo, conflicto o pendiente. Los efectos externos y su entrega/conciliación se acreditan por separado.
 
-Desde el CRM interno, **Server Actions o equivalente servidor** son la interfaz principal propuesta para mutaciones. Compartir aplicación no exime de validar autenticación, autorización, entrada y estado en cada invocación. No se confía en validaciones UI ni se distribuye lógica sensible entre componentes.
+Desde el CRM interno, **Server Actions de Next.js App Router** podrán ser la interfaz principal de mutación cuando corresponda, delegando la lógica sensible en la capa de aplicación en servidor. Compartir aplicación no exime de validar autenticación, autorización, entrada y estado en cada invocación. No se confía en validaciones UI ni se distribuye lógica sensible entre componentes.
 
 Para webhooks, formularios web e integraciones se usa **HTTP ingress específico por propósito**, sin endpoints definitivos. Esos handlers son fronteras de recepción y adaptación, no atajos para editar hechos sensibles.
 
@@ -181,13 +183,13 @@ El orden aprobado de D014 permanece: **Telefonía IA + WhatsApp → Email → Ca
 
 Fuentes: D009/D014/D016; BR-INT-005, BR-COMM-001–005, BR-AI-001–006; SM §14.
 
-Son prioridad nº1 y comparten contexto CRM y timeline mediante identidades/vínculos comunes, manteniendo adaptador de telefonía y adaptador de WhatsApp desacoplados. Ambos normalizan comunicaciones, eventos y evidencias; ningún proveedor se convierte en el dueño del expediente.
+Son prioridad nº1 y comparten contexto CRM y timeline mediante identidades/vínculos comunes, manteniendo adaptador de telefonía y adaptador de WhatsApp separados y desacoplados. No necesitan compartir proveedor: la solución final puede utilizar un único proveedor para ambos canales o proveedores diferentes. Ambos adaptadores normalizan comunicaciones, eventos y evidencias; ningún proveedor se convierte en el dueño del expediente. No se debe forzar una solución unificada si resulta técnicamente o económicamente peor.
 
 Transcripción original, resumen y extracción se distinguen, con fuente, momento, contexto y revisión. La IA puede preparar acciones o registrar datos objetivos claros con procedencia; no sobrescribe confirmaciones manuales. Sus propuestas sensibles pasan por Human Approval y capa de aplicación antes del efecto, aunque la información de origen parezca inequívoca.
 
 No se almacena audio por defecto V1. Esto no resuelve consentimiento ni conservación de transcripciones. PLAUD Pro se admite como fuente de transcripción original, resumen y metadatos de llamadas atendidas personalmente; importación automatizada solo si se comprueba viable, con alternativa manual sencilla cuando corresponda. No requiere un conector prioritario separado.
 
-No se elige proveedor. ARCH-PENDING-001 conserva la comparativa previa de ElevenLabs y al menos una alternativa real, sin presentarla como realizada.
+No se elige ningún proveedor. ARCH-PENDING-001 conserva la comparación previa de ElevenLabs y al menos una alternativa real para Telefonía IA. WhatsApp debe analizarse también por sus capacidades reales y proveedor adecuado. La decisión comparará capacidad, coste, facilidad de automatización, fiabilidad e integración de cada canal, incluyendo transcripción y contexto cuando correspondan; no se presenta la comparativa como realizada.
 
 ### 8.2. Email
 
@@ -357,7 +359,7 @@ Los logs excluyen siempre secretos y URLs de acceso temporal. Minimizan datos pe
 
 Fuentes: C P10–P12/P15/P16; D008/D015–D017; BR-SEC-001–005, BR-BILL-001–005.
 
-La frontera servidor aplica validación de entradas, permisos por acción/alcance y verificación de autenticación en mutaciones y lecturas. Las interfaces internas invocables también requieren protección frente a solicitudes no autorizadas y abuso; un identificador difícil de adivinar no sustituye permiso.
+La frontera servidor aplica validación de entradas, permisos por acción/alcance y verificación de autenticación en mutaciones y lecturas. En Production se exigirá al Administrador/Propietario el cumplimiento de MFA cuando la capacidad seleccionada lo soporte, conforme al requisito propuesto en §5; su verificación no se delega únicamente en la UI. Las interfaces internas invocables también requieren protección frente a solicitudes no autorizadas y abuso; un identificador difícil de adivinar no sustituye permiso.
 
 Secretos fuera de Git, documentación, ejemplos, expedientes y logs; separados por entorno y gestionados por mecanismos protegidos. Credenciales públicas y credenciales de servidor tienen usos distintos. Nunca se expone service-role/secret key al cliente; su eventual uso servidor no elimina la comprobación de permisos ni la limitación del efecto.
 
@@ -426,8 +428,8 @@ V1 funciona con la aplicación modular, Supabase, objetos privados y ejecución 
 | ARCH-DEC-001 — Monolito modular V1 | Una aplicación principal desplegable en Vercel con módulos internos; simplicidad y evolución sin microservicios. | §§2–3; D005/D006, C P17. |
 | ARCH-DEC-002 — Responsabilidades de Supabase | Registro canónico estructurado, autenticación propuesta, soporte de autorización, objetos privados y persistencia de auditoría/eventos/idempotencia/jobs. | §§4–5/9–10; D004, C P01/P10/P14. |
 | ARCH-DEC-003 — Separación canónico / externo / evidencia / derivado | Autoridad y procedencia explícitas; las copias/proyecciones no sustituyen hechos. | §4; C P01/P05, DM §§2/13. |
-| ARCH-DEC-004 — Supabase Auth y autorización V1 simplificada | Identidad autenticada vinculada al CRM Actor Administrador, controles servidor/base de datos y roles futuros inactivos. | §5; D015, C P10/P11. |
-| ARCH-DEC-005 — Server Actions para CRM + HTTP ingress para externos | Mutaciones internas por Server Actions o equivalente y handlers externos específicos, ambos subordinados a aplicación. | §6; SM G1–G6. No fija Next.js. |
+| ARCH-DEC-004 — Supabase Auth y autorización V1 simplificada | Supabase Auth para el único CRM Actor Administrador/Propietario, controles servidor/base de datos y MFA obligatorio en Production cuando la capacidad seleccionada lo soporte; roles futuros inactivos. Configuración, factores, recuperación y sesiones se definirán después. | §§5/14; D015, C P10/P11. |
+| ARCH-DEC-005 — Server Actions para CRM + HTTP ingress para externos | Server Actions de Next.js App Router como interfaz principal de mutación interna cuando corresponda y handlers HTTP específicos para webhooks/integraciones, ambos subordinados a la capa de aplicación. | §§2/6; ARCH-DEC-018, SM G1–G6. Sin contratos/API físicos ni endpoints definitivos. |
 | ARCH-DEC-006 — Adaptadores / anti-corruption layer para integraciones | Contratos internos independientes de formatos propietarios, sustitución y conciliación. | §§7–8; D014, C P17. |
 | ARCH-DEC-007 — Calendario CRM canónico + Google Calendar auxiliar | Proyección operacional de Supabase; cambios externos materiales revisados, sin segunda autoridad de agenda. | §8.3; D014, BR-TASK-007. |
 | ARCH-DEC-008 — Web pública separada | Aplicaciones/repositorios separados y futura frontera pública limitada, sin acceso económico interno. | §8.6; D007, C P10/P11. |
@@ -440,6 +442,7 @@ V1 funciona con la aplicación modular, Supabase, objetos privados y ejecución 
 | ARCH-DEC-015 — Jobs/outbox persistidos sin broker externo V1 | Trabajo duradero en Supabase y ejecutores sencillos, reintentos seguros y fallos visibles. | §10; BR-AUTO-001–002. |
 | ARCH-DEC-016 — Auditoría con historial/versiones, no event sourcing | Estado vigente más snapshots, eventos/cambios, ejecuciones, aprobaciones y evidencias; timeline derivada. | §13; C P06/P07, DM §8, SM §18. |
 | ARCH-DEC-017 — Development / Staging / Production separados | Supabase, secretos y pruebas de integración aislados, manteniendo Work Local y Vercel. | §16.2; D002/D005, C P10/P12/P13. |
+| ARCH-DEC-018 — Framework de aplicación V1 | Next.js App Router será el framework del CRM V1 desplegado en Vercel. PROPUESTA EN DRAFT, pendiente de revisión humana; sin congelar versión concreta ni definir UI o contratos/API físicos. Mantiene el monolito modular y la lógica sensible en la capa de aplicación en servidor. | §§2/6; D005, C P10/P17. |
 
 ## 18. ARCH-PENDING y pendientes heredados
 
@@ -447,7 +450,7 @@ V1 funciona con la aplicación modular, Supabase, objetos privados y ejecución 
 
 | Identificador | Origen y decisión pendiente | Condición antes del trabajo dependiente |
 |---|---|---|
-| **ARCH-PENDING-001 — Proveedor definitivo Telefonía IA + WhatsApp** | BR-PENDING-001, BR-PENDING-035 y D014. Falta comparación verificable y elección humana; la prioridad nº1 ya está aprobada. | Antes de implementar, comparar/probar ElevenLabs y al menos una alternativa real en coste, facilidad, automatización, WhatsApp, telefonía, transcripción, contexto, integración CRM y fiabilidad. No se elige proveedor ni se declara probada la comparativa. |
+| **ARCH-PENDING-001 — Proveedor(es) definitivos de Telefonía IA y WhatsApp** | BR-PENDING-001, BR-PENDING-035 y D014. Falta comparación verificable y elección humana por canal; la prioridad nº1 ya está aprobada. Los adaptadores separados comparten contexto CRM/timeline, sin exigir proveedor común: puede haber uno para ambos canales o proveedores diferentes. | Antes de implementar, comparar/probar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades reales/proveedor adecuado de WhatsApp. Evaluar capacidad, coste, facilidad de automatización, fiabilidad e integración de cada canal, transcripción y contexto cuando correspondan. No forzar una solución unificada técnicamente o económicamente peor; no se elige ningún proveedor ni se declara probada la comparativa. |
 | **ARCH-PENDING-002 — RPO / RTO de producción** | Falta decisión humana sobre pérdida máxima de datos, tiempo máximo de indisponibilidad y coste/complejidad aceptables de recuperación. | Definir objetivos y contrastar capacidad/coste de backup-restauración antes de aceptar producción. Mientras tanto siguen exigidos backups, restauración y prueba periódica verificables; no se asignan cifras. |
 
 ARCH-PENDING-001 es la referencia arquitectónica solicitada del mismo asunto existente, no otra selección paralela: su futura resolución deberá coordinar BR-PENDING-001/035 sin declarar resueltas capacidades ajenas a la evidencia aportada.

@@ -8,7 +8,7 @@ docs/state-machines.md v0.1 está APPROVED por revisión humana de 2026-09-09. L
 
 La aprobación incluye D018–D020 y las resoluciones históricas de SM-PENDING-001/002/003; no queda ningún SM-PENDING activo. Los demás pendientes heredados conservan su alcance; BR-PENDING-023/027/036 y DM-PENDING-001/003/004 se interpretan junto con D018–D020 para los alcances resueltos.
 
-Architecture v0.1 DRAFT está publicada. La siguiente acción es la revisión humana del borrador y de sus 17 ARCH-DEC propuestas. ARCH-PENDING-001 (proveedor definitivo Telefonía IA + WhatsApp) y ARCH-PENDING-002 (RPO/RTO de producción) siguen activos. Architecture permanece en progreso y no está aprobada; SPEC 001 Core CRM sigue no iniciado.
+Architecture v0.1 DRAFT está publicada. La siguiente acción es la revisión humana del borrador y de sus 18 ARCH-DEC propuestas. ARCH-PENDING-001 (Proveedor(es) definitivos de Telefonía IA y WhatsApp, comunes o diferentes) y ARCH-PENDING-002 (RPO/RTO de producción) siguen activos. Architecture permanece en progreso y no está aprobada; SPEC 001 Core CRM sigue no iniciado.
 
 ## Approved Order
 
