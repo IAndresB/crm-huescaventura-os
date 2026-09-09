@@ -34,7 +34,7 @@ Last updated: 2026-09-09
 
 ## Last Approved Commit
 
-- 97842286449a8911598679a1b5c30d56d8b819ed — docs: resolve natural-day calculation decision (último commit previo a formalizar la aprobación; el SHA de aprobación se registrará en un commit documental posterior).
+- 393a105bafd1f541098706048ac571a130c50e5e — docs: approve state machines v0.1
 
 ## Notes
 
