@@ -2,11 +2,13 @@
 
 ## Current Step
 
-Revisar y aprobar docs/state-machines.md
+Preparar y revisar docs/architecture.md
 
-docs/state-machines.md continúa DRAFT v0.1, actualizado el 2026-09-09 y pendiente de revisión humana global. docs/domain-model.md v0.1 continúa APPROVED.
+docs/state-machines.md v0.1 está APPROVED por revisión humana de 2026-09-09. La fase State Machines queda completada. docs/domain-model.md v0.1 continúa APPROVED.
 
-La revisión debe comprobar estados y transiciones, guardas/evidencias, independencia comercial/operativa/económica, revalidación sin pérdida de hechos, excepciones y trazabilidad. D018 resuelve SM-PENDING-001 para V1: aceptación parcial expresamente seleccionable, nueva versión previa a Acceptance si la parte no era independiente/seleccionable, reserva directa con cadena comercial completa y una Booking por Opportunity aceptada, sin división/agrupación automática. D019 resuelve SM-PENDING-002 con bases económicas reproducibles y sin medias/prorrateos implícitos. D020 resuelve SM-PENDING-003: cómputo por fechas/días naturales, último día completo, referencias por alcance y ausencia de cortes horarios. No queda ningún SM-PENDING activo. Los demás pendientes heredados conservan su alcance; BR-PENDING-027/023/036 y DM-PENDING-001/003/004 se interpretan junto con D018–D020 para los alcances resueltos. Aprobar globalmente este documento requiere decisión humana explícita; ni estas decisiones ni el commit/push de la corrección constituyen esa aprobación.
+La aprobación incluye D018–D020 y las resoluciones históricas de SM-PENDING-001/002/003; no queda ningún SM-PENDING activo. Los demás pendientes heredados conservan su alcance; BR-PENDING-023/027/036 y DM-PENDING-001/003/004 se interpretan junto con D018–D020 para los alcances resueltos.
+
+Architecture es la siguiente fase pendiente, pero continúa no iniciada. Solo puede comenzar tras una nueva instrucción humana específica; esta actualización no autoriza editar su contenido.
 
 ## Approved Order
 
@@ -24,9 +26,9 @@ La revisión debe comprobar estados y transiciones, guardas/evidencias, independ
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-docs/business-rules.md continúa APPROVED en su versión 0.2. docs/domain-model.md v0.1 continúa APPROVED. El trabajo actual se limita a la revisión de docs/state-machines.md DRAFT v0.1 y a las correcciones documentales que se autoricen.
+docs/business-rules.md v0.2, docs/domain-model.md v0.1 y docs/state-machines.md v0.1 continúan APPROVED. El siguiente trabajo autorizado requerirá una instrucción humana específica para iniciar Architecture.
 
-architecture.md permanece bloqueado/no iniciado hasta la aprobación humana explícita de State Machines y una nueva instrucción específica para iniciar arquitectura. No avanzar a arquitectura, Specs, planes, tareas de implementación, código ni despliegues dentro de esta fase.
+architecture.md permanece no iniciado hasta esa instrucción. No avanzar a Specs, planes, tareas de implementación, código ni despliegues.
 
 Si durante el trabajo aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 

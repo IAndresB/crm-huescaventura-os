@@ -1,16 +1,17 @@
 # CRM HUESCAVENTURA OS — State Machines
 
-Status: DRAFT
+Status: APPROVED
 Version: 0.1
+Approved: 2026-09-09
 Last updated: 2026-09-09
 
-Primera versión formal, pendiente de revisión y aprobación humana. Describe comportamiento conceptual propuesto a partir de fuentes aprobadas; no declara funcionalidad implementada ni autoriza avanzar a arquitectura.
+Aprobado por revisión humana. Este documento formaliza el comportamiento conceptual de las máquinas de estados y no constituye una implementación ni inicia la fase de arquitectura.
 
 ## 1. Purpose / Scope — Propósito y alcance
 
-Formalizar estados, transiciones, eventos/intenciones, guardas, evidencias, efectos, prohibiciones, revalidaciones y dependencias de las entidades aprobadas en [Domain Model v0.1 APPROVED](domain-model.md), usando como fuente principal [Business Rules v0.2 APPROVED](business-rules.md). Rigen [Constitution v1.0](constitution.md), [Product Definition v0.1](product.md) y [D001–D020](DECISIONS.md), sin reabrir decisiones. D018 incorpora la decisión humana sobre aceptación parcial, reserva directa y ausencia de división/agrupación automática V1; D019 fija las bases económicas reproducibles para promociones y cancelaciones; D020 establece el cómputo por días naturales y sus fechas de referencia. Resuelven respectivamente SM-PENDING-001, SM-PENDING-002 y SM-PENDING-003 en su alcance sin aprobar globalmente este documento.
+Formalizar estados, transiciones, eventos/intenciones, guardas, evidencias, efectos, prohibiciones, revalidaciones y dependencias de las entidades aprobadas en [Domain Model v0.1 APPROVED](domain-model.md), usando como fuente principal [Business Rules v0.2 APPROVED](business-rules.md). Rigen [Constitution v1.0](constitution.md), [Product Definition v0.1](product.md) y [D001–D020](DECISIONS.md), sin reabrir decisiones. D018 incorpora la decisión humana sobre aceptación parcial, reserva directa y ausencia de división/agrupación automática V1; D019 fija las bases económicas reproducibles para promociones y cancelaciones; D020 establece el cómputo por días naturales y sus fechas de referencia. Las tres decisiones y las resoluciones históricas de SM-PENDING-001/002/003 forman parte expresa de la aprobación de este documento.
 
-Se han leído íntegramente esas fuentes, [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de este documento antes de editar. Las notas finales de documentos anteriores describen su propia fase; la coordinación actual identifica el paso vigente. Las elecciones de representación de este documento continúan DRAFT y requieren revisión humana global; las decisiones concretas D018–D020 ya están aprobadas. BR-PENDING-023/027/036 y DM-PENDING-001/003/004 conservan su formulación anterior en sus documentos de origen y se interpretan, para los alcances resueltos aquí, conforme a D018–D020 y §19; no bloquean las reglas V1 expresamente aprobadas.
+Se han leído íntegramente esas fuentes, [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de este documento antes de editar. Las notas finales de documentos anteriores describen su propia fase; la coordinación actual identifica el paso vigente. Las elecciones de representación de este documento están aprobadas tras revisión humana completa. BR-PENDING-023/027/036 y DM-PENDING-001/003/004 conservan su formulación anterior en sus documentos de origen y se interpretan, para los alcances resueltos aquí, conforme a D018–D020 y §19; no bloquean las reglas V1 expresamente aprobadas.
 
 Quedan fuera arquitectura, Specs, planes/tareas de implementación, SQL, tablas físicas, migraciones, APIs, UI, código, jobs, webhooks, motores técnicos de aprobación, automatizaciones concretas, implementación Supabase y despliegues. Las Task descritas son trabajo del negocio. No se diseña fiscalidad, contabilidad general ni event sourcing.
 
@@ -20,7 +21,7 @@ BR-xxx y DM-INV-xxx remiten a identificadores de las fuentes enlazadas; C Pxx y 
 
 ### 2.1. Semántica de la transición
 
-Una transición requiere origen válido, evento/hecho identificado, guardas materiales satisfechas y evidencia del efecto que se registra. Una intención inicia trabajo; no acredita su resultado. Las tablas son normativas dentro de este borrador; los diagramas son resúmenes y no autorizan saltos adicionales.
+Una transición requiere origen válido, evento/hecho identificado, guardas materiales satisfechas y evidencia del efecto que se registra. Una intención inicia trabajo; no acredita su resultado. Las tablas son normativas dentro de este documento aprobado; los diagramas son resúmenes y no autorizan saltos adicionales.
 
 | Guarda común | Aplicación a todas las tablas |
 |---|---|
@@ -821,15 +822,15 @@ Tarifas, capacidades, fianzas, costes y parámetros de avisos ausentes son datos
 | §§16–18: dependencias, prohibiciones e historial | BR-HIST-001–005; BR-ID-001–002; BR-SEC-001–005; BR-INT-001–008 | DM-INV-047–052 |
 | §19: resoluciones y límites heredados | D018–D020; restantes BR-PENDING y DM-PENDING aplicables | SM-PENDING-001/002/003 resueltos expresamente; antecedentes delimitados en §19.2; demás límites conservados |
 
-C P01/P02 mantienen fuente canónica y autoridad externa/documental; P03/P04/P18/P19, fase DRAFT y verificación previa a aprobación; P05–P09/P20, veracidad, trazabilidad, independencia y cantidades/cálculos; P10–P12, privacidad y economía/secretos restringidos; P14/P15, auditoría y supervisión; P16, prohibición fiscal; P17, independencia de proveedores. P13 sigue vigente para una futura fase de datos, sin cambios de base de datos aquí.
+C P01/P02 mantienen fuente canónica y autoridad externa/documental; P03/P04/P18/P19, fase aprobada tras revisión humana y verificación previa; P05–P09/P20, veracidad, trazabilidad, independencia y cantidades/cálculos; P10–P12, privacidad y economía/secretos restringidos; P14/P15, auditoría y supervisión; P16, prohibición fiscal; P17, independencia de proveedores. P13 sigue vigente para una futura fase de datos, sin cambios de base de datos aquí.
 
-D001–D019 permanecen íntegros. D002/D005 no se desarrollan como arquitectura; D007/D014 no habilitan integraciones; D008/D013 no se presentan como validación fiscal; D010–D012, D015–D017 se aplican como límites de negocio, supervisión e historial. D018 registra aceptación parcial, reserva directa y regla normal V1; D019, bases económicas reproducibles; D020, cómputo por días naturales y referencias por alcance. Resuelven SM-PENDING-001/002/003 sin aprobar globalmente State Machines. D001–D019 no se modifican.
+D001–D019 permanecen íntegros. D002/D005 no se desarrollan como arquitectura; D007/D014 no habilitan integraciones; D008/D013 no se presentan como validación fiscal; D010–D012, D015–D017 se aplican como límites de negocio, supervisión e historial. D018 registra aceptación parcial, reserva directa y regla normal V1; D019, bases económicas reproducibles; D020, cómputo por días naturales y referencias por alcance. Sus resoluciones SM-PENDING-001/002/003 quedan incluidas en la aprobación global de State Machines. D001–D019 no se modifican.
 
 ### 20.2. Casos de contraste documental
 
 Son ejemplos de revisión de reglas, no pruebas de aplicación ejecutadas ni datos reales.
 
-| Caso | Resultado exigido por el borrador |
+| Caso | Resultado exigido por el documento aprobado |
 |---|---|
 | Cliente acepta versión vigente sin pagar | Puede acreditarse Ganada y preparar Booking; confirmación operacional espera su guarda económica y servicios críticos. |
 | Cliente selecciona una modalidad expresamente seleccionable de una versión vigente | Acceptance identifica exactamente esa modalidad y condiciones; el resto no queda contratado ni rechazado por inferencia. |
@@ -854,4 +855,4 @@ Son ejemplos de revisión de reglas, no pruebas de aplicación ejecutadas ni dat
 | Booking Finalizada con crítica abierta o factura pendiente | Evaluaciones independientes; no Closed sin tres cierres y guarda de incidencia. |
 | IA aprueba borrador o se cierra Task | IA no se autoautoriza; Human Approval solo humano. Task cerrada no prueba aceptación, pago ni ejecución. |
 
-Este documento queda **DRAFT v0.1**, pendiente de revisión humana. [Next Steps](NEXT-STEPS.md) debe limitar el siguiente paso a revisar y aprobar State Machines. architecture.md permanece bloqueado/no iniciado; no se avanza a otra fase por publicar este borrador.
+Este documento queda **APPROVED v0.1** por revisión humana de 2026-09-09. [Next Steps](NEXT-STEPS.md) identifica Architecture como siguiente fase, todavía no iniciada y condicionada a una nueva instrucción humana específica.
