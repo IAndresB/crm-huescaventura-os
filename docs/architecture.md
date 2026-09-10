@@ -1,10 +1,11 @@
 # CRM HUESCAVENTURA OS — Architecture
 
-Status: DRAFT
+Status: APPROVED
 Version: 0.1
 Last updated: 2026-09-10
+Approved: 2026-09-10
 
-Primera iteración pendiente de revisión humana. Las decisiones ARCH-DEC son propuestas de este borrador, no decisiones humanas APPROVED. Publicar este documento no aprueba Architecture ni autoriza iniciar SPEC 001, plan, tasks o implementación.
+Aprobación humana completada el 2026-09-10. ARCH-DEC-001 a ARCH-DEC-018 quedan aprobadas como decisiones arquitectónicas de Architecture v0.1. ARCH-PENDING-001 y ARCH-PENDING-002 permanecen abiertos: no bloquean el cierre de Architecture ni el inicio posterior de SPEC 001, pero cada uno bloquea exclusivamente el trabajo dependiente indicado en §18.1. Esta aprobación no inicia SPEC 001, plan, tasks ni implementación.
 
 ## 1. Propósito, autoridad y alcance
 
@@ -17,7 +18,7 @@ Fuentes leídas íntegramente antes de redactar:
 - [Business Rules v0.2 APPROVED](business-rules.md).
 - [Domain Model v0.1 APPROVED](domain-model.md), incluidos sus 52 DM-INV.
 - [State Machines v0.1 APPROVED](state-machines.md), aprobada el 2026-09-09, guardas G1–G6, dependencias y prohibiciones.
-- [D001–D020 APPROVED](DECISIONS.md), todas vigentes.
+- [D001–D021 APPROVED](DECISIONS.md), todas vigentes.
 - [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de Architecture como orientación/coordinación, sin autoridad para introducir reglas.
 
 La base documental verificada de main y origin/main antes de editar es 523809291bfa143f95c6926c3a12dbbccddc991f. El último commit de aprobación sigue siendo 393a105bafd1f541098706048ac571a130c50e5e, correspondiente a State Machines; no se sustituye por un commit de borrador.
@@ -36,7 +37,7 @@ Se propone un **monolito modular**, desplegable como una única aplicación web 
 
 La lógica de negocio, las autorizaciones y las mutaciones materiales se ejecutan en servidor. El cliente presenta información permitida y solicita operaciones; no acredita permisos, transiciones, cálculos definitivos ni ejecución por haberlos mostrado. Las lecturas, búsquedas, proyecciones y exportaciones también se filtran en servidor según finalidad y autorización.
 
-**Propuesta ARCH-DEC-018 — Framework de aplicación V1:** Next.js App Router será el framework de la aplicación CRM V1, desplegada en Vercel. Es una decisión arquitectónica que permanece **PROPUESTA EN DRAFT, pendiente de revisión humana**. Architecture no congela la versión concreta de Next.js; los componentes UI, contratos/API físicos y endpoints definitivos siguen fuera de alcance. Se mantiene el monolito modular con Vercel y Supabase: elegir Next.js no elimina los límites internos ni convierte componentes UI en dominio. La lógica de negocio sensible continúa en servidor y en la capa de aplicación; Server Actions y handlers HTTP actúan como interfaces según §6.
+**ARCH-DEC-018 — Framework de aplicación V1:** Next.js App Router será el framework de la aplicación CRM V1, desplegada en Vercel. Esta decisión arquitectónica queda **APPROVED** en Architecture v0.1. La versión concreta de Next.js no queda congelada; los componentes UI, contratos/API físicos y endpoints definitivos siguen fuera de alcance. Se mantiene el monolito modular con Vercel y Supabase: elegir Next.js no elimina los límites internos ni convierte componentes UI en dominio. La lógica de negocio sensible continúa en servidor y en la capa de aplicación; Server Actions y handlers HTTP actúan como interfaces según §6.
 
 No se incorporan microservicios, Kafka, RabbitMQ, event sourcing, CQRS complejo, Kubernetes, service mesh, locks distribuidos ni motores genéricos de workflow/BPM. Separar consultas de mutaciones por responsabilidad no crea un sistema CQRS independiente. V1 debe funcionar sin infraestructura distribuida adicional.
 
@@ -90,7 +91,7 @@ Las fórmulas, porcentajes, intervalos y excepciones siguen en las fuentes aprob
 
 Fuentes: C P01/P05–P07/P09/P20; D004; BR-GEN-008, BR-AVAIL-005, BR-INT-002; DM §§2/8/11/13.
 
-Supabase es el registro canónico del expediente CRM. Se propone que PostgreSQL conserve datos estructurados, versiones/snapshots, auditoría, Human Approvals, External Events normalizados, idempotencia, ejecuciones y trabajo pendiente. Supabase Auth aporta autenticación propuesta (§5); Supabase Storage es la opción prevista para objetos privados (§9).
+Supabase es el registro canónico del expediente CRM. PostgreSQL conservará conceptualmente datos estructurados, versiones/snapshots, auditoría, Human Approvals, External Events normalizados, idempotencia, ejecuciones y trabajo pendiente. Supabase Auth aporta la autenticación aprobada en Architecture v0.1 (§5); Supabase Storage es la opción prevista para objetos privados (§9).
 
 La recepción y normalización de mensajes/webhooks corresponden a adaptadores y capa servidor; Supabase conserva sus eventos, evidencias y resultados. Persistirlos allí no implica activar Edge Functions, un motor de automatización o productos adicionales. Los efectos solo se aplican mediante la capa de aplicación y sus guardas.
 
@@ -109,9 +110,9 @@ Interfaces, cachés y exportaciones derivan del registro canónico con sus permi
 
 Fuentes: C P10/P11/P15; D015; BR-SEC-001–004; DM §5.2 y DM-INV-050; SM G1/G3.
 
-**Propuesta ARCH-DEC-004:** utilizar Supabase Auth para identificar al único usuario operativo V1, Administrador / Propietario, y relacionar esa identidad autenticada con Internal User / CRM Actor. Esta selección forma parte del DRAFT; D004 por sí sola no la había aprobado.
+**ARCH-DEC-004:** utilizar Supabase Auth para identificar al único usuario operativo V1, Administrador / Propietario, y relacionar esa identidad autenticada con Internal User / CRM Actor. Esta decisión arquitectónica queda APPROVED en Architecture v0.1; D004 por sí sola no la había aprobado.
 
-Como requisito arquitectónico propuesto de ARCH-DEC-004, **en Production el usuario Administrador/Propietario deberá utilizar MFA cuando la capacidad de autenticación seleccionada lo soporte**. Supabase Auth continúa siendo la propuesta V1; MFA no introduce roles ni usuarios operativos adicionales. Development y Staging podrán tener una política proporcional, pero Production deberá contemplar MFA para el Administrador. La configuración concreta, factores admitidos, recuperación y políticas de sesión se definirán posteriormente. No se configura MFA ni se diseñan pantallas o flujos UI de MFA en esta fase.
+Como requisito arquitectónico de ARCH-DEC-004, **en Production el usuario Administrador/Propietario deberá utilizar MFA cuando la capacidad de autenticación seleccionada lo soporte**. Supabase Auth continúa siendo la autenticación V1 aprobada; MFA no introduce roles ni usuarios operativos adicionales. Development y Staging podrán tener una política proporcional, pero Production deberá contemplar MFA para el Administrador. La configuración concreta, factores admitidos, recuperación y políticas de sesión se definirán posteriormente. No se configura MFA ni se diseñan pantallas o flujos UI de MFA en esta fase.
 
 El servidor verifica la autenticación y la habilitación vigente del actor antes de permitir lecturas o mutaciones internas. Estar autenticado, conocer un identificador o aparecer como Contact/Provider no otorga acceso. La identidad de autenticación, el actor del dominio y sus facultades se distinguen; no se deducen permisos de datos editables por el cliente ni de un rol solicitado por este.
 
@@ -419,14 +420,14 @@ Las fronteras de módulos, persistencia e integración permiten evolución poste
 
 V1 funciona con la aplicación modular, Supabase, objetos privados y ejecución programada sencilla; no exige esos componentes futuros. La ampliación de usuarios, autonomía IA, fiscalidad o capacidades de integración conserva sus decisiones/validaciones previas y no queda aprobada por un punto de extensión.
 
-## 17. ARCH-DEC — Decisiones arquitectónicas propuestas
+## 17. ARCH-DEC — Decisiones arquitectónicas aprobadas
 
-**Estado de todas las filas: PROPUESTA EN DRAFT, pendiente de revisión humana.** Los identificadores son estables y no equivalen a D001–D020 ni se incorporan como APPROVED a DECISIONS.md. Cuando desarrollan un límite ya aprobado, solo la solución técnica propuesta sigue pendiente; el límite de negocio no se reabre.
+**Estado de todas las filas: APPROVED en Architecture v0.1 por revisión humana de 2026-09-10.** Los identificadores son estables y se referencian en D021; no sustituyen D001–D020 ni reabren sus límites. Cuando desarrollan un límite ya aprobado, la solución arquitectónica queda aprobada dentro de esta versión y el límite de negocio no se reabre.
 
-| Identificador y título | Propuesta y motivo | Desarrollo / fundamento |
+| Identificador y título | Decisión y motivo | Desarrollo / fundamento |
 |---|---|---|
 | ARCH-DEC-001 — Monolito modular V1 | Una aplicación principal desplegable en Vercel con módulos internos; simplicidad y evolución sin microservicios. | §§2–3; D005/D006, C P17. |
-| ARCH-DEC-002 — Responsabilidades de Supabase | Registro canónico estructurado, autenticación propuesta, soporte de autorización, objetos privados y persistencia de auditoría/eventos/idempotencia/jobs. | §§4–5/9–10; D004, C P01/P10/P14. |
+| ARCH-DEC-002 — Responsabilidades de Supabase | Registro canónico estructurado, autenticación aprobada en Architecture v0.1, soporte de autorización, objetos privados y persistencia de auditoría/eventos/idempotencia/jobs. | §§4–5/9–10; D004, C P01/P10/P14. |
 | ARCH-DEC-003 — Separación canónico / externo / evidencia / derivado | Autoridad y procedencia explícitas; las copias/proyecciones no sustituyen hechos. | §4; C P01/P05, DM §§2/13. |
 | ARCH-DEC-004 — Supabase Auth y autorización V1 simplificada | Supabase Auth para el único CRM Actor Administrador/Propietario, controles servidor/base de datos y MFA obligatorio en Production cuando la capacidad seleccionada lo soporte; roles futuros inactivos. Configuración, factores, recuperación y sesiones se definirán después. | §§5/14; D015, C P10/P11. |
 | ARCH-DEC-005 — Server Actions para CRM + HTTP ingress para externos | Server Actions de Next.js App Router como interfaz principal de mutación interna cuando corresponda y handlers HTTP específicos para webhooks/integraciones, ambos subordinados a la capa de aplicación. | §§2/6; ARCH-DEC-018, SM G1–G6. Sin contratos/API físicos ni endpoints definitivos. |
@@ -442,7 +443,7 @@ V1 funciona con la aplicación modular, Supabase, objetos privados y ejecución 
 | ARCH-DEC-015 — Jobs/outbox persistidos sin broker externo V1 | Trabajo duradero en Supabase y ejecutores sencillos, reintentos seguros y fallos visibles. | §10; BR-AUTO-001–002. |
 | ARCH-DEC-016 — Auditoría con historial/versiones, no event sourcing | Estado vigente más snapshots, eventos/cambios, ejecuciones, aprobaciones y evidencias; timeline derivada. | §13; C P06/P07, DM §8, SM §18. |
 | ARCH-DEC-017 — Development / Staging / Production separados | Supabase, secretos y pruebas de integración aislados, manteniendo Work Local y Vercel. | §16.2; D002/D005, C P10/P12/P13. |
-| ARCH-DEC-018 — Framework de aplicación V1 | Next.js App Router será el framework del CRM V1 desplegado en Vercel. PROPUESTA EN DRAFT, pendiente de revisión humana; sin congelar versión concreta ni definir UI o contratos/API físicos. Mantiene el monolito modular y la lógica sensible en la capa de aplicación en servidor. | §§2/6; D005, C P10/P17. |
+| ARCH-DEC-018 — Framework de aplicación V1 | Next.js App Router será el framework del CRM V1 desplegado en Vercel. APPROVED en Architecture v0.1; sin congelar versión concreta ni definir UI o contratos/API físicos. Mantiene el monolito modular y la lógica sensible en la capa de aplicación en servidor. | §§2/6; D005, C P10/P17. |
 
 ## 18. ARCH-PENDING y pendientes heredados
 
@@ -452,6 +453,8 @@ V1 funciona con la aplicación modular, Supabase, objetos privados y ejecución 
 |---|---|---|
 | **ARCH-PENDING-001 — Proveedor(es) definitivos de Telefonía IA y WhatsApp** | BR-PENDING-001, BR-PENDING-035 y D014. Falta comparación verificable y elección humana por canal; la prioridad nº1 ya está aprobada. Los adaptadores separados comparten contexto CRM/timeline, sin exigir proveedor común: puede haber uno para ambos canales o proveedores diferentes. | Antes de implementar, comparar/probar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades reales/proveedor adecuado de WhatsApp. Evaluar capacidad, coste, facilidad de automatización, fiabilidad e integración de cada canal, transcripción y contexto cuando correspondan. No forzar una solución unificada técnicamente o económicamente peor; no se elige ningún proveedor ni se declara probada la comparativa. |
 | **ARCH-PENDING-002 — RPO / RTO de producción** | Falta decisión humana sobre pérdida máxima de datos, tiempo máximo de indisponibilidad y coste/complejidad aceptables de recuperación. | Definir objetivos y contrastar capacidad/coste de backup-restauración antes de aceptar producción. Mientras tanto siguen exigidos backups, restauración y prueba periódica verificables; no se asignan cifras. |
+
+Ambos pendientes permanecen **PENDING** y no bloquean el cierre de Architecture ni el inicio posterior de SPEC 001. ARCH-PENDING-001 bloquea exclusivamente la selección o implementación dependiente de Telefonía IA y WhatsApp. ARCH-PENDING-002 bloquea exclusivamente la aceptación o configuración definitiva de recuperación y continuidad de Production. Ninguno queda resuelto por esta aprobación.
 
 ARCH-PENDING-001 es la referencia arquitectónica solicitada del mismo asunto existente, no otra selección paralela: su futura resolución deberá coordinar BR-PENDING-001/035 sin declarar resueltas capacidades ajenas a la evidencia aportada.
 
@@ -492,7 +495,7 @@ D018, D019 y D020 ya resuelven sus alcances V1 respecto a BR-PENDING-027/023/036
 | P16 | §§8.6/14/18: no facturas legales/numeración fiscal ni validación jurídica implícita. |
 | P17 | §§2/7–8/16: módulos y adaptadores sustituibles, contratos futuros explícitos. |
 | P18 | §§16/19.4: validación proporcional exigida; revisión documental distinta de pruebas de aplicación. |
-| P19 | §§1/17–19 y coordinación: DRAFT y limitaciones explícitos, sin aprobación simulada. |
+| P19 | §§1/17–19 y coordinación: aprobación trazable y limitaciones explícitas, sin ampliar el alcance. |
 | P20 | §§3–4/12–13/16: componentes/versiones/cálculos reproducibles; D019 conservada. |
 
 ### 19.2. Contraste con D001–D020
@@ -535,7 +538,7 @@ D018, D019 y D020 ya resuelven sus alcances V1 respecto a BR-PENDING-027/023/036
 
 ### 19.4. Resultado y casos de contraste
 
-La revisión documental no detecta contradicciones abiertas con las fuentes APPROVED. Las diferencias históricas de estado/pendientes se interpretan según §1 y SM §19.2; no se modifican fuentes aprobadas ni DECISIONS.md. No se añaden reglas de negocio, permisos, condiciones fiscales o decisiones humanas aprobadas.
+La revisión documental no detecta contradicciones abiertas con las fuentes APPROVED. Las diferencias históricas de estado/pendientes se interpretan según §1 y SM §19.2; D021 registra la aprobación de Architecture y no duplica sus 18 decisiones en DECISIONS.md. No se añaden reglas de negocio, permisos, condiciones fiscales ni decisiones fuera de ARCH-DEC-001 a ARCH-DEC-018.
 
 | Caso revisado conceptualmente | Resultado exigido por la arquitectura |
 |---|---|
@@ -551,4 +554,4 @@ La revisión documental no detecta contradicciones abiertas con las fuentes APPR
 
 Estas son comprobaciones de coherencia documental, no pruebas ejecutadas de software, integraciones, seguridad o recuperación. No existe implementación acreditada por este documento.
 
-**Architecture v0.1 permanece DRAFT, pendiente de revisión humana; ARCH-PENDING-001/002 siguen activos. SPEC 001 no se ha iniciado. La siguiente acción es revisar este borrador, sin avanzar automáticamente.**
+**Architecture v0.1 está APPROVED por revisión humana de 2026-09-10. ARCH-PENDING-001/002 siguen activos y PENDING, sin bloquear el inicio posterior de SPEC 001, aunque cada uno bloquea exclusivamente su trabajo dependiente. SPEC 001 no se ha iniciado; la siguiente acción queda preparada, pero requiere instrucción humana expresa.**
