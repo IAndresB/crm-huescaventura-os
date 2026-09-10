@@ -41,7 +41,7 @@ Last updated: 2026-09-10
 
 ## Last Approved Commit
 
-- 7d3a63ff47f841fc288cce63f1d5263d6a9975ac — docs: approve architecture v0.1
+- 91fc7527af9fd529e475116d1d212fd2328994d9 — docs: approve spec 001 core crm v0.1
 
 ## Notes
 
