@@ -2,19 +2,20 @@
 
 ## 1. Status / Metadata / Approval
 
-Status: DRAFT
+Status: APPROVED
 Version: 0.1
 Created: 2026-09-10
 Last updated: 2026-09-10
+Approved: 2026-09-10
 Phase: 6 — SPEC 001 Core CRM
-Progress: IN PROGRESS — borrador completo pendiente de revisión humana
-Approval: NOT APPROVED — sin aprobación humana de esta Spec
-Ready for plan.md: NO — requiere revisión y aprobación humana posterior
+Progress: COMPLETED
+Approval: APPROVED — human review
+Ready for plan.md: YES
 Implementation: NOT STARTED
 
-Repositorio: IAndresB/crm-huescaventura-os. Base documental contrastada: `70921fa7a2407043bc7f4e3099cfeebe5590fc3f`, coincidente en main y origin/main antes de redactar. Última aprobación documental: Architecture v0.1, commit `7d3a63ff47f841fc288cce63f1d5263d6a9975ac`, registrada por D021. Publicar este DRAFT no constituye aprobación ni inicio de otra fase.
+Repositorio: IAndresB/crm-huescaventura-os. Base documental contrastada: `70921fa7a2407043bc7f4e3099cfeebe5590fc3f`, coincidente en main y origin/main antes de redactar. Architecture v0.1 fue aprobada en el commit `7d3a63ff47f841fc288cce63f1d5263d6a9975ac`, registrada por D021. La revisión humana de 2026-09-10 aprueba exactamente el contenido publicado de SPEC 001 v0.1 y queda registrada por D022; esta aprobación no inicia plan.md ni otra fase.
 
-Los DEBE/NO DEBE expresan el comportamiento propuesto para verificación y posterior aprobación de SPEC 001; no afirman funcionalidades implementadas. Las obligaciones de las fuentes APPROVED siguen vigentes. Las Task del negocio son distintas de [tasks.md](tasks.md), que continúa como placeholder no iniciado, igual que [plan.md](plan.md).
+Los DEBE/NO DEBE expresan el comportamiento aprobado de SPEC 001; no afirman funcionalidades implementadas. Las obligaciones de las fuentes APPROVED siguen vigentes. Las Task del negocio son distintas de [tasks.md](tasks.md), que continúa como placeholder no iniciado, igual que [plan.md](plan.md).
 
 ## 2. Purpose
 
@@ -37,9 +38,9 @@ Fuentes leídas íntegramente y contrastadas antes de redactar:
 | D | [DECISIONS](../../docs/DECISIONS.md), D001–D021 APPROVED y vigentes | Concreciones humanas y alcance exacto de sus resoluciones. |
 | Coordinación | [PROJECT-STATUS](../../docs/PROJECT-STATUS.md), [NEXT-STEPS](../../docs/NEXT-STEPS.md), [README](../../README.md), Spec y placeholders previos | Fase y estado del trabajo; no crean reglas de negocio ni aprobaciones. |
 
-Se respeta BR-GOV-001: Constitución → decisiones aprobadas / producto → reglas de negocio → documentos posteriores. DM, SM y ARCH desarrollan sus ámbitos; una Spec DRAFT no modifica ninguna fuente APPROVED. Las tablas normativas de SM prevalecen sobre sus diagramas resumidos. Una contradicción real no resuelta requiere decisión humana y detiene solo su parte material.
+Se respeta BR-GOV-001: Constitución → decisiones aprobadas / producto → reglas de negocio → documentos posteriores. DM, SM y ARCH desarrollan sus ámbitos; esta Spec no modifica ninguna fuente APPROVED. Las tablas normativas de SM prevalecen sobre sus diagramas resumidos. Una contradicción real no resuelta requiere decisión humana y detiene solo su parte material.
 
-D018 concreta aceptación parcial seleccionable, reserva directa trazable y unidad normal V1. D019 concreta bases económicas reproducibles y determinación explícita cuando falta atribución verificable. D020 concreta días naturales y referencias por alcance. Se aplican junto con SM §19.2 a los antecedentes BR-PENDING-027/023/036 y DM-PENDING-001/003/004. SM-PENDING-001/002/003 son históricos resueltos; no queda ninguno activo. Los textos de fin de fase y los Impact históricos de decisiones anteriores no describen la fase actual ni reabren decisiones. D021 aprueba Architecture; esta ejecución solo redacta y publica SPEC 001 DRAFT.
+D018 concreta aceptación parcial seleccionable, reserva directa trazable y unidad normal V1. D019 concreta bases económicas reproducibles y determinación explícita cuando falta atribución verificable. D020 concreta días naturales y referencias por alcance. Se aplican junto con SM §19.2 a los antecedentes BR-PENDING-027/023/036 y DM-PENDING-001/003/004. SM-PENDING-001/002/003 son históricos resueltos; no queda ninguno activo. Los textos de fin de fase y los Impact históricos de decisiones anteriores no describen la fase actual ni reabren decisiones. D021 aprueba Architecture y D022 registra la aprobación de SPEC 001 v0.1 sin iniciar plan.md.
 
 ## 4. SPEC 001 Boundary / Definition of Core
 
@@ -774,9 +775,9 @@ Todas las familias BR aplicables están cubiertas: GOV, GEN, CON, LEAD, PROP, CO
 
 ## 29. Exit Criteria — Ready for plan.md
 
-La revisión documental del borrador no sustituye aprobación humana. Para declarar Ready for plan.md deben satisfacerse y revisarse todos los puntos siguientes; después hará falta autorización para iniciar esa fase.
+La revisión humana de 2026-09-10 ha confirmado los puntos siguientes y ha aprobado SPEC 001 v0.1. Ready for plan.md habilita únicamente que esa fase pueda autorizarse posteriormente; hace falta una instrucción humana distinta para iniciarla.
 
-| Criterio de salida | Evidencia del DRAFT / comprobación requerida |
+| Criterio de salida | Evidencia del documento aprobado / comprobación realizada |
 |---|---|
 | Alcance y exclusiones explícitos | §§4–6; Core interno sin convertir la Spec en todo el producto. |
 | Actores y confianza definidos | §§7/20; un Administrador V1 y facultades externas delimitadas. |
@@ -793,14 +794,14 @@ La revisión documental del borrador no sustituye aprobación humana. Para decla
 | Pendientes localizados sin reglas inventadas | §§26–27; D018–D020 resueltos y ARCH-PENDING conservados. |
 | Trazabilidad suficiente | §28 hacia P01–P20, Product, familias BR, 52 invariantes, SM, ARCH-DEC y D001–D021. |
 | Sin contradicciones conocidas con APPROVED | Contraste documental completo; cualquier hallazgo posterior debe resolverse humanamente en su parte. |
-| Aprobación humana explícita posterior | **PENDIENTE. No otorgada por esta ejecución, commit ni publicación.** |
+| Aprobación humana explícita posterior | **SATISFECHA el 2026-09-10 y registrada por D022.** |
 
-Resultado actual: **NO READY FOR plan.md**. SPEC 001 sigue IN PROGRESS / DRAFT a la espera de revisión humana. Los pendientes heredados bloquean solo sus ámbitos, pero tampoco su carácter no bloqueante convierte el borrador en aprobado. plan.md y tasks.md conservan sus placeholders sin iniciar; no hay implementación.
+Resultado actual: **READY FOR plan.md: YES**. SPEC 001 v0.1 está COMPLETED / APPROVED. Los pendientes heredados bloquean solo sus ámbitos y permanecen vigentes. plan.md y tasks.md conservan sus placeholders sin iniciar; no hay implementación.
 
 ## 30. Final Spec Status
 
-**SPEC 001 Core CRM — DRAFT v0.1 / IN PROGRESS / NOT APPROVED.** Borrador completo para revisión humana, publicado sin aprobarlo. No se detectan contradicciones sustantivas conocidas con las fuentes APPROVED tras el contraste documental; las menciones históricas resueltas se interpretan conforme a D018–D020 y SM §19.2. Los riesgos/dependencias pendientes son los localizados en §26 y los datos/configuración aún por verificar, sin proveedores ni garantías inventadas.
+**SPEC 001 Core CRM v0.1 — APPROVED / COMPLETED / READY FOR plan.md.** Aprobada por revisión humana de 2026-09-10 sobre el contenido publicado y revisado. No se detectan contradicciones sustantivas conocidas con las fuentes APPROVED tras el contraste documental; las menciones históricas resueltas se interpretan conforme a D018–D020 y SM §19.2. Los riesgos/dependencias pendientes son los localizados en §26 y los datos/configuración aún por verificar, sin proveedores ni garantías inventadas.
 
-Architecture v0.1 y ARCH-DEC-001–018 siguen APPROVED; D001–D021 siguen vigentes e intactas. ARCH-PENDING-001/002 siguen PENDING. SPEC-PENDING nuevos: ninguno. No se han ejecutado pruebas de software, integración, seguridad ni recuperación; los criterios son guiones verificables previos a implementación.
+Architecture v0.1 y ARCH-DEC-001–018 siguen APPROVED; D001–D021 siguen vigentes e intactas y D022 registra esta aprobación. ARCH-PENDING-001/002 siguen PENDING. SPEC-PENDING nuevos: ninguno. No se han ejecutado pruebas de software, integración, seguridad ni recuperación; los criterios son guiones verificables previos a implementación.
 
-**No se ha iniciado ni modificado plan.md, tasks.md ni implementación. No se autoriza avanzar a ninguna otra fase.**
+**No se ha iniciado ni modificado plan.md, tasks.md ni implementación. Iniciar plan.md requiere una instrucción humana posterior.**

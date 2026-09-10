@@ -169,3 +169,11 @@ Status: APPROVED
 Decision: Architecture v0.1 queda APPROVED tras revisión humana. ARCH-DEC-001 a ARCH-DEC-018 quedan aprobadas como decisiones arquitectónicas de esta versión, referenciadas en [architecture.md](architecture.md). ARCH-PENDING-001 y ARCH-PENDING-002 permanecen abiertos y PENDING.
 Reason: Registrar formalmente la aprobación humana de la fase Architecture sin duplicar sus decisiones técnicas ni iniciar la fase siguiente.
 Impact: Ambos pendientes son no bloqueantes para cerrar Architecture y para poder iniciar SPEC 001 posteriormente. ARCH-PENDING-001 bloquea únicamente la selección o implementación dependiente de Telefonía IA y WhatsApp. ARCH-PENDING-002 bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production. Esta decisión no inicia SPEC 001 ni autoriza implementación.
+
+## D022 — SPEC 001 Core CRM v0.1 aprobada
+
+Date: 2026-09-10
+Status: APPROVED
+Decision: SPEC 001 Core CRM v0.1 queda APPROVED tras revisión humana completa. Sus requisitos funcionales, criterios de aceptación, requisitos no funcionales, guardas, invariantes, fronteras, criterios de concurrencia/idempotencia, Human Approval, seguridad, economía, historial y trazabilidad constituyen la especificación autorizada del Core CRM V1 para derivar posteriormente plan.md. La aprobación de SPEC 001 NO inicia automáticamente plan.md, que necesita una instrucción humana posterior. ARCH-PENDING-001 y ARCH-PENDING-002 permanecen PENDING y los pendientes heredados conservan su alcance. No se ha aprobado ninguna selección de proveedor ni diseño físico de SQL, RLS, endpoints, UI o infraestructura. No se ha iniciado implementación.
+Reason: Cerrar formalmente la fase de especificación funcional/técnica verificable antes de planificación, conforme a la Constitución y al orden SDD aprobado.
+Impact: [specs/001-core-crm/spec.md](../specs/001-core-crm/spec.md) pasa de DRAFT a APPROVED v0.1 y SPEC 001 queda completada. La siguiente fase autorizable pasa a ser plan.md; plan.md, tasks.md e implementación continúan no iniciados hasta nueva instrucción humana. D001–D021 permanecen intactas.
