@@ -18,10 +18,10 @@ Fuentes leídas íntegramente antes de redactar:
 - [Business Rules v0.2 APPROVED](business-rules.md).
 - [Domain Model v0.1 APPROVED](domain-model.md), incluidos sus 52 DM-INV.
 - [State Machines v0.1 APPROVED](state-machines.md), aprobada el 2026-09-09, guardas G1–G6, dependencias y prohibiciones.
-- [D001–D021 APPROVED](DECISIONS.md), todas vigentes.
+- [D001–D020 APPROVED](DECISIONS.md), todas vigentes durante la redacción y revisión de Architecture. D021 registra posteriormente la aprobación humana de Architecture v0.1.
 - [README](../README.md), [Project Status](PROJECT-STATUS.md), [Next Steps](NEXT-STEPS.md) y el placeholder anterior de Architecture como orientación/coordinación, sin autoridad para introducir reglas.
 
-La base documental verificada de main y origin/main antes de editar es 523809291bfa143f95c6926c3a12dbbccddc991f. El último commit de aprobación sigue siendo 393a105bafd1f541098706048ac571a130c50e5e, correspondiente a State Machines; no se sustituye por un commit de borrador.
+Al comenzar la redacción de Architecture, la base documental verificada de main y origin/main era 523809291bfa143f95c6926c3a12dbbccddc991f y el último commit de aprobación era 393a105bafd1f541098706048ac571a130c50e5e, correspondiente a State Machines.
 
 Rige la Constitución y la autoridad documental definida en BR-GOV-001. Orden de trabajo: Constitution → Product → Business Rules → Domain Model → State Machines → Architecture → SPEC 001 → plan → tasks → implementación. Este documento desarrolla exclusivamente el paso 5 — Architecture de la coordinación posterior a Constitution.
 
@@ -460,7 +460,7 @@ ARCH-PENDING-001 es la referencia arquitectónica solicitada del mismo asunto ex
 
 ### 18.2. Heredados conservados sin nuevos identificadores
 
-| Referencias existentes | Frontera que conserva este borrador |
+| Referencias existentes | Frontera que conserva esta versión |
 |---|---|
 | BR-PENDING-021/022/033; DM-PENDING-002 | Fiscalidad/suplidos/Tararí, tipos fiscales y mandato efectivo pendientes de validación profesional y decisión correspondiente. Sin emisión/numeración fiscal, tipos inventados ni aceptación de mandato inexistente. |
 | BR-PENDING-014/015; DM-PENDING-005 | Retención y anonimización/eliminación: diseño compatible con políticas futuras autorizadas, sin plazos RGPD inventados. |
