@@ -38,7 +38,7 @@ Last updated: 2026-09-10
 
 ## Last Approved Commit
 
-- 393a105bafd1f541098706048ac571a130c50e5e — docs: approve state machines v0.1
+- 7d3a63ff47f841fc288cce63f1d5263d6a9975ac — docs: approve architecture v0.1
 
 ## Notes
 
