@@ -2,17 +2,18 @@
 
 ## 1. Estado, autoridad y prerrequisitos
 
-Status: DRAFT
+Status: APPROVED
 Version: 0.3
 Created: 2026-09-11
 Last updated: 2026-09-14
+Approved: 2026-09-14
 Phase: 7 — Plan
-Progress: IN PROGRESS — borrador completo, pendiente de revisión humana
-Approval: NOT APPROVED
-Ready for tasks.md: NO
+Progress: COMPLETED
+Approval: APPROVED — D034
+Ready for tasks.md: YES
 Implementation: NOT STARTED
 
-Este plan propone cómo implementar el Core interno definido por [SPEC 001](spec.md). Su publicación permite revisarlo; no aprueba el plan ni inicia [tasks.md](tasks.md), código, migraciones, infraestructura o despliegues. Los hitos de §9 son trabajo futuro, no tareas ejecutadas. Las Task del negocio no son las tareas SDD.
+Este plan aprobado define cómo implementar el Core interno de [SPEC 001](spec.md). Su aprobación cierra la fase 07 y permite autorizar posteriormente [tasks.md](tasks.md); no inicia esa fase, código, migraciones, infraestructura o despliegues. Los hitos de §9 son trabajo futuro, no tareas ejecutadas. Las Task del negocio no son las tareas SDD.
 
 ### 1.1. Base verificada
 
@@ -27,10 +28,10 @@ Repositorio: IAndresB/crm-huescaventura-os. Rama: main. Base inicial v0.1: 34670
 | [State Machines](../../docs/state-machines.md) | APPROVED v0.1; G1–G6, 148 transiciones y SM-FORB-01–SM-FORB-33. |
 | [Architecture](../../docs/architecture.md) | APPROVED v0.1, 2026-09-10; ARCH-DEC-001–ARCH-DEC-018. Aprobación [7d3a63f](https://github.com/IAndresB/crm-huescaventura-os/commit/7d3a63ff47f841fc288cce63f1d5263d6a9975ac), D021; registro d128292363f7664fc821f1999a7884aaa3870ca7 y limpieza editorial posterior 70921fa7a2407043bc7f4e3099cfeebe5590fc3f. |
 | [SPEC 001](spec.md) | APPROVED / COMPLETED v0.1, 2026-09-10, Ready for plan.md: YES. Aprobación [91fc752](https://github.com/IAndresB/crm-huescaventura-os/commit/91fc7527af9fd529e475116d1d212fd2328994d9), D022; coordinación 346707ee484cd10e777be830dd4cc77762bd876b. Corrección editorial de AC-084 autorizada por D024 el 2026-09-14, sin nueva aprobación global de SPEC. |
-| [DECISIONS](../../docs/DECISIONS.md) | D001–D025 conservadas; D026–D033 APPROVED por Andrés en esta revisión. D032 aprueba las nueve PLAN-DEC, sin aprobación global del plan. |
+| [DECISIONS](../../docs/DECISIONS.md) | D001–D033 conservadas; D034 APPROVED registra la aprobación formal del Plan SPEC 001 Core CRM v0.3. D032 mantiene aprobadas las nueve PLAN-DEC. |
 | [PROJECT-STATUS](../../docs/PROJECT-STATUS.md), [NEXT-STEPS](../../docs/NEXT-STEPS.md), [README](../../README.md), plan anterior | Coordinación y placeholder contrastados; no sustituyen aprobación ni crean reglas. |
 
-Las instrucciones humanas de 2026-09-11 y 2026-09-14 autorizan preparar, revisar y publicar esta fase documental, ahora v0.3. D023 y D025 concretan políticas de los requisitos aprobados, con la precedencia de BR-GOV-001; D024 autoriza únicamente la corrección editorial indicada de SPEC. Las fuentes anteriores conservan versiones e historia. Rigen Constitución → decisiones aprobadas / Product → Business Rules → DM / SM / Architecture → SPEC aprobada → plan y tareas. Las tablas normativas de SM prevalecen sobre sus diagramas. Una propuesta técnica de este DRAFT no modifica ninguna fuente APPROVED.
+Las instrucciones humanas de 2026-09-11 y 2026-09-14 autorizaron preparar, revisar, publicar y finalmente aprobar esta fase documental v0.3. D023 y D025 concretan políticas de los requisitos aprobados, con la precedencia de BR-GOV-001; D024 autoriza únicamente la corrección editorial indicada de SPEC. Las fuentes anteriores conservan versiones e historia. Rigen Constitución → decisiones aprobadas / Product → Business Rules → DM / SM / Architecture → SPEC aprobada → plan y tareas. Las tablas normativas de SM prevalecen sobre sus diagramas. La aprobación de este plan no modifica ninguna fuente APPROVED ni inicia una fase posterior.
 
 D018, D019 y D020 concretan respectivamente selección parcial/directa/unidad V1, bases económicas y días naturales. SM-PENDING-001/002/003 son históricos resueltos; BR-PENDING-027/023/036 y DM-PENDING-001/003/004 se leen con esas resoluciones. No se reabren sus alcances ni se habilita split/merge extraordinario.
 
@@ -38,7 +39,7 @@ D018, D019 y D020 concretan respectivamente selección parcial/directa/unidad V1
 
 **PLAN-OBS-001 — RESOLVED:** v0.1 señaló el literal «Sigue DRAFT/NOT APPROVED» de AC-084, incompatible con la aprobación histórica registrada por D022. D024 autoriza su corrección editorial: publicar no equivale a aprobar ni inicia otra fase; cada avance requiere sus aprobaciones y autorizaciones. Se aplica en SPEC v0.1 sin alterar D022, los otros 91 AC ni los FR/NFR. Las frases de cierre anteriores conservan su contexto histórico, aclarado en SPEC §1.
 
-D023 resuelve los casos de precisión/redondeo indicados en §5.2; D025 fija la política de acceso de §6. Ninguna de estas decisiones acredita capacidad configurada, pruebas ejecutadas, aprobación de las nueve PLAN-DEC o aprobación global de este plan. En v0.3, D026–D033 completan las decisiones posteriores y D032 sí aprueba las nueve PLAN-DEC; el plan permanece NOT APPROVED. §12 conserva el historial y los bloqueos técnicos restantes.
+D023 resuelve los casos de precisión/redondeo indicados en §5.2; D025 fija la política de acceso de §6. Ninguna de estas decisiones acredita capacidad configurada o pruebas ejecutadas. En v0.3, D026–D033 completan las decisiones posteriores, D032 aprueba las nueve PLAN-DEC y D034 aprueba formalmente el plan tras la revisión final de e902220b96a7df36454a984531c27c2f14d14529. §12 conserva el historial y los bloqueos técnicos restantes.
 
 ## 2. Objetivo, alcance y exclusiones
 
@@ -46,7 +47,7 @@ El resultado previsto es un Core que, mediante operaciones internas autorizadas,
 
 Se incluyen los ámbitos de SPEC §§4–5 y sus controles transversales: identidades, catálogo mínimo versionado, comercial, cantidades por servicio/noche, operación, economía operativa, modificaciones, coordinación, evidencias, supervisión y fronteras genéricas. La entrada manual autorizada permite acreditar hechos externos sin conector. La salida puede ser una intención pendiente; nunca equivale a entrega, pago o aceptación externos.
 
-El plan desarrolla mecanismos, responsabilidades, contratos lógicos, secuencia y verificación. No contiene SQL/DDL, esquema físico de tablas/columnas/índices, políticas RLS concretas, payloads o endpoints definitivos, pantallas/componentes UI ni configuración ejecutable. Esos detalles solo se derivarán después de aprobar el plan y autorizar las fases siguientes, mediante cambios revisables que respeten la SPEC.
+El plan desarrolla mecanismos, responsabilidades, contratos lógicos, secuencia y verificación. No contiene SQL/DDL, esquema físico de tablas/columnas/índices, políticas RLS concretas, payloads o endpoints definitivos, pantallas/componentes UI ni configuración ejecutable. Esos detalles solo se derivarán al autorizar las fases siguientes, mediante cambios revisables que respeten la SPEC y este plan aprobado.
 
 Se mantienen las exclusiones de SPEC §6:
 
@@ -346,7 +347,7 @@ Los adaptadores futuros conservarán capacidad verificada, Source/Reference/Even
 
 ## 9. Secuencia de hitos, dependencias y criterios de salida
 
-**Todos los hitos están NOT STARTED.** Antes de implementar cualquiera hacen falta aprobación del plan, autorización de tasks.md y de la implementación correspondiente. Cada salida exige pruebas de su alcance y evidencia registrada; una parte pendiente no se declara terminada.
+**Todos los hitos están NOT STARTED.** El plan está aprobado; antes de implementar cualquiera hacen falta autorización de tasks.md y de la implementación correspondiente. Cada salida exige pruebas de su alcance y evidencia registrada; una parte pendiente no se declara terminada.
 
 Los controles B01/B07/B08 se incorporan desde el primer efecto, aunque su integración completa se verifique después. No existe una etapa funcional sin autorización, historial o idempotencia.
 
@@ -509,7 +510,7 @@ SM-FORB-01–SM-FORB-33 se contrastarán individualmente mediante la corresponde
 
 Revisión de esta versión: cobertura documental de 116/116 FR, 15/15 NFR, 92/92 AC, 52/52 DM-INV, 148/148 transiciones, 33/33 SM-FORB y 18/18 ARCH-DEC. Los recuentos expresan trazabilidad, no pruebas aprobadas. AC-084 aplica la corrección permanente D024 de §1.2; sus referencias y la conservación de los otros 91 AC se han comprobado documentalmente.
 
-Se han contrastado selección parcial/directa/unicidad (D018), bases económicas (D019), fechas locales/días completos (D020), precisión/céntimos (D023), corrección editorial (D024), política de acceso (D025), confirmación crítica/económica, dato nominal opcional, historial, tres cierres, aprobación sensible e incertidumbre. No se identifica una contradicción de negocio adicional que impida este DRAFT. D026–D033 completan las decisiones posteriores; las nueve PLAN-DEC están aprobadas, mientras las comprobaciones de §12 y la revisión global del plan siguen pendientes.
+Se han contrastado selección parcial/directa/unicidad (D018), bases económicas (D019), fechas locales/días completos (D020), precisión/céntimos (D023), corrección editorial (D024), política de acceso (D025), confirmación crítica/económica, dato nominal opcional, historial, tres cierres, aprobación sensible e incertidumbre. La revisión final no identificó defectos bloqueantes. D026–D033 completan las decisiones posteriores; las nueve PLAN-DEC y el plan global están aprobados, mientras las comprobaciones de §12 siguen pendientes en sus ámbitos localizados.
 
 ### 10.8. Trazabilidad de las decisiones humanas de v0.2 y v0.3
 
@@ -523,8 +524,9 @@ No se crean nuevos FR/NFR/AC ni se declaran pruebas pasadas por aprobar una pol�
 | D026/D027/D031 — acceso y recuperación completados | D025; D016; P10–P15; SPEC-FR-SEC-001/004/005; SPEC-NFR-002/004; AC-064/079/080/082. | §6, PT-11/PT-12, PLAN-AUTH-001–PLAN-AUTH-006; H0/H6. Políticas APPROVED, verificaciones NO EJECUTADAS. |
 | D028/D029 — negativos y repartos | D023/D019; BR-ECON-007; BR-PACK-004; P20; SPEC-FR-ECON-014; SPEC-NFR-013. | §5.2, PM-10–PM-13, PT-03/PT-05/PT-07; H1–H4 y regresión H6. Suma exacta, orden/restos/versionado; no alterar bases. |
 | D030 — semántica visual futura | Frontera de UI excluida de SPEC 001. | Registrar para futura Spec de interfaz; sin nuevos FR/AC Core, componentes ni estilos. |
-| D032 — nueve PLAN-DEC aprobadas | ARCH-DEC-001–ARCH-DEC-018; §3.2; AC-084/D024. | Aprobación técnica explícita; plan global NOT APPROVED y hitos NOT STARTED. |
+| D032 — nueve PLAN-DEC aprobadas | ARCH-DEC-001–ARCH-DEC-018; §3.2; AC-084/D024. | Aprobación técnica explícita; D034 aprueba después el plan global. Hitos NOT STARTED. |
 | D033 — dirección web prevista | Architecture y entornos §11.1; frontera de fase. | crm.huescaventura.com en proyecto/despliegue separado de la web pública; sin DNS ni recursos ahora. |
+| D034 — aprobación formal del plan | C P02–P04/P18–P19; D023–D033; revisión final de e902220b96a7df36454a984531c27c2f14d14529. | §§1/12/13 y PT-13: cierra fase 07, habilita autorizar posteriormente tasks.md y mantiene pruebas, hitos e implementación sin ejecutar. |
 
 En sesiones se ensayarán: dos dispositivos activos admitidos; Mac/iPad inactivos mientras se usa iPhone, sin prolongar sus 7 días; pestaña que solo renueva token durante 7 días; acceso al alcanzar los límites; retorno que intenta actualizar actividad antes de autorizar; cierre global con JWT todavía válido, objeto/URL ya emitidos y peticiones concurrentes; autenticación solo con contraseña o solo con TOTP, ambas insuficientes para la nueva identificación exigida. Los ensayos de recuperación distinguirán contraseña guardada, contraseña perdida, factor disponible en otro dispositivo, restauración desde papel y pérdida de todos los medios.
 
@@ -579,7 +581,7 @@ Se contemplarán validación de acceso, lectura autorizada y operación controla
 | PLAN-PENDING-003 — PARTIALLY RESOLVED | Políticas completas APPROVED por D025/D026/D027/D031. Solo quedan PLAN-AUTH-001–PLAN-AUTH-006 PENDING / NO EJECUTADAS: capacidad/coste/configuración futura, medición humana por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass. | Bloquea declarar listo cualquier acceso real y preparación de Production H6. H0 puede verificar lo independiente en entorno aislado tras autorización de fase. No quedan elecciones humanas de política abiertas en este pendiente. |
 | PLAN-PENDING-004 — RESOLVED | D028 fija negativos nuevos simétricos y D029 repartos iguales/ponderados y negativos con orden/restos auditables; PM-10–PM-13. Se conserva la reversión exacta D023. | Se levanta el bloqueo de política monetaria de H1–H4/H6 en esos casos. Implementación/pruebas no ejecutadas. No determina bases fiscales o derechos: los pendientes heredados mantienen su ámbito sin abrir casos hipotéticos adicionales. |
 
-Las nueve PLAN-DEC están APPROVED por D032; el plan global sigue DRAFT / NOT APPROVED. D026/D027/D031 completan política de acceso y recuperación; D028/D029 completan negativos/repartos; D030 se reserva a la futura interfaz y D033 fija dirección prevista. Ninguna decisión acredita capacidad configurada ni habilita otra fase.
+Las nueve PLAN-DEC están APPROVED por D032 y el plan global está APPROVED por D034. D026/D027/D031 completan política de acceso y recuperación; D028/D029 completan negativos/repartos; D030 se reserva a la futura interfaz y D033 fija dirección prevista. La aprobación no acredita capacidad configurada ni inicia otra fase.
 
 Historial: v0.1 abrió 001/002/003. V0.2 resolvió 001 y 002 en alcance D023, mantuvo 003 parcialmente resuelto y abrió 004 para negativos/repartos no decididos. V0.3 resuelve 004 por D028/D029 y completa la política de 003 por D026/D027/D031; 003 conserva únicamente verificaciones técnicas. D001–D025 permanecen intactas como registro histórico.
 
@@ -597,7 +599,7 @@ Historial: v0.1 abrió 001/002/003. V0.2 resolvió 001 y 002 en alcance D023, ma
 
 Datos/configuración todavía ausentes: tarifas completas, capacidades/restricciones, vigencias, fianzas, costes de extras, parámetros de avisos/reintentos y zona/fecha de referencia pertinente. Bloquean únicamente su decisión o automatismo material en H1–H5 y el uso real correspondiente, con responsable de aportación/verificación Administrador. No son nuevos pendientes de política ni reciben valores ficticios.
 
-D018–D020 y los tres SM-PENDING históricos continúan resueltos. D023–D025 registran decisiones humanas concretas posteriores, sin crear SPEC-PENDING ni aprobar globalmente el plan. D032 aprueba posteriormente las nueve PLAN-DEC.
+D018–D020 y los tres SM-PENDING históricos continúan resueltos. D023–D033 registran decisiones humanas concretas posteriores sin crear SPEC-PENDING; D032 aprueba las nueve PLAN-DEC y D034 aprueba posteriormente el plan global.
 
 ### 12.3. Riesgos y respuesta prevista
 
@@ -614,12 +616,12 @@ D018–D020 y los tres SM-PENDING históricos continúan resueltos. D023–D025 
 
 ## 13. Salida de esta fase y circuito de coordinación
 
-Este documento queda **DRAFT v0.3, completo para revisión final humana, NOT APPROVED**. D026–D033 registran las nuevas decisiones y D032 aprueba expresamente PLAN-DEC-001–PLAN-DEC-009. La aprobación técnica no aprueba globalmente el plan. Las pruebas de aplicación, datos, seguridad, integración y recuperación siguen NO EJECUTADAS.
+Este documento queda **APPROVED / COMPLETED v0.3** por aprobación humana formal de Andrés el 2026-09-14, registrada en D034 tras la revisión final del commit e902220b96a7df36454a984531c27c2f14d14529. D023–D033 y PLAN-DEC-001–PLAN-DEC-009 continúan APPROVED. Las pruebas de aplicación, datos, Auth, seguridad, integración y recuperación siguen NO EJECUTADAS.
 
-Antes de aprobar el plan se revisarán alcance, hitos, matrices y pendientes. PLAN-PENDING-001/002/004 quedan resueltos en sus alcances; 003 conserva solo verificaciones técnicas antes de acceso real/H6. Los pendientes heredados mantienen sus bloqueos localizados. D030 espera su incorporación a una futura Spec de interfaz, fuera del Core.
+PLAN-PENDING-001/002/004 quedan resueltos en sus alcances; PLAN-PENDING-003 conserva solo verificaciones técnicas antes de acceso real/H6. Los pendientes heredados mantienen sus bloqueos localizados. D030 espera su incorporación a una futura Spec de interfaz, fuera del Core. La aprobación del plan no convierte ninguna prueba pendiente en satisfactoria.
 
-Esta entrega modifica únicamente plan.md, DECISIONS.md (D026–D033 añadidas), PROJECT-STATUS.md y NEXT-STEPS.md. D001–D025, SPEC 001 y las demás fuentes aprobadas permanecen intactas. Last Approved Commit registrará el commit de estas decisiones y de la aprobación técnica de las nueve PLAN-DEC, sin presentarlo como aprobación global del plan. SPEC conserva su aprobación 91fc7527af9fd529e475116d1d212fd2328994d9.
+El cierre modifica únicamente plan.md, DECISIONS.md mediante D034, PROJECT-STATUS.md y NEXT-STEPS.md. D001–D033, SPEC 001 y las demás fuentes aprobadas permanecen intactas. Last Approved Commit registrará el commit de aprobación mediante un segundo commit solo de coordinación. SPEC conserva su aprobación 91fc7527af9fd529e475116d1d212fd2328994d9.
 
-Se revisarán diff, alcance, estado y log antes del commit documental; un segundo commit solo de coordinación registrará su SHA. Publicación sin force push, contrastando commits, origin/main y remoto y preservando trabajo ajeno. La comparación desde 53557f3dc294e5410d69b9b9bff4b3135403475b identifica esta revisión v0.3.
+Se revisarán diff, alcance, estado y log antes del commit documental; un segundo commit solo de coordinación registrará su SHA. Publicación sin force push, contrastando commits, origin/main y remoto y preservando trabajo ajeno. La comparación desde e902220b96a7df36454a984531c27c2f14d14529 identifica este cierre.
 
-La siguiente acción es **revisión final de plan v0.3 por Andrés**. tasks.md conserva su placeholder sin modificar y la implementación no está iniciada. La siguiente fase requiere aprobación humana del plan e instrucción correspondiente.
+La siguiente fase autorizable es **08 — Tasks SPEC 001**. Continúa NOT STARTED: tasks.md conserva su placeholder sin modificar y requiere una instrucción humana posterior. La implementación también permanece NOT STARTED.

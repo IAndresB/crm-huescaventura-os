@@ -271,3 +271,11 @@ Status: APPROVED
 Decision: Andrés confirma: Se aprueba crm.huescaventura.com como dirección prevista del CRM: subdominio asociado a un proyecto/despliegue separado de la web pública. No utilizar huescaventura.com/crm ni comprar un dominio nuevo para este alcance. Esta decisión no autoriza configurar DNS, vincular dominio, crear proyectos ni desplegar durante esta fase. La dirección web es independiente del dominio de negocio de PLAN-DEC-001.
 Reason: Fijar destino previsto sin ejecutar configuración ni ampliar la fase documental.
 Impact: Plan §11.1 y coordinación; configuración, recursos y despliegue no iniciados. No aprueba globalmente el plan.
+
+## D034 — Plan SPEC 001 Core CRM v0.3 aprobado
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés aprueba formal y expresamente el Plan SPEC 001 Core CRM v0.3 después de la revisión final del commit de coordinación e902220b96a7df36454a984531c27c2f14d14529. La revisión no detectó defectos bloqueantes. PLAN-DEC-001–PLAN-DEC-009 y D023–D033 continúan APPROVED. PLAN-PENDING-003 y los pendientes heredados conservan exclusivamente sus bloqueos localizados; PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances.
+Reason: Cerrar formalmente la fase 07 — Plan con una base revisada, trazable y apta para derivar posteriormente las tareas de implementación.
+Impact: [plan.md](../specs/001-core-crm/plan.md) v0.3 pasa a APPROVED / COMPLETED, con Ready for tasks.md: YES e Implementation: NOT STARTED. La siguiente fase autorizable es 08 — Tasks SPEC 001. Esta decisión no inicia automáticamente tasks.md, implementación, código, UI, SQL, migraciones, configuración, infraestructura o despliegues; cada avance requiere la instrucción humana correspondiente. No acredita como ejecutadas las pruebas o verificaciones técnicas pendientes.
