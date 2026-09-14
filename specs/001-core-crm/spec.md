@@ -5,7 +5,7 @@
 Status: APPROVED
 Version: 0.1
 Created: 2026-09-10
-Last updated: 2026-09-10
+Last updated: 2026-09-14
 Approved: 2026-09-10
 Phase: 6 — SPEC 001 Core CRM
 Progress: COMPLETED
@@ -14,6 +14,8 @@ Ready for plan.md: YES
 Implementation: NOT STARTED
 
 Repositorio: IAndresB/crm-huescaventura-os. Base documental contrastada: `70921fa7a2407043bc7f4e3099cfeebe5590fc3f`, coincidente en main y origin/main antes de redactar. Architecture v0.1 fue aprobada en el commit `7d3a63ff47f841fc288cce63f1d5263d6a9975ac`, registrada por D021. La revisión humana de 2026-09-10 aprueba exactamente el contenido publicado de SPEC 001 v0.1 y queda registrada por D022; esta aprobación no inicia plan.md ni otra fase.
+
+Revisión editorial autorizada de 2026-09-14 — D024: AC-084 expresa ahora el control permanente de publicación, aprobación y autorización de fases. Se conservan APPROVED v0.1, la aprobación de 2026-09-10, D022 y su historial; los demás criterios y requisitos no cambian. Las menciones al plan no iniciado en las notas del cierre original describen aquel momento; el estado posterior se consulta en PROJECT-STATUS.md y NEXT-STEPS.md.
 
 Los DEBE/NO DEBE expresan el comportamiento aprobado de SPEC 001; no afirman funcionalidades implementadas. Las obligaciones de las fuentes APPROVED siguen vigentes. Las Task del negocio son distintas de [tasks.md](tasks.md), que continúa como placeholder no iniciado, igual que [plan.md](plan.md).
 
@@ -572,7 +574,7 @@ En casos de efecto material, además del resultado indicado se exige verificar h
 | AC-081 | Revisor autorizado investiga operación fallida usando referencia de petición/ejecución/evento. | Localiza alcance, intento, historia, aprobación y resultado sin usar log como prueba sustitutiva ni copiar secretos, URLs temporales o cuerpos completos al log. | SPEC-FR-HIST-001/006, SPEC-NFR-009–010. |
 | AC-082 | Entrada no verificada, adjunto innecesario o petición de contexto/secretos ajenos intenta atravesar frontera del Core. | Rechazo/aislamiento sin efectos ni evidencia válida; secreto no aparece en cliente/Git/logs y documento solo se entrega con autorización/finalidad. | SPEC-FR-INT-002, SPEC-FR-SEC-005–006. |
 | AC-083 | No está configurado adelanto de aviso, fecha dentro de 2–3 días o límite/pausa de reintento; se solicita automatismo. | Dato pendiente localizado; no fecha/frecuencia/número universal inventados; tareas y revisión independientes pueden continuar. | SPEC-FR-COORD-002–003, SPEC-FR-CONC-006. |
-| AC-084 | Se revisa el alcance publicado de SPEC 001 y se solicita dar por iniciado plan/tasks/implementación por haberse publicado. | Sigue DRAFT/NOT APPROVED; ninguna siguiente fase iniciada; no UI/SQL/RLS concreta/endpoints/proveedor/configuración/despliegue definidos. | SPEC-NFR-015; §§1/6/29–30. |
+| AC-084 | Se revisa el alcance publicado de SPEC 001 y se solicita dar por iniciado plan/tasks/implementación por haberse publicado. | Publicar no equivale a aprobar ni inicia automáticamente otra fase; cada avance requiere las aprobaciones y autorizaciones correspondientes. La publicación por sí sola no autoriza UI/SQL/RLS concreta/endpoints/proveedores/configuración/despliegue. | SPEC-NFR-015; §§1/6/29–30; D024. |
 | AC-085 | Se actualizan servicio, categoría/atributo, recomendación, unidad, forma de precio, Tariff/Pack/Promotion Version tras fijar propuesta; recomendación alta incumple requisito de elegibilidad. | Histórico sigue reproducible con versiones aplicadas; recomendación no permite compromiso objetivamente inelegible; personalización no obliga a maestro. | SPEC-FR-CAT-001–007, SPEC-FR-ECON-013, SPEC-NFR-013. |
 | AC-086 | Se intenta aceptar una versión sustituida/rechazada como actual y otra respuesta solo indica leído/silencio. | Revisión de contenido y cobertura antes de compromiso; cambio requiere nueva versión; leído/silencio no aceptación ni rechazo. | SPEC-FR-PROP-006–007, SPEC-FR-ACC-002. |
 | AC-087 | Communication aprobada carece de evidencia de envío; entra una respuesta por canal externo. | No Enviada/Recibida inferidas; entrada conserva original/vínculos sin borrador ficticio ni duplicación por contexto; respuesta se evalúa por alcance. | SPEC-FR-PROP-006, SPEC-FR-COORD-007, SPEC-FR-HIST-003. |

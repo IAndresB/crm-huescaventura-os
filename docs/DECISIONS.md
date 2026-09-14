@@ -177,3 +177,33 @@ Status: APPROVED
 Decision: SPEC 001 Core CRM v0.1 queda APPROVED tras revisión humana completa. Sus requisitos funcionales, criterios de aceptación, requisitos no funcionales, guardas, invariantes, fronteras, criterios de concurrencia/idempotencia, Human Approval, seguridad, economía, historial y trazabilidad constituyen la especificación autorizada del Core CRM V1 para derivar posteriormente plan.md. La aprobación de SPEC 001 NO inicia automáticamente plan.md, que necesita una instrucción humana posterior. ARCH-PENDING-001 y ARCH-PENDING-002 permanecen PENDING y los pendientes heredados conservan su alcance. No se ha aprobado ninguna selección de proveedor ni diseño físico de SQL, RLS, endpoints, UI o infraestructura. No se ha iniciado implementación.
 Reason: Cerrar formalmente la fase de especificación funcional/técnica verificable antes de planificación, conforme a la Constitución y al orden SDD aprobado.
 Impact: [specs/001-core-crm/spec.md](../specs/001-core-crm/spec.md) pasa de DRAFT a APPROVED v0.1 y SPEC 001 queda completada. La siguiente fase autorizable pasa a ser plan.md; plan.md, tasks.md e implementación continúan no iniciados hasta nueva instrucción humana. D001–D021 permanecen intactas.
+
+## D023 — Precisión y materialización monetaria en los casos acordados
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma conservar precisión interna y materializar importes visibles/cobrados a dos decimales. Para importes positivos exactamente a medio céntimo se redondea al céntimo superior: 10,005 → 10,01 EUR. Cada modalidad de pack calcula su total multiplicando el precio final por persona ya fijado a dos decimales por sus participantes: 100,01 × 10 = 1.000,10 EUR. Esto no autoriza redondeo comercial automático ni sustituye la fijación manual del precio comercial.
+
+En el anticipo se redondea el porcentaje correspondiente y se obtiene el saldo por diferencia con el total: total 1.000,01 EUR, anticipo 50 % de 500,01 EUR y saldo de 500,00 EUR. En devoluciones se redondea el derecho calculado y se obtiene la retención por diferencia con la base: base 100,01 EUR, devolución 50 % de 50,01 EUR y retención de 50,00 EUR. En cancelaciones de participaciones con precio por persona se calcula por participación y después se suma, sin exigir identificación nominal: tres participaciones de 100,01 EUR con devolución del 50 % generan 150,03 EUR. Las devoluciones parciales descuentan lo efectivamente devuelto del derecho fijado, sin recalcular porcentajes.
+
+Los servicios de precio fijo/grupal conservan su total original: no se prorratean ni se altera ese total por redondeos por persona. Anulaciones y ajustes inversos reproducen exactamente el importe original con signo contrario, con historial y motivo. Se preservan bases, componentes, precisión, diferencias y versión de cálculo. No se modifican costes, suplidos o derechos para cuadrar céntimos silenciosamente. Estos casos no se generalizan a otros repartos o políticas no aprobados.
+Reason: Resolver el alcance concretado de PLAN-PENDING-002 y hacer reproducibles los céntimos sin cambiar políticas comerciales, intervalos de cancelación o derechos.
+Impact: [plan.md](../specs/001-core-crm/plan.md) v0.2, §§3/5.2/7/9/10/12, aplica esta concreción de D010, D019, D020, BR-ECON-007, BR-PACK-004, SPEC-FR-ECON-014 y SPEC-NFR-013. PLAN-PENDING-002 queda RESOLVED en este alcance; casos materiales distintos se localizan en PLAN-PENDING-004. D019 sigue determinando la base, incluido el tratamiento de promociones y precios fijos; esta decisión no crea descuentos ni amplía derechos. D001–D022 y las fuentes anteriores conservan su historial. No se aprueba globalmente PLAN-DEC-006, las otras PLAN-DEC ni el plan, que sigue DRAFT / NOT APPROVED; no se inician tareas ni implementación.
+
+## D024 — Corrección editorial permanente de AC-084
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés autoriza sustituir el literal desactualizado DRAFT/NOT APPROVED de AC-084 por el control permanente de que publicar no equivale a aprobar ni inicia automáticamente otra fase: cada avance requiere las aprobaciones y autorizaciones correspondientes. La corrección se limita al criterio y sus referencias directamente afectadas.
+Reason: Resolver PLAN-OBS-001 / PLAN-PENDING-001 sin contradecir la aprobación documentada de SPEC 001 ni confundir publicación y autorización de fases.
+Impact: [spec.md](../specs/001-core-crm/spec.md), AC-084 y nota editorial de §1, conserva APPROVED v0.1, fecha y evidencia de aprobación de 2026-09-10, D022 intacta e historial en Git. No se reabre la aprobación de la SPEC ni se alteran otros criterios, FR, NFR o reglas. PLAN-PENDING-001 queda RESOLVED por la corrección autorizada. Esta decisión no aprueba el plan v0.2 ni las PLAN-DEC ni habilita tasks.md o implementación.
+
+## D025 — Acceso del Administrador y recuperación
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma un único Administrador, sin registro público y utilizable desde varios dispositivos, con contraseña y segundo factor TOTP. La duración máxima de sesión es de 30 días; tras 7 días sin utilizar el CRM se exige nueva identificación con contraseña y segundo factor. Inactividad significa ausencia de uso del CRM, no ausencia de renovación automática del token.
+
+Contraseñas de Apple es el gestor elegido; Andrés dispone de acceso desde iPhone y Mac/iPad. Durante implementación se verificará el acceso con segundo factor desde otro dispositivo. La clave de configuración TOTP tendrá copia de emergencia en papel, fuera de iCloud y protegida, y se verificará su recuperación antes del uso real. Se permitirá cerrar todas las sesiones desde otro dispositivo autorizado y se exigirá nueva identificación.
+Reason: Concretar la política de PLAN-PENDING-003 para el único usuario sin confundir elección humana, capacidad publicada del proveedor y mecanismos configurados o probados.
+Impact: [plan.md](../specs/001-core-crm/plan.md) v0.2, §§3/6/9/10/11/12, desarrolla D015, ARCH-DEC-004, SPEC-FR-SEC-001/004/005 y SPEC-NFR-002/004. La política queda acordada; PLAN-PENDING-003 se mantiene PARTIALLY RESOLVED por comprobaciones técnicas, coste, revocación efectiva y recuperación todavía pendientes antes de acceso real. El alcance de la inactividad entre varias sesiones/dispositivos y el canal/procedimiento de recuperación de contraseña cuando no esté disponible en el gestor aún requieren concreción; no se eligen por analogía. La copia TOTP no recupera una contraseña perdida ni acredita un canal alternativo o una desactivación autorizada de MFA. No se contrata ni configura nada, no se aprueba globalmente PLAN-DEC-007 ni las restantes PLAN-DEC ni el plan, y no se inicia tasks.md o implementación.
