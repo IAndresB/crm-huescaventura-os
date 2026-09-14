@@ -63,7 +63,7 @@ Last updated: 2026-09-14
 
 ## Last Approved Commit
 
-- 11457f8bd9d26273964e2c3e9ff05e29f3aeb201 — docs: record D026-D033 and draft plan v0.3. D026–D033 y PLAN-DEC-001–PLAN-DEC-009 APPROVED; plan v0.3 DRAFT / NOT APPROVED.
+- c2c908495afb8eacd39775f273585173533d6b51 — docs: approve plan spec 001 v0.3. D034 y Plan SPEC 001 Core CRM v0.3 APPROVED / COMPLETED.
 
 ## Notes
 
@@ -77,6 +77,6 @@ En v0.2, la única corrección en SPEC fue AC-084 y su referencia editorial/fech
 
 El plan conserva H0–H6 NOT STARTED y cobertura de 116 FR, 15 NFR, 92 AC, 52 DM-INV, 148 transiciones, 33 SM-FORB, 18 ARCH-DEC y P01–P20. D023–D034 añaden trazabilidad, decisiones y oráculos de cálculo/verificación de acceso. Los ejemplos y la cobertura se han revisado documentalmente, sin ejecutar pruebas de aplicación, Auth o recuperación. La inactividad nativa por refresh no acredita uso humano del CRM; los controles propuestos no están configurados.
 
-Last Approved Commit se actualizará mediante un segundo commit de coordinación para registrar el SHA que incorpora D034 y el cierre del plan. La aprobación histórica de SPEC 001 sigue identificada por 91fc7527af9fd529e475116d1d212fd2328994d9. No se crean SPEC-PENDING nuevos ni se inicia tasks.md, implementación, código, configuración, migraciones, infraestructura o despliegues.
+Last Approved Commit registra mediante este segundo commit de coordinación el SHA que incorpora D034 y el cierre del plan. La aprobación histórica de SPEC 001 sigue identificada por 91fc7527af9fd529e475116d1d212fd2328994d9. No se crean SPEC-PENDING nuevos ni se inicia tasks.md, implementación, código, configuración, migraciones, infraestructura o despliegues.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.
