@@ -63,7 +63,7 @@ Last updated: 2026-09-14
 
 ## Last Approved Commit
 
-- 6c54f412adf120381bba27134045e95bd718aabe — docs: record D023-D025 and draft plan v0.2. Aprobadas solo D023/D024/D025; plan v0.2 DRAFT / NOT APPROVED.
+- 11457f8bd9d26273964e2c3e9ff05e29f3aeb201 — docs: record D026-D033 and draft plan v0.3. D026–D033 y PLAN-DEC-001–PLAN-DEC-009 APPROVED; plan v0.3 DRAFT / NOT APPROVED.
 
 ## Notes
 
@@ -77,6 +77,6 @@ En v0.2, la única corrección en SPEC fue AC-084 y su referencia editorial/fech
 
 El plan conserva H0–H6 NOT STARTED y cobertura de 116 FR, 15 NFR, 92 AC, 52 DM-INV, 148 transiciones, 33 SM-FORB, 18 ARCH-DEC y P01–P20. D023–D033 añaden trazabilidad y oráculos de cálculo/verificación de acceso. Los ejemplos y la cobertura se han revisado documentalmente, sin ejecutar pruebas de aplicación, Auth o recuperación. La inactividad nativa por refresh no acredita uso humano del CRM; los controles propuestos no están configurados.
 
-Last Approved Commit conserva de momento el SHA anterior D023–D025; un segundo commit de coordinación registrará el SHA de D026–D033. Acreditará esas decisiones y las nueve PLAN-DEC, nunca aprobación global del plan; la aprobación histórica de SPEC 001 sigue identificada por 91fc7527af9fd529e475116d1d212fd2328994d9. No se crean SPEC-PENDING nuevos, no se inicia tasks.md, implementación, código, configuración, migraciones, infraestructura ni despliegues.
+Last Approved Commit registra el SHA de D026–D033 mediante este segundo commit de coordinación. Acredita esas decisiones y las nueve PLAN-DEC, nunca aprobación global del plan; la aprobación histórica de SPEC 001 sigue identificada por 91fc7527af9fd529e475116d1d212fd2328994d9. No se crean SPEC-PENDING nuevos, no se inicia tasks.md, implementación, código, configuración, migraciones, infraestructura ni despliegues.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.
