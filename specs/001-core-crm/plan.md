@@ -3,7 +3,7 @@
 ## 1. Estado, autoridad y prerrequisitos
 
 Status: DRAFT
-Version: 0.2
+Version: 0.3
 Created: 2026-09-11
 Last updated: 2026-09-14
 Phase: 7 — Plan
@@ -16,7 +16,7 @@ Este plan propone cómo implementar el Core interno definido por [SPEC 001](spec
 
 ### 1.1. Base verificada
 
-Repositorio: IAndresB/crm-huescaventura-os. Rama de trabajo: main. Base inicial de v0.1: 346707ee484cd10e777be830dd4cc77762bd876b. Base revisada para v0.2: [5531f69284ae38eea22d54f0b506ddc3a37ee83d](https://github.com/IAndresB/crm-huescaventura-os/commit/5531f69284ae38eea22d54f0b506ddc3a37ee83d), coincidente con origin/main tras fetch de 2026-09-14, sin cambios locales ni trabajo posterior. No se encontró AGENTS.md en el repositorio ni en sus directorios superiores.
+Repositorio: IAndresB/crm-huescaventura-os. Rama: main. Base inicial v0.1: 346707ee484cd10e777be830dd4cc77762bd876b; revisión v0.1: 5531f69284ae38eea22d54f0b506ddc3a37ee83d; v0.2 incorporó D023–D025 en 6c54f412adf120381bba27134045e95bd718aabe. Base revisada para v0.3: [53557f3dc294e5410d69b9b9bff4b3135403475b](https://github.com/IAndresB/crm-huescaventura-os/commit/53557f3dc294e5410d69b9b9bff4b3135403475b), coincidente con origin/main tras fetch de 2026-09-14, sin cambios locales ni trabajo posterior. No se encontró AGENTS.md aplicable.
 
 | Fuente vigente, leída y contrastada | Versión / evidencia |
 |---|---|
@@ -27,18 +27,18 @@ Repositorio: IAndresB/crm-huescaventura-os. Rama de trabajo: main. Base inicial 
 | [State Machines](../../docs/state-machines.md) | APPROVED v0.1; G1–G6, 148 transiciones y SM-FORB-01–SM-FORB-33. |
 | [Architecture](../../docs/architecture.md) | APPROVED v0.1, 2026-09-10; ARCH-DEC-001–ARCH-DEC-018. Aprobación [7d3a63f](https://github.com/IAndresB/crm-huescaventura-os/commit/7d3a63ff47f841fc288cce63f1d5263d6a9975ac), D021; registro d128292363f7664fc821f1999a7884aaa3870ca7 y limpieza editorial posterior 70921fa7a2407043bc7f4e3099cfeebe5590fc3f. |
 | [SPEC 001](spec.md) | APPROVED / COMPLETED v0.1, 2026-09-10, Ready for plan.md: YES. Aprobación [91fc752](https://github.com/IAndresB/crm-huescaventura-os/commit/91fc7527af9fd529e475116d1d212fd2328994d9), D022; coordinación 346707ee484cd10e777be830dd4cc77762bd876b. Corrección editorial de AC-084 autorizada por D024 el 2026-09-14, sin nueva aprobación global de SPEC. |
-| [DECISIONS](../../docs/DECISIONS.md) | D001–D022 conservadas; D023/D024/D025 APPROVED por Andrés el 2026-09-14: precisión monetaria, AC-084 y política de acceso. No aprueban globalmente el plan ni las nueve PLAN-DEC. |
+| [DECISIONS](../../docs/DECISIONS.md) | D001–D025 conservadas; D026–D033 APPROVED por Andrés en esta revisión. D032 aprueba las nueve PLAN-DEC, sin aprobación global del plan. |
 | [PROJECT-STATUS](../../docs/PROJECT-STATUS.md), [NEXT-STEPS](../../docs/NEXT-STEPS.md), [README](../../README.md), plan anterior | Coordinación y placeholder contrastados; no sustituyen aprobación ni crean reglas. |
 
-Las instrucciones humanas de 2026-09-11 y 2026-09-14 autorizan preparar, revisar y publicar esta fase documental, ahora v0.2. D023 y D025 concretan políticas de los requisitos aprobados, con la precedencia de BR-GOV-001; D024 autoriza únicamente la corrección editorial indicada de SPEC. Las fuentes anteriores conservan versiones e historia. Rigen Constitución → decisiones aprobadas / Product → Business Rules → DM / SM / Architecture → SPEC aprobada → plan y tareas. Las tablas normativas de SM prevalecen sobre sus diagramas. Una propuesta técnica de este DRAFT no modifica ninguna fuente APPROVED.
+Las instrucciones humanas de 2026-09-11 y 2026-09-14 autorizan preparar, revisar y publicar esta fase documental, ahora v0.3. D023 y D025 concretan políticas de los requisitos aprobados, con la precedencia de BR-GOV-001; D024 autoriza únicamente la corrección editorial indicada de SPEC. Las fuentes anteriores conservan versiones e historia. Rigen Constitución → decisiones aprobadas / Product → Business Rules → DM / SM / Architecture → SPEC aprobada → plan y tareas. Las tablas normativas de SM prevalecen sobre sus diagramas. Una propuesta técnica de este DRAFT no modifica ninguna fuente APPROVED.
 
 D018, D019 y D020 concretan respectivamente selección parcial/directa/unidad V1, bases económicas y días naturales. SM-PENDING-001/002/003 son históricos resueltos; BR-PENDING-027/023/036 y DM-PENDING-001/003/004 se leen con esas resoluciones. No se reabren sus alcances ni se habilita split/merge extraordinario.
 
-### 1.2. Resoluciones de la revisión v0.1
+### 1.2. Resoluciones e historial de revisión
 
 **PLAN-OBS-001 — RESOLVED:** v0.1 señaló el literal «Sigue DRAFT/NOT APPROVED» de AC-084, incompatible con la aprobación histórica registrada por D022. D024 autoriza su corrección editorial: publicar no equivale a aprobar ni inicia otra fase; cada avance requiere sus aprobaciones y autorizaciones. Se aplica en SPEC v0.1 sin alterar D022, los otros 91 AC ni los FR/NFR. Las frases de cierre anteriores conservan su contexto histórico, aclarado en SPEC §1.
 
-D023 resuelve los casos de precisión/redondeo indicados en §5.2; D025 fija la política de acceso de §6. Ninguna de estas decisiones acredita capacidad configurada, pruebas ejecutadas, aprobación de las nueve PLAN-DEC o aprobación global de este plan. §12 conserva el historial de PLAN-PENDING-001/002/003 y los bloqueos que realmente subsisten.
+D023 resuelve los casos de precisión/redondeo indicados en §5.2; D025 fija la política de acceso de §6. Ninguna de estas decisiones acredita capacidad configurada, pruebas ejecutadas, aprobación de las nueve PLAN-DEC o aprobación global de este plan. En v0.3, D026–D033 completan las decisiones posteriores y D032 sí aprueba las nueve PLAN-DEC; el plan permanece NOT APPROVED. §12 conserva el historial y los bloqueos técnicos restantes.
 
 ## 2. Objetivo, alcance y exclusiones
 
@@ -72,21 +72,21 @@ La aceptación técnica del Core no acreditará interfaces físicas, conectores 
 | ARCH-DEC-013, ARCH-DEC-014 | Idempotencia, concurrencia, unidad interna atómica y consistencia eventual externa. |
 | ARCH-DEC-017 | Development, Staging y Production separados; Work Local Mac permanece como entorno principal. |
 
-### 3.2. PLAN-DEC — propuestas técnicas para revisión
+### 3.2. PLAN-DEC — decisiones técnicas APPROVED
 
-**Las nueve PLAN-DEC siguen PROPOSED, no aprobadas globalmente.** D023 y D025 sí aprueban las políticas concretas que ahora delimitan PLAN-DEC-006/007; la elección técnica completa, su implementación y verificación siguen propuestas. D024 resuelve la corrección editorial. Estas tres decisiones humanas se registran en DECISIONS.md sin trasladar allí las nueve propuestas como aprobadas.
+**PLAN-DEC-001–PLAN-DEC-009: APPROVED por Andrés mediante D032.** La aprobación comprende las nueve decisiones técnicas de esta tabla, delimitadas por D023–D031. No aprueba globalmente plan.md ni acredita implementación, configuración o pruebas.
 
-| ID | Propuesta y motivo | Verificación / límite |
+| ID / estado | Decisión y motivo | Verificación / límite |
 |---|---|---|
-| PLAN-DEC-001 | TypeScript estricto y runtime Node.js para la capa servidor; dominio sin dependencias de Next.js, SDK o transporte. Interfaces de persistencia y adaptadores estrechas, sin framework de dominio adicional. | H0 comprueba compatibilidad de versiones soportadas, build y frontera servidor. Versiones exactas y lockfile se fijarán al iniciar la implementación autorizada; ninguna dependencia instalada ahora. |
-| PLAN-DEC-002 | Acceso a PostgreSQL desde repositorios de servidor con transacciones explícitas y un rol técnico limitado, distinto del propietario de tablas y sin BYPASSRLS. Datos Core en ámbito no expuesto a acceso directo del navegador; Auth no concede CRUD arbitrario. | §6 define contexto confiable por transacción y controles de datos. H0 debe demostrar que el canal API directo no elude reglas; no usar postgres/service_role como identidad ordinaria de negocio. |
-| PLAN-DEC-003 | Identidades técnicas estables, relaciones estructuradas y versiones inmutables. Snapshots para contenido aplicado; estado vigente con historial añadido en cada cambio material. | §5; ninguna bolsa JSON sustituye relaciones, cantidades, fondos o restricciones verificables. Sin cascadas destructivas de historia. |
-| PLAN-DEC-004 | Versión esperada para detectar edición obsoleta, restricciones de unicidad y serialización corta en PostgreSQL para fondos, conversión, aprobación y cierre. | §7; bloquear también la raíz compartida que protege un cálculo agregado, no solo filas hijas existentes. Sin locks distribuidos. |
-| PLAN-DEC-005 | Human Approval refiere una versión inmutable del contenido/efecto y su alcance; identidad de efecto separada de cada intento. | §8; no hace falta una firma legal ni un hash para sustituir la evidencia. Cambio material crea nueva revisión; aprobación no es reutilizable para otro efecto. |
-| PLAN-DEC-006 | Propuesta técnica de aritmética decimal exacta, cantidades con unidad y materialización reproducible conforme a la política APPROVED de D023. | §5.2 y casos PM-01–PM-09; sin coma flotante binaria para importes definitivos. PLAN-PENDING-002 resuelto en alcance D023; otros casos materiales permanecen en PLAN-PENDING-004. La aprobación de la política no aprueba globalmente esta PLAN-DEC. |
-| PLAN-DEC-007 | Propuesta técnica de integrar Supabase Auth, CRM Actor y controles de sesión para cumplir la política APPROVED de D025: único Administrador, varios dispositivos, contraseña/TOTP y límites 30/7 días. | §6: uso real del CRM, revocación y recuperación; comprobaciones PLAN-AUTH-001–PLAN-AUTH-006 y PLAN-PENDING-003 antes del acceso real. Contraseñas de Apple y copia TOTP en papel son elecciones acordadas, no configuración probada. No se aprueba globalmente esta PLAN-DEC. |
-| PLAN-DEC-008 | Pruebas de dominio deterministas, integración con PostgreSQL/Auth/Storage aislados y pruebas de contratos de aplicación; dobles controlados para canales externos. | §10; no sustituir pruebas de permisos, concurrencia o rollback por mocks. Sin exigir UI/conectores fuera de alcance para verificar el Core. |
-| PLAN-DEC-009 | Proyecciones consultables desde datos canónicos; empezar con lecturas autorizadas y reconstruibles, sin caché compartida de expedientes o sesiones. Jobs acotados e intenciones externas conservadas pero sin ejecutores de conectores reales. | §8; optimización solo tras medir. El scheduler y sus parámetros operativos se verificarán en la fase autorizada; no se presupone entrega ni frecuencia. |
+| PLAN-DEC-001 — APPROVED (D032) | TypeScript estricto y runtime Node.js para la capa servidor; lógica y reglas del dominio de negocio técnicamente independientes de Next.js, SDK o transporte (no se refiere a la dirección web). Interfaces de persistencia y adaptadores estrechas, sin framework de dominio adicional. | H0 comprueba compatibilidad de versiones soportadas, build y frontera servidor. Versiones exactas y lockfile se fijarán al iniciar la implementación autorizada; ninguna dependencia instalada ahora. |
+| PLAN-DEC-002 — APPROVED (D032) | Acceso a PostgreSQL desde repositorios de servidor con transacciones explícitas y un rol técnico limitado, distinto del propietario de tablas y sin BYPASSRLS. Datos Core en ámbito no expuesto a acceso directo del navegador; Auth no concede CRUD arbitrario. | §6 define contexto confiable por transacción y controles de datos. H0 debe demostrar que el canal API directo no elude reglas; no usar postgres/service_role como identidad ordinaria de negocio. |
+| PLAN-DEC-003 — APPROVED (D032) | Identidades técnicas estables, relaciones estructuradas y versiones inmutables. Snapshots para contenido aplicado; estado vigente con historial añadido en cada cambio material. | §5; ninguna bolsa JSON sustituye relaciones, cantidades, fondos o restricciones verificables. Sin cascadas destructivas de historia. |
+| PLAN-DEC-004 — APPROVED (D032) | Versión esperada para detectar edición obsoleta, restricciones de unicidad y serialización corta en PostgreSQL para fondos, conversión, aprobación y cierre. | §7; bloquear también la raíz compartida que protege un cálculo agregado, no solo filas hijas existentes. Sin locks distribuidos. |
+| PLAN-DEC-005 — APPROVED (D032) | Human Approval refiere una versión inmutable del contenido/efecto y su alcance; identidad de efecto separada de cada intento. | §8; no hace falta una firma legal ni un hash para sustituir la evidencia. Cambio material crea nueva revisión; aprobación no es reutilizable para otro efecto. |
+| PLAN-DEC-006 — APPROVED (D032) | Aritmética decimal exacta, cantidades con unidad y materialización reproducible conforme a la política APPROVED de D023/D028/D029. | §5.2 y casos PM-01–PM-13; sin coma flotante binaria para importes definitivos. PLAN-PENDING-002 resuelto por D023 y PLAN-PENDING-004 resuelto por D028/D029; implementación pendiente. |
+| PLAN-DEC-007 — APPROVED (D032) | Integrar Supabase Auth, CRM Actor y controles de sesión para cumplir la política APPROVED de D025/D026/D027/D031: único Administrador, varios dispositivos, contraseña/TOTP y límites 30/7 días. | §6: uso real del CRM, revocación y recuperación; comprobaciones PLAN-AUTH-001–PLAN-AUTH-006 y PLAN-PENDING-003 antes del acceso real. Contraseñas de Apple y copia TOTP en papel son elecciones acordadas, no configuración probada. Decisión técnica aprobada por D032; no equivale a capacidad verificada. |
+| PLAN-DEC-008 — APPROVED (D032) | Pruebas de dominio deterministas, integración con PostgreSQL/Auth/Storage aislados y pruebas de contratos de aplicación; dobles controlados para canales externos. | §10; no sustituir pruebas de permisos, concurrencia o rollback por mocks. Sin exigir UI/conectores fuera de alcance para verificar el Core. |
+| PLAN-DEC-009 — APPROVED (D032) | Proyecciones consultables desde datos canónicos; empezar con lecturas autorizadas y reconstruibles, sin caché compartida de expedientes o sesiones. Jobs acotados e intenciones externas conservadas pero sin ejecutores de conectores reales. | §8; optimización solo tras medir. El scheduler y sus parámetros operativos se verificarán en la fase autorizada; no se presupone entrega ni frecuencia. |
 
 ## 4. Bloques, componentes y responsabilidades
 
@@ -135,7 +135,7 @@ D019 determina la base antes de ajustar fondos: modalidad concreta del/de la nov
 
 Para D020 se utilizará un concepto de fecha civil local distinto de un instante. La zona aplicable y su procedencia permiten convertir momentos a fecha local; no se fija Europe/Madrid universalmente por el entorno del desarrollador. SPEC §11.2 gobierna las referencias de Booking, modalidad, servicio y noche. La diferencia es entre fechas, no milisegundos/horas. Cambio de hora no cambia intervalo; cambio de fecha reevalúa solo dependencias. Un vencimiento horario explícito de proveedor conserva su propio significado.
 
-### 5.2.1. Política monetaria acordada — D023
+### 5.2.1. Política monetaria acordada — D023/D028/D029
 
 D023 conserva precisión interna y fija materialización a dos decimales; el empate positivo de medio céntimo se resuelve hacia el céntimo superior. No se añade redondeo comercial automático: el precio final por persona lo fija el Administrador conforme a BR-PACK-004, antes de multiplicarlo por las participaciones de su modalidad.
 
@@ -143,11 +143,15 @@ El cálculo separará base contractual D019, porcentaje aprobado, resultado inte
 
 Una Refund fijada conserva su derecho; cada pago parcial acreditado reduce ese pendiente por diferencia, sin aplicar otra vez el porcentaje. Un ajuste inverso toma el importe original materializado y cambia exactamente su signo; no recalcula con reglas o precios actuales. Un hecho histórico no se modifica por introducir D023: cualquier corrección material conserva antes/después, motivo y autorización. La versión de cálculo y sus bases permanecen reconstruibles.
 
-Los precios fijos/grupales conservan su total frente a redondeos por persona; no se reparten automáticamente. Los derechos, promociones y alteraciones contractuales siguen sus reglas aprobadas, incluido D019; D023 no añade una distribución de descuentos, impuestos, costes o fondos ni modifica importes para cuadrarlos. PLAN-PENDING-002 queda resuelto en estos casos y PLAN-PENDING-004 localiza los casos materiales no cubiertos.
+Los precios fijos/grupales conservan su total frente a redondeos por persona; no se reparten automáticamente. D019 sigue fijando derechos, promociones y alteraciones contractuales. D028 añade redondeo simétrico por magnitud para importes calculados negativos nuevos; una reversión exacta invierte el original materializado sin recalcular. D029 resuelve repartos de céntimos solo cuando el total y las bases del reparto ya están determinados legítimamente. PLAN-PENDING-002 y PLAN-PENDING-004 quedan resueltos en sus alcances expresos.
+
+D029: para repartos iguales, asignar residuos según el orden registrado. Para ponderados/desiguales, calcular cada parte con precisión completa, asignar primero céntimos completos y distribuir los restantes por resto decimal descendente, con desempate por orden registrado. En negativos, aplicar al valor absoluto y después el signo. La suma materializada debe igualar exactamente el total materializado de origen. Conservar total, pesos/bases, resultados internos, restos, orden aplicado, asignación residual y versión de cálculo; el orden no depende de cómo se ordene una pantalla.
+
+Este algoritmo no inventa bases, porcentajes, derechos ni fiscalidad; no habilita prorratear servicios fijos/grupales ni redistribuye el derecho ya calculado por participación de PM-05. D023, D019, BR-ECON-007, BR-PACK-004 y P20 siguen rigiendo la determinación previa y la conservación de componentes.
 
 ### 5.2.2. Ejemplos y oráculos documentales
 
-Los importes siguientes están en EUR. Son resultados acordados o diferencias aritméticas expresas de D023, no pruebas de software ejecutadas. PM-01–PM-09 amplían los guiones de PT-05/PT-07 y la comprobación de fondos PT-04 sin renumerar los AC de la SPEC.
+Los importes siguientes están en EUR. Son resultados acordados o diferencias aritméticas expresas de D023/D028/D029, no pruebas de software ejecutadas. PM-01–PM-13 amplían los guiones de PT-05/PT-07 y la comprobación de fondos PT-04 sin renumerar los AC de la SPEC.
 
 | Caso | Base / operación | Resultado exigido |
 |---|---|---|
@@ -160,6 +164,10 @@ Los importes siguientes están en EUR. Son resultados acordados o diferencias ar
 | PM-07 | Servicio fijo/grupal de 900,00; cambian las participaciones. | El cambio de cantidad o redondeo por persona no altera 900,00 ni crea prorrateo o derecho nuevo; rige D019 para un ajuste autorizado por otro fundamento. |
 | PM-08 | Anulación de anticipo registrado por +500,01; reversión de una salida registrada por −20,00. | Ajustes exactos de −500,01 y +20,00 respectivamente, enlazados al original y con motivo; sin volver a redondear. |
 | PM-09 | Cambian tarifas/regla o faltan costes; se reconstruye PM-02–PM-08. | Mismas bases/versiones e importes históricos; no ajustar costes, suplidos o derechos para compensar diferencias ni sustituir desconocido por cero. |
+| PM-10 | Nuevo importe negativo −10,005 EUR. | −10,01 EUR; diferencia de materialización −0,005 EUR. Una reversión sigue PM-08. |
+| PM-11 | 100,00 EUR entre tres destinos iguales en orden A/B/C. | 33,34 + 33,33 + 33,33 = 100,00 EUR; primer céntimo residual a A por empate. |
+| PM-12 | 0,05 EUR con pesos 1/1/2 en orden A/B/C. | Internos 0,0125 / 0,0125 / 0,025; céntimos completos 0,01 / 0,01 / 0,02; restos 0,0025 / 0,0025 / 0,005. Residuo 0,01 a C: 0,01 + 0,01 + 0,03 = 0,05 EUR. |
+| PM-13 | Repartos negativos de PM-11 y PM-12. | −33,34 −33,33 −33,33 = −100,00 EUR; −0,01 −0,01 −0,03 = −0,05 EUR. Mismo orden/restos sobre magnitud, después signo. |
 
 La suma de anticipo y saldo reconstruye el total; devolución y retención reconstruyen su base; las salidas parciales más el pendiente reconstruyen el derecho fijado. Estas igualdades se verifican por alcance y no autorizan repartos entre alcances distintos. Los ejemplos no fijan otros porcentajes, políticas, descuentos o bases.
 
@@ -185,7 +193,7 @@ P13 conserva íntegra su excepción break-glass: intervención mínima de admini
 
 Supabase Auth identifica al usuario; un CRM Actor estable y su habilitación vigente autorizan el uso interno. Cada consulta, búsqueda, exportación, acción y lectura de resultado idempotente comprueba identidad, acción, alcance y finalidad. Un job conserva identidad técnica limitada y responsable, sin hacerse pasar por el Administrador ni recibir todas sus facultades.
 
-### 6.1. Política acordada — D025
+### 6.1. Política acordada — D025/D026/D027/D031
 
 El acceso real será del único Administrador, sin registro público, desde varios dispositivos, mediante contraseña y TOTP. La sesión tendrá duración máxima de 30 días y se exigirá nueva identificación con contraseña y segundo factor tras 7 días sin uso del CRM. No son límites del JWT ni plazos comerciales D020; renovar un token no reinicia la identificación completa ni acredita actividad humana.
 
@@ -202,7 +210,7 @@ Desde otro dispositivo autorizado se podrá cerrar **todas** las sesiones y exig
 | Supabase Auth admite TOTP y nivel de garantía MFA; no ofrece códigos de recuperación en su API MFA documentada. | Probar compatibilidad real con el gestor y el factor. La copia en papel propuesta por Andrés restaura el mismo factor; no se presupone otro factor inscrito ni un bypass. [Auth MFA](https://supabase.com/docs/reference/javascript/auth-mfa), [guía MFA](https://supabase.com/docs/guides/auth/auth-mfa). |
 | La tarifa publicada incluye MFA básico en Free. Session timeouts requieren Pro o superior; Pro parte de 25 USD/mes, con primer proyecto incluido y proyectos adicionales desde 10 USD/mes. | Son precios publicados, no contrato ni presupuesto total aceptado. Verificar suscripción real, entornos, cómputo/consumo y coste de cualquier entrega de recuperación. No confundir TOTP con MFA Phone de pago. [Pricing](https://supabase.com/pricing). |
 | Apple documenta Contraseñas y códigos de verificación en sus dispositivos compatibles, con disponibilidad mediante la misma cuenta y sincronización configurada. | La disponibilidad declarada por Andrés no sustituye la prueba del CRM en sus dispositivos. La copia de emergencia en papel se mantiene fuera de iCloud por D025. [Contraseñas Apple](https://support.apple.com/es-es/120758), [Contraseñas en Mac](https://support.apple.com/es-es/guide/passwords/mchl901b1b95/mac). |
-| Supabase documenta recuperación de contraseña por email; el SMTP de prueba restringe destinatarios y no está destinado a Production. | Es una capacidad posible, no el canal elegido. Faltan identificación del destinatario/canal, configuración segura, entrega/retorno verificados y coste si se elige esa vía. [Password-based Auth](https://supabase.com/docs/guides/auth/passwords), [SMTP](https://supabase.com/docs/guides/auth/auth-smtp). |
+| Supabase documenta recuperación de contraseña por email; el SMTP de prueba restringe destinatarios y no está destinado a Production. | D027 elige enlace al email previamente verificado del único Administrador. Faltan capacidad/configuración, entrega/retorno, coste y ensayo reales; después del restablecimiento sigue siendo obligatorio TOTP. [Password-based Auth](https://supabase.com/docs/guides/auth/passwords), [SMTP](https://supabase.com/docs/guides/auth/auth-smtp). |
 
 Solo se ha consultado documentación pública. No se ha inspeccionado ni cambiado un proyecto Supabase, plan contratado, dispositivo, gestor, factor o buzón de Andrés. Una función de la cuenta del panel de Supabase no se toma como capacidad probada del usuario Auth del CRM.
 
@@ -210,9 +218,9 @@ Solo se ha consultado documentación pública. No se ha inspeccionado ni cambiad
 
 B01 deberá comprobar en cada acceso al Core identidad verificada, habilitación del CRM Actor, sesión concreta vigente, identificación completa dentro del máximo, MFA acreditado y límite de inactividad aplicable. Una firma válida o aal2 por sí solos no acreditan sesión activa ni nueva contraseña/TOTP. No confiar en metadatos de permiso o tiempos declarados libremente por el cliente. [Supabase SSR](https://supabase.com/docs/guides/auth/server-side/creating-a-client?queryGroups=framework&framework=nextjs) sustenta la verificación de identidad; las condiciones adicionales son una propuesta del Core.
 
-Se propone conservar inicio de identificación completa, último uso interactivo admitido y revocación/versionado de acceso en servidor, vinculados a la sesión, sin guardar credenciales. El uso computable requiere interacción real con el CRM validada por servidor; refresh, polling, jobs, sincronización y una pestaña abierta sin uso no mantienen viva la actividad humana. Las lecturas interactivas también cuentan: no se exige modificar una Booking para acreditar uso. El catálogo de señales y la política para una lectura prolongada sin nueva interacción deberán concretarse y probarse; no se asume que cualquier petición sea humana.
+Se propone conservar inicio de identificación completa, último uso interactivo admitido y revocación/versionado de acceso en servidor, vinculados a la sesión, sin guardar credenciales. El uso computable requiere interacción real con el CRM validada por servidor; refresh, polling, jobs, sincronización y una pestaña abierta sin uso no mantienen viva la actividad humana. Las lecturas interactivas también cuentan: no se exige modificar una Booking para acreditar uso. La detección de señales humanas deberá concretarse y probarse técnicamente conforme a D026; una lectura sin nueva interacción validada no actualiza el último uso y no se asume que cualquier petición sea humana.
 
-**Caso material aún no decidido:** D025 no explicita si los 7 días se computan por cada sesión/dispositivo o por uso global del Administrador. Usar iPhone mientras Mac permanece inactivo puede producir resultados distintos. PLAN-PENDING-003 conserva esta elección antes del acceso real, sin seleccionar una de las dos por analogía. La duración máxima de cada sesión y el cierre global permanecen exigidos en ambos casos.
+**D026 — alcance resuelto:** los 7 días se computan de forma independiente por sesión/dispositivo. Usar el iPhone no renueva la actividad de la sesión abandonada del Mac o iPad. Cada sesión mantiene además su máximo absoluto de 30 días. Solo uso humano real del CRM validado por servidor cuenta; no refresh, polling, jobs o pestaña abierta.
 
 La autorización evalúa los tiempos anteriores antes de registrar nueva actividad: volver tras el límite no debe actualizar primero el reloj y eludir contraseña/TOTP. Los refrescos no desplazan el máximo de 30 días. Al alcanzar un límite se deniega el Core hasta nueva identificación completa; autenticación/enrolamiento/recuperación dispondrán de ámbito mínimo separado sin expedientes. El reloj de referencia es el del servidor y estos controles se probarán en los límites, sin trasladar aquí la regla de días civiles del negocio.
 
@@ -222,19 +230,25 @@ Las lecturas, mutaciones, resultados idempotentes, objetos privados y accesos di
 
 ### 6.4. Recuperación y comprobaciones antes del acceso real
 
-Recuperar una contraseña que sigue guardada en Contraseñas es distinto de restablecer una contraseña perdida; restaurar la clave TOTP permite generar el segundo factor, pero no reemplaza la contraseña. No se ha elegido email, SMS, soporte ni una intervención administrativa como canal de recuperación. Si se propone email de Auth, requerirá decisión y verificación propias; no habilita conectores comerciales ni avisos internos por email contrarios a D016.
+D027: si la contraseña no está disponible en Contraseñas de Apple, se restablecerá mediante enlace al email previamente verificado del único Administrador. No se publica aquí la dirección ni se presupone un buzón configurado. Restablecer contraseña no omite TOTP. Este email es exclusivamente de autenticación/seguridad: D016 conserva CRM y WhatsApp para avisos internos y no se habilita un conector comercial.
 
-Antes de uso real se ensayará otro dispositivo y la clave en papel con evidencia de resultado sin secretos. El ensayo debe poder prescindir de la copia sincronizada del factor que se pretende recuperar. Si se cambia/reinscribe el factor, la copia anterior no se presume válida y se vuelve a verificar la copia vigente. La pérdida simultánea de contraseña disponible, dispositivos y copia TOTP no tiene un procedimiento aprobado: permanece bloqueada la recuperación dependiente, sin crear segundo Administrador, desactivar MFA ni asumir capacidad de soporte.
+Antes del uso real se ensayará otro dispositivo y la clave en papel, sin depender de la copia sincronizada que se pretende recuperar ni registrar secretos. Si se reinscribe el factor, verificar una nueva copia vigente protegida fuera de iCloud.
+
+D031 aprueba recuperación extrema mediante la cuenta propietaria de Supabase, independiente del usuario CRM, ante pérdida simultánea de contraseña, dispositivos y copia TOTP. El procedimiento deberá verificar autoridad del propietario, revocar todas las sesiones, registrar incidente y acciones, restablecer únicamente lo necesario, enrolar un TOTP nuevo y generar/verificar una nueva copia protegida en papel. No permite acceso ordinario sin segundo factor ni crea otro Administrador CRM. Mientras la recuperación esté incompleta, el Core permanece denegado.
+
+La documentación distingue [permisos del propietario de plataforma](https://supabase.com/docs/guides/platform/access-control) y [eliminación administrativa de un factor Auth](https://supabase.com/docs/reference/javascript/auth-admin-deletefactor). Son capacidades publicadas, no un procedimiento integrado probado. La cuenta propietaria debe seguir accesible de manera independiente: [MFA de plataforma](https://supabase.com/docs/guides/platform/multi-factor-authentication) no promete recuperar una cuenta que pierde todos sus factores. Verificar esa independencia y autoridad forma parte del ensayo; no se inventa un canal de soporte ni se garantiza recuperación universal.
+
+Antes de Production se definirán y probarán alcance, permisos mínimos efectivos, trazabilidad, revocación y procedimiento real. La facultad amplia del propietario no pasa al rol ordinario ni a la IA. No se almacenan secretos o datos de recuperación en Git/logs; la evidencia contiene referencias, autoridad comprobada, acciones y resultados sin credenciales. P10–P15 se conservan: si una intervención afecta estructura, permisos o configuración de base de datos, sigue íntegramente P13 y su obligación de migración/versionado; esta recuperación de acceso no autoriza cambios arbitrarios ni sustituye ARCH-PENDING-002.
 
 Todas las comprobaciones siguientes están **PENDING / NO EJECUTADAS** y pertenecen a PLAN-PENDING-003:
 
-| ID | Comprobación / decisión necesaria | Salida exigida |
+| ID | Comprobación técnica necesaria | Salida exigida |
 |---|---|---|
 | PLAN-AUTH-001 | Plan Supabase, compatibilidad de SDK/servidor, capacidad/coste de límites, entrega de recuperación y recursos por entorno. | Capacidad verificada, coste concreto aceptado antes de contratar/configurar y ausencia de mecanismos configurados solo por documentación. |
-| PLAN-AUTH-002 | Alcance humano pendiente de inactividad entre dispositivos; señales de uso y medición fiable en servidor. | Decisión registrada; pruebas con refresh/polling sin uso, uso en un solo dispositivo, retorno tras 7 días y máximo de 30 días, todos con contraseña + TOTP cuando corresponda. |
+| PLAN-AUTH-002 | Aplicación de D026 por sesión/dispositivo, señales humanas y medición fiable en servidor. | Pruebas con refresh/polling sin uso, uso en iPhone sin prolongar la sesión inactiva de Mac/iPad, retorno tras 7 días y máximo de 30 días, todos con contraseña + TOTP cuando corresponda. |
 | PLAN-AUTH-003 | Revocación de todas las sesiones desde otro dispositivo, JWT aún no expirado, concurrencia y accesos a objetos/directos. | Sesiones previas denegadas efectivamente en Core, incluida la emisora, y nueva identificación; sin éxito ficticio ante fallo parcial. |
 | PLAN-AUTH-004 | Contraseña/TOTP desde otro dispositivo y recuperación real de la clave en papel. | Evidencia sin secretos del acceso y restauración del factor vigente antes del uso real; copia protegida fuera de iCloud. |
-| PLAN-AUTH-005 | Recuperación de contraseña cuando no esté disponible en el gestor y pérdida de todos los medios del segundo factor. | Para contraseña: canal/procedimiento elegido y ensayo con identidad/alcance comprobados. Para pérdida total del factor: tratamiento explícito del bloqueo y recuperación solo si se aprueba y verifica una vía; no promesa de recuperabilidad, bypass o canal supuesto. |
+| PLAN-AUTH-005 | Recuperación de contraseña cuando no esté disponible en el gestor y pérdida de todos los medios del segundo factor. | D027: entrega del enlace al email previamente verificado, retorno seguro y TOTP obligatorio tras restablecer. D031: ensayo de autoridad/acceso independiente del propietario, permisos mínimos, revocación efectiva, incidente auditado sin secretos, recuperación mínima, nuevo TOTP y nueva copia en papel verificada; Core denegado hasta completar. Procedimiento definido y probado antes de Production. |
 | PLAN-AUTH-006 | Enrolamiento/recuperación incompletos, actor inhabilitado, ausencia de registro público y permisos/MFA en servidor/datos. | Sin acceso a expedientes antes de cumplir los requisitos; recuperación o nueva clave no omiten TOTP ni reactivan sesiones revocadas. |
 
 H0 prepara los mecanismos y ensayos aislados; PLAN-PENDING-003 impide declarar completo el acceso real y H6 preparado para Production hasta resolver y probar lo anterior. No se exige que estas pruebas se ejecuten durante la fase documental.
@@ -338,9 +352,9 @@ Los controles B01/B07/B08 se incorporan desde el primer efecto, aunque su integr
 
 | Hito | Resultado previsto y bloques | Dependencias | Criterio de salida / bloqueo específico |
 |---|---|---|---|
-| H0 — Base técnica y seguridad | B01/B08/B10: composición modular, contexto Auth/actor, contratos C01–C06, unidad transaccional, permisos, historia y registro de efectos; estrategia de migraciones y entorno aislado. | Plan/tasks/implementación autorizados; compatibilidad técnica verificada. | Acceso denegado por defecto incluso fuera de UI; rol ordinario sin privilegio global; commit/rollback con historia; identidad no filtrada por pool. Política D025 acordada; PLAN-AUTH-001–PLAN-AUTH-006 / PLAN-PENDING-003 pendientes de decisión residual y prueba. Las pruebas aisladas no habilitan acceso real ni Production. |
-| H1 — Identidades, catálogo y cálculo base | B02/B05/B07: contexto, fusión humana, códigos; configuración/versiones, unidades, tarifas/packs y cálculo exacto con fuentes. | H0. | Casos de identidad/catálogo/cálculo de PT-01/PT-03/PT-07; los recorridos que requieren contratación/economía se completan en sus hitos posteriores. Histórico reproducible tras cambiar maestros; sin catálogo real inventado. D023 fija la cuantización de los casos acordados, comprobable con PM-01–PM-09; PLAN-PENDING-004 bloquea solo los cálculos materiales distintos aún no definidos. |
-| H2 — Contratación y conversión | B03/B04: oportunidades, propuestas, Acceptance, reserva directa/normal y detalle inicial por servicio/noche. | H1; T01–T03 y supervisión base H0. | PT-02 y cantidades de PT-03: una Booking íntegra bajo carrera/reintento; sin pago ni confirmación por Ganada. Precio final manual y total de modalidad respetan D023/PM-02; no completar un cálculo distinto afectado por PLAN-PENDING-004. |
+| H0 — Base técnica y seguridad | B01/B08/B10: composición modular, contexto Auth/actor, contratos C01–C06, unidad transaccional, permisos, historia y registro de efectos; estrategia de migraciones y entorno aislado. | Plan/tasks/implementación autorizados; compatibilidad técnica verificada. | Acceso denegado por defecto incluso fuera de UI; rol ordinario sin privilegio global; commit/rollback con historia; identidad no filtrada por pool. Política D025 acordada; PLAN-AUTH-001–PLAN-AUTH-006 / PLAN-PENDING-003 pendientes únicamente de verificación técnica y ensayo. Las pruebas aisladas no habilitan acceso real ni Production. |
+| H1 — Identidades, catálogo y cálculo base | B02/B05/B07: contexto, fusión humana, códigos; configuración/versiones, unidades, tarifas/packs y cálculo exacto con fuentes. | H0. | Casos de identidad/catálogo/cálculo de PT-01/PT-03/PT-07; los recorridos que requieren contratación/economía se completan en sus hitos posteriores. Histórico reproducible tras cambiar maestros; sin catálogo real inventado. D023 fija la cuantización de los casos acordados, comprobable con PM-01–PM-13 con D028/D029; PLAN-PENDING-004 resuelto. |
+| H2 — Contratación y conversión | B03/B04: oportunidades, propuestas, Acceptance, reserva directa/normal y detalle inicial por servicio/noche. | H1; T01–T03 y supervisión base H0. | PT-02 y cantidades de PT-03: una Booking íntegra bajo carrera/reintento; sin pago ni confirmación por Ganada. Precio final manual y total de modalidad respetan D023/PM-02; los repartos de D029 no cambian derechos ni permiten prorratear un precio grupal. |
 | H3 — Economía operativa | B05: política/vencimientos, recepciones, conciliación/porciones, suplidos/documentos/pagos registrados, honorarios/costes y promoción. | H2 y evidencias B07; servicios identificados, sin exigir que ya estén confirmados. | Casos de recepciones/suplidos/cálculo de PT-04/PT-07 y T05/T07: fondos no duplicados, factura/pago separados y economía reservada. Fiscalidad/tipos/mandato y datos ausentes bloquean solo su efecto; emisión fiscal excluida. PM-03 comprueba anticipo/saldo y PM-08 los ajustes inversos; Refund/fianza completos se integran en H4. |
 | H4 — Operación, cambios y cancelación | B04/B06/B05: disponibilidad/opciones/confirmación, preparación/ejecución, revalidación, modificación, D019/D020, Refund y fianza. | H2 + H3; requisitos/documentos/incidencias mínimos B07. | PT-03/PT-05/PT-06; confirma Booking con economía real integrada; cancelación parcial mantiene resto/historia; cobro/devolución externos solo registrados con prueba. Base incierta exige determinación humana por expediente; PM-04–PM-08 verifican derecho, retención, participaciones y devolución parcial sin recalcular porcentajes. |
 | H5 — Coordinación y cierre integrado | B06/B07/B08/B09: seguimiento/avisos, timeline/calendario, supervisión/intenciones/jobs completos y tres cierres/reapertura. | H3 + H4; fundamentos de seguridad e historia ya presentes. | PT-08/PT-09/PT-10/PT-12; causas/avisos y aprobación/ejecución separados; sin envío real por mocks. Parámetros de automatismo y tratamiento de comunicaciones bloquean exclusivamente lo dependiente. |
@@ -423,7 +437,7 @@ B01–B10 abrevia los PLAN-B01–PLAN-B10; T01–T11, las unidades PLAN-T01–PL
 | SPEC-NFR-010 | §11; PT-08/PT-11, fallos localizables y logs mínimos. |
 | SPEC-NFR-011 | §8; PT-08/PT-12, sustitución/caída con identidades preservadas. |
 | SPEC-NFR-012 | §§5/7.2; PT-01/PT-02/PT-03/PT-06/PT-10, originales y reapertura. |
-| SPEC-NFR-013 | §5.2; PT-03/PT-05/PT-07, versiones, D019/D020/D023 y PM-01–PM-09; casos fuera de D023, PLAN-PENDING-004. |
+| SPEC-NFR-013 | §5.2; PT-03/PT-05/PT-07, versiones, D019/D020/D023/D028/D029 y PM-01–PM-13; PLAN-PENDING-004 resuelto. |
 | SPEC-NFR-014 | §§7.1/7.2/8; PT-08/PT-09/PT-12, E1–E8 y recuperación segura. |
 | SPEC-NFR-015 | §§1–3/5.4/9/12–13; PT-13, aprobaciones y límites de fase. |
 
@@ -495,25 +509,34 @@ SM-FORB-01–SM-FORB-33 se contrastarán individualmente mediante la corresponde
 
 Revisión de esta versión: cobertura documental de 116/116 FR, 15/15 NFR, 92/92 AC, 52/52 DM-INV, 148/148 transiciones, 33/33 SM-FORB y 18/18 ARCH-DEC. Los recuentos expresan trazabilidad, no pruebas aprobadas. AC-084 aplica la corrección permanente D024 de §1.2; sus referencias y la conservación de los otros 91 AC se han comprobado documentalmente.
 
-Se han contrastado selección parcial/directa/unicidad (D018), bases económicas (D019), fechas locales/días completos (D020), precisión/céntimos (D023), corrección editorial (D024), política de acceso (D025), confirmación crítica/económica, dato nominal opcional, historial, tres cierres, aprobación sensible e incertidumbre. No se identifica una contradicción de negocio adicional que impida este DRAFT. Los detalles técnicos propuestos y pendientes de §12 todavía requieren la revisión indicada.
+Se han contrastado selección parcial/directa/unicidad (D018), bases económicas (D019), fechas locales/días completos (D020), precisión/céntimos (D023), corrección editorial (D024), política de acceso (D025), confirmación crítica/económica, dato nominal opcional, historial, tres cierres, aprobación sensible e incertidumbre. No se identifica una contradicción de negocio adicional que impida este DRAFT. D026–D033 completan las decisiones posteriores; las nueve PLAN-DEC están aprobadas, mientras las comprobaciones de §12 y la revisión global del plan siguen pendientes.
 
-### 10.8. Trazabilidad de las decisiones humanas de v0.2
+### 10.8. Trazabilidad de las decisiones humanas de v0.2 y v0.3
 
-No se crean nuevos FR/NFR/AC ni se declaran pruebas pasadas por aprobar una política. Los PM son oráculos de cálculo y PLAN-AUTH son comprobaciones/decisiones previas al acceso real.
+No se crean nuevos FR/NFR/AC ni se declaran pruebas pasadas por aprobar una política. Los PM son oráculos de cálculo y PLAN-AUTH son comprobaciones técnicas previas al acceso real.
 
 | Decisión | Fuentes y criterios ya existentes | Desarrollo y validación futura |
 |---|---|---|
 | D023 — precisión y materialización | D010/D019/D020; BR-ECON-007/BR-PACK-004; SPEC-FR-CAT-002/004/005, SPEC-FR-ECON-001/002/005/007/013/014, SPEC-FR-CHG-007/008; SPEC-NFR-013; AC-011/027/035/037/039/040/047/049/085; DM-INV-029/030/038–040. | §5.2; PM-01–PM-09 y PT-04/PT-05/PT-07. H1–H4; regresión H6. Anticipo + saldo = total; derecho + retención = base; efectivo devuelto + pendiente = derecho fijado. |
 | D024 — AC-084 permanente | C P02/P03/P04/P18/P19; SPEC-NFR-015; AC-084/089/090; D022 conservada. | §§1/12/13 y PT-13: comparación documental del cambio limitado y ausencia de aprobación/avance implícitos. |
 | D025 — acceso y recuperación | D015; ARCH-DEC-004; C P10/P12; SPEC-FR-SEC-001/004/005; SPEC-NFR-002/004; AC-064/079/080/082; DM-INV-050. | §6 y PT-11/PT-12; PLAN-AUTH-001–PLAN-AUTH-006. H0 prepara; H6 y cualquier acceso real quedan sujetos a PLAN-PENDING-003. |
+| D026/D027/D031 — acceso y recuperación completados | D025; D016; P10–P15; SPEC-FR-SEC-001/004/005; SPEC-NFR-002/004; AC-064/079/080/082. | §6, PT-11/PT-12, PLAN-AUTH-001–PLAN-AUTH-006; H0/H6. Políticas APPROVED, verificaciones NO EJECUTADAS. |
+| D028/D029 — negativos y repartos | D023/D019; BR-ECON-007; BR-PACK-004; P20; SPEC-FR-ECON-014; SPEC-NFR-013. | §5.2, PM-10–PM-13, PT-03/PT-05/PT-07; H1–H4 y regresión H6. Suma exacta, orden/restos/versionado; no alterar bases. |
+| D030 — semántica visual futura | Frontera de UI excluida de SPEC 001. | Registrar para futura Spec de interfaz; sin nuevos FR/AC Core, componentes ni estilos. |
+| D032 — nueve PLAN-DEC aprobadas | ARCH-DEC-001–ARCH-DEC-018; §3.2; AC-084/D024. | Aprobación técnica explícita; plan global NOT APPROVED y hitos NOT STARTED. |
+| D033 — dirección web prevista | Architecture y entornos §11.1; frontera de fase. | crm.huescaventura.com en proyecto/despliegue separado de la web pública; sin DNS ni recursos ahora. |
 
-En sesiones se ensayarán: dos dispositivos activos admitidos; uno inactivo mientras el otro se usa según la decisión pendiente; pestaña que solo renueva token durante 7 días; acceso al alcanzar los límites; retorno que intenta actualizar actividad antes de autorizar; cierre global con JWT todavía válido, objeto/URL ya emitidos y peticiones concurrentes; autenticación solo con contraseña o solo con TOTP, ambas insuficientes para la nueva identificación exigida. Los ensayos de recuperación distinguirán contraseña guardada, contraseña perdida, factor disponible en otro dispositivo, restauración desde papel y pérdida de todos los medios.
+En sesiones se ensayarán: dos dispositivos activos admitidos; Mac/iPad inactivos mientras se usa iPhone, sin prolongar sus 7 días; pestaña que solo renueva token durante 7 días; acceso al alcanzar los límites; retorno que intenta actualizar actividad antes de autorizar; cierre global con JWT todavía válido, objeto/URL ya emitidos y peticiones concurrentes; autenticación solo con contraseña o solo con TOTP, ambas insuficientes para la nueva identificación exigida. Los ensayos de recuperación distinguirán contraseña guardada, contraseña perdida, factor disponible en otro dispositivo, restauración desde papel y pérdida de todos los medios.
 
 Los ejemplos PM se revisan con aritmética decimal y comparación de componentes; en implementación se añaden pruebas de persistencia, concurrencia y no reutilización de porciones, incluyendo parciales y cambios de regla. Se conserva el total fijo y el origen por participación sin exigir dato personal. El hecho de cuadrar una suma no acredita el derecho ni permite alterar un componente para que cuadre.
 
 ## 11. Entornos, configuración, observabilidad y entrega prevista
 
 ### 11.1. Entornos y configuración
+
+D033 aprueba **crm.huescaventura.com** como dirección prevista, subdominio asociado a un proyecto/despliegue separado de la web pública. No se utilizará huescaventura.com/crm ni se comprará un dominio nuevo. No autoriza configurar DNS, vincular dominio, crear proyectos ni desplegar en esta fase. Esta dirección web es independiente del concepto de dominio de negocio de PLAN-DEC-001.
+
+D030 se registra exclusivamente para la futura Spec de interfaz: rojo solo ante pérdida, saldo desfavorable o vencido; devolución, corrección o negativo normal no son rojos por su signo. Siempre acompañar color con signo y etiqueta/estado. Su incorporación a esa Spec queda pendiente; no añade alcance, diseño de componentes o estilos al Core.
 
 | Entorno futuro | Finalidad y preparación exigida |
 |---|---|
@@ -551,14 +574,14 @@ Se contemplarán validación de acceso, lectura autorizada y operación controla
 
 | ID / estado | Resolución o asunto restante | Bloquea / trabajo independiente |
 |---|---|---|
-| PLAN-PENDING-001 — RESOLVED | D024 autoriza y esta revisión aplica la corrección editorial permanente de AC-084. PLAN-OBS-001 se conserva como antecedente resuelto; D022 y la aprobación de SPEC permanecen intactas. | Ningún bloqueo editorial restante por aquel literal. No equivale a aprobar el plan ni a iniciar otra fase. |
-| PLAN-PENDING-002 — RESOLVED en alcance D023 | Resueltos empate positivo, total por modalidad desde precio final por persona, anticipo/saldo, devolución/retención, suma por participación, parciales, total fijo y ajustes inversos; PM-01–PM-09. | Se levanta el bloqueo de política de esos cálculos en H1–H4; su implementación/prueba sigue sin ejecutar. No resuelve otros repartos por analogía, localizados en PLAN-PENDING-004. |
-| PLAN-PENDING-003 — PARTIALLY RESOLVED | Política D025 acordada; PLAN-AUTH-001–PLAN-AUTH-006 siguen PENDING: capacidad/coste, uso CRM frente a refresh, alcance por dispositivo o global aún por decidir, revocación efectiva, contraseña perdida y ensayos de otro dispositivo/copia TOTP. | Bloquea declarar listo cualquier acceso real y preparación de Production H6. H0 puede diseñar/probar lo independiente en entorno aislado tras las autorizaciones de fase; no declara integración completa ni recuperación probada. |
-| PLAN-PENDING-004 — PENDING | D023 no define el desempate de un importe negativo nuevo calculado a medio céntimo que no sea reversión exacta, ni el punto/reparto de céntimos en otros cálculos (p. ej., desglose fiscal o reparto entre varios destinos). Requieren regla o determinación expresa si un caso real depende de ello; no se adopta por analogía una política simétrica ni un algoritmo de reparto. | Solo el cálculo/ajuste material fuera del alcance resuelto de D023, en H1–H4 y aceptación correspondiente H6. No reabre D019, los PM, el total fijo ni los casos de política fiscal ya pendientes; una inversa exacta sí está resuelta. |
+| PLAN-PENDING-001 — RESOLVED | D024 autorizó y v0.2 aplicó la corrección editorial permanente de AC-084. PLAN-OBS-001 se conserva como antecedente resuelto; D022 y la aprobación de SPEC permanecen intactas. | Ningún bloqueo editorial restante por aquel literal. No equivale a aprobar el plan ni a iniciar otra fase. |
+| PLAN-PENDING-002 — RESOLVED en alcance D023 | Resueltos empate positivo, total por modalidad desde precio final por persona, anticipo/saldo, devolución/retención, suma por participación, parciales, total fijo y ajustes inversos; PM-01–PM-09. | Se levanta el bloqueo de política de esos cálculos en H1–H4; su implementación/prueba sigue sin ejecutar. D028/D029 resuelven explícitamente los negativos y repartos de PLAN-PENDING-004. |
+| PLAN-PENDING-003 — PARTIALLY RESOLVED | Políticas completas APPROVED por D025/D026/D027/D031. Solo quedan PLAN-AUTH-001–PLAN-AUTH-006 PENDING / NO EJECUTADAS: capacidad/coste/configuración futura, medición humana por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass. | Bloquea declarar listo cualquier acceso real y preparación de Production H6. H0 puede verificar lo independiente en entorno aislado tras autorización de fase. No quedan elecciones humanas de política abiertas en este pendiente. |
+| PLAN-PENDING-004 — RESOLVED | D028 fija negativos nuevos simétricos y D029 repartos iguales/ponderados y negativos con orden/restos auditables; PM-10–PM-13. Se conserva la reversión exacta D023. | Se levanta el bloqueo de política monetaria de H1–H4/H6 en esos casos. Implementación/pruebas no ejecutadas. No determina bases fiscales o derechos: los pendientes heredados mantienen su ámbito sin abrir casos hipotéticos adicionales. |
 
-Las nueve PLAN-DEC siguen propuestas técnicas y se revisan al aprobar el plan. D023/D025 aprueban únicamente las políticas expresamente indicadas; D024 la corrección editorial. Separación modular, contexto transaccional, inmutabilidad, tipos decimales y control de versión se mantienen como propuestas concretas, sin generar pendientes rutinarios adicionales.
+Las nueve PLAN-DEC están APPROVED por D032; el plan global sigue DRAFT / NOT APPROVED. D026/D027/D031 completan política de acceso y recuperación; D028/D029 completan negativos/repartos; D030 se reserva a la futura interfaz y D033 fija dirección prevista. Ninguna decisión acredita capacidad configurada ni habilita otra fase.
 
-Historial: v0.1 tenía PLAN-PENDING-001/002/003 abiertos. Esta v0.2 resuelve 001, resuelve 002 en el alcance D023 y mantiene 003 parcialmente resuelto; 004 conserva límites materiales distintos aún no decididos. Se registrará la decisión humana sobre alcance de actividad y canal de recuperación antes de dar por cerrado 003; no se considera contestada por aprobar otros aspectos del acceso.
+Historial: v0.1 abrió 001/002/003. V0.2 resolvió 001 y 002 en alcance D023, mantuvo 003 parcialmente resuelto y abrió 004 para negativos/repartos no decididos. V0.3 resuelve 004 por D028/D029 y completa la política de 003 por D026/D027/D031; 003 conserva únicamente verificaciones técnicas. D001–D025 permanecen intactas como registro histórico.
 
 ### 12.2. Pendientes heredados, sin renumerar ni resolver
 
@@ -574,7 +597,7 @@ Historial: v0.1 tenía PLAN-PENDING-001/002/003 abiertos. Esta v0.2 resuelve 001
 
 Datos/configuración todavía ausentes: tarifas completas, capacidades/restricciones, vigencias, fianzas, costes de extras, parámetros de avisos/reintentos y zona/fecha de referencia pertinente. Bloquean únicamente su decisión o automatismo material en H1–H5 y el uso real correspondiente, con responsable de aportación/verificación Administrador. No son nuevos pendientes de política ni reciben valores ficticios.
 
-D018–D020 y los tres SM-PENDING históricos continúan resueltos. D023–D025 registran decisiones humanas concretas posteriores, sin crear SPEC-PENDING ni aprobar globalmente el plan o las nueve PLAN-DEC.
+D018–D020 y los tres SM-PENDING históricos continúan resueltos. D023–D025 registran decisiones humanas concretas posteriores, sin crear SPEC-PENDING ni aprobar globalmente el plan. D032 aprueba posteriormente las nueve PLAN-DEC.
 
 ### 12.3. Riesgos y respuesta prevista
 
@@ -584,19 +607,19 @@ D018–D020 y los tres SM-PENDING históricos continúan resueltos. D023–D025 
 | Eludir negocio por acceso directo a datos | Rol ordinario limitado, controles de datos y pruebas por canales ajenos a la UI; sin credencial global para cada acción. | H0 y regresión. |
 | Conflicto concurrente que duplica Booking, fondos, aprobación o cierre | Raíces/porciones compartidas, unicidad, control de versión y pruebas intercaladas T03/T05/T08/T10. | H2–H6. |
 | Perder historia al modificar catálogo, fusionar o migrar | Versiones fijadas, ajustes enlazados, integridad y validación de migración/restauración. | H1–H6. |
-| Cálculo no reproducible o cron que cambia política | Decimal exacto y materialización D023/PM-01–PM-09, límites de PLAN-PENDING-004, fechas civiles D020 y parámetros explícitos; pruebas de límites completos. | H1/H3/H4/H5. |
+| Cálculo no reproducible o cron que cambia política | Decimal exacto y materialización D023/D028/D029 y PM-01–PM-13, fechas civiles D020 y parámetros explícitos; pruebas de límites completos. | H1/H3/H4/H5. |
 | Timeout/reclamación vencida/restauración que repite efecto | Identidad de efecto, intención/intento/resultado y conciliación previa; caso de proveedor simulado que ya ejecutó. | H0/H5/H6. |
 | Filtrar economía o datos personales mediante salida/IA/logs | Proyecciones por finalidad, pruebas negativas de serialización/acceso y política de datos antes del tratamiento. | Todos/H6. |
 | Bloqueo del único Administrador o continuidad insuficiente | D025 y PLAN-AUTH-001–PLAN-AUTH-006 / PLAN-PENDING-003, más ensayo de datos/objetos y ARCH-PENDING-002; sin afirmar capacidad configurada. | H0/H6. |
 
 ## 13. Salida de esta fase y circuito de coordinación
 
-Este documento queda **DRAFT v0.2, completo para revisión humana, NOT APPROVED**. Las decisiones D023/D024/D025 están aprobadas en sus alcances expresos; ninguna aprueba globalmente las nueve PLAN-DEC ni el plan. La revisión de cobertura, ejemplos y referencias es documental; todas las pruebas de aplicación, datos, seguridad, integración y recuperación siguen NO EJECUTADAS.
+Este documento queda **DRAFT v0.3, completo para revisión final humana, NOT APPROVED**. D026–D033 registran las nuevas decisiones y D032 aprueba expresamente PLAN-DEC-001–PLAN-DEC-009. La aprobación técnica no aprueba globalmente el plan. Las pruebas de aplicación, datos, seguridad, integración y recuperación siguen NO EJECUTADAS.
 
-Antes de aprobar el plan se revisarán alcance, propuestas técnicas, hitos, matrices y pendientes. PLAN-PENDING-001/002 quedan resueltos en los alcances indicados; PLAN-PENDING-003/004 y los heredados conservan sus bloqueos localizados. Una eventual aprobación del plan no da por contratadas, configuradas o probadas las capacidades de sesión/recuperación ni resuelve casos materiales abiertos.
+Antes de aprobar el plan se revisarán alcance, hitos, matrices y pendientes. PLAN-PENDING-001/002/004 quedan resueltos en sus alcances; 003 conserva solo verificaciones técnicas antes de acceso real/H6. Los pendientes heredados mantienen sus bloqueos localizados. D030 espera su incorporación a una futura Spec de interfaz, fuera del Core.
 
-El circuito de esta entrega modifica plan.md, SPEC únicamente en AC-084/metadatos y nota editorial directamente relacionada, DECISIONS.md mediante D023–D025 añadidas, PROJECT-STATUS.md y NEXT-STEPS.md. D001–D022 permanecen intactas. Last Approved Commit registrará el commit que incorpora D023–D025, indicando que son decisiones parciales; la aprobación histórica de SPEC sigue siendo 91fc7527af9fd529e475116d1d212fd2328994d9.
+Esta entrega modifica únicamente plan.md, DECISIONS.md (D026–D033 añadidas), PROJECT-STATUS.md y NEXT-STEPS.md. D001–D025, SPEC 001 y las demás fuentes aprobadas permanecen intactas. Last Approved Commit registrará el commit de estas decisiones y de la aprobación técnica de las nueve PLAN-DEC, sin presentarlo como aprobación global del plan. SPEC conserva su aprobación 91fc7527af9fd529e475116d1d212fd2328994d9.
 
-Se revisarán diff, alcance, estado y log antes del commit documental. Después de crearlo, un segundo commit solo de coordinación registrará su SHA, conforme al circuito acordado. Se publicarán sin force push y se contrastarán los commits, origin/main y el remoto; si aparece trabajo ajeno, se preservará y revisará antes de publicar. La comparación desde 5531f69284ae38eea22d54f0b506ddc3a37ee83d identifica esta revisión v0.2.
+Se revisarán diff, alcance, estado y log antes del commit documental; un segundo commit solo de coordinación registrará su SHA. Publicación sin force push, contrastando commits, origin/main y remoto y preservando trabajo ajeno. La comparación desde 53557f3dc294e5410d69b9b9bff4b3135403475b identifica esta revisión v0.3.
 
-La siguiente acción es **revisar plan v0.2 y sus pendientes con Andrés**. tasks.md conserva su placeholder e implementación no iniciada. La fase siguiente solo se abrirá después de aprobación humana del plan y la instrucción correspondiente.
+La siguiente acción es **revisión final de plan v0.3 por Andrés**. tasks.md conserva su placeholder sin modificar y la implementación no está iniciada. La siguiente fase requiere aprobación humana del plan e instrucción correspondiente.

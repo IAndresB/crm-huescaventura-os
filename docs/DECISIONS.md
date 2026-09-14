@@ -207,3 +207,67 @@ Decision: Andrés confirma un único Administrador, sin registro público y util
 Contraseñas de Apple es el gestor elegido; Andrés dispone de acceso desde iPhone y Mac/iPad. Durante implementación se verificará el acceso con segundo factor desde otro dispositivo. La clave de configuración TOTP tendrá copia de emergencia en papel, fuera de iCloud y protegida, y se verificará su recuperación antes del uso real. Se permitirá cerrar todas las sesiones desde otro dispositivo autorizado y se exigirá nueva identificación.
 Reason: Concretar la política de PLAN-PENDING-003 para el único usuario sin confundir elección humana, capacidad publicada del proveedor y mecanismos configurados o probados.
 Impact: [plan.md](../specs/001-core-crm/plan.md) v0.2, §§3/6/9/10/11/12, desarrolla D015, ARCH-DEC-004, SPEC-FR-SEC-001/004/005 y SPEC-NFR-002/004. La política queda acordada; PLAN-PENDING-003 se mantiene PARTIALLY RESOLVED por comprobaciones técnicas, coste, revocación efectiva y recuperación todavía pendientes antes de acceso real. El alcance de la inactividad entre varias sesiones/dispositivos y el canal/procedimiento de recuperación de contraseña cuando no esté disponible en el gestor aún requieren concreción; no se eligen por analogía. La copia TOTP no recupera una contraseña perdida ni acredita un canal alternativo o una desactivación autorizada de MFA. No se contrata ni configura nada, no se aprueba globalmente PLAN-DEC-007 ni las restantes PLAN-DEC ni el plan, y no se inicia tasks.md o implementación.
+
+## D026 — Inactividad independiente por sesión/dispositivo
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Los 7 días de inactividad de D025 se calculan independientemente por sesión/dispositivo. El uso del CRM en iPhone no mantiene activa una sesión abandonada en Mac o iPad. Cada sesión conserva su máximo absoluto de 30 días. Solo uso humano real del CRM validado por servidor constituye actividad; refresh, polling, jobs o una pestaña abierta no cuentan.
+Reason: Completar el alcance humano pendiente de D025.
+Impact: Plan §6 y PLAN-AUTH-002: política resuelta; medición y límites pendientes de prueba antes del acceso real.
+
+## D027 — Recuperación de contraseña por email verificado
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Si la contraseña no está disponible en Contraseñas de Apple, se restablecerá mediante enlace enviado al email previamente verificado del único Administrador. TOTP sigue siendo obligatorio tras restablecerla. Este email es exclusivamente de autenticación/seguridad y no cambia D016 ni los avisos internos mediante CRM y WhatsApp.
+Reason: Resolver el canal de recuperación sin confundir política y capacidad configurada.
+Impact: Plan §6; capacidad, configuración, entrega, coste y ensayo pendientes antes del acceso real, dentro de PLAN-PENDING-003.
+
+## D028 — Redondeo simétrico de nuevos importes negativos
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Para nuevos importes calculados negativos se redondea simétricamente por magnitud: −10,005 EUR → −10,01 EUR. Las anulaciones y reversiones exactas mantienen D023: invertir el importe materializado original sin recalcularlo.
+Reason: Resolver el caso negativo nuevo de PLAN-PENDING-004.
+Impact: Plan §5.2, PM-10; conserva BR-ECON-007, BR-PACK-004, D019 y P20. No cambia precio comercial manual, bases ni historia.
+
+## D029 — Repartos deterministas de céntimos
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: En repartos iguales, los céntimos residuales siguen el orden registrado: 100 EUR entre tres destinos → 33,34 + 33,33 + 33,33. En ponderados/desiguales, calcular cada parte con precisión completa, asignar primero céntimos completos, distribuir los restantes por mayor resto decimal y desempatar por orden registrado. La suma materializada coincide exactamente con el total. Para negativos, aplicar sobre el valor absoluto y después el signo: −100 EUR → −33,34 −33,33 −33,33. Preservar total, pesos/bases, resultados internos, restos, orden aplicado, asignación de residuos y versión de cálculo. No inventa bases, porcentajes, derechos ni tratamientos fiscales.
+Reason: Resolver los repartos de PLAN-PENDING-004 con conservación exacta y trazabilidad.
+Impact: Plan §5.2, PM-11–PM-13; 004 RESOLVED junto a D028. No autoriza prorratear precios fijos/grupales, modificar costes/suplidos ni sustituir cálculo por participación de D023; los pendientes fiscales heredados conservan su alcance.
+
+## D030 — Semántica visual para futura Spec de interfaz
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Los importes aparecerán en rojo únicamente cuando el contexto represente pérdida, saldo desfavorable o importe vencido. Una devolución, corrección o negativo normal no será rojo solo por su signo. El color siempre se acompaña de signo y etiqueta/estado, sin depender únicamente de él.
+Reason: Registrar la preferencia humana fuera del alcance de SPEC 001.
+Impact: Principio APPROVED pendiente de incorporar a futura Spec de interfaz; coordinación y plan §11.1 lo conservan sin nuevos requisitos Core, componentes ni estilos.
+
+## D031 — Recuperación extrema desde la cuenta propietaria de Supabase
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Ante pérdida simultánea de contraseña, dispositivos y copia TOTP se aprueba break-glass desde la cuenta propietaria de Supabase, independiente del usuario CRM. Verificar autoridad del propietario, revocar todas las sesiones, registrar incidente y acciones, restablecer únicamente lo necesario para recuperar acceso, enrolar TOTP nuevo y generar/verificar una nueva copia protegida en papel. No permite acceso ordinario sin segundo factor ni es canal habitual. Definir y probar alcance, permisos mínimos, trazabilidad, revocación y procedimiento real antes de Production. No almacenar secretos ni datos de recuperación en Git o logs.
+Reason: Completar la política de recuperación extrema preservando seguridad y supervisión.
+Impact: Plan §6/§11, PLAN-AUTH-005/006; PLAN-PENDING-003 conserva comprobaciones técnicas. El acceso independiente del propietario y las capacidades reales deben verificarse; no se garantiza recuperación de la propia cuenta propietaria perdida. P10–P15 siguen íntegros, incluida P13 para intervenciones de base de datos; no se habilitan permisos ordinarios adicionales ni implementación.
+
+## D032 — Aprobación técnica de PLAN-DEC-001 a PLAN-DEC-009
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés aprueba expresamente las nueve PLAN-DEC-001–PLAN-DEC-009 como decisiones técnicas del Plan SPEC 001. En PLAN-DEC-001, dominio sin dependencias de Next.js significa independencia técnica de las reglas y lógica del dominio de negocio respecto del framework, no dominio o dirección web. La aprobación técnica no equivale por sí sola a aprobar globalmente plan.md.
+Reason: Registrar la aprobación explícita posterior a las políticas parciales de D023–D025.
+Impact: Plan §3.2 pasa sus nueve decisiones de PROPOSED a APPROVED, manteniendo plan v0.3 DRAFT / NOT APPROVED, Ready for tasks.md: NO e implementación no iniciada.
+
+## D033 — Dirección web prevista del CRM
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Se aprueba crm.huescaventura.com como dirección prevista del CRM: subdominio asociado a un proyecto/despliegue separado de la web pública. No utilizar huescaventura.com/crm ni comprar un dominio nuevo para este alcance. Esta decisión no autoriza configurar DNS, vincular dominio, crear proyectos ni desplegar durante esta fase. La dirección web es independiente del dominio de negocio de PLAN-DEC-001.
+Reason: Fijar destino previsto sin ejecutar configuración ni ampliar la fase documental.
+Impact: Plan §11.1 y coordinación; configuración, recursos y despliegue no iniciados. No aprueba globalmente el plan.
