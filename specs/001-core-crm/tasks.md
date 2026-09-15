@@ -6,9 +6,9 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — solo TSK-H0-001/002/003/004 COMPLETED
+Implementation: IN PROGRESS — solo TSK-H0-001/002/003/004/007 COMPLETED
 H0: IN PROGRESS; H1–H6: NOT STARTED
-Pruebas técnicas: comprobaciones TSK-H0-001/002, ingeniería TSK-H0-003 y verificación normativa formal TSK-H0-004 EJECUTADAS; Auth/recuperación y pruebas posteriores NO EJECUTADAS
+Pruebas técnicas: comprobaciones TSK-H0-001/002, ingeniería TSK-H0-003, verificación formal TSK-H0-004 y tests de implementación PostgreSQL TSK-H0-007 EJECUTADAS; TSK-H0-008, Auth/recuperación y pruebas posteriores NO EJECUTADAS
 Last updated: 2026-09-15
 
 ## 1. Autoridad, base y alcance
@@ -194,18 +194,18 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-007 — Separar rol ordinario, migración y contexto transaccional
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: implementación.
+- [x] **Ejecución: COMPLETED. Evidencia: EJECUTADA en el alcance de implementación.** Hito: H0. Tipo: implementación. Registro: [evidence-TSK-H0-007.md](evidence-TSK-H0-007.md). TSK-H0-008 permanece NOT STARTED / NO EJECUTADA.
 - **Objetivo y alcance:** Permisos servidor/datos, rol no propietario sin BYPASSRLS y contexto confiable por transacción; ausencia de CRUD arbitrario Core. En este paquete el contexto de ensayo es técnico y confiable; su unión con sesión humana se verifica al completar acceso.
 - **Fuentes exactas:** Plan §§3.2, 6.5, 7.2; SPEC-FR-SEC-001, SPEC-FR-SEC-002, SPEC-FR-SEC-005, SPEC-FR-INT-002, AC-064, AC-079, AC-082, PLAN-AUTH-006. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-007.
 - **Bloques, contratos y unidades:** B01; C01/C03; —.
 - **Entregable previsto:** Áreas propuestas de persistencia, contexto y migraciones de permisos; rutas finales por decidir. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-004], [TSK-H0-001]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-006: ensayo de permisos en aislamiento, no aceptación Production. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Crear por migración los permisos limitados y la transmisión de contexto verificado; preservar separación de rol de migración y rechazar contexto del cliente.
+- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-006 conserva PENDING / NO EJECUTADA globalmente: el ensayo local de permisos/contexto queda completado, pero no acredita Auth, actor humano, MFA, recuperación, todas las superficies ni aceptación Production.
+- **Acción ejecutada:** H0-M01 creó por migración roles limitados y contexto técnico confiable por transacción; separó bootstrap/migración/runtime, integró C01/C03 con PostgreSQL real y rechazó autoridad del cliente. Commit, rollback, error y reutilización de conexión se ensayaron sobre PostgreSQL 17.11 local.
 - **Salida observable:** Denegación efectiva fuera de UI y sin contexto; solo facultades previstas; sin filtración entre transacciones del pool.
 - **Verificación y esperado:** Intentar lectura/DML/funciones/vistas por rol API genérico, sin identidad y por rol ordinario; RLS y grants conjuntos en lo expuesto. Reutilizar conexión tras commit, rollback y error con otro contexto: no queda identidad previa. Impedir administrar esquema y privilegios. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H0-008].
 - **Integración adicional obligatoria:** [TSK-H6-008], [TSK-H6-017]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA en su alcance de implementación**: PostgreSQL real desde clúster vacío, 19/19 tests de integración y 27/27 tests de regresión registrados en [evidence-TSK-H0-007.md](evidence-TSK-H0-007.md). No sustituye la comprobación formal TSK-H0-008 ni acredita Auth/pooler hosted/Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-008"></a>

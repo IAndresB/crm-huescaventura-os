@@ -41,16 +41,17 @@ Last updated: 2026-09-15
 - TSK-H0-002 — Delimitar contratos, cambios y evidencia de H0: COMPLETED exclusivamente en preparación el 2026-09-15. Módulos, rutas futuras, C01–C06, T01–T11, migraciones, identidades, datos sintéticos, fallos y V-EVI quedan delimitados sin implementar código ni infraestructura.
 - TSK-H0-003 — Componer servidor modular y resultados C01–C06: COMPLETED en su alcance de implementación el 2026-09-15. Base Node/Next.js/TypeScript fijada, C01–C06, G1–G6, E1–E8, frontera servidor, configuración, diagnóstico e imports implementados; comprobaciones de ingeniería PASS.
 - TSK-H0-004 — Verificar: Componer servidor modular y resultados C01–C06: COMPLETED en su alcance de comprobación normativa formal el 2026-09-15. C01–C06, G1–G6, E1–E8, entrada/origen/replay/contexto, configuración, transporte, canarios y fronteras positivas/negativas PASS; 27/27 tests, typecheck, audit y build PASS. Se corrigieron seis defectos menores del alcance. No acredita Auth, persistencia/atomicidad real ni proveedor.
+- TSK-H0-007 — Separar rol ordinario, migración y contexto transaccional: COMPLETED en su alcance de implementación el 2026-09-15. PostgreSQL 17.11 local real, H0-M01 desde clúster vacío, roles migración/runtime separados, grants+RLS, contexto transaccional, C01/C03 y limpieza tras commit/rollback/error/reutilización PASS; 19/19 tests PostgreSQL y 27/27 de regresión. TSK-H0-008 no ejecutada; PLAN-AUTH-006 sigue PENDING globalmente.
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS exclusivamente por TSK-H0-001/002/003/004 COMPLETED; TSK-H0-005 y posteriores NOT STARTED.
+- Implementación y H0: IN PROGRESS exclusivamente por TSK-H0-001/002/003/004/007 COMPLETED; TSK-H0-005/006, TSK-H0-008 y posteriores NOT STARTED.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
 
-- Nueva instrucción humana delimitada necesaria para TSK-H0-005 o cualquier tarea posterior; no concedida.
+- Nueva instrucción humana delimitada necesaria para cualquier tarea distinta de las ya completadas; TSK-H0-005/006/008/009/010 y posteriores no están autorizadas.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.
 - PLAN-PENDING-004 RESOLVED por D028/D029 para negativos y repartos; pruebas de implementación pendientes.
@@ -97,6 +98,6 @@ El cierre de fase 07 registró mediante su segundo commit de coordinación el SH
 - Inventario: 125 tareas — H0 18, H1 19, H2 12, H3 15, H4 24, H5 19, H6 18.
 - Revisión documental: 618 correspondencias individuales de origen a desarrollo/verificación; IDs y dependencias contrastados, sin ciclos ni dependencias de hito posterior. Incluye 148 transiciones con guardas y 33 prohibiciones con casos negativos. No acredita pruebas del CRM.
 - Alcance: solo Tasks y coordinación; D001–D035 y fuentes aprobadas intactas. Last Approved Commit se actualiza al commit de aprobación de Tasks mediante el segundo commit de coordinación.
-- Estado actual: TSK-H0-001/002 COMPLETED en preparación, TSK-H0-003 COMPLETED en implementación y TSK-H0-004 COMPLETED en verificación formal. H0 sigue IN PROGRESS; TSK-H0-005 y posteriores permanecen NOT STARTED. La verificación formal no acredita Auth/recuperación, PostgreSQL/RLS, persistencia/atomicidad real ni proveedor.
+- Estado actual: TSK-H0-001/002 COMPLETED en preparación, TSK-H0-003/007 COMPLETED en implementación y TSK-H0-004 COMPLETED en verificación formal. H0 sigue IN PROGRESS; TSK-H0-005/006/008/009/010 y posteriores permanecen NOT STARTED. H0-007 acredita PostgreSQL/RLS/contexto solo local y aislado; no acredita Auth/recuperación, pooler hosted, historia/idempotencia/intención durable ni proveedor.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.

@@ -4,7 +4,7 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**Implementación/H0: IN PROGRESS con TSK-H0-001/002/003/004 COMPLETED.** Las dos primeras conservan sus alcances de preparación; [TSK-H0-003](../specs/001-core-crm/evidence-TSK-H0-003.md) completa exclusivamente la composición servidor y contratos C01–C06, y [TSK-H0-004](../specs/001-core-crm/evidence-TSK-H0-004.md) completa su verificación normativa formal con fronteras positivas/negativas y 27/27 tests. TSK-H0-005 y todas las tareas posteriores permanecen **NOT STARTED** y requieren una nueva instrucción humana delimitada. H1–H6: **NOT STARTED**. Auth/recuperación y comprobaciones posteriores: **NO EJECUTADAS**.
+**Implementación/H0: IN PROGRESS con TSK-H0-001/002/003/004/007 COMPLETED.** Las dos primeras conservan sus alcances de preparación; [TSK-H0-003](../specs/001-core-crm/evidence-TSK-H0-003.md) completa la composición servidor y C01–C06, [TSK-H0-004](../specs/001-core-crm/evidence-TSK-H0-004.md) su verificación formal y [TSK-H0-007](../specs/001-core-crm/evidence-TSK-H0-007.md) la separación local de roles/contexto con PostgreSQL 17.11 real y 19/19 tests de implementación. TSK-H0-005/006/008/009/010 y todas las tareas posteriores permanecen **NOT STARTED** y requieren una nueva instrucción humana delimitada. H1–H6: **NOT STARTED**. Auth/recuperación y comprobaciones posteriores: **NO EJECUTADAS**.
 
 La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit identificará el commit de aprobación de Tasks mediante el segundo commit de coordinación, sin modificar el Plan aprobado.
 
@@ -12,7 +12,7 @@ Architecture v0.1 y sus 18 ARCH-DEC, SPEC 001 v0.1 por D022, D023–D036 y PLAN-
 
 ## Preserved Scope
 
-- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; únicamente TSK-H0-001/002/003/004 están marcadas COMPLETED en sus respectivos alcances.
+- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; únicamente TSK-H0-001/002/003/004/007 están marcadas COMPLETED en sus respectivos alcances.
 - PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y PLAN-AUTH-001–006 PENDING / NO EJECUTADAS.
 - Los bloqueos localizados de Tasks §7 y los pendientes heredados permanecen vigentes en sus ámbitos.
 - La aprobación documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
@@ -35,15 +35,15 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — IN PROGRESS solo por TSK-H0-001/002/003/004 COMPLETED; TSK-H0-005 y posteriores NOT STARTED.
+9. implementación — IN PROGRESS solo por TSK-H0-001/002/003/004/007 COMPLETED; TSK-H0-005/006/008/009/010 y posteriores NOT STARTED.
 
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La autorización específica actual termina al publicar y verificar TSK-H0-004. Una nueva instrucción humana delimitada es necesaria antes de TSK-H0-005 o cualquier tarea posterior. No deducir autorización técnica de una aprobación, un commit, push o árbol limpio.
+La autorización específica actual termina al publicar TSK-H0-007. Una nueva instrucción humana delimitada es necesaria antes de cualquier otra tarea, incluidas TSK-H0-005/006/008/009/010. No deducir autorización técnica de una aprobación, un commit, push o árbol limpio.
 
-No iniciar TSK-H0-005, SQL, migraciones, RLS, Auth, UI, endpoints de negocio, configuración Supabase/Vercel, proveedores/dispositivos, DNS, infraestructura externa o despliegues bajo esta autorización.
+No iniciar TSK-H0-005/006/008/009/010, Auth, UI, esquema comercial, historia/idempotencia/intenciones durables, endpoints de negocio, configuración Supabase/Vercel hosted, proveedores/dispositivos, DNS, infraestructura externa o despliegues bajo esta autorización.
 
 Si aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 
