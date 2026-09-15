@@ -6,9 +6,9 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — solo TSK-H0-001 COMPLETED
+Implementation: IN PROGRESS — solo TSK-H0-001/002 COMPLETED
 H0: IN PROGRESS; H1–H6: NOT STARTED
-Pruebas técnicas: solo comprobaciones no destructivas TSK-H0-001 EJECUTADAS; pruebas funcionales/Auth/recuperación NO EJECUTADAS
+Pruebas técnicas: solo comprobaciones documentales/no destructivas TSK-H0-001/002 EJECUTADAS; pruebas funcionales/Auth/recuperación NO EJECUTADAS
 Last updated: 2026-09-15
 
 ## 1. Autoridad, base y alcance
@@ -107,17 +107,17 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-002 — Delimitar contratos, cambios y evidencia de H0
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: preparación.
+- [x] **Ejecución: COMPLETED. Evidencia: EJECUTADA.** Hito: H0. Tipo: preparación. Registro: [evidence-TSK-H0-002.md](evidence-TSK-H0-002.md).
 - **Objetivo y alcance:** Composición modular, contratos semánticos C01–C06 y unidades internas; acordar el paquete físico acotado al empezar su implementación.
 - **Fuentes exactas:** Plan §§3–7, 9–11; AC-079, AC-084, AC-089, D024, D030, D032, D033, D034, D035. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-002.
 - **Bloques, contratos y unidades:** B01/B07/B08/B10; C01–C06; T01–T11.
 - **Entregable previsto:** Mapa de módulos y propuestas de rutas, contratos y paquetes de migración; protocolo de verificación. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-001]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** Autorización futura de implementación; no exige resolver PLAN-PENDING-003 para diseñar sus ensayos. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Concretar interfaces estrechas, secuencia compatible de migraciones, datos sintéticos y puntos de fallo, sin cambiar los contratos aprobados.
+- **Bloqueo localizado / condición para levantarlo:** La instrucción humana de 2026-09-15 autorizó exclusivamente esta delimitación y no exige resolver PLAN-PENDING-003; cualquier implementación, configuración o ensayo posterior sigue pendiente de autorización conforme a §7.
+- **Acción ejecutada:** Interfaces estrechas, secuencia compatible de migraciones, datos sintéticos y puntos de fallo delimitados documentalmente sin cambiar los contratos aprobados.
 - **Salida observable:** Diseño del paquete revisable, cada efecto y prueba con dueño, sin versiones ni estructura física fijadas por este borrador.
 - **Verificación y esperado:** Separar dominio de framework/SDK; separar identidad humana/técnica; cada unidad incluye historia/resultado/intención cuando aplica; no espera a humano/proveedor/objeto dentro de transacción. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA en su alcance de preparación**: módulos, rutas propuestas, C01–C06, T01–T11, migraciones, identidades, datos sintéticos, fallos y protocolo H0 delimitados en [evidence-TSK-H0-002.md](evidence-TSK-H0-002.md). No acredita código, migraciones ni pruebas funcionales implementadas.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T01–T11 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-003"></a>
