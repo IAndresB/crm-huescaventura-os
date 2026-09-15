@@ -1,7 +1,10 @@
 import { semanticIssue } from "../domain/semantic-error.ts";
 import type { ApplicationResult } from "../application/result.ts";
-import type { TrustedExecutionContext } from "../application/trusted-context.ts";
-import type { DiagnosticSink } from "./diagnostics.ts";
+import {
+  isTrustedContext,
+  type TrustedExecutionContext,
+} from "../application/trusted-context.ts";
+import { diagnosticReference, type DiagnosticSink } from "./diagnostics.ts";
 
 export interface BoundaryEnvelope {
   readonly requestId: string;
@@ -86,8 +89,13 @@ export async function invokeServerBoundary<T>(
   const envelope = parseBoundaryEnvelope(raw);
   if (!envelope) return { status: "rejected", issues: [semanticIssue("E1", "request")] };
 
+  const requestReference = diagnosticReference(envelope.requestId);
+  const operationReference = envelope.operation
+    ? diagnosticReference(envelope.operation.id)
+    : undefined;
+
   if (!dependencies.allowedOrigins.has(envelope.origin)) {
-    dependencies.diagnostics.record({ requestId: envelope.requestId, code: "E1", outcome: "rejected" });
+    dependencies.diagnostics.record({ requestId: requestReference, code: "E1", outcome: "rejected" });
     return { status: "rejected", issues: [semanticIssue("E1", "origin")] };
   }
 
@@ -98,11 +106,11 @@ export async function invokeServerBoundary<T>(
       origin: envelope.origin,
     });
   } catch {
-    dependencies.diagnostics.record({ requestId: envelope.requestId, code: "E5", outcome: "rejected" });
+    dependencies.diagnostics.record({ requestId: requestReference, code: "E5", outcome: "rejected" });
     return { status: "rejected", issues: [semanticIssue("E5", "access")] };
   }
-  if (!context) {
-    dependencies.diagnostics.record({ requestId: envelope.requestId, code: "E1", outcome: "rejected" });
+  if (!isTrustedContext(context)) {
+    dependencies.diagnostics.record({ requestId: requestReference, code: "E1", outcome: "rejected" });
     return { status: "rejected", issues: [semanticIssue("E1", "access")] };
   }
 
@@ -116,8 +124,8 @@ export async function invokeServerBoundary<T>(
       );
     } catch {
       dependencies.diagnostics.record({
-        requestId: envelope.requestId,
-        operationId: envelope.operation.id,
+        requestId: requestReference,
+        operationId: operationReference,
         code: "E5",
         outcome: "rejected",
       });
@@ -125,16 +133,16 @@ export async function invokeServerBoundary<T>(
     }
     if (replay.status === "previous") {
       dependencies.diagnostics.record({
-        requestId: envelope.requestId,
-        operationId: envelope.operation.id,
+        requestId: requestReference,
+        operationId: operationReference,
         outcome: "previous",
       });
       return { status: "previous", value: replay.value };
     }
     if (replay.status === "conflict") {
       dependencies.diagnostics.record({
-        requestId: envelope.requestId,
-        operationId: envelope.operation.id,
+        requestId: requestReference,
+        operationId: operationReference,
         code: "E2",
         outcome: "rejected",
       });
@@ -142,8 +150,8 @@ export async function invokeServerBoundary<T>(
     }
     if (replay.status === "uncertain") {
       dependencies.diagnostics.record({
-        requestId: envelope.requestId,
-        operationId: envelope.operation.id,
+        requestId: requestReference,
+        operationId: operationReference,
         code: "E4",
         outcome: "pending",
       });
@@ -156,16 +164,16 @@ export async function invokeServerBoundary<T>(
     result = await invoke(context, envelope.payload);
   } catch {
     dependencies.diagnostics.record({
-      requestId: envelope.requestId,
-      operationId: envelope.operation?.id,
+      requestId: requestReference,
+      operationId: operationReference,
       code: "E5",
       outcome: "rejected",
     });
     return { status: "rejected", issues: [semanticIssue("E5", "operation")] };
   }
   dependencies.diagnostics.record({
-    requestId: envelope.requestId,
-    operationId: envelope.operation?.id,
+    requestId: requestReference,
+    operationId: operationReference,
     code: result.status === "rejected" || result.status === "pending" ? result.issues[0]?.code : undefined,
     outcome: result.status === "applied" ? "accepted" : result.status,
   });

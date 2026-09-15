@@ -6,9 +6,9 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — solo TSK-H0-001/002/003 COMPLETED
+Implementation: IN PROGRESS — solo TSK-H0-001/002/003/004 COMPLETED
 H0: IN PROGRESS; H1–H6: NOT STARTED
-Pruebas técnicas: comprobaciones TSK-H0-001/002 y verificaciones de ingeniería propias de TSK-H0-003 EJECUTADAS; TSK-H0-004 y pruebas formales/Auth/recuperación NO EJECUTADAS
+Pruebas técnicas: comprobaciones TSK-H0-001/002, ingeniería TSK-H0-003 y verificación normativa formal TSK-H0-004 EJECUTADAS; Auth/recuperación y pruebas posteriores NO EJECUTADAS
 Last updated: 2026-09-15
 
 ## 1. Autoridad, base y alcance
@@ -142,17 +142,17 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-004 — Verificar: Componer servidor modular y resultados C01–C06
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED. Evidencia: EJECUTADA en el alcance de comprobación normativa formal.** Hito: H0. Tipo: comprobación. Registro: [evidence-TSK-H0-004.md](evidence-TSK-H0-004.md). TSK-H0-005 permanece NOT STARTED / NO EJECUTADA.
 - **Objetivo y alcance:** Frontera servidor, validación de entrada/origen, guardas G1–G6 y errores E1–E8; puertos sin lógica de negocio en transporte.
 - **Fuentes exactas:** Plan §§3.2, 4, 6.5, 7.1; SPEC-FR-ERR-001, SPEC-FR-SEC-005, AC-072, AC-082, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-004.
 - **Bloques, contratos y unidades:** B01/B10; C01–C06; —.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-003]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** Versiones compatibles y ámbito aislado verificados; ningún acceso real. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + comprobación de build/fronteras sobre TSK-H0-003; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** Versiones compatibles y ámbito aislado verificados; ningún acceso real. Las capacidades externas y puertas posteriores permanecen pendientes en su alcance.
+- **Acción ejecutada:** V-DOM y comprobación adversarial de build/fronteras sobre TSK-H0-003; contraste independiente de C01–C06, G1–G6, E1–E8, entrada, origen, replay, contexto, configuración, transporte y no filtración. Se corrigieron seis defectos menores del alcance sin ampliar arquitectura.
 - **Salida observable:** Contratos invocables en aislamiento y dominio independiente de Next.js; errores preservan parte pendiente y no filtran contexto. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Build y frontera de imports; solicitud inválida/replay/origen no permitido rechazada; casos E1–E8 distintos; E4 no se reduce a E5; ninguna salida sensible en error. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA**: matrices normativas, 27 tests, typecheck, audit, build, frontera positiva y cuatro casos negativos registrados en [evidence-TSK-H0-004.md](evidence-TSK-H0-004.md). No acredita Auth, PostgreSQL/RLS, persistencia/atomicidad real ni proveedor.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-005"></a>

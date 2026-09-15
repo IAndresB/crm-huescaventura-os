@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const sourceRoot = resolve(projectRoot, "src");
-const importPattern = /(?:from\s+|import\s*\()\s*["']([^"']+)["']/g;
+const importPattern = /(?:from\s+|import\s*\(\s*|import\s+)["']([^"']+)["']/g;
 const forbiddenExternal = /^(next(?:\/|$)|react(?:\/|$)|@supabase\/|postgres(?:\/|$))/;
 
 async function sourceFiles(directory) {

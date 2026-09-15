@@ -76,7 +76,7 @@ test("C05 records an intent but leaves the external channel pending", async () =
     recipientReference: "recipient-synthetic-01",
     contentVersion: "v1",
   }), {
-    recordIntent: async () => ({ intentId: "intent-synthetic-01", state: "pending" }),
+    record: async () => ({ stage: "intent", intentId: "intent-synthetic-01" }),
   });
   assert.equal(result.status, "pending");
   assert.equal(result.issues[0]?.code, "E6");

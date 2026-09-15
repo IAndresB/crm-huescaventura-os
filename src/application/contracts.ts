@@ -107,6 +107,13 @@ export async function invokeC04(
 ): Promise<ApplicationResult<EvidenceRecord>> {
   const rejection = rejectedByGuards(request);
   if (rejection) return rejection;
+  const verification = request.input.verification;
+  if (verification !== undefined && (
+    verification.reviewerIdentityId.trim().length === 0
+    || Number.isNaN(Date.parse(verification.reviewedAt))
+  )) {
+    return { status: "rejected", issues: [semanticIssue("E3", request.scope)] };
+  }
   const registered = await port.register(request.context, request.input);
   const value: EvidenceRecord = {
     evidenceId: registered.evidenceId,
@@ -122,25 +129,36 @@ export interface ExternalIntent {
   readonly approvalReference?: string;
 }
 
-export interface PendingExternalIntent {
-  readonly intentId: string;
-  readonly state: "pending";
-}
+export type ExternalEffectRecord =
+  | { readonly stage: "intent"; readonly intentId: string }
+  | { readonly stage: "attempt"; readonly intentId: string; readonly attemptId: string }
+  | {
+    readonly stage: "result";
+    readonly intentId: string;
+    readonly attemptId: string;
+    readonly resultReference: string;
+    readonly outcome: "succeeded" | "failed";
+  }
+  | { readonly stage: "uncertain"; readonly intentId: string; readonly attemptId: string };
 
-export interface ExternalIntentPort {
-  recordIntent(
+export interface ExternalEffectPort {
+  record(
     context: TrustedExecutionContext,
     intent: ExternalIntent,
-  ): Promise<PendingExternalIntent>;
+  ): Promise<ExternalEffectRecord>;
 }
 
 export async function invokeC05(
   request: ContractRequest<ExternalIntent>,
-  port: ExternalIntentPort,
-): Promise<ApplicationResult<PendingExternalIntent>> {
+  port: ExternalEffectPort,
+): Promise<ApplicationResult<ExternalEffectRecord>> {
   const rejection = rejectedByGuards(request);
   if (rejection) return rejection;
-  const value = await port.recordIntent(request.context, request.input);
+  const value = await port.record(request.context, request.input);
+  if (value.stage === "result") return { status: "applied", value };
+  if (value.stage === "uncertain") {
+    return { status: "pending", value, issues: [semanticIssue("E4", request.scope)] };
+  }
   return { status: "pending", value, issues: [semanticIssue("E6", request.scope)] };
 }
 
@@ -161,7 +179,12 @@ export function invokeC06<Input>(
   const rejection = rejectedByGuards(request);
   if (rejection) return rejection;
   const value = evaluate(request.input);
-  if (value.scope !== request.scope) {
+  const allowedKinds = new Set<ScopedEvaluationChange["kind"]>([
+    "record-assessment",
+    "mark-pending",
+    "request-review",
+  ]);
+  if (value.scope !== request.scope || value.changes.some((change) => !allowedKinds.has(change.kind))) {
     return { status: "rejected", issues: [semanticIssue("E1", request.scope)] };
   }
   return { status: "applied", value };
