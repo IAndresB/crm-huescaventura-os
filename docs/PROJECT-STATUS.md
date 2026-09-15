@@ -66,7 +66,7 @@ Last updated: 2026-09-15
 
 ## Last Approved Commit
 
-- c2c908495afb8eacd39775f273585173533d6b51 — docs: approve plan spec 001 v0.3. D034 y Plan SPEC 001 Core CRM v0.3 APPROVED / COMPLETED.
+- 24afe15cec30d294647c3cd5f1ed4e82ed0b9931 — docs: approve tasks spec 001 v0.1. D036 y Tasks SPEC 001 Core CRM v0.1 APPROVED / COMPLETED; implementación y H0–H6 NOT STARTED.
 
 ## Notes
 
