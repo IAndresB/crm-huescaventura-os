@@ -2,20 +2,20 @@
 
 ## Current Step
 
-**Fase 08 — Tasks SPEC 001: IN PROGRESS — pendiente de revisión humana.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 es **DRAFT / NOT APPROVED**. D035 autoriza exclusivamente preparar, revisar y publicar este borrador y su coordinación.
+**Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental; las 125 tareas siguen NOT STARTED.
 
-**Siguiente paso: revisión en GitHub por ChatGPT y Andrés.** La publicación no aprueba Tasks ni autoriza ejecución. Implementación y H0–H6: **NOT STARTED**. Pruebas técnicas: **NO EJECUTADAS**.
+**Siguiente fase posible: implementación, todavía NOT STARTED y pendiente de una instrucción humana posterior delimitada.** D036 no autoriza ejecutar TSK-H0-001 ni ninguna otra tarea, preparación técnica o ensayo. H0–H6: **NOT STARTED**. Pruebas técnicas: **NO EJECUTADAS**.
 
-La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. Last Approved Commit conserva c2c908495afb8eacd39775f273585173533d6b51. La autorización posterior D035 se explica en la coordinación, sin modificar las frases históricas de cierre del Plan aprobado.
+La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit identificará el commit de aprobación de Tasks mediante el segundo commit de coordinación, sin modificar el Plan aprobado.
 
-Architecture v0.1 y sus 18 ARCH-DEC, SPEC 001 v0.1 por D022, D023–D034 y PLAN-DEC-001–PLAN-DEC-009 permanecen APPROVED. El commit del borrador se registra por separado en [PROJECT-STATUS](PROJECT-STATUS.md).
+Architecture v0.1 y sus 18 ARCH-DEC, SPEC 001 v0.1 por D022, D023–D036 y PLAN-DEC-001–PLAN-DEC-009 permanecen APPROVED. Los commits del borrador, aprobación y coordinación se registran por separado en [PROJECT-STATUS](PROJECT-STATUS.md).
 
-## Review Focus
+## Preserved Scope
 
-- Contrastar granularidad, fuentes, dependencias y criterios de las 125 tareas; 618 filas de trazabilidad con desarrollo y verificación concretos.
-- Revisar capacidades mínimas B07/B08 anteriores a H5, evidencia H1 para economía H3, requisitos/incidencias al inicio de H4, confirmación completa de Booking H4 y cierre integrado H5.
-- Revisar ensayos aislados de acceso/recuperación, comprobaciones posteriores y puertas separadas antes de acceso real y Production.
-- Conservar los bloqueos localizados de Tasks §7. La revisión documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
+- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; ninguna tarea está marcada.
+- PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y PLAN-AUTH-001–006 PENDING / NO EJECUTADAS.
+- Los bloqueos localizados de Tasks §7 y los pendientes heredados permanecen vigentes en sus ámbitos.
+- La aprobación documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
 
 PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED, exclusivamente PLAN-AUTH-001–006 PENDING / NO EJECUTADAS. D025/D026/D027/D031 completan la política: varios dispositivos, 30 días absolutos y 7 de inactividad por sesión, uso humano validado, revocación efectiva, email de seguridad verificado, TOTP y recuperación independiente del propietario/papel. Las capacidades y ensayos aún deben acreditarse; refresh no es uso humano.
 
@@ -34,14 +34,14 @@ Precedido por Constitution v1.0 APPROVED.
 5. architecture.md
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
-8. tasks.md — IN PROGRESS, v0.1 DRAFT / NOT APPROVED.
+8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
 9. implementación — NOT STARTED.
 
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La autorización D035 termina tras publicar el borrador de Tasks y la coordinación. La revisión humana, la aprobación del contenido y una instrucción posterior delimitada son necesarias antes de iniciar implementación. No deducir autorización técnica de un commit, push, árbol limpio o cierre de fase anterior.
+La autorización D035 terminó tras publicar el borrador y su coordinación; D036 aprueba el contenido y cierra la fase documental. Una instrucción humana posterior delimitada sigue siendo necesaria antes de iniciar implementación. No deducir autorización técnica de la aprobación, un commit, push o árbol limpio.
 
 No iniciar código, SQL, migraciones, RLS, endpoints, UI, pruebas del CRM, configuración Supabase/Vercel, proveedores/dispositivos, DNS, infraestructura o despliegues bajo esta autorización documental.
 

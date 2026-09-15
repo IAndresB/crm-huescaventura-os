@@ -1,10 +1,11 @@
 # Tasks — SPEC 001 Core CRM
 
 Version: 0.1
-Status: DRAFT
-Approval: NOT APPROVED
+Status: APPROVED
+Approval: APPROVED — D036
+Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
-Progress: IN PROGRESS — pendiente de revisión humana
+Progress: COMPLETED
 Implementation: NOT STARTED
 H0–H6: NOT STARTED
 Pruebas técnicas: NO EJECUTADAS
@@ -12,7 +13,7 @@ Last updated: 2026-09-15
 
 ## 1. Autoridad, base y alcance
 
-Este borrador descompone trabajo futuro. La autorización de Andrés registrada en **D035** permite preparar, revisar y publicar exclusivamente este documento y la coordinación. **La publicación documental no equivale a aprobación de Tasks ni autoriza ejecutar una sola tarea.** ChatGPT y Andrés revisarán el borrador publicado en GitHub.
+Este documento aprobado descompone trabajo futuro. D035 conserva la autorización histórica para preparar y publicar el borrador; Andrés aprobó formalmente su contenido el 2026-09-15 mediante **D036**, después de revisar el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. **COMPLETED cierra únicamente la fase documental 08: no declara ejecutada ninguna de las 125 tareas ni autoriza implementación, preparación técnica o ensayo.**
 
 | Fuente/base | Referencia exacta |
 |---|---|
@@ -21,7 +22,7 @@ Este borrador descompone trabajo futuro. La autorización de Andrés registrada 
 | Aprobación del Plan / Last Approved Commit | `c2c908495afb8eacd39775f273585173533d6b51`. No se reemplaza por un commit del borrador. |
 | Revisión previa al cierre del Plan | `e902220b96a7df36454a984531c27c2f14d14529`, conservada como antecedente D034. |
 | Base local/remota de esta preparación | `6d00821ddfab50b241c4dea086af1eb79bfdad90`, main de IAndresB/crm-huescaventura-os, comprobada tras fetch. |
-| Decisiones | [DECISIONS](../../docs/DECISIONS.md): D001–D034 conservadas; D035 solo registra esta autorización documental. |
+| Decisiones | [DECISIONS](../../docs/DECISIONS.md): D001–D035 conservadas; D035 registra la autorización histórica de preparación/publicación y D036 la aprobación formal del contenido. |
 | Coordinación vigente | [PROJECT-STATUS](../../docs/PROJECT-STATUS.md) y [NEXT-STEPS](../../docs/NEXT-STEPS.md). El SHA de publicación se registra separado de la aprobación. |
 
 Jerarquía: [Constitution](../../docs/constitution.md) → [Product](../../docs/product.md) → [Business Rules](../../docs/business-rules.md) → [Domain Model](../../docs/domain-model.md) → [State Machines](../../docs/state-machines.md) → [Architecture](../../docs/architecture.md) → SPEC → Plan → Tasks → implementación autorizada. Las tablas normativas de State Machines prevalecen sobre los diagramas. Las decisiones aprobadas interpretan las fuentes sin borrar su cronología.
@@ -3078,7 +3079,7 @@ D018–D020 conservan resoluciones históricas de SM-PENDING-001/002/003; **no q
 
 ### 7.3. Puertas separadas y responsables
 
-- **Puerta documental actual:** revisión del DRAFT en GitHub por ChatGPT y Andrés. Únicamente Andrés puede aprobar Tasks y autorizar el siguiente alcance de implementación; D035 no lo hace.
+- **Puerta documental actual:** superada por la aprobación formal D036 del contenido publicado y revisado. D035 conserva su alcance histórico de preparación/publicación. La aprobación documental no autoriza el siguiente alcance de implementación.
 - **Ensayo técnico aislado futuro:** exige aprobación/instrucción de fase, dependencias de la ficha, capacidad/ámbito verificados y autorización de recursos/acciones correspondiente. Puede investigar/producir evidencia sobre un pendiente abierto. Sus resultados no conceden acceso real.
 - **Acceso real:** todas las PLAN-AUTH satisfactorias y decisiones/datos/políticas materiales de ese uso acreditados; sin convertir disponibilidad parcial o un mock en aceptación.
 - **Preparación de Production H6:** lo anterior más ARCH-PENDING-002 y políticas/capacidades de continuidad aceptadas y comprobadas; informe con limitaciones. El despliegue/uso sigue requiriendo su autorización propia.
@@ -3086,7 +3087,7 @@ D018–D020 conservan resoluciones históricas de SM-PENDING-001/002/003; **no q
 
 ## 8. Resultado de revisión documental y siguiente paso
 
-### 8.1. Revisión de este DRAFT
+### 8.1. Revisión del contenido aprobado
 
 | Comprobación documental | Resultado / límite |
 |---|---|
@@ -3096,19 +3097,19 @@ D018–D020 conservan resoluciones históricas de SM-PENDING-001/002/003; **no q
 | Dependencias | IDs existentes, grafo sin ciclos y sin dependencias de hito posterior. H0→H6 explícito; autorización/historia/idempotencia tempranas, evidencia H1 antes de H3, requisitos/incidencias al inicio de H4, confirmación completa H4 y cierre integrado H5. |
 | Granularidad y salida | 48 cambios de implementación vinculados a comprobación local y obligaciones de integración adicionales. Migración/prueba del cambio persistente forman su bloque; H6 comprueba cadena completa. |
 | Bloqueos y paralelismo | Estados/políticas aprobados preservados; bloqueos por tarea/uso; ensayos aislados capaces de producir evidencia sin circularidad. Paralelismo sujeto a dependencias y recursos/contratos separados. |
-| Estados y alcance | Todas las tareas vacías, NOT STARTED; evidencia NO EJECUTADA. Tasks v0.1 DRAFT / NOT APPROVED. Fase 08 IN PROGRESS; fase 07 COMPLETED. Ningún trabajo técnico ejecutado. |
-| Protección documental | Publicación restringida a tasks.md, PROJECT-STATUS.md, NEXT-STEPS.md y apéndice D035 en DECISIONS.md. Comparación exacta de las fuentes aprobadas y del prefijo D001–D034 respecto a la base; Last Approved Commit conserva c2c908495afb8eacd39775f273585173533d6b51. |
-| Publicación | Commit del borrador y, después, commit exclusivo de coordinación para registrar su SHA. Verificar main local, origin/main, remoto y árbol limpio; constancia final en PROJECT-STATUS y entrega de sesión. No confundir el commit publicado con aprobación. |
+| Estados y alcance | Todas las tareas vacías, NOT STARTED; evidencia NO EJECUTADA. Tasks v0.1 APPROVED / COMPLETED por D036; COMPLETED corresponde solo a la fase documental. Fase 07 COMPLETED. Ningún trabajo técnico ejecutado. |
+| Protección documental | Cierre restringido a tasks.md, PROJECT-STATUS.md, NEXT-STEPS.md y apéndice D036 en DECISIONS.md. Las fuentes aprobadas y D001–D035 permanecen intactas. El commit de aprobación se registra como Last Approved Commit mediante un segundo commit exclusivo de coordinación. |
+| Publicación | Primer commit de aprobación y cierre documental; después, commit exclusivo de coordinación para registrar su SHA real en PROJECT-STATUS. Verificar main local, origin/main, remoto y árbol limpio. Ninguno autoriza implementar. |
 
 Los recuentos se contrastan mediante conjuntos de IDs extraídos de las tablas/epígrafes fuente y asignaciones por fila, además de revisión de casos/dependencias. No son una declaración de pruebas satisfactorias. **No se han ejecutado pruebas de aplicación, datos, Auth, integración, migración ni recuperación del CRM.**
 
-### 8.2. Siguiente paso humano y puntos de revisión
+### 8.2. Cierre documental y siguiente paso humano
 
-ChatGPT y Andrés revisarán en GitHub la granularidad, las correspondencias normativas, los alcances locales frente a integraciones posteriores, los criterios de salida y las puertas de acceso/Production. Si la revisión pide cambios, se corrige el DRAFT dentro de una instrucción autorizada. Aprobar Tasks y autorizar implementación son actos posteriores; no se deducen de publicación, estado limpio ni aprobación del Plan.
+Andrés aprobó formalmente Tasks SPEC 001 Core CRM v0.1 mediante D036, sobre el contenido del borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. La aprobación cierra la fase documental 08 y conserva íntegros los pendientes y bloqueos localizados.
 
-La revisión debe prestar atención a la secuencia de controles aislados H0, los complementos B07/B08 anteriores a H5, las matrices de guardas/prohibiciones, los ensayos AUTH repartidos por disponibilidad y las decisiones/datos localizados de §7. No se solicita decidir de nuevo políticas D018–D020 o D023–D033 ya aprobadas.
+El siguiente paso posible es implementación, todavía **NOT STARTED** y pendiente de una instrucción humana posterior delimitada. Esa instrucción deberá fijar el alcance autorizado y respetar la secuencia, dependencias, bloqueos y puertas de este documento. La aprobación de Tasks no autoriza por sí sola ninguna tarea: **ni siquiera TSK-H0-001 puede ejecutarse bajo este cierre**.
 
-**Punto de parada de esta autorización:** borrador y coordinación publicados. **Tasks NOT APPROVED; implementación y H0–H6 NOT STARTED; pruebas técnicas NO EJECUTADAS.**
+**Punto de parada de esta autorización:** aprobación y coordinación publicadas. **Tasks v0.1 APPROVED / fase documental COMPLETED; implementación y H0–H6 NOT STARTED; pruebas técnicas NO EJECUTADAS.**
 
 [TSK-H0-001]: #tsk-h0-001
 [TSK-H0-002]: #tsk-h0-002
