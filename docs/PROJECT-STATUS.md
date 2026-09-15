@@ -39,16 +39,17 @@ Last updated: 2026-09-15
 - Fase 08 — Tasks completada documentalmente: specs/001-core-crm/tasks.md v0.1 APPROVED / COMPLETED. Al cierre de esa fase las 125 tareas permanecían NOT STARTED.
 - TSK-H0-001 — Comprobar compatibilidad, recursos y coste de acceso: COMPLETED en su alcance de preparación el 2026-09-15, con evidencia documental/local, versiones propuestas, recursos separados y coste base calculado. No acredita configuración ni acceso real.
 - TSK-H0-002 — Delimitar contratos, cambios y evidencia de H0: COMPLETED exclusivamente en preparación el 2026-09-15. Módulos, rutas futuras, C01–C06, T01–T11, migraciones, identidades, datos sintéticos, fallos y V-EVI quedan delimitados sin implementar código ni infraestructura.
+- TSK-H0-003 — Componer servidor modular y resultados C01–C06: COMPLETED en su alcance de implementación el 2026-09-15. Base Node/Next.js/TypeScript fijada, C01–C06, G1–G6, E1–E8, frontera servidor, configuración, diagnóstico e imports implementados; comprobaciones de ingeniería PASS. TSK-H0-004 no ejecutada.
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS exclusivamente por TSK-H0-001/002 COMPLETED; TSK-H0-003 y posteriores NOT STARTED.
+- Implementación y H0: IN PROGRESS exclusivamente por TSK-H0-001/002/003 COMPLETED; TSK-H0-004 y posteriores NOT STARTED.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
 
-- Nueva instrucción humana delimitada necesaria para TSK-H0-003 o cualquier tarea posterior; no concedida.
+- Nueva instrucción humana delimitada necesaria para TSK-H0-004 o cualquier tarea posterior; no concedida.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.
 - PLAN-PENDING-004 RESOLVED por D028/D029 para negativos y repartos; pruebas de implementación pendientes.
@@ -95,6 +96,6 @@ El cierre de fase 07 registró mediante su segundo commit de coordinación el SH
 - Inventario: 125 tareas — H0 18, H1 19, H2 12, H3 15, H4 24, H5 19, H6 18.
 - Revisión documental: 618 correspondencias individuales de origen a desarrollo/verificación; IDs y dependencias contrastados, sin ciclos ni dependencias de hito posterior. Incluye 148 transiciones con guardas y 33 prohibiciones con casos negativos. No acredita pruebas del CRM.
 - Alcance: solo Tasks y coordinación; D001–D035 y fuentes aprobadas intactas. Last Approved Commit se actualiza al commit de aprobación de Tasks mediante el segundo commit de coordinación.
-- Estado posterior al registro de Tasks: TSK-H0-001/002 COMPLETED en sus alcances de preparación; implementación/H0 IN PROGRESS solo por esas fichas. TSK-H0-003 y posteriores NOT STARTED; pruebas funcionales/Auth/recuperación NO EJECUTADAS.
+- Estado actual: TSK-H0-001/002 COMPLETED en preparación y TSK-H0-003 COMPLETED en implementación. H0 sigue IN PROGRESS; TSK-H0-004/005 y posteriores permanecen NOT STARTED. Las comprobaciones de ingeniería de TSK-H0-003 no sustituyen la verificación formal TSK-H0-004 ni acreditan Auth/recuperación.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.

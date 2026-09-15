@@ -6,9 +6,9 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — solo TSK-H0-001/002 COMPLETED
+Implementation: IN PROGRESS — solo TSK-H0-001/002/003 COMPLETED
 H0: IN PROGRESS; H1–H6: NOT STARTED
-Pruebas técnicas: solo comprobaciones documentales/no destructivas TSK-H0-001/002 EJECUTADAS; pruebas funcionales/Auth/recuperación NO EJECUTADAS
+Pruebas técnicas: comprobaciones TSK-H0-001/002 y verificaciones de ingeniería propias de TSK-H0-003 EJECUTADAS; TSK-H0-004 y pruebas formales/Auth/recuperación NO EJECUTADAS
 Last updated: 2026-09-15
 
 ## 1. Autoridad, base y alcance
@@ -124,18 +124,18 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-003 — Componer servidor modular y resultados C01–C06
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: implementación.
+- [x] **Ejecución: COMPLETED. Evidencia: EJECUTADA en el alcance de implementación.** Hito: H0. Tipo: implementación. Registro: [evidence-TSK-H0-003.md](evidence-TSK-H0-003.md). TSK-H0-004 permanece NOT STARTED / NO EJECUTADA.
 - **Objetivo y alcance:** Frontera servidor, validación de entrada/origen, guardas G1–G6 y errores E1–E8; puertos sin lógica de negocio en transporte.
 - **Fuentes exactas:** Plan §§3.2, 4, 6.5, 7.1; SPEC-FR-ERR-001, SPEC-FR-SEC-005, AC-072, AC-082, PLAN-AUTH-001, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-003.
 - **Bloques, contratos y unidades:** B01/B10; C01–C06; —.
 - **Entregable previsto:** Áreas propuestas de dominio, aplicación y adaptadores; composición mínima sin pantallas. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-002]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** Versiones compatibles y ámbito aislado verificados; ningún acceso real. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Crear la base estricta del servidor y contratos con resultados explícitos, denegación inicial, configuración validada y diagnóstico mínimo.
+- **Bloqueo localizado / condición para levantarlo:** Versiones compatibles y ámbito local aislado verificados para esta implementación; ningún acceso real. PLAN-AUTH-001 y las puertas de §7 conservan pendientes las capacidades externas y no bloquean el contrato independiente completado.
+- **Acción ejecutada:** Base estricta del servidor, C01–C06, G1–G6, E1–E8, denegación inicial, entrada/origen/replay, configuración validada, diagnóstico mínimo y fronteras de imports implementados sin persistencia/Auth/UI.
 - **Salida observable:** Contratos invocables en aislamiento y dominio independiente de Next.js; errores preservan parte pendiente y no filtran contexto.
 - **Verificación y esperado:** Build y frontera de imports; solicitud inválida/replay/origen no permitido rechazada; casos E1–E8 distintos; E4 no se reduce a E5; ninguna salida sensible en error. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H0-004].
 - **Integración adicional obligatoria:** [TSK-H6-017]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA en el alcance de implementación**: typecheck, build, fronteras y 13 tests mínimos propios registrados en [evidence-TSK-H0-003.md](evidence-TSK-H0-003.md). No sustituye la comprobación formal TSK-H0-004 ni acredita PostgreSQL/Auth/RLS/proveedores.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-004"></a>

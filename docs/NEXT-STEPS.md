@@ -4,7 +4,7 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**Implementación/H0: IN PROGRESS exclusivamente por TSK-H0-001 y TSK-H0-002, ambas COMPLETED en sus alcances de preparación.** Sus evidencias registran [compatibilidad/recursos/coste](../specs/001-core-crm/evidence-TSK-H0-001.md) y la [delimitación técnica de H0](../specs/001-core-crm/evidence-TSK-H0-002.md). TSK-H0-003 y todas las tareas posteriores permanecen **NOT STARTED** y requieren una nueva instrucción humana delimitada. H1–H6: **NOT STARTED**. Pruebas funcionales/Auth/recuperación: **NO EJECUTADAS**.
+**Implementación/H0: IN PROGRESS con TSK-H0-001/002/003 COMPLETED.** Las dos primeras conservan sus alcances de preparación; [TSK-H0-003](../specs/001-core-crm/evidence-TSK-H0-003.md) completa exclusivamente la composición servidor y contratos C01–C06 con comprobaciones de ingeniería satisfactorias. TSK-H0-004 y todas las tareas posteriores permanecen **NOT STARTED** y requieren una nueva instrucción humana delimitada. H1–H6: **NOT STARTED**. Auth/recuperación y comprobaciones formales posteriores: **NO EJECUTADAS**.
 
 La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit identificará el commit de aprobación de Tasks mediante el segundo commit de coordinación, sin modificar el Plan aprobado.
 
@@ -12,7 +12,7 @@ Architecture v0.1 y sus 18 ARCH-DEC, SPEC 001 v0.1 por D022, D023–D036 y PLAN-
 
 ## Preserved Scope
 
-- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; únicamente TSK-H0-001/002 están marcadas COMPLETED en sus alcances de preparación.
+- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; únicamente TSK-H0-001/002/003 están marcadas COMPLETED en sus respectivos alcances.
 - PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y PLAN-AUTH-001–006 PENDING / NO EJECUTADAS.
 - Los bloqueos localizados de Tasks §7 y los pendientes heredados permanecen vigentes en sus ámbitos.
 - La aprobación documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
@@ -35,15 +35,15 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — IN PROGRESS solo por TSK-H0-001/002 COMPLETED; TSK-H0-003 y posteriores NOT STARTED.
+9. implementación — IN PROGRESS solo por TSK-H0-001/002/003 COMPLETED; TSK-H0-004 y posteriores NOT STARTED.
 
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La autorización específica actual termina al publicar y verificar TSK-H0-002. Una nueva instrucción humana delimitada es necesaria antes de TSK-H0-003 o cualquier tarea posterior. No deducir autorización técnica de una aprobación, un commit, push o árbol limpio.
+La autorización específica actual termina al publicar y verificar TSK-H0-003. Una nueva instrucción humana delimitada es necesaria antes de TSK-H0-004, TSK-H0-005 o cualquier tarea posterior. No deducir autorización técnica de una aprobación, un commit, push o árbol limpio.
 
-No iniciar código, SQL, migraciones, RLS, endpoints, UI, pruebas del CRM, configuración Supabase/Vercel, proveedores/dispositivos, DNS, infraestructura o despliegues bajo esta autorización documental.
+No iniciar TSK-H0-004/005, SQL, migraciones, RLS, Auth, UI, endpoints de negocio, configuración Supabase/Vercel, proveedores/dispositivos, DNS, infraestructura externa o despliegues bajo esta autorización.
 
 Si aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 
