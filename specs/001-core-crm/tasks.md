@@ -6,9 +6,9 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: NOT STARTED
-H0–H6: NOT STARTED
-Pruebas técnicas: NO EJECUTADAS
+Implementation: IN PROGRESS — solo TSK-H0-001 COMPLETED
+H0: IN PROGRESS; H1–H6: NOT STARTED
+Pruebas técnicas: solo comprobaciones no destructivas TSK-H0-001 EJECUTADAS; pruebas funcionales/Auth/recuperación NO EJECUTADAS
 Last updated: 2026-09-15
 
 ## 1. Autoridad, base y alcance
@@ -90,7 +90,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-001 — Comprobar compatibilidad, recursos y coste de acceso
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: preparación.
+- [x] **Ejecución: COMPLETED. Evidencia: EJECUTADA.** Hito: H0. Tipo: preparación. Registro: [evidence-TSK-H0-001.md](evidence-TSK-H0-001.md).
 - **Objetivo y alcance:** Compatibilidad de versiones servidor/SDK, conexión/pool, Auth/TOTP, límites y entrega de recuperación por entorno; capacidad publicada frente a real.
 - **Fuentes exactas:** Plan §§3.2, 6.2–6.4, 11.1; AC-079, PLAN-AUTH-001. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-001.
 - **Bloques, contratos y unidades:** B01/B10; C01–C06; —.
@@ -100,7 +100,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 - **Acción futura:** Consultar documentación y capacidades reales con autorización futura; proponer versiones y documentar coste total comprobable y aceptación previa a contratar/configurar.
 - **Salida observable:** Capacidades necesarias identificadas con fuente/fecha y límites; ninguna configuración sustentada solo en una página pública.
 - **Verificación y esperado:** Distinguir timeout nativo por refresh de uso humano; varios dispositivos permitidos; inventariar entrega de recuperación y recursos de cada entorno. Lo no verificable queda pendiente. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA en su alcance de preparación**: compatibilidad, recursos, capacidades publicadas, coste y pendientes localizados en [evidence-TSK-H0-001.md](evidence-TSK-H0-001.md). No se ejecutaron migraciones, Auth ni recuperación real; PLAN-AUTH-001 conserva las comprobaciones posteriores asignadas.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-002"></a>
