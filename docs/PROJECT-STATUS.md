@@ -85,7 +85,7 @@ El cierre de fase 07 registró mediante su segundo commit de coordinación el SH
 
 - Autorización documental: D035, 2026-09-15; no aprobación de Tasks.
 - Base: 6d00821ddfab50b241c4dea086af1eb79bfdad90.
-- Commit del borrador: se registrará en un segundo commit exclusivamente de coordinación.
+- Commit del borrador: 04a98a81720dd02892b12c67fbcede69e5ae7787 — docs: draft tasks spec 001 v0.1. DRAFT / NOT APPROVED; no es un commit de aprobación.
 - Documento: [Tasks SPEC 001](../specs/001-core-crm/tasks.md), v0.1 DRAFT / NOT APPROVED.
 - Inventario: 125 tareas — H0 18, H1 19, H2 12, H3 15, H4 24, H5 19, H6 18.
 - Revisión documental: 618 correspondencias individuales de origen a desarrollo/verificación; IDs y dependencias contrastados, sin ciclos ni dependencias de hito posterior. Incluye 148 transiciones con guardas y 33 prohibiciones con casos negativos. No acredita pruebas del CRM.
