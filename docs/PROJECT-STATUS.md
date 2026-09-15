@@ -1,7 +1,7 @@
 # CRM HUESCAVENTURA OS — Project Status
 
 Status: ACTIVE
-Last updated: 2026-09-14
+Last updated: 2026-09-15
 
 ## Completed
 
@@ -38,12 +38,14 @@ Last updated: 2026-09-14
 
 ## In Progress
 
-- Ninguna fase SDD posterior está iniciada.
-- Fase 08 — Tasks SPEC 001 y la implementación: NOT STARTED; tasks.md conserva su placeholder sin cambios.
+- Fase 08 — Tasks SPEC 001: IN PROGRESS — pendiente de revisión humana por ChatGPT y Andrés en GitHub.
+- specs/001-core-crm/tasks.md v0.1: DRAFT / NOT APPROVED, preparado bajo la autorización documental D035.
+- Implementación y H0–H6: NOT STARTED. Pruebas técnicas: NO EJECUTADAS.
+- La publicación del borrador no aprueba Tasks ni autoriza ejecutar sus tareas.
 
 ## Pending
 
-- Instrucción humana posterior para iniciar la fase 08 — Tasks SPEC 001.
+- Revisión de Tasks v0.1 DRAFT en GitHub por ChatGPT y Andrés; aprobación del contenido y autorización de implementación posteriores, todavía no concedidas.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.
 - PLAN-PENDING-004 RESOLVED por D028/D029 para negativos y repartos; pruebas de implementación pendientes.
@@ -55,7 +57,7 @@ Last updated: 2026-09-14
 
 ## Current Blockers
 
-- PLAN-PENDING-003 bloquea únicamente el acceso real y la preparación de Production H6 por verificaciones técnicas no ejecutadas; PLAN-PENDING-001/002/004 permanecen resueltos en su alcance. No bloquea el cierre del plan ni la futura preparación de tasks.md.
+- PLAN-PENDING-003 bloquea únicamente el acceso real y la preparación de Production H6 por verificaciones técnicas no ejecutadas; PLAN-PENDING-001/002/004 permanecen resueltos en su alcance. No bloquea el Plan completado ni la preparación/publicación documental de Tasks autorizada por D035.
 - ARCH-PENDING-001 activo y PENDING: Proveedor(es) definitivos de Telefonía IA y WhatsApp; bloquea únicamente la selección o implementación dependiente. Pueden ser comunes o diferentes; comparar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades/proveedor de WhatsApp por separado; origen BR-PENDING-001/035 y D014.
 - ARCH-PENDING-002 activo y PENDING: bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production; origen ARCH-PENDING-002.
 - No queda ningún SM-PENDING activo.
@@ -77,6 +79,17 @@ En v0.2, la única corrección en SPEC fue AC-084 y su referencia editorial/fech
 
 El plan conserva H0–H6 NOT STARTED y cobertura de 116 FR, 15 NFR, 92 AC, 52 DM-INV, 148 transiciones, 33 SM-FORB, 18 ARCH-DEC y P01–P20. D023–D034 añaden trazabilidad, decisiones y oráculos de cálculo/verificación de acceso. Los ejemplos y la cobertura se han revisado documentalmente, sin ejecutar pruebas de aplicación, Auth o recuperación. La inactividad nativa por refresh no acredita uso humano del CRM; los controles propuestos no están configurados.
 
-Last Approved Commit registra mediante este segundo commit de coordinación el SHA que incorpora D034 y el cierre del plan. La aprobación histórica de SPEC 001 sigue identificada por 91fc7527af9fd529e475116d1d212fd2328994d9. No se crean SPEC-PENDING nuevos ni se inicia tasks.md, implementación, código, configuración, migraciones, infraestructura o despliegues.
+El cierre de fase 07 registró mediante su segundo commit de coordinación el SHA de aprobación D034. Last Approved Commit conserva ese SHA. La aprobación histórica de SPEC 001 sigue identificada por 91fc7527af9fd529e475116d1d212fd2328994d9. La autorización posterior D035 inicia exclusivamente la preparación/publicación documental de Tasks; las frases históricas del Plan aprobado no se modifican. No se crean SPEC-PENDING nuevos ni se inicia implementación, código, configuración, migraciones, infraestructura o despliegues.
+
+## Registro del borrador de Tasks
+
+- Autorización documental: D035, 2026-09-15; no aprobación de Tasks.
+- Base: 6d00821ddfab50b241c4dea086af1eb79bfdad90.
+- Commit del borrador: se registrará en un segundo commit exclusivamente de coordinación.
+- Documento: [Tasks SPEC 001](../specs/001-core-crm/tasks.md), v0.1 DRAFT / NOT APPROVED.
+- Inventario: 125 tareas — H0 18, H1 19, H2 12, H3 15, H4 24, H5 19, H6 18.
+- Revisión documental: 618 correspondencias individuales de origen a desarrollo/verificación; IDs y dependencias contrastados, sin ciclos ni dependencias de hito posterior. Incluye 148 transiciones con guardas y 33 prohibiciones con casos negativos. No acredita pruebas del CRM.
+- Alcance: solo Tasks y coordinación; D001–D034 y fuentes aprobadas intactas. Last Approved Commit: c2c908495afb8eacd39775f273585173533d6b51.
+- Siguiente paso: revisión en GitHub por ChatGPT y Andrés. Fase 08 permanece IN PROGRESS; implementación/H0–H6 NOT STARTED; pruebas técnicas NO EJECUTADAS.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.

@@ -2,17 +2,26 @@
 
 ## Current Step
 
-Fase 07 — Plan completada. Plan SPEC 001 Core CRM v0.3 está APPROVED / COMPLETED por D034 tras la revisión final del commit e902220b96a7df36454a984531c27c2f14d14529. Ready for tasks.md: YES; Implementation: NOT STARTED.
+**Fase 08 — Tasks SPEC 001: IN PROGRESS — pendiente de revisión humana.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 es **DRAFT / NOT APPROVED**. D035 autoriza exclusivamente preparar, revisar y publicar este borrador y su coordinación.
 
-La siguiente fase autorizable es **08 — Tasks SPEC 001**. Todavía está NOT STARTED y requiere una instrucción humana posterior; tasks.md conserva su placeholder sin modificar.
+**Siguiente paso: revisión en GitHub por ChatGPT y Andrés.** La publicación no aprueba Tasks ni autoriza ejecución. Implementación y H0–H6: **NOT STARTED**. Pruebas técnicas: **NO EJECUTADAS**.
 
-Architecture v0.1, sus 18 ARCH-DEC y SPEC 001 v0.1 continúan APPROVED. D023–D034 y PLAN-DEC-001–PLAN-DEC-009 permanecen APPROVED. La aprobación del plan no inicia tareas ni convierte comprobaciones pendientes en pruebas satisfactorias.
+La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. Last Approved Commit conserva c2c908495afb8eacd39775f273585173533d6b51. La autorización posterior D035 se explica en la coordinación, sin modificar las frases históricas de cierre del Plan aprobado.
 
-PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y conserva únicamente PLAN-AUTH-001–PLAN-AUTH-006, verificaciones técnicas NO EJECUTADAS antes de acceso real/H6.
+Architecture v0.1 y sus 18 ARCH-DEC, SPEC 001 v0.1 por D022, D023–D034 y PLAN-DEC-001–PLAN-DEC-009 permanecen APPROVED. El commit del borrador se registra por separado en [PROJECT-STATUS](PROJECT-STATUS.md).
 
-En 003 falta verificar capacidad/coste, medición humana por sesión, revocación efectiva, entrega al email previamente verificado y ensayos de otro dispositivo, copia TOTP y break-glass del propietario. Políticas completas D026/D027/D031; refresh no es uso humano. D030 queda para futura Spec de interfaz. D033 fija crm.huescaventura.com en proyecto/despliegue separado, sin configuración.
+## Review Focus
 
-ARCH-PENDING-001/002 y demás pendientes heredados conservan sus ámbitos; el segundo condiciona recuperación/continuidad de Production H6. D018–D020 y SM-PENDING-001/002/003 mantienen sus resoluciones; BR-PENDING-023/027/036 y DM-PENDING-001/003/004 se interpretan en esos alcances. tasks.md permanece como placeholder sin iniciar ni modificar; implementación no iniciada.
+- Contrastar granularidad, fuentes, dependencias y criterios de las 125 tareas; 618 filas de trazabilidad con desarrollo y verificación concretos.
+- Revisar capacidades mínimas B07/B08 anteriores a H5, evidencia H1 para economía H3, requisitos/incidencias al inicio de H4, confirmación completa de Booking H4 y cierre integrado H5.
+- Revisar ensayos aislados de acceso/recuperación, comprobaciones posteriores y puertas separadas antes de acceso real y Production.
+- Conservar los bloqueos localizados de Tasks §7. La revisión documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
+
+PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED, exclusivamente PLAN-AUTH-001–006 PENDING / NO EJECUTADAS. D025/D026/D027/D031 completan la política: varios dispositivos, 30 días absolutos y 7 de inactividad por sesión, uso humano validado, revocación efectiva, email de seguridad verificado, TOTP y recuperación independiente del propietario/papel. Las capacidades y ensayos aún deben acreditarse; refresh no es uso humano.
+
+ARCH-PENDING-001/002 y los demás pendientes heredados conservan sus ámbitos; el segundo condiciona aceptación/configuración definitiva de recuperación y continuidad de Production, sin impedir ensayos aislados futuros autorizados. D018–D020 y SM-PENDING-001/002/003 mantienen sus resoluciones históricas; BR-PENDING-023/027/036 y DM-PENDING-001/003/004 se interpretan en esos alcances.
+
+D030 queda exclusivamente para futura SPEC de interfaz. D033 conserva crm.huescaventura.com como dirección prevista, separada de la web pública; sin DNS, recursos ni despliegue configurados.
 
 ## Approved Order
 
@@ -24,22 +33,23 @@ Precedido por Constitution v1.0 APPROVED.
 4. state-machines.md
 5. architecture.md
 6. SPEC 001 Core CRM
-7. plan.md
-8. tasks.md
-9. implementación
+7. plan.md — COMPLETED, v0.3 APPROVED por D034.
+8. tasks.md — IN PROGRESS, v0.1 DRAFT / NOT APPROVED.
+9. implementación — NOT STARTED.
 
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-docs/business-rules.md v0.2, docs/domain-model.md v0.1 y docs/state-machines.md v0.1 continúan APPROVED. Architecture v0.1 y SPEC 001 Core CRM v0.1 están APPROVED. D022 registra la aprobación y cierre de SPEC 001 sin iniciar automáticamente la fase siguiente.
+La autorización D035 termina tras publicar el borrador de Tasks y la coordinación. La revisión humana, la aprobación del contenido y una instrucción posterior delimitada son necesarias antes de iniciar implementación. No deducir autorización técnica de un commit, push, árbol limpio o cierre de fase anterior.
 
-La fase 07 está cerrada por D034. La fase 08 — Tasks SPEC 001 es el siguiente paso autorizable, pero no está iniciada: requiere una instrucción humana posterior. Hasta entonces no modificar tasks.md ni iniciar implementación, código, SQL, migraciones, RLS concreta, endpoints, UI, configuración Supabase/Vercel, DNS, infraestructura o despliegues.
+No iniciar código, SQL, migraciones, RLS, endpoints, UI, pruebas del CRM, configuración Supabase/Vercel, proveedores/dispositivos, DNS, infraestructura o despliegues bajo esta autorización documental.
 
-Si durante el trabajo aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
+Si aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 
 - detener únicamente la parte afectada;
-- registrarla como pendiente;
-- solicitar decisión antes de continuar esa parte.
+- registrarla como pendiente sin reabrir políticas ya resueltas;
+- solicitar decisión antes de continuar esa parte;
+- completar el trabajo independiente autorizado.
 
-No avanzar automáticamente a la siguiente fase sin aprobación.
+No avanzar automáticamente a la siguiente fase sin aprobación e instrucción correspondiente.
