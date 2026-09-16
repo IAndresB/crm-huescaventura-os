@@ -1,7 +1,8 @@
 # Evidencia — TSK-H0-008
 
-Estado: FAILED/BLOCKED — REVERIFICATION REQUIRED
-H0-008-F01: CORRECTION IMPLEMENTED / PENDING FORMAL REVERIFICATION (véase §7)
+Estado vigente: COMPLETED — formalmente verificado en alcance local (véase §8)
+H0-008-F01: CLOSED tras reverificación formal de la corrección F1
+Los campos de fecha/base/commit siguientes registran la ejecución fallida original; el cierre vigente y su base están en §8.
 Fecha de ejecución: 2026-09-16
 Tarea: TSK-H0-008 — Verificar: Separar rol ordinario, migración y contexto transaccional
 Entorno: Work Local Mac, PostgreSQL 17.11, repositorio `IAndresB/crm-huescaventura-os`, rama `main`
@@ -168,3 +169,74 @@ Revisión de secretos: no claves/contraseñas/connection strings reales versiona
 **H0-008-F01: CORRECTION IMPLEMENTED / PENDING FORMAL REVERIFICATION. TSK-H0-008: FAILED/BLOCKED — REVERIFICATION REQUIRED.** H0-007 mantiene su histórico. D037 sigue APPROVED sin cambios; PR-F-01 CLOSED técnicamente. H0-005/006/009/010 NOT STARTED. PLAN-AUTH-006 PENDING globalmente.
 
 Pendiente: nueva autorización para reverificación adversarial formal completa; compatibilidad Supabase hosted real (roles/ownership/pgcrypto/ACL, pooler transaction mode, afinidad, TLS, logs/backups, claves/rotación, restauración/generación, límites/performance). No se acredita Auth, identidad humana, sesiones, MFA, RLS de Data API futura, Staging/Production, historia/idempotencia/intención durable ni reconciliación de resultado incierto. Robo de K, proceso servidor o administración comprometidos quedan fuera de M2. A27 no simula todos los fallos posibles de red; el comparador no ofrece garantía microarquitectónica absoluta.
+
+## 8. FORMAL REVERIFICATION — 2026-09-16
+
+Se conserva literalmente el rótulo solicitado en la autorización. **Fecha real de ejecución/cierre: 2026-09-17, Europe/Madrid.** Las secciones 1–6 son el fallo histórico; §7 es la implementación correctiva, no esta reverificación. Sus estados y resultados históricos no se borran ni se toman como prueba suficiente.
+
+### 8.1. V-EVI: base, autoridad, entorno y método independiente
+
+- Tarea: TSK-H0-008, reverificación formal exclusivamente local autorizada sobre **`c208b9fb45bf337a62c5b518d86d9b42db267949`**. Base exacta comprobada con fetch: HEAD=origin/main, main, árbol limpio, remoto `git@github.com:IAndresB/crm-huescaventura-os.git`.
+- Commit de cierre: el único commit `test(h0): formally verify transaction capability isolation` que incorpora esta sección; recuperable mediante `git log -1 --format=%H -- tests/integration/postgres-h0-008-reverification.test.ts`. Last Approved Commit sigue `da7b71a3f2962093b7422899ab2193f29ae3c4e0` (D037).
+- Entorno: Work Local, mismo Mac arm64/macOS 26.5.2; PostgreSQL 17.11 nativo Postgres.app; Node 24.21.0; pnpm 11.19.0; Postgres.js 3.4.9; Next.js 16.3.5; TypeScript 7.0.2. Clústeres efímeros por socket Unix, sin TCP, exclusivamente datos sintéticos; ninguna dependencia o recurso remoto nuevo.
+- Fuentes: Constitution P10/P12/P13/P18/P19; D037 APPROVED §§1–12; Tasks H0-007/008, §§2.2/2.3/6/7; Plan §§3.2/6.5/7.1–7.2, PLAN-DEC-002/007/008, B01, C01/C03, PT-11; SPEC-FR-SEC-001/002/005, SPEC-FR-INT-002, AC-064/079/082, SPEC-NFR-002/004; DM-INV-050, SM-FORB-29/G1, E1, ARCH-DEC-002/004/005 y D015. Las obligaciones humanas/Auth compartidas con H0-005/006/H6 conservan esas verificaciones futuras según Tasks §2.3; no se simulan como capacidades implementadas.
+- Método: V-DOM/V-DAT/V-MIG/V-EVI, inspección crítica del código y del catálogo efectivo, SQL M2 directo y reejecución real de suites. Se añadió una prueba independiente con codec, binding y firma de fixture propios: no importa el emisor/codec productivo ni el fixture correctivo. K solo la conoce el emisor de ensayo autorizado; los ataques usan conexiones runtime. Un fallo en cualquiera de sus casos interrumpe los restantes. El último caso atraviesa además boundary → contratos → adaptador real.
+- Revisión técnica auxiliar: [PostgreSQL 17 CREATE FUNCTION](https://www.postgresql.org/docs/17/sql-createfunction.html) y [RLS](https://www.postgresql.org/docs/17/ddl-rowsecurity.html). Las guías de privilegios/RLS se usaron como checklist, no para sustituir D037 ni introducir Auth/hosted. Ningún cambio productivo, de migración, de contrato, de dependencia o de decisión fue necesario.
+
+### 8.2. Evaluación de la evidencia anterior
+
+Los 19 tests H0-007 no bastan: algunos miran GUC antiguos que ya no se establecen, y uno intenta la antigua función retirada. No se usaron esos PASS aislados para acreditar contexto F1 ni denegación del ejecutor vigente. Se contrastaron con A26 (envelope F1, mismo PID, commit/rollback/error), ataques a funciones actuales y la prueba independiente de GUC persistente/token previo. Las seis mutaciones originales no cubrían todos los claims: ahora se alteran uno por uno los 21 campos, manteniendo el MAC original.
+
+El test original `postgres-h0-008-verification.test.ts` fue inspeccionado y ejecutado también individualmente, sin editarlo: mantiene los tres GUC falsificados, la fila objetivo y el esperado de ninguna fila. Solo convierte SQLSTATE **42501** en denegación segura; errores de conexión/migración u otros códigos no pasan. Los catálogos y las lecturas positivas descartan que el PASS proceda de una superficie inexistente.
+
+### 8.3. Matriz normativa y ataques observados
+
+| Fuente / control | Ataque o caso independiente / reutilizado críticamente | Expected | Observed / resultado |
+|---|---|---|---|
+| D037.1–2; P10; SEC-002; V-DAT 1–10 | SELECT/INSERT/UPDATE/DELETE, CREATE SCHEMA/TABLE/ROLE, ALTER ROLE/TABLE/FUNCTION/POLICY, DROP, GRANT/REVOKE, cambio de owner, cuatro SET ROLE | Denegación efectiva M2, sin administración ni Core directo | 42501 en cada ataque; runtime LOGIN sin SUPERUSER/BYPASSRLS/CREATEDB/CREATEROLE/REPLICATION; cierre recursivo de membresías vacío. PASS |
+| D037.2/11; V-DAT 11–15 | Catálogo, ACL PUBLIC, genérico, executor intenta claves/columna privada; verifier intenta Core | Autoridades separadas y mínimo privilegio | Table owner separado NOLOGIN; executor/verifier NOLOGIN sin BYPASSRLS; executor sin claves; verifier sin Core; PUBLIC sin EXECUTE F1; genérico sin CONNECT. ENABLE/FORCE RLS true. PASS |
+| F01; D037.1/4/11; V-DAT 16–20 | GUC identity/kind/scope, flag verified, helpers y ejecutores sin MAC; nombres/definiciones conocidos | Sin autoridad autodeclarada ni signing oracle | F01 original PASS; helpers/key store inaccesibles; ejecutores rechazan NULL; solo dos funciones estrechas ejecutables. No función SQL que firme con K o acepte E/B del caller. PASS |
+| D037.3/7; capability/codec | Mutar todos los 21 campos con MAC anterior; además claims incompatibles firmados por fixture | Cada alteración invalida; no downgrade | 21/21 mutaciones denegadas; versión, kind, purpose, audience, generation, db/start/xid/PID/login incompatibles denegados. PASS |
+| D037.3/7; codec | MAC NULL/vacío/aleatorio/31/33 bytes; payload/input truncado, trailing byte, campos extra/ausentes, UTF-8 inválido, strings >16 KiB, buffer >64 KiB; firma válida de malformaciones | Fail closed incluso sin depender únicamente de MAC inválido | 42501; string UTF-8 válido de exactamente 16 KiB aceptado; límites superiores rechazados. NUL/surrogates rechazados también en codec servidor. PASS |
+| D037.4/10; R1/R2 | Capability copiada a otra conexión; mismo PID con xid nuevo; commit/rollback/error/pool max1; token/envelope residual de sesión | No heredar autoridad | Copia denegada; PID igual y xid distinto comprobados; valores residuales no habilitan función ni SELECT. PASS |
+| D037.3/9/10; R3–R7 | Scope/operación/input distintos; manifest reordenado, truncado o ampliado; C01 repetida; segunda C03; savepoint | Solo alcance/material autorizado; una aplicación C03 superviviente | Fuera de scope: 0 filas; cambio de operación/input: 42501; orden/manifest alterado: 42501; C01 repetida válida; C03 repetida denegada; rollback-to-savepoint revierte consumo y efectos. PASS |
+| D037.6; PR-F-01 | Inspección fuente y pg_proc, 256 mutaciones de bit del MAC | Double-HMAC fresco + 32 XOR/OR, sin alternativa | B interna gen_random_bytes(32), dominio exacto, L/R con B, loop 0..31; sin igualdad final E/S, random(), fallback ni retorno E/B/L/R/K. Mutaciones rechazadas. PASS estructural/funcional; no benchmark ni garantía CPU absoluta |
+| D037.5; keys | Longitud 31 bytes al provisionar, key desconocida/revocada, K1/K2 y retirada, intento lectura/modificación | K32 y selección exacta, sin fallback | CHECK rechaza longitud; unknown/revoked denegadas; rotación con solapamiento y retirada PASS; clave no aparece en definiciones SQL accesibles. PASS |
+| C01; D037.8; SEC-001/002; AC-064; G1/E1 | Boundary/contrato/adaptador real; scope A/B, ID inexistente, valor SQL hostil, contexto falso/ausente, campos de autoridad | Proyección mínima y denegación de input/autoridad falsa | Solo probeId/publicValue y provenance/certainty; otro scope/ID: undefined sin fuga; valor SQL no altera consulta; input/contexto falsos rechazados. PASS local técnico, no Auth humano |
+| C03; D037.9; Plan 7.2 | Manifest de dos escrituras; fallo primero/intermedio; rollback; consumo; firma/input material | Unidad completa o ninguno, sin CRUD genérico | Orden de IDs esperado; ninguna escritura parcial; consumo previo a efectos, no manipulable por runtime, revertido con efectos. Sin historia/resultado/intención durable. PASS en subconjunto técnico |
+| D037.7 | Caducidad real dentro del ejecutor: trigger efímero demora 0,6s tras admisión con 0,5s restante | Error y rollback, nunca éxito parcial | Witness de secuencia acredita entrada en ejecutor; 42501 tras demora, fila ausente y consumo sin incremento. Trigger/función/secuencia solo de fixture eliminados. PASS |
+| D037.11; SECURITY DEFINER/RLS | proconfig efectivo, search_path hostil, pg_temp, shadow/default overload, ALTER, helper indirecto; fixture executor consulta más amplio/escribe fuera de manifest | Resolución fija y RLS efectiva aun con grants | Cinco funciones F1/API esperadas, sin defaults/overloads adicionales; search_path=pg_catalog,pg_temp; owners correctos, EXECUTE PUBLIC revocado; creación/reemplazo hostil denegados; RLS restringe fila/scope/input aunque executor tenga grants. PASS |
+| SEC-005; AC-082; P12; errores | Error SQL real por PK duplicada con canarios y K efímera representada como dato de prueba; boundary/contrato/adaptador/diagnósticos | No secretos ni detalles SQL públicos | Resultado rechazado saneado y eventos sin canarios/K; message/detail/hint/where sanitizados en suite SQL. No se imprime ni versiona K. Driver interno conserva parámetros del caller: no se serializa públicamente. PASS |
+| V-MIG; P13; D037.2 | Secuencia desde vacío, upgrade con dos filas, segunda migración fallida por schema preexistente, rollback y reaplicación | Historia intacta, error transaccional, autoridad distinta de runtime | Datos preservados; crm_f1 no queda parcialmente creado; forward completo posterior cierra SELECT. F1 roles aplicado por CREATEROLE no superuser; schema por migration no superuser; runtime no migra. PASS |
+| D037.10; A27 | Terminar realmente backend después de ejecutar operación y antes de COMMIT | E4/pending, sin retry ciego | Una ejecución, E4; observador admin ve rollback en ESTE ensayo. No prueba todo fallo de red ni reconciliación tras commit. PASS acotado |
+| PLAN-DEC-002/008; ARCH-DEC-002/004/005; B01; INT-002 | Inspección imports, composición, parametrización, contratos y lint | Transporte adapta; dominio/application sin driver/SQL | Fronteras PASS; SQL/crypto en infraestructura, composición servidor; application/domain sin cambio. PASS |
+| AC-079; NFR-004; V-EVI | Entorno y datos | Separación local, sin Production/hosted | Solo clústeres locales desechables, datos sintéticos y claves en memoria; sin recursos remotos. PASS |
+
+Matriz A01–A30: los 30 identificadores fueron reejecutados en la suite correctiva, inspeccionados y complementados por los casos anteriores. Todos PASS en su alcance local; A27, comparator y exposición de errores mantienen expresamente sus límites. RLS no sustituye grants ni autorización; se prueba como capa adicional efectiva sobre executor.
+
+V-MIG — recuperación: si el forward falla, se conserva el estado anterior, que en H0-M01 contiene F01. **No es seguro servir tráfico con esa actualización incompleta**; no se acredita que un rollback convierta H0-M01 en seguro. La evidencia §7.1 ya exige no habilitar runtime hasta completar el segundo forward. No hay down-migration ni fallback automático que reactive el acceso tras F1. El ensayo verificó rollback íntegro y posterior aplicación válida; despliegue/recuperación hosted continúa pendiente.
+
+### 8.4. Comandos, resultados y conservación
+
+| Comando | Observed |
+|---|---|
+| git status / branch / remote / fetch / rev-parse / diff --check inicial | Base exacta, main, remoto correcto y árbol limpio: PASS |
+| pnpm install --frozen-lockfile | PASS, already up to date; aviso de pnpm 12.4.2 disponible, **no actualizado** |
+| pnpm audit --prod | PASS, ninguna vulnerabilidad conocida |
+| pnpm run typecheck | PASS |
+| pnpm run lint | PASS, Import boundaries |
+| pnpm test | PASS 27/27 |
+| POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin pnpm run test:postgres | PASS 57/57: 46 anteriores + 10 casos independientes + 1 contenedor fail-fast |
+| Misma variable + node --test --experimental-strip-types tests/integration/postgres-h0-008-verification.test.ts | PASS 1/1, F01 original ejecutado también expresamente |
+| pnpm run build | PASS, Next.js; sin nueva UI/ruta de negocio |
+| git diff --check | PASS |
+
+Total del runner: **84 PASS, 0 FAIL, 0 skipped**; son 83 casos y un contenedor, no 84 obligaciones distintas. La ejecución individual F01 no se suma otra vez. No se modificaron los tests anteriores para hacerlos pasar, ni src/, migraciones, D037, package.json o lockfile. El nuevo archivo es exclusivamente de verificación. Escaneo de patrones sensibles y revisión de diff: sin credenciales/claves reales ni prototipos productivos; canarios sintéticos permitidos. Recursos temporales y conexiones se cierran en finally; comprobados sin clústeres/procesos/directorios supervivientes.
+
+### 8.5. Veredicto, limitaciones y siguiente puerta
+
+**TSK-H0-008 COMPLETED en su alcance formal local. H0-008-F01 CLOSED. F1 IMPLEMENTED AND FORMALLY VERIFIED LOCALLY.** Ningún nuevo defecto material encontrado; ninguna corrección productiva realizada en este bloque. Se cubren los 16 criterios de cierre mediante catálogo, ataques reales, integración y regresión. H0-007 conserva COMPLETED histórico; su fallo posterior fue corregido por c208b9f y reverificado aquí.
+
+No se acredita seguridad criptográfica incondicional, DoS, robo de K/proceso servidor/administración, acceso humano/Auth/MFA/recuperación, Data API futura, todas las contingencias de COMMIT, historia/idempotencia/intención durable, H0-009, capacidad/performance de producción ni housekeeping automático del consumo técnico. Restauración/clonación exige nueva generation antes de servir; no se ha ensayado recuperación hosted. La custodia de logs/backups/secretos, TLS, roles efectivos de Supabase, pgcrypto y afinidad de pooler remoto siguen pendientes. **PLAN-AUTH-006 PENDING / NO EJECUTADA globalmente**, sin ejecución hosted en este bloque.
+
+H0-005/006/009/010 y H1–H6 siguen NOT STARTED. D037 APPROVED y Last Approved Commit intactos. Próximo bloque por dependencias: H0-009, únicamente tras nueva autorización humana; hosted/PLAN-AUTH-006 requiere autorización específica antes de depender de sus capacidades. Nada de ello se inicia con este cierre.
