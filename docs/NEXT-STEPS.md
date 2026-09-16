@@ -4,7 +4,7 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**Implementación/H0: BLOCKED por TSK-H0-008 FAILED.** [TSK-H0-008](../specs/001-core-crm/evidence-TSK-H0-008.md) refutó la confianza de H0-007: `crm_h0_runtime` puede autodeclarar los GUC por SQL directo y satisfacer RLS. D037 aprueba F1 exclusivamente como diseño; F1 sigue NOT IMPLEMENTED y H0-008-F01 continúa OPEN. El siguiente paso requiere nueva autorización humana delimitada para implementar la corrección conforme a D037 y, después, repetir toda la verificación H0-008. TSK-H0-005/006/009/010 y todas las tareas posteriores permanecen **NOT STARTED**. H1–H6: **NOT STARTED**. PLAN-AUTH-006 continúa PENDING / NO EJECUTADA globalmente.
+**Implementación/H0: BLOCKED; TSK-H0-008 FAILED/BLOCKED — REVERIFICATION REQUIRED.** La corrección local conforme a D037 está implementada y tiene 73/73 tests de implementación/regresión PASS; [evidencia](../specs/001-core-crm/evidence-TSK-H0-008.md#7-v-evi--implementación-correctiva-f01-conforme-a-d037). H0-008-F01: CORRECTION IMPLEMENTED / PENDING FORMAL REVERIFICATION. El siguiente paso requiere nueva autorización humana delimitada para ejecutar la reverificación adversarial formal completa H0-008. No se ejecutó en el bloque correctivo. TSK-H0-005/006/009/010 y todas las tareas posteriores permanecen **NOT STARTED**. H1–H6: **NOT STARTED**. PLAN-AUTH-006 continúa PENDING / NO EJECUTADA globalmente; hosted requiere autorización propia.
 
 La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit corresponde al único commit documental que contiene la aprobación formal D037, sin modificar el Plan aprobado.
 
@@ -35,13 +35,13 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — BLOCKED: TSK-H0-001/002/003/004/007 conservan COMPLETED en sus alcances históricos; TSK-H0-008 está FAILED/BLOCKED por H0-008-F01 OPEN; TSK-H0-005/006/009/010 y posteriores permanecen NOT STARTED.
+9. implementación — BLOCKED: TSK-H0-001/002/003/004/007 conservan COMPLETED en sus alcances históricos; TSK-H0-008 está FAILED/BLOCKED — REVERIFICATION REQUIRED tras la corrección local F01; TSK-H0-005/006/009/010 y posteriores permanecen NOT STARTED.
 
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La autorización específica de TSK-H0-008 terminó al registrar H0-008-F01 como defecto material. D037 aprueba F1 como diseño, pero no autoriza implementarlo. No corregir el modelo de confianza ni iniciar TSK-H0-005/006/009/010 sin nueva instrucción humana delimitada. No deducir autorización técnica de una aprobación, un commit, push o árbol limpio.
+La autorización de implementación correctiva termina con su publicación y pruebas locales. D037 y el commit correctivo no autorizan ejecutar la reverificación formal H0-008 ni TSK-H0-005/006/009/010. No deducir autorización técnica de una aprobación, un commit, push o árbol limpio.
 
 No iniciar TSK-H0-005/006/009/010 ni reintentar/corregir TSK-H0-008, Auth, UI, esquema comercial, historia/idempotencia/intenciones durables, endpoints de negocio, configuración Supabase/Vercel hosted, proveedores/dispositivos, DNS, infraestructura externa o despliegues bajo esta autorización.
 

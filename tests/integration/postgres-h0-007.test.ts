@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { after, before, test } from "node:test";
 import postgres from "postgres";
+import { hardenF1 } from "./f1-fixture.ts";
 import {
   invokeC01,
   invokeC03,
@@ -124,12 +125,12 @@ before(async () => {
   migrationApplied = true;
 
   runtimeSql = connection("crm_h0_runtime");
-  adapter = new H0M01PostgresAdapter(runtimeSql);
 
   await withTrustedPostgresTransaction(
     migrationSql,
     contextFor("scope-synthetic-007", "seed-request-007-a"),
     async (transaction) => {
+      await transaction`select set_config('crm.identity_id','seed',true),set_config('crm.identity_kind','technical',true),set_config('crm.scope','scope-synthetic-007',true)`;
       await transaction`
         insert into crm_private.access_probe (
           probe_id,
@@ -149,6 +150,7 @@ before(async () => {
     migrationSql,
     contextFor("scope-other-007", "seed-request-007-b"),
     async (transaction) => {
+      await transaction`select set_config('crm.identity_id','seed',true),set_config('crm.identity_kind','technical',true),set_config('crm.scope','scope-other-007',true)`;
       await transaction`
         insert into crm_private.access_probe (
           probe_id,
@@ -164,6 +166,7 @@ before(async () => {
       `;
     },
   );
+  adapter = new H0M01PostgresAdapter(runtimeSql, await hardenF1(bootstrapSql, migrationSql));
 });
 
 after(async () => {
@@ -204,7 +207,7 @@ test("H0-007 runtime is non-owner and has no global privilege attributes", async
     from pg_class
     where oid = 'crm_private.access_probe'::regclass
   `;
-  assert.equal(owners[0]?.owner, "crm_h0_migration");
+  assert.equal(owners[0]?.owner, "crm_h0_table_owner");
 });
 
 test("H0-007 runtime cannot administer schema", async () => {
@@ -226,11 +229,10 @@ test("H0-007 generic untrusted role cannot connect to the Core database", async 
   }
 });
 
-test("H0-007 absence of context is denied by RLS", async () => {
-  const rows = await runtimeSql<{ probe_id: string }[]>`
+test("H0-007 absence of context is denied by grants and the capability interface", async () => {
+  await assert.rejects(runtimeSql`
     select probe_id from crm_private.access_probe
-  `;
-  assert.deepEqual(Array.from(rows), []);
+  `);
   await assert.rejects(runtimeSql`select crm_api.record_probe('no-context-007', 'denied')`);
 });
 
@@ -256,9 +258,7 @@ test("H0-007 hostile client fields cannot establish trusted context", async () =
     privileged: true,
     bypass_rls: true,
   };
-  const result = await invokeC01(request("scope-synthetic-007", hostile), adapter);
-  assert.equal(result.status, "applied");
-  assert.equal(result.status === "applied" ? result.value.data?.probeId : undefined, "probe-synthetic-007-a");
+  await assert.rejects(invokeC01(request("scope-synthetic-007", hostile), adapter));
   const forged = {
     identityId: "attacker-007",
     identityKind: "technical" as const,
@@ -306,21 +306,17 @@ test("H0-007 reused max-one connection does not inherit the prior actor", async 
     { probeId: "probe-synthetic-007-a" },
   );
   assert.equal(await contextValue(), null);
-  const withoutContext = await runtimeSql<{ probe_id: string }[]>`
+  await assert.rejects(runtimeSql`
     select probe_id from crm_private.access_probe
-  `;
-  assert.deepEqual(Array.from(withoutContext), []);
+  `);
 });
 
 test("H0-007 grants and RLS jointly hide rows from another scope", async () => {
-  const rows = await withTrustedPostgresTransaction(
-    runtimeSql,
+  const projection = await adapter.read(
     contextFor("scope-synthetic-007", "rls-context-007"),
-    (transaction) => transaction<{ probe_id: string }[]>`
-      select probe_id from crm_private.access_probe order by probe_id
-    `,
+    { probeId: "probe-synthetic-007-b" },
   );
-  assert.deepEqual(Array.from(rows), [{ probe_id: "probe-synthetic-007-a" }]);
+  assert.equal(projection.data, undefined);
 });
 
 test("H0-007 runtime cannot read the reserved column directly", async () => {

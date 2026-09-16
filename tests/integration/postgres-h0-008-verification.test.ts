@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { after, before, test } from "node:test";
 import postgres from "postgres";
+import { hardenF1 } from "./f1-fixture.ts";
 
 const postgresBin = process.env.POSTGRES_H0_BIN;
 if (!postgresBin) throw new Error("POSTGRES_H0_BIN_REQUIRED");
@@ -98,6 +99,7 @@ before(async () => {
       )
     `;
   });
+  await hardenF1(bootstrapSql, migrationSql);
 });
 
 after(async () => {
@@ -124,6 +126,11 @@ test("H0-008 knowing GUC names must not let runtime self-declare authority", asy
       from crm_private.access_probe
       where probe_id = 'probe-protected-008'
     `;
+  }).catch((error: unknown) => {
+    // The original no-row invariant is stronger now: direct SELECT is denied.
+    // Do not turn arbitrary errors into PASS (migration/connection errors still fail).
+    assert.equal((error as { code?: string }).code, "42501");
+    return [];
   });
 
   assert.deepEqual(Array.from(rows), []);

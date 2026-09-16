@@ -1,4 +1,5 @@
 import type postgres from "postgres";
+import type { F1Binding } from "./f1-codec.ts";
 import {
   isTrustedContext,
   type TrustedExecutionContext,
@@ -13,19 +14,17 @@ function requireTechnicalContext(context: TrustedExecutionContext): void {
   }
 }
 
-async function setLocalContext(
-  transaction: PostgresTransaction,
-  context: TrustedExecutionContext,
-): Promise<void> {
-  await transaction`
-    select
-      set_config('crm.identity_id', ${context.identityId}, true),
-      set_config('crm.identity_kind', ${context.identityKind}, true),
-      set_config('crm.purpose', ${context.purpose}, true),
-      set_config('crm.scope', ${context.scope}, true),
-      set_config('crm.request_id', ${context.requestId}, true),
-      set_config('crm.server_time', ${context.serverTime}, true)
+export async function postgresF1Binding(transaction: PostgresTransaction): Promise<F1Binding> {
+  const rows = await transaction<F1Binding[]>`
+    select pg_catalog.pg_current_xact_id()::text as xid,
+      pg_catalog.pg_backend_pid()::text as pid,
+      (select oid::text from pg_catalog.pg_database where datname = pg_catalog.current_database()) as database,
+      (extract(epoch from pg_catalog.pg_postmaster_start_time()) * 1000000)::bigint::text as start,
+      session_user::text as login,
+      floor(extract(epoch from pg_catalog.clock_timestamp()) * 1000000)::bigint::text as now
   `;
+  if (!rows[0]) throw new Error("F1_BINDING_UNAVAILABLE");
+  return rows[0];
 }
 
 export async function withTrustedPostgresTransaction<T>(
@@ -34,8 +33,7 @@ export async function withTrustedPostgresTransaction<T>(
   work: (transaction: PostgresTransaction) => Promise<T>,
 ): Promise<T> {
   requireTechnicalContext(context);
-  return sql.begin(async (transaction) => {
-    await setLocalContext(transaction, context);
+  return sql.begin("isolation level read committed", async (transaction) => {
     return work(transaction);
   }) as Promise<T>;
 }
