@@ -6,10 +6,10 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — solo TSK-H0-001/002/003/004/007 COMPLETED
-H0: IN PROGRESS; H1–H6: NOT STARTED
-Pruebas técnicas: comprobaciones TSK-H0-001/002, ingeniería TSK-H0-003, verificación formal TSK-H0-004 y tests de implementación PostgreSQL TSK-H0-007 EJECUTADAS; TSK-H0-008, Auth/recuperación y pruebas posteriores NO EJECUTADAS
-Last updated: 2026-09-15
+Implementation: BLOCKED — TSK-H0-008 FAILED por H0-008-F01; TSK-H0-001/002/003/004/007 conservan sus registros
+H0: BLOCKED; H1–H6: NOT STARTED
+Pruebas técnicas: comprobaciones TSK-H0-001/002, ingeniería TSK-H0-003, verificación formal TSK-H0-004 y tests de implementación PostgreSQL TSK-H0-007 EJECUTADAS; TSK-H0-008 EJECUTADA PARCIALMENTE y FAILED por H0-008-F01; Auth/recuperación y pruebas posteriores NO EJECUTADAS
+Last updated: 2026-09-16
 
 ## 1. Autoridad, base y alcance
 
@@ -194,7 +194,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-007 — Separar rol ordinario, migración y contexto transaccional
 
-- [x] **Ejecución: COMPLETED. Evidencia: EJECUTADA en el alcance de implementación.** Hito: H0. Tipo: implementación. Registro: [evidence-TSK-H0-007.md](evidence-TSK-H0-007.md). TSK-H0-008 permanece NOT STARTED / NO EJECUTADA.
+- [x] **Ejecución: COMPLETED en su alcance de implementación. Evidencia de implementación: EJECUTADA.** Hito: H0. Tipo: implementación. Registro: [evidence-TSK-H0-007.md](evidence-TSK-H0-007.md). La verificación independiente TSK-H0-008 resultó FAILED por H0-008-F01; por tanto el aislamiento normativo no queda acreditado.
 - **Objetivo y alcance:** Permisos servidor/datos, rol no propietario sin BYPASSRLS y contexto confiable por transacción; ausencia de CRUD arbitrario Core. En este paquete el contexto de ensayo es técnico y confiable; su unión con sesión humana se verifica al completar acceso.
 - **Fuentes exactas:** Plan §§3.2, 6.5, 7.2; SPEC-FR-SEC-001, SPEC-FR-SEC-002, SPEC-FR-SEC-005, SPEC-FR-INT-002, AC-064, AC-079, AC-082, PLAN-AUTH-006. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-007.
 - **Bloques, contratos y unidades:** B01; C01/C03; —.
@@ -212,17 +212,17 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-008 — Verificar: Separar rol ordinario, migración y contexto transaccional
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: comprobación.
+- [ ] **Ejecución: FAILED por defecto material H0-008-F01. Evidencia: EJECUTADA parcialmente y detenida por fail-fast.** Hito: H0. Tipo: comprobación. Registro: [evidence-TSK-H0-008.md](evidence-TSK-H0-008.md). El rol runtime puede autodeclarar los GUC y satisfacer RLS por conexión SQL directa; no se cierra la tarea.
 - **Objetivo y alcance:** Permisos servidor/datos, rol no propietario sin BYPASSRLS y contexto confiable por transacción; ausencia de CRUD arbitrario Core.
 - **Fuentes exactas:** Plan §§3.2, 6.5, 7.2; SPEC-FR-SEC-001, SPEC-FR-SEC-002, SPEC-FR-SEC-005, SPEC-FR-INT-002, AC-064, AC-079, PLAN-AUTH-006. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-008.
 - **Bloques, contratos y unidades:** B01; C01/C03; —.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-007]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-006: ensayo de permisos en aislamiento, no aceptación Production. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H0-007; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-006 continúa PENDING / NO EJECUTADA globalmente. D037 aprueba F1 exclusivamente como diseño; H0-008-F01 permanece OPEN e impide cerrar esta comprobación hasta implementar la corrección bajo nueva autorización y verificar que runtime no pueda fabricar el contexto.
+- **Acción futura:** Obtener nueva autorización humana delimitada para implementar la corrección H0-008-F01 conforme a D037. Después, repetir íntegramente V-DOM + V-DAT + V-MIG sin usar la implementación como oráculo.
 - **Salida observable:** Denegación efectiva fuera de UI y sin contexto; solo facultades previstas; sin filtración entre transacciones del pool. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Intentar lectura/DML/funciones/vistas por rol API genérico, sin identidad y por rol ordinario; RLS y grants conjuntos en lo expuesto. Reutilizar conexión tras commit, rollback y error con otro contexto: no queda identidad previa. Impedir administrar esquema y privilegios. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **FALLIDA**: [evidence-TSK-H0-008.md](evidence-TSK-H0-008.md) registra el bypass de confianza por GUC y los controles no concluidos tras la parada obligatoria.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-009"></a>

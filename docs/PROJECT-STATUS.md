@@ -1,7 +1,7 @@
 # CRM HUESCAVENTURA OS — Project Status
 
 Status: ACTIVE
-Last updated: 2026-09-15
+Last updated: 2026-09-16
 
 ## Completed
 
@@ -36,22 +36,24 @@ Last updated: 2026-09-15
 - D034 APPROVED: Plan SPEC 001 Core CRM v0.3 aprobado formalmente tras la revisión final de e902220b96a7df36454a984531c27c2f14d14529.
 - Fase 07 — Plan completada: specs/001-core-crm/plan.md v0.3 APPROVED / COMPLETED, Ready for tasks.md: YES.
 - D036 APPROVED: Tasks SPEC 001 Core CRM v0.1 aprobada formalmente sobre 04a98a81720dd02892b12c67fbcede69e5ae7787 y f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f.
+- D037 APPROVED el 2026-09-16: F1 queda aprobado exclusivamente como diseño para corregir H0-008-F01; PR-F-01 está CLOSED técnicamente, pero F1 permanece NOT IMPLEMENTED, H0-008-F01 OPEN y TSK-H0-008 FAILED/BLOCKED.
 - Fase 08 — Tasks completada documentalmente: specs/001-core-crm/tasks.md v0.1 APPROVED / COMPLETED. Al cierre de esa fase las 125 tareas permanecían NOT STARTED.
 - TSK-H0-001 — Comprobar compatibilidad, recursos y coste de acceso: COMPLETED en su alcance de preparación el 2026-09-15, con evidencia documental/local, versiones propuestas, recursos separados y coste base calculado. No acredita configuración ni acceso real.
 - TSK-H0-002 — Delimitar contratos, cambios y evidencia de H0: COMPLETED exclusivamente en preparación el 2026-09-15. Módulos, rutas futuras, C01–C06, T01–T11, migraciones, identidades, datos sintéticos, fallos y V-EVI quedan delimitados sin implementar código ni infraestructura.
 - TSK-H0-003 — Componer servidor modular y resultados C01–C06: COMPLETED en su alcance de implementación el 2026-09-15. Base Node/Next.js/TypeScript fijada, C01–C06, G1–G6, E1–E8, frontera servidor, configuración, diagnóstico e imports implementados; comprobaciones de ingeniería PASS.
 - TSK-H0-004 — Verificar: Componer servidor modular y resultados C01–C06: COMPLETED en su alcance de comprobación normativa formal el 2026-09-15. C01–C06, G1–G6, E1–E8, entrada/origen/replay/contexto, configuración, transporte, canarios y fronteras positivas/negativas PASS; 27/27 tests, typecheck, audit y build PASS. Se corrigieron seis defectos menores del alcance. No acredita Auth, persistencia/atomicidad real ni proveedor.
-- TSK-H0-007 — Separar rol ordinario, migración y contexto transaccional: COMPLETED en su alcance de implementación el 2026-09-15. PostgreSQL 17.11 local real, H0-M01 desde clúster vacío, roles migración/runtime separados, grants+RLS, contexto transaccional, C01/C03 y limpieza tras commit/rollback/error/reutilización PASS; 19/19 tests PostgreSQL y 27/27 de regresión. TSK-H0-008 no ejecutada; PLAN-AUTH-006 sigue PENDING globalmente.
+- TSK-H0-007 — Separar rol ordinario, migración y contexto transaccional: COMPLETED en su alcance de implementación el 2026-09-15. Sus 19/19 tests PostgreSQL y 27/27 de regresión pasaron, pero la verificación independiente H0-008 posterior detectó H0-008-F01; el aislamiento normativo no queda acreditado. PLAN-AUTH-006 sigue PENDING globalmente.
+- TSK-H0-008 — Verificar separación de roles/contexto: FAILED el 2026-09-16 por H0-008-F01. Una conexión directa como `crm_h0_runtime` puede fijar los GUC conocidos, autodeclarar scope técnico y leer la proyección protegida. La comprobación se detuvo por defecto material; no existe commit de cierre y PLAN-AUTH-006 sigue PENDING globalmente.
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS exclusivamente por TSK-H0-001/002/003/004/007 COMPLETED; TSK-H0-005/006, TSK-H0-008 y posteriores NOT STARTED.
+- Implementación y H0: BLOCKED por TSK-H0-008 FAILED / H0-008-F01 OPEN. D037 aprueba F1 como diseño, no su implementación. TSK-H0-001/002/003/004/007 conservan sus registros; TSK-H0-005/006/009/010 y posteriores permanecen NOT STARTED.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
 
-- Nueva instrucción humana delimitada necesaria para cualquier tarea distinta de las ya completadas; TSK-H0-005/006/008/009/010 y posteriores no están autorizadas.
+- Nueva instrucción humana delimitada necesaria para implementar la corrección H0-008-F01 conforme a D037 y, posteriormente, repetir H0-008. TSK-H0-005/006/009/010 y posteriores no están autorizadas.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.
 - PLAN-PENDING-004 RESOLVED por D028/D029 para negativos y repartos; pruebas de implementación pendientes.
@@ -63,6 +65,7 @@ Last updated: 2026-09-15
 
 ## Current Blockers
 
+- H0-008-F01 permanece OPEN y bloquea H0: D037 fija el diseño F1, pero falta una autorización humana independiente para implementarlo y volver a ejecutar la verificación H0-008.
 - PLAN-PENDING-003 bloquea únicamente el acceso real y la preparación de Production H6 por verificaciones técnicas no ejecutadas; PLAN-PENDING-001/002/004 permanecen resueltos en su alcance. No bloquea las fases documentales 07/08 completadas.
 - ARCH-PENDING-001 activo y PENDING: Proveedor(es) definitivos de Telefonía IA y WhatsApp; bloquea únicamente la selección o implementación dependiente. Pueden ser comunes o diferentes; comparar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades/proveedor de WhatsApp por separado; origen BR-PENDING-001/035 y D014.
 - ARCH-PENDING-002 activo y PENDING: bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production; origen ARCH-PENDING-002.
@@ -71,7 +74,7 @@ Last updated: 2026-09-15
 
 ## Last Approved Commit
 
-- 24afe15cec30d294647c3cd5f1ed4e82ed0b9931 — docs: approve tasks spec 001 v0.1. D036 y Tasks SPEC 001 Core CRM v0.1 APPROVED / COMPLETED; implementación y H0–H6 NOT STARTED.
+- Este mismo commit documental — `docs(h0): approve D037 transaction capability design`. Contiene la aprobación formal D037; su SHA exacto es el identificador Git de la versión que contiene esta línea.
 
 ## Notes
 
@@ -98,6 +101,6 @@ El cierre de fase 07 registró mediante su segundo commit de coordinación el SH
 - Inventario: 125 tareas — H0 18, H1 19, H2 12, H3 15, H4 24, H5 19, H6 18.
 - Revisión documental: 618 correspondencias individuales de origen a desarrollo/verificación; IDs y dependencias contrastados, sin ciclos ni dependencias de hito posterior. Incluye 148 transiciones con guardas y 33 prohibiciones con casos negativos. No acredita pruebas del CRM.
 - Alcance: solo Tasks y coordinación; D001–D035 y fuentes aprobadas intactas. Last Approved Commit se actualiza al commit de aprobación de Tasks mediante el segundo commit de coordinación.
-- Estado actual: TSK-H0-001/002 COMPLETED en preparación, TSK-H0-003/007 COMPLETED en implementación y TSK-H0-004 COMPLETED en verificación formal. H0 sigue IN PROGRESS; TSK-H0-005/006/008/009/010 y posteriores permanecen NOT STARTED. H0-007 acredita PostgreSQL/RLS/contexto solo local y aislado; no acredita Auth/recuperación, pooler hosted, historia/idempotencia/intención durable ni proveedor.
+- Estado actual: TSK-H0-001/002 COMPLETED en preparación, TSK-H0-003/007 COMPLETED en implementación y TSK-H0-004 COMPLETED en verificación formal. H0 está BLOCKED: TSK-H0-008 FAILED/BLOCKED por H0-008-F01 OPEN; TSK-H0-005/006/009/010 y posteriores permanecen NOT STARTED. D037 aprueba F1 como diseño, no su implementación. H0-007 acredita únicamente su ejecución histórica; no acredita el aislamiento refutado por H0-008, Auth/recuperación, pooler hosted, historia/idempotencia/intención durable ni proveedor.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.
