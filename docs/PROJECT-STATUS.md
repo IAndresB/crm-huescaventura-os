@@ -45,17 +45,18 @@ Last updated: 2026-09-25
 - TSK-H0-004 — Verificar: Componer servidor modular y resultados C01–C06: COMPLETED en su alcance de comprobación normativa formal el 2026-09-15. C01–C06, G1–G6, E1–E8, entrada/origen/replay/contexto, configuración, transporte, canarios y fronteras positivas/negativas PASS; 27/27 tests, typecheck, audit y build PASS. Se corrigieron seis defectos menores del alcance. No acredita Auth, persistencia/atomicidad real ni proveedor.
 - TSK-H0-007 — Separar rol ordinario, migración y contexto transaccional: COMPLETED histórico de implementación el 2026-09-15. La verificación posterior detectó H0-008-F01; la corrección F1 y reverificación H0-008 cerraron ese defecto el 2026-09-17 en alcance local. PLAN-AUTH-006 sigue PENDING globalmente.
 - TSK-H0-008 — Verificar separación de roles/contexto: COMPLETED en reverificación formal local el 2026-09-17. Se conserva el antecedente FAILED del 2026-09-16 por GUC autodeclarado; el ataque original ahora se deniega, con roles/grants/RLS, capability, C01/C03, migraciones, canarios y regresiones verificados. No acredita hosted/Auth ni resuelve PLAN-AUTH-006 globalmente.
-- TSK-H0-009 — Persistir historia y resultado de la unidad interna: COMPLETED en implementación local el 2026-09-25. H0-M02 confirma estado/version, operación, attempts, historia append-only, resultado durable e intención aplicable en una unidad C03; replay, E2, concurrencia, rollbacks, pérdida post-COMMIT, C04/C05, permisos y V-MIG pasan en PostgreSQL 17.11. TSK-H0-010 permanece NOT STARTED y Supabase Staging no recibió H0-M02.
+- TSK-H0-009 — Persistir historia y resultado de la unidad interna: COMPLETED en implementación local el 2026-09-25. H0-M02 confirma estado/version, operación, attempts, historia append-only, resultado durable e intención aplicable en una unidad C03; replay, E2, concurrencia, rollbacks, pérdida post-COMMIT, C04/C05, permisos y V-MIG pasan en PostgreSQL 17.11.
+- TSK-H0-010 — Verificar historia y resultado de la unidad interna: COMPLETED en comprobación normativa formal local el 2026-09-25. Suite independiente 21/21 y regresión total 120/120 PASS: historia/inmutabilidad, replay/autorización, concurrencia, fault injection, post-COMMIT, codec/fingerprint, F1/GUC/RLS, ACL, deadlock y V-MIG. Sin defecto material; Supabase Staging no recibió H0-M02.
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS. TSK-H0-001/002/003/004/007/008/009 COMPLETED en sus alcances; TSK-H0-005/006/010 y posteriores permanecen NOT STARTED. H0 no está completado porque sus tareas restantes no se han iniciado.
+- Implementación y H0: IN PROGRESS. TSK-H0-001/002/003/004/007/008/009/010 COMPLETED en sus alcances; TSK-H0-005/006 y posteriores permanecen NOT STARTED. H0 no está completado porque sus tareas restantes no se han iniciado.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
 
-- Nueva instrucción humana delimitada necesaria para TSK-H0-010, comprobación independiente obligatoria de H0-009; no se inicia. TSK-H0-005/006 y posteriores tampoco están autorizadas. H0-M02 no se aplica hosted antes de esa comprobación y autorización específica.
+- Nueva instrucción humana delimitada necesaria para cualquier paso posterior. Si se desea validar H0-M02 en Supabase Staging, debe autorizarse como bloque hosted separado; TSK-H0-005/006 y posteriores siguen sin autorización.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.
 - PLAN-PENDING-004 RESOLVED por D028/D029 para negativos y repartos; pruebas de implementación pendientes.
@@ -69,7 +70,7 @@ Last updated: 2026-09-25
 
 ## Current Blockers
 
-- H0-009 implementada localmente sin defecto material abierto; TSK-H0-010 sigue siendo la puerta de comprobación normativa y no está autorizada por este cierre.
+- H0-009 implementada y TSK-H0-010 reverificada localmente sin defecto material abierto; H0-M02 hosted sigue sin aplicar ni validar.
 - PLAN-PENDING-003 bloquea únicamente el acceso real y la preparación de Production H6 por verificaciones técnicas no ejecutadas; PLAN-PENDING-001/002/004 permanecen resueltos en su alcance. No bloquea las fases documentales 07/08 completadas.
 - ARCH-PENDING-001 activo y PENDING: Proveedor(es) definitivos de Telefonía IA y WhatsApp; bloquea únicamente la selección o implementación dependiente. Pueden ser comunes o diferentes; comparar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades/proveedor de WhatsApp por separado; origen BR-PENDING-001/035 y D014.
 - ARCH-PENDING-002 activo y PENDING: bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production; origen ARCH-PENDING-002.
@@ -88,7 +89,7 @@ Temporary JIT/runtime/K and synthetic rows were removed; Temporary Access was
 disabled. [Hosted evidence](../specs/001-core-crm/evidence-PLAN-AUTH-006-hosted.md).
 PLAN-AUTH-006 remains PENDING globally for Auth/sessions/MFA/recovery, Vercel,
 SMTP, Production, backups/restore and continuity. H0-008 remains COMPLETED;
-H0-005/006/010 remain NOT STARTED; H0-009 is COMPLETED locally and H0-M02 was
+H0-005/006 remain NOT STARTED; H0-009/010 are COMPLETED locally and H0-M02 was
 not applied to Staging. The current product runtime's
 `ssl:"require"` is not claimed as verify-full and must be addressed before a
 hosted application deployment. No approved decision changed.
@@ -122,6 +123,6 @@ El cierre de fase 07 registró mediante su segundo commit de coordinación el SH
 - Inventario: 125 tareas — H0 18, H1 19, H2 12, H3 15, H4 24, H5 19, H6 18.
 - Revisión documental: 618 correspondencias individuales de origen a desarrollo/verificación; IDs y dependencias contrastados, sin ciclos ni dependencias de hito posterior. Incluye 148 transiciones con guardas y 33 prohibiciones con casos negativos. No acredita pruebas del CRM.
 - Alcance: solo Tasks y coordinación; D001–D035 y fuentes aprobadas intactas. Last Approved Commit se actualiza al commit de aprobación de Tasks mediante el segundo commit de coordinación.
-- Estado actual: TSK-H0-001/002 COMPLETED en preparación, TSK-H0-003/007/009 COMPLETED en implementación y TSK-H0-004/008 COMPLETED en verificación formal local. H0 continúa incompleto; TSK-H0-005/006/010 y posteriores permanecen NOT STARTED. H0-007 conserva su ejecución histórica. No se acreditan Auth/recuperación, aplicación hosted de H0-M02, proveedor ni la reverificación H0-010.
+- Estado actual: TSK-H0-001/002 COMPLETED en preparación, TSK-H0-003/007/009 COMPLETED en implementación y TSK-H0-004/008/010 COMPLETED en verificación formal local. H0 continúa incompleto; TSK-H0-005/006 y posteriores permanecen NOT STARTED. H0-007 conserva su ejecución histórica. No se acreditan Auth/recuperación, aplicación hosted de H0-M02 ni proveedor.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.

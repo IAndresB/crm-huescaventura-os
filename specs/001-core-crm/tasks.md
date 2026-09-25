@@ -6,10 +6,10 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — TSK-H0-008 COMPLETED localmente y H0-008-F01 CLOSED; sin nueva tarea autorizada; TSK-H0-001/002/003/004/007 conservan sus registros
-H0: IN PROGRESS, sin nueva tarea autorizada; H1–H6: NOT STARTED
-Pruebas técnicas: TSK-H0-001/002/003/004/007 EJECUTADAS en sus alcances; TSK-H0-008 COMPLETED tras reverificación formal local, H0-008-F01 CLOSED; Auth/recuperación y pruebas posteriores NO EJECUTADAS
-Last updated: 2026-09-17
+Implementation: IN PROGRESS — TSK-H0-001/002/003/004/007/008/009/010 COMPLETED en sus alcances; sin nueva tarea autorizada
+H0: IN PROGRESS; TSK-H0-005/006 y posteriores NOT STARTED; H1–H6: NOT STARTED
+Pruebas técnicas: TSK-H0-010 COMPLETED tras comprobación normativa formal local de H0-M02; Auth/recuperación, hosted H0-M02 y pruebas posteriores NO EJECUTADAS
+Last updated: 2026-09-25
 
 ## 1. Autoridad, base y alcance
 
@@ -235,7 +235,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 - **Bloques, contratos y unidades:** B01/B07/B08; C03/C04/C05; T01–T11.
 - **Entregable ejecutado:** Migración forward H0-M02, adaptador C03 y fixture técnico reutilizable para estado/version, operación, attempts, historia append-only, resultado durable e intención sin proveedor.
 - **Dependencias y precondiciones:** [TSK-H0-008]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** Sin defecto material abierto propio de implementación. TSK-H0-010 permanece como comprobación local obligatoria independiente; PLAN-AUTH-006 sigue PENDING globalmente.
+- **Bloqueo localizado / condición para levantarlo:** Sin defecto material abierto propio de implementación. TSK-H0-010 completó la comprobación local independiente; PLAN-AUTH-006 sigue PENDING globalmente y H0-M02 hosted no está validada.
 - **Acción ejecutada:** Hecho, historia, resultado e intención aplicable confirman juntos; replay equivalente devuelve resultado durable; misma key con huella distinta y versión obsoleta producen E2; no hay efecto externo.
 - **Salida observable:** Sin efecto parcial ni historia ausente; identidad de efecto independiente del intento, con actor, causa y momentos reconstruibles.
 - **Verificación y esperado:** Fallo antes/entre escrituras revierte unidad; pérdida de respuesta después de commit recupera mismo resultado tras autorizar lectura. Conflicto/deadlock abortado reevalúa; no reintenta efectos externos inciertos. Escritura directa ordinaria no elimina historia ni altera resultados fijados. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H0-010].
@@ -247,17 +247,17 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-010 — Verificar: Persistir historia y resultado de la unidad interna
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED. Evidencia: PASS local de comprobación normativa formal (2026-09-25).** Hito: H0. Tipo: comprobación. Registro: [evidence-TSK-H0-010.md](evidence-TSK-H0-010.md).
 - **Objetivo y alcance:** Infraestructura mínima B07/B08: registro de cambios materiales, operación/efecto, resultado idempotente e intención asociada.
 - **Fuentes exactas:** Plan §§5.1, 5.4, 7.1–7.2, 8; SPEC-FR-HIST-001, SPEC-FR-HIST-002, SPEC-FR-IDEMP-001, SPEC-FR-IDEMP-002, SPEC-FR-CONC-001, SPEC-FR-CONC-003, SPEC-FR-CONC-004, AC-068, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-010.
 - **Bloques, contratos y unidades:** B01/B07/B08; C03/C04/C05; T01–T11.
-- **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable ejecutado:** Suite independiente `postgres-h0-010.test.ts` y V-EVI del alcance, sin modificar el objeto productivo bajo prueba.
 - **Dependencias y precondiciones:** [TSK-H0-009]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** Ensayo aislado sin esperar al cierre de PLAN-PENDING-003. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H0-009; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** Sin defecto material abierto en el alcance local. PLAN-AUTH-006 continúa PENDING globalmente y la validación hosted H0-M02 no se ha ejecutado.
+- **Acción ejecutada:** V-DOM + V-DAT + V-MIG independientes sobre TSK-H0-009: historia, replay/autorización, concurrencia, fault injection, post-COMMIT, codec/fingerprint, F1/GUC/RLS, ACL/inmutabilidad, deadlock y migraciones.
 - **Salida observable:** Sin efecto parcial ni historia ausente; identidad de efecto independiente del intento, con actor, causa y momentos reconstruibles. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Fallo antes/entre escrituras revierte unidad; pérdida de respuesta después de commit recupera mismo resultado tras autorizar lectura. Conflicto/deadlock abortado reevalúa; no reintenta efectos externos inciertos. Escritura directa ordinaria no elimina historia ni altera resultados fijados. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** [evidence-TSK-H0-010.md](evidence-TSK-H0-010.md): V-EVI PASS local con PostgreSQL 17.11 real, 21 tests independientes H0-010 y regresión total 120/120; no acredita hosted H0-M02, Auth ni Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T01–T11 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-011"></a>
