@@ -4,7 +4,7 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**TSK-H0-008: COMPLETED en reverificación formal local; H0-008-F01 CLOSED.** F1 conforme a D037 está IMPLEMENTED AND FORMALLY VERIFIED LOCALLY; [evidencia formal](../specs/001-core-crm/evidence-TSK-H0-008.md#8-formal-reverification--2026-09-16), 84 resultados PASS (83 casos + 1 contenedor). H0 sigue incompleto. El siguiente bloque por esta cadena de dependencias es **TSK-H0-009**, que requiere nueva autorización humana delimitada y **NO se inicia**. TSK-H0-005/006/009/010 y todas las tareas posteriores permanecen **NOT STARTED**. H1–H6: **NOT STARTED**. PLAN-AUTH-006 continúa PENDING / NO EJECUTADA globalmente; su verificación hosted requiere autorización específica antes de depender de esas capacidades.
+**TSK-H0-008: COMPLETED en reverificación formal local; H0-008-F01 CLOSED.** F1 conforme a D037 está IMPLEMENTED AND FORMALLY VERIFIED LOCALLY; [evidencia formal](../specs/001-core-crm/evidence-TSK-H0-008.md#8-formal-reverification--2026-09-16), 84 resultados PASS. El subset hosted database/F1 de PLAN-AUTH-006 está además **VALIDATED** en Supabase Staging; [evidencia hosted](../specs/001-core-crm/evidence-PLAN-AUTH-006-hosted.md). H0 sigue incompleto. El siguiente bloque por esta cadena de dependencias es **TSK-H0-009**, que requiere nueva autorización humana delimitada y **NO se inicia**. TSK-H0-005/006/009/010 y todas las tareas posteriores permanecen **NOT STARTED**. H1–H6: **NOT STARTED**. PLAN-AUTH-006 continúa PENDING globalmente por sus controles futuros de Auth, sesiones, MFA/recuperación, SMTP, Vercel, Production y continuidad.
 
 La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit corresponde al único commit documental que contiene la aprobación formal D037, sin modificar el Plan aprobado.
 
@@ -12,12 +12,27 @@ Architecture v0.1 y sus 18 ARCH-DEC, SPEC 001 v0.1 por D022, D023–D037 y PLAN-
 
 ## Preserved Scope
 
+### Authorized hosted continuation — 2026-09-17
+
+The subsequent human authorization permits only PLAN-AUTH-006 hosted database/F1
+validation on `wrcrhbdbydkchxxlcacb`. This supersedes the earlier authorization
+boundary below only for that isolated subset; no new H0 task is authorized.
+Current result is **VALIDATED for the hosted database/F1 subset**: runtime login,
+both poolers, affinity, F01/M2, F1, C01/C03, key lifecycle, Data API, advisors and
+bounded performance passed. Temporary JIT/runtime/K were removed and Temporary
+Access disabled. Do not replay the four applied migrations. The next permitted
+step is human review and, only under a new explicit authorization, TSK-H0-009.
+Before any hosted application deployment, replace/configure the current
+Postgres.js `ssl:"require"` path with explicit CA/hostname verification and
+validate Vercel secret injection/concurrency; those are not part of this DB/F1
+closure.
+
 - Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; únicamente TSK-H0-001/002/003/004/007/008 están marcadas COMPLETED en sus respectivos alcances.
-- PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y PLAN-AUTH-001–006 PENDING / NO EJECUTADAS.
+- PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y PLAN-AUTH-001–006 permanecen PENDING globalmente; solo el subset hosted database/F1 de PLAN-AUTH-006 está VALIDATED.
 - Los bloqueos localizados de Tasks §7 y los pendientes heredados permanecen vigentes en sus ámbitos.
 - La aprobación documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
 
-PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED, exclusivamente PLAN-AUTH-001–006 PENDING / NO EJECUTADAS. D025/D026/D027/D031 completan la política: varios dispositivos, 30 días absolutos y 7 de inactividad por sesión, uso humano validado, revocación efectiva, email de seguridad verificado, TOTP y recuperación independiente del propietario/papel. Las capacidades y ensayos aún deben acreditarse; refresh no es uso humano.
+PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED; PLAN-AUTH-001–006 permanecen PENDING globalmente, con el subset hosted database/F1 de PLAN-AUTH-006 ya VALIDATED. D025/D026/D027/D031 completan la política: varios dispositivos, 30 días absolutos y 7 de inactividad por sesión, uso humano validado, revocación efectiva, email de seguridad verificado, TOTP y recuperación independiente del propietario/papel. Las capacidades y ensayos restantes aún deben acreditarse; refresh no es uso humano.
 
 ARCH-PENDING-001/002 y los demás pendientes heredados conservan sus ámbitos; el segundo condiciona aceptación/configuración definitiva de recuperación y continuidad de Production, sin impedir ensayos aislados futuros autorizados. D018–D020 y SM-PENDING-001/002/003 mantienen sus resoluciones históricas; BR-PENDING-023/027/036 y DM-PENDING-001/003/004 se interpretan en esos alcances.
 
@@ -41,9 +56,9 @@ Precedido por Constitution v1.0 APPROVED.
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La autorización de reverificación termina con la publicación del cierre local H0-008. Ni D037 ni este cierre autorizan TSK-H0-005/006/009/010, PLAN-AUTH-006 o hosted. No deducir autorización técnica de una aprobación, un commit, push o árbol limpio.
+La autorización de reverificación local terminó con la publicación del cierre H0-008. La autorización hosted posterior termina con la publicación de la evidencia PLAN-AUTH-006 database/F1. Ninguna de ellas autoriza TSK-H0-005/006/009/010 ni el resto de PLAN-AUTH-006. No deducir autorización técnica de una aprobación, un commit, push o árbol limpio.
 
-No iniciar TSK-H0-005/006/009/010 ni reintentar/corregir TSK-H0-008, Auth, UI, esquema comercial, historia/idempotencia/intenciones durables, endpoints de negocio, configuración Supabase/Vercel hosted, proveedores/dispositivos, DNS, infraestructura externa o despliegues bajo esta autorización.
+No iniciar TSK-H0-005/006/009/010 ni reintentar/corregir TSK-H0-008, Auth, UI, esquema comercial, historia/idempotencia/intenciones durables, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues bajo esta autorización.
 
 Si aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 

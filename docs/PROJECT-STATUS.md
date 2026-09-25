@@ -1,7 +1,7 @@
 # CRM HUESCAVENTURA OS — Project Status
 
 Status: ACTIVE
-Last updated: 2026-09-17
+Last updated: 2026-09-25
 
 ## Completed
 
@@ -48,7 +48,7 @@ Last updated: 2026-09-17
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS, sin nueva tarea autorizada. TSK-H0-001/002/003/004/007/008 COMPLETED en sus alcances; TSK-H0-005/006/009/010 y posteriores permanecen NOT STARTED. H0 no está completado por cerrar H0-008.
+- Implementación y H0: IN PROGRESS, sin nueva tarea autorizada. TSK-H0-001/002/003/004/007/008 COMPLETED en sus alcances; TSK-H0-005/006/009/010 y posteriores permanecen NOT STARTED. H0 no está completado porque sus tareas restantes no se han iniciado.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
@@ -58,7 +58,9 @@ Last updated: 2026-09-17
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.
 - PLAN-PENDING-004 RESOLVED por D028/D029 para negativos y repartos; pruebas de implementación pendientes.
-- PLAN-AUTH-001–PLAN-AUTH-006 PENDING / NO EJECUTADAS, con bloqueo antes de acceso real.
+- PLAN-AUTH-001–PLAN-AUTH-006 permanecen PENDING globalmente. El subset hosted
+  database/F1 de PLAN-AUTH-006 está VALIDATED; Auth, sesiones, MFA/recuperación,
+  Vercel, SMTP, Production y continuidad siguen NO EJECUTADOS.
 - ARCH-PENDING-001/002 y demás pendientes heredados conservan sus ámbitos.
 
 - D030: principio visual APPROVED pendiente de incorporar a futura Spec de interfaz, fuera del Core y sin iniciar UI.
@@ -72,6 +74,22 @@ Last updated: 2026-09-17
 - ARCH-PENDING-002 activo y PENDING: bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production; origen ARCH-PENDING-002.
 - No queda ningún SM-PENDING activo.
 - Los demás pendientes heredados siguen vigentes en sus ámbitos. El alcance V1 de BR-PENDING-027 / DM-PENDING-001 queda concretado por D018, el de BR-PENDING-023 / DM-PENDING-003 por D019 y el de BR-PENDING-036 / DM-PENDING-004 por D020, sin habilitar operaciones extraordinarias ni alterar políticas aprobadas.
+
+## Hosted validation — PLAN-AUTH-006
+
+Hosted validation final — 2026-09-25: the human-authorized PLAN-AUTH-006
+database/F1 subset on technical Staging `wrcrhbdbydkchxxlcacb` is **VALIDATED**.
+The four hosted migration variants, roles/ownership/grants, pgcrypto, F01/M2,
+F1 capability, C01/C03, SECURITY DEFINER, FORCE RLS, Data API exclusion,
+Session/Transaction poolers, strict-TLS test path, advisors and bounded
+performance pass. Hosted behavioral suite: 10/10; local regressions: 84/84.
+Temporary JIT/runtime/K and synthetic rows were removed; Temporary Access was
+disabled. [Hosted evidence](../specs/001-core-crm/evidence-PLAN-AUTH-006-hosted.md).
+PLAN-AUTH-006 remains PENDING globally for Auth/sessions/MFA/recovery, Vercel,
+SMTP, Production, backups/restore and continuity. H0-008 remains COMPLETED;
+H0-005/006/009/010 remain NOT STARTED. The current product runtime's
+`ssl:"require"` is not claimed as verify-full and must be addressed before a
+hosted application deployment. No approved decision changed.
 
 ## Last Approved Commit
 
