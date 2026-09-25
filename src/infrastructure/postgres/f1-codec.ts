@@ -42,6 +42,36 @@ export interface F1Capability {
   readonly mac: Buffer;
 }
 
+export interface F1AuthorizationTarget {
+  readonly resource: "access_probe" | "internal_unit";
+  readonly action: "read_probe" | "apply_probe_batch" | "commit_internal_unit";
+}
+
+function targetFor(
+  operation: "C01" | "C03",
+  target?: F1AuthorizationTarget,
+): F1AuthorizationTarget {
+  const selected = target ?? {
+    resource: "access_probe",
+    action: operation === "C01" ? "read_probe" : "apply_probe_batch",
+  };
+  const allowed = (
+    operation === "C01"
+      && selected.resource === "access_probe"
+      && selected.action === "read_probe"
+  ) || (
+    operation === "C03"
+      && selected.resource === "access_probe"
+      && selected.action === "apply_probe_batch"
+  ) || (
+    operation === "C03"
+      && selected.resource === "internal_unit"
+      && selected.action === "commit_internal_unit"
+  );
+  if (!allowed) throw new Error("F1_AUTHORIZATION_DENIED");
+  return selected;
+}
+
 export function createF1Issuer(configuration: F1SigningConfiguration) {
   if (configuration.key.byteLength !== 32 || configuration.allowedPurposes.length === 0) {
     throw new Error("F1_CONFIGURATION_INVALID");
@@ -56,16 +86,23 @@ export function createF1Issuer(configuration: F1SigningConfiguration) {
   }
   encodeF1Fields([keyId, audience, generation, ...configuration.allowedPurposes]);
   const purposes = new Set(configuration.allowedPurposes);
-  return (context: TrustedExecutionContext, binding: F1Binding, operation: "C01" | "C03", input: Buffer): F1Capability => {
+  return (
+    context: TrustedExecutionContext,
+    binding: F1Binding,
+    operation: "C01" | "C03",
+    input: Buffer,
+    requestedTarget?: F1AuthorizationTarget,
+  ): F1Capability => {
     if (!isTrustedContext(context) || context.identityKind !== "technical"
       || !purposes.has(context.purpose) || binding.login !== "crm_h0_runtime"
       || input.length > 65536) throw new Error("F1_AUTHORIZATION_DENIED");
+    const target = targetFor(operation, requestedTarget);
     const now = BigInt(binding.now);
     const payload = encodeF1Fields([
       "CRM-H0F1", "1", keyId, audience, generation,
       binding.database, binding.start, binding.xid, binding.pid, binding.login,
       context.identityId, context.identityKind, context.purpose, context.scope,
-      operation, "access_probe", operation === "C01" ? "read_probe" : "apply_probe_batch",
+      operation, target.resource, target.action,
       createHash("sha256").update(input).digest("hex"),
       now.toString(), (now + 30000000n).toString(), randomUUID(),
     ]);

@@ -8,7 +8,7 @@ export async function hardenF1(bootstrap: postgres.Sql, migration: postgres.Sql)
   await migration.unsafe(await readFile(new URL("../../supabase/migrations/202609160001_h0_f1_capabilities.sql", import.meta.url), "utf8"));
   const configuration: F1SigningConfiguration = {
     key: randomBytes(32), keyId: randomUUID(), audience: randomUUID(), generation: randomUUID(),
-    allowedPurposes: ["h0-007-local-verification", "f1-corrective-test"],
+    allowedPurposes: ["h0-007-local-verification", "f1-corrective-test", "h0-009-local-implementation"],
   };
   // Ephemeral local administrative channel; never runtime and never a versioned secret.
   await migration`

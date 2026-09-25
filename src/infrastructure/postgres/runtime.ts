@@ -1,9 +1,11 @@
 import postgres from "postgres";
 import { H0M01PostgresAdapter } from "./h0-m01-adapter.ts";
+import { H0009PostgresAdapter } from "./h0-009-adapter.ts";
 import type { F1SigningConfiguration } from "./f1-codec.ts";
 
 export interface PostgresRuntime {
   readonly adapter: H0M01PostgresAdapter;
+  readonly durableUnit: H0009PostgresAdapter;
   close(): Promise<void>;
 }
 
@@ -19,6 +21,7 @@ export function createPostgresRuntime(databaseUrl: string, configuration: F1Sign
     });
     return Object.freeze({
       adapter: new H0M01PostgresAdapter(sql, configuration),
+      durableUnit: new H0009PostgresAdapter(sql, configuration),
       close: () => sql.end({ timeout: 5 }),
     });
   } catch {

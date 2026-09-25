@@ -219,7 +219,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-007]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
 - **Bloqueo localizado / condición para levantarlo:** H0-008-F01 CLOSED tras reverificación formal local. PLAN-AUTH-006 continúa PENDING / NO EJECUTADA globalmente; no se acredita Auth, acceso humano, hosted ni Production.
-- **Acción ejecutada:** V-DOM + V-DAT + V-MIG sobre F1 conforme a D037: catálogo efectivo, ataques M2, codec/firma independientes de fixture, límites/expiración, C01/C03, RLS/SECURITY DEFINER, migraciones y regresiones. H0-009 satisface esta dependencia, pero requiere nueva autorización y sigue NOT STARTED.
+- **Acción ejecutada:** V-DOM + V-DAT + V-MIG sobre F1 conforme a D037: catálogo efectivo, ataques M2, codec/firma independientes de fixture, límites/expiración, C01/C03, RLS/SECURITY DEFINER, migraciones y regresiones. H0-009 satisfizo posteriormente esta dependencia y queda COMPLETED en su alcance propio.
 - **Salida observable:** Denegación efectiva fuera de UI y sin contexto; solo facultades previstas; sin filtración entre transacciones del pool. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Intentar lectura/DML/funciones/vistas por rol API genérico, sin identidad y por rol ordinario; RLS y grants conjuntos en lo expuesto. Reutilizar conexión tras commit, rollback y error con otro contexto: no queda identidad previa. Impedir administrar esquema y privilegios. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
 - **Evidencia necesaria:** V-EVI **PASS local**: [evidence-TSK-H0-008.md §8](evidence-TSK-H0-008.md#8-formal-reverification--2026-09-16), PostgreSQL 17.11 real; 84 resultados PASS del runner (83 casos + 1 contenedor), typecheck/lint/audit/build PASS. Se preserva en §§1–7 el fallo material original y su corrección; no se presentan los ensayos futuros como ejecutados.
@@ -229,18 +229,18 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-009 — Persistir historia y resultado de la unidad interna
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: implementación.
+- [x] **Ejecución: COMPLETED. Evidencia: PASS local de implementación (2026-09-25).** Hito: H0. Tipo: implementación.
 - **Objetivo y alcance:** Infraestructura mínima B07/B08: registro de cambios materiales, operación/efecto, resultado idempotente e intención asociada.
 - **Fuentes exactas:** Plan §§5.1, 5.4, 7.1–7.2, 8; SPEC-FR-HIST-001, SPEC-FR-HIST-002, SPEC-FR-IDEMP-001, SPEC-FR-IDEMP-002, SPEC-FR-CONC-001, SPEC-FR-CONC-002, SPEC-FR-CONC-003, SPEC-FR-CONC-004, AC-015, AC-066, AC-067, AC-068, AC-073, AC-081, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-009.
 - **Bloques, contratos y unidades:** B01/B07/B08; C03/C04/C05; T01–T11.
-- **Entregable previsto:** Áreas propuestas de unidad transaccional, historial, registro de operación e intenciones y sus migraciones. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable ejecutado:** Migración forward H0-M02, adaptador C03 y fixture técnico reutilizable para estado/version, operación, attempts, historia append-only, resultado durable e intención sin proveedor.
 - **Dependencias y precondiciones:** [TSK-H0-008]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** Ensayo aislado sin esperar al cierre de PLAN-PENDING-003. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Confirmar hecho, historia, resultado e intención de la misma unidad juntos; reconocer repetición equivalente y rechazar clave con contenido distinto; proteger versión/raíz compartida.
+- **Bloqueo localizado / condición para levantarlo:** Sin defecto material abierto propio de implementación. TSK-H0-010 permanece como comprobación local obligatoria independiente; PLAN-AUTH-006 sigue PENDING globalmente.
+- **Acción ejecutada:** Hecho, historia, resultado e intención aplicable confirman juntos; replay equivalente devuelve resultado durable; misma key con huella distinta y versión obsoleta producen E2; no hay efecto externo.
 - **Salida observable:** Sin efecto parcial ni historia ausente; identidad de efecto independiente del intento, con actor, causa y momentos reconstruibles.
 - **Verificación y esperado:** Fallo antes/entre escrituras revierte unidad; pérdida de respuesta después de commit recupera mismo resultado tras autorizar lectura. Conflicto/deadlock abortado reevalúa; no reintenta efectos externos inciertos. Escritura directa ordinaria no elimina historia ni altera resultados fijados. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H0-010].
 - **Integración adicional obligatoria:** [TSK-H6-016], [TSK-H6-013], [TSK-H6-015]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** [evidence-TSK-H0-009.md](evidence-TSK-H0-009.md): V-EVI PASS local con PostgreSQL 17.11 real, migración vacío/upgrade/fallo, replay/concurrencia/rollback/post-COMMIT, C03/C04/C05, permisos y regresiones. No sustituye TSK-H0-010.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T01–T11 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-010"></a>
