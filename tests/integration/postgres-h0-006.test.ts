@@ -14,7 +14,7 @@ import { hardenF1 } from "./f1-fixture.ts";
 // Independent normative oracle: D038.1/.2/.15/.16/.17, Plan 6.1/6.3,
 // SPEC-FR-SEC-001/002 and AC-064. A revoked session retaining a valid Auth
 // proof must not revoke another session. No producer assertions are reused.
-// Only historical migrations and the low-level F1 bootstrap are shared.
+// Historical chain plus the forward F01 fix; only low-level F1 bootstrap is shared.
 test("H0-006 N11: revoked session cannot invoke global revocation through server F2 issuance", async (t) => {
   const bin = process.env.POSTGRES_H0_BIN;
   assert.ok(bin, "POSTGRES_H0_BIN_REQUIRED");
@@ -55,6 +55,7 @@ test("H0-006 N11: revoked session cannot invoke global revocation through server
     await migrate(migration, "202609250000_h0_m02_unit_history.sql");
     await migrate(admin, "202609260000_h0_m03_authorities.sql");
     await migrate(migration, "202609260001_h0_m03_actor_session_access.sql");
+    await migrate(migration, "202609260002_h0_m03_revoke_all_authority_fix.sql");
     const f1 = { ...originalF1,
       allowedPurposes: [...originalF1.allowedPurposes, "h0-005-human-bridge"] };
     await migration`update crm_f1.keys set purposes=${f1.allowedPurposes} where key_id=${f1.keyId}`;

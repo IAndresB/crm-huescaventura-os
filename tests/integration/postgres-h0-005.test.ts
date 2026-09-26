@@ -137,6 +137,7 @@ before(async () => {
   `;
   await migrate("202609260000_h0_m03_authorities.sql",bootstrap);
   await migrate("202609260001_h0_m03_actor_session_access.sql",migration);
+  await migrate("202609260002_h0_m03_revoke_all_authority_fix.sql",migration);
   f1 = { ...originalF1,
     allowedPurposes: [...originalF1.allowedPurposes,"h0-005-human-bridge"] };
   await migration`update crm_f1.keys set purposes=${f1.allowedPurposes} where key_id=${f1.keyId}`;
@@ -228,6 +229,57 @@ test("H0-M03 injected mid-migration failure is atomic and a clean retry succeeds
     `)[0]?.present,true);
   } finally {
     await alternate.end({timeout:1});
+  }
+});
+
+test("H0-006-F01 forward migration is atomic, preserves predecessor and restores narrow ACL",async () => {
+  const prior="crm_h0_005_failure";
+  const upgrader=connect("crm_h0_migration",prior);
+  const ordinary=connect("crm_h0_runtime",prior);
+  const source=await readFile(join(root,"supabase/migrations",
+    "202609260002_h0_m03_revoke_all_authority_fix.sql"),"utf8");
+  try {
+    const previous=(await upgrader<{ definition: string }[]>`
+      select pg_get_functiondef('crm_api.revoke_all_sessions(bytea,bytea,bytea)'::regprocedure)
+        as definition
+    `)[0]!.definition;
+    const fixture=randomUUID();
+    await upgrader`select crm_api.provision_actor_mapping(
+      ${fixture}::uuid,${randomUUID()}::uuid,'preserved-f01-fixture')`;
+    const marker="create or replace function crm_api.revoke_all_sessions";
+    assert.ok(source.includes(marker));
+    const interrupted=source.replace(marker,
+      "do $$ begin raise exception 'F01_INJECTED'; end $$;\n"+marker);
+    await assert.rejects(upgrader.unsafe(interrupted));
+    assert.equal((await upgrader`select to_regprocedure(
+      'crm_api.f2_lookup_revoke_all_authority(uuid,uuid)') is null as absent`)[0]?.absent,true);
+    assert.equal((await upgrader<{ definition: string }[]>`
+      select pg_get_functiondef('crm_api.revoke_all_sessions(bytea,bytea,bytea)'::regprocedure)
+        as definition`)[0]?.definition,previous);
+    assert.equal((await upgrader`select count(*)::int as n from crm_private.crm_actors
+      where actor_id=${fixture}::uuid`)[0]?.n,1);
+    await assert.rejects(ordinary.unsafe(source));
+    await ordinary.unsafe("rollback");
+    await upgrader.unsafe(source);
+    const catalog=(await upgrader<{ owner: string; definer: boolean;
+      runtime_execute: boolean; public_execute: boolean; executor_create: boolean }[]>`
+      select p.proowner::regrole::text as owner,p.prosecdef as definer,
+        has_function_privilege('crm_h0_runtime',p.oid,'EXECUTE') as runtime_execute,
+        has_function_privilege('public',p.oid,'EXECUTE') as public_execute,
+        has_schema_privilege('crm_h0_f2_executor','crm_api','CREATE') as executor_create
+      from pg_proc p where p.oid=
+        'crm_api.f2_lookup_revoke_all_authority(uuid,uuid)'::regprocedure
+    `)[0]!;
+    assert.deepEqual({...catalog},{owner:"crm_h0_f2_executor",definer:true,
+      runtime_execute:true,public_execute:false,executor_create:false});
+    assert.equal((await upgrader`select count(*)::int as n from crm_private.crm_actors
+      where actor_id=${fixture}::uuid`)[0]?.n,1);
+    await assert.rejects(upgrader.unsafe(source));
+    await upgrader.unsafe("rollback");
+    assert.equal((await upgrader`select to_regprocedure(
+      'crm_api.f2_lookup_revoke_all_authority(uuid,uuid)') is not null as present`)[0]?.present,true);
+  } finally {
+    await Promise.allSettled([upgrader.end({timeout:1}),ordinary.end({timeout:1})]);
   }
 });
 
@@ -811,4 +863,147 @@ test("synthetic sensitive canaries do not escape the server-facing failure",asyn
   }
   assert.equal((observed as Error)?.message,"F2_CORE_DENIED");
   assert.ok(!JSON.stringify(observed).includes(canary));
+});
+
+async function currentGeneration(): Promise<string> {
+  return (await bootstrap<{ generation: string }[]>`
+    select access_generation::text as generation from crm_private.crm_actors
+      where actor_id=${actorId}::uuid
+  `)[0]!.generation;
+}
+
+async function preparedGlobalRevocation(tx: postgres.TransactionSql, sessionId: string) {
+  const row = (await tx<{ actor_id: string; access_generation: string;
+    admin_scope: string; epoch_id: string }[]>`
+    select actor_id::text,access_generation::text,admin_scope,epoch_id::text
+      from crm_api.f2_lookup_revoke_all_authority(${subject}::uuid,${sessionId}::uuid)
+  `)[0]!;
+  assert.ok(row, "live session must pass the narrow preparation lookup");
+  const q=encodeF2Fields(["CRM-F2-INP1","revoke_all",row.actor_id]);
+  const cap=createF2Issuer(f2)(await evidence(sessionId),{
+    actorId:row.actor_id,sessionId,epochId:row.epoch_id,
+    accessGeneration:row.access_generation,scope:row.admin_scope,
+  },await postgresF1Binding(tx),"revoke_all",q);
+  return {q,cap};
+}
+
+test("H0-006-F01 preparation denies revoked, stale, old epoch, disabled and expired authority",async () => {
+  const denied=async (sessionId: string) => {
+    const before=await currentGeneration();
+    await assert.rejects(adapter.revokeAll(await evidence(sessionId)),/F2_REVOKE_DENIED/);
+    assert.equal(await currentGeneration(),before);
+  };
+  const revoked=await adapter.establish(await evidence());
+  await adapter.revokeOne(await evidence(revoked.sessionId));
+  await denied(revoked.sessionId);
+
+  const stale=await adapter.establish(await evidence());
+  await migration`select crm_api.set_actor_enabled(${actorId}::uuid,false,'ready')`;
+  await migration`select crm_api.set_actor_enabled(${actorId}::uuid,true,'ready')`;
+  await denied(stale.sessionId);
+
+  const oldEpoch=await adapter.establish(await evidence());
+  await adapter.reidentify(await evidence(oldEpoch.sessionId));
+  // The active replacement epoch is authorized; the old one cannot be reused.
+  assert.notEqual((await runtime<{ epoch_id: string }[]>`
+    select epoch_id::text from crm_api.f2_lookup_revoke_all_authority(
+      ${subject}::uuid,${oldEpoch.sessionId}::uuid)
+  `)[0]?.epoch_id,oldEpoch.epochId);
+
+  const disabled=await adapter.establish(await evidence());
+  await migration`select crm_api.set_actor_enabled(${actorId}::uuid,false,'ready')`;
+  await denied(disabled.sessionId);
+  await migration`select crm_api.set_actor_enabled(${actorId}::uuid,true,'ready')`;
+  for (const state of ["enrollment_required","recovery_in_progress",
+    "reidentification_required"] as const) {
+    await migration`select crm_api.set_actor_enabled(${actorId}::uuid,true,${state})`;
+    const before=await currentGeneration();
+    await assert.rejects(adapter.revokeAll(await evidence(oldEpoch.sessionId)),
+      /F2_REVOKE_DENIED/);
+    assert.equal(await currentGeneration(),before);
+    await migration`select crm_api.set_actor_enabled(${actorId}::uuid,true,'ready')`;
+  }
+
+  for (const [identifiedAge,activityAge] of [["9 days","8 days"],
+    ["31 days","1 day"]] as const) {
+    const expired=await adapter.establish(await evidence());
+    await bootstrap`update crm_private.identification_epochs
+      set identified_at=clock_timestamp()-${identifiedAge}::interval,
+        last_human_activity_at=clock_timestamp()-${activityAge}::interval
+      where epoch_id=${expired.epochId}::uuid`;
+    await denied(expired.sessionId);
+  }
+
+  const current=await adapter.establish(await evidence());
+  const foreign=await verifyAuth(auth.port,auth.register({
+    subject:randomUUID(),sessionId:current.sessionId,
+    passwordVerified:true,mfaVerified:true,
+  }));
+  await assert.rejects(adapter.revokeAll(foreign),/F2_REVOKE_DENIED/);
+  await assert.rejects(adapter.revokeAll(await evidence(current.sessionId,true,false)),
+    /F2_REVOKE_DENIED/);
+  assert.equal((await runtime`select count(*)::int as n from
+    crm_api.f2_lookup_revoke_all_authority(${subject}::uuid,${current.sessionId}::uuid)`)[0]?.n,1);
+});
+
+test("H0-006-F01 locked recheck denies a capability issued before revoke-one COMMIT",async () => {
+  const first=await adapter.establish(await evidence());
+  const other=await adapter.establish(await evidence());
+  const before=await currentGeneration();
+  await assert.rejects(runtimeB.begin(async (tx) => {
+    const {q,cap}=await preparedGlobalRevocation(tx,first.sessionId);
+    await adapter.revokeOne(await evidence(first.sessionId));
+    await tx`select crm_api.revoke_all_sessions(${cap.payload},${cap.mac},${q})`;
+  }),(error: unknown) => (error as { code?: string }).code === "42501");
+  assert.equal(await currentGeneration(),before);
+  assert.deepEqual(await humanRead(await evidence(other.sessionId),"human-probe-a"),
+    {probeId:"human-probe-a",publicValue:"synthetic-public"});
+  const beforeActivity=(await bootstrap<{ activity: string }[]>`
+    select last_human_activity_at::text as activity from crm_private.identification_epochs
+      where epoch_id=${other.epochId}::uuid
+  `)[0]!.activity;
+  assert.equal(await adapter.revokeAll(await evidence(other.sessionId)),
+    (BigInt(before)+1n).toString());
+  assert.equal((await bootstrap<{ activity: string }[]>`
+    select last_human_activity_at::text as activity from crm_private.identification_epochs
+      where epoch_id=${other.epochId}::uuid
+  `)[0]!.activity,beforeActivity);
+});
+
+test("H0-006-F01 locked recheck rejects a pre-issued old epoch and expired session",async () => {
+  const oldEpoch=await adapter.establish(await evidence());
+  const before=await currentGeneration();
+  await assert.rejects(runtimeB.begin(async (tx) => {
+    const {q,cap}=await preparedGlobalRevocation(tx,oldEpoch.sessionId);
+    await adapter.reidentify(await evidence(oldEpoch.sessionId));
+    await tx`select crm_api.revoke_all_sessions(${cap.payload},${cap.mac},${q})`;
+  }),(error: unknown) => (error as { code?: string }).code === "42501");
+  assert.equal(await currentGeneration(),before);
+
+  for (const [identifiedAge,activityAge] of [["9 days","8 days"],
+    ["31 days","1 day"]] as const) {
+    const expiring=await adapter.establish(await evidence());
+    await assert.rejects(runtimeB.begin(async (tx) => {
+      const {q,cap}=await preparedGlobalRevocation(tx,expiring.sessionId);
+      await bootstrap`update crm_private.identification_epochs
+        set identified_at=clock_timestamp()-${identifiedAge}::interval,
+          last_human_activity_at=clock_timestamp()-${activityAge}::interval
+        where epoch_id=${expiring.epochId}::uuid`;
+      await tx`select crm_api.revoke_all_sessions(${cap.payload},${cap.mac},${q})`;
+    }),(error: unknown) => (error as { code?: string }).code === "42501");
+    assert.equal(await currentGeneration(),before);
+  }
+});
+
+test("H0-006-F01 generation overflow fails closed without partial mutation",async () => {
+  const current=await adapter.establish(await evidence());
+  const max="9223372036854775807";
+  await bootstrap`update crm_private.crm_actors set access_generation=${max}::bigint
+    where actor_id=${actorId}::uuid`;
+  await bootstrap`update crm_private.crm_sessions set access_generation=${max}::bigint
+    where session_id=${current.sessionId}::uuid`;
+  await assert.rejects(adapter.revokeAll(await evidence(current.sessionId)),/F2_REVOKE_DENIED/);
+  assert.equal(await currentGeneration(),max);
+  assert.equal((await bootstrap`select revoked_at from crm_private.crm_sessions
+    where session_id=${current.sessionId}::uuid`)[0]?.revoked_at,null);
 });

@@ -130,10 +130,16 @@ export class H0005PostgresAdapter {
     const sessionId = session(auth);
     try {
       return await this.unit(async (tx) => {
-        const row = await this.lookup(tx, auth, sessionId);
-        if (!row.epoch_id) throw new Error("F2_REVOKE_DENIED");
+        const rows = await tx.unsafe<Lookup[]>(
+          "select actor_id::text,access_generation::text,admin_scope,epoch_id::text from crm_api.f2_lookup_revoke_all_authority($1::uuid,$2::uuid)",
+          [auth.subject, sessionId],
+        );
+        if (rows.length !== 1) throw new Error("F2_REVOKE_DENIED");
+        const row = rows[0]!;
+        const epochId = row.epoch_id;
+        if (!epochId) throw new Error("F2_REVOKE_DENIED");
         const q = encodeF2Fields(["CRM-F2-INP1","revoke_all",row.actor_id]);
-        const cap = this.issueF2(auth,this.identity(row,sessionId,row.epoch_id),
+        const cap = this.issueF2(auth,this.identity(row,sessionId,epochId),
           await postgresF1Binding(tx),"revoke_all",q);
         const result = await tx.unsafe<{ access_generation: string }[]>(
           "select crm_api.revoke_all_sessions($1,$2,$3)::text as access_generation",

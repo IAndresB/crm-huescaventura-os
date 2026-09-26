@@ -97,6 +97,7 @@ export function createF2Issuer(configuration: F2SigningConfiguration) {
       || (operation === "establish" || operation === "reidentify")
         && (!auth.passwordVerified || !auth.mfaVerified)
       || (operation === "C01" || operation === "C03") && !auth.mfaVerified
+      || operation === "revoke_all" && !auth.mfaVerified
       || (operation === "C01" || operation === "C03")
         && !isVerifiedServerInteraction(interaction,
           operation === "C01" ? "interactive_read" : "interactive_action")

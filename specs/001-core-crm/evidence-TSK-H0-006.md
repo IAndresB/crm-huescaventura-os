@@ -1,7 +1,9 @@
 # TSK-H0-006 — independent formal verification
 
 Status: FAILED / NOT COMPLETED. Local only, 2026-09-26.
-Material finding: **H0-006-F01 OPEN**. Verification stopped at the first
+Material finding at initial verification: **H0-006-F01 OPEN at detection**;
+the separately authorized local correction is recorded at the end of this file.
+Verification stopped at the first
 reproduced material defect, as explicitly required by the authorization.
 Commit under test: `600ae3bbba6a2b2e2d2bf3332299aed0789d7cd4`.
 Preflight: clean main, correct origin, fetched HEAD = origin/main = required base.
@@ -140,3 +142,74 @@ were used. Supabase Staging was not contacted or modified. PLAN-AUTH-002/006
 remain PENDING globally. No later task, Auth real or hosted H0-M03 started.
 At initial detection there was no commit or push. This paragraph records the
 historical fail-fast state; publication is documented by the later commit.
+
+## H0-006-F01 — correction implemented, pending full reverification
+
+Status of this corrective block: **FIX IMPLEMENTED / PENDING FORMAL
+REVERIFICATION**. The historical failed verification above was published first
+in `05bcb395a2092434ff7623416073af42feaf01c9`, separately from this fix.
+The defective implementation base was
+`600ae3bbba6a2b2e2d2bf3332299aed0789d7cd4`. The original N11 test and
+its expected assertion remain unchanged; only the migration chain includes the
+new forward fix. **TSK-H0-006 remains FAILED / NOT COMPLETED**: the unfinished
+N01–N10 and N12–N16 matrix is not reclassified from focused corrective tests.
+
+Source: D038 §§1–20 (especially current actor/session/epoch, full MFA, lock
+order and revocation), D025/D026, Plan §§6.1/6.3 and the published H0-M03
+history. Environment: local PostgreSQL 17.11, Unix socket, disposable cluster,
+Node 24.21.0, pnpm 11.19.0; synthetic data and ephemeral keys only.
+
+Cause: the generic `f2_lookup` exposed current actor generation for a revoked
+initiating session; server F2 issuance promoted that metadata into authority.
+The prior `revoke_all_sessions` checked only the actor, so its valid MAC did not
+establish live session/epoch authority. This was an authorization failure, not
+an HMAC failure.
+
+Correction: `202609260002_h0_m03_revoke_all_authority_fix.sql` is forward-only.
+It adds a read-only, narrow `f2_lookup_revoke_all_authority` and replaces the
+existing `revoke_all_sessions` definition without changing its signature.
+The adapter uses only the narrow lookup for global revocation. The F2 issuer
+requires verified Auth MFA for `revoke_all`, without inventing password
+reentry. The persistent function verifies F2/input, locks **actor → session
+→ epoch**, then rechecks subject, enabled/ready state, signed scope and
+generation, unrevoked same-session authority, current full-password/full-MFA
+epoch, 7-day inactivity and 30-day absolute limits, and F2 expiry using the
+PostgreSQL clock. It increments generation only after all checks. It never
+updates human activity, clears revocation, creates an epoch or reidentifies.
+Failure maps to `F2_DENIED`; the adapter returns `F2_REVOKE_DENIED`.
+
+| Focused case | Expected | Observed |
+|---|---|---|
+| Original N11: revoke A, then global revoke from A | DENY; generation 1; B authorized | PASS: DENY, generation 1, B reads |
+| Narrow preparation: revoked/stale/disabled/recovery/enrollment/expired/foreign subject/MFA absent | No effective F2 | PASS: all denied, generation unchanged |
+| Valid B after A revoked | B may revoke globally | PASS: generation increments once; B activity timestamp unchanged |
+| T1 capability prepared, T2 revoke-one(A) COMMIT, T1 global revoke | Locked persistent recheck denies | PASS: SQLSTATE 42501, generation unchanged, B still reads |
+| Pre-issued old epoch or later 7/30-day expiry | Locked persistent recheck denies | PASS: no generation change |
+| BIGINT maximum generation | Fail closed without wrap/partial mutation | PASS: generation remains maximum, session unrevoked |
+| Revoke-one cause-bound review | Cannot revoke a different session using the initiating-session F2 | PASS by source review: signed input equals signed session ID; actor/session/epoch locked; existing one-revoke tests still pass. No change to revoke-one. |
+
+V-MIG: the tests apply H0-M01 → F1 → H0-M02 → historical H0-M03 → fix
+from an empty local cluster. A separate predecessor database tests the upgrade:
+an injected exception after creation of the new lookup rolls back both it and
+the replacement; the old function and synthetic actor fixture remain. An
+authorized clean retry succeeds; ordinary runtime cannot apply the migration;
+reapplication fails safely without removing the fixed function. Catalog checks
+show new lookup owner `crm_h0_f2_executor`, SECURITY DEFINER, runtime EXECUTE,
+no PUBLIC EXECUTE and no persistent CREATE grant to executor. The two published
+H0-M03 migration files are byte-for-byte unchanged in Git.
+
+Focused commands: original N11 1/1 PASS; H0-005 implementation suite 27/27
+PASS. Full engineering regression: `pnpm install --frozen-lockfile` PASS;
+`pnpm audit --prod` PASS (no known vulnerabilities); `pnpm run typecheck`
+PASS; `pnpm run lint` PASS (import boundaries); `pnpm test` 27/27 PASS;
+`POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin pnpm run test:postgres`
+121/121 PASS, zero skipped; `pnpm run build` PASS; `git diff --check` PASS.
+One TypeScript nullability issue in the new adapter lookup was corrected before
+the passing regression; no additional material defect was found.
+
+Limitations: this is implementation testing of the local fix, **not** the new
+independent full TSK-H0-006 reverification, real Auth/MFA, production access or
+hosted H0-M03. PLAN-AUTH-002 and PLAN-AUTH-006 remain PENDING globally.
+Supabase Staging was not contacted or changed. F1, D037/D038 and Last Approved
+Commit remain unchanged. No secrets, real people or external resources were
+created; disposable local clusters are stopped and removed by test teardown.
