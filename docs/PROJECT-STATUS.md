@@ -44,7 +44,8 @@ Last updated: 2026-09-26
 - TSK-H0-002 — Delimitar contratos, cambios y evidencia de H0: COMPLETED exclusivamente en preparación el 2026-09-15. Módulos, rutas futuras, C01–C06, T01–T11, migraciones, identidades, datos sintéticos, fallos y V-EVI quedan delimitados sin implementar código ni infraestructura.
 - TSK-H0-003 — Componer servidor modular y resultados C01–C06: COMPLETED en su alcance de implementación el 2026-09-15. Base Node/Next.js/TypeScript fijada, C01–C06, G1–G6, E1–E8, frontera servidor, configuración, diagnóstico e imports implementados; comprobaciones de ingeniería PASS.
 - TSK-H0-004 — Verificar: Componer servidor modular y resultados C01–C06: COMPLETED en su alcance de comprobación normativa formal el 2026-09-15. C01–C06, G1–G6, E1–E8, entrada/origen/replay/contexto, configuración, transporte, canarios y fronteras positivas/negativas PASS; 27/27 tests, typecheck, audit y build PASS. Se corrigieron seis defectos menores del alcance. No acredita Auth, persistencia/atomicidad real ni proveedor.
-- TSK-H0-005 — Identificar CRM Actor y aplicar límites por sesión: COMPLETED solo en implementación local el 2026-09-26. H0-M03 forward, F2 separado de F1, actor único, sesiones/epochs, generation, límites 7/30, actividad servidor, revocación y probe C01/C03 conjunto pasaron pruebas con PostgreSQL 17.11 y Auth sintética. [Evidencia](../specs/001-core-crm/evidence-TSK-H0-005.md). H0-006 no iniciada; no acredita Auth real, hosted H0-M03 ni Production.
+- TSK-H0-005 — Identificar CRM Actor y aplicar límites por sesión: COMPLETED históricamente solo en implementación local el 2026-09-26. [Evidencia](../specs/001-core-crm/evidence-TSK-H0-005.md). La comprobación posterior H0-006 detectó H0-006-F01 material; la implementación requiere corrección localizada. No acredita Auth real, hosted H0-M03 ni Production.
+- TSK-H0-006 — Verificación formal F2: FAILED / NOT COMPLETED. [Evidencia adversarial](../specs/001-core-crm/evidence-TSK-H0-006.md): una sesión A revocada conservó capacidad para ejecutar revoke_all, aumentó generation 1→2 y denegó otra sesión B previamente válida. H0-006-F01 OPEN; verificación detenida fail-fast.
 - TSK-H0-007 — Separar rol ordinario, migración y contexto transaccional: COMPLETED histórico de implementación el 2026-09-15. La verificación posterior detectó H0-008-F01; la corrección F1 y reverificación H0-008 cerraron ese defecto el 2026-09-17 en alcance local. PLAN-AUTH-006 sigue PENDING globalmente.
 - TSK-H0-008 — Verificar separación de roles/contexto: COMPLETED en reverificación formal local el 2026-09-17. Se conserva el antecedente FAILED del 2026-09-16 por GUC autodeclarado; el ataque original ahora se deniega, con roles/grants/RLS, capability, C01/C03, migraciones, canarios y regresiones verificados. No acredita hosted/Auth ni resuelve PLAN-AUTH-006 globalmente.
 - TSK-H0-009 — Persistir historia y resultado de la unidad interna: COMPLETED en implementación local el 2026-09-25. H0-M02 confirma estado/version, operación, attempts, historia append-only, resultado durable e intención aplicable en una unidad C03; replay, E2, concurrencia, rollbacks, pérdida post-COMMIT, C04/C05, permisos y V-MIG pasan en PostgreSQL 17.11.
@@ -52,13 +53,13 @@ Last updated: 2026-09-26
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS. TSK-H0-001/002/003/004/005/007/008/009/010 COMPLETED en sus alcances; TSK-H0-006 y posteriores permanecen NOT STARTED. H0 no está completado.
+- Implementación y H0: IN PROGRESS. TSK-H0-001/002/003/004/005/007/008/009/010 COMPLETED en sus alcances históricos; TSK-H0-006 FAILED / NOT COMPLETED por H0-006-F01 OPEN; tareas posteriores NOT STARTED. H0 no está completado.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
 
-- Nueva instrucción humana delimitada necesaria para TSK-H0-006, la comprobación normativa adversarial independiente de H0-005; no iniciarla por el cierre de implementación.
+- Siguiente acción localizada: corregir H0-006-F01 preservando el test fallido y volver a ejecutar después la verificación normativa H0-006 completa con autorización separada.
 - El bloqueo de diseño F1/humano está RESOLVED por D038 y H0-005 está implementada localmente; PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING globalmente.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.

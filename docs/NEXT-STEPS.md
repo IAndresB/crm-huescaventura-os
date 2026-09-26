@@ -4,9 +4,9 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**TSK-H0-005: COMPLETED solo en implementación local.** [Evidencia H0-005](../specs/001-core-crm/evidence-TSK-H0-005.md): F2/H0-M03, actor/sesiones/epochs y límites 7/30 se ensayaron con PostgreSQL 17.11 y Auth sintética. El siguiente paso, TSK-H0-006, requiere autorización humana nueva para reverificación normativa adversarial; permanece NOT STARTED. No aplicar H0-M03 a Staging ni configurar Auth real desde este bloque. H0 y PLAN-AUTH-002/006 siguen incompletos.
+**TSK-H0-005: COMPLETED históricamente en implementación local; TSK-H0-006: FAILED / NOT COMPLETED.** La [verificación H0-006](../specs/001-core-crm/evidence-TSK-H0-006.md) reprodujo H0-006-F01 OPEN: una sesión revocada ejecuta revoke_all y anula otra sesión válida. Siguiente acción: corrección localizada; después, reverificación formal completa separada. H0 y PLAN-AUTH-002/006 siguen incompletos. Staging no se tocó.
 
-**D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resolvió el bloqueo de diseño F1/humano sin modificar D037/F1. Una autorización posterior permitió H0-005 local; no autorizó H0-006, Auth real ni despliegue. TSK-H0-009/010 y H0-008 permanecen COMPLETED en sus alcances; PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
+**D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resolvió el bloqueo de diseño F1/humano sin modificar D037/F1. Autorizaciones posteriores permitieron H0-005 local y el intento de H0-006, detenido por H0-006-F01. TSK-H0-009/010 y H0-008 permanecen COMPLETED en sus alcances; PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
 
 La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit corresponde al commit documental de aprobación formal D038, no al commit de coordinación, sin modificar el Plan aprobado.
 
@@ -53,15 +53,15 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 IN PROGRESS, sin nueva tarea autorizada: TSK-H0-001/002/003/004/005/007/008/009/010 COMPLETED en sus alcances; TSK-H0-006 y posteriores permanecen NOT STARTED.
+9. implementación — H0 IN PROGRESS: TSK-H0-001/002/003/004/005/007/008/009/010 COMPLETED en sus alcances históricos; TSK-H0-006 FAILED / NOT COMPLETED por H0-006-F01 OPEN; tareas posteriores NOT STARTED.
 
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La aprobación documental D038 resolvió el modelo de confianza F2; la implementación H0-005 necesitó y recibió autorización humana separada. Ni D038 ni el cierre local H0-005 autorizan H0-006 o Auth/hosted H0-M03. Los bloques hosted anteriores conservan exclusivamente sus autorizaciones y evidencia históricas.
+La aprobación documental D038 resolvió el modelo de confianza F2; H0-005 y el intento fallido H0-006 recibieron autorizaciones separadas. La corrección localizada de H0-006-F01 requiere su bloque propio y no completa H0-006 ni autoriza Auth/hosted H0-M03. Los bloques hosted anteriores conservan exclusivamente sus autorizaciones y evidencia históricas.
 
-No iniciar TSK-H0-006 ni tareas posteriores, Auth real, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues. No aplicar H0-M03 hosted sin autorización separada.
+No reiniciar la reverificación completa TSK-H0-006 ni iniciar tareas posteriores, Auth real, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues. No aplicar H0-M03 hosted sin autorización separada.
 
 Si aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 
