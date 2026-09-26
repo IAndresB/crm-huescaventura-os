@@ -37,6 +37,7 @@ Last updated: 2026-09-26
 - Fase 07 — Plan completada: specs/001-core-crm/plan.md v0.3 APPROVED / COMPLETED, Ready for tasks.md: YES.
 - D036 APPROVED: Tasks SPEC 001 Core CRM v0.1 aprobada formalmente sobre 04a98a81720dd02892b12c67fbcede69e5ae7787 y f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f.
 - D037 APPROVED el 2026-09-16: aprobación del diseño F1; PR-F-01 CLOSED técnicamente. Autorizaciones separadas permitieron implementación y posterior reverificación formal local, sin modificar la decisión.
+- D038 APPROVED el 2026-09-26 en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 define una autoridad humana transaccional separada de F1/D037 y resuelve exclusivamente el bloqueo de diseño localizado antes de TSK-H0-005. F2 no está implementado y esta aprobación no inicia H0-005/006.
 - H0-008-F01: CLOSED el 2026-09-17. F1 IMPLEMENTED AND FORMALLY VERIFIED LOCALLY sobre c208b9fb45bf337a62c5b518d86d9b42db267949; [evidencia formal](../specs/001-core-crm/evidence-TSK-H0-008.md#8-formal-reverification--2026-09-16), 84 resultados PASS (83 casos + 1 contenedor), sin cambios productivos durante reverificación.
 - Fase 08 — Tasks completada documentalmente: specs/001-core-crm/tasks.md v0.1 APPROVED / COMPLETED. Al cierre de esa fase las 125 tareas permanecían NOT STARTED.
 - TSK-H0-001 — Comprobar compatibilidad, recursos y coste de acceso: COMPLETED en su alcance de preparación el 2026-09-15, con evidencia documental/local, versiones propuestas, recursos separados y coste base calculado. No acredita configuración ni acceso real.
@@ -57,6 +58,7 @@ Last updated: 2026-09-26
 ## Pending
 
 - Nueva instrucción humana delimitada necesaria para cualquier paso posterior; TSK-H0-005/006 y posteriores siguen sin autorización.
+- El bloqueo de diseño F1/humano detectado antes de TSK-H0-005 está RESOLVED por D038; continuar su implementación requiere una autorización humana nueva. PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING globalmente.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.
 - PLAN-PENDING-004 RESOLVED por D028/D029 para negativos y repartos; pruebas de implementación pendientes.
@@ -97,11 +99,11 @@ password and JIT access were removed; the migration remains as the technical
 baseline. [H0-M02 hosted evidence](../specs/001-core-crm/evidence-PLAN-AUTH-006-h0-m02-hosted.md).
 The current product runtime's
 `ssl:"require"` is not claimed as verify-full and must be addressed before a
-hosted application deployment. No approved decision changed.
+hosted application deployment. Esa validación hosted no modificó decisiones APPROVED.
 
 ## Last Approved Commit
 
-- `da7b71a3f2962093b7422899ab2193f29ae3c4e0` — `docs(h0): approve D037 transaction capability design`. Se explicita la referencia anterior al mismo commit de aprobación D037; el commit correctivo de implementación no sustituye este Last Approved Commit.
+- `6248820e3253a9d88755ed0a4996fff8f865690e` — `docs(decision): approve f2 human access capability`. Es el commit de aprobación formal D038, separado de la coordinación posterior. D037 permanece APPROVED e intacta.
 
 ## Notes
 

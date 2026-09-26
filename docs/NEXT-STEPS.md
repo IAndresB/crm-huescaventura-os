@@ -6,9 +6,11 @@
 
 **TSK-H0-009 y TSK-H0-010: COMPLETED.** [Evidencia H0-010](../specs/001-core-crm/evidence-TSK-H0-010.md): H0-M02 superó comprobación normativa independiente con 21/21 casos nuevos y 120/120 regresiones totales en PostgreSQL 17.11. El bloque hosted separado autorizado aplicó después H0-M02 al Staging técnico y acreditó 12/12 casos H0-M02 más 10/10 regresiones DB/F1 con runtime real y ambos poolers; [evidencia hosted H0-M02](../specs/001-core-crm/evidence-PLAN-AUTH-006-h0-m02-hosted.md). TSK-H0-008 permanece COMPLETED. H0 sigue incompleto. TSK-H0-005/006 y tareas posteriores permanecen NOT STARTED. H1–H6: NOT STARTED. PLAN-AUTH-006 continúa PENDING globalmente.
 
-La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit corresponde al único commit documental que contiene la aprobación formal D037, sin modificar el Plan aprobado.
+**D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resuelve por decisión el bloqueo de diseño F1/humano de TSK-H0-005, sin modificar D037/F1. F2 no está implementado. El próximo paso autorizable es una nueva instrucción humana delimitada para continuar TSK-H0-005 conforme a D038; TSK-H0-006 sigue NOT STARTED. PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
 
-Architecture v0.1 y sus 18 ARCH-DEC, SPEC 001 v0.1 por D022, D023–D037 y PLAN-DEC-001–PLAN-DEC-009 permanecen APPROVED. Los commits del borrador, aprobación y coordinación se registran por separado en [PROJECT-STATUS](PROJECT-STATUS.md).
+La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit corresponde al commit documental de aprobación formal D038, no al commit de coordinación, sin modificar el Plan aprobado.
+
+Architecture v0.1 y sus 18 ARCH-DEC, SPEC 001 v0.1 por D022, D023–D038 y PLAN-DEC-001–PLAN-DEC-009 permanecen APPROVED. Los commits del borrador, aprobación y coordinación se registran por separado en [PROJECT-STATUS](PROJECT-STATUS.md).
 
 ## Preserved Scope
 
@@ -57,7 +59,7 @@ Precedido por Constitution v1.0 APPROVED.
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La autorización de TSK-H0-010 termina con esta comprobación local. No autoriza aplicar/validar H0-M02 en Staging, TSK-H0-005/006 ni el resto de PLAN-AUTH-006. No deducir autorización técnica de una aprobación, un commit, push o árbol limpio.
+La aprobación documental D038 resuelve solo el modelo de confianza F2; no autoriza implementarlo ni iniciar TSK-H0-005/006. Los bloques hosted anteriores conservan exclusivamente sus autorizaciones y evidencia históricas. No deducir autorización técnica de una decisión, un commit, push o árbol limpio.
 
 No iniciar TSK-H0-005/006 ni tareas posteriores, Auth, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues. No aplicar H0-M02 hosted sin autorización separada.
 
