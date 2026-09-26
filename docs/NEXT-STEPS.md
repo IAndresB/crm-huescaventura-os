@@ -4,9 +4,9 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**TSK-H0-009 y TSK-H0-010: COMPLETED.** [Evidencia H0-010](../specs/001-core-crm/evidence-TSK-H0-010.md): H0-M02 superó comprobación normativa independiente con 21/21 casos nuevos y 120/120 regresiones totales en PostgreSQL 17.11. El bloque hosted separado autorizado aplicó después H0-M02 al Staging técnico y acreditó 12/12 casos H0-M02 más 10/10 regresiones DB/F1 con runtime real y ambos poolers; [evidencia hosted H0-M02](../specs/001-core-crm/evidence-PLAN-AUTH-006-h0-m02-hosted.md). TSK-H0-008 permanece COMPLETED. H0 sigue incompleto. TSK-H0-005/006 y tareas posteriores permanecen NOT STARTED. H1–H6: NOT STARTED. PLAN-AUTH-006 continúa PENDING globalmente.
+**TSK-H0-005: COMPLETED solo en implementación local.** [Evidencia H0-005](../specs/001-core-crm/evidence-TSK-H0-005.md): F2/H0-M03, actor/sesiones/epochs y límites 7/30 se ensayaron con PostgreSQL 17.11 y Auth sintética. El siguiente paso, TSK-H0-006, requiere autorización humana nueva para reverificación normativa adversarial; permanece NOT STARTED. No aplicar H0-M03 a Staging ni configurar Auth real desde este bloque. H0 y PLAN-AUTH-002/006 siguen incompletos.
 
-**D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resuelve por decisión el bloqueo de diseño F1/humano de TSK-H0-005, sin modificar D037/F1. F2 no está implementado. El próximo paso autorizable es una nueva instrucción humana delimitada para continuar TSK-H0-005 conforme a D038; TSK-H0-006 sigue NOT STARTED. PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
+**D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resolvió el bloqueo de diseño F1/humano sin modificar D037/F1. Una autorización posterior permitió H0-005 local; no autorizó H0-006, Auth real ni despliegue. TSK-H0-009/010 y H0-008 permanecen COMPLETED en sus alcances; PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
 
 La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit corresponde al commit documental de aprobación formal D038, no al commit de coordinación, sin modificar el Plan aprobado.
 
@@ -30,7 +30,7 @@ Postgres.js `ssl:"require"` path with explicit CA/hostname verification and
 validate Vercel secret injection/concurrency; those are not part of this DB/F1
 closure.
 
-- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; únicamente TSK-H0-001/002/003/004/007/008/009/010 están marcadas COMPLETED en sus respectivos alcances.
+- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; TSK-H0-001/002/003/004/005/007/008/009/010 están marcadas COMPLETED en sus respectivos alcances locales.
 - PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y PLAN-AUTH-001–006 permanecen PENDING globalmente; solo el subset hosted database/F1 de PLAN-AUTH-006 está VALIDATED.
 - Los bloqueos localizados de Tasks §7 y los pendientes heredados permanecen vigentes en sus ámbitos.
 - La aprobación documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
@@ -53,15 +53,15 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 IN PROGRESS, sin nueva tarea autorizada: TSK-H0-001/002/003/004/007/008/009/010 COMPLETED en sus alcances; TSK-H0-005/006 y posteriores permanecen NOT STARTED.
+9. implementación — H0 IN PROGRESS, sin nueva tarea autorizada: TSK-H0-001/002/003/004/005/007/008/009/010 COMPLETED en sus alcances; TSK-H0-006 y posteriores permanecen NOT STARTED.
 
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La aprobación documental D038 resuelve solo el modelo de confianza F2; no autoriza implementarlo ni iniciar TSK-H0-005/006. Los bloques hosted anteriores conservan exclusivamente sus autorizaciones y evidencia históricas. No deducir autorización técnica de una decisión, un commit, push o árbol limpio.
+La aprobación documental D038 resolvió el modelo de confianza F2; la implementación H0-005 necesitó y recibió autorización humana separada. Ni D038 ni el cierre local H0-005 autorizan H0-006 o Auth/hosted H0-M03. Los bloques hosted anteriores conservan exclusivamente sus autorizaciones y evidencia históricas.
 
-No iniciar TSK-H0-005/006 ni tareas posteriores, Auth, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues. No aplicar H0-M02 hosted sin autorización separada.
+No iniciar TSK-H0-006 ni tareas posteriores, Auth real, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues. No aplicar H0-M03 hosted sin autorización separada.
 
 Si aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 

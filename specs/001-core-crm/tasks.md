@@ -6,9 +6,9 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — TSK-H0-001/002/003/004/007/008/009/010 COMPLETED en sus alcances; sin nueva tarea autorizada
-H0: IN PROGRESS; TSK-H0-005/006 y posteriores NOT STARTED; H1–H6: NOT STARTED
-Pruebas técnicas: TSK-H0-010 COMPLETED tras comprobación normativa formal local de H0-M02; subset hosted H0-M02 validado separadamente; Auth/recuperación y pruebas posteriores NO EJECUTADAS
+Implementation: IN PROGRESS — TSK-H0-001/002/003/004/005/007/008/009/010 COMPLETED en sus alcances; H0-006 y posteriores requieren autorización separada
+H0: IN PROGRESS; TSK-H0-006 y posteriores NOT STARTED; H1–H6: NOT STARTED
+Pruebas técnicas: H0-005 implementada localmente con F2/H0-M03 y pendiente de TSK-H0-006; Auth real/recuperación NO EJECUTADAS; H0-M02 hosted validado separadamente
 Last updated: 2026-09-26
 
 ## 1. Autoridad, base y alcance
@@ -142,7 +142,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-004 — Verificar: Componer servidor modular y resultados C01–C06
 
-- [x] **Ejecución: COMPLETED. Evidencia: EJECUTADA en el alcance de comprobación normativa formal.** Hito: H0. Tipo: comprobación. Registro: [evidence-TSK-H0-004.md](evidence-TSK-H0-004.md). TSK-H0-005 permanece NOT STARTED / NO EJECUTADA.
+- [x] **Ejecución: COMPLETED. Evidencia: EJECUTADA en el alcance de comprobación normativa formal.** Hito: H0. Tipo: comprobación. Registro: [evidence-TSK-H0-004.md](evidence-TSK-H0-004.md). TSK-H0-005 aún estaba NOT STARTED al cerrar H0-004; su estado vigente se registra en su ficha.
 - **Objetivo y alcance:** Frontera servidor, validación de entrada/origen, guardas G1–G6 y errores E1–E8; puertos sin lógica de negocio en transporte.
 - **Fuentes exactas:** Plan §§3.2, 4, 6.5, 7.1; SPEC-FR-ERR-001, SPEC-FR-SEC-005, AC-072, AC-082, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-004.
 - **Bloques, contratos y unidades:** B01/B10; C01–C06; —.
@@ -159,18 +159,18 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-005 — Identificar CRM Actor y aplicar límites por sesión
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: implementación.
+- [x] **Ejecución: COMPLETED solo en implementación local. Evidencia: EJECUTADA.** Hito: H0. Tipo: implementación. Registro: [evidence-TSK-H0-005.md](evidence-TSK-H0-005.md). TSK-H0-006 continúa NOT STARTED.
 - **Objetivo y alcance:** Único Administrador, múltiples sesiones, contraseña/TOTP, habilitación y control servidor previo a cada acceso; ámbito mínimo de enrolamiento/recuperación.
 - **Fuentes exactas:** Plan §§6.1, 6.3–6.5; SPEC-FR-SEC-001, SPEC-FR-SEC-004, SPEC-FR-SEC-005, AC-064, AC-080, PLAN-AUTH-002, PLAN-AUTH-006, D025, D026, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-005.
 - **Bloques, contratos y unidades:** B01; C01/C02/C03; —.
 - **Entregable previsto:** Áreas propuestas de acceso/sesiones y migraciones de contexto; sin UI de autenticación. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-004], [TSK-H0-001], [TSK-H0-010]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-002/006 pendientes: este cambio y su ensayo aislado producen evidencia; no requieren haberlos resuelto. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Implementar comprobación de sesión, identificación completa, actividad humana admitida por servidor y habilitación; comprobar límites antes de actualizar actividad.
+- **Bloqueo localizado / condición para levantarlo:** D038 resolvió el diseño F2. PLAN-AUTH-002/006 permanecen PENDING globalmente: H0-005 solo produce ensayo local; H0-006 deberá reverificarlo de forma independiente antes de acreditar aceptación posterior.
+- **Acción ejecutada:** H0-M03 forward separó F2/F1 y roles; actor único, sesiones, epochs, generation, límites 7/30, actividad humana servidor, reidentificación/revocación y C01/C03 combinado quedaron implementados y ensayados con PostgreSQL 17.11 local y Auth sintética, sin tocar Staging.
 - **Salida observable:** Ensayos aislados satisfacen política 30/7 por sesión y deniegan Core ante MFA/enrolamiento/recuperación incompletos o actor inhabilitado; no se declara aceptación del acceso real.
 - **Verificación y esperado:** Dos dispositivos válidos coexisten; usar uno no prolonga otro; refresh/polling/jobs/pestaña abierta no cuentan; lectura interactiva validada sí. Probar antes/al alcanzar/después de 7 días y 30 días, y retorno que intenta actualizar actividad primero; contraseña sola/TOTP solo no bastan para nueva identificación. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H0-006].
 - **Integración adicional obligatoria:** [TSK-H6-008], [TSK-H6-009], [TSK-H6-010], [TSK-H6-011]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA solo como implementación local** en [evidence-TSK-H0-005.md](evidence-TSK-H0-005.md); no equivale a la comprobación adversarial H0-006, Auth real ni aceptación Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-006"></a>
