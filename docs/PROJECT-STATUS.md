@@ -1,7 +1,7 @@
 # CRM HUESCAVENTURA OS — Project Status
 
 Status: ACTIVE
-Last updated: 2026-09-25
+Last updated: 2026-09-26
 
 ## Completed
 
@@ -56,7 +56,7 @@ Last updated: 2026-09-25
 
 ## Pending
 
-- Nueva instrucción humana delimitada necesaria para cualquier paso posterior. Si se desea validar H0-M02 en Supabase Staging, debe autorizarse como bloque hosted separado; TSK-H0-005/006 y posteriores siguen sin autorización.
+- Nueva instrucción humana delimitada necesaria para cualquier paso posterior; TSK-H0-005/006 y posteriores siguen sin autorización.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.
 - PLAN-PENDING-004 RESOLVED por D028/D029 para negativos y repartos; pruebas de implementación pendientes.
@@ -70,7 +70,7 @@ Last updated: 2026-09-25
 
 ## Current Blockers
 
-- H0-009 implementada y TSK-H0-010 reverificada localmente sin defecto material abierto; H0-M02 hosted sigue sin aplicar ni validar.
+- H0-009 implementada y TSK-H0-010 reverificada localmente sin defecto material abierto; H0-M02 queda además validada en el Staging técnico autorizado, sin cambiar el alcance ni el estado histórico de esas tareas.
 - PLAN-PENDING-003 bloquea únicamente el acceso real y la preparación de Production H6 por verificaciones técnicas no ejecutadas; PLAN-PENDING-001/002/004 permanecen resueltos en su alcance. No bloquea las fases documentales 07/08 completadas.
 - ARCH-PENDING-001 activo y PENDING: Proveedor(es) definitivos de Telefonía IA y WhatsApp; bloquea únicamente la selección o implementación dependiente. Pueden ser comunes o diferentes; comparar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades/proveedor de WhatsApp por separado; origen BR-PENDING-001/035 y D014.
 - ARCH-PENDING-002 activo y PENDING: bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production; origen ARCH-PENDING-002.
@@ -89,8 +89,13 @@ Temporary JIT/runtime/K and synthetic rows were removed; Temporary Access was
 disabled. [Hosted evidence](../specs/001-core-crm/evidence-PLAN-AUTH-006-hosted.md).
 PLAN-AUTH-006 remains PENDING globally for Auth/sessions/MFA/recovery, Vercel,
 SMTP, Production, backups/restore and continuity. H0-008 remains COMPLETED;
-H0-005/006 remain NOT STARTED; H0-009/010 are COMPLETED locally and H0-M02 was
-not applied to Staging. The current product runtime's
+H0-005/006 remain NOT STARTED; H0-009/010 are COMPLETED locally. H0-M02 was
+subsequently applied and behaviorally validated on the same technical Staging
+on 2026-09-26: 12/12 hosted H0-M02 tests and the prior 10/10 hosted DB/F1 suite
+passed using the real runtime login and both poolers. Synthetic rows, K, runtime
+password and JIT access were removed; the migration remains as the technical
+baseline. [H0-M02 hosted evidence](../specs/001-core-crm/evidence-PLAN-AUTH-006-h0-m02-hosted.md).
+The current product runtime's
 `ssl:"require"` is not claimed as verify-full and must be addressed before a
 hosted application deployment. No approved decision changed.
 

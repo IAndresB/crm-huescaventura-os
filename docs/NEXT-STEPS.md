@@ -4,7 +4,7 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**TSK-H0-009 y TSK-H0-010: COMPLETED localmente.** [Evidencia H0-010](../specs/001-core-crm/evidence-TSK-H0-010.md): H0-M02 superó comprobación normativa independiente con 21/21 casos nuevos y 120/120 regresiones totales en PostgreSQL 17.11. TSK-H0-008 permanece COMPLETED y el subset hosted database/F1 previo de PLAN-AUTH-006 permanece VALIDATED. H0 sigue incompleto. H0-M02 no se ha aplicado a Supabase Staging; cualquier validación hosted requiere bloque y autorización humana separados. TSK-H0-005/006 y tareas posteriores permanecen NOT STARTED. H1–H6: NOT STARTED. PLAN-AUTH-006 continúa PENDING globalmente.
+**TSK-H0-009 y TSK-H0-010: COMPLETED.** [Evidencia H0-010](../specs/001-core-crm/evidence-TSK-H0-010.md): H0-M02 superó comprobación normativa independiente con 21/21 casos nuevos y 120/120 regresiones totales en PostgreSQL 17.11. El bloque hosted separado autorizado aplicó después H0-M02 al Staging técnico y acreditó 12/12 casos H0-M02 más 10/10 regresiones DB/F1 con runtime real y ambos poolers; [evidencia hosted H0-M02](../specs/001-core-crm/evidence-PLAN-AUTH-006-h0-m02-hosted.md). TSK-H0-008 permanece COMPLETED. H0 sigue incompleto. TSK-H0-005/006 y tareas posteriores permanecen NOT STARTED. H1–H6: NOT STARTED. PLAN-AUTH-006 continúa PENDING globalmente.
 
 La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit corresponde al único commit documental que contiene la aprobación formal D037, sin modificar el Plan aprobado.
 
@@ -20,9 +20,9 @@ boundary below only for that isolated subset; no new H0 task is authorized.
 Current result is **VALIDATED for the hosted database/F1 subset**: runtime login,
 both poolers, affinity, F01/M2, F1, C01/C03, key lifecycle, Data API, advisors and
 bounded performance passed. Temporary JIT/runtime/K were removed and Temporary
-Access disabled. Do not replay the four applied migrations. H0-M02 has not been
-applied to Staging. TSK-H0-010 is now COMPLETED locally; applying or validating
-H0-M02 on Staging requires a new, explicit and separate human authorization.
+Access disabled. Do not replay the five applied migrations. H0-M02 is now applied
+and validated on Staging under the separate human authorization of 2026-09-26;
+TSK-H0-009/010 remain COMPLETED and no new task was started.
 Before any hosted application deployment, replace/configure the current
 Postgres.js `ssl:"require"` path with explicit CA/hostname verification and
 validate Vercel secret injection/concurrency; those are not part of this DB/F1

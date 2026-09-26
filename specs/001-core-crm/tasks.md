@@ -8,8 +8,8 @@ Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
 Implementation: IN PROGRESS — TSK-H0-001/002/003/004/007/008/009/010 COMPLETED en sus alcances; sin nueva tarea autorizada
 H0: IN PROGRESS; TSK-H0-005/006 y posteriores NOT STARTED; H1–H6: NOT STARTED
-Pruebas técnicas: TSK-H0-010 COMPLETED tras comprobación normativa formal local de H0-M02; Auth/recuperación, hosted H0-M02 y pruebas posteriores NO EJECUTADAS
-Last updated: 2026-09-25
+Pruebas técnicas: TSK-H0-010 COMPLETED tras comprobación normativa formal local de H0-M02; subset hosted H0-M02 validado separadamente; Auth/recuperación y pruebas posteriores NO EJECUTADAS
+Last updated: 2026-09-26
 
 ## 1. Autoridad, base y alcance
 
@@ -235,7 +235,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 - **Bloques, contratos y unidades:** B01/B07/B08; C03/C04/C05; T01–T11.
 - **Entregable ejecutado:** Migración forward H0-M02, adaptador C03 y fixture técnico reutilizable para estado/version, operación, attempts, historia append-only, resultado durable e intención sin proveedor.
 - **Dependencias y precondiciones:** [TSK-H0-008]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** Sin defecto material abierto propio de implementación. TSK-H0-010 completó la comprobación local independiente; PLAN-AUTH-006 sigue PENDING globalmente y H0-M02 hosted no está validada.
+- **Bloqueo localizado / condición para levantarlo:** Sin defecto material abierto propio de implementación. TSK-H0-010 completó la comprobación local independiente; un bloque posterior autorizado validó H0-M02 en Staging técnico. PLAN-AUTH-006 sigue PENDING globalmente.
 - **Acción ejecutada:** Hecho, historia, resultado e intención aplicable confirman juntos; replay equivalente devuelve resultado durable; misma key con huella distinta y versión obsoleta producen E2; no hay efecto externo.
 - **Salida observable:** Sin efecto parcial ni historia ausente; identidad de efecto independiente del intento, con actor, causa y momentos reconstruibles.
 - **Verificación y esperado:** Fallo antes/entre escrituras revierte unidad; pérdida de respuesta después de commit recupera mismo resultado tras autorizar lectura. Conflicto/deadlock abortado reevalúa; no reintenta efectos externos inciertos. Escritura directa ordinaria no elimina historia ni altera resultados fijados. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H0-010].
@@ -253,11 +253,11 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 - **Bloques, contratos y unidades:** B01/B07/B08; C03/C04/C05; T01–T11.
 - **Entregable ejecutado:** Suite independiente `postgres-h0-010.test.ts` y V-EVI del alcance, sin modificar el objeto productivo bajo prueba.
 - **Dependencias y precondiciones:** [TSK-H0-009]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** Sin defecto material abierto en el alcance local. PLAN-AUTH-006 continúa PENDING globalmente y la validación hosted H0-M02 no se ha ejecutado.
+- **Bloqueo localizado / condición para levantarlo:** Sin defecto material abierto en el alcance local. Un bloque posterior autorizado validó H0-M02 en Staging técnico; PLAN-AUTH-006 continúa PENDING globalmente.
 - **Acción ejecutada:** V-DOM + V-DAT + V-MIG independientes sobre TSK-H0-009: historia, replay/autorización, concurrencia, fault injection, post-COMMIT, codec/fingerprint, F1/GUC/RLS, ACL/inmutabilidad, deadlock y migraciones.
 - **Salida observable:** Sin efecto parcial ni historia ausente; identidad de efecto independiente del intento, con actor, causa y momentos reconstruibles. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Fallo antes/entre escrituras revierte unidad; pérdida de respuesta después de commit recupera mismo resultado tras autorizar lectura. Conflicto/deadlock abortado reevalúa; no reintenta efectos externos inciertos. Escritura directa ordinaria no elimina historia ni altera resultados fijados. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** [evidence-TSK-H0-010.md](evidence-TSK-H0-010.md): V-EVI PASS local con PostgreSQL 17.11 real, 21 tests independientes H0-010 y regresión total 120/120; no acredita hosted H0-M02, Auth ni Production.
+- **Evidencia necesaria:** [evidence-TSK-H0-010.md](evidence-TSK-H0-010.md): V-EVI PASS local con PostgreSQL 17.11 real, 21 tests independientes H0-010 y regresión total 120/120. La acreditación hosted posterior queda separada en [evidence-PLAN-AUTH-006-h0-m02-hosted.md](evidence-PLAN-AUTH-006-h0-m02-hosted.md); ninguna acredita Auth ni Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T01–T11 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-011"></a>
