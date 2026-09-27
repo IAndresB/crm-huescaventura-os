@@ -264,13 +264,13 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-011 — Autorizar y reservar un efecto exacto
 
-- [x] **Ejecución: COMPLETED en su alcance de implementación local (2026-09-27). Evidencia: PASS local; reverificación normativa independiente pendiente en TSK-H0-012.** Hito: H0. Tipo: implementación. Registro: [evidence-TSK-H0-011.md](evidence-TSK-H0-011.md).
+- [x] **Ejecución: COMPLETED como antecedente de implementación local (2026-09-27). Evidencia: PASS de implementación histórico; TSK-H0-012 detectó posteriormente H0-012-F01 OPEN y quedó FAILED / NOT COMPLETED.** Hito: H0. Tipo: implementación. Registro: [evidence-TSK-H0-011.md](evidence-TSK-H0-011.md); verificación posterior: [evidence-TSK-H0-012.md](evidence-TSK-H0-012.md).
 - **Objetivo y alcance:** Base mínima B08 de Human Approval: versión/contenido, destinatario, importe, condiciones, alcance, reserva/consumo e incertidumbre.
 - **Fuentes exactas:** Plan §§7.2, 8; SPEC-FR-HA-001, SPEC-FR-HA-002, SPEC-FR-HA-003, SPEC-FR-HA-004, SPEC-FR-HA-005, SPEC-FR-CONC-002, AC-053, AC-054, AC-055, AC-056. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-011.
 - **Bloques, contratos y unidades:** B01/B08; C02/C03/C05; T08.
 - **Entregable ejecutado:** Migración forward H0-M04, adaptador PostgreSQL y fixture sintético; reutiliza H0-M02 para operación, historia, resultado, attempts e intención.
 - **Dependencias y precondiciones:** [TSK-H0-010], [TSK-H0-006]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** Sin defecto material abierto en el alcance de implementación local; la reverificación independiente sigue asignada exclusivamente a [TSK-H0-012]. La integración de trabajos/respuestas tardías en H5 permanece futura.
+- **Bloqueo localizado / condición para levantarlo:** La verificación posterior [TSK-H0-012] detectó H0-012-F01 material en M04→M02. Corrección con autorización separada y nueva reverificación completa pendientes; se conserva el resultado histórico de implementación. Integración de trabajos/respuestas tardías en H5 futura.
 - **Acción ejecutada:** Conservar propuesta/aprobación/rechazo e historial; validar actor F2 y material canónico; reservar parte única y registrar intención/attempt/result/uncertainty dentro de C03; sin proveedor real.
 - **Salida observable:** Aprobación, intento, resultado y actor separados; reserva única comprobada en persistencia real.
 - **Verificación y esperado:** IA no se autoaprueba; plantilla sensible no exime; cambiar cualquier componente material invalida aplicabilidad; evidencia caducada se revalida. Dos reservas sobre la misma parte no prosperan; incertidumbre conserva reserva, parcial deja resto sin repetir ejecutado. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H0-012].
@@ -282,17 +282,17 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-012 — Verificar: Autorizar y reservar un efecto exacto
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: comprobación.
+- [ ] **Ejecución: FAILED / NOT COMPLETED (2026-09-27). Evidencia: H0-012-F01 OPEN — MATERIAL / ALTA.** Hito: H0. Tipo: comprobación. Registro: [evidence-TSK-H0-012.md](evidence-TSK-H0-012.md).
 - **Objetivo y alcance:** Base mínima B08 de Human Approval: versión/contenido, destinatario, importe, condiciones, alcance, reserva/consumo e incertidumbre.
 - **Fuentes exactas:** Plan §§7.2, 8; SPEC-FR-HA-001, SPEC-FR-HA-002, SPEC-FR-HA-003, SPEC-FR-HA-004, SPEC-FR-HA-005, SPEC-FR-CONC-002, AC-053, AC-054, AC-055, AC-056. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-012.
 - **Bloques, contratos y unidades:** B01/B08; C02/C03/C05; T08.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-011]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** Verificación aislada con efectos sintéticos; integración de trabajos y respuestas tardías en H5. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H0-011; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** H0-012-F01: F2 caduca durante la unidad M04→M02 y una F1 posterior aún vigente permite COMMIT de reserva/ledger/intención/actividad. Corrección no autorizada en la verificación; requiere autorización específica y posterior reverificación completa. Integración H5 sigue futura.
+- **Acción ejecutada:** Matriz normativa R01–R25 fijada antes de inspeccionar M04; R11 con locks reales reprodujo F01 y detuvo la ejecución normativa. Dos controles PASS; carrera F2/F1 FAIL; resto de matriz incompleta, sin atribuir PASS a regresiones heredadas.
 - **Salida observable:** Aprobación, intento, resultado y actor separados; reserva única comprobada en persistencia real. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** IA no se autoaprueba; plantilla sensible no exime; cambiar cualquier componente material invalida aplicabilidad; evidencia caducada se revalida. Dos reservas sobre la misma parte no prosperan; incertidumbre conserva reserva, parcial deja resto sin repetir ejecutado. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI [evidence-TSK-H0-012.md](evidence-TSK-H0-012.md), reproducción independiente y conteos posteriores al COMMIT. H0-011 se conserva como antecedente histórico de implementación; su comprobación posterior detectó defecto material, no cierre funcional.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-013"></a>
