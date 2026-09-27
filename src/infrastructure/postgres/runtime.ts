@@ -1,15 +1,19 @@
 import postgres from "postgres";
 import { H0M01PostgresAdapter } from "./h0-m01-adapter.ts";
 import { H0009PostgresAdapter } from "./h0-009-adapter.ts";
+import { H0011PostgresAdapter } from "./h0-011-adapter.ts";
 import type { F1SigningConfiguration } from "./f1-codec.ts";
+import type { F2SigningConfiguration } from "./f2-codec.ts";
 
 export interface PostgresRuntime {
   readonly adapter: H0M01PostgresAdapter;
   readonly durableUnit: H0009PostgresAdapter;
+  readonly humanApproval: H0011PostgresAdapter;
   close(): Promise<void>;
 }
 
-export function createPostgresRuntime(databaseUrl: string, configuration: F1SigningConfiguration): PostgresRuntime {
+export function createPostgresRuntime(databaseUrl: string, configuration: F1SigningConfiguration,
+  humanAuthorization: F2SigningConfiguration): PostgresRuntime {
   if (databaseUrl.trim().length === 0) {
     throw new Error("DATABASE_URL_REQUIRED");
   }
@@ -22,6 +26,7 @@ export function createPostgresRuntime(databaseUrl: string, configuration: F1Sign
     return Object.freeze({
       adapter: new H0M01PostgresAdapter(sql, configuration),
       durableUnit: new H0009PostgresAdapter(sql, configuration),
+      humanApproval: new H0011PostgresAdapter(sql, configuration, humanAuthorization),
       close: () => sql.end({ timeout: 5 }),
     });
   } catch {

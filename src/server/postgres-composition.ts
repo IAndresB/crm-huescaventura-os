@@ -3,10 +3,12 @@ import {
   type PostgresRuntime,
 } from "../infrastructure/postgres/runtime.ts";
 import type { F1SigningConfiguration } from "../infrastructure/postgres/f1-codec.ts";
+import type { F2SigningConfiguration } from "../infrastructure/postgres/f2-codec.ts";
 
 export function composePostgresRuntime(input: {
   readonly databaseUrl: string;
   readonly capability: F1SigningConfiguration;
+  readonly humanAuthorization: F2SigningConfiguration;
 }): PostgresRuntime {
-  return createPostgresRuntime(input.databaseUrl, input.capability);
+  return createPostgresRuntime(input.databaseUrl, input.capability, input.humanAuthorization);
 }

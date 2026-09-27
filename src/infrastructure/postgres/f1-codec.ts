@@ -43,8 +43,8 @@ export interface F1Capability {
 }
 
 export interface F1AuthorizationTarget {
-  readonly resource: "access_probe" | "internal_unit";
-  readonly action: "read_probe" | "apply_probe_batch" | "commit_internal_unit";
+  readonly resource: "access_probe" | "internal_unit" | "human_approval";
+  readonly action: "read_probe" | "apply_probe_batch" | "commit_internal_unit" | "read_proposal" | "manage_effect";
 }
 
 function targetFor(
@@ -67,6 +67,14 @@ function targetFor(
     operation === "C03"
       && selected.resource === "internal_unit"
       && selected.action === "commit_internal_unit"
+  ) || (
+    operation === "C01"
+      && selected.resource === "human_approval"
+      && selected.action === "read_proposal"
+  ) || (
+    operation === "C03"
+      && selected.resource === "human_approval"
+      && selected.action === "manage_effect"
   );
   if (!allowed) throw new Error("F1_AUTHORIZATION_DENIED");
   return selected;
