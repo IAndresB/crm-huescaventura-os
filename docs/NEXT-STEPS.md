@@ -4,7 +4,7 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**TSK-H0-005/006: COMPLETED en sus alcances históricos/locales; TSK-H0-011: antecedente COMPLETED de implementación; TSK-H0-012: FAILED / NOT COMPLETED.** La [evidencia H0-006](../specs/001-core-crm/evidence-TSK-H0-006.md) conserva sus fallos históricos y cierres locales. La [verificación H0-012](../specs/001-core-crm/evidence-TSK-H0-012.md) detectó F01 material/alta; la corrección posterior está **FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. El ledger humano revalida la F2 original después de M02; reproducer/controles PASS y regresión 170/170 PostgreSQL + 27/27 unitarias, 0 skipped. Siguiente paso: nueva reverificación completa e independiente H0-012, con autorización separada. No se ha ejecutado en el bloque de corrección. PLAN-AUTH-002/006 siguen PENDING globalmente; Supabase Staging intacto.
+**TSK-H0-005/006: COMPLETED en sus alcances históricos/locales; TSK-H0-011: antecedente COMPLETED de implementación; TSK-H0-012: FAILED / NOT COMPLETED.** La [evidencia H0-006](../specs/001-core-crm/evidence-TSK-H0-006.md) conserva sus fallos históricos y cierres locales. La [nueva reverificación H0-012](../specs/001-core-crm/evidence-TSK-H0-012.md) detectó **F02 OPEN — MATERIAL / ALTA**: seleccionar el overload técnico M02 evita la guarda final humana con capacidades legítimas del mismo binding. F01 original y controles PASS, pero F01 sigue **FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. Suite independiente 5 PASS / 1 FAIL, 0 skipped/cancelled; parada fail-fast, matriz no completada. Siguiente paso: nueva autorización para corregir F02 y posteriormente reejecutar toda H0-012, incluido el positivo de evidencia R08 y provenance R25. No se implementa fix en este bloque. PLAN-AUTH-002/006 siguen PENDING globalmente; Supabase Staging intacto.
 
 **D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resolvió el bloqueo de diseño F1/humano sin modificar D037/F1. Autorizaciones posteriores permitieron H0-005 local, dos intentos FAILED de H0-006 por F01/F02 y una tercera reverificación local completa PASS. TSK-H0-009/010 y H0-008 permanecen COMPLETED en sus alcances; PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
 
@@ -53,13 +53,13 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 IN PROGRESS: TSK-H0-001/002/003/004/005/006/007/008/009/010/011 COMPLETED en sus alcances históricos/locales; H0-006-F01/F02 cerrados localmente. H0-012 FAILED; H0-012-F01 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION. Nueva reverificación completa necesaria. H0-013 y posteriores NOT STARTED.
+9. implementación — H0 IN PROGRESS: TSK-H0-001/002/003/004/005/006/007/008/009/010/011 COMPLETED en sus alcances históricos/locales; H0-006-F01/F02 cerrados localmente. H0-012 FAILED; H0-012-F01 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; H0-012-F02 OPEN material/alta. Corrección separada y nueva reverificación completa necesarias. H0-013 y posteriores NOT STARTED.
 
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La aprobación documental D038 resolvió el modelo de confianza F2; H0-005, las etapas H0-006, H0-011 y la verificación H0-012 recibieron autorizaciones separadas. H0-012 se detuvo ante F01; aquella autorización solo permitió publicar reproducción/evidencia. Una autorización posterior permitió exclusivamente corregir F01 localmente y publicar el fix, sin reverificación completa ni H0-013. No autoriza Auth/hosted H0-M03 ni H0-M04 hosted. Los bloques hosted anteriores conservan sus autorizaciones y evidencia históricas.
+La aprobación documental D038 resolvió el modelo de confianza F2; H0-005, las etapas H0-006, H0-011 y la verificación H0-012 recibieron autorizaciones separadas. H0-012 se detuvo ante F01; una autorización posterior permitió corregirlo localmente. La nueva autorización de reverificación desde `0ab6520` permite publicar el segundo FAILED por F02 y su reproducción, no corregir producto ni iniciar H0-013. No autoriza Auth/hosted H0-M03 ni H0-M04 hosted. Los bloques hosted anteriores conservan sus autorizaciones y evidencia históricas.
 
 No iniciar tareas posteriores, Auth real, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues sin nueva autorización. No aplicar H0-M03 hosted sin autorización separada.
 

@@ -175,7 +175,8 @@ async function snapshot(id: string) {
       where session_id=${sessionId}::uuid and current_epoch) activity`)[0]!;
 }
 
-async function race(id: string, mode: "short" | "both-expired" | "f2-only-expired") {
+async function race(id: string, mode: "short" | "both-expired" | "f2-only-expired",
+  clientFor: (trace: Trace) => postgres.Sql = observedClient) {
   const plain = new H0011PostgresAdapter(runtime, f1, f2); const m = material();
   const proposal = await plain.propose(auth, interaction, `proposal-${id}`, "ai", m);
   await plain.decide(auth, interaction, `decision-command-${id}`, proposal.proposalId,
@@ -185,7 +186,7 @@ async function race(id: string, mode: "short" | "both-expired" | "f2-only-expire
   const releaseActor = mode === "f2-only-expired" ? await lock(actorBlocker, "actor") : undefined;
   const releaseLedger = await lock(ledgerBlocker, "ledger");
   let actorReleased = false; let ledgerReleased = false;
-  const pending = new H0011PostgresAdapter(observedClient(trace), f1, f2).reserve(auth, interaction, id,
+  const pending = new H0011PostgresAdapter(clientFor(trace), f1, f2).reserve(auth, interaction, id,
     proposal.proposalId, `decision-${id}`, "part-a", proposal.materialFingerprint,
     fingerprintHumanApprovalPart(m.parts[0]!), m).then(() => ({ committed: true }),
       () => ({ committed: false }));
@@ -290,4 +291,43 @@ test("F01 correction: normal concurrent units, durable replay and actual post-CO
       (select count(*)::int from crm_private.unit_history where operation_id='f01-normal-a') history`;
     assert.deepEqual(counts, { proposals: 1, events: 1, history: 1 });
   } finally { await other.end({ timeout: 1 }); }
+});
+
+// Adversarial SQL caller, separate from observedClient (which remains purely
+// observational). Receives only a runtime client and already-issued arguments;
+// never reads/signs with F1/F2 keys or changes signed material/binding/time.
+// The trusted test server issues one legitimate unit, then the caller chooses
+// the still-public technical overload instead of submitting the F2 arguments.
+function chooseTechnicalLedger(client: postgres.Sql): postgres.Sql {
+  return new Proxy(client, { get(target, key, receiver) {
+    if (key !== "begin") return Reflect.get(target, key, receiver);
+    return (options: string, work: (tx: postgres.TransactionSql) => Promise<unknown>) =>
+      target.begin(options, (tx) => work(new Proxy(tx, {
+        apply(inner, thisArg, args: unknown[]) {
+          const sql = args[0] as TemplateStringsArray;
+          if (sql.join("").includes("crm_api.commit_internal_unit") && args.length === 7) {
+            // Exactly the same p/s/q bytes, same backend and transaction.
+            return inner`select * from crm_api.commit_internal_unit(${args[1] as Buffer},${args[2] as Buffer},${args[3] as Buffer})`;
+          }
+          return Reflect.apply(inner, thisArg, args);
+        },
+      }))) as unknown;
+  } }) as postgres.Sql;
+}
+
+test("H0-012 R11/R13/R23 M2: selecting the technical overload cannot bypass final human authority", async (t) => {
+  const [acl] = await runtime`select session_user, current_user,
+    has_function_privilege(current_user,'crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)','execute') m04,
+    has_function_privilege(current_user,'crm_api.commit_internal_unit(bytea,bytea,bytea)','execute') technical,
+    has_function_privilege(current_user,'crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)','execute') human`;
+  assert.equal(acl!.session_user, "crm_h0_runtime"); assert.equal(acl!.current_user, "crm_h0_runtime");
+  t.diagnostic(JSON.stringify({ runtimeEntryPoints: acl }));
+  const r = await race("h012-overload-bypass", "f2-only-expired",
+    (trace) => chooseTechnicalLedger(observedClient(trace)));
+  t.diagnostic(JSON.stringify(r.facts));
+  assert.equal(r.facts.f2ExpiredAtRelease, true); assert.equal(r.facts.f1ExpiredAtRelease, false);
+  assert.ok(r.facts.f2AgeMsAtRelease > 30000);
+  assert.equal(r.outcome.committed, false,
+    "M2 chose a permitted overload and committed a human unit after its original F2 expired");
+  assert.deepEqual(r.afterState, r.beforeState, "overload selection must not bypass the unit's final F2 authority");
 });
