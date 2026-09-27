@@ -1,6 +1,6 @@
 # TSK-H0-012 — Verificación formal independiente local
 
-Resumen vigente: **TSK-H0-012 FAILED / NOT COMPLETED**. La tercera ejecución formal (base `98a90d1`) produjo R01–R07 PASS, R08 FAIL por F03 y R09–R25 BLOCKED por fail-fast. La corrección localizada posterior de F03 se registra al final, separada de esa ejecución: **F01/F02/F03 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. Ningún defecto se cierra sin toda la matriz. Se conservan íntegramente los tres FAILED y las etapas de corrección, sin convertir regresiones en cierre formal.
+Resumen vigente tras cuarta ejecución formal (base `eaf02a2`): **TSK-H0-012 FAILED / NOT COMPLETED; H0-012-F04 OPEN — MATERIAL / ALTA**. Runtime adelanta el constraint trigger de evidencia con `SET CONSTRAINTS ALL IMMEDIATE` y confirma tras una espera real que supera su vigencia. R01–R07 PASS, R08 FAIL; R11 original y controles PASS; R23 FAIL por el mismo bypass, sin auditoría completa adicional; restantes filas BLOCKED por fail-fast. **F01/F02/F03 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**, sin cierre anticipado. Se conservan íntegros los tres FAILED anteriores y sus fixes; esta nueva ejecución es otra etapa, no una reinterpretación histórica.
 
 ## V-EVI / preflight y orden de trabajo
 
@@ -559,3 +559,95 @@ Archivos productivos: nuevo port `src/application/evidence-revalidation.ts`; int
 Limitaciones: el provider productivo es un port, no un conector real; su composición, autoridad y reloj se deben acreditar al introducir una fuente real. Un fallo, ausencia o incoherencia de fuente deniega la parte dependiente. El positivo demostrado usa fuente sintética local; no acredita evidencia comercial, entrega externa, Auth/TOTP/recovery/dispositivos, H0-M03/M04 hosted ni Production. Supabase Staging no tocado. No se detectó otro defecto material distinto de F03 durante esta corrección.
 
 Próximo paso, SIN EJECUTAR: nueva autorización para reverificación formal completa e independiente R01–R25 desde el commit correctivo publicado. El commit de esta etapa se identifica en Git por `fix(h0): support verified evidence revalidation`, hijo de la base exacta indicada arriba; no altera Last Approved Commit.
+
+## Cuarta ejecución formal independiente — base eaf02a2 (2026-09-28)
+
+Preflight: main, HEAD=origin/main=`eaf02a2ee976124462e2f8b59fbef31b0324c844`, árbol limpio, remoto correcto. Se releen selectivamente Tasks §2.2/H0-011/012, Plan B01/B08/C02/C03/C05/T08/§8, HA-001–005/CONC-002/AC-053–056/E1/E2/E4, SM G1–G6/HA-01–03 y D009/D016/D038. La matriz R01–R25 anterior se conserva sin cambiar ningún expected. No se heredan PASS de correcciones.
+
+Plan adversarial fijado antes de ejecutar: además de repetir F01/F02 y los casos independientes R01–R08, R08 contrasta evidencia vigente/caducada, provider ausente/no disponible, identidad/material cruzados, replay y tiempo real. Se compara la comprobación diferida normal con `SET CONSTRAINTS ALL IMMEDIATE` emitido por runtime mientras la evidencia vive, seguido de un lock advisory real antes de COMMIT hasta que expire. Expected para ambos recorridos largos: DENY y rollback completo; control corto: COMMIT. Este expected deriva de Plan §7.2 (fuentes/permisos antes de confirmar), HA-002/AC-054/G2 y del requisito expreso de esta ejecución de que el trigger diferido no sea evitable por SQL permitido. [PostgreSQL 17 SET CONSTRAINTS](https://www.postgresql.org/docs/17/sql-set-constraints.html) documenta que IMMEDIATE adelanta los eventos pendientes, incluidos constraint triggers; no se cambia norma ni producto para acomodar ese comportamiento.
+
+La ejecución continúa hacia R09–R25 solo si no aparece defecto material; cualquier fallo nuevo detiene la matriz y conserva los anteriores pendientes formales. Solo suite/evidencia/coordinación pueden cambiar.
+
+### Resultado: FAILED — H0-012-F04 OPEN / MATERIAL / ALTA
+
+**Defecto:** el runtime puede adelantar y agotar la comprobación final diferida de evidencia, y confirmar una nueva reserva después de que la evidencia haya caducado. No se alteran firma, payload, material, reloj, permisos, ventanas F1/F2 ni configuración productiva. No se usa un firmador runtime: las capabilities son las legítimas emitidas por el adapter a partir de la fuente sintética confiable.
+
+**Fuentes vulneradas:** Plan §7.2 exige revalidar fuentes y permisos antes de confirmar; SPEC-FR-HA-002 y AC-054 exigen contexto/evidencia vigentes, SM G2 exige fuente/momento/vigencia. R08 exige rollback si la evidencia expira durante una espera anterior al final de unidad. R23 exige que el trigger diferido no pueda evitarse mediante SQL permitido a runtime. D038 §2 fija M2 con SQL arbitrario permitido; no es suficiente que el adapter ordinario no emita `SET CONSTRAINTS`.
+
+**Causa delimitada:** `h0_m04_evidence_commit_guard` es un constraint trigger `DEFERRABLE INITIALLY DEFERRED`. La llamada SQL `SET CONSTRAINTS ALL IMMEDIATE`, permitida a runtime, dispara y agota sus eventos pendientes mientras la evidencia sigue vigente. Las FK diferidas pasan porque M04 y M02 ya han escrito todos sus registros dentro de la transacción. Un lock posterior no genera otro INSERT de evidencia ni rearma el trigger. El COMMIT no vuelve a comprobar esa vigencia. La comprobación explícita del wrapper humano ya ocurrió antes del lock.
+
+**Diferencia frente a F01/F02/F03:** aquí el wrapper humano correcto termina, F1/F2 siguen vivas al liberar el lock y el positivo de evidencia ya existe. El defecto no consiste en ausencia de positivo, ni en seleccionar el overload técnico, ni en caducar F2 durante el ledger: se controla el momento del nuevo guard de evidencia desde SQL M2.
+
+### Reproducción y controles
+
+Suite independiente `tests/integration/postgres-h0-012.test.ts`, helper `finalEvidenceWait`, filas `R08 final evidence authority`. PostgreSQL 17.11 real, sockets locales efímeros; login `crm_h0_runtime`, max=1/prepare=false. Node 24.21.0 y pnpm 11.19.0. Sin proyecto hosted, proveedor real ni datos personales.
+
+1. Crear fuente sintética con bytes conocidos y huella recalculada, vigencia fuente de 2.5 s y vigencia material aprobada de 60 s. Confirmar proposal IA y aprobación humana como preparación previa independiente.
+2. Otra conexión toma un advisory lock transaccional con clave sintética fija `12008004`.
+3. Ejecutar `reserve` mediante el adapter real: provider confiable, prueba F1, admisión F2, registro de evidence, reserva/event/receipt, wrapper humano M02, ledger/intención y checks finales normales.
+4. Después de retornar el wrapper y antes del COMMIT, el driver de ensayo añade SQL permitido a runtime, sin modificar llamadas o resultados productivos: `SET CONSTRAINTS ALL IMMEDIATE` y `SELECT pg_advisory_xact_lock(12008004)`.
+5. Comprobar desde otra conexión `pg_locks`: PID runtime bloqueado realmente en advisory, tras retornar M04/M02. Comprobar que el cambio a IMMEDIATE ocurrió mientras la evidencia aún vivía.
+6. Con reloj real PostgreSQL esperar hasta `effective_until + 100 ms`; observar que F1/F2 todavía viven. Liberar el lock desde la conexión independiente.
+7. Intentar COMMIT y consultar todas las tablas desde la conexión administrativa de inspección. El atacante nunca utiliza esa conexión para efectuar la operación; únicamente prepara el lock/fixture y observa persistencia.
+
+Expected: DENY/rollback de la nueva unidad, conservando únicamente propuesta/decisión previas; actividad intacta. Observed: **COMMIT**, con 1 evidence_revalidation, 1 reservation, 1 event, 1 receipt, 1 root, 1 operation, 1 attempt técnico M02, 1 history, 1 result y 1 intent nuevos. La actividad humana cambia. La propuesta y decisión previas continúan existiendo. No ocurrió ningún efecto externo real.
+
+| Caso | Evidencia al liberar | F1/F2 al liberar | Expected | Observed | Resultado |
+|---|---|---|---|---|---|
+| IMMEDIATE + lock corto (50 ms) | Vigente | Vigentes | COMMIT | COMMIT, unidad íntegra | PASS |
+| Guard diferido normal + lock hasta expiración | Caducada | Vigentes | ROLLBACK | ROLLBACK, snapshot completo idéntico, 0 prueba nueva y actividad intacta | PASS |
+| IMMEDIATE + mismo lock hasta expiración | Caducada | Vigentes | ROLLBACK | COMMIT con todos los registros nuevos y actividad cambiada | **FAIL MATERIAL F04** |
+
+Los casos largos duran aproximadamente 2.63 s cada uno; no se reduce la ventana F2 de 30 s. Se aísla la caducidad de evidencia de la humana/técnica. La assertion `committed === false` permanece fallando, no invertida ni omitida. El test se detiene al fallo y no sigue con otras filas.
+
+### Matriz de esta ejecución (sin PASS heredados)
+
+Las fuentes y expected completos siguen en la matriz normativa inicial, intacta. Esta tabla registra su ejecución nueva, observación y estado. BLOCKED significa no completada en esta ejecución por F04, aunque existan ensayos históricos o incidentales; no acredita cobertura formal.
+
+| Fila / requisito | Setup y expected de esta ejecución | Observed / test o consulta asociada | Estado |
+|---|---|---|---|
+| R01 HA-001/005: autoridad humana | IA y F1 técnica intentan decidir; solo humano vigente permite | Subtest R01: ambos denials con snapshots intactos; decisión válida conserva actor/session desde conexión independiente | PASS |
+| R02 HA-001: pending/rejected | Reservar, intentar y registrar outcome sin aprobación válida: DENY | Subtest R02: todos denegados sin cambios en snapshot | PASS |
+| R03 HA-003/AC-053 | Aprobar sin ejecutar: decisión, sin reserva/intento/success externo | Subtest R03: decisión=1, reserva=0, eventos de ejecución=0, external records=0 | PASS |
+| R04 HA-001/002: material exacto | Persistir acción, versión, contenido, destinatario, importe, condiciones, scope/efecto | Subtest R04: bytes y hash calculados por framing independiente coinciden con proposal/decision persistidas | PASS |
+| R05 HA-002/AC-054 | Mutar ocho componentes uno a uno; DENY y original intacto | Subtest R05: hash original o hash coherente de variante no permiten reserva; snapshots iguales | PASS |
+| R06 V-DOM/HA-002 | Orden, Unicode/UTF-8, empty/absent/unknown/not-applicable, límites/NUL/bytes/separadores | Subtest R06: referencia independiente, distinción compuesta/descompuesta, límite exacto 16384 y exceso rechazado, sin ambigüedad ensayada | PASS |
+| R07 T08/HA-004 | Cambiar ID/hash/scope/efecto de parte y decisión/propuesta cruzadas | Subtest R07: variantes denegadas, parte exacta reservada; snapshots negativos intactos | PASS |
+| R08 AC-054/HA-002/G2 | Evidencia positiva, negativos, replay y vigencia al final | Positivo real y replay sin provider PASS; caducidad material/fuente, ausencia, fingerprint, provider, proof cruzada/alterada DENY. IMMEDIATE permite confirmar evidencia caducada tras lock: F04 | FAIL |
+| R09 D038: estado humano | Revoked/disabled/stale/old epoch/MFA/ready: DENY | No ejecutada íntegramente: parada material en R08 | BLOCKED |
+| R10 D038: todos los locks | F2 caduca en actor/session/epoch/advisory/parte: DENY | La regresión primera fase/actor pasa, pero no se ejecuta matriz completa de recursos por fail-fast | BLOCKED |
+| R11 D038/C03: F01 | Escenario original actor+ledger, F2 expirada/F1 vigente; rollback; control corto | Reejecución original: edad F2 30257 ms, ledger 27193 ms, rollback sin residuos/activity. Largo ambas expiradas también rollback; corto 104 ms COMMIT. No usa evidence en este escenario histórico | PASS |
+| R12 D038 §15/CONC-002 | Carreras revoke/disable/generation en órdenes opuestos | No ejecutada: fail-fast F04 | BLOCKED |
+| R13 D038: partición F01/F02 | F1/F2 exactas y targets cruzados, sin ruta humana alternativa | Reproducer F02 reejecutado DENY antes del ledger; faltan restantes combinaciones formales por fail-fast | BLOCKED |
+| R14 V-DAT | CRUD/helpers runtime/PUBLIC/anon/authenticated: DENY | No ejecutada íntegramente: fail-fast F04 | BLOCKED |
+| R15 D038: residual | GUC/payload copiado/error/rollback/reuse/temp: sin autoridad | No ejecutada: fail-fast F04 | BLOCKED |
+| R16 HA-004/CONC-002 | Misma parte simultánea, máximo una reserva | No ejecutada: fail-fast F04 | BLOCKED |
+| R17 T08 | Partes distintas/consumida/pendiente separadas | No ejecutada: fail-fast F04 | BLOCKED |
+| R18 E4/G6 | Uncertain conserva reserva e impide retry peligroso | No ejecutada: fail-fast F04 | BLOCKED |
+| R19 Plan §8 | Solo attempt/reservation/result incierto exacto concilia | No ejecutada: fail-fast F04 | BLOCKED |
+| R20 HA-003/004 | Failed conocido, nuevo intento seguro, consumed no repetible | No ejecutada: fail-fast F04 | BLOCKED |
+| R21 E2/V-AT | Replays humanos/técnicos/evidencia y conflictos materiales | Replay humano/post-COMMIT y replay evidencia sin provider pasan como casos ejecutados; fila completa no finalizada | BLOCKED |
+| R22 C03/V-AT | Fault injection en todas las fronteras y post-COMMIT distinto de uncertain | Control diferido caducado revierte snapshot completo; resto de fault matrix no ejecutado | BLOCKED |
+| R23 D038/V-DAT: SQL surface | Incluye guard diferido no evitable desde runtime | **Mismo ataque F04 de R08**, sin búsqueda adicional: SET CONSTRAINTS permitido neutraliza comprobación al COMMIT. Auditoría restante detenida | FAIL |
+| R24 V-MIG/C01 | Cadena/upgrade/fixtures/autoridades/falloDDL y lectura scope | Bootstrap ensaya cadena y upgrade F03, preservación, DDL failure/rollback/reapply; no fila completa C01/predecesores | BLOCKED |
+| R25 HA-001/003/G4 | Procedencia IA/registrador/aprobador/ejecutor/source inequívoca | No ejecutada: fail-fast F04; no PASS inferido de proposer_kind | BLOCKED |
+
+R01–R07 y R11 PASS; R08/R23 FAIL por **un único defecto nuevo**; otras 15 filas BLOCKED. F01/F02 originales pasan en esta ejecución, pero F01/F02/F03 permanecen FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION: no se cierra ninguno sin matriz completa.
+
+### Comandos, conteos y límites
+
+Comando reproducible de la ejecución formal detenida:
+
+```sh
+POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin node --test --experimental-strip-types --test-name-pattern='H0-012 R11|F01 correction|H0-012 fourth formal execution' tests/integration/postgres-h0-012.test.ts
+```
+
+Selección explícita: escenarios históricos obligatorios F01/F02, controles y nueva matriz secuencial. Los tests focales de implementación posteriores no se seleccionan ni se reinterpretan como PASS formal. No hay `.skip` ni reducción de tiempos/expectativas. Si R08 hubiese pasado, habría continuado la ampliación/ejecución de las filas restantes; F04 exige detenerla.
+
+Resultado real: **19 resultados Node: 17 PASS, 2 FAIL, 0 skipped, 0 cancelled**, duración 128493.641 ms. Los 2 FAIL son el caso F04 y su contenedor, no dos defectos: **18 casos hoja, 17 PASS y 1 FAIL**. Typecheck PASS antes de ejecutar. La regresión global (install/audit/unitarios/PostgreSQL total/build) no se ejecuta después del fail-fast, conforme §33 de esta autorización; no se heredan los 239 PASS de la corrección F03.
+
+Comprobaciones de publicación: **typecheck PASS, lint/import boundaries PASS, git diff --check PASS**. Revisión de alcance: solo cinco archivos autorizados; src/migraciones/fuentes normativas intactos. Comprobación programática de cronología: todo el contenido anterior desde `## V-EVI` permanece íntegro, con nueva etapa añadida y resumen vigente actualizado. Escaneo del diff: 0 PAT/JWT/private keys/connection strings/SCRAM/credenciales literales/emails; revisión manual sin material sensible persistente. No se implementa solución ni se propone aquí una nueva decisión arquitectónica. Las guías PostgreSQL/Supabase se usaron para contrastar permisos y semántica de triggers, no como sustituto de los expected normativos.
+
+Estado: H0-011 antecedente COMPLETED; H0-012 FAILED / NOT COMPLETED; F04 OPEN — MATERIAL / ALTA; F01/F02/F03 pendientes formales. H0 IN PROGRESS, H0-013 NOT STARTED, PLAN-AUTH-002/006 PENDING globalmente. Last Approved Commit `6248820e3253a9d88755ed0a4996fff8f865690e` intacto. Auth/TOTP/recovery/dispositivos, H0-M03/M04 hosted y Production no acreditados; Supabase Staging no conectado ni modificado.
+
+Próximo paso, SIN EJECUTAR: autorización humana separada para corregir H0-012-F04 y preservar una garantía final de vigencia no adelantable por SQL permitido a runtime; después nueva reverificación completa R01–R25. Esta publicación no autoriza el fix, D039 ni H0-013.

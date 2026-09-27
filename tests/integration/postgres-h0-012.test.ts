@@ -435,7 +435,7 @@ async function deniedWithoutChanges(work: () => unknown) {
   assert.deepEqual(await formalSnapshot(), beforeState);
 }
 
-test("H0-012 third formal execution: R01–R08 independent cases, stop at first material failure", async (t) => {
+test("H0-012 fourth formal execution: independent matrix, stop at first material failure", async (t) => {
   const api = new H0011PostgresAdapter(runtime, f1, f2, evidenceFixture.provider);
   async function row(name: string, work: () => Promise<void>) {
     let passed = false;
@@ -556,7 +556,7 @@ test("H0-012 third formal execution: R01–R08 independent cases, stop at first 
     await deniedWithoutChanges(() => reserve("r07-decision-swap", p.proposalId, otherProposal.decisionId, m));
     assert.equal((await reserve("r07-correct", p.proposalId, decisionId, m)).state, "reserved");
   })) return;
-  await row("R08 positive: current independently checked evidence must permit exact approved reservation", async () => {
+  if (!await row("R08 positive: current independently checked evidence must permit exact approved reservation", async () => {
     // Synthetic authorized source held only by the test authority, not a caller-provided validity flag.
     const source = Buffer.from("independent current synthetic evidence", "utf8");
     const validUntil = new Date(Number(await nowUs() / 1000n) + 3_600_000).toISOString();
@@ -581,8 +581,108 @@ test("H0-012 third formal execution: R01–R08 independent cases, stop at first 
       negativeExpiredDenied: true, negativeMissingDenied: true, noEvidenceControlReserved: true,
       expected: "reserved", observed, failure, noResidueIfDenied: observed === "denied" }));
     assert.equal(observed, "reserved", "H0-012-F03: required evidence has no positive revalidation/reservation route");
-  });
+    const previous = await reserve("r08-positive-reserve", current.p.proposalId, current.decisionId, m);
+    assert.equal(previous.commandState, "previous");
+    evidenceFixture.sources.delete(evidence.reference);
+    const replayWithoutProvider = new H0011PostgresAdapter(runtime, f1, f2);
+    assert.equal((await replayWithoutProvider.reserve(auth, interaction, "r08-positive-reserve",
+      current.p.proposalId, current.decisionId, "part-a", referenceHash(referenceMaterial(m)),
+      referenceHash(referencePart(m.parts[0]!)), m)).commandState, "previous");
+  })) return;
+  if (!await row("R08 negative: source/material expiry, missing provider and altered authenticated proof", async () => {
+    for (const kind of ["expired-source", "missing-reference", "fingerprint", "provider-failure", "provider-absent"]) {
+      const p = await evidenceProposal(`formal-r08-${kind}`);
+      if (kind === "expired-source") p.fixture.sources.get(p.m.evidence.reference)!.validUntil = "2000-01-01T00:00:00.000Z";
+      if (kind === "missing-reference") p.fixture.sources.clear();
+      if (kind === "fingerprint") p.fixture.sources.get(p.m.evidence.reference)!.bytes = Buffer.from("different-source-bytes");
+      const provider = kind === "provider-failure" ? { revalidate: async () => { throw new Error("synthetic-unavailable"); } }
+        : kind === "provider-absent" ? undefined : p.fixture.provider;
+      await deniedWithoutChanges(() => p.reserve(new H0011PostgresAdapter(runtime, f1, f2, provider)));
+    }
+    for (const kind of ["proposal", "part", "scope", "altered-mac"]) {
+      const p = await evidenceProposal(`formal-r08-${kind}`);
+      const client = changedEvidenceClient((proof, envelope) => {
+        if (kind === "proposal") proof[2] = "different-proposal";
+        if (kind === "part") proof[3] = "different-part";
+        if (kind === "scope") envelope[13] = "different-scope";
+      }, kind === "altered-mac");
+      await deniedWithoutChanges(() => p.reserve(new H0011PostgresAdapter(client, f1, f2, p.fixture.provider)));
+    }
+  })) return;
+  for (const mode of ["immediate-short", "deferred-expired", "immediate-expired"] as const) {
+    if (!await row(`R08 final evidence authority: ${mode}`, async () => {
+      const result = await finalEvidenceWait(mode);
+      t.diagnostic(JSON.stringify(result.facts));
+      assert.equal(result.committed, mode === "immediate-short",
+        "H0-012-F04: runtime must not move the final evidence check before a real pre-COMMIT wait");
+      if (mode !== "immediate-short") assert.deepEqual(result.afterState, result.beforeState);
+    })) return;
+  }
 });
+
+// M2 may issue transaction-control SQL, but cannot sign or alter the genuine
+// capabilities. The proxy adds ONLY permitted SQL after the real M04/M02 path.
+async function finalEvidenceWait(mode: "immediate-short" | "deferred-expired" | "immediate-expired") {
+  const id = `formal-r08-${mode}`;
+  const p = await evidenceProposal(id, 2500, 60_000);
+  const beforeState = await formalSnapshot();
+  const beforeCounts = await snapshot(id);
+  const expiry = BigInt(Date.parse(p.fixture.sources.get(p.m.evidence.reference)!.validUntil)) * 1000n;
+  const gate = 12008004;
+  let release!: () => void; let ready!: () => void;
+  const released = new Promise<void>((resolve) => { release = resolve; });
+  const locked = new Promise<void>((resolve) => { ready = resolve; });
+  const blocker = Promise.resolve(ledgerBlocker.begin(async (tx) => {
+    await tx`select pg_advisory_xact_lock(${gate})`; ready(); await released;
+  }));
+  await locked;
+  const trace: Trace = { m04Returned: false };
+  let finalWrapperReturned = false; let immediateApplied = false; let checkedWhileLive = false;
+  let login = ""; let pid = 0;
+  const client = new Proxy(observedClient(trace), { get(target, key, receiver) {
+    if (key !== "begin") return Reflect.get(target, key, receiver);
+    return (options: string, work: (tx: postgres.TransactionSql) => Promise<unknown>) => target.begin(options, async (tx) => {
+      const result = await work(tx);
+      // Ignore the initial readonly replay probe, which has no material unit.
+      if (trace.m04Returned) {
+        finalWrapperReturned = true;
+        const [identity] = await tx`select session_user login,pg_backend_pid() pid,
+          floor(extract(epoch from clock_timestamp())*1000000)::text us`;
+        login = identity!.login; pid = identity!.pid; checkedWhileLive = BigInt(identity!.us) < expiry;
+        assert.ok(checkedWhileLive, "evidence must still be live before requesting early checks");
+        if (mode !== "deferred-expired") { await tx.unsafe("set constraints all immediate"); immediateApplied = true; }
+        await tx`select pg_advisory_xact_lock(${gate})`;
+      }
+      return result;
+    });
+  } }) as postgres.Sql;
+  const pending = p.reserve(new H0011PostgresAdapter(client, f1, f2, p.fixture.provider))
+    .then(() => true, () => false);
+  let blocked = false; let releaseUs = 0n;
+  try {
+    for (let i = 0; i < 200; i++) {
+      blocked = (await admin`select exists(select 1 from pg_locks where pid=${runtimePid}
+        and locktype='advisory' and not granted) blocked`)[0]!.blocked;
+      if (blocked) break;
+      await delay(10);
+    }
+    assert.ok(blocked, "independent backend must observe real advisory wait after M02");
+    if (mode === "immediate-short") await delay(50);
+    else while (await nowUs() <= expiry + 100_000n) await delay(25);
+    releaseUs = await nowUs();
+    assert.ok(trace.f1Expiry! > releaseUs && trace.f2Expiry! > releaseUs,
+      "only evidence must expire, not F1/F2");
+  } finally { release(); await blocker; }
+  const committed = await pending;
+  const afterCounts = await snapshot(id);
+  const afterState = await formalSnapshot();
+  const proofCount = (await admin`select count(*)::int n from crm_ha.evidence_revalidations where command_id=${id}`)[0]!.n;
+  return { committed, beforeState, afterState, facts: { mode, login, pid, realAdvisoryWait: blocked,
+    finalWrapperReturned, immediateApplied, checkedWhileLive, evidenceExpiredAtRelease: releaseUs >= expiry,
+    f1LiveAtRelease: releaseUs < trace.f1Expiry!, f2LiveAtRelease: releaseUs < trace.f2Expiry!,
+    committed, proofCount, activityChanged: beforeCounts.activity !== afterCounts.activity,
+    counts: Object.fromEntries(Object.entries(afterCounts).filter(([key]) => key !== "activity")) } };
+}
 
 async function evidenceProposal(id: string, sourceMs = 60_000, approvedMs = 120_000) {
   const fixture = syntheticEvidenceProvider();
