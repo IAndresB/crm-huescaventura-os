@@ -44,8 +44,8 @@ Last updated: 2026-09-27
 - TSK-H0-002 — Delimitar contratos, cambios y evidencia de H0: COMPLETED exclusivamente en preparación el 2026-09-15. Módulos, rutas futuras, C01–C06, T01–T11, migraciones, identidades, datos sintéticos, fallos y V-EVI quedan delimitados sin implementar código ni infraestructura.
 - TSK-H0-003 — Componer servidor modular y resultados C01–C06: COMPLETED en su alcance de implementación el 2026-09-15. Base Node/Next.js/TypeScript fijada, C01–C06, G1–G6, E1–E8, frontera servidor, configuración, diagnóstico e imports implementados; comprobaciones de ingeniería PASS.
 - TSK-H0-004 — Verificar: Componer servidor modular y resultados C01–C06: COMPLETED en su alcance de comprobación normativa formal el 2026-09-15. C01–C06, G1–G6, E1–E8, entrada/origen/replay/contexto, configuración, transporte, canarios y fronteras positivas/negativas PASS; 27/27 tests, typecheck, audit y build PASS. Se corrigieron seis defectos menores del alcance. No acredita Auth, persistencia/atomicidad real ni proveedor.
-- TSK-H0-005 — Identificar CRM Actor y aplicar límites por sesión: COMPLETED históricamente solo en implementación local el 2026-09-26. [Evidencia](../specs/001-core-crm/evidence-TSK-H0-005.md). La comprobación posterior H0-006 detectó H0-006-F01 material; corrección localizada implementada localmente mediante migración forward, aún sin reverificación formal. No acredita Auth real, hosted H0-M03 ni Production.
-- TSK-H0-006 — Verificación formal F2: FAILED / NOT COMPLETED. [Evidencia adversarial](../specs/001-core-crm/evidence-TSK-H0-006.md): H0-006-F01 y H0-006-F02 están FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION. F02 fue MATERIAL / ALTA: F2 caducada durante la espera del lock creó sesión/epoch y permitió posterior acceso Core; su corrección forward local supera pruebas focales, sin completar la matriz normativa.
+- TSK-H0-005 — Identificar CRM Actor y aplicar límites por sesión: COMPLETED históricamente solo en implementación local el 2026-09-26. [Evidencia](../specs/001-core-crm/evidence-TSK-H0-005.md). H0-006 detectó después F01/F02 materiales; ambos fueron corregidos mediante migraciones forward y cerrados únicamente en la tercera reverificación formal local. No acredita Auth real, hosted H0-M03 ni Production.
+- TSK-H0-006 — Verificación formal F2: COMPLETED en alcance local el 2026-09-27 tras una tercera ejecución adversarial independiente R01–R24. [Evidencia](../specs/001-core-crm/evidence-TSK-H0-006.md): se conservan intactos los dos intentos FAILED históricos por F01/F02; ambos defectos están CLOSED localmente tras regresiones reales, incluidas esperas >30 s en actor/sesión/epoch sin efecto parcial. 151/151 pruebas PostgreSQL, 27/27 unitarias, 0 skipped, typecheck/lint/audit/build PASS. Auth real y hosted H0-M03 siguen sin acreditar.
 - TSK-H0-007 — Separar rol ordinario, migración y contexto transaccional: COMPLETED histórico de implementación el 2026-09-15. La verificación posterior detectó H0-008-F01; la corrección F1 y reverificación H0-008 cerraron ese defecto el 2026-09-17 en alcance local. PLAN-AUTH-006 sigue PENDING globalmente.
 - TSK-H0-008 — Verificar separación de roles/contexto: COMPLETED en reverificación formal local el 2026-09-17. Se conserva el antecedente FAILED del 2026-09-16 por GUC autodeclarado; el ataque original ahora se deniega, con roles/grants/RLS, capability, C01/C03, migraciones, canarios y regresiones verificados. No acredita hosted/Auth ni resuelve PLAN-AUTH-006 globalmente.
 - TSK-H0-009 — Persistir historia y resultado de la unidad interna: COMPLETED en implementación local el 2026-09-25. H0-M02 confirma estado/version, operación, attempts, historia append-only, resultado durable e intención aplicable en una unidad C03; replay, E2, concurrencia, rollbacks, pérdida post-COMMIT, C04/C05, permisos y V-MIG pasan en PostgreSQL 17.11.
@@ -53,13 +53,13 @@ Last updated: 2026-09-27
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS. TSK-H0-001/002/003/004/005/007/008/009/010 COMPLETED en sus alcances históricos; TSK-H0-006 FAILED / NOT COMPLETED, F01/F02 con corrección implementada y pendientes de reverificación formal completa. Tareas posteriores NOT STARTED. H0 no está completado.
+- Implementación y H0: IN PROGRESS. TSK-H0-001/002/003/004/005/006/007/008/009/010 COMPLETED en sus alcances históricos/locales; tareas posteriores NOT STARTED. H0 no está completado.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
 
-- Siguiente acción, solo con nueva autorización humana: verificación normativa H0-006 completa e independiente desde las correcciones F01/F02. Ninguno de los defectos está cerrado normativamente.
+- Siguiente trabajo H0 requiere nueva autorización humana; la tercera H0-006 local está completa. H0-M03 hosted y Auth real no se ejecutaron ni quedan autorizados por esta reverificación.
 - El bloqueo de diseño F1/humano está RESOLVED por D038 y H0-005 está implementada localmente; PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING globalmente.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.
@@ -74,7 +74,7 @@ Last updated: 2026-09-27
 
 ## Current Blockers
 
-- H0-005 implementada localmente conforme D038, pendiente de H0-006 independiente; H0-009/010 completadas localmente y H0-M02 validada en Staging técnico. H0-M03 no se aplicó a Staging.
+- H0-005 implementada y H0-006 verificada localmente conforme D038; H0-009/010 completadas localmente y H0-M02 validada en Staging técnico. H0-M03 no se aplicó a Staging.
 - PLAN-PENDING-003 bloquea únicamente el acceso real y la preparación de Production H6 por verificaciones técnicas no ejecutadas; PLAN-PENDING-001/002/004 permanecen resueltos en su alcance. No bloquea las fases documentales 07/08 completadas.
 - ARCH-PENDING-001 activo y PENDING: Proveedor(es) definitivos de Telefonía IA y WhatsApp; bloquea únicamente la selección o implementación dependiente. Pueden ser comunes o diferentes; comparar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades/proveedor de WhatsApp por separado; origen BR-PENDING-001/035 y D014.
 - ARCH-PENDING-002 activo y PENDING: bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production; origen ARCH-PENDING-002.

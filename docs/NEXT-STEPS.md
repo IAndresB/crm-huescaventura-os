@@ -4,9 +4,9 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**TSK-H0-005: COMPLETED históricamente; TSK-H0-006: FAILED / NOT COMPLETED.** La [verificación H0-006](../specs/001-core-crm/evidence-TSK-H0-006.md) conserva los fallos materiales F01/F02 y sus correcciones forward locales: ambos FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION. Siguiente paso, solo con autorización separada: nueva verificación formal H0-006 completa e independiente. PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING globalmente. Supabase Staging intacto.
+**TSK-H0-005: COMPLETED históricamente; TSK-H0-006: COMPLETED en la tercera verificación formal local.** La [evidencia H0-006](../specs/001-core-crm/evidence-TSK-H0-006.md) conserva los dos fallos materiales F01/F02 y sus correcciones forward, y añade la matriz independiente R01–R24 PASS; F01/F02 están CLOSED solo localmente. Cualquier siguiente trabajo H0, incluido H0-011 o hosted H0-M03, requiere autorización humana separada. PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING globalmente. Supabase Staging intacto.
 
-**D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resolvió el bloqueo de diseño F1/humano sin modificar D037/F1. Autorizaciones posteriores permitieron H0-005 local y el intento de H0-006, detenido por H0-006-F01. TSK-H0-009/010 y H0-008 permanecen COMPLETED en sus alcances; PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
+**D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resolvió el bloqueo de diseño F1/humano sin modificar D037/F1. Autorizaciones posteriores permitieron H0-005 local, dos intentos FAILED de H0-006 por F01/F02 y una tercera reverificación local completa PASS. TSK-H0-009/010 y H0-008 permanecen COMPLETED en sus alcances; PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
 
 La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit corresponde al commit documental de aprobación formal D038, no al commit de coordinación, sin modificar el Plan aprobado.
 
@@ -30,7 +30,7 @@ Postgres.js `ssl:"require"` path with explicit CA/hostname verification and
 validate Vercel secret injection/concurrency; those are not part of this DB/F1
 closure.
 
-- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; TSK-H0-001/002/003/004/005/007/008/009/010 están marcadas COMPLETED en sus respectivos alcances locales.
+- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; TSK-H0-001/002/003/004/005/006/007/008/009/010 están marcadas COMPLETED en sus respectivos alcances históricos/locales.
 - PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y PLAN-AUTH-001–006 permanecen PENDING globalmente; solo el subset hosted database/F1 de PLAN-AUTH-006 está VALIDATED.
 - Los bloqueos localizados de Tasks §7 y los pendientes heredados permanecen vigentes en sus ámbitos.
 - La aprobación documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
@@ -53,15 +53,15 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 IN PROGRESS: TSK-H0-001/002/003/004/005/007/008/009/010 COMPLETED en sus alcances históricos; TSK-H0-006 FAILED / NOT COMPLETED, H0-006-F01/F02 corregidos localmente y pendientes de reverificación formal completa; tareas posteriores NOT STARTED.
+9. implementación — H0 IN PROGRESS: TSK-H0-001/002/003/004/005/006/007/008/009/010 COMPLETED en sus alcances históricos/locales; H0-006-F01/F02 cerrados solo localmente tras tercera reverificación; tareas posteriores NOT STARTED.
 
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La aprobación documental D038 resolvió el modelo de confianza F2; H0-005, el intento fallido H0-006 y las correcciones localizadas de H0-006-F01/F02 recibieron autorizaciones separadas. Las correcciones no completan H0-006 ni autorizan Auth/hosted H0-M03. Los bloques hosted anteriores conservan exclusivamente sus autorizaciones y evidencia históricas.
+La aprobación documental D038 resolvió el modelo de confianza F2; H0-005, los dos intentos fallidos H0-006, las correcciones F01/F02 y la tercera reverificación completa recibieron autorizaciones separadas. La tercera verificación completa cierra H0-006 solo localmente; no autoriza Auth/hosted H0-M03. Los bloques hosted anteriores conservan exclusivamente sus autorizaciones y evidencia históricas.
 
-No reiniciar la reverificación completa TSK-H0-006 ni iniciar tareas posteriores, Auth real, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues. No aplicar H0-M03 hosted sin autorización separada.
+No iniciar tareas posteriores, Auth real, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues sin nueva autorización. No aplicar H0-M03 hosted sin autorización separada.
 
 Si aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 

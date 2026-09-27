@@ -485,3 +485,123 @@ and PLAN-AUTH-006 remain PENDING globally. Real Auth/MFA, hosted H0-M03,
 Staging application, Production, H0-011 and later tasks remain unexecuted.
 The next step is a separately authorized complete independent H0-006
 reverification from the new implementation commit.
+
+## Third complete formal execution — normative matrix fixed before testing
+
+Base under review: `32a56221bb868a8463af13f71fa1f74e764085ef`,
+PostgreSQL 17 local only. This is a **new execution**, not a reinterpretation of
+either historical FAILED run. F01 and F02 start as FIX IMPLEMENTED / PENDING
+FORMAL REVERIFICATION. The following expected outcomes were fixed from D038,
+D037, D015/D025/D026/D027/D031/D032, Tasks H0-005/006 §§2.2–2.3/6–7,
+Plan §§6.1/6.3–6.5 and C01/C03, SPEC-FR-SEC-001/002/004, AC-064/080, E1,
+ARCH-DEC-004 and G1 **before inspecting implementation or running tests**.
+Real Auth, recovery delivery, devices and hosted H0-M03 remain outside this
+local fixture; their global PLAN-AUTH gates do not become PASS from doubles.
+
+| ID / normative requirement | Threat and synthetic setup | Exact expected outcome | Required evidence |
+|---|---|---|---|
+| R01 / D038.15–16, D025 | A/B valid; revoke A; stale A invokes revoke-all; B invokes it later | A Core and revoke-all deny without generation change; B remains allowed, then B increments generation exactly once and prior authority denies | Real commits, generation/session/Core observations |
+| R02 / D038.3/.13/.15 | Pre-issue F2 or read lookup before concurrent revoke/disable | First committed revocation wins; stale request denies without activity/effect; first authorized lock holder may finish | Two connections and lock-order observations |
+| R03 / D038.3/.7 | Enumerate generic and revoke-all lookup with unknown, wrong-subject, revoked, stale, old-epoch, disabled and expired records | Metadata is minimal; lookup grants no authority; revoke-all preparation requires live initiating authority | Returned columns, denials and subsequent Core attempt |
+| R04 / D038.2–3, SEC-001/002, G1 | M1 forged nested claims; M2 runtime SQL with known IDs/scopes | Neither creates/changes actor, mapping, session, epoch, MFA, activity or generation; no key/sign/role escalation | Server rejection, SQLSTATE and before/after catalog/rows |
+| R05 / D038.1/.6/.14 | Substitute F1/F2 MAC, key, domain, target, scope or shared input | Each mismatch denies; F1 technical authority never becomes human F2 or vice versa | Distinct negative calls with zero effect |
+| R06 / D038.4/.6 | Independent F2 codec and 25 signed fields; malformed lengths, order, encoding, MAC and material input | Exact canonical bytes agree; any alteration/unknown/omission denies | Independent encoding and mutation table |
+| R07 / D038.5–6 | Reuse F2 across xid, backend, DB/audience, session/scope/action or after 30 s | Every mismatch/expired capability denies; no authority persists | PostgreSQL binding values and before/after state |
+| R08 / D038.2/.5, Plan 6.5 | Set plain GUC; reuse connection after commit/rollback/error | No authority from GUC or previous request | Pool max:1 sequential transactions and SQL denial |
+| R09 / D038.6/.19 | Runtime reads/signs K, malformed key id, revoked key, short MAC, comparator oracle | Exact key/no fallback; inaccessible signing/key store; full 32-byte blinded comparison fails closed | Catalog grants and negative calls without secret output |
+| R10 / D015, D038.8 | Attempt second admin, duplicate subject, mapping change, disable/enable, generation decrease | One operational admin; runtime cannot mutate mapping or decrease generation; old authority stays invalid | Constraints, grants and state/generation observations |
+| R11 / D038.9–10 | Unknown/wrong session or subject, absent/historical/stale/incoherent epoch | Core denies; exactly one current epoch per session; history remains, direct mutation denied | Row constraints and negative access attempts |
+| R12 / D038.3/.12/.17 | Unverified/password-only/MFA-only Auth and forged human interaction | Establish/reidentify/activity deny unless full server-verified identification/classified interaction | Server-boundary calls and unchanged rows |
+| R13 / D025/026, D038.11 | Set 7/30-day elapsed instants just before/at/after bounds, including timezone shift | Strict `<` at both limits; no civil-day/DST shortcut, no automatic renewal | DB clock/row timestamps and access results |
+| R14 / D038.13, Plan 6.3 | Arrive at expired/revoked/disabled/incomplete state and try activity update | Deny before update; prior activity unchanged | Before/after timestamp and Core denial |
+| R15 / D026, D038.9–10/.17 | Two devices; activity on A; B idle; full reidentify B | A cannot extend B; B needs password+MFA; new epoch, old remains historical/invalid | Per-session timestamps/epochs and Core decisions |
+| R16 / D038.15–16 | Revoke one/all, stale initiating session, generation overflow, repeated/cross-session operation | Only signed target changes; stale initiator denies; generation monotonic and overflow closed | Exact rows/generation before/after and Core access |
+| R17 / D038.8/.15 | Disable then enable actor while old session/capability survives | Disable denies Core; enable does not restore old generation/session authority | Separate committed transactions and old/new access |
+| R18 / D038.15 | Lock actor/session/epoch during authorize, revoke, disable and F2 expiry | Coherent lock order; prior committed revocation wins; expired F2 after wait denies without effect; short wait may pass | Real blocked PIDs, post-lock clock and row state |
+| R19 / D038.14, C01/C03 | Inject failure between admission, activity and Core read/write; retry after rollback | Admission and Core one DB unit; no partial activity, consumption, probe or result | Fault points, rollback and row counts |
+| R20 / D038.1/.14, C01/C03 | Present only F1, only F2, mismatched scope/input, then matching pair | Only exact live pair reaches minimal C01 or atomic C03 | Function calls, projections and denied mutations |
+| R21 / D038.19, D037.11, V-DAT | Runtime/generic/PUBLIC direct SQL; SET ROLE, shadow/temp, RLS/SD access | No Core DML/key access/privileged role; fixed path, owners and FORCE RLS effective | PostgreSQL catalog and active SQL attacks |
+| R22 / Tasks V-MIG | Empty chain and F01 predecessor upgrade; fixture, wrong migrator, injected failure, reapply | Same valid schema/ACL; fixture preserved; runtime denied; failure atomic; reapply safe | Catalog/fixture comparisons on real PostgreSQL |
+| R23 / E1, D037.10, D038.2/.16 | Lost response after real commit; retry stale authority; canary in failure | Prior revocation remains effective; no fabricated success/secret leakage; error class is denial | Two transactions, SQLSTATE and sanitized outputs |
+| R24 / Tasks §2.3 | Full local engineering regression after independent controls | Install, audit, types, lint, unit, PostgreSQL and build pass with zero skipped | Command/exit/test counts and diff check |
+
+Execution remains fail-fast: the first **new material** failure becomes F03,
+with only its reproduction/evidence committed; no product repair is authorized.
+
+### Third execution — observed V-EVI (2026-09-27)
+
+**Task/base/environment:** TSK-H0-006, starting commit
+`32a56221bb868a8463af13f71fa1f74e764085ef`, main, local Mac,
+PostgreSQL 17.11 (Postgres.app) on disposable Unix-socket clusters, Node
+24.21.0, pnpm 11.19.0. Only synthetic actor, subject, scope, probe and random
+ephemeral F1/F2 keys were used. No connection to Supabase Staging was made.
+This third-stage evidence is published separately from its tested base commit;
+the containing Git commit is the publication identity.
+The new independent cases are in
+`tests/integration/postgres-h0-006.test.ts`; the H0-005 implementation suite
+was used only as an additional engineering regression, never as the normative
+oracle. Expected outcomes remain the source-derived matrix above. Every case
+below ran against real PostgreSQL, except server-boundary negatives that are
+explicitly identified as local synthetic Auth/interaction checks.
+
+| ID | Observed against the expected outcome above | Result |
+|---|---|---|
+| R01 | Historical F01 attack retained: revoked A denied Core and revoke-all; generation unchanged and B still read; B then advanced generation by one and old authority denied. | PASS |
+| R02 | Pre-issued F2 lost to a separately committed revoke-one; subsequent Core denied, with no activity revival. | PASS |
+| R03 | Generic lookup returned only four metadata columns; unknown/wrong subject did not confer authority. Revoke-all lookup returned no authority for unknown, wrong subject, revoked, stale generation, old epoch, disabled, 7-day or 30-day expired rows. | PASS |
+| R04 | Branded server Auth rejected forged/nested/array/prototype-shaped client claims. Real runtime SQL received `42501` for actor/session/epoch DML, mapping/enable helpers, key SELECT and privileged `SET ROLE`; no actor/session count changed. Generic role denied lookup. | PASS |
+| R05 | A matching F2/F1 pair allowed C01; altered F2 or F1 MAC, scope, operation, input, or either missing capability returned `42501`. | PASS |
+| R06 | Independent length-prefix F2 fixture signed all 25 fields; changing each field separately, malformed framing and oversized payload returned `42501`; no producer F2 codec supplied expected bytes. | PASS |
+| R07 | A signed F2 used in another transaction or backend was rejected; signed not-before in the future was rejected. The unmodified original expiry regression denied after the real 30-second window. | PASS |
+| R08 | Plain identity/scope GUCs did not permit direct Core read or unsigned function use; max-one connection lost local GUC state after commit, explicit rollback and SQL error. | PASS |
+| R09 | F1/F2 keys differed; runtime/executor could not read F2 key or invoke verifier, exact unknown/revoked key and 31-byte MAC denied. Independently provisioned replacement key allowed its own valid capability, then denied after revocation; no fallback. | PASS |
+| R10 | Migration mapping refused a second operational admin; runtime could not change the subject/actor mapping or generation. Actor count remained one. | PASS |
+| R11 | Wrong Auth subject, unknown session and noncurrent/wrong epoch denied Core; historical epoch remained stored but unusable; runtime could not edit it. | PASS |
+| R12 | Unverified and client-shaped Auth, password-only, MFA-only, unclassified interaction, refresh, polling, background and passive events denied; failed access left activity unchanged. These are synthetic verifier/classifier boundaries, not Supabase Auth proof. | PASS in local scope |
+| R13 | `within_limit` returned true one microsecond before 7/30 days and false exactly at both limits; DST-crossing UTC elapsed-time case passed. Real Core denial at the expired limits and positive pre-boundary case were observed. | PASS |
+| R14 | Expired, disabled and incomplete states denied before changing last activity. | PASS |
+| R15 | Reading on device A left B's epoch activity unchanged. Full reidentification of B made a new current epoch, retained the old closed row and denied a newly signed claim for the old epoch. | PASS |
+| R16 | Revoke-one denied only A while B remained authorized. B's revoke-all incremented generation once and denied its old Core authority; maximum bigint generation denied without wraparound or mutation. Original F01 case also passed. | PASS |
+| R17 | Disable incremented generation and denied Core; enable did not restore old session authority. Enrollment, recovery and reidentification-required states denied Core and revoke-all preparation. | PASS |
+| R18 | Six independently issued operations waited on a real actor lock with initially valid 30-second F2; after `clock_timestamp > expires_at`, all denied `42501` with no session, epoch, revocation, generation, activity or Core mutation. Separate C01 waits on session and epoch locks also expired and denied; a 200-ms real actor wait while valid succeeded. The original F02 reproduction stayed unchanged and passed. | PASS |
+| R19 | Bad F1 after F2 admission rolled back C03 activity, consumption and probe, and separately rolled back C01 activity. Matching C03 committed both Core probe and activity. | PASS |
+| R20 | Exact live F2+F1 enabled minimal C01 projection and C03; either absent or mismatched authority denied. Private column was absent from returned C01 row. | PASS |
+| R21 | Catalog showed runtime LOGIN without superuser/BYPASSRLS/CREATEROLE/CREATEDB, split NOLOGIN F2 owners, FORCE RLS, fixed `pg_catalog, pg_temp` SECURITY DEFINER search path and no PUBLIC EXECUTE. Runtime direct DML and role assumption denied; a hostile temporary `verify` shadow and hostile search path did not bypass an invalid MAC. | PASS |
+| R22 | Independent fresh PostgreSQL 17 cluster applied M01→F1→M02→M03→F01 predecessor, kept a synthetic actor fixture, injected a mid-F02 migration error and observed predecessor definition intact. Runtime migration denied; migration authority applied F02; reapplication kept the function definition and fixture. Main independent cluster applied full historical chain from empty. | PASS |
+| R23 | Revoke-all committed before its caller intentionally discarded the response; old Core/replayed capability denied and generation remained incremented exactly once. Synthetic canary did not appear in the public adapter error. This is a caller-side loss **after** real COMMIT, not proof of a network cut. | PASS in local scope |
+| R24 | Frozen install, production audit, typecheck, boundary lint, unit tests, PostgreSQL integration and Next build all exited 0; counts below. | PASS |
+
+**E1 boundary:** The F2 guard cases above returned PostgreSQL `42501` and
+sanitized server-facing `F2_*_DENIED`, with unchanged protected state. This
+accredits E1's *deny/no-effect* behavior for this technical component. H0-005
+does not expose a business application endpoint returning a structured
+`SemanticIssue`; end-to-end presentation of E1's affected scope and next step
+is not claimed here and remains an application-integration obligation. The
+unit result-contract regression separately keeps E1 distinct from E2–E8.
+
+**F01/F02 historical preservation and current disposition:** The earlier first
+FAILED run (F01), its reproduction and correction, the second FAILED run
+(F02), its reproduction and correction remain in prior sections unchanged.
+This third, complete independent execution adds a new local PASS stage. No
+H0-006-F03 was observed. H0-006-F01 and H0-006-F02 are **CLOSED in the local
+formal-verification scope**; TSK-H0-006 is **COMPLETED in its local verification
+scope**. Neither statement accredits hosted H0-M03, real Supabase Auth/TOTP,
+recovery, device/browser sessions or Production.
+
+| Command / control | Expected | Observed |
+|---|---|---|
+| `pnpm install --frozen-lockfile` | Lock unchanged, exit 0 | PASS; already up to date |
+| `pnpm audit --prod` | No known production vulnerability | PASS; none found |
+| `pnpm run typecheck` | Exit 0 | PASS |
+| `pnpm run lint` | Import boundaries PASS | PASS |
+| `pnpm test` | All pass, none skipped | 27/27 PASS, 0 skipped |
+| `POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin pnpm run test:postgres` | All pass, none skipped | 151/151 PASS, 0 skipped; includes historical F01/F02, new independent R01–R23 and prior engineering suites |
+| `pnpm run build` | Exit 0 | PASS; Next.js 16.3.5 |
+
+**Limitations / unaccredited capabilities:** All human Auth proofs and
+interactions are synthetic server-side fixtures. No real login, password,
+TOTP, Supabase Auth session, iPhone/Mac/iPad, recovery delivery or browser
+behavior was tested. Local Unix-socket PostgreSQL is not hosted H0-M03.
+PLAN-AUTH-002 and PLAN-AUTH-006 remain PENDING globally; the separately
+validated hosted database/F1 subset is unchanged. Staging was untouched.
+No F1/D037/D038, product code or migration was modified in this verification.
