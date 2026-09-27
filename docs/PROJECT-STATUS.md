@@ -93,7 +93,9 @@ Temporary JIT/runtime/K and synthetic rows were removed; Temporary Access was
 disabled. [Hosted evidence](../specs/001-core-crm/evidence-PLAN-AUTH-006-hosted.md).
 PLAN-AUTH-006 remains PENDING globally for Auth/sessions/MFA/recovery, Vercel,
 SMTP, Production, backups/restore and continuity. H0-008 remains COMPLETED;
-H0-005 later became COMPLETED only locally; H0-006 remains NOT STARTED;
+H0-005 later became COMPLETED only locally; H0-006 is COMPLETED in local
+scope after its third formal reverification, with the two earlier FAILED
+attempts preserved as history;
 H0-009/010 are COMPLETED locally. H0-M02 was
 subsequently applied and behaviorally validated on the same technical Staging
 on 2026-09-26: 12/12 hosted H0-M02 tests and the prior 10/10 hosted DB/F1 suite
@@ -133,6 +135,6 @@ El cierre de fase 07 registró mediante su segundo commit de coordinación el SH
 - Inventario: 125 tareas — H0 18, H1 19, H2 12, H3 15, H4 24, H5 19, H6 18.
 - Revisión documental: 618 correspondencias individuales de origen a desarrollo/verificación; IDs y dependencias contrastados, sin ciclos ni dependencias de hito posterior. Incluye 148 transiciones con guardas y 33 prohibiciones con casos negativos. No acredita pruebas del CRM.
 - Alcance: solo Tasks y coordinación; D001–D035 y fuentes aprobadas intactas. Last Approved Commit se actualiza al commit de aprobación de Tasks mediante el segundo commit de coordinación.
-- Estado al cierre de la coordinación histórica de Tasks: TSK-H0-001/002 COMPLETED en preparación, TSK-H0-003/007/009 COMPLETED en implementación y TSK-H0-004/008/010 COMPLETED en verificación formal local. En ese momento H0-005/006 no habían comenzado. Los estados vigentes constan arriba; H0-005 posteriormente quedó implementada solo localmente y H0-006 sigue pendiente.
+- Estado al cierre de la coordinación histórica de Tasks: TSK-H0-001/002 COMPLETED en preparación, TSK-H0-003/007/009 COMPLETED en implementación y TSK-H0-004/008/010 COMPLETED en verificación formal local. En ese momento H0-005/006 no habían comenzado. Los estados vigentes constan arriba; H0-005 posteriormente quedó implementada solo localmente y H0-006 está COMPLETED en alcance local; los estados vigentes están descritos arriba.
 
 Este archivo debe actualizarse al finalizar cada fase relevante del proyecto.
