@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { createHash, randomBytes, randomUUID } from "node:crypto";
+import { createHash, createHmac, randomBytes, randomUUID } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import { mkdtemp, mkdir, readFile, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -16,6 +16,8 @@ import { H0011PostgresAdapter, fingerprintHumanApprovalMaterial, fingerprintHuma
 import { createF1Issuer, type F1SigningConfiguration } from "../../src/infrastructure/postgres/f1-codec.ts";
 import { postgresF1Binding } from "../../src/infrastructure/postgres/transaction.ts";
 import type { F2SigningConfiguration } from "../../src/infrastructure/postgres/f2-codec.ts";
+import { syntheticEvidenceProvider } from "../fixtures/evidence-provider.ts";
+import type { EvidenceRevalidationProvider } from "../../src/application/evidence-revalidation.ts";
 
 // Independent expected: Plan 7.2 revalidates permissions before confirmation;
 // D038 4/6/14 requires live F2 within the same material Core transaction.
@@ -34,6 +36,8 @@ let sessionId = ""; let runtimePid = 0;
 const actor = randomUUID(); const subject = randomUUID();
 const scope = "scope-h012-synthetic";
 const interaction = classifyServerEvent("core-action");
+const evidenceFixture = syntheticEvidenceProvider();
+const f03Migration = "202609270003_h0_m04_evidence_revalidation_fix.sql";
 
 function command(name: string, args: string[]) {
   const result = spawnSync(join(bin!, name), args, { encoding: "utf8", env: { ...process.env, LC_ALL: "C" } });
@@ -64,7 +68,7 @@ before(async () => {
   }
   assert.equal((await admin`select current_setting('server_version_num') as v`)[0]!.v, "170011");
   f1 = { key: randomBytes(32), keyId: randomUUID(), audience: "h012-local",
-    generation: randomUUID(), allowedPurposes: ["h0-005-human-bridge", "h0-011-human-approval", "h0-011-human-unit"] };
+    generation: randomUUID(), allowedPurposes: ["h0-005-human-bridge", "h0-011-human-approval", "h0-011-human-unit", "h0-011-evidence-revalidation"] };
   f2 = { key: randomBytes(32), keyId: randomUUID(), audience: "h012-local",
     generation: randomUUID(), allowedPurposes: ["full-identification", "core-human-access", "session-revocation"] };
   await migration`insert into crm_f1.keys(key_id,secret,audience,generation,purposes,enabled,valid_from,valid_until)
@@ -81,6 +85,35 @@ before(async () => {
   sessionId = established.sessionId;
   auth = await verifyAuth({ verify: async () => ({ subject, sessionId,
     passwordVerified: true, mfaVerified: true }) }, "synthetic-session-proof");
+  // F03 upgrade from 002, with real M02/M03/M04 fixtures already committed.
+  await new H0011PostgresAdapter(runtime, f1, f2).propose(auth, interaction, "f03-upgrade-preserved", "ai", material());
+  const beforeUpgrade = await predecessorSnapshot();
+  const definitionsBefore = await admin`select oid,pg_get_functiondef(oid) definition from pg_proc where oid in
+    ('crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)'::regprocedure,
+     'crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)'::regprocedure) order by oid`;
+  const source = await readFile(join(migrations, f03Migration), "utf8");
+  for (const wrong of [runtime, admin]) {
+    await assert.rejects(() => wrong.unsafe(source), { code: "42501" });
+    await wrong.unsafe("rollback");
+  }
+  await admin.unsafe(`create function public.fail_f03_ddl() returns event_trigger language plpgsql as $$
+    begin raise exception 'SYNTHETIC_F03_DDL_FAILURE'; end $$;
+    create event trigger fail_f03_ddl on ddl_command_end when tag in ('CREATE FUNCTION')
+      execute function public.fail_f03_ddl()`);
+  await assert.rejects(() => migration.unsafe(source), { code: "P0001" });
+  await migration.unsafe("rollback");
+  assert.equal((await admin`select to_regclass('crm_ha.evidence_revalidations') is null absent`)[0]!.absent, true);
+  assert.deepEqual(await predecessorSnapshot(), beforeUpgrade);
+  assert.deepEqual(await admin`select oid,pg_get_functiondef(oid) definition from pg_proc where oid in
+    ('crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)'::regprocedure,
+     'crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)'::regprocedure) order by oid`, definitionsBefore);
+  await admin.unsafe("drop event trigger fail_f03_ddl; drop function public.fail_f03_ddl()");
+  await migration.unsafe(source);
+  assert.deepEqual(await predecessorSnapshot(), beforeUpgrade);
+  await admin.unsafe("create role anon nologin; create role authenticated nologin");
+  await assert.rejects(() => migration.unsafe(source), { code: "42P07" });
+  await migration.unsafe("rollback");
+  assert.deepEqual(await predecessorSnapshot(), beforeUpgrade);
 });
 after(async () => {
   await Promise.allSettled([runtime?.end({ timeout: 1 }), actorBlocker?.end({ timeout: 1 }),
@@ -382,15 +415,19 @@ function formalTechnicalContext() {
   return issueTrustedContext({ identityId: "h012-independent-executor", identityKind: "technical",
     purpose: "h0-011-human-approval", scope, requestId: randomUUID(), serverTime: new Date().toISOString() });
 }
-async function formalSnapshot() {
+async function predecessorSnapshot() {
   const tables = ["crm_ha.proposals", "crm_ha.parts", "crm_ha.decisions", "crm_ha.reservations",
     "crm_ha.events", "crm_ha.command_receipts", "crm_private.unit_roots", "crm_private.unit_operations",
     "crm_private.unit_attempts", "crm_private.unit_history", "crm_private.unit_results",
-    "crm_private.external_effect_records", "crm_private.identification_epochs"];
+    "crm_private.external_effect_records", "crm_private.identification_epochs", "crm_private.crm_actors", "crm_private.crm_sessions"];
   const result: Record<string, unknown> = {};
   for (const table of tables) result[table] = await admin.unsafe(
     `select row_to_json(t)::text v from ${table} t order by row_to_json(t)::text`);
   return result;
+}
+async function formalSnapshot() {
+  return { ...await predecessorSnapshot(), evidence: await admin`select row_to_json(e)::text v
+    from crm_ha.evidence_revalidations e order by command_id` };
 }
 async function deniedWithoutChanges(work: () => unknown) {
   const beforeState = await formalSnapshot();
@@ -399,7 +436,7 @@ async function deniedWithoutChanges(work: () => unknown) {
 }
 
 test("H0-012 third formal execution: R01–R08 independent cases, stop at first material failure", async (t) => {
-  const api = new H0011PostgresAdapter(runtime, f1, f2);
+  const api = new H0011PostgresAdapter(runtime, f1, f2, evidenceFixture.provider);
   async function row(name: string, work: () => Promise<void>) {
     let passed = false;
     await t.test(name, async () => { await work(); passed = true; });
@@ -524,6 +561,7 @@ test("H0-012 third formal execution: R01–R08 independent cases, stop at first 
     const source = Buffer.from("independent current synthetic evidence", "utf8");
     const validUntil = new Date(Number(await nowUs() / 1000n) + 3_600_000).toISOString();
     const evidence = { reference: "r08-independent-source", fingerprint: referenceHash(source), expiresAt: validUntil };
+    evidenceFixture.sources.set(evidence.reference, { bytes: source, validUntil, scope });
     assert.equal(evidence.fingerprint, createHash("sha256").update(source).digest("hex"));
     assert.ok(BigInt(Date.parse(validUntil)) * 1000n > await nowUs());
     const m = { ...material(), evidence };
@@ -544,4 +582,191 @@ test("H0-012 third formal execution: R01–R08 independent cases, stop at first 
       expected: "reserved", observed, failure, noResidueIfDenied: observed === "denied" }));
     assert.equal(observed, "reserved", "H0-012-F03: required evidence has no positive revalidation/reservation route");
   });
+});
+
+async function evidenceProposal(id: string, sourceMs = 60_000, approvedMs = 120_000) {
+  const fixture = syntheticEvidenceProvider();
+  const bytes = Buffer.from(`synthetic-source-${id}`, "utf8");
+  const clock = Number(await nowUs() / 1000n);
+  const reference = `source-${id}`;
+  fixture.sources.set(reference, { bytes, validUntil: new Date(clock + sourceMs).toISOString(), scope });
+  const m = { ...material(), evidence: { reference, fingerprint: referenceHash(bytes),
+    expiresAt: new Date(clock + approvedMs).toISOString() } };
+  const api = new H0011PostgresAdapter(runtime, f1, f2, fixture.provider);
+  const p = await api.propose(auth, interaction, `proposal-${id}`, "ai", m);
+  const decision = `decision-${id}`;
+  await api.decide(auth, interaction, `decide-${id}`, p.proposalId, decision, "approved", "synthetic", p.materialFingerprint);
+  const reserve = (client = api, commandId = id, value = m) => client.reserve(auth, interaction, commandId,
+    p.proposalId, decision, "part-a", fingerprintHumanApprovalMaterial(value),
+    fingerprintHumanApprovalPart(value.parts[0]!), value);
+  return { fixture, m, api, p, reserve };
+}
+
+// Trusted test signer deliberately signs incoherent claims to exercise SQL
+// independently of TypeScript validation. Runtime still has no signing oracle.
+function changedEvidenceClient(change: (proof: string[], envelope: string[]) => void, corruptMac = false): postgres.Sql {
+  return new Proxy(runtime, { get(target, key, receiver) {
+    if (key !== "begin") return Reflect.get(target, key, receiver);
+    return (...args: unknown[]) => {
+      const work = args.pop() as (tx: postgres.TransactionSql) => Promise<unknown>;
+      const wrap = (tx: postgres.TransactionSql) => work(new Proxy(tx, {
+        apply(inner, thisArg, callArgs: unknown[]) {
+          const sql = callArgs[0] as TemplateStringsArray;
+          if (sql.join("").includes("crm_api.h0_m04_revalidate_evidence")) {
+            const q = fields(callArgs[3] as Buffer); const envelope = fields(callArgs[1] as Buffer);
+            change(q, envelope);
+            const input = referencePack(q); envelope[17] = referenceHash(input);
+            const payload = referencePack(envelope);
+            const mac = createHmac("sha256", f1.key).update(payload).digest();
+            if (corruptMac) mac[0] = mac[0]! ^ 1;
+            callArgs = [callArgs[0], payload, mac, input, ...callArgs.slice(4)];
+          }
+          return Reflect.apply(inner, thisArg, callArgs);
+        },
+      }));
+      return args.length ? target.begin(args[0] as string, wrap) : target.begin(wrap);
+    };
+  } }) as postgres.Sql;
+}
+
+test("F03 focal: verified positive, immutable trace, effective minimum and replay without provider", async () => {
+  const p = await evidenceProposal("f03-positive", 60_000, 40_000);
+  assert.equal((await p.reserve()).state, "reserved");
+  const [proof] = await admin`select * from crm_ha.evidence_revalidations where command_id='f03-positive'`;
+  assert.equal(proof!.reference, p.m.evidence.reference);
+  assert.equal(proof!.fingerprint, p.m.evidence.fingerprint);
+  assert.equal(proof!.outcome, "verified");
+  assert.equal(proof!.effective_until_us, String(BigInt(Date.parse(p.m.evidence.expiresAt)) * 1000n));
+  assert.ok(BigInt(proof!.checked_us) < BigInt(proof!.effective_until_us));
+  assert.equal(proof!.verifier_identity, "h0-synthetic-source-reader");
+  const calls = p.fixture.calls(); p.fixture.sources.clear();
+  const resultBefore = await admin`select row_to_json(r)::text v from crm_private.unit_results r where operation_id='f03-positive'`;
+  // Response deliberately discarded only after COMMIT, visible on this other connection.
+  assert.equal(resultBefore.length, 1);
+  await assert.rejects(async () => { throw new Error("SYNTHETIC_POST_COMMIT_RESPONSE_LOSS"); });
+  const replay = await p.reserve(new H0011PostgresAdapter(runtime, f1, f2,
+    { revalidate: async () => { assert.fail("replay must not contact provider"); } }));
+  assert.equal(replay.commandState, "previous"); assert.equal(replay.reservationId, "f03-positive");
+  assert.equal(p.fixture.calls(), calls);
+  assert.deepEqual(await admin`select row_to_json(r)::text v from crm_private.unit_results r where operation_id='f03-positive'`, resultBefore);
+  await assert.rejects(() => p.reserve(p.api, "f03-positive", { ...p.m,
+    evidence: { ...p.m.evidence, reference: "different-material" } }), /CONFLICT_E2/);
+});
+
+test("F03 focal: expired, missing, mismatched, incomplete and unavailable providers deny without residue", async (t) => {
+  for (const kind of ["expired", "reference", "fingerprint", "missing", "failure", "incomplete", "ambiguous", "future"]) {
+    await t.test(kind, async () => {
+      const p = await evidenceProposal(`f03-provider-${kind}`);
+      const provider: EvidenceRevalidationProvider = { revalidate: async (request) => {
+        const observed = await p.fixture.provider.revalidate(request);
+        if (kind === "missing") return undefined;
+        if (kind === "failure") throw new Error("synthetic-source-unavailable");
+        return { ...observed!, ...(kind === "expired" ? { validUntil: "2000-01-01T00:00:00.000Z" } : {}),
+          ...(kind === "reference" ? { reference: "wrong-reference" } : {}),
+          ...(kind === "fingerprint" ? { fingerprint: "0".repeat(64) } : {}),
+          ...(kind === "incomplete" ? { verifierIdentity: undefined } : {}),
+          ...(kind === "ambiguous" ? { outcome: "pending" } : {}),
+          ...(kind === "future" ? { checkedAt: new Date(Date.now() + 20_000).toISOString() } : {}) } as never;
+      } };
+      await deniedWithoutChanges(() => p.reserve(new H0011PostgresAdapter(runtime, f1, f2, provider)));
+    });
+  }
+});
+
+test("F03 focal: SQL checks signed proposal/part/scope/reference/fingerprint/time and MAC", async (t) => {
+  const mutations: [string, (q: string[], e: string[]) => void, boolean?][] = [
+    ["proposal", (q) => { q[2] = "other-proposal"; }], ["part", (q) => { q[3] = "other-part"; }],
+    ["scope", (_q, e) => { e[13] = "other-scope"; }], ["reference", (q) => { q[5] = "other-reference"; }],
+    ["fingerprint", (q) => { q[6] = "0".repeat(64); }], ["command", (q) => { q[1] = "other-command"; }],
+    ["future-check", (q) => { q[7] = q[9]!; }], ["extended-validity", (q) => { q[9] = (BigInt(q[9]!) + 1n).toString(); }],
+    ["mac", () => {}, true],
+  ];
+  for (const [name, change, corrupt] of mutations) await t.test(name, async () => {
+    const p = await evidenceProposal(`f03-sql-${name}`);
+    await deniedWithoutChanges(() => p.reserve(new H0011PostgresAdapter(changedEvidenceClient(change, corrupt), f1, f2, p.fixture.provider)));
+  });
+});
+
+test("F03 focal: real ledger wait expires evidence with F1/F2 live; short wait and committed replay work", async (t) => {
+  for (const short of [false, true]) await t.test(short ? "short" : "expired", async () => {
+    const id = short ? "f03-wait-short" : "f03-wait-expired";
+    const p = await evidenceProposal(id, 1800, 60_000);
+    const beforeState = await formalSnapshot();
+    const trace: Trace = { m04Returned: false };
+    const release = await lock(ledgerBlocker, "ledger");
+    const pending = p.reserve(new H0011PostgresAdapter(observedClient(trace), f1, f2, p.fixture.provider))
+      .then(() => true, () => false);
+    try {
+      await waitBlocked("ledger"); assert.equal(trace.m04Returned, true);
+      if (short) await delay(75);
+      else while (await nowUs() <= BigInt(Date.parse(p.fixture.sources.get(p.m.evidence.reference)!.validUntil)) * 1000n + 100_000n) await delay(25);
+      assert.ok(trace.f2Expiry! > await nowUs()); assert.ok(trace.f1Expiry! > await nowUs());
+    } finally { await release(); }
+    assert.equal(await pending, short);
+    if (!short) assert.deepEqual(await formalSnapshot(), beforeState);
+    else {
+      const [e] = await admin`select effective_until_us,source_valid_until_us from crm_ha.evidence_revalidations where command_id=${id}`;
+      assert.equal(e!.effective_until_us, e!.source_valid_until_us);
+      while (await nowUs() <= BigInt(e!.effective_until_us)) await delay(25);
+      p.fixture.sources.clear();
+      assert.equal((await p.reserve()).commandState, "previous", "expired historical check does not authorize a new effect; replay reads committed result");
+    }
+  });
+});
+
+test("F03 focal: V-MIG result, ACL/NOLOGIN/RLS and private helpers", async () => {
+  const [table] = await admin`select relrowsecurity rls,relforcerowsecurity force_rls,
+    pg_get_userbyid(relowner) owner from pg_class where oid='crm_ha.evidence_revalidations'::regclass`;
+  assert.deepEqual(table, { rls: true, force_rls: true, owner: "crm_h0_table_owner" });
+  const rows = await admin`select p.proname,pg_get_userbyid(p.proowner) owner,r.rolcanlogin,p.prosecdef,p.proconfig,
+    has_function_privilege('public',p.oid,'execute') pub,
+    has_function_privilege('crm_h0_runtime',p.oid,'execute') runtime
+    from pg_proc p join pg_namespace n on n.oid=p.pronamespace join pg_roles r on r.oid=p.proowner
+    where (n.nspname='crm_api' and p.proname in ('h0_m04_evidence_replay','h0_m04_revalidate_evidence'))
+      or (n.nspname='crm_ha' and p.proname in ('check_evidence_at_end','evidence_commit_guard'))`;
+  assert.equal(rows.length, 4);
+  for (const row of rows) {
+    assert.equal(row.owner, "crm_h0_f2_executor"); assert.equal(row.rolcanlogin, false);
+    assert.equal(row.prosecdef, true); assert.equal(row.pub, false);
+    assert.deepEqual(row.proconfig, ["search_path=pg_catalog, pg_temp"]);
+    assert.equal(row.runtime, row.proname.startsWith("h0_m04_"));
+  }
+  for (const sql of ["select * from crm_ha.evidence_revalidations",
+    "insert into crm_ha.evidence_revalidations default values", "delete from crm_ha.evidence_revalidations", "update crm_ha.evidence_revalidations set outcome='verified'",
+    "select crm_ha.check_evidence_at_end('f03-positive')"]) {
+    await assert.rejects(() => runtime.unsafe(sql), { code: "42501" });
+  }
+  assert.equal((await admin`select has_schema_privilege('crm_h0_f2_executor','crm_ha','create') allowed`)[0]!.allowed, false);
+  for (const role of ["anon", "authenticated", "public"]) {
+    const [acl] = await admin`select
+      has_function_privilege(${role},'crm_api.h0_m04_revalidate_evidence(bytea,bytea,bytea,bytea,bytea,bytea)','execute') proof,
+      has_function_privilege(${role},'crm_api.h0_m04_evidence_replay(bytea,bytea,bytea)','execute') replay,
+      has_table_privilege(${role},'crm_ha.evidence_revalidations','select,insert,update,delete') data`;
+    assert.deepEqual(acl, { proof: false, replay: false, data: false });
+  }
+});
+
+test("F03 focal: no signed proof cannot reserve; a proof alone cannot commit", async () => {
+  for (const onlyProof of [false, true]) {
+    const stop = Symbol("synthetic-stop-after-proof");
+    const client = new Proxy(runtime, { get(target, key, receiver) {
+      if (key !== "begin") return Reflect.get(target, key, receiver);
+      return (options: string, work: (tx: postgres.TransactionSql) => Promise<unknown>) => target.begin(options, async (tx) => {
+        try { return await work(new Proxy(tx, {
+          apply(inner, thisArg, args: unknown[]) {
+            if ((args[0] as TemplateStringsArray).join("").includes("crm_api.h0_m04_revalidate_evidence")) {
+              if (!onlyProof) return Promise.resolve([]); // Omit authenticated registration; SQL must deny M04.
+              return Promise.resolve(Reflect.apply(inner, thisArg, args)).then(() => { throw stop; });
+            }
+            return Reflect.apply(inner, thisArg, args);
+          },
+        })); } catch (error) {
+          if (error === stop) return null; // Attempt COMMIT with proof but no reservation/ledger.
+          throw error;
+        }
+      });
+    } }) as postgres.Sql;
+    const p = await evidenceProposal(onlyProof ? "f03-orphan-proof" : "f03-missing-proof");
+    await deniedWithoutChanges(() => p.reserve(new H0011PostgresAdapter(client, f1, f2, p.fixture.provider)));
+  }
 });

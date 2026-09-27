@@ -1,7 +1,7 @@
 # CRM HUESCAVENTURA OS — Project Status
 
 Status: ACTIVE
-Last updated: 2026-09-27
+Last updated: 2026-09-28
 
 ## Completed
 
@@ -50,7 +50,7 @@ Last updated: 2026-09-27
 - TSK-H0-008 — Verificar separación de roles/contexto: COMPLETED en reverificación formal local el 2026-09-17. Se conserva el antecedente FAILED del 2026-09-16 por GUC autodeclarado; el ataque original ahora se deniega, con roles/grants/RLS, capability, C01/C03, migraciones, canarios y regresiones verificados. No acredita hosted/Auth ni resuelve PLAN-AUTH-006 globalmente.
 - TSK-H0-009 — Persistir historia y resultado de la unidad interna: COMPLETED en implementación local el 2026-09-25. H0-M02 confirma estado/version, operación, attempts, historia append-only, resultado durable e intención aplicable en una unidad C03; replay, E2, concurrencia, rollbacks, pérdida post-COMMIT, C04/C05, permisos y V-MIG pasan en PostgreSQL 17.11.
 - TSK-H0-010 — Verificar historia y resultado de la unidad interna: COMPLETED en comprobación normativa formal local el 2026-09-25. Suite independiente 21/21 y regresión total 120/120 PASS: historia/inmutabilidad, replay/autorización, concurrencia, fault injection, post-COMMIT, codec/fingerprint, F1/GUC/RLS, ACL, deadlock y V-MIG. Sin defecto material; Supabase Staging no recibió H0-M02.
-- TSK-H0-011 — Autorizar y reservar un efecto exacto: COMPLETED como antecedente de implementación local el 2026-09-27. [Evidencia histórica](../specs/001-core-crm/evidence-TSK-H0-011.md): H0-M04 y 12/12 pruebas propias, regresión 163/163 PostgreSQL + 27/27 unitarias. H0-012 detectó después F01/F02, corregidos y pendientes formales; la tercera ejecución detectó F03 por ausencia del positivo de revalidación de evidencia. No se acredita cierre funcional. Sin proveedor ni efecto externo real.
+- TSK-H0-011 — Autorizar y reservar un efecto exacto: COMPLETED como antecedente de implementación local el 2026-09-27. [Evidencia histórica](../specs/001-core-crm/evidence-TSK-H0-011.md): H0-M04 y 12/12 pruebas propias, regresión 163/163 PostgreSQL + 27/27 unitarias. H0-012 detectó después F01/F02/F03; los tres fixes están implementados localmente y pendientes de reverificación formal completa. No se acredita cierre funcional. Sin proveedor ni efecto externo real.
 
 ## In Progress
 
@@ -60,7 +60,7 @@ Last updated: 2026-09-27
 
 ## Pending
 
-- TSK-H0-012 FAILED / NOT COMPLETED: [evidencia histórica y tercera ejecución](../specs/001-core-crm/evidence-TSK-H0-012.md). **H0-012-F03 OPEN — MATERIAL / ALTA**: falta el recorrido positivo de evidencia vigente/revalidable. Desde `98a90d1`: R01–R07 PASS, R08 FAIL, R09–R25 BLOCKED por fail-fast; reproducciones F01/F02 y controles PASS, pero **F01/F02 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. Node 13 PASS/2 FAIL (un defecto y su contenedor), 0 skipped/cancelled; typecheck/lint PASS, sin regresión global tras fail-fast. Se conservan los dos FAILED anteriores y ambas correcciones. Próximo paso requiere autorización separada para corregir F03; después nueva matriz completa. Sin cambios productivos. H0-M03/M04 hosted y Auth real siguen sin acreditar; Supabase Staging intacto.
+- TSK-H0-012 FAILED / NOT COMPLETED: [evidencia histórica y corrección F03](../specs/001-core-crm/evidence-TSK-H0-012.md). **F01/F02/F03 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. F03 añade port de fuente confiable, prueba F1 exacta, registro protegido y checks SQL de vigencia hasta final de unidad; positivo R08 y negativos focales pasan. Se conservan los tres FAILED y los fixes como etapas separadas. No se ha ejecutado una nueva matriz formal completa. Próximo paso requiere autorización separada para R01–R25. H0-M03/M04 hosted y Auth real siguen sin acreditar; Supabase Staging intacto.
 - El bloqueo de diseño F1/humano está RESOLVED por D038 y H0-005 está implementada localmente; PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING globalmente.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.

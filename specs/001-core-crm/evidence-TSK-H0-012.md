@@ -1,6 +1,6 @@
 # TSK-H0-012 — Verificación formal independiente local
 
-Resumen vigente tras la tercera ejecución formal (base `98a90d1`): **TSK-H0-012 FAILED / NOT COMPLETED**; **H0-012-F03 OPEN — MATERIAL / ALTA** por ausencia del recorrido positivo de revalidación de evidencia requerido por R08. R01–R07 PASS; R08 FAIL; R09–R25 BLOCKED por fail-fast, sin PASS heredados. **H0-012-F01/F02 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**: sus reproducciones y controles pasan en esta ejecución, pero no se cierran sin toda la matriz. Se conservan íntegramente los dos FAILED anteriores y sus correcciones focales; la tercera etapa se añade al final.
+Resumen vigente: **TSK-H0-012 FAILED / NOT COMPLETED**. La tercera ejecución formal (base `98a90d1`) produjo R01–R07 PASS, R08 FAIL por F03 y R09–R25 BLOCKED por fail-fast. La corrección localizada posterior de F03 se registra al final, separada de esa ejecución: **F01/F02/F03 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. Ningún defecto se cierra sin toda la matriz. Se conservan íntegramente los tres FAILED y las etapas de corrección, sin convertir regresiones en cierre formal.
 
 ## V-EVI / preflight y orden de trabajo
 
@@ -470,3 +470,92 @@ Comprobaciones de publicación: `git diff --check` PASS; solo los cinco archivos
 Estado: H0-011 antecedente COMPLETED de implementación; H0-012 FAILED / NOT COMPLETED; F03 OPEN — MATERIAL / ALTA; F01/F02 pendientes formales. H0 IN PROGRESS, H0-013 NOT STARTED. PLAN-AUTH-002/006 PENDING globalmente. Auth/TOTP/recovery/dispositivos reales y H0-M03/M04 hosted siguen no acreditados. Supabase Staging no conectado ni modificado. D037/D038, fuentes APPROVED, código productivo, migraciones y Last Approved Commit `6248820e3253a9d88755ed0a4996fff8f865690e` intactos.
 
 Próximo paso, SIN EJECUTAR: autorización humana separada para corregir H0-012-F03 (recorrido positivo confiable de revalidación de evidencia); posteriormente nueva ejecución formal completa R01–R25. Esta publicación no autoriza ese fix ni H0-013.
+
+## Corrección localizada H0-012-F03 — revalidación positiva (2026-09-28)
+
+Autorización separada sobre base `0b2b118bee0ea63b47c6971d2ac82f8a3d23f324`. Preflight: `main`, HEAD=origin/main=base, árbol limpio y remoto `IAndresB/crm-huescaventura-os`. No se ejecuta nueva matriz formal R01–R25, no se inicia H0-013 ni se conecta Supabase. Se releen F03/R08, Tasks H0-011/012, SPEC HA-002/AC-054, SM G2/HA-02 y Plan T08/§7.2/§8, además de adapter/M04/F01/F02 necesarios.
+
+### Causa y alternativa elegida
+
+Adapter y SQL denegaban toda evidencia requerida: faltaba una frontera confiable capaz de acreditar el positivo, no una simple condición booleana. Se añade un port servidor y prueba F1 específica, reutilizando firma, binding y verificador existentes. Se descartan un flag libre `verified=true`, aceptar solo el fingerprint aportado, quitar la guarda SQL, renovar F2, ampliar ventanas o duplicar firmas/ledger. La fuente sintética se implementa exclusivamente en tests.
+
+- `src/application/evidence-revalidation.ts`: `EvidenceRevalidationProvider.revalidate(request)` recibe reference/fingerprint, expiración aprobada, proposal/command/part, material fingerprint y scope. La implementación inyectada por composición es autoridad servidor, no argumento público de `reserve` ni objeto de cliente.
+- El resultado exige `reference`, `fingerprint`, `checkedAt`, `validUntil`, `verifierIdentity`, `verifierKind`, `outcome=verified`; se contrasta con la solicitud, se validan formato/tiempos/identidad y se calcula `effectiveValidUntil`. Un objeto congelado reconocido por WeakSet solo se obtiene tras invocar el port. JSON/copia/cast no fabrica esa marca. La confianza del port sigue siendo un supuesto explícito de composición, no una garantía criptográfica de JavaScript.
+- `tests/fixtures/evidence-provider.ts`: registro de fuentes sintéticas propiedad del harness; lee sus bytes y recalcula SHA-256, exige scope exacto, registra momento actual y caducidad de la fuente. La solicitud no registra fuentes ni decide su validez. No hay proveedor real, Storage, Drive, email, WhatsApp ni datos personales.
+- `runtime.ts` y `postgres-composition.ts` permiten inyectar opcionalmente el port. Sin él, una reserva nueva con evidencia deniega; material sin evidencia conserva su recorrido. La configuración/clave F1 debe autorizar explícitamente el purpose `h0-011-evidence-revalidation`; no se amplían claves provisionadas automáticamente ni se crea K nueva persistente.
+
+### Prueba transaccional y SQL
+
+El provider se invoca **fuera de cualquier transacción PostgreSQL abierta**. Después el servidor emite F1 en la transacción runtime real con resource `human_approval_evidence`, action `revalidate_evidence`, purpose `h0-011-evidence-revalidation`. No cambia protocolo F1, MAC, binding ni ventana F2.
+
+Payload de entrada canónico `CRM-HA-EVIDENCE1`, con framing F1 existente: command, proposal, part, SHA-256 del comando humano completo, reference, fingerprint, checked_at, vigencia fuente, vigencia efectiva, identidad/tipo del verificador. Scope y binding xid8/PID/database/postmaster/generation/audience/login están en el envelope F1 autenticado. Los tiempos se transportan en microsegundos enteros.
+
+`crm_api.h0_m04_revalidate_evidence` verifica F1 y F2, obtiene locks actor/session/epoch antes del advisory de command (mismo orden M04), compara con material/proposal/decision/part persistidos y exige aprobación, scope, command digest, reference y fingerprint exactos. Rechaza timestamps futuros/incoherentes, datos incompletos y prueba inválida. La rama M04 `reserve` solo acepta evidencia requerida con registro autenticado del mismo comando y xid actual; sin prueba no basta una decisión humana.
+
+Se distinguen expresamente:
+
+1. `approved_until_us`: caducidad incluida en el material aprobado;
+2. `source_valid_until_us`: caducidad obtenida de la fuente;
+3. `checked_us`: instante de comprobación del provider;
+4. `clock_timestamp()` PostgreSQL: reloj real para admitir y finalizar.
+
+`effective_until_us = min(approved_until_us, source_valid_until_us)`, comprobado por SQL y constraint. Se exige `checked_us <= reloj real < effective_until_us`. SQL no confía en reloj de cliente ni permite ampliar vigencia aprobada.
+
+### Final de unidad, atomicidad e historia
+
+Nueva tabla privada append-only `crm_ha.evidence_revalidations`: command/proposal/part, command fingerprint, reference/fingerprint, los cuatro tiempos relevantes (incluido recorded_at), identidad/tipo de verifier, scope, xid y outcome verificado. Command identifica la reserva exacta. No almacena bytes de fuente, K ni capabilities.
+
+Owner `crm_h0_table_owner` NOLOGIN; ENABLE/FORCE RLS; executor F2 separado con SELECT/INSERT, sin UPDATE/DELETE; runtime/PUBLIC/anon/authenticated sin acceso. Funciones privilegiadas owner `crm_h0_f2_executor` NOLOGIN, search_path fijo y PUBLIC revocado; helpers privados no ejecutables por runtime. No hay nuevo rol ni signing oracle ni CREATE residual.
+
+FK diferidas enlazan command con reservation, command receipt y operación M02: una prueba sola no puede quedar confirmada. El wrapper humano conserva sus comprobaciones F01/F02 y añade check de evidencia después del core M02 y de la F2 final. Un constraint trigger diferido vuelve a comprobar la vigencia al cerrar la transacción. Los errores revierten conjuntamente prueba, reserva, event/receipt, operación/root/attempt/history/result/intent y actividad humana. No cambia semántica del core M02 ni se introduce un commit parcial.
+
+### Replay y E2
+
+Una consulta F1 C01 estrecha (`h0_m04_evidence_replay`, action `check_replay`) reconoce únicamente existencia de receipt equivalente en scope. No devuelve resultado ni autoridad humana. Se cierra esa transacción antes de contactar el provider. Si ya existe, no se invoca provider; la operación real vuelve a pasar M04 y el wrapper humano F1/F2 vigente, recuperando ledger durable. E2 se conserva para command reutilizado con material diferente.
+
+El registro de evidencia de un xid ya confirmado es historia, no una nueva autorización: su expiración posterior no impide leer replay autorizado, ni se renueva el registro. Para un efecto nuevo se exige prueba nueva en xid actual y comprobación de vigencia final. Si otro concurrente confirma mientras se verificaba la fuente, el receipt exacto se reconoce bajo el advisory lock sin duplicar comprobación/efecto.
+
+### Migración forward y V-MIG focal
+
+Nueva: `202609270003_h0_m04_evidence_revalidation_fix.sql`. M01/F1/M02/M03 y M04/000/001/002 permanecen byte-for-byte intactas. Para evitar duplicar cuerpos M04/M02 no relacionados, la migración sustituye dos fragmentos exactos de definiciones obtenidas del catálogo; exige una única coincidencia y aborta si el predecesor no coincide. No hay SQL dinámico de caller. CREATE OR REPLACE conserva identidad/ACL/owner; consulta de catálogo posterior lo verifica. Criterio contrastado con [PostgreSQL 17 CREATE FUNCTION](https://www.postgresql.org/docs/17/sql-createfunction.html).
+
+Ensayo local desde cadena vacía hasta 002; antes de 003 se establecen actor/session/epoch M03 y proposal/ledger M04/M02 sintéticos. Snapshot de tablas antes/después conserva fixtures. Autoridad runtime y bootstrap incorrecta denegadas `42501`; event trigger inyecta fallo DDL `P0001`, rollback elimina la tabla nueva y conserva datos y definiciones anteriores; aplicación posterior correcta; reaplicación denegada `42P07` sin corrupción. Tabla y cuatro funciones nuevas verificadas por catálogo: owners NOLOGIN, fixed search_path, RLS/FORCE RLS, EXECUTE mínimo y roles genéricos sin acceso.
+
+### Pruebas focales
+
+- Reproducer R08 conserva fuente/huella/material/aprobación, expected `reserved` y negativos. Solo se añade la conexión al provider sintético: el positivo ahora reserva. No se elimina, invierte ni marca skip.
+- Sin evidencia: controles actuales continúan funcionando.
+- Fuente caducada, referencia/fingerprint incorrectos, ausencia, fallo, respuesta incompleta/ambigua y checked_at futuro: DENY con snapshots sin residuo.
+- SQL recibe pruebas incluso válidamente firmadas pero para otro command/proposal/part/scope/reference/fingerprint, checked_at incoherente o vigencia ampliada: DENY. MAC alterada: DENY. No se confunde test signer confiable con capacidad del rol runtime.
+- Espera real sobre `unit_roots` después de retornar M04: la fuente caduca durante espera de ~1.8 s con F1/F2 aún vivas; rollback completo, incluida evidencia nueva y actividad. No se cambia la ventana F2 de 30 s. Control corto de 75 ms confirma mientras vigente.
+- Replay positivo después de COMMIT, incluso tras caducar la comprobación y retirar la fuente: resultado durable previo, sin provider ni segunda reserva. Pérdida simulada de respuesta solo después de observar COMMIT en otra conexión. Command idéntico con evidencia/material distintos: E2.
+- F01 y F02 originales mantienen waits reales de 30 s y sus expected; pasan focalmente, sin cierre formal.
+
+Las ejecuciones de la suite H0-012 en esta etapa son **regresión de corrección**, no nueva reverificación normativa completa. No se ejecutan ni se acreditan R09–R25 como matriz formal.
+
+### Resultado de ingeniería y límites de cierre
+
+Entorno comprobado: PostgreSQL 17.11 (Postgres.app), Node 24.21.0 y pnpm 11.19.0. Solo clústeres locales efímeros, socket Unix, sin conexión hosted. Las fuentes/migraciones históricas se comparan contra el commit base; ninguna cambia. Las guías PostgreSQL/Supabase se usaron para revisar mínimo privilegio, RLS y conservación de ACL al reemplazar funciones; no sustituyen las fuentes normativas ni autorizan operaciones remotas.
+
+| Comando / ensayo | Resultado final |
+|---|---|
+| `pnpm install --frozen-lockfile` | PASS; ya actualizado; lockfile intacto |
+| `pnpm audit --prod` | PASS; sin vulnerabilidades conocidas |
+| `pnpm run typecheck` | PASS |
+| `pnpm run lint` | PASS; import boundaries |
+| `pnpm test` | 31/31 PASS; 0 FAIL/skipped/cancelled |
+| `POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin pnpm run test:postgres` | 208/208 PASS; 0 FAIL/skipped/cancelled; ejecución final 130552.949 ms |
+| Suite H0-012 dentro de esa regresión | 40/40 PASS (incluye contenedores/subtests), de ellos 25 focales F03; escenarios F01/F02/R08 preservados |
+| `pnpm run build` | PASS; sin warnings relevantes observados |
+| `git diff --check` | PASS |
+| Secret scan del diff y archivos nuevos + revisión manual | PASS; cero credenciales/PAT/JWT/URL autenticadas/SCRAM/email real; ninguna K persistente |
+
+**Total final: 239 PASS, 0 FAIL, 0 skipped, 0 cancelled** (unitarios + PostgreSQL; no se suman ejecuciones repetidas). Los 25 tests focales F03 incluyen la denegación SQL sin registro firmado y el rechazo al COMMIT de una prueba huérfana sin reserva/receipt/ledger. Todos los negativos comparan snapshots desde otra conexión; sin residuos de la unidad abortada.
+
+Archivos productivos: nuevo port `src/application/evidence-revalidation.ts`; integración en `src/infrastructure/postgres/h0-011-adapter.ts`, `runtime.ts` y `src/server/postgres-composition.ts`; whitelist de targets específicos en `f1-codec.ts`, sin cambiar criptografía/protocolo F1. Persistencia: únicamente migración forward 003. Tests: fixture de fuente, unitarios del port y ampliación focal de suite H0-012; no se rebajan asserts históricos. Coordinación: solo esta evidencia, Tasks, PROJECT-STATUS y NEXT-STEPS.
+
+**Estado final de corrección:** F03 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; F01/F02 mantienen FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION. H0-012 FAILED / NOT COMPLETED; H0-011 antecedente COMPLETED; H0-013 NOT STARTED; H0 IN PROGRESS. PLAN-AUTH-002/006 PENDING globalmente. Last Approved Commit `6248820e3253a9d88755ed0a4996fff8f865690e` intacto; sin D039.
+
+Limitaciones: el provider productivo es un port, no un conector real; su composición, autoridad y reloj se deben acreditar al introducir una fuente real. Un fallo, ausencia o incoherencia de fuente deniega la parte dependiente. El positivo demostrado usa fuente sintética local; no acredita evidencia comercial, entrega externa, Auth/TOTP/recovery/dispositivos, H0-M03/M04 hosted ni Production. Supabase Staging no tocado. No se detectó otro defecto material distinto de F03 durante esta corrección.
+
+Próximo paso, SIN EJECUTAR: nueva autorización para reverificación formal completa e independiente R01–R25 desde el commit correctivo publicado. El commit de esta etapa se identifica en Git por `fix(h0): support verified evidence revalidation`, hijo de la base exacta indicada arriba; no altera Last Approved Commit.

@@ -2,6 +2,8 @@ import { createHash, randomUUID } from "node:crypto";
 import { isTrustedContext, issueTrustedContext, type TrustedExecutionContext } from "../../application/trusted-context.ts";
 import { isVerifiedAuth, type VerifiedAuthEvidence } from "../../application/verified-auth.ts";
 import { isVerifiedServerInteraction, type VerifiedServerInteraction } from "../../application/verified-interaction.ts";
+import { isVerifiedEvidence, revalidateEvidence, type EvidenceRevalidationProvider,
+  type EvidenceRevalidationRequest, type VerifiedEvidence } from "../../application/evidence-revalidation.ts";
 import { createF1Issuer, encodeF1Fields, type F1SigningConfiguration } from "./f1-codec.ts";
 import { createF2Issuer, type F2Identity, type F2SigningConfiguration } from "./f2-codec.ts";
 import { postgresF1Binding, type PostgresSql, type PostgresTransaction } from "./transaction.ts";
@@ -129,10 +131,37 @@ export class H0011PostgresAdapter {
   private readonly technicalIdentity = "h0-011-server-bridge";
   private readonly technicalPurpose = "h0-011-human-approval";
   private readonly humanUnitPurpose = "h0-011-human-unit";
+  private readonly evidencePurpose = "h0-011-evidence-revalidation";
+  private readonly evidenceProvider?: EvidenceRevalidationProvider;
 
-  constructor(sql: PostgresSql, f1: F1SigningConfiguration, f2: F2SigningConfiguration) {
+  constructor(sql: PostgresSql, f1: F1SigningConfiguration, f2: F2SigningConfiguration,
+    evidenceProvider?: EvidenceRevalidationProvider) {
     if (Buffer.from(f1.key).equals(Buffer.from(f2.key))) throw new Error("H0_011_KEY_SEPARATION_REQUIRED");
     this.sql = sql; this.f1Config = f1; this.f1 = createF1Issuer(f1); this.f2 = createF2Issuer(f2);
+    this.evidenceProvider = evidenceProvider;
+  }
+
+  private evidenceContext(scope: string) {
+    return issueTrustedContext({ identityId: this.technicalIdentity, identityKind: "technical",
+      purpose: this.evidencePurpose, scope, requestId: randomUUID(), serverTime: new Date().toISOString() });
+  }
+
+  private async evidenceForCommand(q: Buffer, request: EvidenceRevalidationRequest,
+    auth: VerifiedAuthEvidence): Promise<VerifiedEvidence | undefined> {
+    // Probe returns only existence, never a result or permission. The actual
+    // replay below still goes through the original F1/F2 command and ledger.
+    const replay = await this.sql.begin("isolation level read committed", async (tx) => {
+      const identity = await this.identity(tx, auth);
+      if (identity.scope !== request.scope) throw new Error("H0_011_CONTEXT_DENIED");
+      const cap = this.f1(this.evidenceContext(request.scope), await postgresF1Binding(tx), "C01", q,
+        { resource: "human_approval_evidence", action: "check_replay" });
+      const [row] = await tx`select crm_api.h0_m04_evidence_replay(${cap.payload},${cap.mac},${q}) as present`;
+      return row?.present === true;
+    });
+    if (replay) return undefined;
+    if (!this.evidenceProvider) throw new Error("EVIDENCE_REVALIDATION_DENIED");
+    // No PostgreSQL transaction/locks are held while a provider is contacted.
+    return revalidateEvidence(this.evidenceProvider, request);
   }
 
   private async identity(tx: PostgresTransaction, auth: VerifiedAuthEvidence): Promise<F2Identity> {
@@ -178,11 +207,16 @@ export class H0011PostgresAdapter {
   private async command(input: { action: string; commandId: string; data: readonly string[];
     human?: { auth: VerifiedAuthEvidence; interaction: VerifiedServerInteraction };
     scope?: string; context?: TrustedExecutionContext; ledgerState: string;
-    intent?: { effectId: string; recipientReference: string; contentVersion: string } }): Promise<H0M04Receipt> {
+    intent?: { effectId: string; recipientReference: string; contentVersion: string };
+    evidence?: EvidenceRevalidationRequest }): Promise<H0M04Receipt> {
     assertId(input.commandId);
     if (input.human && !isVerifiedServerInteraction(input.human.interaction, "interactive_action")) throw new Error("H0_011_INTERACTION_REQUIRED");
     const q = encodeF1Fields(["CRM-H0-M04", input.action, input.commandId, ...input.data]);
-    try { return await this.sql.begin("isolation level read committed", async (tx) => {
+    try {
+      if (input.human && (!isVerifiedAuth(input.human.auth) || !input.human.auth.mfaVerified)) throw new Error("H0_011_HUMAN_AUTH_REQUIRED");
+      const evidence = input.evidence && input.human
+        ? await this.evidenceForCommand(q, input.evidence, input.human.auth) : undefined;
+      return await this.sql.begin("isolation level read committed", async (tx) => {
       const identity = input.human ? await this.identity(tx, input.human.auth) : undefined;
       const scope = identity?.scope ?? input.scope;
       if (!scope) throw new Error("H0_011_SCOPE_REQUIRED");
@@ -198,6 +232,16 @@ export class H0011PostgresAdapter {
       const f2 = identity && input.human
         ? this.f2(input.human.auth, identity, binding, "C03", q, input.human.interaction)
         : { payload: null, mac: null };
+      if (evidence && input.evidence) {
+        if (!isVerifiedEvidence(evidence)) throw new Error("EVIDENCE_REVALIDATION_DENIED");
+        const micros = (value: string) => (BigInt(Date.parse(value)) * 1000n).toString();
+        const eq = encodeF1Fields(["CRM-HA-EVIDENCE1", input.commandId, input.evidence.proposalId,
+          input.evidence.partId, sha(q), evidence.reference, evidence.fingerprint, micros(evidence.checkedAt),
+          micros(evidence.validUntil), micros(evidence.effectiveValidUntil), evidence.verifierIdentity, evidence.verifierKind]);
+        const cap = this.f1(this.evidenceContext(scope), binding, "C03", eq,
+          { resource: "human_approval_evidence", action: "revalidate_evidence" });
+        await tx`select crm_api.h0_m04_revalidate_evidence(${cap.payload},${cap.mac},${eq},${f2.payload},${f2.mac},${q})`;
+      }
       const rows = await tx.unsafe<DbReceipt[]>("select * from crm_api.h0_m04_command($1,$2,$3,$4,$5)",
         [f2.payload, f2.mac, f1.payload, f1.mac, q]);
       if (!rows[0]) throw new Error("H0_011_COMMAND_DENIED");
@@ -236,7 +280,6 @@ export class H0011PostgresAdapter {
     proposalId: string, decisionId: string, partId: string, proposalFingerprint: string,
     partFingerprint: string, material: HumanApprovalMaterial) {
     assertId(proposalId); assertId(decisionId); assertId(partId);
-    if (material.evidence) throw new Error("H0_011_EVIDENCE_REVALIDATION_REQUIRED");
     if (fingerprintHumanApprovalMaterial(material) !== proposalFingerprint) throw new Error("H0_011_MATERIAL_CHANGED");
     const approvedPart = material.parts.find((part) => part.partId === partId);
     if (!approvedPart || fingerprintHumanApprovalPart(approvedPart) !== partFingerprint) throw new Error("H0_011_PART_CHANGED");
@@ -248,6 +291,9 @@ export class H0011PostgresAdapter {
     const intentId = `intent-${stableHash}`;
     const data = encodeF1Fields([proposalId, decisionId, partId, proposalFingerprint, partFingerprint, effectId, intentId]).toString("hex");
     return this.command({ action: "reserve", commandId, data: [data], human: { auth, interaction },
+      ...(material.evidence ? { evidence: { reference: material.evidence.reference, fingerprint: material.evidence.fingerprint,
+        approvedExpiresAt: material.evidence.expiresAt,
+        proposalId, commandId, partId, materialFingerprint: proposalFingerprint, scope: material.scope } } : {}),
       ledgerState: "reserved", intent: { effectId, recipientReference: recipient[1], contentVersion: approvedPart.contentVersion } });
   }
 
