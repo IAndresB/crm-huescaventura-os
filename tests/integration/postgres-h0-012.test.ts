@@ -38,6 +38,7 @@ const scope = "scope-h012-synthetic";
 const interaction = classifyServerEvent("core-action");
 const evidenceFixture = syntheticEvidenceProvider();
 const f03Migration = "202609270003_h0_m04_evidence_revalidation_fix.sql";
+const f04Migration = "20260927231932_h0_m04_f04_transaction_commit_guard.sql";
 
 function command(name: string, args: string[]) {
   const result = spawnSync(join(bin!, name), args, { encoding: "utf8", env: { ...process.env, LC_ALL: "C" } });
@@ -114,6 +115,24 @@ before(async () => {
   await assert.rejects(() => migration.unsafe(source), { code: "42P07" });
   await migration.unsafe("rollback");
   assert.deepEqual(await predecessorSnapshot(), beforeUpgrade);
+
+  const f04Source = await readFile(join(migrations, f04Migration), "utf8");
+  const beforeF04 = await formalSnapshot();
+  for (const wrong of [runtime, admin]) {
+    await assert.rejects(() => wrong.unsafe(f04Source), { code: "42501" });
+    await wrong.unsafe("rollback");
+  }
+  await admin.unsafe(`create function public.fail_f04_ddl() returns event_trigger language plpgsql as $$
+    begin raise exception 'SYNTHETIC_F04_DDL_FAILURE'; end $$;
+    create event trigger fail_f04_ddl on ddl_command_end when tag in ('CREATE FUNCTION')
+      execute function public.fail_f04_ddl()`);
+  await assert.rejects(() => migration.unsafe(f04Source), { code: "P0001" });
+  await migration.unsafe("rollback");
+  assert.equal((await admin`select to_regprocedure('crm_api.h0_m04_finalize_evidence(text)') is null absent`)[0]!.absent, true);
+  assert.deepEqual(await formalSnapshot(), beforeF04);
+  await admin.unsafe("drop event trigger fail_f04_ddl; drop function public.fail_f04_ddl()");
+  await migration.unsafe(f04Source);
+  assert.deepEqual(await formalSnapshot(), beforeF04);
 });
 after(async () => {
   await Promise.allSettled([runtime?.end({ timeout: 1 }), actorBlocker?.end({ timeout: 1 }),
@@ -621,7 +640,8 @@ test("H0-012 fourth formal execution: independent matrix, stop at first material
 });
 
 // M2 may issue transaction-control SQL, but cannot sign or alter the genuine
-// capabilities. The proxy adds ONLY permitted SQL after the real M04/M02 path.
+// capabilities. The proxy adds ONLY permitted SQL before the final evidence
+// check+COMMIT server message.
 async function finalEvidenceWait(mode: "immediate-short" | "deferred-expired" | "immediate-expired") {
   const id = `formal-r08-${mode}`;
   const p = await evidenceProposal(id, 2500, 60_000);
@@ -642,18 +662,23 @@ async function finalEvidenceWait(mode: "immediate-short" | "deferred-expired" | 
   const client = new Proxy(observedClient(trace), { get(target, key, receiver) {
     if (key !== "begin") return Reflect.get(target, key, receiver);
     return (options: string, work: (tx: postgres.TransactionSql) => Promise<unknown>) => target.begin(options, async (tx) => {
-      const result = await work(tx);
-      // Ignore the initial readonly replay probe, which has no material unit.
-      if (trace.m04Returned) {
-        finalWrapperReturned = true;
-        const [identity] = await tx`select session_user login,pg_backend_pid() pid,
-          floor(extract(epoch from clock_timestamp())*1000000)::text us`;
-        login = identity!.login; pid = identity!.pid; checkedWhileLive = BigInt(identity!.us) < expiry;
-        assert.ok(checkedWhileLive, "evidence must still be live before requesting early checks");
-        if (mode !== "deferred-expired") { await tx.unsafe("set constraints all immediate"); immediateApplied = true; }
-        await tx`select pg_advisory_xact_lock(${gate})`;
-      }
-      return result;
+      const guardedTx = new Proxy(tx, { get(inner, property, rec) {
+        if (property !== "unsafe") return Reflect.get(inner, property, rec);
+        return async (query: string, args?: postgres.ParameterOrJSON<never>[]) => {
+          if (!query.includes("crm_api.h0_m04_finalize_evidence")) return inner.unsafe(query, args);
+          // Add the adversarial SQL before the final server message; its
+          // final check must still observe evidence that expired meanwhile.
+          finalWrapperReturned = true;
+          const [identity] = await tx`select session_user login,pg_backend_pid() pid,
+            floor(extract(epoch from clock_timestamp())*1000000)::text us`;
+          login = identity!.login; pid = identity!.pid; checkedWhileLive = BigInt(identity!.us) < expiry;
+          assert.ok(checkedWhileLive, "evidence must still be live before requesting early checks");
+          if (mode !== "deferred-expired") { await tx.unsafe("set constraints all immediate"); immediateApplied = true; }
+          await tx`select pg_advisory_xact_lock(${gate})`;
+          return inner.unsafe(query, args);
+        };
+      } }) as postgres.TransactionSql;
+      return work(guardedTx);
     });
   } }) as postgres.Sql;
   const pending = p.reserve(new H0011PostgresAdapter(client, f1, f2, p.fixture.provider))

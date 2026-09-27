@@ -1,6 +1,6 @@
 # TSK-H0-012 — Verificación formal independiente local
 
-Resumen vigente tras cuarta ejecución formal (base `eaf02a2`): **TSK-H0-012 FAILED / NOT COMPLETED; H0-012-F04 OPEN — MATERIAL / ALTA**. Runtime adelanta el constraint trigger de evidencia con `SET CONSTRAINTS ALL IMMEDIATE` y confirma tras una espera real que supera su vigencia. R01–R07 PASS, R08 FAIL; R11 original y controles PASS; R23 FAIL por el mismo bypass, sin auditoría completa adicional; restantes filas BLOCKED por fail-fast. **F01/F02/F03 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**, sin cierre anticipado. Se conservan íntegros los tres FAILED anteriores y sus fixes; esta nueva ejecución es otra etapa, no una reinterpretación histórica.
+Resumen vigente tras la corrección localizada (base `70cf54c`): **TSK-H0-012 FAILED / NOT COMPLETED; F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. La frontera F04 conserva la atomicidad y ejecuta la comprobación final de evidencia y `COMMIT` en el mismo mensaje del servidor. La suite focal H0-012 pasa 44/44; no se ejecuta la matriz formal completa R01–R25. Se conservan íntegros los tres FAILED anteriores, F04 y sus fixes; cada ejecución es una etapa separada, no una reinterpretación histórica.
 
 ## V-EVI / preflight y orden de trabajo
 
@@ -651,3 +651,32 @@ Comprobaciones de publicación: **typecheck PASS, lint/import boundaries PASS, g
 Estado: H0-011 antecedente COMPLETED; H0-012 FAILED / NOT COMPLETED; F04 OPEN — MATERIAL / ALTA; F01/F02/F03 pendientes formales. H0 IN PROGRESS, H0-013 NOT STARTED, PLAN-AUTH-002/006 PENDING globalmente. Last Approved Commit `6248820e3253a9d88755ed0a4996fff8f865690e` intacto. Auth/TOTP/recovery/dispositivos, H0-M03/M04 hosted y Production no acreditados; Supabase Staging no conectado ni modificado.
 
 Próximo paso, SIN EJECUTAR: autorización humana separada para corregir H0-012-F04 y preservar una garantía final de vigencia no adelantable por SQL permitido a runtime; después nueva reverificación completa R01–R25. Esta publicación no autoriza el fix, D039 ni H0-013.
+
+## Corrección localizada H0-012-F04 — comprobación y COMMIT indivisibles (2026-09-28)
+
+Preflight obligatorio: repositorio `IAndresB/crm-huescaventura-os`, rama `main`, `HEAD=origin/main=70cf54cdfd81a4a1cfaec671ed9cc3dd0ffe6f30`, árbol limpio. Se trabajó en local, sin rama nueva, sin Cloud y sin conexión a Supabase Staging. Se releen únicamente F04 y sus controles, la migración 003, la composición M04→M02, `h0-011-adapter` y `transaction.ts`. La cronología F01–F04 anterior permanece intacta.
+
+### Puerta de diseño
+
+La reproducción previa se ejecutó primero en PostgreSQL 17.11: `SET CONSTRAINTS ALL IMMEDIATE` agotaba el `h0_m04_evidence_commit_guard` mientras la evidencia seguía vigente; el lock advisory posterior permitía que la evidencia caducara y el `COMMIT` confirmaba toda la unidad. Resultado previo: `COMMIT`, una prueba y nuevas filas en reservations, events, receipts, operations, roots, attempts, history, results e intents; actividad modificada.
+
+Se estudiaron estas alternativas:
+
+1. Mantener el constraint trigger diferido y añadir otra comprobación explícita: insuficiente si devuelve el control al driver con la transacción abierta.
+2. `transaction_timeout` de PostgreSQL 17.11: el ensayo aislado aborta y revierte al vencer, pero el rol runtime puede sobrescribir el GUC con `SET LOCAL`; no es una garantía de autoridad.
+3. `CALL`/procedimiento con control transaccional: exigiría rehacer la frontera de capabilities F1/F2 ligadas a `xid`/backend, porque la aplicación firma después de obtener el binding dentro de la transacción explícita; no es una corrección localizada.
+4. Frontera explícita en el adaptador: el último mensaje del servidor ejecuta `h0_m04_finalize_evidence(command_id)` y `COMMIT` en secuencia, sin devolver control entre ambos. Esta fue la alternativa menor compatible con F1/F2 y la atomicidad existente.
+
+### Implementación y garantía
+
+La migración forward `20260927231932_h0_m04_f04_transaction_commit_guard.sql` añade únicamente el wrapper `crm_api.h0_m04_finalize_evidence(text)`, con owner NOLOGIN `crm_h0_f2_executor`, `search_path` fijo y `EXECUTE` solo para `crm_h0_runtime`; el wrapper delega en el helper privado existente. `src/infrastructure/postgres/h0-011-adapter.ts` emite, solo para una operación nueva con evidencia, `select crm_api.h0_m04_finalize_evidence('<command_id>'); commit` mediante una única consulta sin parámetros; `command_id` ya está validado por `assertId`.
+
+Por ello cualquier SQL M2 adicional, incluido `SET CONSTRAINTS ALL IMMEDIATE`, debe ocurrir antes del mensaje final y no puede consumir una comprobación posterior: el wrapper vuelve a leer `clock_timestamp()` después de la espera y, si la evidencia caducó, falla antes de `COMMIT`. Si sigue vigente, el servidor ejecuta el `COMMIT` inmediatamente en la misma secuencia; no queda un intervalo de código o driver entre la última comprobación y la confirmación.
+
+### Ensayos focales y V-MIG
+
+El control focal actualizado inserta el SQL adversarial antes del mensaje final: lock advisory real observado desde otra conexión, control corto vigente, guard diferido expirado e `IMMEDIATE` expirado. Los tres casos pasan: el corto confirma; ambos casos expirados hacen rollback. La suite completa `tests/integration/postgres-h0-012.test.ts` termina **44/44 PASS, 0 skipped, 0 cancelled**, incluyendo F01, F02, F03 positivo/negativos, replay sin provider, operación normal y controles de rollback.
+
+V-MIG de la nueva migración pasa en PostgreSQL 17.11: cadena local desde vacío hasta 003 y upgrade 003→004; runtime y bootstrap incorrectos reciben `42501`; fallo DDL inyectado produce rollback sin dejar la función nueva ni alterar fixtures; retirada la inyección, la aplicación correcta conserva el snapshot previo. No se modifica 003 ni migraciones anteriores.
+
+Resultado de esta etapa: **F01 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; F02 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; F03 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. **TSK-H0-012 = FAILED / NOT COMPLETED**. **H0-013 = NOT STARTED**. No se ejecuta R01–R25 completa.

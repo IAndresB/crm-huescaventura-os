@@ -248,6 +248,12 @@ export class H0011PostgresAdapter {
       await this.commitLedger(tx, context, input.commandId, input.ledgerState, input.intent,
         f2.payload && f2.mac ? { payload: f2.payload, mac: f2.mac, input: q } : undefined);
       const r = rows[0];
+      if (evidence && input.evidence) {
+        // The final evidence check and COMMIT are one server message. This
+        // leaves no driver callback interval in which M2 SQL can outlive the
+        // last validity check. commandId is already restricted by assertId.
+        await tx.unsafe(`select crm_api.h0_m04_finalize_evidence('${input.commandId}'); commit`);
+      }
       return { commandState: r.command_state, proposalId: r.proposal_id,
         ...(r.decision_id ? { decisionId: r.decision_id } : {}),
         ...(r.reservation_id ? { reservationId: r.reservation_id } : {}),
