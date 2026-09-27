@@ -56,6 +56,7 @@ test("H0-006 N11: revoked session cannot invoke global revocation through server
     await migrate(admin, "202609260000_h0_m03_authorities.sql");
     await migrate(migration, "202609260001_h0_m03_actor_session_access.sql");
     await migrate(migration, "202609260002_h0_m03_revoke_all_authority_fix.sql");
+    await migrate(migration, "202609260003_h0_m03_f2_expiry_revalidation_fix.sql");
     const f1 = { ...originalF1,
       allowedPurposes: [...originalF1.allowedPurposes, "h0-005-human-bridge"] };
     await migration`update crm_f1.keys set purposes=${f1.allowedPurposes} where key_id=${f1.keyId}`;
@@ -193,6 +194,7 @@ test("H0-006 R07/R18: F2 expiry while waiting for actor lock must deny establish
     await migrate(admin,"202609260000_h0_m03_authorities.sql");
     await migrate(migration,"202609260001_h0_m03_actor_session_access.sql");
     await migrate(migration,"202609260002_h0_m03_revoke_all_authority_fix.sql");
+    await migrate(migration,"202609260003_h0_m03_f2_expiry_revalidation_fix.sql");
     const f1={...originalF1,allowedPurposes:[...originalF1.allowedPurposes,"h0-005-human-bridge"]};
     await migration`update crm_f1.keys set purposes=${f1.allowedPurposes} where key_id=${f1.keyId}`;
     const f2={key:randomBytes(32),keyId:randomUUID(),audience:randomUUID(),generation:randomUUID(),
@@ -286,8 +288,11 @@ test("H0-006 R07/R18: F2 expiry while waiting for actor lock must deny establish
     releaseLock();
     await holding;
     const outcome=await attempt;
-    const state=(await admin<{ sessions: number; created_after_expiry: boolean|null }[]>`
+    const state=(await admin<{ sessions: number; epochs: number;
+      created_after_expiry: boolean|null }[]>`
       select count(*)::int as sessions,
+        (select count(*)::int from crm_private.identification_epochs
+          where session_id=${attemptedSession}::uuid) as epochs,
         bool_and(extract(epoch from created_at)*1000000>=${binding.expiry.toString()}::numeric)
           as created_after_expiry
       from crm_private.crm_sessions where session_id=${attemptedSession}::uuid
@@ -299,8 +304,9 @@ test("H0-006 R07/R18: F2 expiry while waiting for actor lock must deny establish
     }
     t.diagnostic(JSON.stringify({initialValidControl:true,initialExpiredControlDenied:true,
       sawLockWait,releasedAfterExpiry:releaseTime.expired,...outcome,...state,coreAllowed}));
-    assert.deepEqual({accepted:outcome.accepted,sessions:state.sessions,coreAllowed},
-      {accepted:false,sessions:0,coreAllowed:false},
+    assert.deepEqual({accepted:outcome.accepted,sessions:state.sessions,
+      epochs:state.epochs,coreAllowed},
+      {accepted:false,sessions:0,epochs:0,coreAllowed:false},
       "H0-006: expired F2 must not create fresh human authority after waiting for actor lock");
   } finally {
     releaseLock();

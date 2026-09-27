@@ -373,3 +373,115 @@ connection-string patterns, complemented by diff review of in-memory random
 test keys (no real credentials). Main and origin remote remain correct;
 HEAD = origin/main = `b73ca9d0f8e93034edfd8f9e9e85601917d69009`.
 Working tree is intentionally dirty with the uncommitted failed evidence/test.
+
+## H0-006-F02 — correction implemented / pending formal reverification
+
+Date: 2026-09-27. Historical failure published separately in `c8238c8`
+(`test(h0): record f2 expiry race failure`) from the clean required base
+`b73ca9d0f8e93034edfd8f9e9e85601917d69009`. This section describes the
+subsequent, **local implementation correction**, not a new formal H0-006
+reverification. The earlier F01 FAILED evidence, F01 correction, and second
+FAILED F02 evidence above remain unchanged as historical records. D037/D038 and
+Last Approved Commit `6248820e3253a9d88755ed0a4996fff8f865690e` remain
+unchanged. Supabase Staging was not contacted or modified.
+
+Root cause: `crm_f2.verify` used `clock_timestamp` and enforced the signed
+30-second window at entry. Several F2 functions could then wait for PostgreSQL
+locks without checking expiry again before material work. The original
+`establish_session` race committed a new session and epoch after the capability
+expired. Source review of the seven named paths found the same relevant gap
+in reidentification, one-revoke, and admission. The F01-corrected global
+revocation already had a post-lock clock comparison; it now uses the common
+complete verifier while preserving F01 live-session/epoch checks. The two
+human Core wrappers also needed a final F2 check: the delegated F1 operation
+can wait after F2 admission. No F1 defect was proved; F1 implementation,
+protocol and key are untouched.
+
+Forward migration:
+`202609260003_h0_m03_f2_expiry_revalidation_fix.sql`. It replaces only the
+seven existing function bodies with unchanged signatures, owner, SECURITY
+DEFINER mode, fixed search paths and EXECUTE ACLs. No new signing function,
+helper, role, table, key, or runtime grant is added. The migration briefly
+grants CREATE to the existing NOLOGIN F2 executor to replace its functions,
+then revokes it before COMMIT. Runtime cannot apply it. The three published
+H0-M03/F01 migrations remain byte-for-byte intact.
+
+Every affected operation retains **initial** `crm_f2.verify` for fast MAC,
+protocol, binding, target, signed input and window rejection. After the actor
+or actor→session→epoch locks and live-state checks, it calls the same verifier
+again. That verifier obtains a fresh `clock_timestamp()` after the wait;
+`transaction_timestamp`, `now()` and `CURRENT_TIMESTAMP` are not used for
+post-wait freshness. A final call before function return aborts the entire
+transaction if a later DML/table lock, F1 delegated call, key change or Core
+access consumed the rest of the F2 window. The signed 30-second window is
+unchanged. For human Core wrappers, F2 is checked after F1 verification just
+before delegated access and once more after that access; a late failure rolls
+back human activity, F1 technical consumption and Core effects together.
+The function's completed authorization may still commit afterward under
+D038.15 while it holds the admitted locks; this correction never claims
+retroactive cancellation after valid admission and completed SQL work.
+
+| Cause-bound case | Expected | Observed in PostgreSQL 17.11 | Result |
+|---|---|---|---|
+| Original F02 establish: actor lock held >30s | `42501`, no session/epoch | `42501`; sessions 0, epochs 0 | PASS |
+| Reidentify: F2 expires waiting actor lock | Old epoch remains current; no new epoch | `42501`, no replacement; old epoch current | PASS |
+| Revoke one: same wait | No `revoked_at` | `42501`, `revoked_at` null | PASS |
+| Revoke all: same wait | Generation unchanged; F01 live authority intact | `42501`, generation unchanged | PASS |
+| `crm_f2.admit` via C01/C03: same wait | No activity or Core effect | Both `42501`; activity unchanged, no probe | PASS |
+| Short actor-lock wait within window | Authorized establish succeeds | Real observed wait, session + epoch committed | PASS |
+| Session INSERT blocked **after** actor admission until F2 expires | Entire establishment rolls back | Relation wait observed; `42501`, session/epoch 0 | PASS |
+| C01 delegated Core table wait; F2 expires, F1 remains valid | No returned Core data; activity unchanged | `42501`; activity unchanged | PASS |
+| C03 delegated Core table wait; F2 expires, F1 remains valid | No Core/consumption/activity partial state | `42501`; probe absent, consumption/activity unchanged | PASS |
+| F2 initially expired / not-before invalid | Initial verifier rejects, no wait-to-valid retry | Original expired control `42501`; initial verifier unchanged | PASS for expired control; not-before covered by existing F2 implementation tests |
+
+The six actor-lock cases share one 30-second real-clock interval and six
+independent runtime transactions/connections; `pg_blocking_pids` confirms all
+waited. The original independent F02 test retains its **full** 30-second wait
+and normative expected denial. A separate INSERT lock test forces a second
+wait after the actor lock and post-lock check. C01/C03 each wait 30 seconds
+inside delegated Core access; F1 is deliberately issued three seconds after
+F2, and PostgreSQL confirms F2 expired while F1 remained valid. No test
+shortens the protocol, mocks the clock or changes F1. The C03 final check
+denies before a durable effect; PostgreSQL rollback removes prior in-unit
+writes. All test clusters, Unix sockets and synthetic keys are disposable.
+
+V-MIG: a fresh database in a local 17.11 cluster applies M01 context → F1 →
+M02 → M03 → F01 → F02. The main test database independently applies the whole
+chain from the published migration sequence. On the F01 predecessor, an
+injected failure after the first F02 function replacement restores all seven
+predecessor definitions and preserves a synthetic actor fixture. Ordinary
+runtime cannot apply F02. Authorized upgrade succeeds and preserves the
+fixture; reapplication leaves definitions and ACLs unchanged. Catalog checks
+show all seven functions still owned by `crm_h0_f2_executor`, SECURITY
+DEFINER, with fixed `pg_catalog, pg_temp` search_path and no PUBLIC EXECUTE;
+the internal `crm_f2.admit` is not runtime-callable. The executor has no
+persistent CREATE on `crm_api` or `crm_f2`. Historical migrations were not
+edited. This is local V-MIG implementation evidence, not hosted H0-M03.
+
+Regression commands and observed results after the corrective migration:
+
+| Command | Observed |
+|---|---|
+| `pnpm install --frozen-lockfile` | PASS; lockfile unchanged |
+| `pnpm audit --prod` | PASS; no known vulnerabilities |
+| `pnpm run typecheck` | PASS |
+| `pnpm run lint` | PASS; import boundaries |
+| `pnpm test` | 27/27 PASS, 0 skipped |
+| `POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin pnpm run test:postgres` | 127/127 PASS, 0 skipped |
+| `pnpm run build` | PASS |
+| `git diff --check` | PASS |
+
+The complete PostgreSQL suite includes the original F01 regression and the
+unweakened F02 discovery regression, the six concurrent expiry cases, short
+wait positive control, post-admission INSERT wait, post-F1 C01/C03 waits,
+V-MIG and earlier F1/F2 security tests. These are **correction/engineering
+regressions only**. They do not execute the full independent R01–R24
+H0-006 matrix; its unfinished rows above are not promoted to PASS.
+
+Final status of this corrective block: H0-006-F02 **FIX IMPLEMENTED / PENDING
+FORMAL REVERIFICATION**. H0-006-F01 remains **FIX IMPLEMENTED / PENDING FORMAL
+REVERIFICATION**; TSK-H0-006 remains **FAILED / NOT COMPLETED**. PLAN-AUTH-002
+and PLAN-AUTH-006 remain PENDING globally. Real Auth/MFA, hosted H0-M03,
+Staging application, Production, H0-011 and later tasks remain unexecuted.
+The next step is a separately authorized complete independent H0-006
+reverification from the new implementation commit.

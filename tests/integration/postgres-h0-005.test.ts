@@ -138,6 +138,7 @@ before(async () => {
   await migrate("202609260000_h0_m03_authorities.sql",bootstrap);
   await migrate("202609260001_h0_m03_actor_session_access.sql",migration);
   await migrate("202609260002_h0_m03_revoke_all_authority_fix.sql",migration);
+  await migrate("202609260003_h0_m03_f2_expiry_revalidation_fix.sql",migration);
   f1 = { ...originalF1,
     allowedPurposes: [...originalF1.allowedPurposes,"h0-005-human-bridge"] };
   await migration`update crm_f1.keys set purposes=${f1.allowedPurposes} where key_id=${f1.keyId}`;
@@ -283,6 +284,86 @@ test("H0-006-F01 forward migration is atomic, preserves predecessor and restores
   }
 });
 
+test("H0-006-F02 forward migration upgrades F01 atomically and preserves function ACL",async () => {
+  const prior="crm_h0_005_f02_upgrade";
+  const upgrader=connect("crm_h0_migration",prior);
+  const ordinary=connect("crm_h0_runtime",prior);
+  const source=await readFile(join(root,"supabase/migrations",
+    "202609260003_h0_m03_f2_expiry_revalidation_fix.sql"),"utf8");
+  const signatures=[
+    "crm_api.establish_session(bytea,bytea,bytea)",
+    "crm_api.reidentify_session(bytea,bytea,bytea)",
+    "crm_f2.admit(bytea,bytea,bytea,text,text)",
+    "crm_api.revoke_session(bytea,bytea,bytea)",
+    "crm_api.revoke_all_sessions(bytea,bytea,bytea)",
+    "crm_api.human_read_probe(bytea,bytea,bytea,bytea,bytea)",
+    "crm_api.human_apply_probe_batch(bytea,bytea,bytea,bytea,bytea)",
+  ];
+  const catalog=async () => {
+    const rows=await upgrader<{signature:string;owner:string;definer:boolean;
+      public_execute:boolean;runtime_execute:boolean;settings:string[];
+      definition:string}[]>`
+      select p.oid::regprocedure::text as signature,p.proowner::regrole::text as owner,
+        p.prosecdef as definer,
+        has_function_privilege('public',p.oid,'EXECUTE') as public_execute,
+        has_function_privilege('crm_h0_runtime',p.oid,'EXECUTE') as runtime_execute,
+        coalesce(p.proconfig,'{}'::text[]) as settings,
+        pg_get_functiondef(p.oid) as definition
+      from pg_proc p where p.oid = any(${signatures}::regprocedure[])
+      order by p.oid::regprocedure::text
+    `;
+    assert.equal(rows.length,7);
+    return rows;
+  };
+  try {
+    await bootstrap.unsafe(`create database ${prior} owner crm_h0_migration`);
+    for (const name of [
+      "202609150001_h0_m01_context.sql",
+      "202609160001_h0_f1_capabilities.sql",
+      "202609250000_h0_m02_unit_history.sql",
+      "202609260001_h0_m03_actor_session_access.sql",
+      "202609260002_h0_m03_revoke_all_authority_fix.sql",
+    ]) await migrate(name,upgrader);
+    await upgrader`select crm_api.provision_actor_mapping(
+      ${randomUUID()}::uuid,${randomUUID()}::uuid,'preserved-f01-fixture')`;
+    const before=await catalog();
+    const fixture=(await upgrader<{n:number}[]>`
+      select count(*)::int as n from crm_private.crm_actors
+      where admin_scope='preserved-f01-fixture'
+    `)[0]!.n;
+    assert.equal(fixture,1);
+    const marker="create or replace function crm_api.reidentify_session";
+    assert.ok(source.includes(marker));
+    await assert.rejects(upgrader.unsafe(source.replace(marker,
+      "do $$ begin raise exception 'F02_INJECTED'; end $$;\n"+marker)));
+    assert.deepEqual(await catalog(),before,"partial replacement must roll back");
+    assert.equal((await upgrader`select count(*)::int as n from crm_private.crm_actors
+      where admin_scope='preserved-f01-fixture'`)[0]?.n,1);
+    await assert.rejects(ordinary.unsafe(source),
+      (error:unknown) => (error as {code?:string}).code==="42501");
+    await ordinary.unsafe("rollback");
+    await upgrader.unsafe(source);
+    const after=await catalog();
+    assert.ok(after.every((row) => row.owner==="crm_h0_f2_executor"
+      && row.definer && !row.public_execute
+      && row.settings.includes("search_path=pg_catalog, pg_temp")));
+    assert.ok(after.filter((row) => row.signature.startsWith("crm_api.") )
+      .every((row) => row.runtime_execute));
+    assert.ok(after.find((row) => row.signature.startsWith("crm_f2.admit"))
+      ?.runtime_execute===false);
+    assert.equal((await upgrader`select has_schema_privilege(
+      'crm_h0_f2_executor','crm_api','CREATE') as allowed`)[0]?.allowed,false);
+    assert.equal((await upgrader`select has_schema_privilege(
+      'crm_h0_f2_executor','crm_f2','CREATE') as allowed`)[0]?.allowed,false);
+    assert.equal((await upgrader`select count(*)::int as n from crm_private.crm_actors
+      where admin_scope='preserved-f01-fixture'`)[0]?.n,1);
+    await upgrader.unsafe(source);
+    assert.deepEqual(await catalog(),after,"reapply must preserve definitions and ACL");
+  } finally {
+    await Promise.allSettled([upgrader.end({timeout:1}),ordinary.end({timeout:1})]);
+  }
+});
+
 test("verified Auth boundary rejects client-shaped claims and incomplete full identification",async () => {
   const fake = { kind: "verified-auth-evidence",subject,passwordVerified:true,mfaVerified:true };
   await assert.rejects(adapter.establish(fake as never),/F2_AUTH_VERIFICATION_REQUIRED/);
@@ -301,6 +382,408 @@ test("full identification creates two independent sessions and minimal F2+F1 C01
   assert.deepEqual(readB,readA);
   const rows = await bootstrap`select session_id::text from crm_private.crm_sessions order by session_id`;
   assert.equal(rows.length,2);
+});
+
+test("H0-006-F02: six F2 operations expire while waiting for the actor lock",{
+  timeout:65000,
+},async (t) => {
+  const sessions=[];
+  for (let i=0;i<5;i++) sessions.push(await adapter.establish(await evidence()));
+  const newSession=randomUUID(),newEpoch=randomUUID(),replacement=randomUUID();
+  const writeProbe=`f02-denied-${randomUUID()}`;
+  const cases=[
+    {name:"establish",operation:"establish" as const,sessionId:newSession,epochId:newEpoch},
+    {name:"reidentify",operation:"reidentify" as const,sessionId:sessions[0]!.sessionId,
+      epochId:sessions[0]!.epochId},
+    {name:"revoke_one",operation:"revoke_one" as const,sessionId:sessions[1]!.sessionId,
+      epochId:sessions[1]!.epochId},
+    {name:"revoke_all",operation:"revoke_all" as const,sessionId:sessions[2]!.sessionId,
+      epochId:sessions[2]!.epochId},
+    {name:"human_read_probe",operation:"C01" as const,sessionId:sessions[3]!.sessionId,
+      epochId:sessions[3]!.epochId},
+    {name:"human_apply_probe_batch",operation:"C03" as const,
+      sessionId:sessions[4]!.sessionId,epochId:sessions[4]!.epochId},
+  ];
+  const beforeGeneration=await currentGeneration();
+  const beforeActivity=await bootstrap<{epoch_id:string;activity:string}[]>`
+    select epoch_id::text as epoch_id,last_human_activity_at::text as activity
+    from crm_private.identification_epochs
+    where epoch_id in (${sessions[3]!.epochId}::uuid,${sessions[4]!.epochId}::uuid)
+    order by epoch_id
+  `;
+  const blocker=connect("bootstrap_h0_005");
+  const monitor=connect("bootstrap_h0_005");
+  const workers=cases.map(() => connect("crm_h0_runtime"));
+  let release=() => {};
+  const held=new Promise<void>((resolve) => {release=resolve;});
+  let announceLock!: () => void;
+  const locked=new Promise<void>((resolve) => {announceLock=resolve;});
+  let holding:Promise<unknown>|undefined;
+  const attempts:Promise<{name:string;ok:boolean;code:string|null}>[]=[];
+  try {
+    holding=blocker.begin(async (tx) => {
+      await tx`select actor_id from crm_private.crm_actors
+        where actor_id=${actorId}::uuid for update`;
+      announceLock();
+      await held;
+    });
+    await locked;
+    const ready=cases.map((item,index) => {
+      let announce!: (info:{pid:number;expires:bigint;txStart:bigint}) => void;
+      const signal=new Promise<{pid:number;expires:bigint;txStart:bigint}>(
+        (resolve) => {announce=resolve;});
+      const attempt=workers[index]!.begin(async (tx) => {
+        await tx.unsafe("set local statement_timeout='45s'");
+        const lookup=(await tx<{actor_id:string;access_generation:string;
+          admin_scope:string;epoch_id:string|null}[]>`
+          select actor_id::text,access_generation::text,admin_scope,epoch_id::text
+          from crm_api.f2_lookup(${subject}::uuid,
+            ${item.operation==='establish'?null:item.sessionId}::uuid)
+        `)[0]!;
+        const binding=await postgresF1Binding(tx);
+        const authEvidence=await evidence(item.operation==='establish'?undefined:item.sessionId);
+        const identity={actorId:lookup.actor_id,sessionId:item.sessionId,
+          epochId:item.epochId,accessGeneration:lookup.access_generation,
+          scope:lookup.admin_scope};
+        const q=item.operation==='establish'
+          ? encodeF2Fields(["CRM-F2-INP1","establish",subject,item.sessionId,item.epochId])
+          : item.operation==='reidentify'
+          ? encodeF2Fields(["CRM-F2-INP1","reidentify",item.sessionId,item.epochId,replacement])
+          : item.operation==='revoke_one'
+          ? encodeF2Fields(["CRM-F2-INP1","revoke_one",item.sessionId])
+          : item.operation==='revoke_all'
+          ? encodeF2Fields(["CRM-F2-INP1","revoke_all",actorId])
+          : item.operation==='C01'
+          ? encodeF1Fields(["CRM-INP1","C01","human-probe-a"])
+          : encodeF1Fields(["CRM-INP1","C03",randomUUID(),"true","true",
+            "record-technical-probe",writeProbe,"synthetic-public"]);
+        const interaction=item.operation==='C01'?classifyServerEvent("core-read")
+          :item.operation==='C03'?classifyServerEvent("core-action"):undefined;
+        const cap=createF2Issuer(f2)(authEvidence,identity,binding,item.operation,q,interaction);
+        const f1cap=item.operation==='C01'||item.operation==='C03'
+          ? createF1Issuer(f1)(issueTrustedContext({
+            identityId:"technical-bridge-h0-005",identityKind:"technical",
+            purpose:"h0-005-human-bridge",scope:lookup.admin_scope,
+            requestId:randomUUID(),serverTime:new Date().toISOString(),
+          }),binding,item.operation,q) : undefined;
+        const txStart=(await tx<{at:string}[]>`select
+          floor(extract(epoch from transaction_timestamp())*1000000)::bigint::text as at`)[0]!.at;
+        announce({pid:Number(binding.pid),expires:BigInt(unpack(cap.payload)[23]!),
+          txStart:BigInt(txStart)});
+        if (item.operation==='establish') {
+          await tx`select crm_api.establish_session(${cap.payload},${cap.mac},${q})`;
+        } else if (item.operation==='reidentify') {
+          await tx`select crm_api.reidentify_session(${cap.payload},${cap.mac},${q})`;
+        } else if (item.operation==='revoke_one') {
+          await tx`select crm_api.revoke_session(${cap.payload},${cap.mac},${q})`;
+        } else if (item.operation==='revoke_all') {
+          await tx`select crm_api.revoke_all_sessions(${cap.payload},${cap.mac},${q})`;
+        } else if (item.operation==='C01') {
+          await tx`select * from crm_api.human_read_probe(${cap.payload},${cap.mac},
+            ${f1cap!.payload},${f1cap!.mac},${q})`;
+        } else {
+          await tx`select crm_api.human_apply_probe_batch(${cap.payload},${cap.mac},
+            ${f1cap!.payload},${f1cap!.mac},${q})`;
+        }
+      }).then(() => ({name:item.name,ok:true,code:null}),
+        (error:unknown) => ({name:item.name,ok:false,
+          code:(error as {code?:string}).code??"UNKNOWN"}));
+      attempts.push(attempt);
+      return signal;
+    });
+    const issued=await Promise.all(ready);
+    assert.ok(issued.every((info) => info.txStart<info.expires));
+    const waiters=new Set<number>();
+    for (let i=0;i<100 && waiters.size<cases.length;i++) {
+      const rows=await monitor<{pid:number;blocked:boolean}[]>`
+        select pid,cardinality(pg_blocking_pids(pid))>0 as blocked
+        from pg_stat_activity where pid = any(${issued.map((info) => info.pid)}::int[])
+      `;
+      rows.filter((row) => row.blocked).forEach((row) => waiters.add(row.pid));
+      if (waiters.size<cases.length) await new Promise((resolve) => setTimeout(resolve,20));
+    }
+    assert.equal(waiters.size,cases.length,"all six calls must wait after initial F2 verification");
+    assert.equal((await monitor`select count(*)::int as n from crm_private.crm_sessions
+      where session_id=${newSession}::uuid`)[0]?.n,0);
+    const latest=issued.reduce((max,info) => info.expires>max?info.expires:max,0n);
+    await monitor`select pg_sleep(greatest(0::double precision,
+      (${latest.toString()}::numeric-extract(epoch from clock_timestamp())*1000000)/1000000)+0.1)`;
+    const now=(await monitor<{at:string}[]>`select
+      floor(extract(epoch from clock_timestamp())*1000000)::bigint::text as at`)[0]!.at;
+    assert.ok(BigInt(now)>latest);
+    assert.ok(issued.every((info) => info.txStart<info.expires
+      && BigInt(now)>info.expires));
+    release();
+    await holding;
+    const outcome=await Promise.all(attempts);
+    t.diagnostic(JSON.stringify({sixCallsBlocked:true,allExpiredAtRelease:true,outcome}));
+    assert.deepEqual(outcome.map((item) => [item.name,item.ok,item.code]),
+      cases.map((item) => [item.name,false,"42501"]));
+    assert.equal((await monitor`select count(*)::int as n from crm_private.crm_sessions
+      where session_id=${newSession}::uuid`)[0]?.n,0);
+    assert.equal((await monitor`select count(*)::int as n from crm_private.identification_epochs
+      where session_id=${newSession}::uuid or epoch_id=${replacement}::uuid`)[0]?.n,0);
+    assert.equal((await monitor`select revoked_at from crm_private.crm_sessions
+      where session_id=${sessions[1]!.sessionId}::uuid`)[0]?.revoked_at,null);
+    assert.equal((await monitor`select current_epoch from crm_private.identification_epochs
+      where epoch_id=${sessions[0]!.epochId}::uuid`)[0]?.current_epoch,true);
+    assert.equal(await currentGeneration(),beforeGeneration);
+    const afterActivity=await monitor<{epoch_id:string;activity:string}[]>`
+      select epoch_id::text as epoch_id,last_human_activity_at::text as activity
+      from crm_private.identification_epochs
+      where epoch_id in (${sessions[3]!.epochId}::uuid,${sessions[4]!.epochId}::uuid)
+      order by epoch_id`;
+    assert.deepEqual(afterActivity,beforeActivity);
+    assert.equal((await monitor`select count(*)::int as n from crm_private.access_probe
+      where probe_id=${writeProbe}`)[0]?.n,0);
+  } finally {
+    release();
+    await Promise.allSettled([holding,...attempts]);
+    await Promise.allSettled([blocker.end({timeout:1}),monitor.end({timeout:1}),
+      ...workers.map((worker) => worker.end({timeout:1}))]);
+  }
+});
+
+test("H0-006-F02: a short actor-lock wait still permits a current F2",async () => {
+  const blocker=connect("bootstrap_h0_005");
+  const monitor=connect("bootstrap_h0_005");
+  const worker=connect("crm_h0_runtime");
+  const sessionId=randomUUID(),epochId=randomUUID();
+  let release=() => {};
+  const held=new Promise<void>((resolve) => {release=resolve;});
+  let announceLock!: () => void;
+  const locked=new Promise<void>((resolve) => {announceLock=resolve;});
+  let holding:Promise<unknown>|undefined;
+  let attempt:Promise<unknown>|undefined;
+  try {
+    holding=blocker.begin(async (tx) => {
+      await tx`select actor_id from crm_private.crm_actors
+        where actor_id=${actorId}::uuid for update`;
+      announceLock();
+      await held;
+    });
+    await locked;
+    let announce!: (value:{pid:number;expires:bigint}) => void;
+    const issued=new Promise<{pid:number;expires:bigint}>((resolve) => {announce=resolve;});
+    attempt=worker.begin(async (tx) => {
+      const row=(await tx<{actor_id:string;access_generation:string;
+        admin_scope:string}[]>`
+        select actor_id::text,access_generation::text,admin_scope
+        from crm_api.f2_lookup(${subject}::uuid,null::uuid)
+      `)[0]!;
+      const binding=await postgresF1Binding(tx);
+      const q=encodeF2Fields(["CRM-F2-INP1","establish",subject,sessionId,epochId]);
+      const cap=createF2Issuer(f2)(await evidence(),{
+        actorId:row.actor_id,sessionId,epochId,
+        accessGeneration:row.access_generation,scope:row.admin_scope,
+      },binding,"establish",q);
+      announce({pid:Number(binding.pid),expires:BigInt(unpack(cap.payload)[23]!)});
+      const result=await tx<{epoch:string}[]>`
+        select crm_api.establish_session(${cap.payload},${cap.mac},${q})::text as epoch`;
+      assert.equal(result[0]?.epoch,epochId);
+    });
+    const binding=await issued;
+    let waiting=false;
+    for (let i=0;i<100;i++) {
+      waiting=(await monitor`select cardinality(pg_blocking_pids(${binding.pid}))>0
+        as waiting`)[0]?.waiting===true;
+      if (waiting) break;
+      await new Promise((resolve) => setTimeout(resolve,10));
+    }
+    assert.equal(waiting,true);
+    await new Promise((resolve) => setTimeout(resolve,75));
+    const now=(await monitor<{at:string}[]>`select
+      floor(extract(epoch from clock_timestamp())*1000000)::bigint::text as at`)[0]!.at;
+    assert.ok(BigInt(now)<binding.expires);
+    release();
+    await holding;
+    await attempt;
+    assert.equal((await monitor`select count(*)::int as n from crm_private.crm_sessions
+      where session_id=${sessionId}::uuid`)[0]?.n,1);
+    assert.equal((await monitor`select count(*)::int as n from crm_private.identification_epochs
+      where epoch_id=${epochId}::uuid`)[0]?.n,1);
+  } finally {
+    release();
+    await Promise.allSettled([holding,attempt]);
+    await Promise.allSettled([blocker.end({timeout:1}),monitor.end({timeout:1}),
+      worker.end({timeout:1})]);
+  }
+});
+
+test("H0-006-F02: an INSERT lock wait after actor admission cannot commit an expired F2",{
+  timeout:65000,
+},async () => {
+  const blocker=connect("bootstrap_h0_005");
+  const monitor=connect("bootstrap_h0_005");
+  const worker=connect("crm_h0_runtime");
+  const sessionId=randomUUID(),epochId=randomUUID();
+  const generation=await currentGeneration();
+  let release=() => {};
+  const held=new Promise<void>((resolve) => {release=resolve;});
+  let announceLock!: () => void;
+  const locked=new Promise<void>((resolve) => {announceLock=resolve;});
+  let holding:Promise<unknown>|undefined;
+  let attempt:Promise<{ok:boolean;code:string|null}>|undefined;
+  try {
+    holding=blocker.begin(async (tx) => {
+      await tx.unsafe("lock table crm_private.crm_sessions in access exclusive mode");
+      announceLock();
+      await held;
+    });
+    await locked;
+    let announce!: (value:{pid:number;expires:bigint}) => void;
+    const issued=new Promise<{pid:number;expires:bigint}>((resolve) => {announce=resolve;});
+    attempt=worker.begin(async (tx) => {
+      await tx.unsafe("set local statement_timeout='45s'");
+      const binding=await postgresF1Binding(tx);
+      const q=encodeF2Fields(["CRM-F2-INP1","establish",subject,sessionId,epochId]);
+      const cap=createF2Issuer(f2)(await evidence(),{
+        actorId,sessionId,epochId,accessGeneration:generation,scope,
+      },binding,"establish",q);
+      announce({pid:Number(binding.pid),expires:BigInt(unpack(cap.payload)[23]!)});
+      await tx`select crm_api.establish_session(${cap.payload},${cap.mac},${q})`;
+    }).then(() => ({ok:true,code:null}),
+      (error:unknown) => ({ok:false,code:(error as {code?:string}).code??"UNKNOWN"}));
+    const binding=await issued;
+    let waiting=false;
+    for (let i=0;i<100;i++) {
+      waiting=(await monitor`select cardinality(pg_blocking_pids(${binding.pid}))>0
+        as waiting`)[0]?.waiting===true;
+      if (waiting) break;
+      await new Promise((resolve) => setTimeout(resolve,20));
+    }
+    assert.equal(waiting,true,"INSERT must wait after the actor row is locked");
+    const relationWait=(await monitor<{waiting:boolean}[]>`
+      select exists(select 1 from pg_locks
+        where pid=${binding.pid} and relation='crm_private.crm_sessions'::regclass
+          and not granted) as waiting`)[0]!.waiting;
+    assert.equal(relationWait,true,"the held lock must be on the session INSERT table");
+    await monitor`select pg_sleep(greatest(0::double precision,
+      (${binding.expires.toString()}::numeric-
+        extract(epoch from clock_timestamp())*1000000)/1000000)+0.1)`;
+    const now=(await monitor<{at:string}[]>`select
+      floor(extract(epoch from clock_timestamp())*1000000)::bigint::text as at`)[0]!.at;
+    assert.ok(BigInt(now)>binding.expires);
+    release();
+    await holding;
+    assert.deepEqual(await attempt,{ok:false,code:"42501"});
+    assert.equal((await monitor`select count(*)::int as n from crm_private.crm_sessions
+      where session_id=${sessionId}::uuid`)[0]?.n,0);
+    assert.equal((await monitor`select count(*)::int as n from crm_private.identification_epochs
+      where epoch_id=${epochId}::uuid`)[0]?.n,0);
+  } finally {
+    release();
+    await Promise.allSettled([holding,attempt]);
+    await Promise.allSettled([blocker.end({timeout:1}),monitor.end({timeout:1}),
+      worker.end({timeout:1})]);
+  }
+});
+
+test("H0-006-F02: expiry during delegated Core waits rolls back C01/C03",{
+  timeout:100000,
+},async (t) => {
+  for (const operation of ["C01","C03"] as const) {
+    const current=await adapter.establish(await evidence());
+    const read=operation==="C01";
+    const writeProbe=`f02-post-f1-${randomUUID()}`;
+    const activityBefore=(await bootstrap<{at:string}[]>`
+      select last_human_activity_at::text as at from crm_private.identification_epochs
+      where epoch_id=${current.epochId}::uuid`)[0]!.at;
+    const consumedBefore=(await bootstrap`select count(*)::int as n from crm_f1.consumption`)[0]!.n;
+    const blocker=connect("bootstrap_h0_005");
+    const monitor=connect("bootstrap_h0_005");
+    const worker=connect("crm_h0_runtime");
+    let release=() => {};
+    const held=new Promise<void>((resolve) => {release=resolve;});
+    let announceLock!: () => void;
+    const locked=new Promise<void>((resolve) => {announceLock=resolve;});
+    let holding:Promise<unknown>|undefined;
+    let attempt:Promise<{ok:boolean;code:string|null}>|undefined;
+    try {
+      holding=blocker.begin(async (tx) => {
+        await tx.unsafe("lock table crm_private.access_probe in access exclusive mode");
+        announceLock();
+        await held;
+      });
+      await locked;
+      let announce!: (value:{pid:number;f2Expiry:bigint;f1Expiry:bigint}) => void;
+      const issued=new Promise<{pid:number;f2Expiry:bigint;f1Expiry:bigint}>(
+        (resolve) => {announce=resolve;});
+      attempt=worker.begin(async (tx) => {
+        await tx.unsafe("set local statement_timeout='45s'");
+        const row=(await tx<{actor_id:string;access_generation:string;
+          admin_scope:string;epoch_id:string}[]>`
+          select actor_id::text,access_generation::text,admin_scope,epoch_id::text
+          from crm_api.f2_lookup(${subject}::uuid,${current.sessionId}::uuid)
+        `)[0]!;
+        const q=read
+          ? encodeF1Fields(["CRM-INP1","C01","human-probe-a"])
+          : encodeF1Fields(["CRM-INP1","C03",randomUUID(),"true","true",
+            "record-technical-probe",writeProbe,"synthetic-public"]);
+        const interaction=classifyServerEvent(read?"core-read":"core-action");
+        const identity={actorId:row.actor_id,sessionId:current.sessionId,
+          epochId:row.epoch_id,accessGeneration:row.access_generation,
+          scope:row.admin_scope};
+        const firstBinding=await postgresF1Binding(tx);
+        const f2cap=createF2Issuer(f2)(await evidence(current.sessionId),identity,
+          firstBinding,operation,q,interaction);
+        // F1 is independently issued later, so it remains valid when F2 expires.
+        await tx`select pg_sleep(3)`;
+        const secondBinding=await postgresF1Binding(tx);
+        const f1cap=createF1Issuer(f1)(issueTrustedContext({
+          identityId:"technical-bridge-h0-005",identityKind:"technical",
+          purpose:"h0-005-human-bridge",scope:row.admin_scope,
+          requestId:randomUUID(),serverTime:new Date().toISOString(),
+        }),secondBinding,operation,q);
+        announce({pid:Number(secondBinding.pid),
+          f2Expiry:BigInt(unpack(f2cap.payload)[23]!),
+          f1Expiry:BigInt(unpack(f1cap.payload)[19]!)});
+        if (read) {
+          await tx`select * from crm_api.human_read_probe(${f2cap.payload},${f2cap.mac},
+            ${f1cap.payload},${f1cap.mac},${q})`;
+        } else {
+          await tx`select crm_api.human_apply_probe_batch(${f2cap.payload},${f2cap.mac},
+            ${f1cap.payload},${f1cap.mac},${q})`;
+        }
+      }).then(() => ({ok:true,code:null}),
+        (error:unknown) => ({ok:false,code:(error as {code?:string}).code??"UNKNOWN"}));
+      const binding=await issued;
+      assert.ok(binding.f1Expiry>binding.f2Expiry+2000000n);
+      let waiting=false;
+      for (let i=0;i<100;i++) {
+        waiting=(await monitor`select cardinality(pg_blocking_pids(${binding.pid}))>0
+          as waiting`)[0]?.waiting===true;
+        if (waiting) break;
+        await new Promise((resolve) => setTimeout(resolve,20));
+      }
+      assert.equal(waiting,true,`${operation} must wait inside the Core call`);
+      await monitor`select pg_sleep(greatest(0::double precision,
+        (${binding.f2Expiry.toString()}::numeric-
+          extract(epoch from clock_timestamp())*1000000)/1000000)+0.1)`;
+      const now=(await monitor<{at:string}[]>`select
+        floor(extract(epoch from clock_timestamp())*1000000)::bigint::text as at`)[0]!.at;
+      assert.ok(BigInt(now)>binding.f2Expiry && BigInt(now)<binding.f1Expiry,
+        "F2 must be expired while F1 is still valid");
+      release();
+      await holding;
+      const outcome=await attempt;
+      t.diagnostic(JSON.stringify({operation,waitedInsideCore:true,
+        f2ExpiredWhileF1Valid:true,...outcome}));
+      assert.deepEqual(outcome,{ok:false,code:"42501"});
+      assert.equal((await monitor`select last_human_activity_at::text as at
+        from crm_private.identification_epochs where epoch_id=${current.epochId}::uuid`)[0]?.at,
+        activityBefore);
+      assert.equal((await monitor`select count(*)::int as n from crm_f1.consumption`)[0]?.n,
+        consumedBefore);
+      assert.equal((await monitor`select count(*)::int as n from crm_private.access_probe
+        where probe_id=${writeProbe}`)[0]?.n,0);
+    } finally {
+      release();
+      await Promise.allSettled([holding,attempt]);
+      await Promise.allSettled([blocker.end({timeout:1}),monitor.end({timeout:1}),
+        worker.end({timeout:1})]);
+    }
+  }
 });
 
 test("F2 owners, FORCE RLS and grants exclude runtime, generic roles and the key",async () => {

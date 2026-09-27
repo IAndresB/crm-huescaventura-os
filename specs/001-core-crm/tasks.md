@@ -9,7 +9,7 @@ Progress: COMPLETED
 Implementation: IN PROGRESS — TSK-H0-001/002/003/004/005/007/008/009/010 COMPLETED en sus alcances históricos; H0-006 FAILED / NOT COMPLETED; H0-006-F01 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION
 H0: IN PROGRESS; TSK-H0-006 FAILED / NOT COMPLETED; posteriores NOT STARTED; H1–H6: NOT STARTED
 Pruebas técnicas: H0-005 implementada y corregida localmente con F2/H0-M03; H0-006 falló y requiere reverificación formal nueva; Auth real/recuperación NO EJECUTADAS; H0-M02 hosted validado separadamente
-Last updated: 2026-09-26
+Last updated: 2026-09-27
 
 ## 1. Autoridad, base y alcance
 
@@ -177,13 +177,13 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-006 — Verificar: Identificar CRM Actor y aplicar límites por sesión
 
-- [ ] **Ejecución: FAILED / NOT COMPLETED.** H0-006-F01: FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION. La reverificación independiente posterior detectó **H0-006-F02: OPEN — MATERIAL / ALTA** (F2 caduca esperando el lock y aun así crea sesión/epoch). Hito: H0. Tipo: comprobación. Registro: [evidence-TSK-H0-006.md](evidence-TSK-H0-006.md). Detenida fail-fast antes de completar la matriz normativa; las pruebas focales no la cierran.
+- [ ] **Ejecución: FAILED / NOT COMPLETED.** H0-006-F01 y H0-006-F02: FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION. La reverificación independiente posterior había detectado **H0-006-F02 — MATERIAL / ALTA** (F2 caducaba esperando el lock y aun así creaba sesión/epoch); la corrección localizada forward y sus pruebas focales no completan la verificación normativa. Hito: H0. Tipo: comprobación. Registro: [evidence-TSK-H0-006.md](evidence-TSK-H0-006.md).
 - **Objetivo y alcance:** Único Administrador, múltiples sesiones, contraseña/TOTP, habilitación y control servidor previo a cada acceso; ámbito mínimo de enrolamiento/recuperación.
 - **Fuentes exactas:** Plan §§6.1, 6.3–6.5; SPEC-FR-SEC-001, SPEC-FR-SEC-002, SPEC-FR-SEC-004, AC-064, AC-080, PLAN-AUTH-002, PLAN-AUTH-006, D025, D026, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-006.
 - **Bloques, contratos y unidades:** B01; C01/C02/C03; —.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-005]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** H0-006-F01 tuvo impacto material: una sesión revocada ejecutó revoke_all y anuló otra sesión válida; su corrección forward está implementada, pendiente de reverificación formal completa. H0-006-F02 está OPEN: caducidad F2 durante espera del lock permite crear autoridad humana. Siguiente paso localizado: corregir F02; después, nueva reverificación formal completa. PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING globalmente; Supabase Staging intacto.
+- **Bloqueo localizado / condición para levantarlo:** H0-006-F01 tuvo impacto material: una sesión revocada ejecutó revoke_all y anuló otra sesión válida; H0-006-F02 permitió crear autoridad humana con F2 caducada tras esperar un lock. Ambas correcciones forward están implementadas localmente; F01 y F02 requieren una nueva reverificación formal completa e independiente de H0-006 antes de cerrarse normativamente. PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING globalmente; Supabase Staging intacto.
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H0-005; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Ensayos aislados satisfacen política 30/7 por sesión y deniegan Core ante MFA/enrolamiento/recuperación incompletos o actor inhabilitado; no se declara aceptación del acceso real. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Dos dispositivos válidos coexisten; usar uno no prolonga otro; refresh/polling/jobs/pestaña abierta no cuentan; lectura interactiva validada sí. Probar antes/al alcanzar/después de 7 días y 30 días, y retorno que intenta actualizar actividad primero; contraseña sola/TOTP solo no bastan para nueva identificación. Verificar también la unión identidad/habilitación/permisos/contexto transaccional, rechazando contexto declarado por cliente. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
