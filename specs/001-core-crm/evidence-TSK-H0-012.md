@@ -300,3 +300,83 @@ Comando ejecutado: `POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Cont
 Total de tests **realmente ejecutados en esta etapa: 33; 32 PASS, 1 FAIL, 0 skipped, 0 cancelled**. No representa la regresión PostgreSQL completa ni toda la matriz. Publicación autorizada exclusivamente de reproducción/evidencia/coordinación con mensaje `test(h0): record human approval reverification failure`; el commit que contiene esta etapa identifica el resultado final, sin cambiar Last Approved Commit.
 
 TSK-H0-011 permanece antecedente COMPLETED de implementación; TSK-H0-012 FAILED / NOT COMPLETED; F01 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; F02 OPEN — MATERIAL / ALTA. H0 IN PROGRESS; H0-013 y posteriores NOT STARTED. PLAN-AUTH-002/006 PENDING globalmente. Auth/TOTP/recovery/dispositivos y H0-M03/M04 hosted no acreditados. Supabase Staging no conectado ni modificado. Próximo paso requiere nueva autorización para resolver F02; luego nueva reverificación completa, incluido el positivo R08 y R25. No se implementa ninguna solución en esta publicación.
+
+## Etapa posterior — corrección localizada H0-012-F02 (2026-09-27)
+
+Autorización separada, base exacta `0edcf8da385a00849d44973eb37a869b63990624`, `main`, HEAD=origin/main y árbol limpio. Esta etapa no reejecuta R01–R25, no cierra F01/F02 y no inicia H0-013. D037/D038 y Last Approved Commit `6248820e3253a9d88755ed0a4996fff8f865690e` permanecen intactos.
+
+### Causa e inventario previo de callers
+
+F02 no era una rotura de MAC ni del binding. La composición humana emitía una F1 válida para `internal_unit/commit_internal_unit`; runtime podía seleccionar el overload técnico de tres argumentos y omitir la F2 final del overload humano. La elección de overload quedaba fuera del material firmado. El núcleo M02 publicado era además la propia interfaz runtime, por lo que no existía una frontera interna donde imponer la partición.
+
+Inventario por búsqueda de todos los call sites reales de `commit_internal_unit(bytea,bytea,bytea)`:
+
+| Caller | Purpose/resource/action | Identidad | Clasificación |
+|---|---|---|---|
+| `src/infrastructure/postgres/h0-009-adapter.ts` | purpose técnico permitido por configuración; `internal_unit` / `commit_internal_unit` | `TrustedExecutionContext` técnico | A — M02 técnico legítimo |
+| `src/infrastructure/postgres/h0-011-adapter.ts`, comandos `attempt/outcome/reconcile` | `h0-011-human-approval`; `internal_unit` / `commit_internal_unit` | ejecutor técnico confiable | A — resultado técnico posterior, no decisión/reserva humana |
+| `src/infrastructure/postgres/h0-011-adapter.ts`, `propose/decide/reserve` | antes compartía `h0-011-human-approval`; ahora purpose reservado firmado `h0-011-human-unit` | bridge técnico + F2 humana original | B — composición M04, solo overload de seis argumentos |
+| `tests/integration/postgres-h0-009.test.ts`, `postgres-h0-010.test.ts` y `tests/hosted/postgres-h0-m02.test.ts` | capabilities técnicas M02 | fixtures técnicos | Verificación legítima, no caller productivo adicional |
+| `tests/integration/postgres-h0-012.test.ts::chooseTechnicalLedger` | reutiliza exactamente la F1 humana observada y elige tres argumentos | adversario de frontera SQL | Reproducer F02, no uso legítimo |
+
+No hay otro caller productivo. H0-009 necesita conservar la entrada técnica; revocarla a ciegas rompería el contrato técnico y no resolvería la separación semántica.
+
+### Diseño aplicado
+
+Migración forward nueva: `202609270002_h0_m04_m02_authority_partition_fix.sql`. Las migraciones históricas M01/F1/M02/M03/M04/F01 no cambian.
+
+1. El objeto publicado de tres argumentos se **mueve**, sin copiar ni reescribir su cuerpo, a `crm_internal.commit_internal_unit_core(bytea,bytea,bytea)`.
+2. El core conserva owner `crm_h0_executor` NOLOGIN y `search_path=pg_catalog, pg_temp`; runtime/PUBLIC/anon/authenticated/untrusted no tienen USAGE/EXECUTE. Solo `crm_h0_f2_executor` recibe EXECUTE adicional para la composición humana; ambos executors pierden CREATE al terminar la migración.
+3. La nueva interfaz técnica pública de tres argumentos verifica la F1 y deniega el purpose firmado reservado `h0-011-human-unit`; delega en el core solo para unidades técnicas.
+4. La interfaz humana de seis argumentos acepta exclusivamente ese purpose reservado, conserva los enlaces q/hq/receipt, ejecuta F2 antes y después del core y delega directamente al core no invocable por runtime.
+5. El adaptador emite `h0-011-human-unit` solo para `propose/decide/reserve`; mantiene `h0-011-human-approval` para `attempt/outcome/reconcile` y lectura técnica. También rechaza en aplicación cualquier combinación human/purpose incompatible.
+
+El selector no es un GUC ni un booleano libre: `purpose` pertenece al payload F1 autenticado. Cambiarlo invalida la MAC; runtime no firma. Emitir otra F1 automáticamente o ampliar la ventana F2 queda expresamente descartado. Tampoco se duplica el cuerpo M02: existe un único core movido y dos wrappers estrechos.
+
+### Reproducer, controles y ausencia de residuo
+
+El reproducer publicado F02 conserva la espera real de actor, la F2 de 30 segundos, la F1 posterior aún vigente y la selección de los tres argumentos exactos. Tras el fix, la entrada técnica deniega **antes de alcanzar el core/lock ledger** por el purpose reservado. El harness distingue explícitamente este rechazo temprano seguro; los otros escenarios siguen exigiendo `pg_locks` real.
+
+Observed F02: edad F2 `30.301 s`; F1 aún vigente; `committed=false`; `realLedgerLockObserved=false`; `deniedBeforeLedger=true`; snapshot posterior igual al anterior. Cero reservas, events, receipts, roots, operations, attempts, history, results o intents nuevos; actividad humana sin cambio. Las proposal/decision previas permanecen como preparación independiente.
+
+Controles focales:
+
+- ruta humana corta: PASS; wait ledger real `103 ms`, F2 viva, reserva/history/intent confirmados;
+- F01 combinado: PASS; actor real + ledger real, F2 caduca con F1 viva, rollback completo;
+- espera M02 larga: PASS; F1/F2 caducan, rollback completo;
+- expiración en primera fase: PASS; denegación antes de ledger, snapshot íntegro;
+- ruta técnica H0-009 posterior al upgrade: dos conexiones convergen `applied` + `previous`, una operación/history; replay posterior `previous`;
+- ruta humana normal, concurrencia, replay y pérdida real de respuesta post-COMMIT: PASS;
+- el core interno deniega runtime y rol genérico; no existe segundo wrapper runtime-equivalente distinto de los dos overloads públicos inventariados.
+
+### Superficie efectiva y ACL
+
+Consulta programática de `pg_proc/pg_namespace/proowner/proacl/has_function_privilege` enumeró todas las funciones ejecutables por runtime en `crm_api`, `crm_f1`, `crm_f2`, `crm_ha`:
+
+`crm_api.apply_probe_batch(bytea,bytea,bytea)`; `crm_api.commit_internal_unit(bytea,bytea,bytea)`; `crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)`; `crm_api.establish_session(bytea,bytea,bytea)`; `crm_api.f2_lookup(uuid,uuid)`; `crm_api.f2_lookup_revoke_all_authority(uuid,uuid)`; `crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)`; `crm_api.h0_m04_read_proposal(bytea,bytea,bytea,bytea,bytea,text)`; `crm_api.human_apply_probe_batch(bytea,bytea,bytea,bytea,bytea)`; `crm_api.human_read_probe(bytea,bytea,bytea,bytea,bytea)`; `crm_api.read_probe(bytea,bytea,bytea)`; `crm_api.reidentify_session(bytea,bytea,bytea)`; `crm_api.revoke_all_sessions(bytea,bytea,bytea)`; `crm_api.revoke_session(bytea,bytea,bytea)`.
+
+No aparece función ejecutable runtime en `crm_internal`. Los dos overloads públicos M02 son los únicos `commit_internal_unit`; ambos tienen `SECURITY DEFINER`, owner NOLOGIN esperado, `search_path` fijo y EXECUTE explícito solo runtime. PUBLIC, anon, authenticated y rol genérico no ejecutan wrappers ni core. Runtime no tiene USAGE del schema interno; executors tienen USAGE, no CREATE residual; no hay nuevo acceso a K ni signing oracle.
+
+### V-MIG focal
+
+Cadena desde vacío M01→F1→M02→M03→M04→F01→F02 PASS en PostgreSQL 17.11. Upgrade desde predecesor F01 PASS. Fixtures M02 (`m04-upgrade-root`) y M04 (`f01-upgrade-fixture`) se compararon mediante `row_to_json` antes/después y permanecieron idénticos. Runtime y bootstrap incorrecto reciben `42501`. Un event trigger inyectó fallo en `CREATE SCHEMA`: rollback dejó `crm_internal` ausente, la función histórica todavía pública y fixtures intactos; retirada la inyección, la aplicación fue correcta. Reaplicación denegada `42P06`, rollback y fixtures intactos. La autoridad de migración no deja CREATE residual en los executors.
+
+### Ingeniería y estado
+
+| Comprobación | Observed |
+|---|---|
+| H0-011 focal | 17/17 PASS, 0 skipped/cancelled |
+| H0-012 focal | 6/6 PASS, 0 skipped/cancelled; incluye F01 y F02 originales |
+| `pnpm install --frozen-lockfile` | PASS; lockfile sin cambios |
+| `pnpm audit --prod` | PASS; sin vulnerabilidades conocidas |
+| `pnpm run typecheck` | PASS |
+| `pnpm run lint` | PASS; fronteras de imports |
+| `pnpm test` | 27/27 PASS, 0 skipped/cancelled |
+| `pnpm run test:postgres` | 174/174 PASS, 0 skipped/cancelled |
+| `pnpm run build` | PASS |
+| `git diff --check` | PASS |
+| Secret scan/revisión manual | PASS; sin K-F1/K-F2, PAT, password, JWT/TOTP real, verifier, URL autenticada ni datos reales |
+
+Total de regresión: **201 tests PASS, 0 FAIL, 0 skipped, 0 cancelled**. No apareció defecto material diferente de F02.
+
+Estado tras esta etapa: **H0-012-F02 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**; **H0-012-F01 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**; **TSK-H0-012 = FAILED / NOT COMPLETED**; H0-011 conserva su antecedente COMPLETED; H0-013 NOT STARTED. R01–R25 no se ha reejecutado ni reinterpretado. PLAN-AUTH-002/006 PENDING globalmente; Auth/TOTP/recovery/dispositivos y H0-M03/M04 hosted no acreditados. Supabase Staging no se conectó ni modificó. Próximo paso, solo con nueva autorización: reverificación completa e independiente R01–R25.

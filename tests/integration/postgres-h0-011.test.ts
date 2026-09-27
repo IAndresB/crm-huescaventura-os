@@ -37,7 +37,10 @@ let approvalB: H0011PostgresAdapter;
 let humanAuth: Awaited<ReturnType<typeof verifyAuth>>;
 let interaction: ReturnType<typeof classifyServerEvent>;
 let f01UpgradePreserved = false;
+let f02UpgradePreserved = false;
+let runtimeFunctionSurface: string[] = [];
 const f01Migration = "202609270001_h0_m04_f2_unit_revalidation_fix.sql";
+const f02Migration = "202609270002_h0_m04_m02_authority_partition_fix.sql";
 const actorId = randomUUID();
 const subjectId = randomUUID();
 const scope = "scope-h0-011-synthetic";
@@ -79,7 +82,7 @@ before(async () => {
   await apply("202609260002_h0_m03_revoke_all_authority_fix.sql");
   await apply("202609260003_h0_m03_f2_expiry_revalidation_fix.sql");
   f1 = { key: randomBytes(32), keyId: randomUUID(), audience: "h0-011-audience", generation: randomUUID(),
-    allowedPurposes: ["h0-005-human-bridge", "h0-011-human-approval"] };
+    allowedPurposes: ["h0-005-human-bridge", "h0-011-human-approval", "h0-011-human-unit"] };
   f2 = { key: randomBytes(32), keyId: randomUUID(), audience: "h0-011-audience", generation: randomUUID(),
     allowedPurposes: ["full-identification", "core-human-access", "session-revocation"] };
   await migration`insert into crm_f1.keys(key_id,secret,audience,generation,purposes,enabled,valid_from,valid_until)
@@ -149,8 +152,39 @@ before(async () => {
   await migration.unsafe("rollback");
   assert.deepEqual(await admin`select row_to_json(p)::text v from crm_ha.proposals p where proposal_id='f01-upgrade-fixture'`, prior);
   assert.deepEqual(await admin`select row_to_json(r)::text v from crm_private.unit_roots r where root_id='m04-upgrade-root'`, priorRoot);
+  // F02 upgrade: preserve both M02 and M04 fixtures across authority denial,
+  // injected DDL failure, the forward migration and safe reapply denial.
+  const f02Prior = await admin`select row_to_json(p)::text v from crm_ha.proposals p
+    where proposal_id='f01-upgrade-fixture'`;
+  const f02PriorRoot = await admin`select row_to_json(r)::text v from crm_private.unit_roots r
+    where root_id='m04-upgrade-root'`;
+  const f02Source = await readFile(join(root, "supabase/migrations", f02Migration), "utf8");
+  for (const wrong of [runtime, admin]) {
+    await assert.rejects(() => wrong.unsafe(f02Source), { code: "42501" });
+    await wrong.unsafe("rollback");
+  }
+  await admin.unsafe(`create function public.fail_f02_upgrade() returns event_trigger language plpgsql as $$
+    begin raise exception 'SYNTHETIC_F02_UPGRADE_FAILURE'; end $$;
+    create event trigger fail_f02_upgrade on ddl_command_end when tag in ('CREATE SCHEMA')
+      execute function public.fail_f02_upgrade()`);
+  try {
+    await assert.rejects(() => apply(f02Migration), { code: "P0001" });
+    await migration.unsafe("rollback");
+    assert.equal((await admin`select to_regnamespace('crm_internal') is null absent`)[0]!.absent, true);
+    assert.notEqual((await admin`select to_regprocedure('crm_api.commit_internal_unit(bytea,bytea,bytea)') is null absent`)[0]!.absent, true);
+    assert.deepEqual(await admin`select row_to_json(p)::text v from crm_ha.proposals p where proposal_id='f01-upgrade-fixture'`, f02Prior);
+    assert.deepEqual(await admin`select row_to_json(r)::text v from crm_private.unit_roots r where root_id='m04-upgrade-root'`, f02PriorRoot);
+  } finally {
+    await admin.unsafe("drop event trigger fail_f02_upgrade; drop function public.fail_f02_upgrade()");
+  }
+  await apply(f02Migration);
+  await assert.rejects(() => apply(f02Migration), { code: "42P06" });
+  await migration.unsafe("rollback");
+  assert.deepEqual(await admin`select row_to_json(p)::text v from crm_ha.proposals p where proposal_id='f01-upgrade-fixture'`, f02Prior);
+  assert.deepEqual(await admin`select row_to_json(r)::text v from crm_private.unit_roots r where root_id='m04-upgrade-root'`, f02PriorRoot);
+  f02UpgradePreserved = true;
   f01UpgradePreserved = true;
-  await admin.unsafe("create role h0_011_untrusted login");
+  await admin.unsafe("create role h0_011_untrusted login; create role anon nologin; create role authenticated nologin");
   runtimeB = connect("crm_h0_runtime");
   untrusted = connect("h0_011_untrusted");
   const proof = randomUUID();
@@ -176,6 +210,10 @@ test("F01 correction V-MIG: predecessor M04/M02 survives denied authority, DDL r
   assert.equal(f01UpgradePreserved, true);
 });
 
+test("F02 correction V-MIG: M02/M04 fixtures survive denied authority, DDL rollback, forward upgrade and safe reapply denial", () => {
+  assert.equal(f02UpgradePreserved, true);
+});
+
 test("F01 correction executor is narrow, NOLOGIN, fixed search_path, with no public grant or new key access", async () => {
   const [r] = await admin`select p.prosecdef, p.proconfig, o.rolname, o.rolcanlogin, o.rolbypassrls,
     has_schema_privilege(o.oid,'crm_api','create') can_create,
@@ -189,6 +227,83 @@ test("F01 correction executor is narrow, NOLOGIN, fixed search_path, with no pub
     can_create: false, can_read_key: false, runtime_execute: true, public_execute: false });
   await assert.rejects(() => runtime`select * from crm_api.commit_internal_unit(null,null,null,null,null,null)`, { code: "42501" });
   await assert.rejects(() => untrusted`select * from crm_api.commit_internal_unit(null,null,null,null,null,null)`, { code: "42501" });
+});
+
+test("F02 partitions technical and human M02 entry points while keeping the internal core unreachable", async (t) => {
+  runtimeFunctionSurface = (await admin<{ signature: string }[]>`
+    select p.oid::regprocedure::text signature
+    from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+    where n.nspname in ('crm_api','crm_f1','crm_f2','crm_ha')
+      and has_function_privilege('crm_h0_runtime',p.oid,'execute')
+    order by 1`).map((row) => row.signature);
+  t.diagnostic(JSON.stringify({ runtimeFunctionSurface }));
+  const commitEntries = runtimeFunctionSurface.filter((signature) => signature.startsWith("crm_api.commit_internal_unit("));
+  assert.deepEqual(commitEntries, [
+    "crm_api.commit_internal_unit(bytea,bytea,bytea)",
+    "crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)",
+  ]);
+  assert.ok(runtimeFunctionSurface.includes("crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)"));
+  assert.ok(runtimeFunctionSurface.includes("crm_api.h0_m04_read_proposal(bytea,bytea,bytea,bytea,bytea,text)"));
+  const [acl] = await admin`select
+    pg_get_userbyid(c.proowner) core_owner,
+    pg_get_userbyid(t.proowner) technical_owner,
+    pg_get_userbyid(h.proowner) human_owner,
+    (select rolcanlogin from pg_roles where rolname=pg_get_userbyid(c.proowner)) core_owner_login,
+    (select rolcanlogin from pg_roles where rolname=pg_get_userbyid(h.proowner)) human_owner_login,
+    c.proconfig core_path,t.proconfig technical_path,h.proconfig human_path,
+    has_schema_privilege('crm_h0_runtime','crm_internal','usage') runtime_internal_usage,
+    has_schema_privilege('crm_h0_executor','crm_internal','usage') technical_internal_usage,
+    has_schema_privilege('crm_h0_f2_executor','crm_internal','usage') human_internal_usage,
+    has_schema_privilege('crm_h0_executor','crm_internal','create') technical_internal_create,
+    has_function_privilege('crm_h0_runtime',c.oid,'execute') runtime_core,
+    has_function_privilege('public',c.oid,'execute') public_core,
+    has_function_privilege('anon',c.oid,'execute') anon_core,
+    has_function_privilege('authenticated',c.oid,'execute') authenticated_core,
+    has_function_privilege('h0_011_untrusted',c.oid,'execute') untrusted_core,
+    has_function_privilege('public',t.oid,'execute') public_technical,
+    has_function_privilege('anon',t.oid,'execute') anon_technical,
+    has_function_privilege('authenticated',t.oid,'execute') authenticated_technical,
+    has_function_privilege('h0_011_untrusted',t.oid,'execute') untrusted_technical,
+    has_function_privilege('public',h.oid,'execute') public_human,
+    has_function_privilege('anon',h.oid,'execute') anon_human,
+    has_function_privilege('authenticated',h.oid,'execute') authenticated_human,
+    has_function_privilege('h0_011_untrusted',h.oid,'execute') untrusted_human
+    from pg_proc c,pg_proc t,pg_proc h
+    where c.oid='crm_internal.commit_internal_unit_core(bytea,bytea,bytea)'::regprocedure
+      and t.oid='crm_api.commit_internal_unit(bytea,bytea,bytea)'::regprocedure
+      and h.oid='crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)'::regprocedure`;
+  assert.deepEqual(acl, {
+    core_owner: "crm_h0_executor", technical_owner: "crm_h0_executor", human_owner: "crm_h0_f2_executor",
+    core_owner_login: false, human_owner_login: false,
+    core_path: ["search_path=pg_catalog, pg_temp"], technical_path: ["search_path=pg_catalog, pg_temp"],
+    human_path: ["search_path=pg_catalog, pg_temp"], runtime_internal_usage: false,
+    technical_internal_usage: true, human_internal_usage: true, technical_internal_create: false,
+    runtime_core: false, public_core: false, anon_core: false, authenticated_core: false, untrusted_core: false,
+    public_technical: false, anon_technical: false, authenticated_technical: false, untrusted_technical: false,
+    public_human: false, anon_human: false, authenticated_human: false, untrusted_human: false,
+  });
+  await assert.rejects(() => runtime`select * from crm_internal.commit_internal_unit_core(null,null,null)`, { code: "42501" });
+  await assert.rejects(() => untrusted`select * from crm_internal.commit_internal_unit_core(null,null,null)`, { code: "42501" });
+});
+
+test("F02 keeps legitimate H0-009 technical commits, concurrent convergence and replay", async () => {
+  const context = (requestId: string) => issueTrustedContext({ identityId: "h0-011-technical-fixture",
+    identityKind: "technical", purpose: "h0-011-human-approval", scope, requestId,
+    serverTime: new Date().toISOString() });
+  const unit = { operationId: "f02-legitimate-technical", expectedVersion: "0", historyRequired: true as const,
+    resultRequired: true as const, changes: [{ kind: "set-technical-state" as const, rootId: "f02-technical-root",
+      afterValue: "technical-applied", reason: "f02-authority-partition", source: "h0-011-v-mig",
+      evidenceState: "none" as const }] };
+  const a = new H0009PostgresAdapter(runtime, f1); const b = new H0009PostgresAdapter(runtimeB, f1);
+  const concurrent = await Promise.all([a.commit(context("f02-technical-a"), unit),
+    b.commit(context("f02-technical-b"), unit)]);
+  assert.deepEqual(concurrent.map((result) => result.status).sort(), ["applied", "previous"]);
+  const replay = await a.commit(context("f02-technical-replay"), unit);
+  assert.equal(replay.status, "previous");
+  assert.equal((await admin`select count(*)::int n from crm_private.unit_operations
+    where operation_id='f02-legitimate-technical'`)[0]!.n, 1);
+  assert.equal((await admin`select count(*)::int n from crm_private.unit_history
+    where operation_id='f02-legitimate-technical'`)[0]!.n, 1);
 });
 
 test("H0-011 V-MIG applies M04 forward after M01/F1/M02/M03 on PostgreSQL 17", async () => {

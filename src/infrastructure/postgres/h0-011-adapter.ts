@@ -128,6 +128,7 @@ export class H0011PostgresAdapter {
   private readonly f1Config: F1SigningConfiguration;
   private readonly technicalIdentity = "h0-011-server-bridge";
   private readonly technicalPurpose = "h0-011-human-approval";
+  private readonly humanUnitPurpose = "h0-011-human-unit";
 
   constructor(sql: PostgresSql, f1: F1SigningConfiguration, f2: F2SigningConfiguration) {
     if (Buffer.from(f1.key).equals(Buffer.from(f2.key))) throw new Error("H0_011_KEY_SEPARATION_REQUIRED");
@@ -143,10 +144,11 @@ export class H0011PostgresAdapter {
       accessGeneration: row.access_generation, scope: row.admin_scope };
   }
 
-  private technicalContext(scope: string): TrustedExecutionContext {
-    if (!this.f1Config.allowedPurposes.includes(this.technicalPurpose)) throw new Error("H0_011_CONFIGURATION_INVALID");
+  private technicalContext(scope: string, human: boolean): TrustedExecutionContext {
+    const purpose = human ? this.humanUnitPurpose : this.technicalPurpose;
+    if (!this.f1Config.allowedPurposes.includes(purpose)) throw new Error("H0_011_CONFIGURATION_INVALID");
     return issueTrustedContext({ identityId: this.technicalIdentity, identityKind: "technical",
-      purpose: this.technicalPurpose, scope, requestId: randomUUID(), serverTime: new Date().toISOString() });
+      purpose, scope, requestId: randomUUID(), serverTime: new Date().toISOString() });
   }
 
   private async commitLedger(tx: PostgresTransaction, context: TrustedExecutionContext, commandId: string,
@@ -184,9 +186,12 @@ export class H0011PostgresAdapter {
       const identity = input.human ? await this.identity(tx, input.human.auth) : undefined;
       const scope = identity?.scope ?? input.scope;
       if (!scope) throw new Error("H0_011_SCOPE_REQUIRED");
-      const context = input.context ?? this.technicalContext(scope);
+      const context = input.context ?? this.technicalContext(scope, input.human !== undefined);
       if (!isTrustedContext(context) || context.identityKind !== "technical" || context.scope !== scope
-        || !this.f1Config.allowedPurposes.includes(context.purpose)) throw new Error("H0_011_CONTEXT_DENIED");
+        || !this.f1Config.allowedPurposes.includes(context.purpose)
+        || (input.human !== undefined) !== (context.purpose === this.humanUnitPurpose)) {
+        throw new Error("H0_011_CONTEXT_DENIED");
+      }
       const binding = await postgresF1Binding(tx);
       const f1 = this.f1(context, binding, "C03", q,
         { resource: "human_approval", action: "manage_effect" });
@@ -280,7 +285,7 @@ export class H0011PostgresAdapter {
         const identity = await this.identity(tx, auth);
         const input = encodeF1Fields(["CRM-INP1", "C01", proposalId]);
         const binding = await postgresF1Binding(tx);
-        const f1 = this.f1(this.technicalContext(identity.scope), binding, "C01", input,
+        const f1 = this.f1(this.technicalContext(identity.scope, false), binding, "C01", input,
           { resource: "human_approval", action: "read_proposal" });
         const f2 = this.f2(auth, identity, binding, "C01", input, interaction);
         const rows = await tx<{ proposal_id: string; material_fingerprint: string; material_payload: Buffer;

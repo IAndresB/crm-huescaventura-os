@@ -54,7 +54,7 @@ before(async () => {
   await admin.unsafe(`create database ${database} owner crm_h0_migration`);
   await admin.end(); admin = connect("h012_bootstrap"); migration = connect("crm_h0_migration");
   const files = (await readdir(migrations)).filter((name) => name.endsWith(".sql")
-    && name <= "202609270001_h0_m04_f2_unit_revalidation_fix.sql").sort();
+    && name <= "202609270002_h0_m04_m02_authority_partition_fix.sql").sort();
   for (const file of files) {
     if (file === "202609150000_h0_m01_roles.sql") continue;
     const authority = file.endsWith("_authorities.sql") ? admin : migration;
@@ -62,7 +62,7 @@ before(async () => {
   }
   assert.equal((await admin`select current_setting('server_version_num') as v`)[0]!.v, "170011");
   f1 = { key: randomBytes(32), keyId: randomUUID(), audience: "h012-local",
-    generation: randomUUID(), allowedPurposes: ["h0-005-human-bridge", "h0-011-human-approval"] };
+    generation: randomUUID(), allowedPurposes: ["h0-005-human-bridge", "h0-011-human-approval", "h0-011-human-unit"] };
   f2 = { key: randomBytes(32), keyId: randomUUID(), audience: "h012-local",
     generation: randomUUID(), allowedPurposes: ["full-identification", "core-human-access", "session-revocation"] };
   await migration`insert into crm_f1.keys(key_id,secret,audience,generation,purposes,enabled,valid_from,valid_until)
@@ -134,14 +134,17 @@ async function lock(sql: postgres.Sql, kind: "actor" | "ledger") {
   await ready.promise;
   return async () => { release.resolve(); await done; };
 }
+async function isBlocked(kind: "actor" | "ledger") {
+  const row = (await admin`select a.wait_event_type='Lock' and
+    case when ${kind}='ledger' then exists(select 1 from pg_locks l where l.pid=a.pid
+      and not l.granted and l.relation='crm_private.unit_roots'::regclass)
+    else a.query like '%crm_api.h0_m04_command%' end blocked
+    from pg_stat_activity a where a.pid=${runtimePid}`)[0];
+  return row?.blocked === true;
+}
 async function waitBlocked(kind: "actor" | "ledger") {
   for (let i = 0; i < 200; i++) {
-    const row = (await admin`select a.wait_event_type='Lock' and
-      case when ${kind}='ledger' then exists(select 1 from pg_locks l where l.pid=a.pid
-        and not l.granted and l.relation='crm_private.unit_roots'::regclass)
-      else a.query like '%crm_api.h0_m04_command%' end blocked
-      from pg_stat_activity a where a.pid=${runtimePid}`)[0];
-    if (row?.blocked) return;
+    if (await isBlocked(kind)) return;
     await delay(25);
   }
   assert.fail(`real ${kind} lock wait was not observed`);
@@ -176,7 +179,8 @@ async function snapshot(id: string) {
 }
 
 async function race(id: string, mode: "short" | "both-expired" | "f2-only-expired",
-  clientFor: (trace: Trace) => postgres.Sql = observedClient) {
+  clientFor: (trace: Trace) => postgres.Sql = observedClient,
+  allowDenialBeforeLedger = false) {
   const plain = new H0011PostgresAdapter(runtime, f1, f2); const m = material();
   const proposal = await plain.propose(auth, interaction, `proposal-${id}`, "ai", m);
   await plain.decide(auth, interaction, `decision-command-${id}`, proposal.proposalId,
@@ -190,13 +194,26 @@ async function race(id: string, mode: "short" | "both-expired" | "f2-only-expire
     proposal.proposalId, `decision-${id}`, "part-a", proposal.materialFingerprint,
     fingerprintHumanApprovalPart(m.parts[0]!), m).then(() => ({ committed: true }),
       () => ({ committed: false }));
+  let pendingSettled = false;
+  void pending.then(() => { pendingSettled = true; });
   let releasedAt = 0n; let ledgerBlockedAt = 0n;
+  let realLedgerLockObserved = false;
   try {
     if (releaseActor) {
       await waitBlocked("actor"); await delay(3000);
       await releaseActor(); actorReleased = true;
     }
-    await waitBlocked("ledger"); ledgerBlockedAt = await nowUs();
+    if (allowDenialBeforeLedger) {
+      for (let i = 0; i < 200 && !pendingSettled; i++) {
+        if (await isBlocked("ledger")) { realLedgerLockObserved = true; break; }
+        await delay(25);
+      }
+      assert.ok(pendingSettled || realLedgerLockObserved,
+        "the adversarial call must either be denied before M02 or reach the real ledger lock");
+    } else {
+      await waitBlocked("ledger"); realLedgerLockObserved = true;
+    }
+    ledgerBlockedAt = await nowUs();
     assert.equal(trace.m04Returned, true, "M04 must already have returned before ledger wait");
     assert.ok(trace.f2Expiry && trace.f2Issued && trace.f1Expiry);
     assert.equal(trace.f2Expiry - trace.f2Issued, 30_000_000n, "real protocol window must stay 30s");
@@ -212,7 +229,8 @@ async function race(id: string, mode: "short" | "both-expired" | "f2-only-expire
   }
   const outcome = await pending; const afterState = await snapshot(id);
   return { outcome, beforeState, afterState, facts: {
-    m04ReturnedBeforeLedger: trace.m04Returned, realLedgerLockObserved: true,
+    m04ReturnedBeforeLedger: trace.m04Returned, realLedgerLockObserved,
+    deniedBeforeLedger: !realLedgerLockObserved && !outcome.committed,
     protocolWindowSeconds: Number((trace.f2Expiry! - trace.f2Issued!) / 1_000_000n),
     f2ExpiredAtRelease: releasedAt > trace.f2Expiry!, f1ExpiredAtRelease: releasedAt > trace.f1Expiry!,
     f2AgeMsAtRelease: Number((releasedAt - trace.f2Issued!) / 1000n),
@@ -323,10 +341,12 @@ test("H0-012 R11/R13/R23 M2: selecting the technical overload cannot bypass fina
   assert.equal(acl!.session_user, "crm_h0_runtime"); assert.equal(acl!.current_user, "crm_h0_runtime");
   t.diagnostic(JSON.stringify({ runtimeEntryPoints: acl }));
   const r = await race("h012-overload-bypass", "f2-only-expired",
-    (trace) => chooseTechnicalLedger(observedClient(trace)));
+    (trace) => chooseTechnicalLedger(observedClient(trace)), true);
   t.diagnostic(JSON.stringify(r.facts));
   assert.equal(r.facts.f2ExpiredAtRelease, true); assert.equal(r.facts.f1ExpiredAtRelease, false);
   assert.ok(r.facts.f2AgeMsAtRelease > 30000);
+  assert.equal(r.facts.deniedBeforeLedger, true,
+    "the reserved human-unit F1 purpose must be denied before the technical M02 core");
   assert.equal(r.outcome.committed, false,
     "M2 chose a permitted overload and committed a human unit after its original F2 expired");
   assert.deepEqual(r.afterState, r.beforeState, "overload selection must not bypass the unit's final F2 authority");
