@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { randomBytes, randomUUID } from "node:crypto";
+import { createHash, randomBytes, randomUUID } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import { mkdtemp, mkdir, readFile, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -8,11 +8,13 @@ import { after, before, test } from "node:test";
 import { setTimeout as delay } from "node:timers/promises";
 import postgres from "postgres";
 import { verifyAuth } from "../../src/application/verified-auth.ts";
+import { issueTrustedContext } from "../../src/application/trusted-context.ts";
 import { classifyServerEvent } from "../../src/application/verified-interaction.ts";
 import { H0005PostgresAdapter } from "../../src/infrastructure/postgres/h0-005-adapter.ts";
-import { H0011PostgresAdapter, fingerprintHumanApprovalPart,
+import { H0011PostgresAdapter, fingerprintHumanApprovalMaterial, fingerprintHumanApprovalPart,
   type HumanApprovalMaterial } from "../../src/infrastructure/postgres/h0-011-adapter.ts";
-import type { F1SigningConfiguration } from "../../src/infrastructure/postgres/f1-codec.ts";
+import { createF1Issuer, type F1SigningConfiguration } from "../../src/infrastructure/postgres/f1-codec.ts";
+import { postgresF1Binding } from "../../src/infrastructure/postgres/transaction.ts";
 import type { F2SigningConfiguration } from "../../src/infrastructure/postgres/f2-codec.ts";
 
 // Independent expected: Plan 7.2 revalidates permissions before confirmation;
@@ -350,4 +352,196 @@ test("H0-012 R11/R13/R23 M2: selecting the technical overload cannot bypass fina
   assert.equal(r.outcome.committed, false,
     "M2 chose a permitted overload and committed a human unit after its original F2 expired");
   assert.deepEqual(r.afterState, r.beforeState, "overload selection must not bypass the unit's final F2 authority");
+});
+
+// Independent reference framing: unsigned 32-bit big-endian UTF-8 lengths.
+// Normative expectations come from the published R01–R25 matrix, not H0-011 assertions.
+function referencePack(values: readonly string[]): Buffer {
+  return Buffer.concat(values.map((value) => {
+    const bytes = Buffer.from(value, "utf8"); const size = Buffer.alloc(4);
+    size.writeUInt32BE(bytes.length); return Buffer.concat([size, bytes]);
+  }));
+}
+function referenceHash(bytes: Buffer): string { return createHash("sha256").update(bytes).digest("hex"); }
+function referenceSlot(s: HumanApprovalMaterial["amount"]): string[] {
+  return [s.state, s.state === "value" ? s.value : ""];
+}
+function referencePart(p: HumanApprovalMaterial["parts"][number]): Buffer {
+  return referencePack(["CRM-H0-HA-PART1", p.partId, p.action, p.contentVersion, p.content,
+    ...referenceSlot(p.recipient), ...referenceSlot(p.amount), ...referenceSlot(p.conditions), p.scope, p.effect]);
+}
+function referenceMaterial(m: HumanApprovalMaterial): Buffer {
+  return referencePack(["CRM-H0-HA-MATERIAL1", "1", m.action, m.contentVersion, m.content,
+    ...referenceSlot(m.recipient), ...referenceSlot(m.amount), ...referenceSlot(m.conditions), m.scope, m.effect,
+    ...referenceSlot(m.destination), m.evidence ? "required" : "none", m.evidence?.reference ?? "",
+    m.evidence?.fingerprint ?? "", m.evidence?.expiresAt ?? "", String(m.parts.length),
+    ...m.parts.flatMap((part) => { const bytes = referencePart(part);
+      return [part.partId, bytes.toString("hex"), referenceHash(bytes)]; })]);
+}
+function formalTechnicalContext() {
+  return issueTrustedContext({ identityId: "h012-independent-executor", identityKind: "technical",
+    purpose: "h0-011-human-approval", scope, requestId: randomUUID(), serverTime: new Date().toISOString() });
+}
+async function formalSnapshot() {
+  const tables = ["crm_ha.proposals", "crm_ha.parts", "crm_ha.decisions", "crm_ha.reservations",
+    "crm_ha.events", "crm_ha.command_receipts", "crm_private.unit_roots", "crm_private.unit_operations",
+    "crm_private.unit_attempts", "crm_private.unit_history", "crm_private.unit_results",
+    "crm_private.external_effect_records", "crm_private.identification_epochs"];
+  const result: Record<string, unknown> = {};
+  for (const table of tables) result[table] = await admin.unsafe(
+    `select row_to_json(t)::text v from ${table} t order by row_to_json(t)::text`);
+  return result;
+}
+async function deniedWithoutChanges(work: () => unknown) {
+  const beforeState = await formalSnapshot();
+  await assert.rejects(async () => { await work(); });
+  assert.deepEqual(await formalSnapshot(), beforeState);
+}
+
+test("H0-012 third formal execution: R01–R08 independent cases, stop at first material failure", async (t) => {
+  const api = new H0011PostgresAdapter(runtime, f1, f2);
+  async function row(name: string, work: () => Promise<void>) {
+    let passed = false;
+    await t.test(name, async () => { await work(); passed = true; });
+    // Node reports a child failure to the parent; stop scheduling subsequent rows.
+    return passed;
+  }
+  async function prepared(id: string, m = material(), decision: "approved" | "rejected" = "approved") {
+    const p = await api.propose(auth, interaction, id, "ai", m);
+    await api.decide(auth, interaction, `cmd-${id}`, id, `decision-${id}`, decision,
+      "independent synthetic review", referenceHash(referenceMaterial(m)));
+    return { p, m, decisionId: `decision-${id}` };
+  }
+  async function reserve(id: string, p: string, d: string, m: HumanApprovalMaterial,
+    partId = m.parts[0]!.partId, partHash = referenceHash(referencePart(m.parts[0]!))) {
+    return api.reserve(auth, interaction, id, p, d, partId, referenceHash(referenceMaterial(m)), partHash, m);
+  }
+  if (!await row("R01 AI origin cannot decide without human authority; live human decides", async () => {
+    const m = material(); const p = await api.propose(auth, interaction, "r01-ai", "ai", m);
+    assert.equal((await admin`select proposer_kind from crm_ha.proposals where proposal_id='r01-ai'`)[0]!.proposer_kind, "ai");
+    await deniedWithoutChanges(() => api.decide(undefined as unknown as typeof auth, interaction,
+      "r01-no-human", p.proposalId, "r01-denied", "approved", "synthetic", p.materialFingerprint));
+    // A correctly signed technical F1 is insufficient to approve, even by raw runtime SQL.
+    await deniedWithoutChanges(() => runtime.begin(async (tx) => {
+      const q = referencePack(["CRM-H0-M04", "decide", "r01-tech-decision",
+        referencePack([p.proposalId, "r01-tech", "approved", "synthetic", p.materialFingerprint]).toString("hex")]);
+      const cap = createF1Issuer(f1)(formalTechnicalContext(), await postgresF1Binding(tx), "C03", q,
+        { resource: "human_approval", action: "manage_effect" });
+      await tx`select * from crm_api.h0_m04_command(null,null,${cap.payload},${cap.mac},${q})`;
+    }));
+    await api.decide(auth, interaction, "r01-human", p.proposalId, "r01-approved", "approved",
+      "independent human decision", p.materialFingerprint);
+    assert.deepEqual((await admin`select actor_id::text,session_id::text,decision from crm_ha.decisions
+      where proposal_id='r01-ai'`)[0], { actor_id: actor, session_id: sessionId, decision: "approved" });
+  })) return;
+  if (!await row("R02 pending and rejected proposals permit neither reservation nor attempts/outcomes", async () => {
+    const m = material(); await api.propose(auth, interaction, "r02-pending", "ai", m);
+    const rejected = await prepared("r02-rejected", m, "rejected");
+    for (const id of ["r02-pending", rejected.p.proposalId]) {
+      await deniedWithoutChanges(() => reserve(`reserve-${id}`, id, `decision-${id}`, m));
+      await deniedWithoutChanges(() => api.recordAttempt(formalTechnicalContext(), `attempt-${id}`, `reserve-${id}`, `try-${id}`));
+      await deniedWithoutChanges(() => api.recordOutcome(formalTechnicalContext(), `outcome-${id}`, `reserve-${id}`,
+        `try-${id}`, "succeeded", "synthetic-unaccredited"));
+    }
+  })) return;
+  if (!await row("R03 approval alone creates no external attempt, success or reservation", async () => {
+    await prepared("r03-approved");
+    const [counts] = await admin`select
+      (select count(*)::int from crm_ha.decisions where proposal_id='r03-approved' and decision='approved') decisions,
+      (select count(*)::int from crm_ha.reservations where proposal_id='r03-approved') reservations,
+      (select count(*)::int from crm_ha.events where proposal_id='r03-approved' and event_kind not in ('proposed','approved')) execution_events,
+      (select count(*)::int from crm_private.external_effect_records where operation_id in ('r03-approved','cmd-r03-approved')) external_records`;
+    assert.deepEqual(counts, { decisions: 1, reservations: 0, execution_events: 0, external_records: 0 });
+  })) return;
+  if (!await row("R04 exact material persists byte-for-byte with an independently computed fingerprint", async () => {
+    const m = { ...material(), amount: { state: "value" as const, value: "12.30 EUR" },
+      conditions: { state: "value" as const, value: "synthetic-condition" } };
+    await prepared("r04-material", m);
+    const [stored] = await admin`select material_payload,material_fingerprint from crm_ha.proposals where proposal_id='r04-material'`;
+    assert.deepEqual(stored!.material_payload, referenceMaterial(m));
+    assert.equal(stored!.material_fingerprint, referenceHash(referenceMaterial(m)));
+    assert.equal((await admin`select material_fingerprint from crm_ha.decisions where proposal_id='r04-material'`)[0]!.material_fingerprint,
+      referenceHash(referenceMaterial(m)));
+  })) return;
+  if (!await row("R05 each changed material component denies and preserves the original approval", async () => {
+    const m = material(); const { p, decisionId } = await prepared("r05-original", m);
+    const variants: Partial<HumanApprovalMaterial>[] = [{ action: "other-action" }, { contentVersion: "v2" },
+      { content: "changed" }, { recipient: { state: "value", value: "other-recipient" } },
+      { amount: { state: "value", value: "0.01" } }, { conditions: { state: "value", value: "other-condition" } },
+      { scope: "other-scope" }, { effect: "other-effect" }];
+    for (const [i, change] of variants.entries()) {
+      const changed = { ...m, ...change };
+      assert.notEqual(referenceHash(referenceMaterial(changed)), p.materialFingerprint);
+      await deniedWithoutChanges(() => api.reserve(auth, interaction, `r05-change-${i}`, p.proposalId, decisionId,
+        "part-a", p.materialFingerprint, referenceHash(referencePart(m.parts[0]!)), changed));
+      // Supplying the changed, internally consistent hash must also fail against the stored approval.
+      await deniedWithoutChanges(() => reserve(`r05-newhash-${i}`, p.proposalId, decisionId, changed));
+    }
+  })) return;
+  if (!await row("R06 independent codec vectors distinguish Unicode, slots, framing and exact limits", async () => {
+    const m = material(); const base = referenceHash(referenceMaterial(m));
+    const reordered = Object.fromEntries(Object.entries(m).reverse()) as unknown as HumanApprovalMaterial;
+    assert.equal(fingerprintHumanApprovalMaterial(reordered), base);
+    const vectors = ["", "é", "e\u0301", "🧭", "a|b", "a:b", "a", "b", " "];
+    const hashes = vectors.map((content) => {
+      const value = { ...m, content };
+      assert.equal(fingerprintHumanApprovalMaterial(value), referenceHash(referenceMaterial(value)));
+      return fingerprintHumanApprovalMaterial(value);
+    });
+    assert.equal(new Set(hashes).size, vectors.length);
+    const slots: HumanApprovalMaterial["amount"][] = [{ state: "value", value: "" }, { state: "unknown" }, { state: "not-applicable" }];
+    assert.equal(new Set(slots.map((amount) => fingerprintHumanApprovalMaterial({ ...m, amount }))).size, 3);
+    const absent: Record<string, unknown> = { ...m }; delete absent.amount;
+    assert.throws(() => fingerprintHumanApprovalMaterial(absent as unknown as HumanApprovalMaterial));
+    assert.throws(() => fingerprintHumanApprovalMaterial({ ...m, content: "\ud800" }));
+    assert.throws(() => fingerprintHumanApprovalMaterial({ ...m, content: "nul\0byte" }));
+    const empty = { ...m, content: "" }; const max = 16384 - referenceMaterial(empty).length;
+    const exact = { ...empty, content: "x".repeat(max) };
+    assert.equal(referenceMaterial(exact).length, 16384);
+    assert.equal(fingerprintHumanApprovalMaterial(exact), referenceHash(referenceMaterial(exact)));
+    assert.throws(() => fingerprintHumanApprovalMaterial({ ...empty, content: "x".repeat(max + 1) }));
+    assert.throws(() => fingerprintHumanApprovalMaterial({ ...empty, content: "x".repeat(16385) }));
+    assert.notEqual(referenceHash(referencePack(["a|", "b"])), referenceHash(referencePack(["a", "|b"])));
+    const bytes = referenceMaterial(m); bytes[bytes.length - 1] = bytes[bytes.length - 1]! ^ 1;
+    assert.notEqual(referenceHash(bytes), base);
+  })) return;
+  if (!await row("R07 part ID, fingerprint, scope, effect and cross-proposal swaps deny", async () => {
+    const m = material(); const { p, decisionId } = await prepared("r07-parts", m);
+    await deniedWithoutChanges(() => reserve("r07-id", p.proposalId, decisionId, m, "other-part"));
+    await deniedWithoutChanges(() => reserve("r07-hash", p.proposalId, decisionId, m, "part-a", "0".repeat(64)));
+    const other = { ...m, parts: [{ ...m.parts[0]!, content: "different-proposal-part" }] };
+    const otherProposal = await prepared("r07-other", other);
+    for (const [i, part] of [{ ...m.parts[0]!, scope: "other-scope" },
+      { ...m.parts[0]!, effect: "other-effect" }, other.parts[0]!].entries()) {
+      await deniedWithoutChanges(() => reserve(`r07-swap-${i}`, p.proposalId, decisionId, m,
+        "part-a", referenceHash(referencePart(part))));
+    }
+    await deniedWithoutChanges(() => reserve("r07-decision-swap", p.proposalId, otherProposal.decisionId, m));
+    assert.equal((await reserve("r07-correct", p.proposalId, decisionId, m)).state, "reserved");
+  })) return;
+  await row("R08 positive: current independently checked evidence must permit exact approved reservation", async () => {
+    // Synthetic authorized source held only by the test authority, not a caller-provided validity flag.
+    const source = Buffer.from("independent current synthetic evidence", "utf8");
+    const validUntil = new Date(Number(await nowUs() / 1000n) + 3_600_000).toISOString();
+    const evidence = { reference: "r08-independent-source", fingerprint: referenceHash(source), expiresAt: validUntil };
+    assert.equal(evidence.fingerprint, createHash("sha256").update(source).digest("hex"));
+    assert.ok(BigInt(Date.parse(validUntil)) * 1000n > await nowUs());
+    const m = { ...material(), evidence };
+    const current = await prepared("r08-current", m);
+    const expired = await prepared("r08-expired", { ...m, evidence: { ...evidence, expiresAt: "2000-01-01T00:00:00.000Z" } });
+    const missing = await prepared("r08-missing", { ...m, evidence: { ...evidence, reference: "r08-no-source" } });
+    await deniedWithoutChanges(() => reserve("r08-expired-reserve", expired.p.proposalId, expired.decisionId, expired.m));
+    await deniedWithoutChanges(() => reserve("r08-missing-reserve", missing.p.proposalId, missing.decisionId, missing.m));
+    const noRequirement = await prepared("r08-no-evidence");
+    assert.equal((await reserve("r08-control", noRequirement.p.proposalId, noRequirement.decisionId, noRequirement.m)).state, "reserved");
+    const beforeState = await formalSnapshot(); let observed: string; let failure: string | undefined;
+    try { observed = (await reserve("r08-positive-reserve", current.p.proposalId, current.decisionId, m)).state; }
+    catch (error) { observed = "denied"; failure = (error as Error).message; }
+    if (observed === "denied") assert.deepEqual(await formalSnapshot(), beforeState);
+    t.diagnostic(JSON.stringify({ row: "R08", sourceFingerprintChecked: true, sourceStillCurrent: true,
+      approvedMaterialMatches: current.p.materialFingerprint === referenceHash(referenceMaterial(m)),
+      negativeExpiredDenied: true, negativeMissingDenied: true, noEvidenceControlReserved: true,
+      expected: "reserved", observed, failure, noResidueIfDenied: observed === "denied" }));
+    assert.equal(observed, "reserved", "H0-012-F03: required evidence has no positive revalidation/reservation route");
+  });
 });

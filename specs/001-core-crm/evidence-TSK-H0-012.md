@@ -1,6 +1,6 @@
 # TSK-H0-012 — Verificación formal independiente local
 
-Estado vigente tras la nueva reverificación: **H0-012-F02 OPEN — MATERIAL / ALTA**; **H0-012-F01 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**, sin cierre porque la matriz completa no pasa. **TSK-H0-012 sigue FAILED / NOT COMPLETED**. Se conservan por separado el primer FAILED, la corrección focal y el segundo FAILED registrado al final.
+Resumen vigente tras la tercera ejecución formal (base `98a90d1`): **TSK-H0-012 FAILED / NOT COMPLETED**; **H0-012-F03 OPEN — MATERIAL / ALTA** por ausencia del recorrido positivo de revalidación de evidencia requerido por R08. R01–R07 PASS; R08 FAIL; R09–R25 BLOCKED por fail-fast, sin PASS heredados. **H0-012-F01/F02 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**: sus reproducciones y controles pasan en esta ejecución, pero no se cierran sin toda la matriz. Se conservan íntegramente los dos FAILED anteriores y sus correcciones focales; la tercera etapa se añade al final.
 
 ## V-EVI / preflight y orden de trabajo
 
@@ -380,3 +380,93 @@ Cadena desde vacío M01→F1→M02→M03→M04→F01→F02 PASS en PostgreSQL 17
 Total de regresión: **201 tests PASS, 0 FAIL, 0 skipped, 0 cancelled**. No apareció defecto material diferente de F02.
 
 Estado tras esta etapa: **H0-012-F02 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**; **H0-012-F01 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**; **TSK-H0-012 = FAILED / NOT COMPLETED**; H0-011 conserva su antecedente COMPLETED; H0-013 NOT STARTED. R01–R25 no se ha reejecutado ni reinterpretado. PLAN-AUTH-002/006 PENDING globalmente; Auth/TOTP/recovery/dispositivos y H0-M03/M04 hosted no acreditados. Supabase Staging no se conectó ni modificó. Próximo paso, solo con nueva autorización: reverificación completa e independiente R01–R25.
+
+## Tercera ejecución formal independiente — base 98a90d1 (2026-09-27)
+
+Preflight: `main`, remoto correcto, árbol limpio, HEAD=origin/main=`98a90d155dbb8669c1daa331a6fc377e8c2cee5f`. Relectura selectiva de Tasks §2.2–2.3/H0-011/012, Plan B01/B08/C02/C03/C05/T08/§8, SPEC HA-001–005/CONC-002/AC-053–056/E1/E2/E4, SM G1–G6/SM-HA-01–03 y D009/D016/D038. La matriz R01–R25 superior permanece literalmente intacta.
+
+Orden de ejecución: escenarios históricos F01/F02 y controles; después casos independientes R01–R08 en orden y continuación R09–R25 solo si no aparece defecto material. Los controles históricos no acreditan filas enteras por sí solos. Los casos con efectos/denegaciones comparan persistencia mediante conexión administrativa independiente del login runtime ordinario; R06 contrasta el codec puro. Primer fallo material: detener matriz y publicar reproducción, sin cambios productivos.
+
+Expected R08 fijado antes de ejecutar: evidencia caducada/no verificable deniega; una propuesta idéntica aprobada con evidencia sintética vigente, fuente identificada y fingerprint contrastado debe disponer de un recorrido positivo autorizado de revalidación/reserva. No se exige conector comercial, pero tampoco se acepta un rechazo incondicional de toda evidencia requerida. Fuentes: SPEC-FR-HA-002 y AC-054; Plan §7.2 (fuentes/permisos antes de confirmar) y §8 (revalidar datos/estado/permisos antes de consumir); Tasks §2.2 V-SM/V-DAT y fichas H0-011/012 (casos positivos/negativos); SM G2/HA-03. Se conserva la interpretación B fijada previamente y ratificada expresamente en esta autorización.
+
+### Resultado: H0-012-F03 — OPEN / MATERIAL / ALTA
+
+**Defecto:** no existe un recorrido positivo de revalidación/reserva cuando el material aprobado requiere evidencia, aunque la fuente sintética sea vigente y verificable. Es una capacidad funcional obligatoria incompleta, no una evasión de autorización ni un efecto indebido: el rechazo es seguro, pero no satisface el positivo R08. No se rebaja el expected ni se introduce un verificador durante esta comprobación.
+
+**Fuentes y alcance:** SPEC-FR-HA-002/AC-054 exigen comprobar aplicabilidad y revalidación; Plan §7.2 exige revalidar fuentes/permisos antes de confirmar y §8 exige datos/estado/permisos vigentes antes de consumir. Tasks H0-011/012 asignan explícitamente la revalidación de evidencia, con positivos y negativos conforme §2.2. SM G2/HA-03 conserva guardas/evidencia, sin fabricar éxito. La interpretación B y la exigencia positiva R08 se fijaron antes de esta ejecución; no se derivan del comportamiento actual ni de los tests H0-011.
+
+**Reproducción independiente:** `R08 positive: current independently checked evidence must permit exact approved reservation`, dentro de la suite H0-012.
+
+1. Crear fuente sintética en memoria del ensayo, calcular SHA-256 de sus bytes y comprobar la huella independientemente; vigencia una hora posterior al `clock_timestamp()` PostgreSQL real.
+2. Registrar propuesta y decisión humana válida mediante F2 con referencia, huella y vigencia exactas incluidas en el material aprobado.
+3. Controles negativos: propuesta con evidencia caducada y otra con referencia sin fuente; ambas deniegan sin alterar persistencia.
+4. Control positivo sin requisito de evidencia: misma autoridad y parte sintética reservan correctamente.
+5. Intentar reservar la propuesta de evidencia vigente usando exactamente su material, decisión y parte aprobados.
+6. Expected: existe revalidación confiable positiva y reserva permitida. Observed: `H0_011_EVIDENCE_REVALIDATION_REQUIRED`, sin llegar a la unidad de reserva. Snapshot independiente de 13 tablas íntegramente idéntico antes/después.
+
+Diagnóstico observado: `sourceFingerprintChecked=true`, `sourceStillCurrent=true`, `approvedMaterialMatches=true`, `negativeExpiredDenied=true`, `negativeMissingDenied=true`, `noEvidenceControlReserved=true`, `expected=reserved`, `observed=denied`, `noResidueIfDenied=true`.
+
+**Límite importante del ensayo:** es el test quien comprueba los bytes y la vigencia de la fuente sintética. No se afirma que producción los haya revalidado ni que un campo `evidence_valid` de cliente otorgue autoridad. Precisamente falta una interfaz/capacidad confiable que permita acreditar el positivo: no basta con enviar referencia/fingerprint/expiry. No se requiere ni se ensaya proveedor real.
+
+**Causa delimitada por inspección:** `src/infrastructure/postgres/h0-011-adapter.ts::reserve` rechaza incondicionalmente cualquier `material.evidence`. Además, la rama `reserve` de `202609270000_h0_m04_human_approval.sql` deniega cuando el campo de evidencia del material no es `none` (`H0_M04_EVIDENCE_UNVERIFIED`). No hay recorrido positivo alternativo en esa rama. La comprobación SQL es inspección de código, no un ataque SQL adicional ejecutado tras fail-fast. Producto y migraciones permanecen intactos.
+
+**Impacto:** toda parte dependiente de evidencia queda permanentemente no reservable, incluso con las restantes guardas satisfechas. R08 FAIL invalida el cierre formal de H0-012. Primer defecto material nuevo; no se buscan otros ni se ejecutan R09–R25 después. F01/F02 no se reabren por este defecto distinto y tampoco se cierran formalmente.
+
+### Matriz de resultados de esta ejecución
+
+Los requisitos/expected son los de la matriz normativa superior, conservada literalmente. Para filas BLOCKED no hay ejecución completa ni observación suficiente; los controles previos se identifican sin convertirlos en PASS de fila.
+
+| ID | Setup / prueba asociada | Observed frente al expected fijado | Resultado |
+|---|---|---|---|
+| R01 | Subtest R01: origen IA, decisión sin auth, F1 técnica válida por SQL runtime y decisión humana | IA persistida como origen; intentos sin F2 denegados sin cambios; humano vigente decide con actor/session correctos | PASS |
+| R02 | Subtest R02: pending y rejected; reserve/attempt/outcome | Todos denegados; snapshot sin residuos | PASS |
+| R03 | Subtest R03: aprobar y consultar conexión independiente | 1 decisión, 0 reservas, 0 eventos de ejecución, 0 registros externos; el attempt técnico del ledger no es intento de proveedor | PASS |
+| R04 | Subtest R04: todos los campos materiales, importe literal sintético y condiciones | Bytes persistidos y huella coinciden con framing/hash de referencia independiente; decisión ligada a esa huella | PASS |
+| R05 | Subtest R05: action/version/content/recipient/amount/conditions/scope/effect, uno por uno | Huella anterior y nueva variante autoconsistente denegadas; original e historial intactos | PASS |
+| R06 | Subtest R06: orden, UTF-8, Unicode compuesto/descompuesto, vacío/ausente, slots, separadores, límites y byte alterado | Orden equivalente; UTF-8 exacto sin normalización implícita; diferencias materiales distintas; 16384 bytes aceptados, exceso/UTF-8 inválido/NUL denegados | PASS |
+| R07 | Subtest R07: ID/huella/scope/effect de parte, material y decisión de otra propuesta | Sustituciones denegadas sin cambios; parte exacta reservada | PASS |
+| R08 | Subtest R08 y controles descritos arriba | Negativos denegados; sin evidencia reserva; positivo vigente/verificable rechazado incondicionalmente | FAIL — F03 |
+| R09 | Estados humanos completos no ejecutados | Bloqueado por F03; ningún PASS heredado | BLOCKED |
+| R10 | Matriz completa de locks no ejecutada; control previo expira en actor | Observación focal válida, insuficiente para toda la fila | BLOCKED |
+| R11 | Escenario original F01 y controles corto/largo/combinado ejecutados antes de R08 | Rollback con F2 expirada/F1 viva; fila no completada como matriz total por fail-fast | BLOCKED |
+| R12 | Carreras revoke/disable/generation y órdenes opuestos no ejecutados | Bloqueado por F03 | BLOCKED |
+| R13 | F02 original ejecutado antes de R08; combinaciones restantes no ejecutadas | Wrapper técnico deniega F1 humana antes del core; partición completa no acreditada en esta etapa | BLOCKED |
+| R14 | Acceso directo multirrol no ejecutado | Bloqueado por F03 | BLOCKED |
+| R15 | Matriz GUC/reuse/temp no ejecutada | Bloqueado por F03 | BLOCKED |
+| R16 | Carrera misma parte no ejecutada | Bloqueado por F03; concurrencia de unidades independientes previa no sustituye este caso | BLOCKED |
+| R17 | Partes independientes no ejecutadas | Bloqueado por F03 | BLOCKED |
+| R18 | Uncertain/retry no ejecutado | Bloqueado por F03 | BLOCKED |
+| R19 | Reconcile exacto/mismatches no ejecutado | Bloqueado por F03 | BLOCKED |
+| R20 | Known failure/success/consumed no ejecutado | Bloqueado por F03 | BLOCKED |
+| R21 | Replay humano y pérdida post-COMMIT observados en control previo; E2 completo no ejecutado | Observación parcial, no PASS de fila | BLOCKED |
+| R22 | Rollback de autoridad final observado en controles; inyecciones completas no ejecutadas | Snapshots intactos en abortos observados; no acredita toda la atomicidad requerida | BLOCKED |
+| R23 | Derechos de los tres entrypoints consultados en F02; catálogo/roles completos no ejecutados | Inventario completo y ataques pendientes | BLOCKED |
+| R24 | Bootstrap cadena histórica desde vacío usado; upgrade/fallos/C01 completos no ejecutados | Bootstrap no sustituye V-MIG/C01 independiente completo | BLOCKED |
+| R25 | Procedencia histórica completa no ejecutada | Bloqueado por F03; R01 no sustituye la distinción productor/registrador/aprobador/ejecutor | BLOCKED |
+
+### F01/F02 y controles históricos reejecutados
+
+- Control corto: F2 edad `133 ms`, ledger wait real `104 ms`, COMMIT válido y una reserva.
+- Espera M02 larga: F2 edad `30274 ms`, wait real `30246 ms`; expiración y rollback, sin residuos.
+- F01 original combinado: M04 retorna antes del ledger, lock ledger real, F2 edad `30283 ms`, wait ledger `27222 ms`, F2 expirada y F1 todavía viva; `committed=false`, actividad sin cambio, cero reservas/events/receipts/operations/roots/attempts/history/results/intents nuevos. Proposal y decisión preparatorias previas conservadas.
+- Expiración primera fase: lock real de actor >30 s, DENY antes de ledger y snapshot íntegro.
+- Control normal concurrente, replay durable y pérdida simulada de respuesta realmente posterior al COMMIT: PASS; no se confunde con rollback pre-COMMIT ni con incertidumbre externa.
+- F02 original: exactamente overload de tres argumentos y capability humana legítima, F2 edad `30276 ms`, F1 viva; `deniedBeforeLedger=true`, `realLedgerLockObserved=false`, `committed=false`, snapshot íntegro. El rechazo temprano es el esperado tras la partición; no se finge espera ledger que ya no se alcanza.
+
+Estos seis escenarios pasan, pero **F01/F02 siguen FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION** porque toda R01–R25 no ha pasado. No se usa el resultado histórico 201/201 como acreditación actual.
+
+### Ejecución, comprobaciones de publicación y límites
+
+Entorno local: PostgreSQL 17.11 (Postgres.app), Node 24.21.0, pnpm 11.19.0. Suite independiente ejecutada con:
+
+`POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin node --test --experimental-strip-types tests/integration/postgres-h0-012.test.ts`
+
+Resultado Node: **15 tests, 13 PASS, 2 FAIL, 0 skipped, 0 cancelled**, exit 1; duración `122843.933375 ms`. Hay **14 casos hoja: 13 PASS y 1 FAIL material R08**; el segundo FAIL de Node es el contenedor que propaga ese mismo fallo, no otro defecto. Se conserva el assert positivo fallido, sin invertirlo ni saltarlo.
+
+`pnpm run typecheck` y `pnpm run lint` PASS tras corregir errores de autoría del nuevo test (sintaxis/tipo, sin cambios de producto ni expected). La regresión global (`install --frozen-lockfile`, audit, unitarios, `test:postgres` completo, build) **NO EJECUTADA en esta etapa por fail-fast**, conforme a la condición del bloque 34 de esta autorización. No se atribuyen conteos previos a esta ejecución.
+
+Comprobaciones de publicación: `git diff --check` PASS; solo los cinco archivos autorizados; ninguna modificación de producto/migraciones/fuentes normativas. Comparación programática contra HEAD confirma que desde el primer encabezado histórico V-EVI todo el contenido anterior de evidencia (incluida la matriz normativa) permanece literal y contiguo, y que los seis cuerpos de tests anteriores están intactos. Secret scan del diff añadido: cero coincidencias de PAT, JWT, private key, SCRAM, URL PostgreSQL, asignación de credencial literal o email; revisión manual sin K-F1/K-F2, TOTP, QR, recovery secret ni datos reales. Las claves de fixtures existentes siguen generándose en memoria, no versionadas. La publicación conserva el fallo de reproducción explícito; no declara una suite verde.
+
+Estado: H0-011 antecedente COMPLETED de implementación; H0-012 FAILED / NOT COMPLETED; F03 OPEN — MATERIAL / ALTA; F01/F02 pendientes formales. H0 IN PROGRESS, H0-013 NOT STARTED. PLAN-AUTH-002/006 PENDING globalmente. Auth/TOTP/recovery/dispositivos reales y H0-M03/M04 hosted siguen no acreditados. Supabase Staging no conectado ni modificado. D037/D038, fuentes APPROVED, código productivo, migraciones y Last Approved Commit `6248820e3253a9d88755ed0a4996fff8f865690e` intactos.
+
+Próximo paso, SIN EJECUTAR: autorización humana separada para corregir H0-012-F03 (recorrido positivo confiable de revalidación de evidencia); posteriormente nueva ejecución formal completa R01–R25. Esta publicación no autoriza ese fix ni H0-013.
