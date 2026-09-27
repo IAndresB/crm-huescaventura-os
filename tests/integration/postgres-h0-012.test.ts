@@ -54,7 +54,7 @@ before(async () => {
   await admin.unsafe(`create database ${database} owner crm_h0_migration`);
   await admin.end(); admin = connect("h012_bootstrap"); migration = connect("crm_h0_migration");
   const files = (await readdir(migrations)).filter((name) => name.endsWith(".sql")
-    && name <= "202609270000_h0_m04_human_approval.sql").sort();
+    && name <= "202609270001_h0_m04_f2_unit_revalidation_fix.sql").sort();
   for (const file of files) {
     if (file === "202609150000_h0_m01_roles.sql") continue;
     const authority = file.endsWith("_authorities.sql") ? admin : migration;
@@ -238,4 +238,56 @@ test("H0-012 R11: expired F2 must roll back M04 plus M02 even while later F1 rem
   assert.ok(r.facts.f2AgeMsAtRelease > 30000);
   assert.equal(r.outcome.committed, false, "H0-012-F01: expired human authority committed reservation and ledger");
   assert.deepEqual(r.afterState, r.beforeState, "DENY must preserve preparation but no new reservation/ledger/activity");
+});
+
+// Focal correction tests only; these do not resume the R01–R25 verification.
+test("F01 correction: expiry in the first phase denies before ledger and preserves every snapshot field", async (t) => {
+  const id = "h012-first-phase-expired";
+  const plain = new H0011PostgresAdapter(runtime, f1, f2); const m = material();
+  const p = await plain.propose(auth, interaction, `proposal-${id}`, "ai", m);
+  await plain.decide(auth, interaction, `decision-command-${id}`, p.proposalId,
+    `decision-${id}`, "approved", "synthetic correction check", p.materialFingerprint);
+  const beforeState = await snapshot(id); const trace: Trace = { m04Returned: false };
+  const release = await lock(actorBlocker, "actor");
+  const pending = new H0011PostgresAdapter(observedClient(trace), f1, f2).reserve(auth, interaction,
+    id, p.proposalId, `decision-${id}`, "part-a", p.materialFingerprint,
+    fingerprintHumanApprovalPart(m.parts[0]!), m).then(() => true, () => false);
+  try {
+    await waitBlocked("actor");
+    assert.ok(trace.f2Expiry && trace.f2Issued);
+    assert.equal(trace.f2Expiry - trace.f2Issued, 30_000_000n);
+    while (await nowUs() <= trace.f2Expiry + 250_000n) await delay(50);
+    t.diagnostic(`real actor wait; F2 age >30s: ${await nowUs() > trace.f2Expiry}`);
+  } finally { await release(); }
+  assert.equal(await pending, false);
+  assert.equal(trace.m04Returned, false);
+  assert.equal(trace.f1Expiry, undefined, "no ledger capability issued after failed M04");
+  assert.deepEqual(await snapshot(id), beforeState);
+});
+
+test("F01 correction: normal concurrent units, durable replay and actual post-COMMIT response loss", async () => {
+  const other = connect("crm_h0_runtime");
+  try {
+    const a = new H0011PostgresAdapter(runtime, f1, f2);
+    const b = new H0011PostgresAdapter(other, f1, f2);
+    const m = material();
+    const [p1, p2] = await Promise.all([
+      a.propose(auth, interaction, "f01-normal-a", "ai", m),
+      b.propose(auth, interaction, "f01-normal-b", "ai", m),
+    ]);
+    assert.equal(p1.commandState, "applied"); assert.equal(p2.commandState, "applied");
+    const fixedBefore = await admin`select row_to_json(r)::text v from crm_private.unit_results r where operation_id='f01-normal-a'`;
+    // Both adapter promises resolved AFTER COMMIT. A separate connection sees
+    // the fixed result before the client deliberately discards its response.
+    assert.equal(fixedBefore.length, 1);
+    await assert.rejects(async () => { throw new Error("SYNTHETIC_RESPONSE_LOST_AFTER_COMMIT"); }, /RESPONSE_LOST_AFTER_COMMIT/u);
+    const replay = await b.propose(auth, interaction, "f01-normal-a", "ai", m);
+    assert.equal(replay.commandState, "previous"); assert.equal(replay.proposalId, p1.proposalId);
+    assert.deepEqual(await admin`select row_to_json(r)::text v from crm_private.unit_results r where operation_id='f01-normal-a'`, fixedBefore);
+    const [counts] = await admin`select
+      (select count(*)::int from crm_ha.proposals where proposal_id='f01-normal-a') proposals,
+      (select count(*)::int from crm_ha.events where event_id='f01-normal-a') events,
+      (select count(*)::int from crm_private.unit_history where operation_id='f01-normal-a') history`;
+    assert.deepEqual(counts, { proposals: 1, events: 1, history: 1 });
+  } finally { await other.end({ timeout: 1 }); }
 });

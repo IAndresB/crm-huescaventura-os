@@ -150,7 +150,8 @@ export class H0011PostgresAdapter {
   }
 
   private async commitLedger(tx: PostgresTransaction, context: TrustedExecutionContext, commandId: string,
-    state: string, intent?: { effectId: string; recipientReference: string; contentVersion: string }) {
+    state: string, intent: { effectId: string; recipientReference: string; contentVersion: string } | undefined,
+    human: { payload: Buffer; mac: Buffer; input: Buffer } | undefined) {
     const attemptId = `attempt-${randomUUID()}`;
     const rootId = `ha-${commandId}`;
     const i = intent ? intentMaterial(intent.effectId, intent.recipientReference, intent.contentVersion)
@@ -163,7 +164,11 @@ export class H0011PostgresAdapter {
       attemptId, `H0-011 ${state}`, "h0-011", "", state, "none", ...i]);
     const cap = this.f1(context, await postgresF1Binding(tx), "C03", q,
       { resource: "internal_unit", action: "commit_internal_unit" });
-    const result = await tx<DurableRow[]>`select * from crm_api.commit_internal_unit(${cap.payload},${cap.mac},${q})`;
+    // This is the last SQL operation in command's transaction. The human
+    // overload revalidates the ORIGINAL F2 after all delegated M02 work.
+    const result = human
+      ? await tx<DurableRow[]>`select * from crm_api.commit_internal_unit(${cap.payload},${cap.mac},${q},${human.payload},${human.mac},${human.input})`
+      : await tx<DurableRow[]>`select * from crm_api.commit_internal_unit(${cap.payload},${cap.mac},${q})`;
     if (!result[0]) throw new Error("H0_011_LEDGER_DENIED");
     return result[0];
   }
@@ -191,7 +196,8 @@ export class H0011PostgresAdapter {
       const rows = await tx.unsafe<DbReceipt[]>("select * from crm_api.h0_m04_command($1,$2,$3,$4,$5)",
         [f2.payload, f2.mac, f1.payload, f1.mac, q]);
       if (!rows[0]) throw new Error("H0_011_COMMAND_DENIED");
-      await this.commitLedger(tx, context, input.commandId, input.ledgerState, input.intent);
+      await this.commitLedger(tx, context, input.commandId, input.ledgerState, input.intent,
+        f2.payload && f2.mac ? { payload: f2.payload, mac: f2.mac, input: q } : undefined);
       const r = rows[0];
       return { commandState: r.command_state, proposalId: r.proposal_id,
         ...(r.decision_id ? { decisionId: r.decision_id } : {}),
