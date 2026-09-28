@@ -57,6 +57,8 @@ comercial nueva.
 - `pnpm audit --prod`: **0 vulnerabilidades**.
 - `pnpm run typecheck`: PASS.
 - `pnpm run lint`: PASS.
+- `pnpm run build`: PASS.
+- `pnpm install --frozen-lockfile`: lockfile sin cambios.
 
 La verificación formal independiente y su oráculo previo están separados en
 `evidence-TSK-H0-014.md`; estos PASS de implementación no se heredan como PASS

@@ -1,8 +1,9 @@
 # TSK-H0-014 — verificación formal independiente de revocación global
 
-Estado al fijar el oráculo: EXPECTED NORMATIVO FIJADO / EJECUCIÓN PENDIENTE.
+Estado: COMPLETED en verificación formal local independiente.
 Fecha: 2026-09-28. Alcance: Work Local y PostgreSQL efímero con datos
 sintéticos; sin Supabase hosted, Auth real, dispositivos ni Production.
+Commit productivo verificado: `ddfaaf840162070c3bb40bd5598d388c6db1cf70`.
 
 Este bloque se registra antes de inspeccionar o escribir las assertions de
 H0-014. Las fuentes son Plan §§6.3–6.4, PLAN-AUTH-003, D025, ARCH-DEC-004,
@@ -44,3 +45,46 @@ Fail-fast: el primer incumplimiento material nuevo se registra como
 `H0-014-F01` (y sucesivos), preservando reproducer, expected, observed,
 materialidad y cronología. Tras una corrección inequívoca se repite esta matriz
 completa desde cero; ningún PASS de implementación se hereda.
+
+## Ejecución formal independiente
+
+La implementación H0-013 se publicó primero y se verificó de nuevo desde un
+clúster PostgreSQL 17.11 efímero nuevo sobre el commit anterior. Los datos, IDs,
+sesiones, epochs y puertos Auth son sintéticos e independientes de los usados
+por la suite de implementación.
+
+| Filas | Observed | Resultado |
+|---|---|---|
+| R01–R04, R13, R16, R18 | Cierre durable; emisor y demás sesiones antiguas denegados; persistencia comprobada desde otra conexión; solo una identificación nueva completa obtiene la generación vigente. | PASS |
+| R05–R08 | Fallo, incertidumbre y fallo post-proveedor nunca informan éxito ni reabren Core; un fallo en la unidad Core hace rollback y no llama Auth. | PASS |
+| R09 | Dos cierres concurrentes serializan por actor → sesión → epoch; uno confirma y coordina Auth una sola vez. | PASS |
+| R10 | Una operación que obtuvo locks primero termina; el cierre espera y toda autoridad anterior queda después denegada. | PASS |
+| R11 | Si el cierre mantiene primero el lock de actor, la operación antigua se deniega sin efecto ni actualización de actividad. | PASS |
+| R12, R14, R15 | Revocación individual, disable, estado incompleto/caducado, generación anterior y ruta no humana no reviven autoridad. | PASS |
+| R17, R20, R21 | SQL/GUC/Data API/PUBLIC/overloads/`SET ROLE`, capability alterada/reutilizada y cruce F1/F2/TTE quedan denegados; owners, RLS y grants son mínimos. | PASS |
+| R19 | H0-M05 aplica desde H0-M04/D039, conserva fixtures/objetos, falla atómicamente y reaplica limpiamente. | PASS |
+| R22 | Regresión PostgreSQL completa, incluidas H0-005/006, H0-009/010 y H0-011/012. | PASS |
+| R23 | No se atribuye a los dobles locales ninguna acreditación Auth/hosted/Production. | PASS |
+
+Comandos y resultados:
+
+- `tests/integration/postgres-h0-014.test.ts`: **8/8 PASS**, 0 skipped,
+  0 cancelled.
+- `pnpm run test:postgres`: **254/254 PASS**, 0 skipped, 0 cancelled.
+- `pnpm test`: **31/31 PASS**.
+- `pnpm audit --prod`: **0 vulnerabilidades**.
+- `pnpm run typecheck`, `pnpm run lint`, `pnpm run build` y
+  `git diff --check`: PASS.
+
+## Defectos y conclusión
+
+No apareció ningún defecto material de producto `H0-014-F01+`. Los dos fallos
+observados al construir el harness fueron de la propia prueba (mensaje esperado
+y temporización de una promesa); se conservaron los expected normativos y no se
+cambió el producto para obtener PASS. La matriz R01–R23 queda **23/23 PASS** y TSK-H0-014
+queda COMPLETED solo en alcance local.
+
+PLAN-AUTH-003 y PLAN-AUTH-005 permanecen `PENDING` globalmente: faltan Auth real,
+objetos H1, todas las superficies H6, dispositivos y recuperación/break-glass.
+PLAN-AUTH-002/006 no cambian. H0 sigue `IN PROGRESS`; H0-015 continúa
+`NOT STARTED`.

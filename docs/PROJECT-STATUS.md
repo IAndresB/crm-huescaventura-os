@@ -54,16 +54,20 @@ Last updated: 2026-09-28
 - TSK-H0-011 — Autorizar y reservar un efecto exacto: COMPLETED como antecedente de implementación local el 2026-09-27. [Evidencia histórica](../specs/001-core-crm/evidence-TSK-H0-011.md): H0-M04 y 12/12 pruebas propias, regresión 163/163 PostgreSQL + 27/27 unitarias. La quinta verificación H0-012 detectó F05 y dejó F01–F04 pendientes formales en aquella etapa. El cierre local posterior F01–F05 consta en H0-012 abajo. Sin proveedor ni efecto externo real.
 
 - TSK-H0-012 — COMPLETED en alcance formal local el 2026-09-28 sobre `08fc36b80e46e1026de3e20e9debfc4379aeff08`: [evidencia](../specs/001-core-crm/evidence-TSK-H0-012.md). Nueva R01–R25 25/25 PASS, 32/32 tests; F01–F05 CLOSED localmente. Regresión 271/271 total. Historial de FAIL conservado, sin F06+ material. Hosted M03/M04 no acreditados.
+- TSK-H0-013 — COMPLETED en implementación local el 2026-09-28 sobre `ddfaaf840162070c3bb40bd5598d388c6db1cf70`: [evidencia](../specs/001-core-crm/evidence-TSK-H0-013.md). H0-M05, coordinación Core/Auth, cierre monotónico por `access_generation`, diagnóstico de fallo parcial e historial de intentos; 6/6 focales PASS. Sin Auth real ni hosted M05.
+- TSK-H0-014 — COMPLETED en verificación formal local independiente el 2026-09-28: [evidencia](../specs/001-core-crm/evidence-TSK-H0-014.md). Matriz R01–R23 23/23 PASS, 8/8 pruebas formales y regresión 254/254 PostgreSQL + 31/31 unitarios. Sin H0-014-F01+ material; Auth real/hosted/Production no acreditados.
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS. TSK-H0-001–012 COMPLETED en sus respectivos alcances históricos/locales; H0-012 se cierra por nueva R01–R25 completa. H0-013 y posteriores NOT STARTED. H0 no está completado.
+- Implementación y H0: IN PROGRESS. TSK-H0-001–014 COMPLETED en sus respectivos alcances históricos/locales. H0-015 y posteriores NOT STARTED. H0 no está completado.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
 
-- D039/F05 y H0-012 cerrados localmente; siguiente tarea H0-013 NOT STARTED, sin ejecutar. Hosted M03/M04 NO ACREDITADOS; PLAN-AUTH-002/006 PENDING globalmente.
+- H0-013/014 cerrados localmente; siguiente tarea H0-015 NOT STARTED, sin ejecutar. Hosted M03/M04/M05 NO ACREDITADOS; PLAN-AUTH-002/003/005/006 PENDING globalmente.
+
+- La revocación global H0 deniega de inmediato en Core toda autoridad anterior, incluida la emisora, y conserva fallo/resultado Auth parcial sin éxito ficticio. El puerto Auth se probó solo con dobles locales: no acredita invalidación de tokens/sesiones en Supabase real ni dispositivos.
 
 - F01–F05 CLOSED localmente tras nueva R01–R25: 25/25 filas y 32/32 tests PASS. No F06+ material nuevo. Regresión 240/240 PostgreSQL + 31/31 unitarios. Hosted/Production/efectos externos intactos.
 - Sincronización Architecture/Plan con D039 completada documentalmente el 2026-09-28: referencias de autoridad, login/pool, binding, atomicidad, final check, replay y entornos alineadas; D037/D038/D039 intactas. No acredita fix F05 ni cierre H0-012. La autorización posterior permite continuar automáticamente diseño, puerta local, implementación y reverificación dentro de D039/F05/H0-012; detenerse ante bloqueo de diseño o cambio normativo. Sin hosted ni H0-013.
@@ -83,7 +87,7 @@ Last updated: 2026-09-28
 
 ## Current Blockers
 
-- H0-005 implementada y H0-006 verificada localmente conforme D038; H0-009/010 completadas localmente y H0-M02 validada en Staging técnico. H0-M03 no se aplicó a Staging.
+- H0-005/006, H0-009/010, H0-011/012 y H0-013/014 están completadas localmente en sus alcances. H0-M02 fue validada en Staging técnico; H0-M03/M04/M05 no se aplicaron a Staging. H0-015 permanece NOT STARTED.
 - PLAN-PENDING-003 bloquea únicamente el acceso real y la preparación de Production H6 por verificaciones técnicas no ejecutadas; PLAN-PENDING-001/002/004 permanecen resueltos en su alcance. No bloquea las fases documentales 07/08 completadas.
 - ARCH-PENDING-001 activo y PENDING: Proveedor(es) definitivos de Telefonía IA y WhatsApp; bloquea únicamente la selección o implementación dependiente. Pueden ser comunes o diferentes; comparar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades/proveedor de WhatsApp por separado; origen BR-PENDING-001/035 y D014.
 - ARCH-PENDING-002 activo y PENDING: bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production; origen ARCH-PENDING-002.

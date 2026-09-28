@@ -6,9 +6,9 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — TSK-H0-001–012 COMPLETED en sus alcances históricos/locales; H0-013 y posteriores NOT STARTED
-H0: IN PROGRESS; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; H0-013 y posteriores NOT STARTED; H1–H6 NOT STARTED
-Pruebas técnicas: nueva R01–R25 formal 25/25 filas PASS, 32/32 tests; regresión 240/240 PostgreSQL + 31/31 unitarios. Auth real/recuperación NO EJECUTADAS; H0-M02 hosted validado separadamente; hosted M03/M04 NO ACREDITADOS; Supabase Staging SIN CAMBIOS
+Implementation: IN PROGRESS — TSK-H0-001–014 COMPLETED en sus alcances históricos/locales; H0-015 y posteriores NOT STARTED
+H0: IN PROGRESS; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; H0-013/014 COMPLETED localmente; H0-015 y posteriores NOT STARTED; H1–H6 NOT STARTED
+Pruebas técnicas: H0-014 R01–R23 23/23 PASS, 8/8 tests formales; regresión 254/254 PostgreSQL + 31/31 unitarios. Auth real/recuperación NO EJECUTADAS; H0-M02 hosted validado separadamente; hosted M03/M04/M05 NO ACREDITADOS; Supabase Staging SIN CAMBIOS
 Last updated: 2026-09-28
 
 ## 1. Autoridad, base y alcance
@@ -302,35 +302,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-013 — Revocar globalmente acceso al Core y renovaciones
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: implementación.
+- [x] **Ejecución: COMPLETED en alcance local. Evidencia: EJECUTADA.** Hito: H0. Tipo: implementación. Registro: [evidence-TSK-H0-013.md](evidence-TSK-H0-013.md).
 - **Objetivo y alcance:** Todas las sesiones previas, incluida emisora; persistencia del rechazo y coordinación con Auth, sin éxito ficticio ante fallo parcial.
 - **Fuentes exactas:** Plan §§6.3–6.4; PLAN-AUTH-003, PLAN-AUTH-005, D025, D031. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-013.
 - **Bloques, contratos y unidades:** B01/B08; C01/C03; —.
-- **Entregable previsto:** Áreas propuestas de revocación y diagnóstico de fallos parciales. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable ejecutado:** Coordinación Core/Auth con cierre Core durable, diagnóstico de fallos parciales e historial de intentos Auth mediante H0-M05; sin credenciales ni proveedor real.
 - **Dependencias y precondiciones:** [TSK-H0-006], [TSK-H0-010]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-003: preparación/ensayo aislado; cobertura de objetos en H1 y superficies completas en H6. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Registrar revocación efectiva de sesiones previas del Core, coordinar Auth y reevaluar carreras sin confiar solo en expiración de JWT.
+- **Bloqueo localizado / condición para levantarlo:** El tramo local H0 de PLAN-AUTH-003 está implementado; cobertura de objetos en H1, superficies completas en H6 y Auth real siguen pendientes globalmente. El detalle de evidencia/decisión y puerta está en §7.
+- **Acción ejecutada:** Revocación efectiva de sesiones previas del Core mediante `access_generation`, coordinación posterior con el puerto Auth y carreras revalidadas sin confiar en expiración de JWT.
 - **Salida observable:** Lecturas, mutaciones y resultados idempotentes disponibles en H0 deniegan sesiones revocadas; nuevas identificaciones se distinguen de las sesiones previas.
 - **Verificación y esperado:** Otro dispositivo revoca con JWT vigente; emisora también denegada; refresh/respuesta tardíos no reactivan; carreras de mutación y nueva identificación conservan orden verificable; fallo parcial deja bloqueo explícito. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H0-014].
 - **Integración adicional obligatoria:** [TSK-H1-016], [TSK-H6-008], [TSK-H6-011]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia acreditada localmente:** V-EVI [evidence-TSK-H0-013.md](evidence-TSK-H0-013.md), H0-M05, 6/6 pruebas focales de implementación y regresión 254/254 PostgreSQL + 31/31 unitarios. No acredita Auth ni hosted.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-014"></a>
 
 #### TSK-H0-014 — Verificar: Revocar globalmente acceso al Core y renovaciones
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED en alcance formal local. Evidencia: EJECUTADA.** Hito: H0. Tipo: comprobación. Registro: [evidence-TSK-H0-014.md](evidence-TSK-H0-014.md).
 - **Objetivo y alcance:** Todas las sesiones previas, incluida emisora; persistencia del rechazo y coordinación con Auth, sin éxito ficticio ante fallo parcial.
 - **Fuentes exactas:** Plan §§6.3–6.4; PLAN-AUTH-003, D025. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-014.
 - **Bloques, contratos y unidades:** B01/B08; C01/C03; —.
-- **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable ejecutado:** Matriz normativa R01–R23 fijada antes de assertions, datos independientes, verificación adversarial desde cero y evidencia formal recuperable.
 - **Dependencias y precondiciones:** [TSK-H0-013]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-003: preparación/ensayo aislado; cobertura de objetos en H1 y superficies completas en H6. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H0-013; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** El tramo local H0 de PLAN-AUTH-003 queda verificado; cobertura de objetos en H1, superficies completas en H6 y Auth real siguen pendientes globalmente. El detalle de evidencia/decisión y puerta está en §7.
+- **Acción ejecutada:** V-DOM + V-DAT + V-MIG sobre TSK-H0-013, contrastando las fuentes antes de inspeccionar assertions y reejecutando la verificación formal tras publicar la implementación.
 - **Salida observable:** Lecturas, mutaciones y resultados idempotentes disponibles en H0 deniegan sesiones revocadas; nuevas identificaciones se distinguen de las sesiones previas. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Otro dispositivo revoca con JWT vigente; emisora también denegada; refresh/respuesta tardíos no reactivan; carreras de mutación y nueva identificación conservan orden verificable; fallo parcial deja bloqueo explícito. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia acreditada localmente:** V-EVI [evidence-TSK-H0-014.md](evidence-TSK-H0-014.md), R01–R23 23/23 PASS, 8/8 pruebas formales y regresión 254/254 PostgreSQL + 31/31 unitarios. Sin H0-014-F01+ material; no acredita Auth ni hosted.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-015"></a>
@@ -3056,9 +3056,9 @@ Los estados siguientes se conservan del Plan §12. Una ficha sigue **NOT STARTED
 | PLAN-PENDING-003 — PARTIALLY RESOLVED, solo verificaciones técnicas | [TSK-H0-001], [TSK-H0-006], [TSK-H0-014], [TSK-H0-017], [TSK-H1-016], [TSK-H6-008], [TSK-H6-009], [TSK-H6-010], [TSK-H6-011], [TSK-H6-012], [TSK-H6-018]. Preparación e integración aislada autorizadas en una fase futura pueden avanzar. | PLAN-AUTH-001–006 satisfactorias. D025/D026/D027/D031 ya completan la política; no hay elección de política pendiente dentro de 003. | Aceptación de cualquier acceso real y preparación de Production H6. No bloquea preparar/publicar este DRAFT. |
 | PLAN-AUTH-001 — PENDING / NO EJECUTADA | [TSK-H0-001], [TSK-H0-003], [TSK-H0-015], [TSK-H6-010], [TSK-H6-012]. Continúan análisis documentado y contratos independientes; una parte no comprobada no invalida lo independiente. | Compatibilidad real, recursos por entorno, plan/capacidad y entrega comprobados; coste concreto aceptado **antes** de contratar/configurar lo dependiente. Conciliar versiones/coste al final. No usar precios históricos como capacidad actual. | Configuración/contratación dependiente, acceso real y aceptación H6. |
 | PLAN-AUTH-002 — PENDING / NO EJECUTADA | [TSK-H0-005], [TSK-H0-006], [TSK-H6-008]; ensayo inicial de sesiones en H0 y superficies completas tras H5. | Evidencia de máximo absoluto 30 días; 7 días de inactividad independientes por sesión/dispositivo. Uso humano validado por servidor; refresh, polling, jobs o pestaña abierta no cuentan. Comprobar límites antes de actualizar actividad. Contraseña y TOTP cuando corresponda. | Acceso real; ensayo aislado puede producir la evidencia que lo levanta. |
-| PLAN-AUTH-003 — PENDING / NO EJECUTADA | [TSK-H0-013], [TSK-H0-014], [TSK-H1-015], [TSK-H1-016], [TSK-H6-008], [TSK-H6-011]. H0 cubre accesos disponibles; H1 añade objetos; H6 todas las superficies y carreras. | Revocación de todas las sesiones previas, incluida emisora, con JWT vigente; lecturas, mutaciones, resultados previos y objetos denegados efectivamente. Concurrencia/fallo parcial/respuesta tardía no reactivan sesión. | Acceso real; ninguna URL/JWT vigente demuestra revocación por sí sola. |
+| PLAN-AUTH-003 — PENDING globalmente / tramo H0 local PASS | [TSK-H0-013] y [TSK-H0-014] COMPLETED localmente; [TSK-H1-015], [TSK-H1-016], [TSK-H6-008] y [TSK-H6-011] siguen pendientes. H0 cubre accesos disponibles con doble Auth; H1 añade objetos y H6 todas las superficies, Auth real y carreras integradas. | Revocación de todas las sesiones previas, incluida emisora, con JWT vigente; lecturas, mutaciones, resultados previos y objetos denegados efectivamente. Concurrencia/fallo parcial/respuesta tardía no reactivan sesión. | Acceso real; ninguna URL/JWT vigente ni un doble local demuestra revocación Auth/hosted por sí solo. |
 | PLAN-AUTH-004 — PENDING / NO EJECUTADA | [TSK-H0-015], [TSK-H6-009]; preparar guion en H0, comprobar dispositivo/papel en H6. Continúan datos sintéticos/contratos. | Andrés participa: contraseña/TOTP desde otro dispositivo y restauración comprobada del factor vigente desde copia en papel protegida fuera de iCloud. Evidencia sin secretos. | Acceso real; no requiere habilitar primero el CRM productivo para ensayar. |
-| PLAN-AUTH-005 — PENDING / NO EJECUTADA | [TSK-H0-015], [TSK-H0-016], [TSK-H0-017], [TSK-H6-010], [TSK-H6-011]. Controles aislados H0; entrega real de seguridad y autoridad independiente cuando puedan comprobarse, H6. | D027: email previamente verificado, entrega/retorno seguros y TOTP tras restablecer. D031: autoridad y acceso del propietario independientes del CRM/medios perdidos; revocación, incidente, permisos mínimos, nuevo TOTP y nueva copia en papel verificada. Procedimiento definido/probado; no prometer recuperar también una cuenta propietaria perdida. | Acceso real y Production. Dobles de email no levantan entrega real; no abre conector comercial ni notificaciones internas por email. |
+| PLAN-AUTH-005 — PENDING globalmente | H0-013 aporta únicamente el registro local del resultado de revocación; [TSK-H0-015], [TSK-H0-016], [TSK-H0-017], [TSK-H6-010] y [TSK-H6-011] siguen pendientes. Controles aislados H0; entrega real de seguridad y autoridad independiente cuando puedan comprobarse, H6. | D027: email previamente verificado, entrega/retorno seguros y TOTP tras restablecer. D031: autoridad y acceso del propietario independientes del CRM/medios perdidos; revocación, incidente, permisos mínimos, nuevo TOTP y nueva copia en papel verificada. Procedimiento definido/probado; no prometer recuperar también una cuenta propietaria perdida. | Acceso real y Production. Dobles de Auth/email no levantan entrega o recuperación real; no abre conector comercial ni notificaciones internas por email. |
 | PLAN-AUTH-006 — PENDING / NO EJECUTADA | [TSK-H0-007], [TSK-H0-008], [TSK-H0-006], [TSK-H0-017], [TSK-H6-008], [TSK-H6-011]. Ensayo aislado no exige pendiente previamente resuelto. | Sin registro público/acceso a expedientes con enrolamiento o recuperación incompletos, actor inhabilitado, permiso/contexto/MFA insuficientes. Nueva clave o recuperación no rehabilitan sesiones revocadas ni omiten TOTP. | Acceso real; repetir en todas las superficies disponibles antes de aceptar H6. |
 
 ### 7.2. Pendientes heredados, datos y límites de ámbito
