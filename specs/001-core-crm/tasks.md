@@ -6,7 +6,7 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS por H1-001 implementada localmente pendiente H1-002; H2–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001/002 COMPLETED localmente; H1-003 NOT STARTED; H2–H6 NOT STARTED
 H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 IN PROGRESS; H2–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-09-29
@@ -146,7 +146,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Objetivo y alcance:** Frontera servidor, validación de entrada/origen, guardas G1–G6 y errores E1–E8; puertos sin lógica de negocio en transporte.
 - **Fuentes exactas:** Plan §§3.2, 4, 6.5, 7.1; SPEC-FR-ERR-001, SPEC-FR-SEC-005, AC-072, AC-082, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-004.
 - **Bloques, contratos y unidades:** B01/B10; C01–C06; —.
-- **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable local:** Matriz R01–R18, suite formal separada y resultados en [evidence-TSK-H1-002.md](evidence-TSK-H1-002.md).
 - **Dependencias y precondiciones:** [TSK-H0-003]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
 - **Bloqueo localizado / condición para levantarlo:** Versiones compatibles y ámbito aislado verificados; ningún acceso real. Las capacidades externas y puertas posteriores permanecen pendientes en su alcance.
 - **Acción ejecutada:** V-DOM y comprobación adversarial de build/fronteras sobre TSK-H0-003; contraste independiente de C01–C06, G1–G6, E1–E8, entrada, origen, replay, contexto, configuración, transporte y no filtración. Se corrigieron seis defectos menores del alcance sin ampliar arquitectura.
@@ -408,35 +408,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H1-001 — Registrar identidades y responsables contextuales
 
-- [ ] **Ejecución: IMPLEMENTED LOCALLY / PENDING FORMAL TSK-H1-002. Evidencia: [H1-001](evidence-TSK-H1-001.md).** Hito: H1. Tipo: implementación.
+- [x] **Ejecución: COMPLETED en alcance local/aislado tras TSK-H1-002. Evidencia: [H1-001](evidence-TSK-H1-001.md), [H1-002](evidence-TSK-H1-002.md).** Hito: H1. Tipo: implementación.
 - **Objetivo y alcance:** Contact, Organization, Group, funciones y designaciones con procedencia/historia; datos incompletos admitidos.
 - **Fuentes exactas:** Plan §§4, 5.1, 7.3; SPEC-FR-ID-001, SPEC-FR-ID-002, SPEC-FR-SEC-006, AC-001, AC-002. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-001.
 - **Bloques, contratos y unidades:** B02/B07; C01/C02/C03; T11.
 - **Entregable local:** Áreas de dominio, adaptador PostgreSQL, migración forward-only y focales registrados en [evidence-TSK-H1-001.md](evidence-TSK-H1-001.md).
 - **Dependencias y precondiciones:** [TSK-H0-018]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
 - **Bloqueo localizado / condición para levantarlo:** Datos personales reales sujetos a DM-PENDING-005; fixtures sintéticos permitieron implementar y probar el alcance local. La puerta de §7 permanece abierta.
-- **Acción local ejecutada:** Registro/consulta/actualización de identidades y facultad contextual con campos materiales e historia, sin equiparar pagador, participante y aceptante; pendiente la comprobación formal H1-002.
+- **Acción local ejecutada:** Registro/consulta/actualización de identidades y facultad contextual con campos materiales e historia, sin equiparar pagador, participante y aceptante; comprobación formal H1-002 PASS local.
 - **Salida observable:** Identidades y funciones conservadas con procedencia y rechazo de atribuciones no verificadas.
 - **Verificación y esperado:** Organización cambia interlocutor; pagador no participa; no reatribuir Acceptance previa. Dato incompleto no bloquea acción independiente ni otorga permisos. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H1-002].
 - **Integración adicional obligatoria:** [TSK-H2-008]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. Implementación local y focales en [evidence-TSK-H1-001.md](evidence-TSK-H1-001.md); cierre pendiente de comprobación formal H1-002.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. Implementación y focales en [evidence-TSK-H1-001.md](evidence-TSK-H1-001.md); verificación formal local en [evidence-TSK-H1-002.md](evidence-TSK-H1-002.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T11 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-002"></a>
 
 #### TSK-H1-002 — Verificar: Registrar identidades y responsables contextuales
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED en alcance local/aislado. Evidencia: [H1-002](evidence-TSK-H1-002.md).** Hito: H1. Tipo: comprobación.
 - **Objetivo y alcance:** Contact, Organization, Group, funciones y designaciones con procedencia/historia; datos incompletos admitidos.
 - **Fuentes exactas:** Plan §§4, 5.1, 7.3; SPEC-FR-ID-001, SPEC-FR-ID-002, SPEC-FR-SEC-006, AC-001, AC-002. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-002.
 - **Bloques, contratos y unidades:** B02/B07; C01/C02/C03; T11.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H1-001]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Datos personales reales sujetos a DM-PENDING-005; fixtures sintéticos permiten avanzar. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H1-001; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** Datos personales reales sujetos a DM-PENDING-005; fixtures sintéticos permitieron verificar el alcance local. El detalle de evidencia/decisión y puerta permanece en §7.
+- **Acción ejecutada:** V-DOM + V-DAT + V-MIG sobre TSK-H1-001; matriz R01–R18 fijada desde fuentes antes de assertions formales, 18/18 PASS local.
 - **Salida observable:** Identidades y funciones conservadas con procedencia y rechazo de atribuciones no verificadas. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Organización cambia interlocutor; pagador no participa; no reatribuir Acceptance previa. Dato incompleto no bloquea acción independiente ni otorga permisos. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con esperado/observado por caso/ID, migración y pruebas reales de §2.2 en [evidence-TSK-H1-002.md](evidence-TSK-H1-002.md). Sin defecto H1-002-Fxx material abierto.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T11 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-003"></a>

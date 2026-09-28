@@ -1,6 +1,6 @@
 # TSK-H1-001 — identidades y responsables contextuales
 
-Fecha: 2026-09-29. Base local/remota previa a la implementación: `f9eed55a4331e9e0f9ba28aa74e20639006883a8`, rama `main`, árbol limpio. Estado de esta ficha: **IMPLEMENTED LOCALLY / PENDING FORMAL TSK-H1-002**. El commit de implementación se identifica con `git log -1 --format=%H -- supabase/migrations/202609290001_h1_contextual_identities.sql` tras publicar. No sustituye al Last Approved Commit `3e3f47a1692290412a03cf14087c2c470b8cab90`.
+Fecha: 2026-09-29. Base local/remota previa a la implementación: `f9eed55a4331e9e0f9ba28aa74e20639006883a8`, rama `main`, árbol limpio. Implementación publicada en `bb259a9278727a60f14f1f22bfc1a1c85872a631`; **COMPLETED en alcance local/aislado** tras [TSK-H1-002](evidence-TSK-H1-002.md), R01–R18 PASS. No sustituye al Last Approved Commit `3e3f47a1692290412a03cf14087c2c470b8cab90`.
 
 ## Fuentes y expected fijado
 
@@ -40,4 +40,4 @@ Focal `tests/integration/postgres-h1-001.test.ts`: 9/9 PASS con PostgreSQL 17.11
 | `pnpm run build` | PASS, Next.js 16.3.5 |
 | `git diff --check` | PASS |
 
-La integración H2-008 verificará la relación con Acceptance real; H6 integrará escenarios E2E, privacidad autorizada y despliegue. Hasta concluir TSK-H1-002, **TSK-H1-001 no se declara COMPLETED**.
+La integración H2-008 verificará la relación con Acceptance real; H6 integrará escenarios E2E, privacidad autorizada y despliegue. TSK-H1-002 concluyó después de esta implementación y permite declarar H1-001 COMPLETED solo en su alcance técnico/local/aislado.
