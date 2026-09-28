@@ -54,13 +54,14 @@ Last updated: 2026-09-28
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS. TSK-H0-001/002/003/004/005/006/007/008/009/010/011 COMPLETED en sus alcances históricos/locales; TSK-H0-012 FAILED / NOT COMPLETED por F05 OPEN — MATERIAL / ALTA. F01/F02/F03/F04 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; H0-013 y posteriores NOT STARTED. H0 no está completado.
+- Implementación y H0: IN PROGRESS. TSK-H0-001/002/003/004/005/006/007/008/009/010/011 COMPLETED en sus alcances históricos/locales; TSK-H0-012 FAILED / NOT COMPLETED por F05 OPEN / MATERIAL / ALTA — BLOCKED BY DESIGN tras la puerta experimental PostgreSQL 17.11 sobre `2aeaeea`. F01/F02/F03/F04 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; H0-013 y posteriores NOT STARTED. H0 no está completado.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
 
 - TSK-H0-012 FAILED / NOT COMPLETED: [quinta ejecución formal y F05](../specs/001-core-crm/evidence-TSK-H0-012.md), base `c38c896`. R01–R07 y R11 PASS; R08/R23 FAIL por el mismo F05; 15 filas BLOCKED. Runtime puede omitir/adelantar la función F04 y confirmar evidencia caducada tras SET CONSTRAINTS IMMEDIATE y wait real. **F05 OPEN — MATERIAL / ALTA; F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. Suite formal seleccionada: 21 tests, 19 PASS, 2 FAIL (un fallo hoja y su contenedor), 0 skipped/cancelled. Regresión completa no ejecutada por fail-fast. Sin fix productivo; hosted M03/M04 y Auth real no acreditados; Supabase Staging intacto.
+- Etapa posterior F05 sobre `2aeaeeaa55f5ce7bc525a4d02227ee205e45d7b5`: **OPEN / MATERIAL / ALTA — BLOCKED BY DESIGN**. Reproducción publicada intacta: 15 tests, 13 PASS y 2 FAIL; las dos variantes confirman caducada. En clústeres aislados, `transaction_timeout` USERSET sigue desactivable por runtime tras REVOKE SET; cambiar un valor positivo activo no rearma el timer. CALL/cambio de rol/conexión no proporcionan un fix localizado compatible demostrado. Se necesita decisión humana sobre el control obligatorio de la finalización y el binding F1/F2. Solo cuatro documentos actualizados; sin producto, migración, tests modificados, D039, nueva R01–R25 completa ni Staging.
 - El bloqueo de diseño F1/humano está RESOLVED por D038 y H0-005 está implementada localmente; PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING globalmente.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.

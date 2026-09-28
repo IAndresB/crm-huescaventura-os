@@ -1,6 +1,6 @@
 # TSK-H0-012 — Verificación formal independiente local
 
-Resumen vigente tras la quinta ejecución formal sobre `c38c896ac2d9de350782e5afb189b9e95dae6156`: **TSK-H0-012 FAILED / NOT COMPLETED; H0-012-F05 OPEN — MATERIAL / ALTA; F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. R01–R07 y R11 PASS; R08/R23 FAIL por el mismo F05; otras 15 filas BLOCKED por fail-fast. La frontera final F04 funciona si el caller conserva el mensaje del adaptador, pero runtime puede omitirla o adelantarla y confirmar evidencia caducada. No se modifica producto ni migraciones. La cronología anterior y sus resultados se conservan íntegros.
+Resumen vigente tras la puerta experimental F05 sobre `2aeaeeaa55f5ce7bc525a4d02227ee205e45d7b5`: **TSK-H0-012 FAILED / NOT COMPLETED; H0-012-F05 OPEN / MATERIAL / ALTA — BLOCKED BY DESIGN; F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. PostgreSQL 17.11 permite a runtime desactivar `transaction_timeout` incluso después de `REVOKE SET ON PARAMETER`; las dos variantes F05 siguen confirmando evidencia caducada. No se modifica producto, migraciones ni tests. La quinta ejecución formal conserva sus 8 filas PASS, 2 FAIL y 15 BLOCKED; no se ejecuta una nueva R01–R25 completa. La cronología F01–F05 se conserva íntegra y la etapa experimental se añade al final.
 
 ## V-EVI / preflight y orden de trabajo
 
@@ -813,3 +813,377 @@ Publicación autorizada exclusivamente de cinco archivos: suite H0-012, esta evi
 Estado: **TSK-H0-011 COMPLETED como antecedente local; TSK-H0-012 FAILED / NOT COMPLETED; F05 OPEN / MATERIAL / ALTA; F01–F04 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; H0-013 NOT STARTED; H0 IN PROGRESS; PLAN-AUTH-002/006 PENDING globalmente**. H0-M03/M04 hosted, Auth/TOTP/recovery/dispositivos reales y Production no acreditados. Supabase Staging **sin conexión ni cambios** en esta ejecución.
 
 Siguiente paso recomendado, **SIN EJECUTAR**: autorización separada para analizar y corregir F05 mediante una frontera de finalización obligatoria bajo el modelo M2 aprobado, preservando F01–F04. Después, nueva reverificación formal completa e independiente R01–R25. Esta publicación no autoriza el fix, D039, H0-013 ni hosted.
+
+## Etapa posterior — puerta experimental F05: BLOCKED BY DESIGN (2026-09-28)
+
+### Alcance, base y conclusión
+
+Autorización exclusiva para analizar F05, reproducir sus variantes y ensayar PostgreSQL 17.11 antes de cualquier fix. Preflight ejecutado en el orden requerido: `git fetch origin`, `git rev-parse HEAD`, `git rev-parse origin/main`, `git branch --show-current`, `git status --short`. Resultado: **HEAD = origin/main = `2aeaeeaa55f5ce7bc525a4d02227ee205e45d7b5`; main; árbol limpio**. Trabajo local en el checkout existente, sin rama nueva ni Cloud. README sin reglas adicionales; no se encontró AGENTS.md en el checkout/ancestros inspeccionados. La lectura técnica se limita a F05/reproducer, F03/F04, adaptador H0-011, transaction y roles/grants H0 pertinentes; los otros documentos se leen para su coordinación autorizada.
+
+**Resultado: F05 OPEN / MATERIAL / ALTA — BLOCKED BY DESIGN.** El candidato A falla una precondición necesaria: `transaction_timeout` es `PGC_USERSET` (`pg_settings.context = 'user'`) y revocar el privilegio SET no impide que runtime lo quite. Un parámetro armado por una función interna seguiría siendo modificable al retornar al caller. Además, reducir un valor positivo mientras su timer ya está activo no adelanta ese timer. No se ha demostrado una solución localizada compatible con la frontera aprobada. Se detiene la implementación, no la documentación/publicación autorizadas.
+
+No se modifica código, migraciones, pruebas, dependencias, lockfile, expected ni fuentes APPROVED. La actualización de Tasks se limita a estado/evidencia/bloqueo. D037/D038 y Last Approved Commit `6248820e3253a9d88755ed0a4996fff8f865690e` permanecen intactos; no se crea D039. No se ejecuta R01–R25 completa ni se inicia H0-013. Supabase Staging no se conecta ni modifica.
+
+### Reproducción publicada, íntegra y previa a los ensayos
+
+```sh
+POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin node --test --experimental-strip-types --test-name-pattern='H0-012 fifth formal execution' tests/integration/postgres-h0-012.test.ts
+```
+
+La selección ejecuta el contenedor publicado con R01–R08 hasta su parada F05; no es una sexta matriz formal completa. Resultado: **15 tests Node: 13 PASS, 2 FAIL, 0 skipped/cancelled/todo; 15297.546875 ms; exit 1**. Son 14 casos hoja, 13 PASS y un FAIL material; el segundo FAIL es el contenedor. B y el control diferido son diagnósticos dentro del mismo caso, sin sumarlos como tests independientes. F01/F02 focales no se seleccionan en esta etapa.
+
+| Recorrido original | Resultado actual independiente |
+|---|---|
+| A: IMMEDIATE → lock real hasta expiry → COMMIT sin finalizador | **FAIL normativo: COMMIT**; expiry `1790617290219000` µs, liberación `1790617290345199` µs, **126199 µs después** |
+| B: IMMEDIATE → finalizador retorna vigente → lock real hasta expiry → COMMIT separado | **FAIL normativo: COMMIT**; expiry `1790617295488000` µs, liberación `1790617295595126` µs, **107126 µs después** |
+| Omitir finalizador sin anticipar constraints | Rollback; trigger diferido aún pendiente |
+| F04 intacto: deferred-expired / immediate-expired | Ambos rollback, incluso tras IMMEDIATE en el segundo |
+| F04 intacto: immediate-short | COMMIT vigente |
+| COMMIT runtime sin finalizador, wait corto | COMMIT vigente |
+| Evidence vigente exacta; replay confirmado sin source/provider | `reserved`; después `previous`, incluido adaptador sin provider |
+
+A/B comprueban `session_user = current_user = crm_h0_runtime`, lock advisory real en `pg_locks`, evidencia viva al adelantar checks y F1/F2 aún vivas tras la espera. Las capacidades/argumentos originales no se cambian. Cada COMMIT indebido deja desde otra conexión **1** nueva fila en cada categoría: reservations, evidence_revalidations, events, receipts, roots, operations, attempts, history, results e intents; actividad humana cambia. Las proposal/decision previas se conservan.
+
+En los tres recorridos caducados que sí abortan, la conexión observadora acredita **0** nuevas filas en las diez categorías, actividad humana sin cambio durable y snapshot completo idéntico. Los rechazos R08 usan también comparación completa antes/después. No se confunde la falta de rechazo de A/B con ausencia de residuos.
+
+Archivo publicado `tests/integration/postgres-h0-012.test.ts` sin cambios; SHA-256: `816adbb8e54e2c911d07fe1d35c700ab24288fa5951ed6be9e382c57d1b82fbf`. No se modifica su helper ni se cambia `committed === false`.
+
+### Puerta A — duración real y cambios del timer
+
+Clúster nuevo PostgreSQL **17.11 / 170011**, socket Unix, TCP deshabilitado, esquema `lab` y tabla marcadora sintética. Roles creados con las tres migraciones históricas de bootstrap/autoridades H0; runtime sin superuser/createdb/createrole/inherit/bypassrls/replication ni membresías. Solo se le concede INSERT en la tabla marcadora del laboratorio. Cada caso usa una conexión runtime nueva; otra conexión lee persistencia. No se emplean claves, datos humanos reales, proveedores ni relojes simulados.
+
+Los tiempos siguientes son medidas aproximadas en milisegundos con `clock_timestamp()` del servidor. Incluyen el pequeño coste de observación; no son una cota de puntualidad del sistema operativo. La terminación se verifica en el log PostgreSQL por PID y **FATAL SQLSTATE 25P04**; Postgres.js entrega `CONNECTION_CLOSED`. El primer ensayo preliminar se interrumpió por esperar 25P04 directamente en el cliente: se corrigió solo la instrumentación para contrastar log/PID y se repitió desde un clúster vacío. No es un defecto de producto ni un PASS adicional.
+
+| ID | Secuencia medida | Observed |
+|---|---|---|
+| E00 | Versión, atributos, membresías y `pg_settings` | 170011; membresías runtime=0; `context=user`, `unit=ms`, default=0, máximo=2147483647 |
+| E01 | Default 0; BEGIN, trabajo 250 ms, COMMIT | COMMIT a ~254 ms; marcador=1 |
+| E02 | SET 600 ms antes de BEGIN; trabajo 2 s | Termina a ~606 ms desde BEGIN; marcador=0 |
+| E03 | BEGIN con 0; trabajo 500 ms; SET LOCAL 600 ms; trabajo 2 s | Termina a ~1107 ms desde BEGIN / ~604 ms desde SET |
+| E04 | Timer activo 1200 ms; a ~250 ms SET LOCAL 250 ms | SHOW=250 ms, pero termina a ~1203 ms desde BEGIN / ~950 ms desde SET; **no acorta el timer activo** |
+| E05 | Timer activo 600 ms; a ~200 ms SET LOCAL 1800 ms | SHOW=1800 ms, pero termina a ~603 ms desde BEGIN / ~400 ms desde SET; no alarga ese timer activo |
+| E06 | BEGIN con 0; trabajo 800 ms; SET LOCAL 300 ms; trabajo 100 ms; COMMIT | COMMIT a ~907 ms desde BEGIN / ~104 ms desde SET; **no rechaza por la edad ya transcurrida** |
+| E07 | Timer 600 ms; a ~200 ms SET LOCAL 0 y después 1800 ms; trabajo 700 ms | COMMIT a ~908 ms desde BEGIN; desactivar/reactivar permite superar el límite original |
+| E08 | Timer 5 s; unidad sintética termina en 1 s | COMMIT a ~1005 ms; marcador=1 |
+| E09 | Timer 600 ms; `pg_sleep(1)` antes de COMMIT | Sesión termina a ~603 ms; no alcanza COMMIT de la unidad; marcador=0 |
+| E10 | Timer 5 s; otra conexión retiene advisory lock más allá del límite | Wait real observado; sesión termina a ~5004 ms, antes de liberar el blocker; marcador=0 |
+
+Semántica contrastada: si ya hay un valor positivo al iniciar una transacción, el timer se arma al inicio de esa transacción, explícita o implícita. Si estaba desactivado y se pone un valor positivo dentro de una transacción abierta, cuenta desde **el armado al hacer SET**, sin descontar la edad anterior. Cambiar positivo→positivo actualiza el GUC visible pero no reprograma un timer activo; cambiar a 0 lo desactiva y 0→positivo lo arma de nuevo.
+
+Esto coincide con el código oficial **REL_17_11**: [registro PGC_USERSET](https://github.com/postgres/postgres/blob/REL_17_11/src/backend/utils/misc/guc_tables.c), [assign_transaction_timeout](https://github.com/postgres/postgres/blob/REL_17_11/src/backend/tcop/postgres.c) y [StartTransaction/CommitTransaction](https://github.com/postgres/postgres/blob/REL_17_11/src/backend/access/transam/xact.c). La [documentación del parámetro](https://www.postgresql.org/docs/17/runtime-config-client.html#GUC-TRANSACTION-TIMEOUT) confirma terminación de sesión, unidad ms y 0 desactivado. La conclusión principal procede de las ejecuciones, no solo de estas fuentes.
+
+### Puerta A — REVOKE, GRANT y runtime real
+
+Como autoridad del clúster aislado, antes de E12–E22:
+
+```sql
+REVOKE SET ON PARAMETER transaction_timeout FROM PUBLIC;
+REVOKE SET ON PARAMETER transaction_timeout FROM crm_h0_runtime;
+GRANT SET ON PARAMETER transaction_timeout TO crm_h0_f2_executor;
+```
+
+E11 observa ACL `{f05_bootstrap=sA/f05_bootstrap,crm_h0_f2_executor=s/f05_bootstrap}`, sin PUBLIC/runtime, y `has_parameter_privilege('crm_h0_runtime','transaction_timeout','SET') = false`. **Ese false no implica que se prohíba modificar un parámetro USERSET.** No hace falta grant alguno para que runtime lo cambie. En E12–E19 el login y rol efectivo son ambos `crm_h0_runtime`.
+
+Cada caso E12–E19 abre una transacción nueva, arma `SET LOCAL transaction_timeout='350ms'`, inserta un marcador, ejecuta la operación indicada y trata de completar `pg_sleep(0.55); COMMIT`. Persistencia siempre consultada desde otra conexión.
+
+| ID / operación runtime | Permiso y SHOW observado | Resultado después del límite original |
+|---|---|---|
+| SHOW transaction_timeout | Permitido; 350ms al armar | Lectura disponible |
+| E12 `SET transaction_timeout=0` | Aceptado; 0 | **COMMIT; marcador=1** |
+| E13 `SET LOCAL transaction_timeout=0` | Aceptado; 0 | **COMMIT; marcador=1** |
+| E14 `RESET transaction_timeout` | Aceptado; default=0 | **COMMIT; marcador=1** |
+| E15 `RESET ALL` | Aceptado; default=0 | **COMMIT; marcador=1** |
+| E16 `set_config('transaction_timeout','0',true)` | Aceptado; 0 | **COMMIT; marcador=1** |
+| E17 `set_config('transaction_timeout','0',false)` | Aceptado; 0 | **COMMIT; marcador=1** |
+| E18 `SET transaction_timeout='3s'` | Aceptado; 3s | Timer original sigue activo: termina; marcador=0 |
+| E19 `SET LOCAL transaction_timeout='3s'` | Aceptado; 3s | Timer original sigue activo: termina; marcador=0 |
+| E20 `ALTER ROLE crm_h0_runtime SET ...='2s'`, después RESET propio | Ambos aceptados; sesión nueva 2s / 0 | El default propio también es mutable; sesión nueva permite SET 0 |
+| E21 `ALTER DATABASE f05_gate SET ...='2s'` | Denegado 42501: runtime no es propietario | Esta denegación no impide los bypass anteriores |
+| E22 Default 2s impuesto por admin con ALTER ROLE; runtime BEGIN + SET LOCAL 0 | Aceptado; 0 dentro de transacción, 2s tras COMMIT | Default administrativo tampoco es una restricción obligatoria |
+
+**Matiz de ampliación:** E18/E19 aceptan un valor superior pero por sí solos no posponen el timer ya activo. E07 demuestra el bypass real 0→valor superior. No se registra falsamente una denegación por permisos ni un alargamiento inmediato positivo→positivo.
+
+La [semántica de privilegios SET](https://www.postgresql.org/docs/17/ddl-priv.html) los hace útiles para habilitar parámetros que requieren autoridad superior, no para quitar la mutabilidad inherente a USERSET. El [código GUC 17.11](https://github.com/postgres/postgres/blob/REL_17_11/src/backend/utils/misc/guc.c) comprueba ACL en PGC_SUSET y admite PGC_USERSET. Se consultan asimismo [GRANT](https://www.postgresql.org/docs/17/sql-grant.html), [REVOKE](https://www.postgresql.org/docs/17/sql-revoke.html), [SET/SET LOCAL](https://www.postgresql.org/docs/17/sql-set.html), [RESET](https://www.postgresql.org/docs/17/sql-reset.html) y [ALTER ROLE](https://www.postgresql.org/docs/17/sql-alterrole.html).
+
+La condición previa del apartado 7 de la autorización **no se cumple**. No se construye una función de producto para armar el timeout ni se introduce una API con timeout arbitrario. Tampoco se integra un prototipo descartado en la ruta de evidence. Los casos 1/2 de duración de la puerta tienen controles sintéticos positivos; los casos 3/4/5 no demuestran inmutabilidad del límite. Los casos 6/7/8 conservan los resultados originales de F04/F05, sin atribuirles protección de un candidato que no pasó la puerta.
+
+### Precisión temporal
+
+B08 ejecuta conversiones numéricas reales: `0.999::numeric::int = 1`, `1.999::numeric::int = 2`, `4999.999::numeric::int = 5000`; `floor` produce respectivamente 0, 1 y 4999. Una conversión a integer sin floor puede ampliar la duración. Un cálculo conservador tendría que usar `floor(extract(epoch FROM (effectiveValidUntil - clock_timestamp())) * 1000)`, denegar si el resultado es <=0 y nunca convertir ese 0 en un timeout desactivado ni redondearlo a 1 ms. La resolución del parámetro es **1 ms**, con descarte inferior a 1 ms por floor.
+
+**No se acredita un margen operativo que garantice un deadline absoluto:** el timer relativo se arma después de muestrear el reloj; floor por sí solo no acota ese intervalo, ni sustituye rearmar un timer positivo ya activo. Los milisegundos observados tampoco certifican una cota de planificación. Por tanto, esta etapa no acepta ni implementa una conversión que afirme `timeout efectivo <= vigencia restante`. El fallo de permisos ya descarta A independientemente del redondeo.
+
+### Candidato B — otras fronteras aisladas
+
+Segundo clúster vacío, misma versión 17.11 y sin producto. `lab.finish(text)` es una procedure sintética invoker que inserta un marcador con XID/PID y hace COMMIT; se ensayan también sus variantes SECURITY DEFINER y con cláusula SET. Los cambios de roles/objetos se limitan a este laboratorio y desaparecen en teardown.
+
+| ID | Ensayo | Resultado observado |
+|---|---|---|
+| B01 | CALL invoker de nivel superior, fuera de BEGIN | COMMIT permitido, marcador=1 |
+| B02 | BEGIN; CALL invoker que intenta COMMIT | **2D000 invalid transaction termination**, rollback, marcador=0 |
+| B03 | CALL SECURITY DEFINER que intenta COMMIT | **2D000**, marcador=0 |
+| B04 | CALL con cláusula SET search_path que intenta COMMIT | **2D000**, marcador=0 |
+| B05 | SET ROLE sin membresía; después grant sintético solo de laboratorio y cambio de rol dentro de unidad | Sin grant: 42501. Con grant: `session_user=crm_h0_runtime`, `current_user=crm_h0_untrusted`, mismo backend/transacción; **COMMIT permitido**, marcador=1 |
+| B06 | Segunda conexión runtime intenta finalizar mientras la primera tiene escritura sin confirmar | PID/XID distintos (`68938/746`, `68939/747`); COMMIT de la segunda no publica la primera (0 filas); COMMIT del dueño sí (1) |
+| B07 | Obtener binding en BEGIN, terminarlo y ejecutar CALL superior en la misma conexión | Mismo PID 68938; XID cambia **748→749**. El binding de la transacción previa no se conserva |
+| B08 | Conversión a milisegundos | Resultados de precisión anteriores |
+
+[CALL](https://www.postgresql.org/docs/17/sql-call.html), [control transaccional PL/pgSQL](https://www.postgresql.org/docs/17/plpgsql-transactions.html) y [CREATE PROCEDURE](https://www.postgresql.org/docs/17/sql-createprocedure.html) explican estas restricciones. [COMMIT](https://www.postgresql.org/docs/17/sql-commit.html) actúa sobre la transacción de la conexión; no hay un grant COMMIT que retire esa capacidad al runtime propietario. Un SECURITY DEFINER cambia autoridad de ejecución, no entrega el control de la transacción a otro backend.
+
+**Decisión humana necesaria, no creada ni implementada:** decidir quién controla exclusivamente la conexión y la finalización de una nueva unidad dependiente de evidence, de modo que M2 no pueda emitir COMMIT alternativo ni SQL posterior a la última validación. Debe definirse el ciclo de emisión/verificación F1/F2 ligado al mismo XID/backend y cómo se mantiene la atomicidad M04+M02, historia/resultado/intención, replay y ventanas aprobadas. Una separación builder/finalizer con otra conexión no transfiere la transacción existente; una nueva autoridad/rol de finalización o un ciclo CALL de nivel superior exige revisar arquitectura/D037/D038 y probar la garantía temporal. No se presenta ninguna de estas alternativas como solución ya validada.
+
+No se modifican protocolos F1/F2, ventanas, firmadores, binding, H0-M02 ni replay. Tampoco se prueba que un rediseño pendiente los preserve: ese diseño no existe aún. F04 permanece como defensa del recorrido que conserva el adaptador, insuficiente para hacer obligatoria la propiedad frente a M2. Otro finalizador opcional, trigger diferible, GUC libre o aumento/renovación de vigencia no resuelve el defecto y no se adopta.
+
+### Resultados, artefactos locales y publicación
+
+| Comprobación | Estado de esta etapa |
+|---|---|
+| Reproducer publicado A/B y controles incluidos | 15 tests Node: 13 PASS, 2 FAIL; fallo material F05 + contenedor; 0 skipped/cancelled |
+| Puerta aislada timeout/permisos | 23 registros E00–E22, incluyendo metadatos E00/E11; **candidato rechazado**, no 23 PASS funcionales |
+| Otras fronteras/precisión | 8 registros B01–B08; limitaciones demostradas, no fix |
+| Total | **15 tests Node + 31 registros experimentales**, métricas distintas; no sumar como 46 tests ni heredar conteos anteriores |
+| F01 / F02 focales | NO REEJECUTADOS en esta selección; conservan estado pendiente formal |
+| F03 | Positivo/negativos/replay de R08 reejecutados; no se ejecuta toda su suite focal |
+| F04 | Tres controles publicados reejecutados PASS; garantía obligatoria sigue refutada por F05 |
+| Residuos H0 | Tres unidades caducadas denegadas: 0 en las diez categorías y actividad intacta; A/B: 1 por categoría y actividad cambiada |
+| Residuos de laboratorios | Cada aborto comprueba marcador=0 desde otra conexión; son unidades sintéticas, no sustituyen la comprobación de tablas H0 anterior |
+| Nueva migración / V-MIG F05 | **No aplica: no hay migración**. El before del reproducer vuelve a ejecutar bootstrap/upgrade y rollback DDL históricos F03/F04; no se acredita V-MIG de un fix inexistente |
+| `pnpm test` / `pnpm run test:postgres` completos | NO EJECUTADOS: apartado 18 condicionado a fix focal PASS, condición no alcanzada |
+| Install frozen / audit / build | NO EJECUTADOS por el mismo alcance condicionado; sin dependencias ni producto modificados |
+| `pnpm run typecheck` | PASS: generación Next de tipos y `tsc --noEmit` |
+| `pnpm run lint` | PASS: import boundaries |
+| `git diff --check` y revisión del alcance | PASS; exactamente los cuatro documentos autorizados; reproducer byte a byte igual a la base, cronología histórica íntegra y harness incrustados idénticos a los ejecutados |
+| Revisión razonable de secretos del diff | PASS; sin patrones de claves privadas, PAT, JWT ni URI PostgreSQL autenticada |
+
+Los harness y registros auxiliares permanecen localmente en `/tmp/h0-f05-gate/`; log del reproducer en `/tmp/h0-f05-published-reproducer.log`. Los tres clústeres de las ejecuciones completas quedaron detenidos y sus directorios de datos eliminados; también se cerró/eliminó el clúster del ensayo preliminar interrumpido. Los archivos de scripts/logs se conservan aparte. Son artefactos temporales, no se presupone su conservación indefinida. Las secuencias SQL y resultados relevantes se recogen arriba; a continuación se conserva además el código exacto de los dos harness completos dentro de esta evidencia para permitir su reconstrucción sin añadir tests al repositorio.
+
+Estado final: **F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; F05 = OPEN / MATERIAL / ALTA — BLOCKED BY DESIGN; TSK-H0-012 = FAILED / NOT COMPLETED; H0-013 = NOT STARTED**. H0 IN PROGRESS; PLAN-AUTH-002/006 PENDING globalmente; Staging sin conexión/cambios. Publicación autorizada: solo este archivo, Tasks, PROJECT-STATUS y NEXT-STEPS, commit `test(h0): record evidence lifetime design blocker`, push normal a `origin/main`.
+
+Siguiente paso **SIN EJECUTAR**: decisión humana sobre la frontera de finalización obligatoria y su relación con D037/D038; después autorización específica para un diseño/implementación y sus ensayos. Solo tras un fix demostrado, nueva reverificación formal completa R01–R25. No se crea D039 ni se avanza a H0-013.
+
+<details>
+<summary>Harness A: transaction_timeout y ACL</summary>
+
+Código de laboratorio, sin integración productiva. Guardar como `/tmp/h0-f05-gate/gate.mjs` y ejecutar con Node 24.21.0; crear antes `/tmp/h0-f05-gate`. Requiere el checkout y Postgres.app en las rutas explícitas.
+
+```js
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { mkdtemp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { setTimeout as delay } from 'node:timers/promises';
+const repo = '/Users/andres/Developer/crm-huescaventura-os';
+const postgres = createRequire(repo + '/package.json')('postgres');
+const bin = '/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin';
+const out = '/tmp/h0-f05-gate';
+const temp = await mkdtemp(join(tmpdir(), 'h0-f05-gate-'));
+const socket = join(temp, 'socket');
+await mkdir(socket);
+const port = 55435;
+let started = false;
+const all = [];
+const report = [];
+function command(name, args) {
+  const r = spawnSync(join(bin, name), args, {encoding:'utf8', env:{...process.env, LC_ALL:'C'}});
+  assert.equal(r.status, 0, r.stderr);
+}
+function connect(user='f05_bootstrap', database='f05_gate') {
+  const c = postgres({host:socket, port, database, user, max:1, prepare:false, connect_timeout:3, onnotice:()=>{}});
+  all.push(c); return c;
+}
+function emit(name, facts) { const r = {name,...facts}; report.push(r); console.log(JSON.stringify(r)); }
+async function show(c) { return (await c.unsafe('show transaction_timeout'))[0].transaction_timeout; }
+async function clock(c) { return Number((await c`select extract(epoch from clock_timestamp())::double precision*1000 ms`)[0].ms); }
+let admin;
+async function count(name) { return (await admin`select count(*)::int n from lab.markers where id=${name}`)[0].n; }
+async function temporal(name, preset, beforeSet, change, sleep, expected, extra=undefined) {
+  const c = connect('crm_h0_runtime'); const r = await c.reserve();
+  let error; let current; let beginMs; let setMs; let doneMs; let committed=false; let pid;
+  try {
+    await r.unsafe(`set transaction_timeout='${preset}ms'`);
+    await r.unsafe('begin'); beginMs = await clock(r); pid=(await r`select pg_backend_pid() pid`)[0].pid;
+    await r`insert into lab.markers(id) values(${name})`;
+    if (beforeSet) await r`select pg_sleep(${beforeSet/1000})`;
+    if (change!==undefined) { await r.unsafe(`set local transaction_timeout='${change}ms'`); setMs = await clock(r); }
+    if (extra) await extra(r);
+    current = await show(r);
+    await r`select pg_sleep(${sleep/1000})`;
+    await r.unsafe('commit'); committed=true;
+  } catch(e) { error={code:e.code,message:e.message}; }
+  finally { doneMs=await clock(admin); r.release(); await c.end({timeout:1}); }
+  const persisted=await count(name);
+  assert.equal(committed,expected); assert.equal(persisted,expected?1:0);
+  if(!expected) { assert.ok(['25P04','CONNECTION_CLOSED'].includes(error?.code)); assert.match(await readFile(join(out,'postgres.log'),'utf8'),new RegExp('\\['+pid+'\\].*FATAL:  25P04:')); }
+  emit(name,{presetMs:preset,changeMs:change,show:current,elapsedFromBeginMs:Math.round(doneMs-beginMs),
+    elapsedFromSetMs:setMs?Math.round(doneMs-setMs):null,pid,serverSQLSTATE:expected?undefined:'25P04',committed,persisted,error});
+}
+try {
+  command('initdb',['-D',join(temp,'data'),'--username=f05_bootstrap','--auth-local=trust','--auth-host=scram-sha-256','--no-locale','--encoding=UTF8']);
+  command('pg_ctl',['-D',join(temp,'data'),'-l',join(out,'postgres.log'),'-o',`-k '${socket}' -h '' -p ${port} -c log_error_verbosity=verbose`,'-w','start']); started=true;
+  const boot=connect('f05_bootstrap','postgres');
+  for (const file of ['202609150000_h0_m01_roles.sql','202609160000_h0_f1_authorities.sql','202609260000_h0_m03_authorities.sql'])
+    await boot.unsafe(await readFile(join(repo,'supabase/migrations',file),'utf8'));
+  await boot.unsafe('create database f05_gate owner crm_h0_migration'); admin=connect();
+  await admin.unsafe('create schema lab; create table lab.markers(id text primary key); grant usage on schema lab to crm_h0_runtime; grant insert on lab.markers to crm_h0_runtime');
+  const [version]=await admin`select version() version,current_setting('server_version_num') version_num`;
+  assert.equal(version.version_num,'170011');
+  const roles=await admin`select rolname,rolsuper,rolcreatedb,rolcreaterole,rolinherit,rolbypassrls,rolreplication from pg_roles where rolname='crm_h0_runtime'`;
+  const [setting]=await admin`select name,context,unit,setting,min_val,max_val from pg_settings where name='transaction_timeout'`;
+  emit('E00-environment',{...version,roles,setting,runtimeMemberships:(await admin`select * from pg_auth_members where member='crm_h0_runtime'::regrole`).length});
+  await temporal('E01-zero-default',0,0,undefined,250,true);
+  await temporal('E02-preset-begin',600,0,undefined,2000,false);
+  await temporal('E03-enable-in-running-transaction',0,500,600,2000,false);
+  await temporal('E04-active-lowered',1200,250,250,2000,false);
+  await temporal('E05-active-raised',600,200,1800,2000,false);
+  await temporal('E06-elapsed-exceeds-new-value',0,800,300,100,true);
+  await temporal('E07-disable-and-rearm',600,200,0,700,true, async r=>{await r.unsafe("set local transaction_timeout='1800ms'");});
+  await temporal('E08-five-seconds-commit-in-one',5000,0,undefined,1000,true);
+  await temporal('E09-commit-after-limit',600,0,undefined,1000,false);
+  {
+    const name='E10-real-lock-five-seconds'; const blocker=connect(); const b=await blocker.reserve();
+    const c=connect('crm_h0_runtime'); const r=await c.reserve();
+    await b.unsafe('begin; select pg_advisory_xact_lock(105000)');
+    await r.unsafe("set transaction_timeout='5s'; begin");
+    const pid=(await r`select pg_backend_pid() pid`)[0].pid; const beginMs=await clock(r);
+    await r`insert into lab.markers(id) values(${name})`;
+    const pending=r`select pg_advisory_xact_lock(105000)`.then(()=>({ok:true}),e=>({code:e.code,message:e.message}));
+    let locked=false;
+    for(let n=0;n<100;n++) { locked=(await admin`select exists(select 1 from pg_locks where pid=${pid} and not granted and locktype='advisory') x`)[0].x; if(locked)break; await delay(10); }
+    assert.ok(locked); const result=await pending; assert.ok(['25P04','CONNECTION_CLOSED'].includes(result.code)); assert.match(await readFile(join(out,'postgres.log'),'utf8'),new RegExp('\\['+pid+'\\].*FATAL:  25P04:'));
+    const elapsedMs=Math.round(await clock(admin)-beginMs);
+    await b.unsafe('commit'); b.release(); r.release(); await c.end({timeout:1});
+    assert.equal(await count(name),0); emit(name,{realLock:locked,elapsedMs,pid,serverSQLSTATE:'25P04',persisted:0,result});
+  }
+  await admin.unsafe('revoke set on parameter transaction_timeout from public; revoke set on parameter transaction_timeout from crm_h0_runtime; grant set on parameter transaction_timeout to crm_h0_f2_executor');
+  emit('E11-parameter-acl-after-revoke',{
+    acl:await admin`select parname,paracl::text from pg_parameter_acl where parname='transaction_timeout'`,
+    reportedPrivilege:(await admin`select has_parameter_privilege('crm_h0_runtime','transaction_timeout','SET') allowed`)[0].allowed,
+    setting:(await admin`select name,context,unit from pg_settings where name='transaction_timeout'`)[0]
+  });
+  const mutations=[
+    ['E12-SET-zero','set transaction_timeout=0','0'],
+    ['E13-SET-LOCAL-zero','set local transaction_timeout=0','0'],
+    ['E14-RESET','reset transaction_timeout','0'],
+    ['E15-RESET-ALL','reset all','0'],
+    ['E16-set_config-local',"select set_config('transaction_timeout','0',true)",'0'],
+    ['E17-set_config-session',"select set_config('transaction_timeout','0',false)",'0'],
+    ['E18-SET-increase',"set transaction_timeout='3s'",'3s'],
+    ['E19-SET-LOCAL-increase',"set local transaction_timeout='3s'",'3s'],
+  ];
+  for(const [name,sql,value] of mutations) {
+    const c=connect('crm_h0_runtime'); const r=await c.reserve();
+    await r.unsafe("begin; set local transaction_timeout='350ms'");
+    const identity=(await r`select session_user,current_user`)[0];
+    await r`insert into lab.markers(id) values(${name})`;
+    const before=await show(r); await r.unsafe(sql); const after=await show(r); assert.equal(after,value);
+    let error; let committed=false;
+    try { await r.unsafe('select pg_sleep(0.55); commit'); committed=true; } catch(e){error={code:e.code,message:e.message};}
+    r.release(); await c.end({timeout:1});
+    const persisted=await count(name);
+    const bypass=!name.includes('increase'); assert.equal(committed,bypass); assert.equal(persisted,bypass?1:0);
+    emit(name,{sql,identity,before,after,accepted:true,committedAfterOriginalLimit:committed,persisted,error});
+  }
+  {
+    const c=connect('crm_h0_runtime');
+    await c.unsafe("alter role crm_h0_runtime set transaction_timeout='2s'");
+    const fresh=connect('crm_h0_runtime'); assert.equal(await show(fresh),'2s');
+    await fresh.unsafe('set transaction_timeout=0'); assert.equal(await show(fresh),'0');
+    await c.unsafe('alter role crm_h0_runtime reset transaction_timeout');
+    const freshReset=connect('crm_h0_runtime'); assert.equal(await show(freshReset),'0');
+    emit('E20-ALTER-ROLE-own-default',{setAccepted:true,newSession:'2s',runtimeSETOverride:'0',resetAccepted:true,newSessionAfterReset:'0'});
+    let error; try {await c.unsafe("alter database f05_gate set transaction_timeout='2s'");} catch(e){error={code:e.code,message:e.message};}
+    assert.equal(error?.code,'42501'); emit('E21-ALTER-DATABASE',{accepted:false,error});
+    await admin.unsafe("alter role crm_h0_runtime set transaction_timeout='2s'");
+    const fromAdmin=connect('crm_h0_runtime'); assert.equal(await show(fromAdmin),'2s');
+    await fromAdmin.unsafe('set local transaction_timeout=0'); // outside tx warns only; test below is explicit
+    await fromAdmin.unsafe('begin; set local transaction_timeout=0'); assert.equal(await show(fromAdmin),'0');
+    await fromAdmin.unsafe('commit'); assert.equal(await show(fromAdmin),'2s');
+    await admin.unsafe('alter role crm_h0_runtime reset transaction_timeout');
+    emit('E22-admin-role-default-overridable',{atLogin:'2s',inTransactionAfterRuntimeSETLOCAL:'0',afterCommit:'2s'});
+  }
+  // Gate rejected: do not implement an evidence-path helper or change product.
+} finally {
+  await Promise.allSettled(all.map(c=>c.end({timeout:1})));
+  if(started) command('pg_ctl',['-D',join(temp,'data'),'-m','fast','-w','stop']);
+  await writeFile(join(out,'results.json'),JSON.stringify(report,null,2)+'\n');
+  await rm(temp,{recursive:true,force:true});
+  console.log(JSON.stringify({teardown:'stopped and removed isolated cluster',reports:report.length}));
+}
+```
+
+</details>
+
+<details>
+<summary>Harness B: CALL, roles, conexiones y precisión</summary>
+
+Código de laboratorio, sin integración productiva. Guardar como `/tmp/h0-f05-gate/boundaries.mjs` y ejecutar con Node 24.21.0; crear antes `/tmp/h0-f05-gate`. Requiere el checkout y Postgres.app en las rutas explícitas.
+
+```js
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import {mkdtemp,mkdir,readFile,writeFile,rm} from 'node:fs/promises';
+import {spawnSync} from 'node:child_process';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+const repo='/Users/andres/Developer/crm-huescaventura-os';
+const postgres=createRequire(repo+'/package.json')('postgres');
+const bin='/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin';
+const out='/tmp/h0-f05-gate';
+const temp=await mkdtemp(join(tmpdir(),'h0-f05-boundaries-')); const socket=join(temp,'socket'); await mkdir(socket);
+const clients=[]; const report=[]; let started=false;
+function command(name,args){const r=spawnSync(join(bin,name),args,{encoding:'utf8',env:{...process.env,LC_ALL:'C'}});assert.equal(r.status,0,r.stderr);}
+function connect(user='f05_bootstrap'){const c=postgres({host:socket,port:55436,user,database:'postgres',max:1,prepare:false,onnotice:()=>{}});clients.push(c);return c;}
+function emit(name,facts){const r={name,...facts};report.push(r);console.log(JSON.stringify(r));}
+try{
+ command('initdb',['-D',join(temp,'data'),'--username=f05_bootstrap','--auth-local=trust','--auth-host=scram-sha-256','--no-locale','--encoding=UTF8']);
+ command('pg_ctl',['-D',join(temp,'data'),'-l',join(out,'boundaries-postgres.log'),'-o',`-k '${socket}' -h '' -p 55436`,'-w','start']);started=true;
+ const admin=connect();await admin.unsafe(await readFile(join(repo,'supabase/migrations/202609150000_h0_m01_roles.sql'),'utf8'));
+ const runtime=connect('crm_h0_runtime');const r=await runtime.reserve();
+ await admin.unsafe(`create schema lab; create table lab.markers(id text primary key,xid xid8,pid int);
+ grant usage on schema lab to crm_h0_runtime;
+ grant insert on lab.markers to crm_h0_runtime;
+ create procedure lab.finish(k text) language plpgsql as $$ begin insert into lab.markers values(k,pg_current_xact_id(),pg_backend_pid()); commit; end $$;
+ create procedure lab.finish_definer(k text) language plpgsql security definer as $$ begin insert into lab.markers values(k,pg_current_xact_id(),pg_backend_pid()); commit; end $$;
+ create procedure lab.finish_config(k text) language plpgsql set search_path=pg_catalog,pg_temp as $$ begin insert into lab.markers values(k,pg_current_xact_id(),pg_backend_pid()); commit; end $$;
+ revoke all on procedure lab.finish(text),lab.finish_definer(text),lab.finish_config(text) from public;
+ grant execute on procedure lab.finish(text),lab.finish_definer(text),lab.finish_config(text) to crm_h0_runtime`);
+ const count=async id=>(await admin`select count(*)::int n from lab.markers where id=${id}`)[0].n;
+ await r.unsafe("call lab.finish('B01-top-level')");assert.equal(await count('B01-top-level'),1);emit('B01-top-level-CALL',{committed:true,persisted:1});
+ for(const [name,sql]of[
+  ['B02-CALL-in-explicit-transaction',"begin; call lab.finish('B02')"],
+  ['B03-SECURITY-DEFINER-CALL',"call lab.finish_definer('B03')"],
+  ['B04-CALL-with-SET-clause',"call lab.finish_config('B04')"]]){
+  let error;try{await r.unsafe(sql);}catch(e){error={code:e.code,message:e.message};}await r.unsafe('rollback');
+  assert.equal(error?.code,'2D000');assert.equal(await count(name.slice(0,3)),0);emit(name,{error,persisted:0});
+ }
+ // These synthetic memberships exist only in this disposable cluster.
+ let denied;try{await r.unsafe('set role crm_h0_untrusted');}catch(e){denied=e.code;}assert.equal(denied,'42501');
+ await admin.unsafe('grant crm_h0_untrusted to crm_h0_runtime with inherit false,set true');
+ await r.unsafe("begin; insert into lab.markers values('B05-role-change',pg_current_xact_id(),pg_backend_pid()); set local role crm_h0_untrusted");
+ const identity=(await r`select session_user,current_user,pg_backend_pid() pid,pg_current_xact_id()::text xid`)[0];
+ await r.unsafe('commit');assert.equal(await count('B05-role-change'),1);
+ emit('B05-role-change-keeps-COMMIT',{baselineSetRoleDenied:denied,syntheticMembership:true,identity,persisted:1});
+ const other=connect('crm_h0_runtime');const o=await other.reserve();
+ await r.unsafe("begin; insert into lab.markers values('B06-other-connection',pg_current_xact_id(),pg_backend_pid())");
+ const first=(await r`select pg_backend_pid() pid,pg_current_xact_id()::text xid`)[0];
+ await o.unsafe('begin');const second=(await o`select pg_backend_pid() pid,pg_current_xact_id()::text xid`)[0];await o.unsafe('commit');
+ assert.notEqual(first.pid,second.pid);assert.notEqual(first.xid,second.xid);assert.equal(await count('B06-other-connection'),0);
+ await r.unsafe('commit');assert.equal(await count('B06-other-connection'),1);
+ emit('B06-other-connection-cannot-finalize',{first,second,visibleAfterOtherCommit:0,visibleAfterOwnerCommit:1});
+ await r.unsafe('begin');const pre=(await r`select pg_backend_pid() pid,pg_current_xact_id()::text xid`)[0];await r.unsafe('commit');
+ await r.unsafe("call lab.finish('B07-new-call-binding')");const inside=(await admin`select pid,xid::text from lab.markers where id='B07-new-call-binding'`)[0];
+ assert.equal(pre.pid,inside.pid);assert.notEqual(pre.xid,inside.xid);emit('B07-top-level-CALL-after-binding',{pre,inside,samePID:true,sameXID:false});
+ const precision=await admin`select v::text milliseconds,v::int nearest_integer,floor(v)::int conservative_floor from (values(0.999::numeric),(1.001),(1.999),(4999.999)) s(v)`;
+ assert.deepEqual(precision.map(x=>x.conservative_floor),[0,1,1,4999]);emit('B08-millisecond-rounding',{precision,zeroMustDeny:true});
+ o.release();r.release();
+}finally{
+ await Promise.allSettled(clients.map(c=>c.end({timeout:1})));
+ if(started)command('pg_ctl',['-D',join(temp,'data'),'-m','fast','-w','stop']);
+ await writeFile(join(out,'boundaries-results.json'),JSON.stringify(report,null,2)+'\n');await rm(temp,{recursive:true,force:true});
+ console.log(JSON.stringify({teardown:'stopped and removed isolated cluster',reports:report.length}));
+}
+```
+
+</details>

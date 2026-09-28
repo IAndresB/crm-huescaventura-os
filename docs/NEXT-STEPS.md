@@ -4,7 +4,7 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**TSK-H0-005/006: COMPLETED en sus alcances históricos/locales; TSK-H0-011: antecedente COMPLETED de implementación; TSK-H0-012: FAILED / NOT COMPLETED.** La [quinta ejecución formal H0-012](../specs/001-core-crm/evidence-TSK-H0-012.md), base `c38c896`, detecta **F05 OPEN — MATERIAL / ALTA**: runtime puede omitir o adelantar la función final F04 y confirmar evidencia caducada. R01–R07 y R11 PASS; R08/R23 FAIL por el mismo defecto; 15 filas BLOCKED por fail-fast. **F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. Siguiente paso recomendado, SIN EJECUTAR: autorización separada para corregir F05 y después nueva R01–R25 completa. PLAN-AUTH-002/006 PENDING globalmente; Supabase Staging intacto.
+**TSK-H0-005/006: COMPLETED en sus alcances históricos/locales; TSK-H0-011: antecedente COMPLETED de implementación; TSK-H0-012: FAILED / NOT COMPLETED.** La [puerta experimental F05](../specs/001-core-crm/evidence-TSK-H0-012.md), base `2aeaeeaa55f5ce7bc525a4d02227ee205e45d7b5`, concluye **F05 OPEN / MATERIAL / ALTA — BLOCKED BY DESIGN**: runtime sigue pudiendo desactivar `transaction_timeout` USERSET tras `REVOKE SET`, y ambas variantes publicadas confirman evidencia caducada. Cambiar rol no retira COMMIT; otra conexión no finaliza la transacción original; CALL obliga a revisar su ciclo/binding. **F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. Siguiente paso, SIN EJECUTAR: decisión humana sobre una frontera de finalización obligatoria fuera del control SQL M2, preservando atomicidad y binding F1/F2; después autorización específica para desarrollar/verificar la solución y, finalmente, nueva R01–R25 completa. No se crea D039. PLAN-AUTH-002/006 PENDING globalmente; Supabase Staging intacto.
 
 **D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resolvió el bloqueo de diseño F1/humano sin modificar D037/F1. Autorizaciones posteriores permitieron H0-005 local, dos intentos FAILED de H0-006 por F01/F02 y una tercera reverificación local completa PASS. TSK-H0-009/010 y H0-008 permanecen COMPLETED en sus alcances; PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
 
@@ -53,13 +53,13 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 IN PROGRESS: TSK-H0-001/002/003/004/005/006/007/008/009/010/011 COMPLETED en sus alcances históricos/locales; H0-006-F01/F02 cerrados localmente. H0-012 FAILED por F05 OPEN; F01/F02/F03/F04 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION. Corregir F05 y repetir la matriz requiere autorización separada. H0-013 y posteriores NOT STARTED.
+9. implementación — H0 IN PROGRESS: TSK-H0-001/002/003/004/005/006/007/008/009/010/011 COMPLETED en sus alcances históricos/locales; H0-006-F01/F02 cerrados localmente. H0-012 FAILED por F05 OPEN / MATERIAL / ALTA — BLOCKED BY DESIGN; F01/F02/F03/F04 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION. Se requiere decisión humana sobre la frontera de finalización antes de autorizar un rediseño; la nueva matriz completa sigue sin ejecutar. H0-013 y posteriores NOT STARTED.
 
 ## Working Rule
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-La aprobación documental D038 resolvió el modelo de confianza F2; H0-005, las etapas H0-006, H0-011 y H0-012 recibieron autorizaciones separadas. Se conservan las ejecuciones FAILED, fixes F01–F04 y la quinta ejecución que reproduce F05. Esta publicación solo conserva pruebas/evidencia/coordinación; no corrige F05, no inicia H0-013 y no autoriza Auth/hosted M03/M04. Los bloques hosted anteriores conservan sus autorizaciones y evidencia históricas.
+La aprobación documental D038 resolvió el modelo de confianza F2; H0-005, las etapas H0-006, H0-011 y H0-012 recibieron autorizaciones separadas. Se conservan las ejecuciones FAILED, fixes F01–F04 y la quinta ejecución que reproduce F05. La autorización posterior permitió reproducir F05 y ensayar PostgreSQL 17.11; el candidato localizado no superó la puerta. Esta publicación solo actualiza evidencia/coordinación; no corrige F05, no cambia D037/D038 ni crea D039, no inicia H0-013 y no autoriza Auth/hosted M03/M04. Los bloques hosted anteriores conservan sus autorizaciones y evidencia históricas.
 
 No iniciar tareas posteriores, Auth real, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues sin nueva autorización. No aplicar H0-M03 hosted sin autorización separada.
 
