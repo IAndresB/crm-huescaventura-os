@@ -1,6 +1,6 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-Actualización 2026-09-29: [TSK-H0-018](../specs/001-core-crm/evidence-TSK-H0-018.md) COMPLETED y H0 COMPLETED únicamente en alcance técnico/local/aislado aprobado. TSK-H0-001–017 conservan sus alcances históricos/locales. PLAN-AUTH-001–006 PENDING globalmente; H0-M01/F1/M02 hosted acreditados previamente, M03/M04/M05/M06 NO ACREDITADOS hosted. H1–H6 NOT STARTED. Los puntos de parada anteriores se conservan como historia.
+Actualización 2026-09-29: [TSK-H0-018](../specs/001-core-crm/evidence-TSK-H0-018.md) COMPLETED y H0 COMPLETED únicamente en alcance técnico/local/aislado aprobado. [TSK-H1-001](../specs/001-core-crm/evidence-TSK-H1-001.md) IMPLEMENTED LOCALLY / PENDING FORMAL TSK-H1-002; H1 IN PROGRESS, H2–H6 NOT STARTED. PLAN-AUTH-001–006 PENDING globalmente; H0-M01/F1/M02 hosted acreditados previamente, M03/M04/M05/M06 y H1 NO ACREDITADOS hosted. Los puntos de parada anteriores se conservan como historia.
 
 Status: ACTIVE
 Last updated: 2026-09-29
@@ -63,8 +63,8 @@ Last updated: 2026-09-29
 
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1–H6 NOT STARTED.
-- H1–H6: NOT STARTED. Sus pruebas funcionales/integradas, Auth y recuperación reales: NO EJECUTADAS; los ensayos H0 locales constan arriba.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 IN PROGRESS por H1-001 local pendiente H1-002; H2–H6 NOT STARTED.
+- H1-001: implementación y focales locales registrados; verificación formal H1-002 NO EJECUTADA. H2–H6 y Auth/recuperación reales: NO EJECUTADOS en este alcance.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending

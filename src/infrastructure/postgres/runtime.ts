@@ -1,6 +1,7 @@
 import postgres from "postgres";
 import { H0M01PostgresAdapter } from "./h0-m01-adapter.ts";
 import { H0009PostgresAdapter } from "./h0-009-adapter.ts";
+import { H1001IdentityAdapter } from "./h1-identity-adapter.ts";
 import { createHumanApprovalExecutor, type HumanApprovalOperations } from "./human-approval-executor.ts";
 import type { F1SigningConfiguration } from "./f1-codec.ts";
 import type { F2SigningConfiguration } from "./f2-codec.ts";
@@ -9,6 +10,7 @@ import type { EvidenceRevalidationProvider } from "../../application/evidence-re
 export interface PostgresRuntime {
   readonly adapter: H0M01PostgresAdapter;
   readonly durableUnit: H0009PostgresAdapter;
+  readonly identities: H1001IdentityAdapter;
   readonly humanApproval: HumanApprovalOperations;
   close(): Promise<void>;
 }
@@ -29,6 +31,7 @@ export function createPostgresRuntime(databaseUrl: string, humanApprovalDatabase
     return Object.freeze({
       adapter: new H0M01PostgresAdapter(sql, configuration),
       durableUnit: new H0009PostgresAdapter(sql, configuration),
+      identities: new H1001IdentityAdapter(sql, configuration, humanAuthorization),
       humanApproval: humanApproval.operations,
       close: async () => { await Promise.all([sql.end({ timeout: 5 }), humanApproval.close()]); },
     });

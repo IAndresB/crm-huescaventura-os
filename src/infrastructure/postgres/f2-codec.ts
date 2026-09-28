@@ -47,7 +47,8 @@ export interface F2Identity {
 }
 
 export type F2Operation =
-  | "establish" | "reidentify" | "revoke_one" | "revoke_all" | "C01" | "C03";
+  | "establish" | "reidentify" | "revoke_one" | "revoke_all" | "C01" | "C03"
+  | "identity_read" | "identity_write";
 
 const targets: Record<F2Operation, {
   resource: string;
@@ -66,6 +67,10 @@ const targets: Record<F2Operation, {
   C01: { resource: "human_core_probe", action: "read_probe",
     interaction: "interactive_read", purpose: "core-human-access" },
   C03: { resource: "human_core_probe", action: "apply_probe_batch",
+    interaction: "interactive_action", purpose: "core-human-access" },
+  identity_read: { resource: "human_identities", action: "read_identity",
+    interaction: "interactive_read", purpose: "core-human-access" },
+  identity_write: { resource: "human_identities", action: "write_identity",
     interaction: "interactive_action", purpose: "core-human-access" },
 };
 
@@ -96,20 +101,22 @@ export function createF2Issuer(configuration: F2SigningConfiguration) {
         .some((value) => typeof value !== "string" || value.length === 0)
       || (operation === "establish" || operation === "reidentify")
         && (!auth.passwordVerified || !auth.mfaVerified)
-      || (operation === "C01" || operation === "C03") && !auth.mfaVerified
+      || (["C01", "C03", "identity_read", "identity_write"] as string[]).includes(operation) && !auth.mfaVerified
       || operation === "revoke_all" && !auth.mfaVerified
-      || (operation === "C01" || operation === "C03")
+      || (["C01", "C03", "identity_read", "identity_write"] as string[]).includes(operation)
         && !isVerifiedServerInteraction(interaction,
-          operation === "C01" ? "interactive_read" : "interactive_action")
+          operation === "C01" || operation === "identity_read" ? "interactive_read" : "interactive_action")
       || (operation !== "establish" && auth.sessionId !== identity.sessionId)) {
       throw new Error("F2_AUTHORIZATION_DENIED");
     }
     const now = BigInt(binding.now);
+    const wireOperation = operation === "identity_read" ? "C01"
+      : operation === "identity_write" ? "C03" : operation;
     const payload = encodeF2Fields([
       "CRM-H0F2", "1", configuration.keyId, configuration.audience, configuration.generation,
       binding.database, binding.start, binding.xid, binding.pid, binding.login,
       auth.subject, identity.actorId, identity.sessionId, identity.epochId,
-      identity.accessGeneration, target.purpose, identity.scope, operation,
+      identity.accessGeneration, target.purpose, identity.scope, wireOperation,
       target.resource, target.action, target.interaction,
       createHash("sha256").update(input).digest("hex"),
       now.toString(), (now + 30000000n).toString(), randomUUID(),
