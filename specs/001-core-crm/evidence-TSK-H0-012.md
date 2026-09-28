@@ -1187,3 +1187,69 @@ try{
 ```
 
 </details>
+
+
+## D039 — fases A/B/C: sincronización, mapa y puerta local (2026-09-28)
+
+Autorización de continuidad limitada a D039/F05/H0-012; base inicial `64ce6cae0e79e9083b72cf9690b93b0a59a01275`, `main`, HEAD/origin iguales y árbol limpio tras fetch. Fase A publicada en `4e5e241709e96559b3db97b7c560452da3edc2d3`: Architecture/Plan y coordinación alineados, D037/D038/D039 y fuentes superiores intactos. Last Approved Commit sigue `3e3f47a1692290412a03cf14087c2c470b8cab90`.
+
+### Mapa previo exacto
+
+Inventario obtenido del catálogo real tras aplicar la cadena histórica completa, en PostgreSQL 17.11 aislado por socket `/tmp/h0-d039-lab/socket`, puerto 55429; sin conexión hosted. Tabla: EXECUTE efectivo previo de runtime, propietario y SECURITY DEFINER. Las funciones internas también se inventarían para evitar omitir overloads/helpers.
+
+| Función | Owner | SECURITY DEFINER | EXECUTE runtime previo |
+|---|---|---|---|
+| `crm_api.apply_probe_batch(bytea,bytea,bytea)` | `crm_h0_executor` | True | True |
+| `crm_api.commit_internal_unit(bytea,bytea,bytea)` | `crm_h0_executor` | True | True |
+| `crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.establish_session(bytea,bytea,bytea)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.f2_lookup(uuid,uuid)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.f2_lookup_revoke_all_authority(uuid,uuid)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.h0_m04_evidence_replay(bytea,bytea,bytea)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.h0_m04_finalize_evidence(text)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.h0_m04_read_proposal(bytea,bytea,bytea,bytea,bytea,text)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.h0_m04_revalidate_evidence(bytea,bytea,bytea,bytea,bytea,bytea)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.human_apply_probe_batch(bytea,bytea,bytea,bytea,bytea)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.human_read_probe(bytea,bytea,bytea,bytea,bytea)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.provision_actor_mapping(uuid,uuid,text)` | `crm_h0_f2_executor` | True | False |
+| `crm_api.read_probe(bytea,bytea,bytea)` | `crm_h0_executor` | True | True |
+| `crm_api.reidentify_session(bytea,bytea,bytea)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.revoke_all_sessions(bytea,bytea,bytea)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.revoke_session(bytea,bytea,bytea)` | `crm_h0_f2_executor` | True | True |
+| `crm_api.set_actor_enabled(uuid,boolean,text)` | `crm_h0_f2_executor` | True | False |
+| `crm_f1.fields(bytea)` | `crm_h0_verifier` | False | False |
+| `crm_f1.pack_fields(text[])` | `crm_h0_verifier` | False | False |
+| `crm_f1.row_allows(text,text,text,text)` | `crm_h0_verifier` | True | False |
+| `crm_f1.unit_row_allows(text,text)` | `crm_h0_verifier` | True | False |
+| `crm_f1.verify(bytea,bytea,bytea,text)` | `crm_h0_verifier` | True | False |
+| `crm_f1.verify_envelope(bytea,bytea,bytea,text,text,text)` | `crm_h0_verifier` | True | False |
+| `crm_f1.verify_unit(bytea,bytea,bytea)` | `crm_h0_verifier` | True | False |
+| `crm_f2.admit(bytea,bytea,bytea,text,text)` | `crm_h0_f2_executor` | True | False |
+| `crm_f2.verify(bytea,bytea,bytea,text,text,text)` | `crm_h0_f2_verifier` | True | False |
+| `crm_f2.within_limit(timestamp with time zone,timestamp with time zone,integer)` | `crm_h0_f2_executor` | False | False |
+| `crm_ha.check_evidence_at_end(text)` | `crm_h0_f2_executor` | True | False |
+| `crm_ha.effect_record_allows(text,text,text,text,text,text,text)` | `crm_h0_f2_executor` | True | False |
+| `crm_ha.evidence_commit_guard()` | `crm_h0_f2_executor` | True | False |
+| `crm_internal.commit_internal_unit_core(bytea,bytea,bytea)` | `crm_h0_executor` | True | False |
+
+Membresías previas: únicamente `crm_h0_migration` pertenece a `crm_h0_table_owner`, `crm_h0_verifier`, `crm_h0_executor`, `crm_h0_f2_owner`, `crm_h0_f2_verifier`, `crm_h0_f2_executor` (ADMIN/INHERIT/SET). Runtime no tiene membresías. Los genéricos sintéticos anon/authenticated no tienen EXECUTE sobre las funciones CRM inventariadas (se excluyen funciones de extensión pgcrypto del inventario propio). Los helpers internos no se conceden al login ordinario.
+
+Composición previa: `createPostgresRuntime` crea un solo pool Postgres.js y entrega ese cliente a M01/M02/H0011; H0011 abre BEGIN mediante `sql.begin`, obtiene binding en `postgresF1Binding`, emite F1/F2 y ejecuta M04 y M02. La sobrecarga M02 humana revalida F2 original; la técnica rechaza el purpose humano. Revalidación del proveedor ocurre fuera de la unidad. F04 ejecuta finalizador + COMMIT en un mensaje solo en el recorrido con evidencia, pero runtime conserva acceso directo y puede alterar esa secuencia. Los codecs/verificadores previos fijan login runtime.
+
+Superficie mínima seleccionada: nuevo LOGIN `crm_h0_ha_tx` sin atributos privilegiados ni membresías, CONNECT explícito y USAGE crm_api. Trasladar M04 command/read/revalidate/replay/finalize y sobrecarga M02 humana al TTE. Conceder además únicamente f2_lookup y sobrecarga M02 técnica, conservando esta última en runtime para H0-009. No nuevos roles NOLOGIN, tablas o stores. F1 debe negar todos los purposes HA en runtime y admitir en ha_tx solo combinaciones HA exactas de purpose/operation/resource/action. F2 en ha_tx solo autoriza acceso Core C01/C03; identificación y revocación permanecen en runtime. Los bindings y las verificaciones criptográficas no cambian. El API público del TTE solo expone operaciones vinculadas, sin objeto SQL, callback transaccional, issuer o commit separado.
+
+### Puerta C aislada
+
+Prototipo sin modificar producto/migraciones históricas: `/tmp/h0-d039-lab/setup.mjs`, `boundary.sql`, `apply.mjs`, codecs/adaptador de laboratorio y `gate.mjs`; resultados `results.json`. Se corrigieron dos problemas preparatorios del harness: reutilización de la única identidad sintética ya provisionada y CONNECT explícito del nuevo login tras la revocación histórica de PUBLIC. No se relajó ningún expected. La ejecución completa posterior terminó exit 0.
+
+| Controles | Resultado observado |
+|---|---|
+| C04/C11 | PASS: TTE propone, aprueba y reserva con evidencia; M02 result persiste en backend independiente. |
+| C01/C09/C10 | PASS: runtime sin EXECUTE M04/revalidación/replay/finalizador/M02 humano; ataques construir+COMMIT sin finalizador y adelantar finalizador+wait+COMMIT denegados 42501. |
+| C02/C03 | PASS: cero membresías runtime/ha_tx; SET ROLE denegado; helper core inaccesible y Data API genérica sin EXECUTE CRM. |
+| C05 | PASS: emisores deniegan purpose ordinario con ha_tx, purpose HA con runtime y establish F2 con ha_tx; catálogo SQL aplica asociación cerrada equivalente. |
+| C06 | PASS: lectura F1/F2 positiva en binding real; mismas capacidades denegadas en otro backend y en nueva transacción del mismo backend. |
+| C07/C08 | PASS del prototipo: API congelada solo con siete operaciones, sin sql/begin/commit/unsafe/transaction/firmadores; secuencia fija procesa constraints antes de final check + COMMIT. La implementación definitiva y fault injection se verifican después. |
+
+Son seis grupos de comprobaciones que cubren C01–C11, no once tests Node ni una reverificación R01–R25. Prototipo de frontera viable conforme a D039: vigencia en check final obligatorio, seguido de inicio COMMIT sin control del caller. No se exige deadline físico de commit durable. **Puerta C PASS; F05 sigue OPEN / MATERIAL / ALTA y pendiente de implementación definitiva/verificación técnica.** F01–F04 pendientes de reverificación formal; H0-012 FAILED / NOT COMPLETED; H0-013 NOT STARTED. Hosted intacto. No se heredan resultados para el cierre formal.
