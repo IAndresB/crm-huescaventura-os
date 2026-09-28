@@ -43,8 +43,21 @@ export interface F1Capability {
 }
 
 export interface F1AuthorizationTarget {
-  readonly resource: "access_probe" | "internal_unit" | "human_approval" | "human_approval_evidence";
-  readonly action: "read_probe" | "apply_probe_batch" | "commit_internal_unit" | "read_proposal" | "manage_effect" | "revalidate_evidence" | "check_replay";
+  readonly resource:
+    | "access_probe"
+    | "internal_unit"
+    | "human_approval"
+    | "human_approval_evidence"
+    | "global_access_revocation";
+  readonly action:
+    | "read_probe"
+    | "apply_probe_batch"
+    | "commit_internal_unit"
+    | "read_proposal"
+    | "manage_effect"
+    | "revalidate_evidence"
+    | "check_replay"
+    | "record_auth_outcome";
 }
 
 function targetFor(
@@ -79,6 +92,10 @@ function targetFor(
     selected.resource === "human_approval_evidence"
       && ((operation === "C03" && selected.action === "revalidate_evidence")
         || (operation === "C01" && selected.action === "check_replay"))
+  ) || (
+    operation === "C03"
+      && selected.resource === "global_access_revocation"
+      && selected.action === "record_auth_outcome"
   );
   if (!allowed) throw new Error("F1_AUTHORIZATION_DENIED");
   return selected;
@@ -124,7 +141,14 @@ export function createF1Issuer(configuration: F1SigningConfiguration) {
 
 function f1LoginAllows(login: string, purpose: string, operation: string, target: F1AuthorizationTarget): boolean {
   const ha = ["h0-011-human-unit", "h0-011-human-approval", "h0-011-evidence-revalidation"].includes(purpose);
-  if (login === "crm_h0_runtime") return !ha && (target.resource === "access_probe" || target.resource === "internal_unit");
+  if (login === "crm_h0_runtime") {
+    if (purpose === "h0-013-auth-revocation") {
+      return operation === "C03"
+        && target.resource === "global_access_revocation"
+        && target.action === "record_auth_outcome";
+    }
+    return !ha && (target.resource === "access_probe" || target.resource === "internal_unit");
+  }
   if (login !== "crm_h0_ha_tx") return false;
   if (purpose === "h0-011-evidence-revalidation") return target.resource === "human_approval_evidence"
     && ((operation === "C01" && target.action === "check_replay") || (operation === "C03" && target.action === "revalidate_evidence"));
