@@ -353,7 +353,7 @@ Impact: Queda RESOLVED por decisión el bloqueo de diseño localizado de H0-005,
 
 Date: 2026-09-28
 Status: APPROVED
-Implementation: NOT IMPLEMENTED
+Implementation: IMPLEMENTED LOCALLY — TSK-H0-012 COMPLETED; evidencia formal R01–R25 del 2026-09-28 en [evidence-TSK-H0-012.md](../specs/001-core-crm/evidence-TSK-H0-012.md). Hosted M03/M04 NO ACREDITADOS. La aprobación inicial y su límite histórico se conservan abajo.
 Decision: Andrés aprueba expresamente D039 y selecciona A + D: Trusted Transaction Executor (TTE) interno dentro del servidor de confianza, con login y pool PostgreSQL exclusivos. La aprobación comprende conjuntamente estas condiciones:
 
 1. **Propiedad exclusiva.** Las unidades sensibles de Human Approval que coordinan M04/M02 se ejecutan mediante el TTE, propietario exclusivo de su conexión y transacción. El solicitante recibe una interfaz de operaciones estrecha, nunca la conexión, un handle transaccional ni una facultad de confirmar posteriormente.

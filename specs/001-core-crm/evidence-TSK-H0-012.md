@@ -1,6 +1,6 @@
 # TSK-H0-012 — Verificación formal independiente local
 
-**Estado vigente D039/F05:** fix TTE implementado localmente; focales y regresión completa PASS. F01–F05 PENDING FORMAL REVERIFICATION; H0-012 NOT COMPLETED hasta una nueva R01–R25 separada. H0-013 NOT STARTED; hosted intacto.
+**Estado vigente tras reverificación formal D039:** TSK-H0-012 **COMPLETED en alcance local**; H0-012-F01/F02/F03/F04/F05 **CLOSED localmente**. D039 **APPROVED / IMPLEMENTED LOCALLY**. Nueva R01–R25: **25/25 filas PASS**, 32/32 tests Node, sin F06+ material. H0 IN PROGRESS; H0-013 NOT STARTED; PLAN-AUTH-002/006 PENDING globalmente y hosted M03/M04 NO ACREDITADOS.
 
 Resumen histórico tras la puerta experimental F05 sobre `2aeaeeaa55f5ce7bc525a4d02227ee205e45d7b5`: **TSK-H0-012 FAILED / NOT COMPLETED; H0-012-F05 OPEN / MATERIAL / ALTA — BLOCKED BY DESIGN; F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. PostgreSQL 17.11 permite a runtime desactivar `transaction_timeout` incluso después de `REVOKE SET ON PARAMETER`; las dos variantes F05 siguen confirmando evidencia caducada. No se modifica producto, migraciones ni tests. La quinta ejecución formal conserva sus 8 filas PASS, 2 FAIL y 15 BLOCKED; no se ejecuta una nueva R01–R25 completa. La cronología F01–F05 se conserva íntegra y la etapa experimental se añade al final.
 
@@ -1298,3 +1298,44 @@ Segunda regresión PostgreSQL completa: **240/240 PASS, 0 skipped/cancelled/todo
 `pnpm install --frozen-lockfile`, `pnpm audit --prod` (sin vulnerabilidades conocidas), typecheck, lint/import boundaries, **31/31 tests unitarios**, build y `git diff --check`: PASS. Escaneo razonable de patrones de secretos sin coincidencias; claves aleatorias solo en clústeres de prueba, sin credenciales reales. Dependencias/lockfile y migraciones históricas intactos. Total de regresión: **271/271 tests Node**; focales y futura corrida formal son ejecuciones distintas y no se suman a ese total.
 
 La advertencia PostgreSQL 25P01 del pool de prueba corresponde al COMMIT automático del driver después del COMMIT explícito ya confirmado por el mensaje TTE; no ejecuta otra unidad ni altera el resultado. La prueba de respuesta perdida después del COMMIT real devuelve incertidumbre y recupera el resultado durable con la misma identidad. No se ha identificado un nuevo defecto material F06+ en esta etapa.
+
+
+## Reverificación formal independiente D039 y cierre local H0-012 — 2026-09-28
+
+Base publicada exacta `08fc36b80e46e1026de3e20e9debfc4379aeff08`. Preflight posterior al bloque: HEAD=origin/main, rama main y árbol limpio. PostgreSQL 17.11, Node 24.21.0 y pnpm 11.19.0; nuevo clúster/datos/keys sintéticos, separado de la regresión anterior. Se seleccionó únicamente el contenedor `H0-012 D039 formal R01-R25` mediante `node --test --experimental-strip-types --test-name-pattern=... tests/integration/postgres-h0-012.test.ts`, con POSTGRES_H0_BIN local. Log `/tmp/h0-d039-formal.log`.
+
+Expected derivado de la matriz normativa inicial y D039 aprobada; framing y hashes de referencia independientes de los codecs productivos. Cada fila empezó de cero. La lógica adversarial contrasta SQL y persistencia desde otra conexión, controles positivos junto a denegaciones, locks/reloj reales, firmas válidas con cruces inválidos, fallos reales de DDL/escritura y respuesta perdida tras COMMIT. Ningún PASS se hereda de focales ni de la regresión. Fail-fast permaneció activo y no se encontró defecto material nuevo.
+
+| Fila | Evidencia nueva en esta corrida | Resultado |
+|---|---|---|
+| R01 | Propuesta IA sin autoridad humana no decide; decisión humana vigente trazable | PASS |
+| R02 | Pending/rejected no reservan, intentan ni registran resultado | PASS |
+| R03 | Aprobar deja cero reserva/intento/success externo | PASS |
+| R04 | Payload exacto y fingerprint calculado mediante framing independiente | PASS |
+| R05 | Cada componente cambiado deniega y conserva la aprobación | PASS |
+| R06 | Vectores Unicode/slots/framing, límites exactos y bytes diferentes | PASS |
+| R07 | ID/hash/scope/effect de parte y decisión cruzada deniegan | PASS |
+| R08 | Evidencia positiva, fuente/expiry/prueba negativa, waits, replay sin proveedor y A/B M2 | PASS |
+| R09 | Revocación, disable, generation/epoch, MFA/password, límites 7/30 días y actividad | PASS |
+| R10 | Cinco waits reales >30 s: actor, sesión, epoch, advisory de comando y parte; rollback total | PASS |
+| R11 | M02 corto y largo; F2 caduca con F1 posterior viva; overload técnico no evita F2 | PASS |
+| R12 | Revocación ganadora deniega; unidad ya admitida bloquea revocación hasta concluir | PASS |
+| R13 | Cruces firmados login/purpose/target/scope/input y F1/F2 ausentes; H0-009 ordinario positivo en runtime | PASS |
+| R14 | DML/DDL/keys/SET ROLE denegados; memberships y entradas HA/Data API/overloads contrastados | PASS |
+| R15 | Payload copiado a backend/tx nuevos, rollback/error/GUC; sin autoridad residual | PASS |
+| R16 | Dos conexiones sobre una parte: una sola reserva y una intención | PASS |
+| R17 | Primera parte consumida no se repite; segunda independiente queda reservable | PASS |
+| R18 | Uncertain retiene reserva y deniega retry/reserva nueva | PASS |
+| R19 | Solo attempt/reserva original incierto concilia; mismatches y segunda conciliación deniegan | PASS |
+| R20 | Failure conocido permite nuevo intento; intento histórico no lo sustituye; success consume | PASS |
+| R21 | Replay committed tras expiry sin proveedor ni refresh, resultado fijo y E2 si cambia material | PASS |
+| R22 | Fault injection receipts/history/results/intents sin residuos; COMMIT real con respuesta perdida da incertidumbre y replay | PASS |
+| R23 | A/B runtime denegados; TTE privado positivo, RLS/owners/privilegios y commit durable posterior al expiry | PASS |
+| R24 | Cadena vacía/upgrade de esta corrida, wrong authorities, rollback DDL, fixture exacto y lectura fuera de scope | PASS |
+| R25 | Origen IA, registrador/aprobador humano y ejecutor técnico distinguidos en propuesta/decisión/events/results | PASS |
+
+**Resultado formal: 25/25 filas PASS; 32/32 tests Node PASS** (31 casos hoja y su contenedor; R08 tiene varios casos), 0 skipped/cancelled/todo, 258984.1565 ms, exit 0. Los cuatro ataques shadow/temp adicionales se repitieron contra este mismo clúster con 42501 y privilegios TEMP/CREATE false (`/tmp/h0-d039-formal-shadow.json`); no se cuentan como tests Node.
+
+**Cierre:** F01, F02, F03, F04 y F05 CLOSED en alcance local por esta corrida completa. No F06+ material identificado. TSK-H0-012 COMPLETED localmente y D039 IMPLEMENTED LOCALLY; D037/D038 y el contenido normativo D039 intactos. Se preservan todas las ejecuciones FAILED y puertas anteriores, además de los errores de harness de esta etapa; el cierre no cambia sus resultados históricos.
+
+Regresión acreditada antes de esta corrida: **240/240 PostgreSQL + 31/31 unitarios = 271/271**, install frozen/audit/typecheck/lint/build/diff-check PASS. Los 32 tests formales son otra ejecución y no se presentan como casos únicos adicionales. Clústeres efímeros detenidos/eliminados por teardown; sin proveedor ni efecto externo real. Hosted M03/M04 NO ACREDITADOS, Supabase Staging/Production intactos, PLAN-AUTH-002/006 PENDING globalmente, H0 IN PROGRESS. **Punto de parada alcanzado: H0-013 NOT STARTED y no ejecutado.** Last Approved Commit permanece `3e3f47a1692290412a03cf14087c2c470b8cab90`; publicar implementación/cierre no constituye una nueva aprobación arquitectónica.

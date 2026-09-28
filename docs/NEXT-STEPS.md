@@ -4,9 +4,9 @@
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
 
-**TSK-H0-005/006: COMPLETED en sus alcances históricos/locales; TSK-H0-011: antecedente COMPLETED de implementación; TSK-H0-012: FAILED / NOT COMPLETED.** [D039](DECISIONS.md#d039--transaction-finalization-authority) queda **APPROVED / NOT IMPLEMENTED** el 2026-09-28: A + D, TTE interno con login/pool exclusivos bajo M1/M2 vigente. **F05 OPEN / MATERIAL / ALTA — DESIGN BLOCKER RESOLVED BY D039; FIX IMPLEMENTED LOCALLY; PENDING FORMAL REVERIFICATION**. **F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. La evidencia debe estar vigente en la comprobación final obligatoria tras todas las esperas/trabajos e inmediatamente antes de iniciar COMMIT, sin control intermedio del solicitante; no se exige que PostgreSQL termine físicamente el commit durable antes de la expiración. La [puerta experimental anterior](../specs/001-core-crm/evidence-TSK-H0-012.md) y sus fallos quedan preservados. PLAN-AUTH-002/006 PENDING globalmente; hosted M03/M04 NO ACREDITADOS; Supabase Staging SIN CAMBIOS.
+**TSK-H0-012: COMPLETED en alcance local. D039: APPROVED / IMPLEMENTED LOCALLY. F01–F05: CLOSED localmente.** Nueva R01–R25 independiente: 25/25 filas PASS, 32/32 tests; regresión 240/240 PostgreSQL + 31/31 unitarios. [Evidencia y cronología](../specs/001-core-crm/evidence-TSK-H0-012.md). No F06+ material identificado. Hosted M03/M04 NO ACREDITADOS, PLAN-AUTH-002/006 PENDING globalmente; Supabase Staging/Production intactos.
 
-Sincronización documental, puerta C, implementación TTE/F05, focales y regresión completa: **PASS local** (240/240 PostgreSQL + 31/31 unitarios). Siguiente bloque autorizado: nueva R01–R25 formal separada desde cero; cerrar H0-012 solo si pasa y detenerse antes de H0-013. Continúa vigente la autorización local D039/F05/H0-012, sin hosted, Production ni efectos externos.
+**Punto de parada alcanzado. H0-013 es la siguiente tarea y permanece NOT STARTED, SIN EJECUTAR.** La continuidad autorizada D039/F05/H0-012 queda completada: sincronización, puerta, implementación, focales, regresión y reverificación formal separada. H0 continúa IN PROGRESS; no se amplía el alcance a hosted, Auth real ni efectos externos.
 
 **D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resolvió el bloqueo de diseño F1/humano sin modificar D037/F1. Autorizaciones posteriores permitieron H0-005 local, dos intentos FAILED de H0-006 por F01/F02 y una tercera reverificación local completa PASS. TSK-H0-009/010 y H0-008 permanecen COMPLETED en sus alcances; PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
 
@@ -32,7 +32,7 @@ Postgres.js `ssl:"require"` path with explicit CA/hostname verification and
 validate Vercel secret injection/concurrency; those are not part of this DB/F1
 closure.
 
-- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; TSK-H0-001/002/003/004/005/006/007/008/009/010/011 están COMPLETED en sus respectivos alcances históricos/locales. TSK-H0-012 FAILED / NOT COMPLETED; H0-013 y posteriores NOT STARTED.
+- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; TSK-H0-001–012 COMPLETED en sus alcances históricos/locales. H0-013 y posteriores NOT STARTED.
 - PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y PLAN-AUTH-001–006 permanecen PENDING globalmente; solo el subset hosted database/F1 de PLAN-AUTH-006 está VALIDATED.
 - Los bloqueos localizados de Tasks §7 y los pendientes heredados permanecen vigentes en sus ámbitos.
 - La aprobación documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
@@ -55,7 +55,7 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 IN PROGRESS: TSK-H0-001/002/003/004/005/006/007/008/009/010/011 COMPLETED en sus alcances históricos/locales; H0-006-F01/F02 cerrados localmente. H0-012 FAILED / NOT COMPLETED por F05 OPEN / MATERIAL / ALTA — DESIGN BLOCKER RESOLVED BY D039; FIX IMPLEMENTED LOCALLY; PENDING FORMAL REVERIFICATION. F01/F02/F03/F04 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION. La aprobación inicial D039 no autorizó ejecución; la autorización posterior delimitada permite la implementación realizada y la nueva matriz formal pendiente. H0-013 y posteriores NOT STARTED.
+9. implementación — H0 IN PROGRESS: TSK-H0-001–012 COMPLETED en sus alcances históricos/locales; F01–F05 de H0-012 CLOSED localmente y D039 IMPLEMENTED LOCALLY. H0-013 y posteriores NOT STARTED; detenerse antes de H0-013.
 
 ## Working Rule
 
