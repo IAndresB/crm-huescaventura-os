@@ -6,10 +6,10 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — TSK-H0-001–014 COMPLETED en sus alcances históricos/locales; H0-015 COMPLETED en preparación local; H0-016 COMPLETED localmente; H0-017 COMPLETED localmente; H0-018 NOT STARTED
-H0: IN PROGRESS; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; H0-013/014 COMPLETED localmente; H0-015 COMPLETED en preparación local; H0-016 COMPLETED localmente; H0-017 COMPLETED localmente; H0-018 NOT STARTED; H1–H6 NOT STARTED
-Pruebas técnicas: H0-014 R01–R23 23/23 PASS, 8/8 tests formales; regresión 254/254 PostgreSQL + 31/31 unitarios. Auth/recuperación reales NO EJECUTADAS; recuperación local H0-016/017 PASS; H0-M02 hosted validado separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; Supabase Staging SIN CAMBIOS
-Last updated: 2026-09-28
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1–H6 NOT STARTED
+Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
+Last updated: 2026-09-29
 
 ## 1. Autoridad, base y alcance
 
@@ -68,7 +68,7 @@ Las fichas de comprobación ejecutan casos positivos/negativos del componente y 
 
 ## 3. Resumen de hitos
 
-Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos están NOT STARTED y sus pruebas técnicas NO EJECUTADAS. La siguiente tabla reproduce resultados y salidas del Plan §9 para poder contrastarlos con las fichas.
+Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprobar Tasks, todos estaban NOT STARTED y sus pruebas técnicas NO EJECUTADAS; el estado vigente de H0 figura en la cabecera y en [H0-018](evidence-TSK-H0-018.md). La siguiente tabla reproduce resultados y salidas del Plan §9 para poder contrastarlos con las fichas.
 
 | Hito | Tareas | Resultado previsto por Plan §9 | Salida exigida por Plan §9 |
 |---|---:|---|---|
@@ -159,7 +159,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-005 — Identificar CRM Actor y aplicar límites por sesión
 
-- [x] **Ejecución histórica: COMPLETED solo en implementación local. Evidencia: EJECUTADA.** Hito: H0. Tipo: implementación. Registro: [evidence-TSK-H0-005.md](evidence-TSK-H0-005.md). La comprobación posterior H0-006 detectó H0-006-F01; corrección local implementada, pendiente de reverificación formal H0-006.
+- [x] **Ejecución histórica: COMPLETED solo en implementación local. Evidencia: EJECUTADA.** Hito: H0. Tipo: implementación. Registro: [evidence-TSK-H0-005.md](evidence-TSK-H0-005.md). La comprobación posterior H0-006 detectó F01/F02; las correcciones forward quedaron CLOSED localmente tras la tercera reverificación formal H0-006.
 - **Objetivo y alcance:** Único Administrador, múltiples sesiones, contraseña/TOTP, habilitación y control servidor previo a cada acceso; ámbito mínimo de enrolamiento/recuperación.
 - **Fuentes exactas:** Plan §§6.1, 6.3–6.5; SPEC-FR-SEC-001, SPEC-FR-SEC-004, SPEC-FR-SEC-005, AC-064, AC-080, PLAN-AUTH-002, PLAN-AUTH-006, D025, D026, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-005.
 - **Bloques, contratos y unidades:** B01; C01/C02/C03; —.
@@ -389,17 +389,17 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-018 — Registrar salida técnica aislada de H0
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: documentación/evidencia.
+- [x] **Ejecución: COMPLETED en alcance técnico/local/aislado. Evidencia: EJECUTADA.** Hito: H0. Tipo: documentación/evidencia. Registro: [evidence-TSK-H0-018.md](evidence-TSK-H0-018.md).
 - **Objetivo y alcance:** Reunir evidencias de base/seguridad sin declarar acceso real aceptado.
 - **Fuentes exactas:** Plan §§9–12; Plan §9 (resultado y salida del hito); correspondencias específicas de §6. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-018.
 - **Bloques, contratos y unidades:** B01/B07/B08/B10; C01–C06; T08.
 - **Entregable previsto:** Informe propuesto de hito con commit, versiones, pruebas y límites. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-001], [TSK-H0-002], [TSK-H0-003], [TSK-H0-004], [TSK-H0-005], [TSK-H0-006], [TSK-H0-007], [TSK-H0-008], [TSK-H0-009], [TSK-H0-010], [TSK-H0-011], [TSK-H0-012], [TSK-H0-013], [TSK-H0-014], [TSK-H0-015], [TSK-H0-016], [TSK-H0-017]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** PLAN-PENDING-003 no bloquea esta salida aislada; sí acceso real/H6 Production. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Revisar resultados obligatorios de H0 y documentar lo aportado a cada PLAN-AUTH; mantener abiertos los ensayos posteriores.
+- **Bloqueo localizado / condición para levantarlo:** PLAN-PENDING-003 no bloquea esta salida aislada; sí acceso real/H6 Production. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado COMPLETED de este alcance.
+- **Acción ejecutada:** Revisados resultados obligatorios H0-001–017, migraciones, regresión acumulada y contribución limitada a cada PLAN-AUTH; ensayos posteriores abiertos en [evidencia](evidence-TSK-H0-018.md).
 - **Salida observable:** Base aislada verificable, excepciones localizadas y pruebas futuras no disponibles claramente pendientes.
 - **Verificación y esperado:** Sin evidencia satisfactoria de permisos/pool/atomicidad/sesiones no termina H0; ningún mock cuenta como permisos reales. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA en alcance técnico/local/aislado**: matriz H0-001–018, regresión, cadena de migraciones, PLAN-AUTH y límites local/hosted en [evidence-TSK-H0-018.md](evidence-TSK-H0-018.md). Acceso real, hosted M03–M06 y H6 no acreditados.
 - **Paralelismo y restricciones:** La recopilación parcial puede acompañar trabajo independiente; el cierre espera todas sus dependencias. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08 conservan atomicidad y revisión conjunta.
 
 ### 4.2. H1 — Identidades, catálogo y cálculo base

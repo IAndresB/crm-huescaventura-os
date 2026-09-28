@@ -1,9 +1,9 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-Actualización 2026-09-28: TSK-H0-015 COMPLETED en preparación local, evidencia en `specs/001-core-crm/evidence-TSK-H0-015.md`; H0-016 COMPLETED localmente (migración H0-M06; focales 5/5, regresión PostgreSQL 259/259); H0-017 COMPLETED formalmente en alcance local (R01–R12, 6/6 tests PASS); H0-018 NOT STARTED. Los puntos de parada anteriores se conservan como historia.
+Actualización 2026-09-29: [TSK-H0-018](../specs/001-core-crm/evidence-TSK-H0-018.md) COMPLETED y H0 COMPLETED únicamente en alcance técnico/local/aislado aprobado. TSK-H0-001–017 conservan sus alcances históricos/locales. PLAN-AUTH-001–006 PENDING globalmente; H0-M01/F1/M02 hosted acreditados previamente, M03/M04/M05/M06 NO ACREDITADOS hosted. H1–H6 NOT STARTED. Los puntos de parada anteriores se conservan como historia.
 
 Status: ACTIVE
-Last updated: 2026-09-28
+Last updated: 2026-09-29
 
 ## Completed
 
@@ -58,16 +58,18 @@ Last updated: 2026-09-28
 - TSK-H0-012 — COMPLETED en alcance formal local el 2026-09-28 sobre `08fc36b80e46e1026de3e20e9debfc4379aeff08`: [evidencia](../specs/001-core-crm/evidence-TSK-H0-012.md). Nueva R01–R25 25/25 PASS, 32/32 tests; F01–F05 CLOSED localmente. Regresión 271/271 total. Historial de FAIL conservado, sin F06+ material. Hosted M03/M04 no acreditados.
 - TSK-H0-013 — COMPLETED en implementación local el 2026-09-28 sobre `ddfaaf840162070c3bb40bd5598d388c6db1cf70`: [evidencia](../specs/001-core-crm/evidence-TSK-H0-013.md). H0-M05, coordinación Core/Auth, cierre monotónico por `access_generation`, diagnóstico de fallo parcial e historial de intentos; 6/6 focales PASS. Sin Auth real ni hosted M05.
 - TSK-H0-014 — COMPLETED en verificación formal local independiente el 2026-09-28: [evidencia](../specs/001-core-crm/evidence-TSK-H0-014.md). Matriz R01–R23 23/23 PASS, 8/8 pruebas formales y regresión 254/254 PostgreSQL + 31/31 unitarios. Sin H0-014-F01+ material; Auth real/hosted/Production no acreditados.
+- TSK-H0-015/016/017 — COMPLETED en sus alcances de preparación, implementación y verificación local respectivamente; [evidencias](../specs/001-core-crm/evidence-TSK-H0-017.md). H0-M06 y recuperación local no acreditan email, TOTP, papel, propietario o Auth reales.
+- TSK-H0-018 — COMPLETED el 2026-09-29: [matriz y cierre](../specs/001-core-crm/evidence-TSK-H0-018.md). Salida de Plan §9 acreditada en alcance técnico/local/aislado con regresión acumulada y revisión de migraciones. H0 = COMPLETED solo en ese alcance; sin F01+ material nuevo.
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS. TSK-H0-001–014 COMPLETED en sus respectivos alcances históricos/locales. H0-015/016/017 COMPLETED en alcance local; H0-018 NOT STARTED. H0 no está completado.
-- H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1–H6 NOT STARTED.
+- H1–H6: NOT STARTED. Sus pruebas funcionales/integradas, Auth y recuperación reales: NO EJECUTADAS; los ensayos H0 locales constan arriba.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
 
-- H0-013/014 y H0-015/016/017 cerrados localmente; siguiente tarea H0-018 NOT STARTED. Hosted M03/M04/M05/M06 NO ACREDITADOS; PLAN-AUTH-002/003/005/006 PENDING globalmente.
+- H0-001–018 cerrados en sus respectivos alcances. Hosted M03/M04/M05/M06 NO ACREDITADOS; PLAN-AUTH-001–006 PENDING globalmente. Acceso real, Auth, email, dispositivos, break-glass, restauración real y Production pendientes de sus propias puertas.
 
 - La revocación global H0 deniega de inmediato en Core toda autoridad anterior, incluida la emisora, y conserva fallo/resultado Auth parcial sin éxito ficticio. El puerto Auth se probó solo con dobles locales: no acredita invalidación de tokens/sesiones en Supabase real ni dispositivos.
 
@@ -89,7 +91,7 @@ Last updated: 2026-09-28
 
 ## Current Blockers
 
-- H0-005/006, H0-009/010, H0-011/012 y H0-013/014 están completadas localmente en sus alcances. H0-M02 fue validada en Staging técnico; H0-M03/M04/M05 no se aplicaron a Staging. H0-015/016/017 COMPLETED en alcance local; H0-018 NOT STARTED.
+- H0-001–018 están COMPLETED en sus alcances históricos/locales; H0-M02 fue validada en Staging técnico. H0-M03/M04/M05/M06 no están acreditadas hosted. Este cierre no prueba ni configura Auth real o Production.
 - PLAN-PENDING-003 bloquea únicamente el acceso real y la preparación de Production H6 por verificaciones técnicas no ejecutadas; PLAN-PENDING-001/002/004 permanecen resueltos en su alcance. No bloquea las fases documentales 07/08 completadas.
 - ARCH-PENDING-001 activo y PENDING: Proveedor(es) definitivos de Telefonía IA y WhatsApp; bloquea únicamente la selección o implementación dependiente. Pueden ser comunes o diferentes; comparar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades/proveedor de WhatsApp por separado; origen BR-PENDING-001/035 y D014.
 - ARCH-PENDING-002 activo y PENDING: bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production; origen ARCH-PENDING-002.
