@@ -90,7 +90,7 @@ export function createF2Issuer(configuration: F2SigningConfiguration) {
   ): F2Capability => {
     const target = targets[operation];
     if (!isVerifiedAuth(auth) || !target || !purposes.has(target.purpose)
-      || binding.login !== "crm_h0_runtime" || input.length > 65536
+      || !(binding.login === "crm_h0_runtime" || (binding.login === "crm_h0_ha_tx" && (operation === "C01" || operation === "C03"))) || input.length > 65536
       || !/^[1-9][0-9]{0,18}$/.test(identity.accessGeneration)
       || [identity.actorId, identity.sessionId, identity.epochId, identity.scope]
         .some((value) => typeof value !== "string" || value.length === 0)

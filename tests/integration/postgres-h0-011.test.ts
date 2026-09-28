@@ -12,7 +12,7 @@ import { issueTrustedContext } from "../../src/application/trusted-context.ts";
 import { classifyServerEvent } from "../../src/application/verified-interaction.ts";
 import { H0005PostgresAdapter } from "../../src/infrastructure/postgres/h0-005-adapter.ts";
 import { H0009PostgresAdapter } from "../../src/infrastructure/postgres/h0-009-adapter.ts";
-import { fingerprintHumanApprovalMaterial, fingerprintHumanApprovalPart, H0011PostgresAdapter, type HumanApprovalMaterial } from "../../src/infrastructure/postgres/h0-011-adapter.ts";
+import { fingerprintHumanApprovalMaterial, fingerprintHumanApprovalPart, H0011PostgresAdapter, type HumanApprovalMaterial } from "../fixtures/pre-d039/h0-011-adapter.ts";
 import type { F1SigningConfiguration } from "../../src/infrastructure/postgres/f1-codec.ts";
 import type { F2SigningConfiguration } from "../../src/infrastructure/postgres/f2-codec.ts";
 
@@ -82,7 +82,7 @@ before(async () => {
   await apply("202609260002_h0_m03_revoke_all_authority_fix.sql");
   await apply("202609260003_h0_m03_f2_expiry_revalidation_fix.sql");
   f1 = { key: randomBytes(32), keyId: randomUUID(), audience: "h0-011-audience", generation: randomUUID(),
-    allowedPurposes: ["h0-005-human-bridge", "h0-011-human-approval", "h0-011-human-unit"] };
+    allowedPurposes: ["h0-009-local-regression", "h0-011-upgrade-seed", "h0-005-human-bridge", "h0-011-human-approval", "h0-011-human-unit"] };
   f2 = { key: randomBytes(32), keyId: randomUUID(), audience: "h0-011-audience", generation: randomUUID(),
     allowedPurposes: ["full-identification", "core-human-access", "session-revocation"] };
   await migration`insert into crm_f1.keys(key_id,secret,audience,generation,purposes,enabled,valid_from,valid_until)
@@ -95,7 +95,7 @@ before(async () => {
   runtime = connect("crm_h0_runtime");
   const durable = new H0009PostgresAdapter(runtime, f1);
   const seedContext = issueTrustedContext({ identityId: "h0-011-upgrade-seed", identityKind: "technical",
-    purpose: "h0-011-human-approval", scope, requestId: "request-h0-011-upgrade-seed",
+    purpose: "h0-011-upgrade-seed", scope, requestId: "request-h0-011-upgrade-seed",
     serverTime: "2026-09-27T12:00:00.000Z" });
   assert.equal((await durable.commit(seedContext, { operationId: "m04-upgrade-preserved", expectedVersion: "0",
     historyRequired: true, resultRequired: true, changes: [{ kind: "set-technical-state",
@@ -288,7 +288,7 @@ test("F02 partitions technical and human M02 entry points while keeping the inte
 
 test("F02 keeps legitimate H0-009 technical commits, concurrent convergence and replay", async () => {
   const context = (requestId: string) => issueTrustedContext({ identityId: "h0-011-technical-fixture",
-    identityKind: "technical", purpose: "h0-011-human-approval", scope, requestId,
+    identityKind: "technical", purpose: "h0-009-local-regression", scope, requestId,
     serverTime: new Date().toISOString() });
   const unit = { operationId: "f02-legitimate-technical", expectedVersion: "0", historyRequired: true as const,
     resultRequired: true as const, changes: [{ kind: "set-technical-state" as const, rootId: "f02-technical-root",

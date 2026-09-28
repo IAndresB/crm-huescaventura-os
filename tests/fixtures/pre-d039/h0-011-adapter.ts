@@ -1,12 +1,13 @@
+// Historical pre-D039 implementation, retained only for predecessor migration regression.
 import { createHash, randomUUID } from "node:crypto";
-import { isTrustedContext, issueTrustedContext, type TrustedExecutionContext } from "../../application/trusted-context.ts";
-import { isVerifiedAuth, type VerifiedAuthEvidence } from "../../application/verified-auth.ts";
-import { isVerifiedServerInteraction, type VerifiedServerInteraction } from "../../application/verified-interaction.ts";
+import { isTrustedContext, issueTrustedContext, type TrustedExecutionContext } from "../../../src/application/trusted-context.ts";
+import { isVerifiedAuth, type VerifiedAuthEvidence } from "../../../src/application/verified-auth.ts";
+import { isVerifiedServerInteraction, type VerifiedServerInteraction } from "../../../src/application/verified-interaction.ts";
 import { isVerifiedEvidence, revalidateEvidence, type EvidenceRevalidationProvider,
-  type EvidenceRevalidationRequest, type VerifiedEvidence } from "../../application/evidence-revalidation.ts";
+  type EvidenceRevalidationRequest, type VerifiedEvidence } from "../../../src/application/evidence-revalidation.ts";
 import { createF1Issuer, encodeF1Fields, type F1SigningConfiguration } from "./f1-codec.ts";
-import { createF2Issuer, type F2Identity, type F2SigningConfiguration } from "./f2-codec.ts";
-import { postgresF1Binding, type PostgresSql, type PostgresTransaction } from "./transaction.ts";
+import { createF2Issuer, type F2Identity, type F2SigningConfiguration } from "../../../src/infrastructure/postgres/f2-codec.ts";
+import { postgresF1Binding, type PostgresSql, type PostgresTransaction } from "../../../src/infrastructure/postgres/transaction.ts";
 
 const idPattern = /^[a-z][a-z0-9-]{0,127}$/u;
 const hexPattern = /^[0-9a-f]{64}$/u;
@@ -195,8 +196,8 @@ export class H0011PostgresAdapter {
       attemptId, `H0-011 ${state}`, "h0-011", "", state, "none", ...i]);
     const cap = this.f1(context, await postgresF1Binding(tx), "C03", q,
       { resource: "internal_unit", action: "commit_internal_unit" });
-    // The human overload revalidates the ORIGINAL F2 after delegated M02
-    // work. The TTE then drains constraints and performs finalization.
+    // This is the last SQL operation in command's transaction. The human
+    // overload revalidates the ORIGINAL F2 after all delegated M02 work.
     const result = human
       ? await tx<DurableRow[]>`select * from crm_api.commit_internal_unit(${cap.payload},${cap.mac},${q},${human.payload},${human.mac},${human.input})`
       : await tx<DurableRow[]>`select * from crm_api.commit_internal_unit(${cap.payload},${cap.mac},${q})`;
@@ -212,7 +213,6 @@ export class H0011PostgresAdapter {
     assertId(input.commandId);
     if (input.human && !isVerifiedServerInteraction(input.human.interaction, "interactive_action")) throw new Error("H0_011_INTERACTION_REQUIRED");
     const q = encodeF1Fields(["CRM-H0-M04", input.action, input.commandId, ...input.data]);
-    let commitStarted = false;
     try {
       if (input.human && (!isVerifiedAuth(input.human.auth) || !input.human.auth.mfaVerified)) throw new Error("H0_011_HUMAN_AUTH_REQUIRED");
       const evidence = input.evidence && input.human
@@ -249,25 +249,18 @@ export class H0011PostgresAdapter {
       await this.commitLedger(tx, context, input.commandId, input.ledgerState, input.intent,
         f2.payload && f2.mac ? { payload: f2.payload, mac: f2.mac, input: q } : undefined);
       const r = rows[0];
-      const receipt: H0M04Receipt = { commandState: r.command_state, proposalId: r.proposal_id,
+      if (evidence && input.evidence) {
+        // The final evidence check and COMMIT are one server message. This
+        // leaves no driver callback interval in which M2 SQL can outlive the
+        // last validity check. commandId is already restricted by assertId.
+        await tx.unsafe(`select crm_api.h0_m04_finalize_evidence('${input.commandId}'); commit`);
+      }
+      return { commandState: r.command_state, proposalId: r.proposal_id,
         ...(r.decision_id ? { decisionId: r.decision_id } : {}),
         ...(r.reservation_id ? { reservationId: r.reservation_id } : {}),
         ...(r.attempt_id ? { attemptId: r.attempt_id } : {}), state: r.state,
         materialFingerprint: r.material_fingerprint };
-      {
-        // D039: drain deferred work before the mandatory final check, then
-        // initiate COMMIT in this same private server message. No caller hook.
-        commitStarted = true;
-        await tx.unsafe(`set constraints all immediate; select crm_api.h0_m04_finalize_evidence('${input.commandId}'); commit`);
-      }
-      return receipt;
     }); } catch (error) {
-      // A transport failure after dispatch cannot prove rollback. Keep the
-      // stable command identity; recovery must ask for the same operation.
-      const code = error && typeof error === "object" && "code" in error ? String(error.code) : "";
-      if (commitStarted && (!/^[0-9A-Z]{5}$/.test(code) || code.startsWith("08") || code.startsWith("57"))) {
-        throw new HumanApprovalCommitUncertainError(input.commandId);
-      }
       if (error && typeof error === "object" && "code" in error && error.code === "H0002") {
         throw new Error("H0_011_CONFLICT_E2");
       }
@@ -374,13 +367,4 @@ function decodeF1(raw: Uint8Array): string[] {
   }
   if (offset !== bytes.length || bytes.length > 16384) throw new Error("H0_011_INVALID_STORED_MATERIAL");
   return fields;
-}
-
-export class HumanApprovalCommitUncertainError extends Error {
-  readonly commandId: string;
-  constructor(commandId: string) {
-    super("H0_011_COMMIT_UNCERTAIN");
-    this.name = "HumanApprovalCommitUncertainError";
-    this.commandId = commandId;
-  }
 }

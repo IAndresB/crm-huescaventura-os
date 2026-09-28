@@ -8,9 +8,10 @@ import type { EvidenceRevalidationProvider } from "../application/evidence-reval
 
 export function composePostgresRuntime(input: {
   readonly databaseUrl: string;
+  readonly humanApprovalDatabaseUrl: string;
   readonly capability: F1SigningConfiguration;
   readonly humanAuthorization: F2SigningConfiguration;
   readonly evidenceProvider?: EvidenceRevalidationProvider;
 }): PostgresRuntime {
-  return createPostgresRuntime(input.databaseUrl, input.capability, input.humanAuthorization, input.evidenceProvider);
+  return createPostgresRuntime(input.databaseUrl, input.humanApprovalDatabaseUrl, input.capability, input.humanAuthorization, input.evidenceProvider);
 }
