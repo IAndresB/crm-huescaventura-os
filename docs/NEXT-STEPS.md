@@ -1,6 +1,6 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
-Actualización 2026-09-28: TSK-H0-015 COMPLETED en preparación local, evidencia en `specs/001-core-crm/evidence-TSK-H0-015.md`; H0-016/017 autorizados para continuidad local y aún pendientes en este punto. Los puntos de parada anteriores se conservan como historia.
+Actualización 2026-09-28: TSK-H0-015 COMPLETED en preparación local, evidencia en `specs/001-core-crm/evidence-TSK-H0-015.md`; H0-016 COMPLETED localmente (migración H0-M06; focales 5/5, regresión PostgreSQL 259/259); H0-017 es la verificación independiente siguiente. Los puntos de parada anteriores se conservan como historia.
 
 ## Current Step
 
@@ -8,7 +8,7 @@ Actualización 2026-09-28: TSK-H0-015 COMPLETED en preparación local, evidencia
 
 **TSK-H0-013 y TSK-H0-014: COMPLETED en alcance local.** H0-M05 implementa el cierre Core global y la coordinación Auth con fallo parcial explícito. La verificación formal independiente R01–R23 queda 23/23 PASS, 8/8 pruebas formales; regresión 254/254 PostgreSQL + 31/31 unitarios. [Evidencia de implementación](../specs/001-core-crm/evidence-TSK-H0-013.md) y [evidencia formal](../specs/001-core-crm/evidence-TSK-H0-014.md). Sin H0-014-F01+ material. Hosted M03/M04/M05 NO ACREDITADOS; PLAN-AUTH-002/003/005/006 PENDING globalmente; Supabase Staging/Production intactos.
 
-**Punto de parada alcanzado. H0-015 es la siguiente tarea y permanece NOT STARTED, SIN EJECUTAR.** La continuidad autorizada H0-013/014 queda completada: implementación, H0-M05, focales, regresión y reverificación formal independiente. H0 continúa IN PROGRESS; no se amplió el alcance a H0-015, hosted, Auth real ni efectos externos.
+**Punto de parada histórico tras H0-013/014.** La continuidad autorizada H0-013/014 queda completada: implementación, H0-M05, focales, regresión y reverificación formal independiente. H0 continúa IN PROGRESS; no se amplió el alcance a H0-015, hosted, Auth real ni efectos externos.
 
 **D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resolvió el bloqueo de diseño F1/humano sin modificar D037/F1. Autorizaciones posteriores permitieron H0-005 local, dos intentos FAILED de H0-006 por F01/F02 y una tercera reverificación local completa PASS. TSK-H0-009/010 y H0-008 permanecen COMPLETED en sus alcances; PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
 
