@@ -5,7 +5,7 @@
 Status: APPROVED
 Version: 0.3
 Created: 2026-09-11
-Last updated: 2026-09-14
+Last updated: 2026-09-28
 Approved: 2026-09-14
 Phase: 7 — Plan
 Progress: COMPLETED
@@ -80,7 +80,7 @@ La aceptación técnica del Core no acreditará interfaces físicas, conectores 
 | ID / estado | Decisión y motivo | Verificación / límite |
 |---|---|---|
 | PLAN-DEC-001 — APPROVED (D032) | TypeScript estricto y runtime Node.js para la capa servidor; lógica y reglas del dominio de negocio técnicamente independientes de Next.js, SDK o transporte (no se refiere a la dirección web). Interfaces de persistencia y adaptadores estrechas, sin framework de dominio adicional. | H0 comprueba compatibilidad de versiones soportadas, build y frontera servidor. Versiones exactas y lockfile se fijarán al iniciar la implementación autorizada; ninguna dependencia instalada ahora. |
-| PLAN-DEC-002 — APPROVED (D032) | Acceso a PostgreSQL desde repositorios de servidor con transacciones explícitas y un rol técnico limitado, distinto del propietario de tablas y sin BYPASSRLS. Datos Core en ámbito no expuesto a acceso directo del navegador; Auth no concede CRUD arbitrario. | §6 define contexto confiable por transacción y controles de datos. H0 debe demostrar que el canal API directo no elude reglas; no usar postgres/service_role como identidad ordinaria de negocio. |
+| PLAN-DEC-002 — APPROVED (D032) | Acceso a PostgreSQL desde repositorios de servidor con transacciones explícitas y un rol técnico limitado, distinto del propietario de tablas y sin BYPASSRLS. Datos Core en ámbito no expuesto a acceso directo del navegador; Auth no concede CRUD arbitrario. | §6 define contexto confiable por transacción y controles de datos. H0 debe demostrar que el canal API directo no elude reglas; no usar postgres/service_role como identidad ordinaria de negocio. D039 concreta para Human Approval un TTE interno con login/pool exclusivos, separado del runtime general. |
 | PLAN-DEC-003 — APPROVED (D032) | Identidades técnicas estables, relaciones estructuradas y versiones inmutables. Snapshots para contenido aplicado; estado vigente con historial añadido en cada cambio material. | §5; ninguna bolsa JSON sustituye relaciones, cantidades, fondos o restricciones verificables. Sin cascadas destructivas de historia. |
 | PLAN-DEC-004 — APPROVED (D032) | Versión esperada para detectar edición obsoleta, restricciones de unicidad y serialización corta en PostgreSQL para fondos, conversión, aprobación y cierre. | §7; bloquear también la raíz compartida que protege un cálculo agregado, no solo filas hijas existentes. Sin locks distribuidos. |
 | PLAN-DEC-005 — APPROVED (D032) | Human Approval refiere una versión inmutable del contenido/efecto y su alcance; identidad de efecto separada de cada intento. | §8; no hace falta una firma legal ni un hash para sustituir la evidencia. Cambio material crea nueva revisión; aprobación no es reutilizable para otro efecto. |
@@ -95,14 +95,14 @@ Los PLAN-B identifican bloques de implementación lógica, no microservicios ni 
 
 | Bloque | Componentes / responsabilidad | Colaboración y límite |
 |---|---|---|
-| PLAN-B01 — Base y seguridad | Adaptación Next.js, contexto Auth/CRM Actor, autorización, persistencia transaccional, permisos, configuración y errores. | Server Actions internas y futuros handlers HTTP delegan en aplicación. No decisiones de negocio en UI ni permisos derivados de parámetros del cliente. |
+| PLAN-B01 — Base y seguridad | Adaptación Next.js, contexto Auth/CRM Actor, autorización, persistencia transaccional, permisos, configuración y errores. | Server Actions internas y futuros handlers HTTP delegan en aplicación. No decisiones de negocio en UI ni permisos derivados de parámetros del cliente. D039 asigna a B01 la conexión privada y autoridad de finalización del TTE. |
 | PLAN-B02 — Identidades y catálogo mínimo | Contact/Organization/Group, relaciones, duplicados, códigos humanos; versiones de catálogo, proveedores/ofertas, unidades, reglas y tarifas. | Mantiene referencias estables para comercial/operación. No confirma disponibilidad por catálogo ni fusiona personas automáticamente. |
 | PLAN-B03 — Contratación | Lead/Opportunity, alternativas, preparación/fijación, modalidad, términos, Acceptance, conversión normal/directa. | Compone una Booking con alcance aceptado y cantidades de origen. No paga ni confirma servicios. |
 | PLAN-B04 — Operación | Booking Service, asignaciones/noches, horario/lugar, disponibilidad, opciones, confirmación interna/externa, preparación, ejecución y revalidación. | Evalúa confirmación de Booking con economía y requisitos actuales; no los crea por arrastre. |
 | PLAN-B05 — Economía | Obligaciones, recepciones, conciliación/asignaciones, fondos ajenos, factura/pago externo, Fee/costes, cálculo, Refund y fianza. | Determina y conserva porciones; consume bases comerciales verificadas. No motor fiscal ni transferencia bancaria real. |
 | PLAN-B06 — Cambios y cierres | Booking Modification y cancelación por alcance; evaluación de derecho D019/D020; Closure Assessment dentro de Booking. | Coordina B03/B04/B05 y evidencia; aplica partes independientes. No absorbe sus estados ni borra hechos. |
 | PLAN-B07 — Evidencia y coordinación | Document/Required Document, Communication, originales/derivados, Review, Task, Incident, Alert/Notification, timeline/calendario. | B01 protege datos; B08 agenda efectos. Cerrar trabajo no acredita el hecho que lo motivó. |
-| PLAN-B08 — Supervisión y ejecución | Human Approval, registro idempotente, Definition/Execution Record, jobs/outbox, reclamación y recuperación. | Reutiliza aplicación y permisos específicos del efecto; IA no se autoaprueba. |
+| PLAN-B08 — Supervisión y ejecución | Human Approval, registro idempotente, Definition/Execution Record, jobs/outbox, reclamación y recuperación. | Reutiliza aplicación y permisos específicos del efecto; IA no se autoaprueba. D039 exige que las unidades sensibles HA pasen por el TTE sin sustituir la aprobación humana. |
 | PLAN-B09 — Fronteras externas | Source/Reference/Event, entrada normalizada y salida genérica con resultados/evidencias. | Contratos de prueba/manuales, sin conectores. Conserva autoridad externa, intención/resultado separados y rechazo de escritura Avaibook. |
 | PLAN-B10 — Validación y entrega futura | Trazabilidad de pruebas, migraciones revisadas, observabilidad, recuperación y criterios de release. | No declara Production lista sin dependencias resueltas ni autoriza despliegue por sí solo. |
 
@@ -256,6 +256,8 @@ H0 prepara los mecanismos y ensayos aislados; PLAN-PENDING-003 impide declarar c
 
 ### 6.5. Autorización de datos y secretos
 
+[D039](../../docs/DECISIONS.md#d039--transaction-finalization-authority) concreta A + D: módulo TTE interno y login/pool exclusivo de mínimo privilegio. `crm_h0_runtime` no puede construir/finalizar directamente ni por overloads/helpers/memberships las unidades sensibles HA. Se mantienen owner/verifier/executor separados, sin nuevos roles NOLOGIN salvo necesidad demostrada; no DML general, DDL, ownership ni acceso SQL a claves. El modelo sigue siendo M1/M2 y excluye compromiso del proceso servidor confiable. F1/F2 se emiten después de BEGIN, para backend/xid/database/postmaster/login/environment/generation reales del TTE, con asociación cerrada login/purpose/operation/resource; no se alteran criptografía ni ventanas.
+
 PLAN-DEC-002 requiere:
 
 - Conexión de servidor con rol de datos no propietario, sin BYPASSRLS ni capacidad ordinaria de administrar esquema/permisos; rol de migración separado. Consultas parametrizadas y secretos protegidos por entorno.
@@ -288,7 +290,7 @@ El resultado distingue efecto aplicado, resultado previo, parte pendiente y E1�
 |---|---|---|
 | PLAN-C01 — Consulta autorizada | Actor, finalidad, alcance/filtros; B01 coordina lectura de B02–B09. | Proyección mínima con procedencia/certidumbre, paginación cuando proceda y referencias; no autoridad sobre mutaciones. |
 | PLAN-C02 — Decisión de dominio | Intención, estado actual, versiones, datos/evidencias y alcance; módulo propietario evalúa reglas. | Cambios permitidos o bloqueos específicos con IDs normativos; sin llamadas externas ni escritura oculta. |
-| PLAN-C03 — Unidad de persistencia | Contexto confiable, cambios validados y precondiciones concurrentes; B01 ejecuta §7.2. | Hecho/historia/resultado/intención juntos o rollback; ninguna sucesión de peticiones REST independientes simula esa atomicidad. |
+| PLAN-C03 — Unidad de persistencia | Contexto confiable, cambios validados y precondiciones concurrentes; B01 ejecuta §7.2. | Hecho/historia/resultado/intención juntos o rollback; ninguna sucesión de peticiones REST independientes simula esa atomicidad. Para HA, D039 hace propietario al TTE y mantiene M04/M02 en la misma unidad cuando corresponda. |
 | PLAN-C04 — Registro de evidencia | Original o registro manual autorizado, fuente, momentos, identidad/alcance y revisión; B07/B09. | Evidencia recibida y conservación comprobada, candidata/verificada según acto; no confirmación por adjuntar. |
 | PLAN-C05 — Intención y resultado externos | Efecto, destinatario, contenido/versiones, aprobación y referencia; B08/B09. | Intención persistida e intento/resultado acreditados por separado. Canal sin conector permanece pendiente. |
 | PLAN-C06 — Evaluación y reevaluación | Hechos actuales y dependencias materiales de SM §16; B04/B05/B06/B07. | Evaluación por alcance, revisión y cambios permitidos; nunca confirmación o cierre por arrastre. |
@@ -296,6 +298,8 @@ El resultado distingue efecto aplicado, resultado previo, parte pendiente y E1�
 Son contratos semánticos para diseñar y probar el Core; no son rutas, schemas API ni payloads definitivos.
 
 ### 7.2. Unidades internas
+
+Para las unidades sensibles HA, D039 exige que el TTE controle conexión, BEGIN, secuencia, comprobaciones finales y COMMIT/ROLLBACK mediante API estrecha, sin SQL/callback/tx handle o commit separado expuestos al solicitante. La evidencia debe estar vigente en una comprobación final obligatoria después de todas las esperas y trabajos e inmediatamente antes de iniciar COMMIT. No hay devolución de control ni SQL/wait del solicitante entre ambos; no puede adelantar u omitir el check. No se exige que PostgreSQL complete físicamente el commit durable antes de expiry, en alineación expresa con D037 §7. M04/M02, historia, resultado e intención aplicables siguen siendo atómicos.
 
 Cada unidad siguiente incluye historia material, resultado idempotente e intención persistida asociada cuando aplique. Las fuentes y permisos se revalidan antes de confirmar. Las referencias PLAN-T nombran límites de transacción, no tareas de tasks.md.
 
@@ -308,7 +312,7 @@ Cada unidad siguiente incluye historia material, resultado idempotente e intenci
 | PLAN-T05 — Conciliar/asignar/ajustar | Correspondencia verificada, porciones/destinos, consumos/disponibles y cobertura de obligaciones afectadas. | Serializar sobre movimiento/fondos compartidos, no solo asignaciones hijas. Evitar 80 + 80 sobre 100, también frente a Refund. Sin transferencia real. |
 | PLAN-T06 — Determinar y aplicar cambio | Evaluación D019/D020, autorización y cada conjunto de efectos internos dependientes de la misma base; nueva obligación/ajuste con fundamento cuando proceda. | Separar efecto operativo independiente de importe aún pendiente. El resultado parcial conserva qué falta; no toda modificación es una transacción gigante. |
 | PLAN-T07 — Registrar salida económica real | Movimiento verificado y porciones de Provider Payment/Refund/fianza, referencias comunes, ajustes y reevaluaciones. | No duplicar una devolución por aparecer en Refund y Deposit. La ejecución externa precede a su registro acreditado; una anomalía abre revisión, sin aprobación retroactiva. |
-| PLAN-T08 — Autorizar/reservar efecto | Aprobación exacta y, en el acto posterior de ejecución, consumo/reserva de la parte autorizada, intención y registro del intento pertinente. | Una misma parte no se reserva para dos efectos. Cambio material invalida aplicabilidad; aprobación histórica permanece. Resultado incierto conserva reserva hasta conciliar. |
+| PLAN-T08 — Autorizar/reservar efecto | Aprobación exacta y, en el acto posterior de ejecución, consumo/reserva de la parte autorizada, intención y registro del intento pertinente. | Una misma parte no se reserva para dos efectos. Cambio material invalida aplicabilidad; aprobación histórica permanece. Resultado incierto conserva reserva hasta conciliar. D039 exige final check obligatoria y cierre bajo control exclusivo del TTE. |
 | PLAN-T09 — Recibir o reclamar trabajo | Recepción + deduplicación + evento/evidencia; o reclamación exclusiva + identidad/generación de intento, según operación. | Recepción y aplicación separables. Reclamar no prueba ejecución. Una concesión vencida no autoriza reenviar si pudo ocurrir un efecto. |
 | PLAN-T10 — Cierre y reapertura | Evaluación de cada dimensión solicitada, fundamentos y condición conjunta; evidencia posterior invalida solo evaluación afectada y retira cierre actual. | Los comandos que cambian insumos del cierre y el cierre mismo comparten versión/serialización de Booking. No puede cerrar sobre una factura/Refund que cambió concurrentemente. |
 | PLAN-T11 — Fusión/archivado/corrección | Resolución humana, referencias de origen, vínculos y cambio de vista vigente con ambos historiales preservados. | Identidades/códigos no se liberan. Fusión no reatribuye hechos ni agrupa Opportunities/Bookings. |
@@ -328,6 +332,8 @@ La transacción no permanece abierta esperando al humano, a un proveedor o a Sto
 - **Cierre y evidencia tardía:** T10 evalúa comercial/operativo/económico independientemente. Solo las tres resueltas y las guardas permiten cierre conjunto. Evidencia posterior retira la condición actual si invalida un criterio, manteniendo cierre previo, operación y aceptación históricas.
 
 ## 8. Coordinación, supervisión, jobs y fronteras
+
+D039 conserva Human Approval exacto y la partición F1/F2: el TTE no aprueba ni cambia material. No contacta con proveedor externo durante la unidad sensible. Commit incierto se recupera por identidad estable, sin retry ciego; replay committed autorizado devuelve resultado previo sin proveedor, evidencia nueva, reserva ni efecto duplicados. Material distinto con la misma identidad conserva E2. Se mantienen uncertain/reconcile y ausencia de garantía exactly-once externa.
 
 Task/Incident/Required Document conservan las máquinas aprobadas. Las fechas/causas de Task provienen de BR-TASK-005 y SPEC-FR-COORD; se actualiza o reabre la misma necesidad con historia, sin duplicación por reintentos. Task no incorpora un estado En curso adicional; vencimiento y gravedad de Incident son dimensiones separadas.
 
@@ -366,6 +372,8 @@ Secuencia principal: H0 → H1 → H2 → H3 → H4 → H5 → H6. Dentro de cad
 ## 10. Estrategia de pruebas y trazabilidad
 
 ### 10.1. Niveles y evidencia exigida
+
+D039 añade a la verificación local H0-012 ataques M1/M2 contra separación runtime/TTE, grants y cadenas indirectas, cruce login/purpose, binding real, replay/commit incierto y finalización obligatoria. El expected temporal es evidencia vigente en el último check obligatorio tras todas las esperas/trabajos, seguido del inicio de COMMIT sin SQL/wait/control del solicitante; no un deadline físico de confirmación durable. Se preservan reproducers y FAIL históricos; cierre solo tras focales, regresiones y nueva R01–R25 completa, sin heredar PASS previos.
 
 - Dominio: casos tabulados y propiedades de cálculo, unidades, días naturales, guardas y dependencias, usando reloj y fuentes controlados. Los oráculos salen de SPEC/SM/D/BR, no de volver a ejecutar la implementación como expectativa.
 - Aplicación y persistencia: PostgreSQL real aislado, transacciones, restricciones, permisos/RLS, inmutabilidad, concurrencia, migraciones y pérdida de respuesta. Dobles de repositorio no acreditan estos controles.
@@ -535,6 +543,8 @@ Los ejemplos PM se revisan con aritmética decimal y comparación de componentes
 ## 11. Entornos, configuración, observabilidad y entrega prevista
 
 ### 11.1. Entornos y configuración
+
+El TTE D039 usa pool/login exclusivos y conexión reservada durante la unidad, con binding obtenido después de BEGIN y sin autoridad residual al reutilizar el pool. Credenciales y claves se separan por entorno; no se escriben en documentos ni migraciones. Esta sincronización no acredita implementación, hosted M03/M04 ni Production. Su prueba requiere autorización y evidencia propias; el alcance actual es local y no amplía el monolito ni el modelo de amenaza.
 
 D033 aprueba **crm.huescaventura.com** como dirección prevista, subdominio asociado a un proyecto/despliegue separado de la web pública. No se utilizará huescaventura.com/crm ni se comprará un dominio nuevo. No autoriza configurar DNS, vincular dominio, crear proyectos ni desplegar en esta fase. Esta dirección web es independiente del concepto de dominio de negocio de PLAN-DEC-001.
 

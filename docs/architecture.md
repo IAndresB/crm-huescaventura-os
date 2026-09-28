@@ -2,7 +2,7 @@
 
 Status: APPROVED
 Version: 0.1
-Last updated: 2026-09-10
+Last updated: 2026-09-28
 Approved: 2026-09-10
 
 Aprobación humana completada el 2026-09-10. ARCH-DEC-001 a ARCH-DEC-018 quedan aprobadas como decisiones arquitectónicas de Architecture v0.1. ARCH-PENDING-001 y ARCH-PENDING-002 permanecen abiertos: no bloquean el cierre de Architecture ni el inicio posterior de SPEC 001, pero cada uno bloquea exclusivamente el trabajo dependiente indicado en §18.1. Esta aprobación no inicia SPEC 001, plan, tasks ni implementación.
@@ -108,6 +108,8 @@ Interfaces, cachés y exportaciones derivan del registro canónico con sus permi
 
 ## 5. Autenticación y autorización V1
 
+Precisión aprobada por [D039](DECISIONS.md#d039--transaction-finalization-authority): para unidades sensibles de Human Approval se separa `crm_h0_runtime` del login/pool exclusivo del Trusted Transaction Executor (TTE). F1 técnica y F2 humana permanecen independientes; se emiten después de BEGIN para el binding real backend/xid/database/postmaster/login/environment/generation del TTE, con las ventanas y controles de D037/D038 intactos.
+
 Fuentes: C P10/P11/P15; D015; BR-SEC-001–004; DM §5.2 y DM-INV-050; SM G1/G3.
 
 **ARCH-DEC-004:** utilizar Supabase Auth para identificar al único usuario operativo V1, Administrador / Propietario, y relacionar esa identidad autenticada con Internal User / CRM Actor. Esta decisión arquitectónica queda APPROVED en Architecture v0.1; D004 por sí sola no la había aprobado.
@@ -125,6 +127,8 @@ La frontera económica protege costes, márgenes, beneficios, comisiones, honora
 Comercial, Operaciones, Administración y Colaborador interno limitado quedan preparados como evolución conceptual, sin matriz granular ni usuarios adicionales activos. Administración no equivale a Administrador. BR-PENDING-012/013 y DM-PENDING-006 conservarán la decisión de permisos finos antes de activar esos roles. Sesiones, métodos de acceso y mecanismos concretos de protección se especificarán después, sin añadir facultades de negocio.
 
 ## 6. Capa de aplicación e interfaces de entrada
+
+D039 selecciona A + D: TTE como módulo interno del servidor de confianza, con login/pool PostgreSQL exclusivo, manteniendo el monolito modular. Es dueño de conexión y transacción sensible, BEGIN, secuencia y COMMIT/ROLLBACK. Su API recibe operaciones tipadas, no SQL/callbacks ni handles aportados por el solicitante; no expone conexión ni commit separado. El runtime general no dispone de acceso directo o indirecto suficiente para construir/finalizar esas unidades.
 
 Fuentes: SM G1–G6, §§14/16–18; BR-GEN-007, BR-AUTO-001–002; C P06/P10/P14/P15.
 
@@ -272,6 +276,8 @@ Si un ejecutor cae tras contactar con un proveedor, recuperar el trabajo no sign
 
 ## 11. Human Approval ligada a una propuesta concreta
 
+Conforme D039, el TTE no aprueba ni cambia el material: coordina M04/M02 en una misma unidad atómica cuando corresponda. La evidencia debe seguir vigente en una comprobación final obligatoria después de todas las esperas y trabajos de la unidad e inmediatamente antes de iniciar COMMIT. Entre ambos no devuelve el control al solicitante, que no puede intercalar SQL/waits, adelantar u omitir la comprobación ni separar arbitrariamente el cierre. No se exige que PostgreSQL termine físicamente la confirmación durable antes del expiry; se preserva D037 §7. No se contacta con proveedores externos durante la unidad sensible.
+
 Fuentes: C P15; D009/D016; BR-AI-002/003; DM-INV-046; SM §14.3.
 
 La aprobación humana se vincula a una propuesta identificada e inmutable de contenido/efecto mediante identidad de versión y alcance, o fingerprint/hash conceptual que permita comprobar correspondencia. No se prescribe algoritmo ni formato físico, ni se presenta el hash como firma legal.
@@ -289,6 +295,8 @@ Human Approval no sustituye Acceptance del cliente ni Provider Confirmation, no 
 Fuentes: C P06/P14/P20; BR-AUTO-002, BR-PAY-003; DM-INV-008/012/030/048; SM G4–G6 y §§6.1/9/14.
 
 ### 12.1. Idempotencia transversal
+
+D039 conserva la recuperación de commit incierto por identidad estable y resultado durable, sin retry ciego. El replay autorizado de un resultado committed no vuelve a contactar con el proveedor ni refresca la evidencia ni repite reserva/efecto. Misma identidad con material diferente conserva E2; historia, resultado e intención mantienen la atomicidad C03 y no se promete exactly-once externo.
 
 Webhooks, mensajes, pagos, External Events, creación de Booking, notificaciones, jobs, automatizaciones y acciones con proveedor necesitan identificar la operación y su efecto. Se usa identificador externo cuando existe, acotado a fuente/contexto, y clave interna cuando sea necesario; se conserva registro de procesamiento y resultado conocido.
 
@@ -358,6 +366,8 @@ Los logs excluyen siempre secretos y URLs de acceso temporal. Minimizan datos pe
 
 ## 14. Seguridad, privacidad y minimización
 
+La separación TTE/runtime de D039 cubre M1/M2 vigente. No amplía la garantía frente al compromiso del proceso servidor de confianza. Login/pool exclusivos, grants mínimos y cierre de accesos indirectos complementan F1/F2; los roles de owner/verifier/executor se mantienen separados. El TTE no recibe DML general, ownership, DDL ni lectura de claves por su conexión SQL.
+
 Fuentes: C P10–P12/P15/P16; D008/D015–D017; BR-SEC-001–005, BR-BILL-001–005.
 
 La frontera servidor aplica validación de entradas, permisos por acción/alcance y verificación de autenticación en mutaciones y lecturas. En Production se exigirá al Administrador/Propietario el cumplimiento de MFA cuando la capacidad seleccionada lo soporte, conforme al requisito propuesto en §5; su verificación no se delega únicamente en la UI. Las interfaces internas invocables también requieren protección frente a solicitudes no autorizadas y abuso; un identificador difícil de adivinar no sustituye permiso.
@@ -405,6 +415,8 @@ Cada futuro despliegue será trazable a commit, versión publicada y migraciones
 Las futuras Specs definirán criterios comprobables y validación proporcional de reglas, permisos, transiciones, fallos, concurrencia y recuperación antes de declarar una funcionalidad terminada. No se presentan comprobaciones documentales como pruebas de una aplicación existente.
 
 ### 16.2. Entornos
+
+La implementación y verificación D039 se acreditan por entorno. El pool privado debe conservar el backend durante la transacción y obtener el binding después de BEGIN; no se hereda autoridad entre conexiones reutilizadas. La validación local no acredita poolers/recursos hosted, M03/M04 hosted ni Production. La sincronización documental no implementa F05 ni completa H0-012; los estados históricos de aprobación se conservan.
 
 | Entorno conceptual | Finalidad | Separación requerida |
 |---|---|---|
