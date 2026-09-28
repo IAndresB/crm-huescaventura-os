@@ -113,7 +113,7 @@ hosted application deployment. Esa validación hosted no modificó decisiones AP
 
 ## Last Approved Commit
 
-- `6248820e3253a9d88755ed0a4996fff8f865690e` — `docs(decision): approve f2 human access capability`. Es el commit de aprobación formal D038, separado de la coordinación posterior. D037 permanece APPROVED e intacta.
+- `3e3f47a1692290412a03cf14087c2c470b8cab90` — `docs: approve transaction finalization authority`. Es el commit documental de aprobación formal D039, separado de este segundo commit exclusivo de coordinación. D039 = APPROVED / NOT IMPLEMENTED; D037 y D038 permanecen histórica e íntegramente APPROVED, sin alterar su texto.
 
 ## Notes
 

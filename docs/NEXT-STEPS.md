@@ -10,7 +10,7 @@ Siguiente paso recomendado, **SIN EJECUTAR**: autorización delimitada para actu
 
 **D038 APPROVED** en `6248820e3253a9d88755ed0a4996fff8f865690e`: F2 resolvió el bloqueo de diseño F1/humano sin modificar D037/F1. Autorizaciones posteriores permitieron H0-005 local, dos intentos FAILED de H0-006 por F01/F02 y una tercera reverificación local completa PASS. TSK-H0-009/010 y H0-008 permanecen COMPLETED en sus alcances; PLAN-AUTH-002 y PLAN-AUTH-006 permanecen PENDING globalmente.
 
-La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit se actualizará al SHA del commit documental de aprobación formal D039 mediante un segundo commit exclusivo de coordinación, sin modificar el Plan aprobado.
+La fase 07 permanece COMPLETED: [Plan SPEC 001](../specs/001-core-crm/plan.md) v0.3 APPROVED / COMPLETED por D034 el 2026-09-14; Ready for tasks.md: YES. D035 conserva su contexto histórico de autorización de preparación/publicación. Last Approved Commit corresponde a `3e3f47a1692290412a03cf14087c2c470b8cab90`, commit documental de aprobación formal D039, registrado mediante un segundo commit exclusivo de coordinación, sin modificar el Plan aprobado.
 
 Architecture v0.1 y sus 18 ARCH-DEC, SPEC 001 v0.1 por D022, D023–D039 y PLAN-DEC-001–PLAN-DEC-009 permanecen APPROVED. Los commits del borrador, aprobación y coordinación se registran por separado en [PROJECT-STATUS](PROJECT-STATUS.md).
 
