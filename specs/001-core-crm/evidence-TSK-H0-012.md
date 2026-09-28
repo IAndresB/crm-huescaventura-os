@@ -1,6 +1,6 @@
 # TSK-H0-012 — Verificación formal independiente local
 
-Resumen vigente tras la corrección localizada (base `70cf54c`): **TSK-H0-012 FAILED / NOT COMPLETED; F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. La frontera F04 conserva la atomicidad y ejecuta la comprobación final de evidencia y `COMMIT` en el mismo mensaje del servidor. La suite focal H0-012 pasa 44/44; no se ejecuta la matriz formal completa R01–R25. Se conservan íntegros los tres FAILED anteriores, F04 y sus fixes; cada ejecución es una etapa separada, no una reinterpretación histórica.
+Resumen vigente tras la quinta ejecución formal sobre `c38c896ac2d9de350782e5afb189b9e95dae6156`: **TSK-H0-012 FAILED / NOT COMPLETED; H0-012-F05 OPEN — MATERIAL / ALTA; F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. R01–R07 y R11 PASS; R08/R23 FAIL por el mismo F05; otras 15 filas BLOCKED por fail-fast. La frontera final F04 funciona si el caller conserva el mensaje del adaptador, pero runtime puede omitirla o adelantarla y confirmar evidencia caducada. No se modifica producto ni migraciones. La cronología anterior y sus resultados se conservan íntegros.
 
 ## V-EVI / preflight y orden de trabajo
 
@@ -680,3 +680,136 @@ El control focal actualizado inserta el SQL adversarial antes del mensaje final:
 V-MIG de la nueva migración pasa en PostgreSQL 17.11: cadena local desde vacío hasta 003 y upgrade 003→004; runtime y bootstrap incorrectos reciben `42501`; fallo DDL inyectado produce rollback sin dejar la función nueva ni alterar fixtures; retirada la inyección, la aplicación correcta conserva el snapshot previo. No se modifica 003 ni migraciones anteriores.
 
 Resultado de esta etapa: **F01 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; F02 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; F03 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION**. **TSK-H0-012 = FAILED / NOT COMPLETED**. **H0-013 = NOT STARTED**. No se ejecuta R01–R25 completa.
+
+
+## Quinta ejecución formal independiente — base c38c896 (2026-09-28)
+
+### Preflight, fuentes y criterio previo
+
+Autorización exclusiva de reverificación formal H0-012, con parada ante el primer defecto material y publicación de test/evidencia/coordinación. Preflight ejecutado en el orden solicitado: `pwd`, `git rev-parse --show-toplevel`, `git branch --show-current`, `git remote -v`, `git fetch origin`, `git rev-parse HEAD`, `git rev-parse origin/main`, `git status --short`, `git status --branch --short`. Resultado: `/Users/andres/Developer/crm-huescaventura-os`, rama `main`, remoto `git@github.com:IAndresB/crm-huescaventura-os.git`, **HEAD = origin/main = c38c896ac2d9de350782e5afb189b9e95dae6156**, árbol limpio. Local, sin nueva rama, Cloud ni conexión a Supabase Staging.
+
+Fuentes contrastadas selectivamente antes de editar: README, Tasks §2.2–2.3 y H0-011/012, Plan B01/B08/C02/C03/C05/T08/§7.2/§8, SPEC HA-001–005/CONC-002/AC-053–056/E1/E2/E4, State Machines G1–G6/SM-HA-01–03 y D009/D016/D038. Después se contrastan la matriz histórica, evidencia F01–F04, suite H0-012, adaptador y migraciones de corrección. No se cambia ningún expected de la matriz normativa inicial.
+
+Orden: escenarios originales F01/F02 y controles, después R01–R08 secuenciales; continuar R09–R25 solo si no aparece defecto. Los PASS siguientes son nuevas ejecuciones desde esta base. R11 ya se ejecuta completo en los controles iniciales. Los otros controles parciales no acreditan filas enteras.
+
+Expected adversarial previo: D038 §2 permite a M2 elegir cualquier SQL permitido al login runtime; no se confía en TypeScript. Por tanto, además de añadir SQL antes del mensaje final F04, runtime puede **sustituir ese mensaje por COMMIT** o **invocar la función final mientras la evidencia vive y confirmar separadamente después de la espera**. En todos los casos largos, HA-002/AC-054/G2/Plan §7.2 exigen rollback si la evidencia caduca antes de finalizar. El comportamiento actual del adaptador no reduce ese expected.
+
+### Resultado: H0-012-F05 — OPEN / MATERIAL / ALTA
+
+**Defecto reproducido:** la función `crm_api.h0_m04_finalize_evidence(text)` es una comprobación invocable, pero su ejecución inmediatamente antes de COMMIT no es obligatoria en la frontera SQL de runtime. El mensaje conjunto de F04 protege el recorrido que conserva el adaptador. Un caller M2 puede elegir otro mensaje SQL y confirmar una unidad con evidencia ya caducada.
+
+No es falsificación de claves, MAC, input, binding, reloj ni material. Una unidad legítima recibe sus capacidades F1/F2 y prueba de evidencia por el servidor del fixture; el proxy adversarial utiliza exclusivamente la conexión runtime y esos argumentos ya emitidos. No accede a los firmadores ni cambia argumentos. `session_user = current_user = crm_h0_runtime` se comprueba durante el ataque. Las conexiones administrativas solo preparan el bloqueo y observan persistencia; no ejecutan el COMMIT atacado ni alteran los datos de esa unidad.
+
+**Reproducer conservado:** `tests/integration/postgres-h0-012.test.ts`, subtest `R08/R23 M2: final evidence authority must survive omission or early invocation of the F04 wrapper`, helper `finalEvidenceWait`, modos `runtime-commit-expired` y `split-finalize-expired`.
+
+1. Propuesta IA y decisión humana exactas, confirmadas mediante el adaptador público, con source sintética identificada, fingerprint contrastado y vigencia efectiva de 2500 ms; material aprobado por 60000 ms.
+2. El servidor revalida la fuente y emite las capacidades originales. Runtime ejecuta revalidación, M04 y overload humano M02 sin cambios de bytes. Todas las guardas iniciales pasan y las escrituras siguen dentro de la transacción.
+3. Antes del mensaje final, runtime comprueba su login/rol y que la evidencia todavía vive. Ejecuta `SET CONSTRAINTS ALL IMMEDIATE`, que evalúa anticipadamente el constraint trigger y las FK pendientes.
+4. En la variante principal omite el finalizador. En la variante de caracterización llama a `select crm_api.h0_m04_finalize_evidence($1)` y obtiene retorno satisfactorio mientras la evidencia vive.
+5. Runtime espera un lock advisory PostgreSQL real (`pg_advisory_xact_lock(12008004)`) retenido por otra conexión. La conexión observadora comprueba `pg_locks` para el PID runtime. El reloj real `clock_timestamp()` supera la caducidad de la evidencia en al menos 100 ms; F1/F2 siguen vigentes.
+6. Se libera el lock; runtime ejecuta únicamente `COMMIT`. Otra conexión consulta todas las tablas del snapshot y los conteos específicos de la unidad.
+
+**Expected:** rollback íntegro, preparación previa conservada, ninguna nueva evidence/reservation/event/receipt/operation/root/attempt/history/result/intent, actividad intacta.
+
+**Observed:** ambas variantes confirman. Cada una deja **1 evidence_revalidation, 1 reservation, 1 event, 1 receipt, 1 operation, 1 root, 1 attempt de ledger, 1 history, 1 result y 1 intent**; cambia la actividad humana. Proposal=1 y decision=1 previas se conservan. No se ha contactado un proveedor de efectos ni se acredita envío/ejecución externa.
+
+La variante principal libera el lock a `1790615855777621` µs, después de `effective_until = 1790615855661000` µs (**116621 µs caducada**). La variante con finalizador adelantado lo libera a `1790615861022508` µs, después de `1790615860919000` µs (**103508 µs caducada**). En ambas: `realAdvisoryWait=true`, `checkedWhileLive=true`, `immediateApplied=true`, `f1LiveAtRelease=true`, `f2LiveAtRelease=true`, `committed=true`. Solo la segunda tiene `earlyFinalizerReturned=true`.
+
+La assertion normativa permanece `committed === false` y falla. No se invierte, elimina ni marca skip. F05 registra la insuficiencia de la corrección F04 frente al caller SQL M2; la reproducción histórica F04 con el mensaje final intacto sí pasa ahora. F01–F04 no se cierran ni se reescribe su historia.
+
+### R08 completo hasta la parada y controles del mismo defecto
+
+| Caso / setup | Expected | Observed actual / comprobación posterior | Resultado |
+|---|---|---|---|
+| Material sin evidence requerida | Reserva exacta permitida | `reserved`; persistencia real | PASS |
+| Evidence vigente, fuente independiente, fingerprint exacto | Revalidar y reservar | `reserved`, huella/material coinciden | PASS |
+| Material evidence caducado | DENY y rollback | Rechazo; snapshot independiente idéntico | PASS |
+| Source caducada | DENY y rollback | Rechazo; snapshot idéntico | PASS |
+| Fingerprint de source diferente | DENY y rollback | Rechazo; snapshot idéntico | PASS |
+| Reference inexistente | DENY y rollback | Rechazo; snapshot idéntico | PASS |
+| Provider falla con excepción | DENY y rollback | Rechazo; snapshot idéntico | PASS |
+| Provider devuelve no disponible / no hay provider configurado | DENY y rollback | Ambos rechazados; snapshots idénticos | PASS |
+| Proof autenticada con proposal, part o scope incorrectos | DENY y rollback | Cada variante denegada; snapshot idéntico | PASS |
+| MAC de proof alterada | DENY y rollback | Denegado; snapshot idéntico | PASS |
+| Replay confirmado, source retirada y adaptador sin provider | `previous`, sin revalidación nueva | `previous` de la reserva confirmada | PASS |
+| `IMMEDIATE`, wait corto, mensaje final F04 intacto | COMMIT vigente | COMMIT; 1 proof y unidad completa desde otra conexión | PASS |
+| Guard diferido, evidence caduca, mensaje final F04 intacto | Rollback | Proof=0; snapshot completo intacto | PASS |
+| F04 original: `IMMEDIATE`, espera real y caducidad, mensaje final intacto | Rollback | Proof=0; snapshot completo intacto | PASS |
+| M2 omite finalizador; `IMMEDIATE` y wait corto | COMMIT vigente | COMMIT; 1 proof y unidad completa | PASS |
+| M2 omite finalizador; `IMMEDIATE` y evidence caduca | Rollback | **COMMIT con evidencia caducada y unidad completa** | **FAIL — F05** |
+| Caracterización F05: omitir finalizador sin adelantar constraints; evidence caduca | Rollback | Trigger diferido deniega; snapshot completo intacto | PASS |
+| Caracterización F05: `IMMEDIATE`, llamar finalizador antes del wait, evidence caduca, COMMIT separado | Rollback | **Finalizador retorna vigente; COMMIT posterior persiste evidencia caducada** | **FAIL — mismo F05** |
+
+Las dos últimas observaciones se ejecutan exclusivamente para caracterizar F05, dentro del mismo subtest, antes de propagar su assertion fallida. No se prosigue a filas posteriores. El control diferido distingue la causa: al agotar el trigger anticipadamente, el COMMIT independiente carece de una nueva comprobación obligatoria. La semántica de PostgreSQL para [SET CONSTRAINTS](https://www.postgresql.org/docs/17/sql-set-constraints.html) incluye constraint triggers y explica la evaluación anticipada; [COMMIT](https://www.postgresql.org/docs/17/sql-commit.html) hace visibles los cambios a otras conexiones. La prueba local, no la documentación por sí sola, acredita el fallo.
+
+### Matriz de esta ejecución — 25 filas, sin PASS heredado
+
+`formalSnapshot` lee desde una conexión administrativa distinta de runtime las tablas M04, M02, actor/session/epoch y evidence. `deniedWithoutChanges` compara antes/después completos. `snapshot(id)` consulta conteos específicos y actividad. Para filas BLOCKED se conserva el expected normativo y se identifica lo no ejecutado; no se simula cobertura.
+
+| ID / requisito | Expected previo | Setup y test/consulta utilizados | Observed / verificación independiente | Resultado |
+|---|---|---|---|---|
+| R01 HA-001/005, D009/D016 | IA/técnico no decide; humano vigente sí | Subtest R01: propuesta IA, sin auth y F1 técnica por SQL, decisión humana | Denials sin cambios; decisión conserva actor/session exactos | PASS |
+| R02 HA-001, SM-HA-01 | Pending/rejected sin reserva ni ejecución | Subtest R02: reserve/attempt/outcome sobre ambos estados | Todos denegados; snapshots intactos | PASS |
+| R03 HA-003, AC-053 | Aprobación no equivale a ejecución | Subtest R03; conteos por proposal/operation | 1 decisión; 0 reservas, eventos de ejecución y registros externos | PASS |
+| R04 HA-001/002, Plan §8 | Todos los campos materiales fijados | Subtest R04; importe y condiciones sintéticos; framing/hash independientes | Bytes de proposal y hash de decision exactos desde otra conexión | PASS |
+| R05 HA-002, AC-054 | Cada cambio material deniega; historia intacta | Subtest R05: action/version/content/recipient/amount/conditions/scope/effect; hash original y de variante | 16 intentos rechazados sin cambios | PASS |
+| R06 HA-002, V-DOM | Canonicalización inequívoca; límites válidos | Subtest R06: UTF-8/Unicode, orden, empty/absent/unknown/not-applicable, 16384 bytes/exceso, NUL, alteración de byte | Referencia independiente coincide; diferencias separadas; inválidos rechazados; prueba pura sin persistencia | PASS |
+| R07 T08, HA-004 | Parte/material/scope/effect/decision/proposal exactos | Subtest R07: swaps e intento exacto | Variantes denegadas con snapshots intactos; parte exacta reservada | PASS |
+| R08 HA-002, AC-054, G2 | Revalidación positiva y vigente hasta finalizar | Casos R08 y helper `finalEvidenceWait`; tabla anterior | Positivo/negativos y F04 ordinario pasan; runtime confirma caducada omitiendo/adelantando finalizador | **FAIL — F05** |
+| R09 D038 §§11–18 | Revoked/disabled/generation/epoch/MFA/ready deniegan | Matriz de estados no alcanzada | Sin resultado completo: fail-fast F05 | BLOCKED |
+| R10 D038 §§4/6/13–15 | Caducidad en actor/session/epoch/advisory/parte revierte; corto pasa | Control previo actor >30 s; no toda la matriz de locks | Actor deniega sin llegar a M02; no acredita otros recursos | BLOCKED |
+| R11 D038 §§4/6/14, C03 | F01 original revierte aun con F1 viva; corto confirma | Tres tests `H0-012 R11`; actor 3 s + lock M02 real; snapshots por ID | F2 30250 ms, ledger 27187 ms, F1 viva: rollback; corto 103 ms confirma; ambas caducadas revierte | PASS |
+| R12 D038 §15, CONC-002 | Revocación/disable/generation con órdenes opuestos coherentes | Carreras completas no alcanzadas | Detenida por F05 | BLOCKED |
+| R13 D038 §§1/4/5/14 | F1/F2 y purpose/resource/action/scope/input exactos | F02 original inicial; combinaciones restantes no alcanzadas | F02 deniega antes del core; no acredita la partición completa | BLOCKED |
+| R14 V-DAT | Runtime/PUBLIC/anon/authenticated sin interfaces ni DML indebidos | Auditoría multirrol no alcanzada | No se heredan ACL históricas | BLOCKED |
+| R15 D038 §§2/5 | Error/rollback/commit/reuse/GUC/temp sin autorización residual | Matriz residual no alcanzada | Detenida por F05 | BLOCKED |
+| R16 HA-004, CONC-002, AC-055 | Dos conexiones/misma parte: máximo una reserva | Carrera específica no alcanzada | Detenida por F05 | BLOCKED |
+| R17 T08, HA-004 | Partes independientes; consumida no se repite | Recorrido por dos partes no alcanzado | Detenido por F05 | BLOCKED |
+| R18 E4, G6, T08 | Uncertain mantiene reserva y bloquea segundo efecto | Attempt/uncertain/retry no alcanzado | Detenido por F05 | BLOCKED |
+| R19 Plan §8, HA-003 | Solo attempt/reservation/reference uncertain exactos concilian | Reconcile succeeded/failed y mismatches no alcanzados | Detenido por F05 | BLOCKED |
+| R20 HA-003/004 | Known failure permite continuación segura; success consume sin repetir | Failure/new attempt/success/consumed no alcanzado | Detenido por F05 | BLOCKED |
+| R21 E2, V-AT | Replay equivalente previous; material/evidence diferentes E2 | Control inicial replay humano/post-COMMIT y R08 sin provider; matriz E2 pendiente | Casos parciales pasan; no PASS formal de fila | BLOCKED |
+| R22 C03, V-AT, E4 | Fallos antes de COMMIT rollback; post-COMMIT/uncertain distintos | Rollbacks F01/evidence y control post-COMMIT observados; fault injection completo pendiente | Snapshots de controles acreditados; no toda la fila | BLOCKED |
+| R23 D038 §§2/19, V-DAT | Frontera F04 no eludible por SQL runtime, incluso constraints anticipadas | Mismo ataque R08; login/current_user runtime; COMMIT y finalizador separados | Frontera opcional eludida; resto del inventario SQL detenido | **FAIL — mismo F05** |
+| R24 V-MIG, C01 | Cadena/upgrade/fixtures/autoridades/falloDDL/rollback y scope correcto | Bootstrap vacío hasta 002; upgrades 003/004 con fixture M02/M03/M04, autoridad incorrecta, DDL failure y retry | Bootstrap/controles pasan; no cubre V-MIG completo F01/F02 ni lectura C01/scope | BLOCKED |
+| R25 HA-001/003, G4 | IA/registrador/aprobador/sesión/ejecutor/attempt/result/source inequívocos | Reconstrucción completa no alcanzada | No PASS por `proposer_kind` ni por R01 | BLOCKED |
+
+Resultado de filas: **8 PASS, 2 FAIL, 15 BLOCKED**. Los dos FAIL son un único defecto material F05 compartido por R08 y R23. No se inicia una búsqueda de otros defectos.
+
+### F01–F04 y controles anteriores reejecutados
+
+- **F01 original:** PASS actual. Wait previo actor y wait M02 real; F2 30250 ms, F1 posterior vigente; rollback de todos los campos del snapshot. Control corto: F2 131 ms, wait ledger 103 ms, COMMIT. Control ambas expiradas: wait ledger 30270 ms, rollback completo.
+- **Primera fase:** wait actor >30 s deniega antes de M02; ninguna F1 de ledger emitida; actividad y snapshot intactos.
+- **F02 original:** PASS actual. F2 30288 ms y F1 viva; el overload técnico deniega antes de llegar al core/lock M02, `deniedBeforeLedger=true`. Snapshot intacto. Las interfaces runtime M04/M02 técnica/M02 humana aparecen ejecutables en la consulta inicial, como espera la partición de propósito.
+- **F03:** recorrido positivo y negativos requeridos de R08 pasan; replay de reserva confirmada devuelve previous con source retirada/adaptador sin provider. No se hereda el resultado focal anterior.
+- **F04:** los tres controles con el mensaje final intacto pasan, incluido IMMEDIATE + wait real + caducidad. **F05 impide afirmar que esa frontera sea obligatoria para SQL M2.**
+- **Estado final de cada uno, F01, F02, F03 y F04: FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION.** Ninguno CLOSED porque no pasa toda R01–R25.
+
+### Ejecución, conteos, publicación y límites
+
+Entorno observado: PostgreSQL **17.11 (170011)**, Node **24.21.0**, pnpm **11.19.0**. Clúster efímero con socket Unix y TCP deshabilitado. Datos/identidades/fuentes sintéticas; claves aleatorias solo en memoria. Teardown completado: servidor local detenido y directorio efímero eliminado.
+
+```sh
+POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin node --test --experimental-strip-types --test-name-pattern='H0-012 R11|F01 correction|H0-012 fifth formal execution' tests/integration/postgres-h0-012.test.ts
+```
+
+Resultado Node: **21 tests; 19 PASS; 2 FAIL; 0 skipped; 0 cancelled; 0 todo**, exit 1; duración **136618.172167 ms**. Son **20 casos hoja: 19 PASS y 1 FAIL material**; Node cuenta además el contenedor fallido. La segunda variante de F05 es diagnóstico dentro del mismo caso hoja, no otro defecto ni otro test contado. De los 20 casos hoja, 6 son controles históricos reejecutados y 14 pertenecen a la matriz hasta la parada.
+
+| Comprobación | Resultado de esta ejecución |
+|---|---|
+| H0-012 formal PostgreSQL seleccionado | FAILED: 21 tests / 19 PASS / 2 FAIL / 0 skipped / 0 cancelled |
+| `pnpm run typecheck` | PASS |
+| `pnpm run lint` | PASS, import boundaries |
+| `git diff --check` | PASS |
+| Secret scan razonable del diff permitido | PASS; sin patrones de claves privadas, PAT, JWT, URL PostgreSQL autenticada, claves Supabase o SCRAM; sin claves/credenciales en diagnósticos |
+| `pnpm install --frozen-lockfile`, `pnpm audit --prod`, `pnpm test`, `pnpm run build` | NO EJECUTADOS: la regresión completa del apartado 27 estaba condicionada a no encontrar defecto material; parada F05 |
+| `POSTGRES_H0_BIN=… pnpm run test:postgres` completo | NO EJECUTADO por fail-fast; no se atribuyen los 212/212 históricos a esta ejecución |
+| Total de tests efectivamente ejecutados | 21 contados por Node: 19 PASS, 2 FAIL, 0 skipped, 0 cancelled; 20 hojas, un único fallo material |
+
+La selección se limita a los controles originales y la nueva ejecución secuencial. Los tests focales restantes no se seleccionan; Node informa 0 skipped, lo que **no significa cobertura de esos tests ni de las filas BLOCKED**. No se continúa la matriz ni la regresión PostgreSQL completa tras F05. Solo se realizan controles estáticos de publicación.
+
+Publicación autorizada exclusivamente de cinco archivos: suite H0-012, esta evidencia, Tasks, PROJECT-STATUS y NEXT-STEPS. Mensaje de commit: `test(h0): record further human approval verification failure`, hijo directo de la base obligatoria. Sin producto, migraciones, dependencias, lockfile, fuentes normativas ni D039. Last Approved Commit conserva `6248820e3253a9d88755ed0a4996fff8f865690e`.
+
+Estado: **TSK-H0-011 COMPLETED como antecedente local; TSK-H0-012 FAILED / NOT COMPLETED; F05 OPEN / MATERIAL / ALTA; F01–F04 FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; H0-013 NOT STARTED; H0 IN PROGRESS; PLAN-AUTH-002/006 PENDING globalmente**. H0-M03/M04 hosted, Auth/TOTP/recovery/dispositivos reales y Production no acreditados. Supabase Staging **sin conexión ni cambios** en esta ejecución.
+
+Siguiente paso recomendado, **SIN EJECUTAR**: autorización separada para analizar y corregir F05 mediante una frontera de finalización obligatoria bajo el modelo M2 aprobado, preservando F01–F04. Después, nueva reverificación formal completa e independiente R01–R25. Esta publicación no autoriza el fix, D039, H0-013 ni hosted.

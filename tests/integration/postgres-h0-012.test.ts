@@ -454,7 +454,7 @@ async function deniedWithoutChanges(work: () => unknown) {
   assert.deepEqual(await formalSnapshot(), beforeState);
 }
 
-test("H0-012 fourth formal execution: independent matrix, stop at first material failure", async (t) => {
+test("H0-012 fifth formal execution: independent matrix, stop at first material failure", async (t) => {
   const api = new H0011PostgresAdapter(runtime, f1, f2, evidenceFixture.provider);
   async function row(name: string, work: () => Promise<void>) {
     let passed = false;
@@ -609,12 +609,13 @@ test("H0-012 fourth formal execution: independent matrix, stop at first material
       referenceHash(referencePart(m.parts[0]!)), m)).commandState, "previous");
   })) return;
   if (!await row("R08 negative: source/material expiry, missing provider and altered authenticated proof", async () => {
-    for (const kind of ["expired-source", "missing-reference", "fingerprint", "provider-failure", "provider-absent"]) {
+    for (const kind of ["expired-source", "missing-reference", "fingerprint", "provider-failure", "provider-unavailable", "provider-absent"]) {
       const p = await evidenceProposal(`formal-r08-${kind}`);
       if (kind === "expired-source") p.fixture.sources.get(p.m.evidence.reference)!.validUntil = "2000-01-01T00:00:00.000Z";
       if (kind === "missing-reference") p.fixture.sources.clear();
       if (kind === "fingerprint") p.fixture.sources.get(p.m.evidence.reference)!.bytes = Buffer.from("different-source-bytes");
       const provider = kind === "provider-failure" ? { revalidate: async () => { throw new Error("synthetic-unavailable"); } }
+        : kind === "provider-unavailable" ? { revalidate: async () => undefined }
         : kind === "provider-absent" ? undefined : p.fixture.provider;
       await deniedWithoutChanges(() => p.reserve(new H0011PostgresAdapter(runtime, f1, f2, provider)));
     }
@@ -637,12 +638,40 @@ test("H0-012 fourth formal execution: independent matrix, stop at first material
       if (mode !== "immediate-short") assert.deepEqual(result.afterState, result.beforeState);
     })) return;
   }
+  if (!await row("R08 M2 control: runtime COMMIT with current evidence", async () => {
+    const result = await finalEvidenceWait("runtime-commit-short");
+    t.diagnostic(JSON.stringify(result.facts));
+    assert.equal(result.committed, true);
+    assert.equal(result.facts.proofCount, 1);
+    assert.equal(result.facts.counts.reservations, 1);
+  })) return;
+  if (!await row("R08/R23 M2: final evidence authority must survive omission or early invocation of the F04 wrapper", async () => {
+    // D038 M2 controls all SQL permitted to runtime, including COMMIT. It
+    // cannot be required to obey a TypeScript-only final-message convention.
+    const result = await finalEvidenceWait("runtime-commit-expired");
+    t.diagnostic(JSON.stringify(result.facts));
+    if (result.committed) {
+      // Fail-fast: only characterize this same boundary, never later rows.
+      const deferred = await finalEvidenceWait("runtime-deferred-expired");
+      t.diagnostic(JSON.stringify(deferred.facts));
+      assert.equal(deferred.committed, false);
+      assert.deepEqual(deferred.afterState, deferred.beforeState);
+      const split = await finalEvidenceWait("split-finalize-expired");
+      t.diagnostic(JSON.stringify(split.facts));
+    }
+    assert.equal(result.committed, false,
+      "H0-012-F05: runtime bypassed the optional final wrapper and committed expired evidence");
+    assert.deepEqual(result.afterState, result.beforeState);
+  })) return;
 });
 
-// M2 may issue transaction-control SQL, but cannot sign or alter the genuine
-// capabilities. The proxy adds ONLY permitted SQL before the final evidence
-// check+COMMIT server message.
-async function finalEvidenceWait(mode: "immediate-short" | "deferred-expired" | "immediate-expired") {
+// M2 receives genuine already-issued capabilities, without any signer/key.
+// Original F04 controls add SQL before the intact final message. The fifth
+// formal run also lets runtime choose COMMIT or call the wrapper separately:
+// the approved M2 model does not trust the adapter's transaction control.
+type FinalEvidenceMode = "immediate-short" | "deferred-expired" | "immediate-expired"
+  | "runtime-commit-short" | "runtime-commit-expired" | "runtime-deferred-expired" | "split-finalize-expired";
+async function finalEvidenceWait(mode: FinalEvidenceMode) {
   const id = `formal-r08-${mode}`;
   const p = await evidenceProposal(id, 2500, 60_000);
   const beforeState = await formalSnapshot();
@@ -657,8 +686,11 @@ async function finalEvidenceWait(mode: "immediate-short" | "deferred-expired" | 
   }));
   await locked;
   const trace: Trace = { m04Returned: false };
-  let finalWrapperReturned = false; let immediateApplied = false; let checkedWhileLive = false;
-  let login = ""; let pid = 0;
+  let finalMessageReached = false; let earlyFinalizerReturned = false;
+  let immediateApplied = false; let checkedWhileLive = false;
+  let login = ""; let effectiveRole = ""; let pid = 0;
+  const short = mode === "immediate-short" || mode === "runtime-commit-short";
+  const runtimeCommit = mode.startsWith("runtime-") || mode === "split-finalize-expired";
   const client = new Proxy(observedClient(trace), { get(target, key, receiver) {
     if (key !== "begin") return Reflect.get(target, key, receiver);
     return (options: string, work: (tx: postgres.TransactionSql) => Promise<unknown>) => target.begin(options, async (tx) => {
@@ -666,16 +698,22 @@ async function finalEvidenceWait(mode: "immediate-short" | "deferred-expired" | 
         if (property !== "unsafe") return Reflect.get(inner, property, rec);
         return async (query: string, args?: postgres.ParameterOrJSON<never>[]) => {
           if (!query.includes("crm_api.h0_m04_finalize_evidence")) return inner.unsafe(query, args);
-          // Add the adversarial SQL before the final server message; its
-          // final check must still observe evidence that expired meanwhile.
-          finalWrapperReturned = true;
-          const [identity] = await tx`select session_user login,pg_backend_pid() pid,
+          finalMessageReached = true;
+          const [identity] = await tx`select session_user login,current_user effective_role,pg_backend_pid() pid,
             floor(extract(epoch from clock_timestamp())*1000000)::text us`;
-          login = identity!.login; pid = identity!.pid; checkedWhileLive = BigInt(identity!.us) < expiry;
+          login = identity!.login; effectiveRole = identity!.effective_role;
+          pid = identity!.pid; checkedWhileLive = BigInt(identity!.us) < expiry;
+          assert.equal(login, "crm_h0_runtime"); assert.equal(effectiveRole, "crm_h0_runtime");
           assert.ok(checkedWhileLive, "evidence must still be live before requesting early checks");
-          if (mode !== "deferred-expired") { await tx.unsafe("set constraints all immediate"); immediateApplied = true; }
+          if (mode !== "deferred-expired" && mode !== "runtime-deferred-expired") {
+            await tx.unsafe("set constraints all immediate"); immediateApplied = true;
+          }
+          if (mode === "split-finalize-expired") {
+            await inner.unsafe("select crm_api.h0_m04_finalize_evidence($1)", [id]);
+            earlyFinalizerReturned = true;
+          }
           await tx`select pg_advisory_xact_lock(${gate})`;
-          return inner.unsafe(query, args);
+          return runtimeCommit ? inner.unsafe("commit") : inner.unsafe(query, args);
         };
       } }) as postgres.TransactionSql;
       return work(guardedTx);
@@ -692,7 +730,7 @@ async function finalEvidenceWait(mode: "immediate-short" | "deferred-expired" | 
       await delay(10);
     }
     assert.ok(blocked, "independent backend must observe real advisory wait after M02");
-    if (mode === "immediate-short") await delay(50);
+    if (short) await delay(50);
     else while (await nowUs() <= expiry + 100_000n) await delay(25);
     releaseUs = await nowUs();
     assert.ok(trace.f1Expiry! > releaseUs && trace.f2Expiry! > releaseUs,
@@ -702,8 +740,18 @@ async function finalEvidenceWait(mode: "immediate-short" | "deferred-expired" | 
   const afterCounts = await snapshot(id);
   const afterState = await formalSnapshot();
   const proofCount = (await admin`select count(*)::int n from crm_ha.evidence_revalidations where command_id=${id}`)[0]!.n;
-  return { committed, beforeState, afterState, facts: { mode, login, pid, realAdvisoryWait: blocked,
-    finalWrapperReturned, immediateApplied, checkedWhileLive, evidenceExpiredAtRelease: releaseUs >= expiry,
+  // Persisted state, not the adapter promise alone, determines whether COMMIT
+  // survived. Every relevant table is read from the independent admin backend.
+  if (committed) {
+    assert.equal(proofCount, 1);
+    for (const key of ["reservations", "events", "receipts", "operations", "roots", "attempts", "history", "results", "intents"]) {
+      assert.equal(afterCounts[key], 1, `${mode}: independently persisted ${key}`);
+    }
+  }
+  return { committed, beforeState, afterState, facts: { mode, login, effectiveRole, pid, realAdvisoryWait: blocked,
+    finalMessageReached, runtimeChoseCommit: runtimeCommit, earlyFinalizerReturned,
+    immediateApplied, checkedWhileLive, evidenceExpiredAtRelease: releaseUs >= expiry,
+    evidenceExpiryUs: expiry.toString(), releasedAtUs: releaseUs.toString(),
     f1LiveAtRelease: releaseUs < trace.f1Expiry!, f2LiveAtRelease: releaseUs < trace.f2Expiry!,
     committed, proofCount, activityChanged: beforeCounts.activity !== afterCounts.activity,
     counts: Object.fromEntries(Object.entries(afterCounts).filter(([key]) => key !== "activity")) } };
