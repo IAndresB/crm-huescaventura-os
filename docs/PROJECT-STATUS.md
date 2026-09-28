@@ -1,5 +1,7 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+Actualización 2026-09-28: TSK-H0-015 COMPLETED en preparación local, evidencia en `specs/001-core-crm/evidence-TSK-H0-015.md`; H0-016/017 autorizados para continuidad local y aún pendientes en este punto. Los puntos de parada anteriores se conservan como historia.
+
 Status: ACTIVE
 Last updated: 2026-09-28
 
@@ -59,7 +61,7 @@ Last updated: 2026-09-28
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS. TSK-H0-001–014 COMPLETED en sus respectivos alcances históricos/locales. H0-015 y posteriores NOT STARTED. H0 no está completado.
+- Implementación y H0: IN PROGRESS. TSK-H0-001–014 COMPLETED en sus respectivos alcances históricos/locales. H0-015 COMPLETED en preparación local; H0-016 y posteriores NOT STARTED. H0 no está completado.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
@@ -87,7 +89,7 @@ Last updated: 2026-09-28
 
 ## Current Blockers
 
-- H0-005/006, H0-009/010, H0-011/012 y H0-013/014 están completadas localmente en sus alcances. H0-M02 fue validada en Staging técnico; H0-M03/M04/M05 no se aplicaron a Staging. H0-015 permanece NOT STARTED.
+- H0-005/006, H0-009/010, H0-011/012 y H0-013/014 están completadas localmente en sus alcances. H0-M02 fue validada en Staging técnico; H0-M03/M04/M05 no se aplicaron a Staging. H0-015 COMPLETED en preparación local; H0-016 NOT STARTED.
 - PLAN-PENDING-003 bloquea únicamente el acceso real y la preparación de Production H6 por verificaciones técnicas no ejecutadas; PLAN-PENDING-001/002/004 permanecen resueltos en su alcance. No bloquea las fases documentales 07/08 completadas.
 - ARCH-PENDING-001 activo y PENDING: Proveedor(es) definitivos de Telefonía IA y WhatsApp; bloquea únicamente la selección o implementación dependiente. Pueden ser comunes o diferentes; comparar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades/proveedor de WhatsApp por separado; origen BR-PENDING-001/035 y D014.
 - ARCH-PENDING-002 activo y PENDING: bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production; origen ARCH-PENDING-002.

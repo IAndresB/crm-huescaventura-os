@@ -6,8 +6,8 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — TSK-H0-001–014 COMPLETED en sus alcances históricos/locales; H0-015 y posteriores NOT STARTED
-H0: IN PROGRESS; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; H0-013/014 COMPLETED localmente; H0-015 y posteriores NOT STARTED; H1–H6 NOT STARTED
+Implementation: IN PROGRESS — TSK-H0-001–014 COMPLETED en sus alcances históricos/locales; H0-015 COMPLETED en preparación local; H0-016 y posteriores NOT STARTED
+H0: IN PROGRESS; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; H0-013/014 COMPLETED localmente; H0-015 COMPLETED en preparación local; H0-016 y posteriores NOT STARTED; H1–H6 NOT STARTED
 Pruebas técnicas: H0-014 R01–R23 23/23 PASS, 8/8 tests formales; regresión 254/254 PostgreSQL + 31/31 unitarios. Auth real/recuperación NO EJECUTADAS; H0-M02 hosted validado separadamente; hosted M03/M04/M05 NO ACREDITADOS; Supabase Staging SIN CAMBIOS
 Last updated: 2026-09-28
 
@@ -337,17 +337,17 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-015 — Preparar recuperación D027/D031 y ensayos de dispositivo
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: preparación.
+- [x] **Ejecución: COMPLETED en preparación local. Evidencia: EJECUTADA.** Registro: [evidence-TSK-H0-015.md](evidence-TSK-H0-015.md). Hito: H0. Tipo: preparación.
 - **Objetivo y alcance:** Canal de email de seguridad, factor desde otro dispositivo/papel y break-glass independiente del CRM; no conector de email comercial.
 - **Fuentes exactas:** Plan §§6.1–6.4, 11.3; PLAN-AUTH-001, PLAN-AUTH-004, PLAN-AUTH-005, D025, D027, D031. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-015.
 - **Bloques, contratos y unidades:** B01/B07/B10; C01/C04; —.
 - **Entregable previsto:** Procedimientos propuestos de recuperación, inventario mínimo de autoridad y evidencias sin credenciales. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-001], [TSK-H0-014]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-004/005/006: planificar/ensayar en aislamiento no exige resultado previo; entrega real y acceso independiente se completan en H6. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Definir pasos, permisos mínimos, interrupciones y restablecimiento mínimo; identificar qué requiere participación humana y acceso independiente del propietario.
+- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-004/005/006: planificar/ensayar en aislamiento no exige resultado previo; entrega real y acceso independiente se completan en H6. El detalle de evidencia/decisión y puerta está en §7; no bloquea el cierre de preparación local.
+- **Acción ejecutada:** Definir pasos, permisos mínimos, interrupciones y restablecimiento mínimo; identificar qué requiere participación humana y acceso independiente del propietario.
 - **Salida observable:** Guiones aislados revisables, medios necesarios y limitaciones identificados sin secretos/QR/contraseñas ni garantía de recuperar la cuenta propietaria perdida.
 - **Verificación y esperado:** D027 usa email previamente verificado y mantiene TOTP; papel restaura secreto de configuración vigente sin depender de iCloud. D031 verifica autoridad, revoca, registra incidente, enrola factor nuevo y verifica nueva copia; P13 rige intervención de datos. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA en preparación:** procedimientos, autoridades, medios, límites y expected P01–P07 registrados en [evidence-TSK-H0-015.md](evidence-TSK-H0-015.md); ensayos reales siguen pendientes de H6.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-016"></a>

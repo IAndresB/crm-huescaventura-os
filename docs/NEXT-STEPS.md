@@ -1,5 +1,7 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
+Actualización 2026-09-28: TSK-H0-015 COMPLETED en preparación local, evidencia en `specs/001-core-crm/evidence-TSK-H0-015.md`; H0-016/017 autorizados para continuidad local y aún pendientes en este punto. Los puntos de parada anteriores se conservan como historia.
+
 ## Current Step
 
 **Fase 08 — Tasks SPEC 001: COMPLETED.** [tasks.md](../specs/001-core-crm/tasks.md) v0.1 está **APPROVED** por D036, sobre el borrador `04a98a81720dd02892b12c67fbcede69e5ae7787` y la coordinación revisada `f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f`. COMPLETED corresponde exclusivamente a la fase documental.
@@ -32,7 +34,7 @@ Postgres.js `ssl:"require"` path with explicit CA/hostname verification and
 validate Vercel secret injection/concurrency; those are not part of this DB/F1
 closure.
 
-- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; TSK-H0-001–014 COMPLETED en sus alcances históricos/locales. H0-015 y posteriores NOT STARTED.
+- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; TSK-H0-001–014 COMPLETED en sus alcances históricos/locales. H0-015 COMPLETED en preparación local; H0-016 y posteriores NOT STARTED.
 - PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y PLAN-AUTH-001–006 permanecen PENDING globalmente; solo el subset hosted database/F1 de PLAN-AUTH-006 está VALIDATED.
 - Los bloqueos localizados de Tasks §7 y los pendientes heredados permanecen vigentes en sus ámbitos.
 - La aprobación documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
@@ -55,7 +57,7 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 IN PROGRESS: TSK-H0-001–014 COMPLETED en sus alcances históricos/locales; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY y H0-M05 verificada localmente. H0-015 y posteriores NOT STARTED; detenerse antes de H0-015.
+9. implementación — H0 IN PROGRESS: TSK-H0-001–014 COMPLETED en sus alcances históricos/locales; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY y H0-M05 verificada localmente. H0-015 COMPLETED en preparación local; H0-016 y posteriores NOT STARTED; H0-016/017 autorizadas localmente por instrucción posterior.
 
 ## Working Rule
 
