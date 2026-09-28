@@ -6,9 +6,9 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: IN PROGRESS — TSK-H0-001–014 COMPLETED en sus alcances históricos/locales; H0-015 COMPLETED en preparación local; H0-016 COMPLETED localmente; H0-017 y posteriores NOT STARTED
-H0: IN PROGRESS; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; H0-013/014 COMPLETED localmente; H0-015 COMPLETED en preparación local; H0-016 COMPLETED localmente; H0-017 y posteriores NOT STARTED; H1–H6 NOT STARTED
-Pruebas técnicas: H0-014 R01–R23 23/23 PASS, 8/8 tests formales; regresión 254/254 PostgreSQL + 31/31 unitarios. Auth real/recuperación NO EJECUTADAS; H0-M02 hosted validado separadamente; hosted M03/M04/M05 NO ACREDITADOS; Supabase Staging SIN CAMBIOS
+Implementation: IN PROGRESS — TSK-H0-001–014 COMPLETED en sus alcances históricos/locales; H0-015 COMPLETED en preparación local; H0-016 COMPLETED localmente; H0-017 COMPLETED localmente; H0-018 NOT STARTED
+H0: IN PROGRESS; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; H0-013/014 COMPLETED localmente; H0-015 COMPLETED en preparación local; H0-016 COMPLETED localmente; H0-017 COMPLETED localmente; H0-018 NOT STARTED; H1–H6 NOT STARTED
+Pruebas técnicas: H0-014 R01–R23 23/23 PASS, 8/8 tests formales; regresión 254/254 PostgreSQL + 31/31 unitarios. Auth/recuperación reales NO EJECUTADAS; recuperación local H0-016/017 PASS; H0-M02 hosted validado separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; Supabase Staging SIN CAMBIOS
 Last updated: 2026-09-28
 
 ## 1. Autoridad, base y alcance
@@ -372,17 +372,17 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Todos es
 
 #### TSK-H0-017 — Verificar: Aplicar ámbito mínimo de enrolamiento y recuperación
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H0. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED en verificación formal local. Evidencia: EJECUTADA.** Registro: [evidence-TSK-H0-017.md](evidence-TSK-H0-017.md). Hito: H0. Tipo: comprobación.
 - **Objetivo y alcance:** Restablecimiento/enrolamiento sin expedientes antes de identidad completa; revocación y actor estable sin cascada destructiva.
 - **Fuentes exactas:** Plan §§5.3, 6.3–6.4; SPEC-FR-SEC-004, PLAN-AUTH-005, PLAN-AUTH-006, D025, D027, D031. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H0-017.
 - **Bloques, contratos y unidades:** B01/B07; C01/C03/C04; —.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-016]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. Los controles previos a Auth se ensayan con contexto técnico confiable aislado; no habilitan sesiones humanas ni efectos de negocio.
-- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-005/006; configuración dependiente espera capacidad/coste aceptados. Ensayos aislados no requieren dar por resuelto el pendiente. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H0-016; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** PLAN-AUTH-005/006; configuración dependiente espera capacidad/coste aceptados. Ensayos aislados no requieren dar por resuelto el pendiente. El detalle de evidencia/decisión y puerta está en §7; no bloquea el cierre formal local.
+- **Acción ejecutada:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H0-016; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Controles de denegación y continuidad ensayados en Auth aislado; dispositivos, papel, entrega e independencia real del propietario siguen pendientes de H6. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Interrumpir enrolamiento, enlace inválido/consumido y recuperación incompleta: sin Core. Restablecer contraseña no elude TOTP; eliminar/reinscribir identidad/factor no borra historia ni rehabilita sesiones. Dobles solo preparan contrato; entrega real no se acredita aquí. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA localmente:** matriz R01–R12 y 6/6 pruebas independientes PASS en [evidence-TSK-H0-017.md](evidence-TSK-H0-017.md); H6 conserva ensayos reales.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h0-018"></a>

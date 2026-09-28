@@ -1,6 +1,6 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
-Actualización 2026-09-28: TSK-H0-015 COMPLETED en preparación local, evidencia en `specs/001-core-crm/evidence-TSK-H0-015.md`; H0-016 COMPLETED localmente (migración H0-M06; focales 5/5, regresión PostgreSQL 259/259); H0-017 es la verificación independiente siguiente. Los puntos de parada anteriores se conservan como historia.
+Actualización 2026-09-28: TSK-H0-015 COMPLETED en preparación local, evidencia en `specs/001-core-crm/evidence-TSK-H0-015.md`; H0-016 COMPLETED localmente (migración H0-M06; focales 5/5, regresión PostgreSQL 259/259); H0-017 COMPLETED formalmente en alcance local (R01–R12, 6/6 tests PASS); H0-018 NOT STARTED. Los puntos de parada anteriores se conservan como historia.
 
 ## Current Step
 
