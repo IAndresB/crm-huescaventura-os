@@ -34,7 +34,7 @@ Postgres.js `ssl:"require"` path with explicit CA/hostname verification and
 validate Vercel secret injection/concurrency; those are not part of this DB/F1
 closure.
 
-- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; TSK-H0-001–014 COMPLETED en sus alcances históricos/locales. H0-015 COMPLETED en preparación local; H0-016 y posteriores NOT STARTED.
+- Se conservan las 125 fichas, dependencias, protocolos y 618 correspondencias aprobadas; TSK-H0-001–014 COMPLETED en sus alcances históricos/locales. H0-015/016/017 COMPLETED en alcance local; H0-018 NOT STARTED.
 - PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances. PLAN-PENDING-003 sigue PARTIALLY RESOLVED y PLAN-AUTH-001–006 permanecen PENDING globalmente; solo el subset hosted database/F1 de PLAN-AUTH-006 está VALIDATED.
 - Los bloqueos localizados de Tasks §7 y los pendientes heredados permanecen vigentes en sus ámbitos.
 - La aprobación documental no sustituye evidencia técnica ni resuelve pendientes por suposición.
@@ -57,7 +57,7 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 IN PROGRESS: TSK-H0-001–014 COMPLETED en sus alcances históricos/locales; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY y H0-M05 verificada localmente. H0-015 COMPLETED en preparación local; H0-016 y posteriores NOT STARTED; H0-016/017 autorizadas localmente por instrucción posterior.
+9. implementación — H0 IN PROGRESS: TSK-H0-001–014 COMPLETED en sus alcances históricos/locales; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY y H0-M05 verificada localmente. H0-015/016/017 COMPLETED en alcance local; H0-018 NOT STARTED.
 
 ## Working Rule
 
@@ -65,7 +65,7 @@ Work solo debe ejecutar el siguiente paso aprobado.
 
 La aprobación documental D038 resolvió el modelo de confianza F2; H0-005, las etapas H0-006, H0-011 y H0-012 recibieron autorizaciones separadas. Se conservan las ejecuciones FAILED, fixes F01–F04, quinta ejecución F05 y puerta experimental PostgreSQL 17.11. La primera autorización de 2026-09-28 aprobó y publicó únicamente D039 y coordinación; una autorización posterior cerró F05/H0-012. La autorización actual cubrió exclusivamente H0-013/014, incluidas migración forward-only, correcciones localizadas, commits y push local/remoto. No alteró D037/D038/D039, no inició H0-015 y no autorizó Auth real, secretos, Supabase hosted, Vercel, dispositivos ni Production. Los bloques hosted anteriores conservan sus autorizaciones y evidencia históricas.
 
-No iniciar H0-015 ni tareas posteriores, Auth real, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues sin nueva autorización. No aplicar H0-M03/M04/M05 hosted sin autorización separada.
+Regla del punto de parada anterior a la autorización H0-015/016/017: no iniciar las tareas posteriores, Auth real, UI, esquema comercial, endpoints de negocio, configuración Supabase/Vercel adicional, proveedores/dispositivos, DNS, infraestructura externa o despliegues sin nueva autorización. La autorización actual cierra solo H0-015/016/017 localmente; no iniciar H0-018 ni aplicar H0-M03/M04/M05/M06 hosted.
 
 Si aparece una decisión de negocio, arquitectura, seguridad, datos o cumplimiento no resuelta:
 

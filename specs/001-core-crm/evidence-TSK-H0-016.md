@@ -29,3 +29,7 @@ Entorno: macOS local, Node 24.21.0, pnpm 11.19.0, PostgreSQL 17.11 efímero; ide
 Focal H0-016: 5/5 PASS. Regresión: `pnpm install --frozen-lockfile` PASS; `pnpm audit --prod` sin vulnerabilidades conocidas; typecheck, lint/boundaries, unitarios 31/31 y build PASS; PostgreSQL completo 259/259 PASS, 0 omitidos/cancelados, 396,203 s; `git diff --check` PASS. La suite histórica H0-001–014 siguió pasando. No hubo F01+ material en focales. La comprobación H0-017 y H6 son independientes y no se heredan de esta salida.
 
 La recuperación parcial ante fallo o incertidumbre de revocación Auth permanece cerrada para revisión/conciliación; no se afirma que un proveedor real pueda reintentarla automáticamente. No se usaron cuentas, emails, dispositivos, QR ni secretos reales. Hosted M03/M04/M05/M06 no se aplicó. PLAN-AUTH-005/006 siguen PENDING globalmente.
+
+## Ejecuciones focales intermedias conservadas
+
+Antes del PASS final hubo tres FAIL de arnés, sin defecto material del contrato: (1) Node strip-types rechazó una propiedad de parámetro TypeScript, 0/1 PASS; se sustituyó por campos explícitos. (2) Una assertion esperaba rechazo de `complete()` pero el verificador rechazó la prueba antes de invocarlo; el estado compartido dejó 1/4 PASS; se corrigió la assertion. (3) La inspección de privilegios trató `PUBLIC` como rol de PostgreSQL y falló, 3/4 PASS; se verificó por `anon`/`authenticated` y ACL. La repetición pasó 4/4 y, tras ampliar el caso D031, 5/5. No se ocultaron estos FAIL ni se clasificaron como H0-017-F01+.

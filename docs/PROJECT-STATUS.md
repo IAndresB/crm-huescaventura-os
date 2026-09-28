@@ -61,13 +61,13 @@ Last updated: 2026-09-28
 
 ## In Progress
 
-- Implementación y H0: IN PROGRESS. TSK-H0-001–014 COMPLETED en sus respectivos alcances históricos/locales. H0-015 COMPLETED en preparación local; H0-016 y posteriores NOT STARTED. H0 no está completado.
+- Implementación y H0: IN PROGRESS. TSK-H0-001–014 COMPLETED en sus respectivos alcances históricos/locales. H0-015/016/017 COMPLETED en alcance local; H0-018 NOT STARTED. H0 no está completado.
 - H1–H6: NOT STARTED. Pruebas funcionales, Auth, datos y recuperación: NO EJECUTADAS.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
 
-- H0-013/014 cerrados localmente; siguiente tarea H0-015 NOT STARTED, sin ejecutar. Hosted M03/M04/M05 NO ACREDITADOS; PLAN-AUTH-002/003/005/006 PENDING globalmente.
+- H0-013/014 y H0-015/016/017 cerrados localmente; siguiente tarea H0-018 NOT STARTED. Hosted M03/M04/M05/M06 NO ACREDITADOS; PLAN-AUTH-002/003/005/006 PENDING globalmente.
 
 - La revocación global H0 deniega de inmediato en Core toda autoridad anterior, incluida la emisora, y conserva fallo/resultado Auth parcial sin éxito ficticio. El puerto Auth se probó solo con dobles locales: no acredita invalidación de tokens/sesiones en Supabase real ni dispositivos.
 
@@ -89,7 +89,7 @@ Last updated: 2026-09-28
 
 ## Current Blockers
 
-- H0-005/006, H0-009/010, H0-011/012 y H0-013/014 están completadas localmente en sus alcances. H0-M02 fue validada en Staging técnico; H0-M03/M04/M05 no se aplicaron a Staging. H0-015 COMPLETED en preparación local; H0-016 NOT STARTED.
+- H0-005/006, H0-009/010, H0-011/012 y H0-013/014 están completadas localmente en sus alcances. H0-M02 fue validada en Staging técnico; H0-M03/M04/M05 no se aplicaron a Staging. H0-015/016/017 COMPLETED en alcance local; H0-018 NOT STARTED.
 - PLAN-PENDING-003 bloquea únicamente el acceso real y la preparación de Production H6 por verificaciones técnicas no ejecutadas; PLAN-PENDING-001/002/004 permanecen resueltos en su alcance. No bloquea las fases documentales 07/08 completadas.
 - ARCH-PENDING-001 activo y PENDING: Proveedor(es) definitivos de Telefonía IA y WhatsApp; bloquea únicamente la selección o implementación dependiente. Pueden ser comunes o diferentes; comparar ElevenLabs y al menos una alternativa real para Telefonía IA y analizar capacidades/proveedor de WhatsApp por separado; origen BR-PENDING-001/035 y D014.
 - ARCH-PENDING-002 activo y PENDING: bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production; origen ARCH-PENDING-002.
