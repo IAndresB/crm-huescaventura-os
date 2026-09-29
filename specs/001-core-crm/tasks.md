@@ -6,7 +6,7 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–008 COMPLETED localmente y H1-009 implementada localmente pendiente H1-010; H1-010 y posteriores NOT STARTED; H2–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–010 COMPLETED localmente; H1-011 y posteriores NOT STARTED; H2–H6 NOT STARTED
 H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 IN PROGRESS; H2–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-09-29
@@ -548,14 +548,14 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H1-009 — Calcular importes exactos y materialización monetaria
 
-- [ ] **Ejecución: IMPLEMENTED LOCALLY / PENDING FORMAL TSK-H1-010. Evidencia: [H1-009](evidence-TSK-H1-009.md).** Hito: H1. Tipo: implementación.
+- [x] **Ejecución: COMPLETED en alcance de dominio local/aislado tras H1-010. Evidencia: [H1-009](evidence-TSK-H1-009.md).** Hito: H1. Tipo: implementación.
 - **Objetivo y alcance:** Decimal exacto, precio final manual, componentes, diferencias y reglas D023/D028/D029; PM-01–PM-13 como oráculos.
 - **Fuentes exactas:** Plan §§3.2, 5.2, 10.8; SPEC-FR-CAT-002, SPEC-FR-PROP-005, SPEC-FR-ECON-013, SPEC-FR-ECON-014, AC-011, AC-047, AC-049, AC-085, PM-01, PM-02, PM-03, PM-04, PM-05, PM-06, PM-07, PM-08, PM-09, PM-10, PM-11, PM-12, PM-13, D023, D028, D029, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-009.
 - **Bloques, contratos y unidades:** B05; C02; —.
 - **Entregable local:** Núcleo decimal exacto y focales deterministas en [evidence-TSK-H1-009.md](evidence-TSK-H1-009.md).
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H1-008]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** PLAN-PENDING-002/004 resueltos en su alcance; bases/datos fiscales ausentes mantienen su bloqueo material. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción local ejecutada:** Aritmética y materialización reproducible con base/versiones, redondeos y reparto por orden/restos aprobados; desconocidos conservados. Pendiente verificación formal H1-010.
+- **Bloqueo localizado / condición para levantarlo:** PLAN-PENDING-002/004 resueltos en su alcance; bases/datos fiscales ausentes mantienen su bloqueo material para cálculos dependientes. El detalle de evidencia/decisión y puerta está en §7.
+- **Acción local ejecutada:** Aritmética y materialización reproducible con base/versiones, redondeos y reparto por orden/restos aprobados; desconocidos conservados. Verificación formal H1-010 completada localmente.
 - **Salida observable:** Todos los oráculos coinciden; sin coma flotante binaria definitiva, media/prorrateo no aprobado, ajuste silencioso de costes o redondeo comercial automático.
 - **Verificación y esperado:** PM-01/10: ±10,005 → ±10,01; PM-02: 1.000,10; PM-03: 500,01 + 500,00; PM-04/05: derechos de 50,01 y 150,03; PM-06: 30,01 pendientes; PM-07: fijo 900 intacto; PM-08/09 reversión exacta/historia; PM-11/12/13 reparto exacto con orden registrado y signo. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H1-010].
 - **Integración adicional obligatoria:** [TSK-H2-004], [TSK-H3-002], [TSK-H3-006], [TSK-H4-014], [TSK-H4-016], [TSK-H3-014]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
@@ -566,17 +566,17 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H1-010 — Verificar: Calcular importes exactos y materialización monetaria
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED en alcance V-DOM local/aislado. Evidencia: [H1-010](evidence-TSK-H1-010.md).** Hito: H1. Tipo: comprobación.
 - **Objetivo y alcance:** Decimal exacto, precio final manual, componentes, diferencias y reglas D023/D028/D029; PM-01–PM-13 como oráculos.
 - **Fuentes exactas:** Plan §§3.2, 5.2, 10.8; SPEC-FR-CAT-002, SPEC-FR-PROP-005, SPEC-FR-ECON-013, SPEC-FR-ECON-014, AC-049, PM-01, PM-02, PM-03, PM-04, PM-05, PM-06, PM-07, PM-08, PM-09, PM-10, PM-11, PM-12, PM-13, D023, D028, D029, D032. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-010.
 - **Bloques, contratos y unidades:** B05; C02; —.
-- **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable local:** Matriz R01–R20, casos independientes y [evidencia H1-010](evidence-TSK-H1-010.md).
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H1-009]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** PLAN-PENDING-002/004 resueltos en su alcance; bases/datos fiscales ausentes mantienen su bloqueo material. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM; integración monetaria persistida en H2–H4 sobre TSK-H1-009; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** PLAN-PENDING-002/004 resueltos en su alcance; bases/datos fiscales ausentes mantienen su bloqueo material para cálculos dependientes. El detalle de evidencia/decisión y puerta está en §7.
+- **Acción local ejecutada:** V-DOM independiente R01–R20, con defecto H1-010-F01 cerrado y reverificación completa. La integración monetaria persistida sigue asignada a H2–H4.
 - **Salida observable:** Todos los oráculos coinciden; sin coma flotante binaria definitiva, media/prorrateo no aprobado, ajuste silencioso de costes o redondeo comercial automático. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** PM-01/10: ±10,005 → ±10,01; PM-02: 1.000,10; PM-03: 500,01 + 500,00; PM-04/05: derechos de 50,01 y 150,03; PM-06: 30,01 pendientes; PM-07: fijo 900 intacto; PM-08/09 reversión exacta/historia; PM-11/12/13 reparto exacto con orden registrado y signo. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia observada:** V-EVI y V-DOM en [evidence-TSK-H1-010.md](evidence-TSK-H1-010.md), expected previo y comparación R01–R20; sin migración en este bloque. Los recorridos persistidos de H2–H4 conservan sus pruebas futuras.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-011"></a>

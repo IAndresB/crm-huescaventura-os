@@ -237,10 +237,19 @@ export function reconstructCalculation(record:CalculationRecord):CalculationOutp
   if(JSON.stringify(reconstructed)!==JSON.stringify(record.output)) throw new Error("MONEY_HISTORY_MISMATCH");
   return reconstructed;
 }
-export interface RequiredMoneyFact {readonly name:string;readonly value:string|null;}
+export interface RequiredMoneyFact {
+  readonly name:string;
+  readonly value:string|null;
+  readonly kind?:"money"|"verified_reference";
+}
 export function requireKnownMoneyFacts(facts:readonly RequiredMoneyFact[]):Readonly<{ready:boolean;blockers:readonly string[]}> {
-  const blockers=facts.filter(f=>!f.name || f.value===null).map(f=>f.name||"UNNAMED_FACT");
-  for(const fact of facts) if(fact.value!==null) parse(fact.value);
+  const blockers=facts.filter(f=>!f.name || f.value===null || f.value==="")
+    .map(f=>f.name||"UNNAMED_FACT");
+  for(const fact of facts) if(fact.value!==null && fact.value!=="") {
+    if(fact.kind===undefined || fact.kind==="money") parse(fact.value);
+    else if(fact.kind!=="verified_reference" || fact.value.trim()!==fact.value
+      || /^unknown$/i.test(fact.value)) fail();
+  }
   return Object.freeze({ready:blockers.length===0,blockers:Object.freeze(blockers)});
 }
 export interface ManualFinalPrice {

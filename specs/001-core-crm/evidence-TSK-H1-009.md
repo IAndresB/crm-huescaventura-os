@@ -1,6 +1,6 @@
 # TSK-H1-009 — expected previo de cálculo monetario
 
-Fecha: 2026-09-29. Base `e034560295fd6e316ae2d855fbffd2f63181d18c`, `main` limpio. Este expected se fijó antes de escribir el núcleo. Estado: IMPLEMENTED LOCALLY / PENDING FORMAL TSK-H1-010.
+Fecha: 2026-09-29. Base `e034560295fd6e316ae2d855fbffd2f63181d18c`, `main` limpio. Este expected se fijó antes de escribir el núcleo. Implementación publicada en `46aace3ef92b227ce5131bad5683e10d7863c2e6`. Estado final: **COMPLETED en alcance de dominio local/aislado** tras [TSK-H1-010](evidence-TSK-H1-010.md), R01–R20 PASS.
 
 Fuentes APPROVED: Constitution P05/P06/P07/P20; BR-ECON-007, BR-PACK-004; Domain Model DM-INV-026/028/029; SPEC-FR-CAT-002, PROP-005, ECON-013/014, AC-011/047/049/085; Plan PLAN-DEC-006, §§5.2/10.8, PM-01–13; D019/D023/D028/D029/D032; Tasks TSK-H1-009/010 y §6. H1-005–008 aportan versiones estructurales, no oráculos de importe.
 
@@ -40,7 +40,7 @@ Focal `tests/exact-money-h1-009.test.ts`: **15/15 PASS**, cubre PM-01–PM-13 y 
 | `pnpm run typecheck` | PASS |
 | `pnpm run lint` | PASS |
 | `pnpm test` | 51/51 PASS, incluye 15 focales H1-009 |
-| `pnpm run test:postgres` | Se ejecutará al cierre acumulado H1-010; H1-009 no modifica persistencia ni contratos PostgreSQL |
+| `pnpm run test:postgres` | 299/299 PASS en regresión acumulada H0/H1-001–008; H1-009 no modifica persistencia ni contratos PostgreSQL |
 | `pnpm run build` | PASS |
 | `git diff --check` | PASS |
 

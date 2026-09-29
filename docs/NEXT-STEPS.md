@@ -1,10 +1,10 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
-Actualización 2026-09-29: D040 APPROVED y bloqueo temporal de H1-003/004 resuelto exclusivamente para el año/zona de códigos; la fecha/zona contractual restante sigue pendiente. H0 COMPLETED en alcance local/aislado; H1-001–008 COMPLETED localmente, con H1-007/008 restringidos a configuración estructural sintética y guardas de desconocido. [H1-009](../specs/001-core-crm/evidence-TSK-H1-009.md) implementada localmente, pendiente H1-010; H1 IN PROGRESS, H1-010 y posteriores NOT STARTED. BR-PENDING-022 y PLAN-AUTH-001–006 conservan sus pendientes; H1 NO ACREDITADO hosted. Los puntos de parada anteriores se conservan como historia.
+Actualización 2026-09-29: D040 APPROVED y bloqueo temporal de H1-003/004 resuelto exclusivamente para el año/zona de códigos; la fecha/zona contractual restante sigue pendiente. H0 COMPLETED en alcance local/aislado; H1-001–010 COMPLETED localmente, con H1-007/008 restringidos a configuración estructural sintética y guardas de desconocido. [H1-009](../specs/001-core-crm/evidence-TSK-H1-009.md) y [H1-010](../specs/001-core-crm/evidence-TSK-H1-010.md) acreditan el núcleo monetario y su verificación V-DOM local; H1 IN PROGRESS, H1-011 y posteriores NOT STARTED. BR-PENDING-022 y PLAN-AUTH-001–006 conservan sus pendientes; H1 NO ACREDITADO hosted. Los puntos de parada anteriores se conservan como historia.
 
 ## Current Step
 
-**Estado vigente:** H0 cerrado en su salida técnica aislada. H1-001–008 están COMPLETED en alcance local/aislado; H1-008 verificó R01–R11 tras H1-008-F01–F04 CLOSED. H1-009 tiene núcleo decimal y focales PASS; continúa H1-010 formal dentro de esta autorización. H1-011 permanece NOT STARTED. Antes de acceso real o preparación de Production deben satisfacerse PLAN-PENDING-003, PLAN-AUTH-001–006 y las puertas de H6/ARCH-PENDING-002 que correspondan. No se ejecutó hosted, Auth real, integración económica persistida ni despliegue en H1-009; BR-PENDING-022 y los datos reales no verificados siguen bloqueando únicamente sus usos dependientes.
+**Estado vigente:** H0 cerrado en su salida técnica aislada. H1-001–010 están COMPLETED en alcance local/aislado; H1-008 verificó R01–R11 tras H1-008-F01–F04 CLOSED y H1-010 verificó R01–R20 tras H1-010-F01 CLOSED. H1-011 permanece NOT STARTED. Antes de acceso real o preparación de Production deben satisfacerse PLAN-PENDING-003, PLAN-AUTH-001–006 y las puertas de H6/ARCH-PENDING-002 que correspondan. No se ejecutó hosted, Auth real, integración económica persistida ni despliegue en H1-009/010; BR-PENDING-022 y los datos reales no verificados siguen bloqueando únicamente sus usos dependientes.
 
 **Los párrafos siguientes conservan la coordinación y los puntos de parada históricos de H0.**
 
@@ -61,7 +61,7 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 COMPLETED en alcance técnico/local/aislado: TSK-H0-001–018 COMPLETED en sus respectivos alcances; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY. H1 IN PROGRESS con H1-001–008 COMPLETED localmente, H1-009 implementada pendiente H1-010; H1-011 y posteriores NOT STARTED.
+9. implementación — H0 COMPLETED en alcance técnico/local/aislado: TSK-H0-001–018 COMPLETED en sus respectivos alcances; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY. H1 IN PROGRESS con H1-001–010 COMPLETED localmente; H1-011 y posteriores NOT STARTED.
 
 ## Working Rule
 
