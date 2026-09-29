@@ -1,10 +1,10 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
-Actualización 2026-09-29: [TSK-H0-018](../specs/001-core-crm/evidence-TSK-H0-018.md) COMPLETED; H0 COMPLETED exclusivamente en alcance técnico/local/aislado aprobado. [TSK-H1-001](../specs/001-core-crm/evidence-TSK-H1-001.md) y [TSK-H1-002](../specs/001-core-crm/evidence-TSK-H1-002.md) COMPLETED localmente; H1 IN PROGRESS, H1-003 y H2–H6 NOT STARTED. PLAN-AUTH-001–006 PENDING globalmente; H0-M01/F1/M02 hosted acreditados previamente, M03/M04/M05/M06 y H1 NO ACREDITADOS hosted; Auth y recuperación reales pendientes. Los puntos de parada anteriores se conservan como historia.
+Actualización 2026-09-29: D040 APPROVED y bloqueo temporal de H1-003/004 resuelto exclusivamente para el año/zona de códigos; la fecha/zona contractual restante sigue pendiente. H0 COMPLETED en alcance local/aislado; H1-001/002 COMPLETED localmente. H1 IN PROGRESS, H1-003 y H2–H6 NOT STARTED en este punto. PLAN-AUTH-001–006 PENDING globalmente; H1 NO ACREDITADO hosted. Los puntos de parada anteriores se conservan como historia.
 
 ## Current Step
 
-**Estado vigente:** H0 cerrado en su salida técnica aislada. H1-001/002 están COMPLETED en alcance local/aislado; la matriz R01–R18 y la regresión acumulada 278/278 pasaron. H1-003 permanece NOT STARTED y es el siguiente paso de H1, sujeto a su propia autorización. Antes de acceso real o preparación de Production deben satisfacerse PLAN-PENDING-003, PLAN-AUTH-001–006 y las puertas de H6/ARCH-PENDING-002 que correspondan. No se ejecutó hosted, Auth real, servicio real ni despliegue en H1-001/002.
+**Estado vigente:** H0 cerrado en su salida técnica aislada. H1-001/002 están COMPLETED en alcance local/aislado; la matriz R01–R18 y la regresión acumulada 278/278 pasaron. H1-003 permanece NOT STARTED en este punto y está autorizado junto a H1-004 por la instrucción humana actual, tras D040. Antes de acceso real o preparación de Production deben satisfacerse PLAN-PENDING-003, PLAN-AUTH-001–006 y las puertas de H6/ARCH-PENDING-002 que correspondan. No se ejecutó hosted, Auth real, servicio real ni despliegue en H1-001/002.
 
 **Los párrafos siguientes conservan la coordinación y los puntos de parada históricos de H0.**
 

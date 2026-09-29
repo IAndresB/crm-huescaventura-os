@@ -5,7 +5,7 @@
 Status: APPROVED
 Version: 0.3
 Created: 2026-09-11
-Last updated: 2026-09-28
+Last updated: 2026-09-29
 Approved: 2026-09-14
 Phase: 7 — Plan
 Progress: COMPLETED
@@ -115,7 +115,7 @@ Dependencia de código propuesta: interfaces → servicios de aplicación → do
 | Área | Estrategia de conservación / integridad |
 |---|---|
 | Identidad | IDs estables independientes de email/teléfono y proveedor. Designaciones contextuales con vigencia/historia. Fusión humana conserva identidades de origen, relaciones y acceso a ambos historiales. |
-| Códigos humanos | Asignación serializada por tipo y año para Opportunity, Proposal, Booking e Incident; unicidad y registro de códigos emitidos no reutilizables. La convención de año se documentará al configurar la serie; no se usa un cálculo concurrente de máximo más uno sin protección. |
+| Códigos humanos | Asignación serializada por tipo y año para Opportunity, Proposal, Booking e Incident; unicidad y registro de códigos emitidos no reutilizables. D040 fija el año por instante de creación/asignación del código en Europe/Madrid, con corte el 1 de enero 00:00:00 local e inmutabilidad posterior; RES corresponde a la creación de Booking de SM-BK-01. No se usa un cálculo concurrente de máximo más uno sin protección. |
 | Contratación | Relación obligatoria Proposal → Opportunity y Version → Proposal; Acceptance conserva versión/términos/alcance exactos y verificación separada. Preparación editable distinta de versión fijada. Booking referencia cadena válida y conserva la unicidad V1 por Opportunity. |
 | Catálogo aplicado | Versionar definición y asignación de categorías, atributos, públicos/recomendaciones, unidades, formas de precio, tarifas, packs, promociones y requisitos materiales. Conservar referencias a versiones retenidas y snapshot cuando sea necesario para reconstruir el uso. |
 | Cantidades | Separar cantidad/unidad de cobro, asistentes estimados/confirmados y asignación nominal opcional. Detalle nocturno único dentro de la asignación; lista parcial explica el agregado, no se suma. Cada contribución de modalidad conserva su origen. |
