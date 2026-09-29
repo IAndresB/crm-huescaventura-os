@@ -6,7 +6,7 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–004 COMPLETED localmente; H1-005 NOT STARTED; H2–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–006 COMPLETED localmente; H1-007 y posteriores NOT STARTED; H2–H6 NOT STARTED
 H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 IN PROGRESS; H2–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-09-29
@@ -478,7 +478,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H1-005 — Versionar catálogo, proveedores y unidades
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: implementación.
+- [x] **Ejecución: COMPLETED en alcance local/aislado. Evidencia: [evidence-TSK-H1-005.md](evidence-TSK-H1-005.md).** Hito: H1. Tipo: implementación.
 - **Objetivo y alcance:** Service/Variant, clasificación, atributos/asignación, públicos, recomendaciones, unidades/formas de precio y Provider/Offering.
 - **Fuentes exactas:** Plan §§4, 5.1; SPEC-FR-CAT-001, SPEC-FR-CAT-002, SPEC-FR-CAT-003, AC-085. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-005.
 - **Bloques, contratos y unidades:** B02; C01/C02/C03; —.
@@ -489,14 +489,14 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Salida observable:** Maestros versionables y unidades reconstruibles sin catálogo rígido ni datos comerciales inventados.
 - **Verificación y esperado:** Cambiar categoría, atributo, público, unidad o forma no reinterpreta versión anterior; Offering no confirma servicio; recomendación alta no dispensa elegibilidad. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H1-006].
 - **Integración adicional obligatoria:** [TSK-H2-011], [TSK-H4-012]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas aplicables de §2.2. PASS local en [evidence-TSK-H1-005.md](evidence-TSK-H1-005.md). Datos comerciales reales, hosted y Production no acreditados.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-006"></a>
 
 #### TSK-H1-006 — Verificar: Versionar catálogo, proveedores y unidades
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED en verificación formal local/aislada. Evidencia: [evidence-TSK-H1-006.md](evidence-TSK-H1-006.md).** Hito: H1. Tipo: comprobación.
 - **Objetivo y alcance:** Service/Variant, clasificación, atributos/asignación, públicos, recomendaciones, unidades/formas de precio y Provider/Offering.
 - **Fuentes exactas:** Plan §§4, 5.1; SPEC-FR-CAT-001, SPEC-FR-CAT-002, SPEC-FR-CAT-003, AC-085. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-006.
 - **Bloques, contratos y unidades:** B02; C01/C02/C03; —.
@@ -506,7 +506,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H1-005; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Maestros versionables y unidades reconstruibles sin catálogo rígido ni datos comerciales inventados. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Cambiar categoría, atributo, público, unidad o forma no reinterpreta versión anterior; Offering no confirma servicio; recomendación alta no dispensa elegibilidad. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas aplicables de §2.2. Matriz R01–R10 PASS local en [evidence-TSK-H1-006.md](evidence-TSK-H1-006.md). Sin acreditación hosted ni Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-007"></a>
