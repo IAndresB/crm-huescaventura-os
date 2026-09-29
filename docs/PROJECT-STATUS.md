@@ -1,6 +1,6 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-Actualización 2026-09-29: D040 APPROVED: año/zona de códigos OP/PR/RES/INC resueltos; solo esa parte del pendiente compuesto de Tasks §7.2 queda cerrada. [TSK-H0-018](../specs/001-core-crm/evidence-TSK-H0-018.md) y H0 COMPLETED en alcance técnico/local/aislado; [TSK-H1-001](../specs/001-core-crm/evidence-TSK-H1-001.md)/[TSK-H1-002](../specs/001-core-crm/evidence-TSK-H1-002.md) COMPLETED localmente. H1 IN PROGRESS; H1-003 y H2–H6 NOT STARTED en este punto. PLAN-AUTH-001–006 PENDING globalmente; H1 NO ACREDITADO hosted.
+Actualización 2026-09-29: D040 APPROVED: año/zona de códigos OP/PR/RES/INC resueltos; solo esa parte del pendiente compuesto de Tasks §7.2 queda cerrada. H0 COMPLETED técnico/local/aislado; H1-001–004 COMPLETED localmente, con [H1-003](../specs/001-core-crm/evidence-TSK-H1-003.md) y [H1-004](../specs/001-core-crm/evidence-TSK-H1-004.md) formalmente verificados tras H1-004-F01/F02. H1 IN PROGRESS; H1-005 y H2–H6 NOT STARTED. PLAN-AUTH-001–006 PENDING globalmente; H1 NO ACREDITADO hosted.
 
 Status: ACTIVE
 Last updated: 2026-09-29
@@ -63,8 +63,9 @@ Last updated: 2026-09-29
 
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 IN PROGRESS con H1-001/002 COMPLETED localmente; H1-003 y H2–H6 NOT STARTED.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 IN PROGRESS con H1-001–004 COMPLETED localmente; H1-005 y H2–H6 NOT STARTED.
 - H1-001/002: identidades contextuales implementadas y verificadas localmente; matriz formal R01–R18 PASS, suite PostgreSQL acumulada 278/278 PASS. Acceptance real/hosted, H2–H6 y Auth/recuperación reales: NO EJECUTADOS en este alcance.
+- H1-003/004: fusión humana, archivo recuperable y ledger anual local; matriz formal R01–R10 PASS tras H1-004-F01/F02 CLOSED. Contextos H1 y ledger sintético no acreditan ciclos reales de Opportunity/Proposal/Booking/Incident ni hosted.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending

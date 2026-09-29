@@ -6,7 +6,7 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001/002 COMPLETED localmente; H1-003 NOT STARTED; H2–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–004 COMPLETED localmente; H1-005 NOT STARTED; H2–H6 NOT STARTED
 H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 IN PROGRESS; H2–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-09-29
@@ -443,35 +443,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H1-003 — Fusionar y archivar identidades sin reutilizar códigos
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: implementación.
+- [x] **Ejecución: COMPLETED en alcance local/aislado tras TSK-H1-004. Evidencia: [H1-003](evidence-TSK-H1-003.md) y [H1-004](evidence-TSK-H1-004.md).** Hito: H1. Tipo: implementación.
 - **Objetivo y alcance:** Candidatos a duplicado, fusión humana de Contact/Organization, archivado recuperable y series de Opportunity/Proposal/Booking/Incident.
 - **Fuentes exactas:** Plan §§5.1, 7.2; SPEC-FR-ID-003, SPEC-FR-ID-005, SPEC-FR-HIST-006, SPEC-FR-IDEMP-003, AC-003, AC-062; D040 para el año/zona de códigos. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-003.
 - **Bloques, contratos y unidades:** B02/B07; C01/C02/C03; T11.
 - **Entregable previsto:** Áreas propuestas de identidad, series y archivo con migraciones. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H1-002]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Convención de año de la serie resuelta por D040; ningún split/merge extraordinario de expedientes. El resto de puertas de §7 permanece en su ámbito; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** Convención de año de la serie resuelta por D040; ningún split/merge extraordinario de expedientes. El resto de puertas de §7 permanece en su ámbito.
 - **Acción futura:** Crear resolución humana de duplicados y asignación serializada por tipo/año; conservar orígenes, vínculos y códigos emitidos.
 - **Salida observable:** Recuperación de ambos contextos y series no reutilizables comprobadas; no pérdida ni reasignación retrospectiva.
 - **Verificación y esperado:** Email/teléfono iguales solo candidatos; fusión autorizada preserva ambas historias; concurrencia no duplica códigos y archivo/anulación no los libera; no fusionar Opportunities/Bookings. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H1-004].
 - **Integración adicional obligatoria:** [TSK-H6-013]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI local en [H1-003](evidence-TSK-H1-003.md): migración forward-only, 3/3 focales, matriz I01–I07; [H1-004](evidence-TSK-H1-004.md) conserva verificación formal y F01/F02 cerrados. Integración H6-013 y hosted siguen pendientes.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T11 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-004"></a>
 
 #### TSK-H1-004 — Verificar: Fusionar y archivar identidades sin reutilizar códigos
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED en alcance formal local/aislado. Evidencia: [H1-004](evidence-TSK-H1-004.md).** Hito: H1. Tipo: comprobación.
 - **Objetivo y alcance:** Candidatos a duplicado, fusión humana de Contact/Organization, archivado recuperable y series de Opportunity/Proposal/Booking/Incident.
 - **Fuentes exactas:** Plan §§5.1, 7.2; SPEC-FR-ID-003, SPEC-FR-ID-005, SPEC-FR-HIST-006, SPEC-FR-IDEMP-003, AC-003, AC-062; D040 para el año/zona de códigos. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-004.
 - **Bloques, contratos y unidades:** B02/B07; C01/C02/C03; T11.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H1-003]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Convención de año de la serie resuelta por D040; ningún split/merge extraordinario de expedientes. El resto de puertas de §7 permanece en su ámbito; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** Convención de año de la serie resuelta por D040; ningún split/merge extraordinario de expedientes. El resto de puertas de §7 permanece en su ámbito.
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H1-003; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Recuperación de ambos contextos y series no reutilizables comprobadas; no pérdida ni reasignación retrospectiva. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Email/teléfono iguales solo candidatos; fusión autorizada preserva ambas historias; concurrencia no duplica códigos y archivo/anulación no los libera; no fusionar Opportunities/Bookings. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI local en [H1-004](evidence-TSK-H1-004.md): matriz R01–R10 independiente, 4/4 PASS tras correcciones H1-004-F01/F02; límites de integración real y hosted explícitos.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T11 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-005"></a>
