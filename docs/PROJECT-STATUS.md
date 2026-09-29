@@ -1,6 +1,6 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-Actualización 2026-09-29: D040 APPROVED: año/zona de códigos OP/PR/RES/INC resueltos; solo esa parte del pendiente compuesto de Tasks §7.2 queda cerrada. H0 COMPLETED técnico/local/aislado; H1-001–006 COMPLETED localmente, con [H1-005](../specs/001-core-crm/evidence-TSK-H1-005.md) y [H1-006](../specs/001-core-crm/evidence-TSK-H1-006.md) en el alcance estructural de catálogo. H1 IN PROGRESS; H1-007 y posteriores NOT STARTED. PLAN-AUTH-001–006 PENDING globalmente; H1 NO ACREDITADO hosted.
+Actualización 2026-09-29: D040 APPROVED: año/zona de códigos OP/PR/RES/INC resueltos; solo esa parte del pendiente compuesto de Tasks §7.2 queda cerrada. H0 COMPLETED técnico/local/aislado; H1-001–008 COMPLETED localmente, con [H1-007](../specs/001-core-crm/evidence-TSK-H1-007.md) y [H1-008](../specs/001-core-crm/evidence-TSK-H1-008.md) en alcance estructural/versionado. H1 IN PROGRESS; H1-009 y posteriores NOT STARTED. BR-PENDING-022 y PLAN-AUTH-001–006 conservan sus pendientes; H1 NO ACREDITADO hosted.
 
 Status: ACTIVE
 Last updated: 2026-09-29
@@ -63,10 +63,11 @@ Last updated: 2026-09-29
 
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 IN PROGRESS con H1-001–006 COMPLETED localmente; H1-007 y posteriores NOT STARTED.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 IN PROGRESS con H1-001–008 COMPLETED localmente; H1-009 y posteriores NOT STARTED.
 - H1-001/002: identidades contextuales implementadas y verificadas localmente; matriz formal R01–R18 PASS, suite PostgreSQL acumulada 278/278 PASS. Acceptance real/hosted, H2–H6 y Auth/recuperación reales: NO EJECUTADOS en este alcance.
 - H1-003/004: fusión humana, archivo recuperable y ledger anual local; matriz formal R01–R10 PASS tras H1-004-F01/F02 CLOSED. Contextos H1 y ledger sintético no acreditan ciclos reales de Opportunity/Proposal/Booking/Incident ni hosted.
-- H1-005/006: catálogo estructural versionado, relaciones Provider/Offering, unidades/formas de precio y referencias aplicadas inmutables; matriz formal R01–R10 PASS con PostgreSQL efímero y datos sintéticos. No hay tarifas, capacidades, disponibilidad ni datos comerciales reales acreditados; hosted y Production siguen pendientes.
+- H1-005/006: catálogo estructural versionado, relaciones Provider/Offering, unidades/formas de precio y referencias aplicadas inmutables; matriz formal R01–R10 PASS con PostgreSQL efímero y datos sintéticos. No hay tarifas, capacidades, disponibilidad ni otros datos comerciales **reales** acreditados; hosted y Production siguen pendientes.
+- H1-007/008: Tariff, Pack, Promotion y reglas/requisitos estructurales versionados con snapshots aplicados; personalización sin maestro y promoción manual trazable; desconocidos explícitos. Matriz formal R01–R11 PASS tras corregir H1-008-F01–F04, incluido fallo de compatibilidad de migración detectado en regresión. BR-PENDING-022 sigue abierto para tratamiento/tipos fiscales reales; no se acreditan tarifas, costes, capacidades ni requisitos comerciales reales, ni cálculo H1-009.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending

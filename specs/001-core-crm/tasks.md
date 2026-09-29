@@ -6,7 +6,7 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–006 COMPLETED localmente; H1-007 y posteriores NOT STARTED; H2–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–008 COMPLETED localmente; H1-009 y posteriores NOT STARTED; H2–H6 NOT STARTED
 H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 IN PROGRESS; H2–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-09-29
@@ -513,7 +513,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H1-007 — Versionar tarifas, packs y requisitos aplicables
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: implementación.
+- [x] **Ejecución: COMPLETED en alcance estructural local/aislado. Evidencia: [evidence-TSK-H1-007.md](evidence-TSK-H1-007.md).** Hito: H1. Tipo: implementación.
 - **Objetivo y alcance:** Tariff, Pack, Promotion y reglas de capacidad/elegibilidad/documentación con fuentes y vigencia; personalización sin maestro obligatorio.
 - **Fuentes exactas:** Plan §§5.1–5.2; SPEC-FR-CAT-004, SPEC-FR-CAT-005, SPEC-FR-CAT-006, SPEC-FR-CAT-007, SPEC-FR-HIST-002, AC-010, AC-038, AC-049, AC-085, D019. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-007.
 - **Bloques, contratos y unidades:** B02/B05/B07; C01/C02/C03; —.
@@ -524,14 +524,14 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Salida observable:** Configuración mínima utilizable por contratación sin reinterpretar historia ni confirmar valores ausentes.
 - **Verificación y esperado:** Maestro actual cambia sin alterar referencias previas; falta coste hotelero material bloquea precio definitivo; sin unidad no calcular por persona; requisito documental no implica documento recibido. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H1-008].
 - **Integración adicional obligatoria:** [TSK-H2-004], [TSK-H4-014], [TSK-H3-014]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con expected/observed y migración/pruebas aplicables de §2.2: PASS estructural local en [evidence-TSK-H1-007.md](evidence-TSK-H1-007.md). BR-PENDING-022, datos reales, cálculos dependientes y hosted conservan sus puertas.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-008"></a>
 
 #### TSK-H1-008 — Verificar: Versionar tarifas, packs y requisitos aplicables
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED en verificación formal local/aislada. Evidencia: [evidence-TSK-H1-008.md](evidence-TSK-H1-008.md).** Hito: H1. Tipo: comprobación.
 - **Objetivo y alcance:** Tariff, Pack, Promotion y reglas de capacidad/elegibilidad/documentación con fuentes y vigencia; personalización sin maestro obligatorio.
 - **Fuentes exactas:** Plan §§5.1–5.2; SPEC-FR-CAT-004, SPEC-FR-CAT-005, SPEC-FR-CAT-007, AC-010, AC-085, D019. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-008.
 - **Bloques, contratos y unidades:** B02/B05/B07; C01/C02/C03; —.
@@ -541,7 +541,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H1-007; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Configuración mínima utilizable por contratación sin reinterpretar historia ni confirmar valores ausentes. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Maestro actual cambia sin alterar referencias previas; falta coste hotelero material bloquea precio definitivo; sin unidad no calcular por persona; requisito documental no implica documento recibido. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con expected/observed y migración/pruebas aplicables de §2.2: R01–R11 PASS local tras H1-008-F01–F04 corregidos en [evidence-TSK-H1-008.md](evidence-TSK-H1-008.md). Sin acreditación de datos reales, hosted ni Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-009"></a>
