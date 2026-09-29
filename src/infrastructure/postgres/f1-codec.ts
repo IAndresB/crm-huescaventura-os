@@ -50,7 +50,8 @@ export interface F1AuthorizationTarget {
     | "human_approval_evidence"
     | "global_access_revocation"
     | "access_recovery"
-    | "identities";
+    | "identities"
+    | "catalog";
   readonly action:
     | "read_probe"
     | "apply_probe_batch"
@@ -63,7 +64,9 @@ export interface F1AuthorizationTarget {
     | "begin"
     | "complete"
     | "read_identity"
-    | "write_identity";
+    | "write_identity"
+    | "read_catalog"
+    | "write_catalog";
 }
 
 function targetFor(
@@ -110,6 +113,10 @@ function targetFor(
     selected.resource === "identities"
       && ((operation === "C01" && selected.action === "read_identity")
         || (operation === "C03" && selected.action === "write_identity"))
+  ) || (
+    selected.resource === "catalog"
+      && ((operation === "C01" && selected.action === "read_catalog")
+        || (operation === "C03" && selected.action === "write_catalog"))
   );
   if (!allowed) throw new Error("F1_AUTHORIZATION_DENIED");
   return selected;
@@ -156,6 +163,11 @@ export function createF1Issuer(configuration: F1SigningConfiguration) {
 function f1LoginAllows(login: string, purpose: string, operation: string, target: F1AuthorizationTarget): boolean {
   const ha = ["h0-011-human-unit", "h0-011-human-approval", "h0-011-evidence-revalidation"].includes(purpose);
   if (login === "crm_h0_runtime") {
+    if (purpose === "h1-catalog") {
+      return target.resource === "catalog"
+        && ((operation === "C01" && target.action === "read_catalog")
+          || (operation === "C03" && target.action === "write_catalog"));
+    }
     if (purpose === "h1-identities") {
       return target.resource === "identities"
         && ((operation === "C01" && target.action === "read_identity")
