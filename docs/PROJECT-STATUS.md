@@ -1,6 +1,6 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-Actualización 2026-09-29: D040 APPROVED: año/zona de códigos OP/PR/RES/INC resueltos; solo esa parte del pendiente compuesto de Tasks §7.2 queda cerrada. H0 COMPLETED técnico/local/aislado; H1-001–008 COMPLETED localmente, con [H1-007](../specs/001-core-crm/evidence-TSK-H1-007.md) y [H1-008](../specs/001-core-crm/evidence-TSK-H1-008.md) en alcance estructural/versionado. H1 IN PROGRESS; H1-009 y posteriores NOT STARTED. BR-PENDING-022 y PLAN-AUTH-001–006 conservan sus pendientes; H1 NO ACREDITADO hosted.
+Actualización 2026-09-29: D040 APPROVED: año/zona de códigos OP/PR/RES/INC resueltos; solo esa parte del pendiente compuesto de Tasks §7.2 queda cerrada. H0 COMPLETED técnico/local/aislado; H1-001–008 COMPLETED localmente, con [H1-007](../specs/001-core-crm/evidence-TSK-H1-007.md) y [H1-008](../specs/001-core-crm/evidence-TSK-H1-008.md) en alcance estructural/versionado. [H1-009](../specs/001-core-crm/evidence-TSK-H1-009.md) implementada localmente, pendiente verificación formal H1-010; H1 IN PROGRESS y H1-010 y posteriores NOT STARTED. BR-PENDING-022 y PLAN-AUTH-001–006 conservan sus pendientes; H1 NO ACREDITADO hosted.
 
 Status: ACTIVE
 Last updated: 2026-09-29
