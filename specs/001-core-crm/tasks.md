@@ -6,7 +6,7 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–010 COMPLETED localmente; H1-011 y posteriores NOT STARTED; H2–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–012 COMPLETED localmente; H1-013 y posteriores NOT STARTED; H2–H6 NOT STARTED
 H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 IN PROGRESS; H2–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-09-29
@@ -583,35 +583,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H1-011 — Calcular fechas civiles y referencias por alcance
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: implementación.
+- [x] **Ejecución: COMPLETED en alcance de dominio local/aislado tras H1-012. Evidencia: [H1-011](evidence-TSK-H1-011.md).** Hito: H1. Tipo: implementación.
 - **Objetivo y alcance:** D020: fechas locales separadas de instantes, días límite completos, ancla global/de modalidad/servicio/noche y revaluación.
 - **Fuentes exactas:** Plan §§5.2, 8, 10.8; SPEC-FR-CHG-009, SPEC-FR-ECON-002, SPEC-FR-COORD-003, AC-033, AC-039, AC-041, AC-042, AC-043, AC-076, D020. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-011.
 - **Bloques, contratos y unidades:** B04/B05/B06/B07; C02/C06; —.
-- **Entregable previsto:** Área propuesta de cálculo temporal de dominio y guiones de límites. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable local:** Núcleo de fechas civiles y focales deterministas en [H1-011](evidence-TSK-H1-011.md).
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H0-004]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Zona y referencia contractual requieren procedencia real; no usar la zona del Mac como universal. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Implementar funciones de referencia y diferencia entre fechas con política conservada; distinguir vencimiento horario externo explícito de D020.
+- **Bloqueo localizado / condición para levantarlo:** Zona y referencia contractual reales requieren procedencia; los usos dependientes reales permanecen pendientes. El detalle de evidencia/decisión y puerta está en §7.
+- **Acción local ejecutada:** Funciones de referencia y diferencia civil con política conservada; vencimiento horario externo explícito distinguido de D020. Verificación H1-012 completada localmente.
 - **Salida observable:** Resultados por alcance sin 168/72 horas ni corte ficticio; no aplica D020 al control de sesión 30/7.
 - **Verificación y esperado:** Días 13/17 respecto a servicio 20 completos en ≥7 y ≥3; saldo vencido solo desde 14; modalidad22/noche23 conservan sus referencias; cambio de hora no cambia intervalo y fecha22 sí reevalúa; cifra específica no se propaga. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H1-012].
 - **Integración adicional obligatoria:** [TSK-H3-002], [TSK-H4-014], [TSK-H5-012]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia observada:** V-EVI en [H1-011](evidence-TSK-H1-011.md) y V-DOM/V-NEG en [H1-012](evidence-TSK-H1-012.md); sin migración en este bloque. Integraciones H3/H4/H5 conservan sus ensayos futuros.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-012"></a>
 
 #### TSK-H1-012 — Verificar: Calcular fechas civiles y referencias por alcance
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED en alcance V-DOM/V-NEG local/aislado. Evidencia: [H1-012](evidence-TSK-H1-012.md).** Hito: H1. Tipo: comprobación.
 - **Objetivo y alcance:** D020: fechas locales separadas de instantes, días límite completos, ancla global/de modalidad/servicio/noche y revaluación.
 - **Fuentes exactas:** Plan §§5.2, 8, 10.8; SPEC-FR-CHG-009, SPEC-FR-COORD-003, AC-033, AC-041, AC-042, AC-043, D020. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-012.
 - **Bloques, contratos y unidades:** B04/B05/B06/B07; C02/C06; —.
-- **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable local:** Matriz independiente R01–R18, casos y [evidencia H1-012](evidence-TSK-H1-012.md).
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H1-011]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Zona y referencia contractual requieren procedencia real; no usar la zona del Mac como universal. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM sobre TSK-H1-011; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** Zona y referencia contractual reales requieren procedencia; los usos dependientes reales permanecen pendientes. El detalle de evidencia/decisión y puerta está en §7.
+- **Acción local ejecutada:** V-DOM/V-NEG independiente R01–R18; H1-012-F01/F02 corregidos y matriz completa repetida. Integraciones persistidas H3/H4/H5 futuras.
 - **Salida observable:** Resultados por alcance sin 168/72 horas ni corte ficticio; no aplica D020 al control de sesión 30/7. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Días 13/17 respecto a servicio 20 completos en ≥7 y ≥3; saldo vencido solo desde 14; modalidad22/noche23 conservan sus referencias; cambio de hora no cambia intervalo y fecha22 sí reevalúa; cifra específica no se propaga. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia observada:** V-EVI, expected previo y comparación R01–R18 en [H1-012](evidence-TSK-H1-012.md); sin migración en este bloque. Los ensayos persistidos de H3/H4/H5 permanecen asignados.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-013"></a>

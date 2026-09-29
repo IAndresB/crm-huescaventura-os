@@ -77,6 +77,8 @@ export function instant(value:string):Instant {
   return value as Instant;
 }
 function localParts(at:Instant,zone:ZoneEvidence):Readonly<{date:LocalDate;time:string}> {
+  if(!zone||!zone.sourceRef||!zone.version) invalid();
+  timeZone(zone.zone);
   const parts=new Intl.DateTimeFormat("en-GB",{timeZone:zone.zone,year:"numeric",month:"2-digit",
     day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"})
     .formatToParts(new Date(at));
@@ -87,7 +89,8 @@ function localParts(at:Instant,zone:ZoneEvidence):Readonly<{date:LocalDate;time:
 export function dateAtInstant(at:Instant,zone:ZoneEvidence):LocalDate {return localParts(at,zone).date;}
 export function civilReference(key:ScopeKey,date:LocalDate,zone:ZoneEvidence,sourceRef:string,
   version:string,basis:"default"|"express_contract"="default"):CivilReference {
-  if(!["global","modality","service","night"].includes(key.scope)||!key.scopeId||!sourceRef||!version) invalid();
+  if(!["global","modality","service","night"].includes(key.scope)||!key.scopeId||!sourceRef||!version
+    ||(basis!=="default"&&basis!=="express_contract")) invalid();
   localDate(date);timeZone(zone.zone);
   if(!zone.sourceRef||!zone.version) invalid();
   return Object.freeze({...key,date,zone:Object.freeze({...zone}),sourceRef,version,basis});
