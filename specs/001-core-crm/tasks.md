@@ -6,7 +6,7 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–016 COMPLETED localmente; H1-017 y posteriores NOT STARTED; H2–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–018 COMPLETED localmente; H1-019 y posteriores NOT STARTED; H2–H6 NOT STARTED
 H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 IN PROGRESS; H2–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-09-30
@@ -688,35 +688,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H1-017 — Persistir necesidades mínimas de seguimiento B07
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: PASS — 2026-09-30.** Hito: H1. Tipo: implementación.
 - **Objetivo y alcance:** Task Pendiente por causa/contexto para revisión, documento, importe o dato pendiente antes de H5; responsable único y plazo conocido/pendiente.
 - **Fuentes exactas:** Plan §§4, 8–9; SPEC-FR-COORD-001, SPEC-FR-COORD-002, SPEC-FR-IDEMP-002, AC-024, AC-050. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-017.
 - **Bloques, contratos y unidades:** B07/B08; C01/C03/C06; T09.
 - **Entregable previsto:** Áreas propuestas de seguimiento mínimo y migraciones; no scheduler. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H1-014], [TSK-H0-010]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Fecha/parametrización ausente conserva necesidad sin vencimiento inventado. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** Fecha/parametrización ausente conserva necesidad sin vencimiento inventado. El detalle de evidencia/decisión y puerta está en §7; el cierre local conserva los datos/valores reales dependientes como pendientes, sin vencimiento inventado.
 - **Acción futura:** Registrar/actualizar la misma necesidad a petición de módulos con identidad de causa; preservar origen/versionado.
 - **Salida observable:** B07 puede recibir pendientes de H2–H4 sin depender de integración H5; cierre/reapertura y todos los disparadores se completan después.
 - **Verificación y esperado:** Misma causa concurrente no duplica Task; fecha desconocida no está vencida; registrar necesidad no confirma pago/proveedor ni revalida dato. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H1-018].
 - **Integración adicional obligatoria:** [TSK-H4-002], [TSK-H5-002], [TSK-H5-004]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PASS local/aislado**: [evidencia TSK-H1-017](evidence-TSK-H1-017.md); focales 4/4, formal independiente R01–R20 / 5/5, regresión PostgreSQL 330/330 y unitarias 71/71 PASS; H1-018-F01 CLOSED localmente. Sin scheduler/Notification/conectores/hosted/Production; ciclo completo H5 futuro.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-018"></a>
 
 #### TSK-H1-018 — Verificar: Persistir necesidades mínimas de seguimiento B07
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: PASS — 2026-09-30.** Hito: H1. Tipo: comprobación.
 - **Objetivo y alcance:** Task Pendiente por causa/contexto para revisión, documento, importe o dato pendiente antes de H5; responsable único y plazo conocido/pendiente.
 - **Fuentes exactas:** Plan §§4, 8–9; SPEC-FR-COORD-001, SPEC-FR-COORD-002, SPEC-FR-IDEMP-002, AC-050. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-018.
 - **Bloques, contratos y unidades:** B07/B08; C01/C03/C06; T09.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H1-017]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Fecha/parametrización ausente conserva necesidad sin vencimiento inventado. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** Fecha/parametrización ausente conserva necesidad sin vencimiento inventado. El detalle de evidencia/decisión y puerta está en §7; el cierre local conserva los datos/valores reales dependientes como pendientes, sin vencimiento inventado.
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H1-017; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** B07 puede recibir pendientes de H2–H4 sin depender de integración H5; cierre/reapertura y todos los disparadores se completan después. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Misma causa concurrente no duplica Task; fecha desconocida no está vencida; registrar necesidad no confirma pago/proveedor ni revalida dato. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PASS local/aislado**: [evidencia TSK-H1-018](evidence-TSK-H1-018.md); focales 4/4, formal independiente R01–R20 / 5/5, regresión PostgreSQL 330/330 y unitarias 71/71 PASS; H1-018-F01 CLOSED localmente. Sin scheduler/Notification/conectores/hosted/Production; ciclo completo H5 futuro.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-019"></a>

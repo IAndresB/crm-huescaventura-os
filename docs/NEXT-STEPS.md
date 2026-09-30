@@ -1,10 +1,10 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
-Actualización 2026-09-30: H0 COMPLETED en alcance local/aislado; H1-001–016 COMPLETED localmente. [H1-015](../specs/001-core-crm/evidence-TSK-H1-015.md) y [H1-016](../specs/001-core-crm/evidence-TSK-H1-016.md) acreditan objetos privados recuperables y matriz independiente R01–R20 PASS tras H1-016-F01 CLOSED localmente. Storage oficial real aislado; regresión PostgreSQL 321/321 y unitarias 67/67 PASS. H1 IN PROGRESS; H1-017 y posteriores NOT STARTED. DM-PENDING-005, BR-PENDING-022 y PLAN-AUTH-001–006 conservan sus pendientes; H1 NO ACREDITADO hosted; Production no autorizada. Los puntos de parada anteriores se conservan como historia.
+Actualización 2026-09-30: H0 COMPLETED técnico/local/aislado; H1-001–018 COMPLETED localmente. [H1-017](../specs/001-core-crm/evidence-TSK-H1-017.md) persiste necesidades mínimas B07 y [H1-018](../specs/001-core-crm/evidence-TSK-H1-018.md) acredita matriz independiente R01–R20 PASS tras H1-018-F01 CLOSED localmente. Regresión PostgreSQL 330/330 y unitarias 71/71 PASS. H1 IN PROGRESS; H1-019 y posteriores NOT STARTED. DM-PENDING-005, BR-PENDING-022, PLAN-AUTH-001–006 y demás pendientes previos conservados; prioridad/plazos/datos reales dependientes no acreditados. Sin scheduler/Notification/conectores; H1 NO ACREDITADO hosted; Production no autorizada.
 
 ## Current Step
 
-**Estado vigente:** H0 cerrado en su salida técnica aislada. H1-001–016 COMPLETED local/aislado. H1-015/016 verificaron Storage privado real aislado, R01–R20 y regresión completa; no acreditan Auth real, hosted ni Production. PLAN-AUTH-003 permanece PENDING globalmente: acceso CRM reautoriza, mientras una URL nativa emitida conserva validez hasta expirar y no se entrega por la aplicación. H1 IN PROGRESS; H1-017 y posteriores NOT STARTED. Punto de parada cumplido tras H1-016; siguiente paso recomendado H1-017/018 únicamente con nueva instrucción, sin ejecutarlo. Antes de acceso real o preparación de Production deben satisfacerse PLAN-PENDING-003, PLAN-AUTH-001–006 y las puertas H6/ARCH-PENDING-002 aplicables. DM-PENDING-005, límites/privacidad y datos reales permanecen pendientes.
+**Estado vigente:** H0 cerrado en su salida técnica aislada. H1-001–018 COMPLETED local/aislado. H1-017/018 acreditan Task pendiente mínima con causa estructural, deduplicación, revisión e historia; unknown no vence ni acredita el hecho que motiva seguimiento. R01–R20 y regresión completa PASS tras H1-018-F01 CLOSED localmente. H1 IN PROGRESS; H1-019 y posteriores NOT STARTED. Punto de parada cumplido tras H1-018; siguiente paso H1-019 únicamente con nueva instrucción, sin ejecutarlo ni preparar su cierre. H5 conserva cierre/reapertura, disparadores reales y coordinación completa futuros. PLAN-AUTH-001–006, DM-PENDING-005 y valores reales dependientes conservan pendientes. No hosted/Auth real/Production, scheduler, Notification ni conectores ejecutados en este bloque.
 
 **Los párrafos siguientes conservan la coordinación y los puntos de parada históricos de H0.**
 
@@ -61,7 +61,7 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 COMPLETED en alcance técnico/local/aislado: TSK-H0-001–018 COMPLETED en sus respectivos alcances; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY. H1 IN PROGRESS con H1-001–016 COMPLETED localmente; H1-017 y posteriores NOT STARTED.
+9. implementación — H0 COMPLETED en alcance técnico/local/aislado: TSK-H0-001–018 COMPLETED en sus respectivos alcances; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY. H1 IN PROGRESS con H1-001–018 COMPLETED localmente; H1-019 y posteriores NOT STARTED.
 
 ## Working Rule
 
