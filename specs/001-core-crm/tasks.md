@@ -6,10 +6,10 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–012 COMPLETED localmente; H1-013 y posteriores NOT STARTED; H2–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–014 COMPLETED localmente; H1-015 y posteriores NOT STARTED; H2–H6 NOT STARTED
 H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 IN PROGRESS; H2–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
-Last updated: 2026-09-29
+Last updated: 2026-09-30
 
 ## 1. Autoridad, base y alcance
 
