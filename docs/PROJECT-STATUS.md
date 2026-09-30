@@ -1,6 +1,6 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-Actualización 2026-09-30: H0 COMPLETED técnico/local/aislado; H1-001–014 COMPLETED localmente. [H1-013](../specs/001-core-crm/evidence-TSK-H1-013.md) registra evidencia/comunicaciones mínimas y [H1-014](../specs/001-core-crm/evidence-TSK-H1-014.md) acredita matriz independiente R01–R17 tras H1-014-F01 CLOSED. H1 IN PROGRESS; H1-015 y posteriores NOT STARTED. DM-PENDING-005, zona/referencia contractuales reales, BR-PENDING-022 y PLAN-AUTH-001–006 conservan sus pendientes; H1 NO ACREDITADO hosted.
+Actualización 2026-09-30: H0 COMPLETED técnico/local/aislado; H1-001–016 COMPLETED localmente. [H1-015](../specs/001-core-crm/evidence-TSK-H1-015.md) conserva objetos privados con reparación/versionado y [H1-016](../specs/001-core-crm/evidence-TSK-H1-016.md) acredita matriz independiente R01–R20 PASS tras H1-016-F01 CLOSED localmente. Storage oficial real aislado; regresión PostgreSQL 321/321 y unitarias 67/67 PASS. H1 IN PROGRESS; H1-017 y posteriores NOT STARTED. DM-PENDING-005, zona/referencia contractuales reales, BR-PENDING-022 y PLAN-AUTH-001–006 conservan sus pendientes; H1 NO ACREDITADO hosted; Production no autorizada.
 
 Status: ACTIVE
 Last updated: 2026-09-30
@@ -63,7 +63,8 @@ Last updated: 2026-09-30
 
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 IN PROGRESS con H1-001–014 COMPLETED localmente; H1-015 y posteriores NOT STARTED.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 IN PROGRESS con H1-001–016 COMPLETED localmente; H1-017 y posteriores NOT STARTED.
+- H1-015/016: Core canónico, prepare/upload/accredit/link recuperables, digest SHA-256 sobre bytes reales, reparación/replay, original/versiones y Evidence histórica inmutable; matriz R01–R20 PASS y H1-016-F01 CLOSED localmente. Storage privado oficial aislado sin mocks acreditativos; descarga reautoriza antes/después de leer. URL nativa firmada no se revoca por Core antes de expirar y no se entrega como acceso CRM. PLAN-AUTH-003 y límites/privacidad reales permanecen pendientes; sin hosted/Production.
 - H1-013/014: registro B07 de Document/Evidence/Communication, original/derivado, vínculos contextuales, hechos separados y fuente externa pendiente; matriz formal R01–R17 PASS, H1-014-F01 CLOSED localmente. Regresión PostgreSQL acumulada 309/309 PASS y formal final 5/5 PASS. Solo fixtures sintéticos y PostgreSQL aislado; sin Storage, conectores, datos reales, hosted ni Production.
 - H1-001/002: identidades contextuales implementadas y verificadas localmente; matriz formal R01–R18 PASS, suite PostgreSQL acumulada 278/278 PASS. Acceptance real/hosted, H2–H6 y Auth/recuperación reales: NO EJECUTADOS en este alcance.
 - H1-003/004: fusión humana, archivo recuperable y ledger anual local; matriz formal R01–R10 PASS tras H1-004-F01/F02 CLOSED. Contextos H1 y ledger sintético no acreditan ciclos reales de Opportunity/Proposal/Booking/Incident ni hosted.
