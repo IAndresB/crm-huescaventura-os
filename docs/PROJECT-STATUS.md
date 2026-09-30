@@ -1,9 +1,9 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-Actualización 2026-09-29: D040 APPROVED: año/zona de códigos OP/PR/RES/INC resueltos; solo esa parte del pendiente compuesto de Tasks §7.2 queda cerrada. H0 COMPLETED técnico/local/aislado; H1-001–012 COMPLETED localmente. [H1-011](../specs/001-core-crm/evidence-TSK-H1-011.md) implementa el núcleo civil D020 y [H1-012](../specs/001-core-crm/evidence-TSK-H1-012.md) acredita V-DOM/V-NEG independiente local tras F01/F02 CLOSED; H1 IN PROGRESS y H1-013 y posteriores NOT STARTED. Zona/referencia contractuales reales, BR-PENDING-022 y PLAN-AUTH-001–006 conservan sus pendientes; H1 NO ACREDITADO hosted.
+Actualización 2026-09-30: H0 COMPLETED técnico/local/aislado; H1-001–014 COMPLETED localmente. [H1-013](../specs/001-core-crm/evidence-TSK-H1-013.md) registra evidencia/comunicaciones mínimas y [H1-014](../specs/001-core-crm/evidence-TSK-H1-014.md) acredita matriz independiente R01–R17 tras H1-014-F01 CLOSED. H1 IN PROGRESS; H1-015 y posteriores NOT STARTED. DM-PENDING-005, zona/referencia contractuales reales, BR-PENDING-022 y PLAN-AUTH-001–006 conservan sus pendientes; H1 NO ACREDITADO hosted.
 
 Status: ACTIVE
-Last updated: 2026-09-29
+Last updated: 2026-09-30
 
 ## Completed
 
@@ -63,7 +63,8 @@ Last updated: 2026-09-29
 
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 IN PROGRESS con H1-001–008 COMPLETED localmente; H1-009 y posteriores NOT STARTED.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 IN PROGRESS con H1-001–014 COMPLETED localmente; H1-015 y posteriores NOT STARTED.
+- H1-013/014: registro B07 de Document/Evidence/Communication, original/derivado, vínculos contextuales, hechos separados y fuente externa pendiente; matriz formal R01–R17 PASS, H1-014-F01 CLOSED localmente. Regresión PostgreSQL acumulada 309/309 PASS y formal final 5/5 PASS. Solo fixtures sintéticos y PostgreSQL aislado; sin Storage, conectores, datos reales, hosted ni Production.
 - H1-001/002: identidades contextuales implementadas y verificadas localmente; matriz formal R01–R18 PASS, suite PostgreSQL acumulada 278/278 PASS. Acceptance real/hosted, H2–H6 y Auth/recuperación reales: NO EJECUTADOS en este alcance.
 - H1-003/004: fusión humana, archivo recuperable y ledger anual local; matriz formal R01–R10 PASS tras H1-004-F01/F02 CLOSED. Contextos H1 y ledger sintético no acreditan ciclos reales de Opportunity/Proposal/Booking/Incident ni hosted.
 - H1-005/006: catálogo estructural versionado, relaciones Provider/Offering, unidades/formas de precio y referencias aplicadas inmutables; matriz formal R01–R10 PASS con PostgreSQL efímero y datos sintéticos. No hay tarifas, capacidades, disponibilidad ni otros datos comerciales **reales** acreditados; hosted y Production siguen pendientes.

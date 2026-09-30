@@ -618,35 +618,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H1-013 — Registrar evidencia y comunicaciones acreditadas mínimas
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: V-EVI PASS.** Hito: H1. Tipo: implementación. [Evidencia](evidence-TSK-H1-013.md).
 - **Objetivo y alcance:** Base B07/C04 antes de contratación/economía: Document/Evidence, registro manual, original/derivado y hechos de envío/recepción/respuesta sin borradores ficticios.
 - **Fuentes exactas:** Plan §§5.1, 5.3, 7.1, 8; SPEC-FR-PROP-006, SPEC-FR-HIST-001, SPEC-FR-HIST-003, SPEC-FR-COORD-007, SPEC-FR-INT-001, SPEC-FR-INT-004, AC-009, AC-075, AC-087, AC-088. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-013.
 - **Bloques, contratos y unidades:** B07/B09; C01/C03/C04; —.
 - **Entregable previsto:** Áreas propuestas de evidencia, documentos y registro de comunicación con migraciones. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H1-002], [TSK-H0-010]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-005: datos sintéticos u original expresamente autorizado; no audio por defecto. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Conservar fuente, finalidad, momentos, autor/registrador, cobertura y vínculos múltiples; registrar únicamente hechos de comunicación acreditados.
+- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-005: datos sintéticos u original expresamente autorizado; no audio por defecto. El detalle de evidencia/decisión y puerta está en §7; permanece pendiente para datos reales.
+- **Acción local ejecutada:** Fuente, finalidad, momentos, autor/registrador, cobertura y vínculos múltiples conservados; hechos de comunicación separados por prueba. Integraciones futuras en sus tareas asignadas.
 - **Salida observable:** Evidencia disponible para H2/H3 con integridad y permisos; composición saliente y extracción/revisión completas se integran en H5.
 - **Verificación y esperado:** Llamada manual válida no requiere audio/escrito posterior; adjunto no confirma aceptación/pago. Entrada comienza recibida sin borrador; aprobación no prueba envío/recepción; un original enlazado a dos contextos no se duplica ni amplía acceso. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H1-014].
 - **Integración adicional obligatoria:** [TSK-H2-008], [TSK-H3-004], [TSK-H3-008], [TSK-H4-010], [TSK-H5-006], [TSK-H6-015]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia observada:** V-EVI y migración local en [H1-013](evidence-TSK-H1-013.md); 6/6 focales PASS. Datos reales, Storage y hosted no acreditados.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-014"></a>
 
 #### TSK-H1-014 — Verificar: Registrar evidencia y comunicaciones acreditadas mínimas
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: V-DOM/V-DAT/V-MIG/V-EVI PASS.** Hito: H1. Tipo: comprobación. [Matriz formal](evidence-TSK-H1-014.md).
 - **Objetivo y alcance:** Base B07/C04 antes de contratación/economía: Document/Evidence, registro manual, original/derivado y hechos de envío/recepción/respuesta sin borradores ficticios.
 - **Fuentes exactas:** Plan §§5.1, 5.3, 7.1, 8; SPEC-FR-PROP-006, SPEC-FR-HIST-001, SPEC-FR-HIST-003, SPEC-FR-COORD-007, SPEC-FR-INT-001, SPEC-FR-INT-004, AC-087. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-014.
 - **Bloques, contratos y unidades:** B07/B09; C01/C03/C04; —.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H0-018], [TSK-H1-013]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H0 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-005: datos sintéticos u original expresamente autorizado; no audio por defecto. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H1-013; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-005: datos sintéticos u original expresamente autorizado; no audio por defecto. El detalle de evidencia/decisión y puerta está en §7; permanece pendiente para datos reales.
+- **Acción local ejecutada:** V-DOM + V-DAT + V-MIG + V-EVI independientes sobre TSK-H1-013, con R01–R17 PASS tras H1-014-F01 CLOSED.
 - **Salida observable:** Evidencia disponible para H2/H3 con integridad y permisos; composición saliente y extracción/revisión completas se integran en H5. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Llamada manual válida no requiere audio/escrito posterior; adjunto no confirma aceptación/pago. Entrada comienza recibida sin borrador; aprobación no prueba envío/recepción; un original enlazado a dos contextos no se duplica ni amplía acceso. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia observada:** Matriz normativa, defecto histórico y reverificación en [H1-014](evidence-TSK-H1-014.md); 5/5 formales PASS y regresión PostgreSQL acumulada 309/309 PASS. Integraciones futuras no acreditadas.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h1-015"></a>
