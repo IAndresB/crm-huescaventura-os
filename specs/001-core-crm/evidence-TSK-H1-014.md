@@ -1,6 +1,6 @@
 # TSK-H1-014 — matriz formal independiente (V-DOM, V-DAT, V-MIG, V-EVI)
 
-Base normativa fijada 2026-09-30 antes de inspeccionar las assertions focales de H1-013: Tasks TSK-H1-014 y §6–7; Plan §§5.1/5.3/7.1/8; SPEC-FR-PROP-006, HIST-001/003, COORD-007, INT-001/004, AC-087; Constitution P05–P07/P10–P15; BR-DOC-001–005, BR-COMM-001–006; DM §§7/12–14, DM-INV-043/045/047; SM-CO-04–06 y SM-FORB-21; Architecture B07/B09, C01/C03/C04. Datos sintéticos y clúster PostgreSQL efímero; ninguna prueba con PII real, Storage, conector, hosted o Production.
+Base normativa fijada 2026-09-30 antes de escribir las assertions formales, sin tomar los resultados focales como oráculo: Tasks TSK-H1-014 y §6–7; Plan §§5.1/5.3/7.1/8; SPEC-FR-PROP-006, HIST-001/003, COORD-007, INT-001/004, AC-087; Constitution P05–P07/P10–P15; BR-DOC-001–005, BR-COMM-001–006; DM §§7/12–14, DM-INV-043/045/047; SM-CO-04–06 y SM-FORB-21; Architecture B07/B09, C01/C03/C04. Datos sintéticos y clúster PostgreSQL efímero; ninguna prueba con PII real, Storage, conector, hosted o Production.
 
 Estado inicial: H1-013 aún en implementación, H1-014 NOT STARTED. Cada fila parte de una sesión F1/F2 válida y registro vacío salvo el antecedente sintético declarado. PASS exige observar también estado persistido desde una conexión diferente; un error del adaptador por sí solo no basta. Las filas de rechazo exigen ausencia de registro, enlace, operación e historia nuevos.
 
@@ -13,7 +13,7 @@ Estado inicial: H1-013 aún en implementación, H1-014 NOT STARTED. Cada fila pa
 | R05 | SM-CO-04; SPEC-PROP-006 | Salida creada sin prueba y envío con prueba concreta | Crear salida no crea envío; prueba separada produce solo hecho Enviada con destinatario/contenido. |
 | R06 | SM-CO-05; SM-FORB-21 | Salida ya Enviada sin prueba de recepción; luego prueba específica | No Recibida inferida; prueba propia crea solo recepción, no aceptación. |
 | R07 | SM-CO-06; AC-087 | Respuesta concreta con autor/cobertura/tiempo y prueba | Respuesta ligada al original; ambigüedad no crea aceptación/confirmación. |
-| R08 | SPEC-PROP-006 | Proposal sin versión o autorización aplicable | Envío rechazado, sin efectos; con versión, destinatario y autorización acreditados se admite el hecho local, no envío real por conector. |
+| R08 | SPEC-PROP-006 | Proposal sin versión o autorización aplicable | Hecho de envío rechazado, sin efectos; con referencias sintéticas explícitas de versión, destinatario y autorización se admite solo el registro estructural local, sin acreditar Proposal real ni envío por conector. |
 | R09 | DM-INV-043; AC-087 | Documento adjunto/evidencia candidata | No pago, aceptación, revisión ni recepción inferidos. |
 | R10 | SPEC-INT-001/004; DM-INV-047 | Source, external ref/event pendiente | Quedan separados de identidad canónica y de confirmación; procedencia y cobertura conservadas. |
 | R11 | DM-INV-047; SPEC-HIST-001 | Corrección de hecho previo | Registro original preservado; corrección enlazada, actor/tiempo/motivo e historia nueva. |
