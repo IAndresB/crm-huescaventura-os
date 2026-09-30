@@ -1,9 +1,9 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-Actualización 2026-09-30: H0 COMPLETED técnico/local/aislado; H1-001–018 COMPLETED localmente. [H1-017](../specs/001-core-crm/evidence-TSK-H1-017.md) persiste necesidades mínimas B07 y [H1-018](../specs/001-core-crm/evidence-TSK-H1-018.md) acredita matriz independiente R01–R20 PASS tras H1-018-F01 CLOSED localmente. Regresión PostgreSQL 330/330 y unitarias 71/71 PASS. H1 IN PROGRESS; H1-019 y posteriores NOT STARTED. DM-PENDING-005, BR-PENDING-022, PLAN-AUTH-001–006 y demás pendientes previos conservados; prioridad/plazos/datos reales dependientes no acreditados. Sin scheduler/Notification/conectores; H1 NO ACREDITADO hosted; Production no autorizada.
+Actualización 2026-10-01: H0 COMPLETED técnico/local/aislado; **H1 COMPLETED en alcance local/aislado**, H1-001–019 COMPLETED. [Cierre H1-019](../specs/001-core-crm/evidence-TSK-H1-019.md): nueve parejas implementación/verificación PASS, PM-01–13 acreditados, siete migraciones históricas H1 intactas y ningún Fxx material abierto. Regresión nueva PostgreSQL 330/330 y unitarias 71/71 PASS. H2–H6 NOT STARTED. PLAN-AUTH-001–006, PLAN-PENDING-003, DM-PENDING-005, BR-PENDING-022 y demás pendientes conservados; datos/prioridad/plazos/fiscalidad/referencia contractual/límites y privacidad reales no acreditados. H1/Storage NO ACREDITADOS hosted; Production no autorizada.
 
 Status: ACTIVE
-Last updated: 2026-09-30
+Last updated: 2026-10-01
 
 ## Completed
 
@@ -61,16 +61,19 @@ Last updated: 2026-09-30
 - TSK-H0-015/016/017 — COMPLETED en sus alcances de preparación, implementación y verificación local respectivamente; [evidencias](../specs/001-core-crm/evidence-TSK-H0-017.md). H0-M06 y recuperación local no acreditan email, TOTP, papel, propietario o Auth reales.
 - TSK-H0-018 — COMPLETED el 2026-09-29: [matriz y cierre](../specs/001-core-crm/evidence-TSK-H0-018.md). Salida de Plan §9 acreditada en alcance técnico/local/aislado con regresión acumulada y revisión de migraciones. H0 = COMPLETED solo en ese alcance; sin F01+ material nuevo.
 
-## In Progress
-
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 IN PROGRESS con H1-001–018 COMPLETED localmente; H1-019 y posteriores NOT STARTED.
+- TSK-H1-019 — COMPLETED el 2026-10-01: [salida H1](../specs/001-core-crm/evidence-TSK-H1-019.md). H1 COMPLETED local/aislado: B02 identidades/fusión/archivo/códigos; B05 catálogo/versiones/unidades/tarifas/packs/promociones/cálculo exacto; B07 evidencia/comunicaciones/objetos privados recuperables y Task mínima. PM-01–13 y referencias civiles/versiones históricas reconstruibles; integración de contratación/economía/operación H2–H5 pendiente. H2–H6 NOT STARTED.
+- H1-009/010 y H1-011/012: cálculo decimal exacto determinista y referencias/días civiles con fuentes/versiones, matrices R01–R20 y R01–R18 PASS. Sin datos fiscales/comerciales/contractuales reales ni recorridos económicos operativos.
 - H1-017/018: Task de negocio pending, identidad causa/contexto/alcance/objeto/efecto, Administrador CRM Actor, deadline unknown/civil/instant/D020 explícito, prioridad pendiente sin escala inventada. Deduplicación funcional, replay técnico, revisiones/historia atómicos y concurrencia acreditados. R01–R20 PASS tras H1-018-F01 CLOSED localmente; H5 completa ciclo/disparadores, sin scheduler ni Notification/efecto externo.
 - H1-015/016: Core canónico, prepare/upload/accredit/link recuperables, digest SHA-256 sobre bytes reales, reparación/replay, original/versiones y Evidence histórica inmutable; matriz R01–R20 PASS y H1-016-F01 CLOSED localmente. Storage privado oficial aislado sin mocks acreditativos; descarga reautoriza antes/después de leer. URL nativa firmada no se revoca por Core antes de expirar y no se entrega como acceso CRM. PLAN-AUTH-003 y límites/privacidad reales permanecen pendientes; sin hosted/Production.
 - H1-013/014: registro B07 de Document/Evidence/Communication, original/derivado, vínculos contextuales, hechos separados y fuente externa pendiente; matriz formal R01–R17 PASS, H1-014-F01 CLOSED localmente. Regresión PostgreSQL acumulada 309/309 PASS y formal final 5/5 PASS. Solo fixtures sintéticos y PostgreSQL aislado; sin Storage, conectores, datos reales, hosted ni Production.
 - H1-001/002: identidades contextuales implementadas y verificadas localmente; matriz formal R01–R18 PASS, suite PostgreSQL acumulada 278/278 PASS. Acceptance real/hosted, H2–H6 y Auth/recuperación reales: NO EJECUTADOS en este alcance.
 - H1-003/004: fusión humana, archivo recuperable y ledger anual local; matriz formal R01–R10 PASS tras H1-004-F01/F02 CLOSED. Contextos H1 y ledger sintético no acreditan ciclos reales de Opportunity/Proposal/Booking/Incident ni hosted.
 - H1-005/006: catálogo estructural versionado, relaciones Provider/Offering, unidades/formas de precio y referencias aplicadas inmutables; matriz formal R01–R10 PASS con PostgreSQL efímero y datos sintéticos. No hay tarifas, capacidades, disponibilidad ni otros datos comerciales **reales** acreditados; hosted y Production siguen pendientes.
-- H1-007/008: Tariff, Pack, Promotion y reglas/requisitos estructurales versionados con snapshots aplicados; personalización sin maestro y promoción manual trazable; desconocidos explícitos. Matriz formal R01–R11 PASS tras corregir H1-008-F01–F04, incluido fallo de compatibilidad de migración detectado en regresión. BR-PENDING-022 sigue abierto para tratamiento/tipos fiscales reales; no se acreditan tarifas, costes, capacidades ni requisitos comerciales reales, ni cálculo H1-009.
+- H1-007/008: Tariff, Pack, Promotion y reglas/requisitos estructurales versionados con snapshots aplicados; personalización sin maestro y promoción manual trazable; desconocidos explícitos. Matriz formal R01–R11 PASS tras corregir H1-008-F01–F04, incluido fallo de compatibilidad de migración detectado en regresión. BR-PENDING-022 sigue abierto para tratamiento/tipos fiscales reales; no se acreditan tarifas, costes, capacidades ni requisitos comerciales reales; el cálculo monetario se acredita por H1-009/010.
+
+## In Progress
+
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 COMPLETED en alcance local/aislado con H1-001–019 COMPLETED localmente; H2–H6 NOT STARTED.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
@@ -86,7 +89,7 @@ Last updated: 2026-09-30
 - El bloqueo de diseño F1/humano está RESOLVED por D038 y H0-005 está implementada localmente; PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING globalmente.
 - PLAN-PENDING-001 RESOLVED por D024; PLAN-PENDING-002 RESOLVED en alcance D023.
 - PLAN-PENDING-003 PARTIALLY RESOLVED: política completa D025/D026/D027/D031; solo verificaciones técnicas de capacidad/coste, uso humano por sesión, revocación efectiva, entrega de recuperación y ensayos de dispositivos/papel/break-glass antes de acceso real y H6.
-- PLAN-PENDING-004 RESOLVED por D028/D029 para negativos y repartos; pruebas de implementación pendientes.
+- PLAN-PENDING-004 RESOLVED por D028/D029 para negativos y repartos; pruebas de dominio PM-10–13 acreditadas localmente por H1-009/010, integraciones posteriores pendientes.
 - PLAN-AUTH-001–PLAN-AUTH-006 permanecen PENDING globalmente. El subset hosted
   database/F1 de PLAN-AUTH-006 está VALIDATED; Auth, sesiones, MFA/recuperación,
   Vercel, SMTP, Production y continuidad siguen NO EJECUTADOS.

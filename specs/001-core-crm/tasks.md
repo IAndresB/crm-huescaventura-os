@@ -6,10 +6,10 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 IN PROGRESS con H1-001–018 COMPLETED localmente; H1-019 y posteriores NOT STARTED; H2–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 IN PROGRESS; H2–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
-Last updated: 2026-09-30
+Last updated: 2026-10-01
 
 ## 1. Autoridad, base y alcance
 
@@ -723,7 +723,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H1-019 — Registrar salida de identidades, catálogo y cálculo
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H1. Tipo: documentación/evidencia.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: [H1-019](evidence-TSK-H1-019.md), PASS — 2026-10-01.** Hito: H1. Tipo: documentación/evidencia.
 - **Objetivo y alcance:** Resultados de H1 y capacidades B07 tempranas disponibles.
 - **Fuentes exactas:** Plan §§9–10; Plan §9 (resultado y salida del hito); correspondencias específicas de §6. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H1-019.
 - **Bloques, contratos y unidades:** B02/B05/B07/B10; C01–C04/C06; T11.
@@ -733,7 +733,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Acción futura:** Consolidar pruebas H1, oráculos PM, referencias y migraciones; anotar verificaciones que se completan al integrar contratación/economía.
 - **Salida observable:** Capacidades H1 comprobadas en aislamiento, historia reconstruible y dependencias tempranas de H3/H4 satisfechas documentalmente para ejecución futura.
 - **Verificación y esperado:** Faltan versiones/códigos, permisos de evidencia o un PM falla: no cerrar bloque afectado. Cálculo de dominio no acredita todavía una Refund real. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **SATISFACTORIA local/aislada**: matriz de dependencias, PM-01–13 y regresión acumulada en [H1-019](evidence-TSK-H1-019.md).
 - **Paralelismo y restricciones:** La recopilación parcial puede acompañar trabajo independiente; el cierre espera todas sus dependencias. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T11 conservan atomicidad y revisión conjunta.
 
 ### 4.3. H2 — Contratación y conversión
