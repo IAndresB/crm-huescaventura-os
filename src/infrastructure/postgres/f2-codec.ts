@@ -48,7 +48,8 @@ export interface F2Identity {
 
 export type F2Operation =
   | "establish" | "reidentify" | "revoke_one" | "revoke_all" | "C01" | "C03"
-  | "identity_read" | "identity_write" | "catalog_read" | "catalog_write";
+  | "identity_read" | "identity_write" | "catalog_read" | "catalog_write"
+  | "evidence_read" | "evidence_write";
 
 const targets: Record<F2Operation, {
   resource: string;
@@ -75,6 +76,10 @@ const targets: Record<F2Operation, {
   catalog_read: { resource: "human_catalog", action: "read_catalog",
     interaction: "interactive_read", purpose: "core-human-access" },
   catalog_write: { resource: "human_catalog", action: "write_catalog",
+    interaction: "interactive_action", purpose: "core-human-access" },
+  evidence_read: { resource: "human_evidence", action: "read_evidence",
+    interaction: "interactive_read", purpose: "core-human-access" },
+  evidence_write: { resource: "human_evidence", action: "write_evidence",
     interaction: "interactive_action", purpose: "core-human-access" },
 };
 
@@ -105,11 +110,11 @@ export function createF2Issuer(configuration: F2SigningConfiguration) {
         .some((value) => typeof value !== "string" || value.length === 0)
       || (operation === "establish" || operation === "reidentify")
         && (!auth.passwordVerified || !auth.mfaVerified)
-      || (["C01", "C03", "identity_read", "identity_write", "catalog_read", "catalog_write"] as string[]).includes(operation) && !auth.mfaVerified
+      || (["C01", "C03", "identity_read", "identity_write", "catalog_read", "catalog_write", "evidence_read", "evidence_write"] as string[]).includes(operation) && !auth.mfaVerified
       || operation === "revoke_all" && !auth.mfaVerified
-      || (["C01", "C03", "identity_read", "identity_write", "catalog_read", "catalog_write"] as string[]).includes(operation)
+      || (["C01", "C03", "identity_read", "identity_write", "catalog_read", "catalog_write", "evidence_read", "evidence_write"] as string[]).includes(operation)
         && !isVerifiedServerInteraction(interaction,
-          operation === "C01" || operation === "identity_read" || operation === "catalog_read"
+          operation === "C01" || operation === "identity_read" || operation === "catalog_read" || operation === "evidence_read"
             ? "interactive_read" : "interactive_action")
       || (operation !== "establish" && auth.sessionId !== identity.sessionId)) {
       throw new Error("F2_AUTHORIZATION_DENIED");
@@ -117,8 +122,8 @@ export function createF2Issuer(configuration: F2SigningConfiguration) {
     const now = BigInt(binding.now);
     const wireOperation = operation === "identity_read" ? "C01"
       : operation === "identity_write" ? "C03"
-        : operation === "catalog_read" ? "C01"
-          : operation === "catalog_write" ? "C03" : operation;
+        : operation === "catalog_read" || operation === "evidence_read" ? "C01"
+          : operation === "catalog_write" || operation === "evidence_write" ? "C03" : operation;
     const payload = encodeF2Fields([
       "CRM-H0F2", "1", configuration.keyId, configuration.audience, configuration.generation,
       binding.database, binding.start, binding.xid, binding.pid, binding.login,
