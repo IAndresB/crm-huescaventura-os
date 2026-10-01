@@ -1,0 +1,180 @@
+-- H2-005: immutable issuance, act reviews and B07 references. No external effect or Acceptance.
+begin;
+do $$ begin if current_user<>'crm_h0_migration' then raise exception 'OFFER_MIGRATION_AUTHORITY_REQUIRED';end if;end $$;
+grant create on schema crm_private to crm_h0_f2_owner;
+grant create on schema crm_api to crm_h0_f2_executor;
+create table crm_private.b03_offer_issuances (
+ version_id uuid primary key references crm_private.b03_proposal_versions(version_id),
+ admin_scope text not null,issued_at timestamptz not null,effective_until timestamptz not null,
+ issuance jsonb not null,evidence_id uuid not null references crm_private.b07_records(record_id),
+ actor_id uuid not null references crm_private.crm_actors(actor_id),source_ref text not null,
+ recorded_at timestamptz not null default clock_timestamp(),check(effective_until>issued_at)
+);
+create table crm_private.b03_offer_operations (
+ operation_id uuid primary key,proposal_id uuid not null references crm_private.b03_proposals(proposal_id),
+ version_id uuid not null references crm_private.b03_proposal_versions(version_id),admin_scope text not null,
+ actor_id uuid not null references crm_private.crm_actors(actor_id),fingerprint text not null,
+ action text not null check(action in ('issue','intent','evaluate','revalidate','send','reject')),
+ coverage text not null,occurred_at timestamptz not null,event jsonb not null,result jsonb not null,
+ source_ref text not null,reason text not null,recorded_at timestamptz not null default clock_timestamp()
+);
+create unique index offer_send_fact_once on crm_private.b03_offer_operations((event->>'factId')) where action='send';
+create index offer_version_events on crm_private.b03_offer_operations(version_id,recorded_at);
+create table crm_private.b03_offer_history (
+ history_id uuid primary key references crm_private.b03_offer_operations(operation_id),admin_scope text not null,
+ before_data jsonb,after_data jsonb not null,normative_ids jsonb not null,
+ actor_id uuid not null references crm_private.crm_actors(actor_id),recorded_at timestamptz not null default clock_timestamp()
+);
+do $$ declare t text;begin foreach t in array array['b03_offer_issuances','b03_offer_operations','b03_offer_history'] loop
+ execute format('alter table crm_private.%I owner to crm_h0_f2_owner',t);
+ execute format('alter table crm_private.%I enable row level security',t);
+ execute format('alter table crm_private.%I force row level security',t);
+ execute format('create policy offer_executor on crm_private.%I to crm_h0_f2_executor using(true) with check(true)',t);
+ execute format('create policy offer_migration on crm_private.%I to crm_h0_migration using(true) with check(true)',t);
+ execute format('grant select,insert on crm_private.%I to crm_h0_f2_executor,crm_h0_migration',t);
+ execute format('revoke all on crm_private.%I from public,crm_h0_runtime,anon,authenticated',t);
+end loop;end $$;
+-- A reviewed B07 fact is scoped and checked for the exact act, not inferred from attachment.
+create function crm_private.offer_evidence(ref uuid,opp uuid,s text,claim text,coverage text,lo timestamptz,hi timestamptz)
+returns boolean language sql stable set search_path=pg_catalog,pg_temp as $$
+ select exists(select 1 from crm_private.b07_records r join crm_private.b07_links l using(record_id)
+ where r.record_id=ref and r.admin_scope=s and l.admin_scope=s and l.context_kind='opportunity' and l.context_id=opp
+ and r.record_kind='evidence' and r.material->>'certainty'='reviewed' and r.material->>'claim'=claim
+ and r.material->>'coverage'=$5 and l.coverage=$5 and r.occurred_at>=lo and r.occurred_at<=hi)
+$$;
+alter function crm_private.offer_evidence(uuid,uuid,text,text,text,timestamptz,timestamptz) owner to crm_h0_f2_owner;
+revoke all on function crm_private.offer_evidence(uuid,uuid,text,text,text,timestamptz,timestamptz) from public;
+grant execute on function crm_private.offer_evidence(uuid,uuid,text,text,text,timestamptz,timestamptz) to crm_h0_f2_executor;
+create function crm_api.offer_apply(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea) returns jsonb
+language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
+declare hf text[];tf text[];fields text[];a jsonb;p crm_private.b03_proposals;o crm_private.b03_opportunities;
+ v crm_private.b03_proposal_versions;i crm_private.b03_offer_issuances;prior crm_private.b03_offer_operations;
+ com crm_private.b07_records;fact crm_private.b07_records;proof crm_private.b07_records;
+ op uuid;root uuid;vid uuid;opp uuid;actor uuid;s text;action text;cov text;at_time timestamptz;
+ fp text;res jsonb;norm jsonb;original jsonb;d integer;issued timestamptz;until_time timestamptz;l jsonb;
+ reviewed boolean:=false;stale boolean:=false;pending boolean:=false;aspect text;part uuid;kind text;lo timestamptz;
+begin
+ hf:=crm_f2.admit(f2p,f2s,q,'C03','write_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');
+ if hf[17] collate "C"<>tf[14] collate "C" then raise exception 'OFFER_DENIED';end if;
+ fields:=crm_f1.fields(q);if cardinality(fields)<>2 or fields[1]<>'CRM-H2-OFFER1' then raise exception 'OFFER_INPUT_INVALID';end if;a:=fields[2]::jsonb;
+ if jsonb_typeof(a) is distinct from 'object' or a-array['action','operationId','proposalId','opportunityId','versionId','expectedRevision','expectedOpportunityRevision','sourceRef','reason','coverage','at','actId','actKind','issuance','evidenceId','reviewEvidence','communicationId','factId','recipientId','channel','partId','partKind','lossReason','origin']<>'{}'::jsonb
+ or not(a ?& array['action','operationId','proposalId','opportunityId','versionId','expectedRevision','expectedOpportunityRevision','sourceRef','reason','coverage','at'])
+ or a->>'action' not in ('issue','intent','evaluate','revalidate','send','reject')
+ or a->>'expectedRevision' !~ '^[0-9]+$' or a->>'expectedOpportunityRevision' !~ '^[0-9]+$'
+ or exists(select 1 from jsonb_each(a) x where x.key in ('sourceRef','reason','coverage','at') and (jsonb_typeof(x.value)<>'string' or btrim(x.value#>>'{}')=''))
+ or a->>'at' !~ '^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(Z|[+-]\d\d:\d\d)$' then raise exception 'OFFER_INPUT_INVALID';end if;
+ op:=(a->>'operationId')::uuid;root:=(a->>'proposalId')::uuid;vid:=(a->>'versionId')::uuid;opp:=(a->>'opportunityId')::uuid;
+ actor:=hf[12]::uuid;s:=hf[17];action:=a->>'action';cov:=a->>'coverage';at_time:=(a->>'at')::timestamptz;
+ if at_time>clock_timestamp() then raise exception 'OFFER_FUTURE_FACT';end if;
+ fp:=encode(crm_crypto.digest(convert_to(a::text,'UTF8'),'sha256'),'hex');
+ perform pg_advisory_xact_lock(hashtextextended(op::text,0));
+ select * into prior from crm_private.b03_offer_operations where operation_id=op;
+ if found then
+  if prior.admin_scope<>s or prior.actor_id<>actor or prior.fingerprint<>fp then raise exception 'OFFER_REPLAY_CONFLICT';end if;
+  res:=jsonb_build_object('id',op,'replayed',true,'result',prior.result);
+ else
+  perform pg_advisory_xact_lock(hashtextextended(opp::text,31));
+  select * into o from crm_private.b03_opportunities where opportunity_id=opp and admin_scope=s for update;
+  if not found then raise exception 'OFFER_RELATION_INVALID';end if;
+  perform pg_advisory_xact_lock(hashtextextended(root::text,33));
+  select * into p from crm_private.b03_proposals where proposal_id=root and opportunity_id=opp and admin_scope=s for update;
+  if not found then raise exception 'OFFER_RELATION_INVALID';end if;
+  select * into v from crm_private.b03_proposal_versions where version_id=vid and proposal_id=root and admin_scope=s;
+  if not found or cov not in (v.scope) and not exists(select 1 from crm_private.b03_proposal_modalities where version_id=vid and modality_id::text=cov) and not exists(select 1 from crm_private.b03_proposal_lines where version_id=vid and line_id::text=cov) then raise exception 'OFFER_COVERAGE_INVALID';end if;
+  if p.revision<>(a->>'expectedRevision')::bigint or o.revision<>(a->>'expectedOpportunityRevision')::bigint then raise exception 'OFFER_REVISION_CONFLICT';end if;
+  original:=jsonb_build_object('proposalRevision',p.revision,'opportunity',to_jsonb(o));
+  select * into i from crm_private.b03_offer_issuances where version_id=vid;
+  select coalesce(max(z.occurred_at),'-infinity'::timestamptz) into lo from crm_private.b03_offer_operations z where z.version_id=vid and z.action in ('evaluate','reject') and (z.coverage=v.scope or z.coverage=a->>'coverage');
+  stale:=exists(select 1 from crm_private.b03_proposal_versions where replaces_version_id=vid)
+   or exists(select 1 from crm_private.b03_offer_operations e where e.version_id=vid and e.action='reject' and (e.coverage=v.scope or e.coverage=cov))
+   or exists(select 1 from crm_private.b03_offer_operations e where e.version_id=vid and e.action='evaluate' and e.result->'pending'='true' and (e.coverage=v.scope or e.coverage=cov));
+  reviewed:=exists(select 1 from crm_private.b03_offer_operations e where e.version_id=vid and e.action='revalidate' and e.coverage=cov and e.event->>'actId'=a->>'actId' and e.event->>'actKind'=coalesce(a->>'actKind','send') and e.occurred_at=at_time and e.recorded_at>coalesce((select max(recorded_at) from crm_private.b03_offer_operations z where z.version_id=vid and z.action in ('reject','evaluate') and (z.coverage=v.scope or z.coverage=cov)),'-infinity'::timestamptz));
+  if action='issue' then
+   if i.version_id is not null or cov<>v.scope or jsonb_typeof(a->'issuance') is distinct from 'object' or (a->'issuance')-array['issuedAt','days','limits']<>'{}'::jsonb then raise exception 'OFFER_NEW_VERSION_REQUIRED:SM-FORB-01';end if;
+   if not((a->'issuance') ?& array['issuedAt','limits']) or jsonb_typeof(a->'issuance'->'limits') is distinct from 'array' then raise exception 'OFFER_INPUT_INVALID';end if;
+   d:=coalesce((a->'issuance'->>'days')::integer,7);issued:=(a->'issuance'->>'issuedAt')::timestamptz;
+   if d<=0 or issued<>at_time then raise exception 'OFFER_INPUT_INVALID';end if;
+   until_time:=issued+make_interval(secs=>d::double precision*86400);
+   if not crm_private.offer_evidence((a->>'evidenceId')::uuid,opp,s,'offer:issue:'||vid||':'||(a->'issuance'->>'issuedAt')||':'||d,cov,issued,issued) then raise exception 'OFFER_ISSUANCE_EVIDENCE_REQUIRED';end if;
+   for l in select jsonb_array_elements(a->'issuance'->'limits') loop
+    if l-array['aspect','until','evidenceId']<>'{}'::jsonb or l->>'aspect' not in ('prices','availability','conditions','capacity') or not crm_private.offer_evidence((l->>'evidenceId')::uuid,opp,s,'offer:limit:'||vid||':'||(l->>'aspect')||':'||(l->>'until'),cov,'-infinity',issued) then raise exception 'OFFER_LIMIT_EVIDENCE_REQUIRED';end if;
+    until_time:=least(until_time,(l->>'until')::timestamptz);
+   end loop;
+   insert into crm_private.b03_offer_issuances(version_id,admin_scope,issued_at,effective_until,issuance,evidence_id,actor_id,source_ref) values(vid,s,issued,until_time,a->'issuance',(a->>'evidenceId')::uuid,actor,a->>'sourceRef');
+   res:=jsonb_build_object('issuedAt',issued,'effectiveUntil',until_time,'days',d);norm:=jsonb_build_array('BR-PROP-004','DM-INV-011');
+  elsif action='intent' then
+   if nullif(a->>'recipientId','') is null or nullif(a->>'channel','') is null then raise exception 'OFFER_RECIPIENT_REQUIRED';end if;
+   res:=jsonb_build_object('pendingExternal',true,'sent',false,'versionId',vid,'recipientId',a->>'recipientId','channel',a->>'channel');norm:=jsonb_build_array('PLAN-C05','BR-COMM-002');
+  elsif action='evaluate' then
+   if i.version_id is null then raise exception 'OFFER_ISSUANCE_REQUIRED';end if;
+   pending:=at_time>i.effective_until;
+   if a ? 'evidenceId' then
+    if not crm_private.offer_evidence((a->>'evidenceId')::uuid,opp,s,'offer:uncertain:'||vid,cov,'-infinity',at_time) then raise exception 'OFFER_UNCERTAINTY_EVIDENCE_REQUIRED';end if;pending:=true;
+   end if;
+   res:=jsonb_build_object('pending',pending,'expired',at_time>i.effective_until,'rejected',false,'effectiveUntil',i.effective_until);norm:=jsonb_build_array('SM-PV-04','SM-FORB-01');
+  elsif action='revalidate' then
+   if i.version_id is null or at_time<i.issued_at or nullif(a->>'actId','') is null or a->>'actKind' not in ('send','accept') or jsonb_typeof(a->'reviewEvidence') is distinct from 'object' or (a->'reviewEvidence')-array['prices','availability','conditions','capacity']<>'{}'::jsonb then raise exception 'OFFER_ACT_REVIEW_REQUIRED';end if;
+   foreach aspect in array array['prices','availability','conditions','capacity'] loop
+    if not crm_private.offer_evidence((a->'reviewEvidence'->>aspect)::uuid,opp,s,'offer:review:'||vid||':'||(a->>'actId')||':'||(a->>'actKind')||':'||aspect,cov,greatest(i.issued_at,lo),at_time) then raise exception 'OFFER_MATERIAL_REVIEW_REQUIRED:SM-PV-05';end if;
+   end loop;
+   res:=jsonb_build_object('reviewedForAct',a->>'actId','actKind',a->>'actKind','at',at_time,'coverage',cov,'originalEffectiveUntil',i.effective_until,'acceptanceCreated',false);norm:=jsonb_build_array('SM-PV-05','AC-008','AC-086');
+  elsif action='send' then
+   if coalesce(a->>'origin','manual')<>'manual' then raise exception 'OFFER_HA_TTE_REQUIRED:G3';end if;
+   if i.version_id is null or at_time<i.issued_at or (at_time>i.effective_until or stale) and not reviewed then raise exception 'OFFER_ACT_REVIEW_REQUIRED:SM-PV-03';end if;
+   if nullif(a->>'actId','') is null or coalesce(a->>'actKind','send')<>'send' then raise exception 'OFFER_ACT_REVIEW_REQUIRED';end if;
+   if o.state not in ('Nueva','En contacto','Necesidad definida','Propuesta en preparación','Propuesta enviada','Negociación / cambios') then raise exception 'OFFER_COMMERCIAL_ORIGIN_REQUIRED:SM-OP-05';end if;
+   -- Relevant definitive economics remain blocked; provisional work remains independent.
+   if exists(select 1 from jsonb_array_elements(v.content->'modalities') m join lateral jsonb_array_elements(v.economics) e on e->>'modalityId'=m->>'id' where m->'definitive'='true' and (cov=v.scope or cov=m->>'id' or exists(select 1 from jsonb_array_elements(m->'lines') z where z->>'id'=cov)) and (e->'calculated'='null' or jsonb_array_length(e->'blockers')>0)) then raise exception 'OFFER_DEFINITIVE_DATA_REQUIRED:BR-ECON-001';end if;
+   -- Current material checks are B07 reviews, not availability/provider confirmations.
+   foreach aspect in array array['prices','availability','conditions','capacity'] loop
+    if not crm_private.offer_evidence((a->'reviewEvidence'->>aspect)::uuid,opp,s,'offer:review:'||vid||':'||(a->>'actId')||':send:'||aspect,cov,greatest(i.issued_at,lo),at_time) then raise exception 'OFFER_MATERIAL_REVIEW_REQUIRED:SM-PV-03';end if;
+   end loop;
+   select * into com from crm_private.b07_records where record_id=(a->>'communicationId')::uuid and admin_scope=s;
+   select * into fact from crm_private.b07_records where record_id=(a->>'factId')::uuid and admin_scope=s;
+   select * into proof from crm_private.b07_records where record_id=(fact.material->>'evidence_id')::uuid and admin_scope=s;
+   if com.record_kind is distinct from 'communication' or com.material->>'direction' is distinct from 'outgoing' or com.material->>'proposal_version_ref' is distinct from vid::text or com.material->>'recipient_ref' is distinct from a->>'recipientId' or com.material->>'channel' is distinct from a->>'channel' or com.material->>'coverage' is distinct from cov
+    or fact.record_kind is distinct from 'communication_fact' or fact.original_id is distinct from com.record_id or fact.material->>'fact_kind' is distinct from 'sent' or fact.material->>'party_ref' is distinct from a->>'recipientId' or fact.material->>'coverage' is distinct from cov or fact.occurred_at is distinct from at_time
+    or proof.record_kind is distinct from 'evidence' or not crm_private.offer_evidence(proof.record_id,opp,s,'offer:sent:'||vid||':'||(a->>'actId')||':'||(a->>'recipientId')||':'||(a->>'channel'),cov,at_time,at_time)
+    or not exists(select 1 from crm_private.identity_entities where identity_id=(a->>'recipientId')::uuid and admin_scope=s and identity_kind='contact' and identity_verified and archived_at is null and merged_into_id is null)
+    or not exists(select 1 from crm_private.b07_links bl where bl.record_id=com.record_id and bl.admin_scope=s and bl.context_kind='opportunity' and bl.context_id=opp and bl.coverage=a->>'coverage')
+    or not exists(select 1 from crm_private.b07_links bl where bl.record_id=fact.record_id and bl.admin_scope=s and bl.context_kind='opportunity' and bl.context_id=opp and bl.coverage=a->>'coverage') then raise exception 'OFFER_REAL_SEND_REQUIRED:SM-CO-04';end if;
+   insert into crm_private.b03_operations(operation_id,admin_scope,actor_id,fingerprint,result_ref) values(op,s,actor,fp,opp);
+   insert into crm_private.b03_history(history_id,subject_id,admin_scope,before_state,after_state,event,normative_ids,reason,source_ref,actor_id)
+    values(op,opp,s,to_jsonb(o),jsonb_set(jsonb_set(to_jsonb(o),'{state}','"Propuesta enviada"'),'{revision}',to_jsonb(o.revision+1)),a,jsonb_build_array('SM-OP-05'),a->>'reason',a->>'sourceRef',actor);
+   update crm_private.b03_opportunities set state='Propuesta enviada',revision=revision+1,updated_at=clock_timestamp() where opportunity_id=opp;
+   res:=jsonb_build_object('sent',true,'received',false,'acceptanceCreated',false,'versionId',vid,'communicationId',com.record_id,'factId',fact.record_id);norm:=jsonb_build_array('SM-PV-03','SM-OP-05','SM-CO-04');
+  else
+   part:=nullif(a->>'partId','')::uuid;kind:=a->>'partKind';
+   if kind is null or kind not in ('version','modality','line') or nullif(btrim(a->>'lossReason'),'') is null
+    or kind='version' and (part is distinct from vid or cov<>v.scope)
+    or kind='modality' and not exists(select 1 from crm_private.b03_proposal_modalities where version_id=vid and modality_id=part and cov=part::text)
+    or kind='line' and not exists(select 1 from crm_private.b03_proposal_lines where version_id=vid and line_id=part and cov=part::text) then raise exception 'OFFER_REJECTION_SCOPE_REQUIRED';end if;
+   select * into com from crm_private.b07_records where record_id=(a->>'communicationId')::uuid and admin_scope=s;
+   if com.record_kind is distinct from 'communication' or com.material->>'direction' is distinct from 'incoming' or com.material->>'proposal_version_ref' is distinct from vid::text or com.material->>'sender_ref' is distinct from a->>'recipientId' or com.material->>'coverage' is distinct from cov or com.material->>'channel' is distinct from a->>'channel' or com.occurred_at is distinct from at_time
+    or not exists(select 1 from crm_private.identity_entities where identity_id=(a->>'recipientId')::uuid and admin_scope=s and identity_kind='contact' and identity_verified and archived_at is null and merged_into_id is null)
+    or not exists(select 1 from crm_private.b07_links bl where bl.record_id=com.record_id and bl.admin_scope=s and bl.context_kind='opportunity' and bl.context_id=opp and bl.coverage=a->>'coverage')
+    or not crm_private.offer_evidence((a->>'evidenceId')::uuid,opp,s,'offer:reject:'||vid||':'||part||':'||(a->>'recipientId')||':'||(a->>'lossReason'),cov,at_time,at_time) then raise exception 'OFFER_ATTRIBUTABLE_REJECTION_REQUIRED:SM-PV-08';end if;
+   res:=jsonb_build_object('rejected',true,'partKind',kind,'partId',part,'reason',a->>'lossReason','opportunityLost',false,'acceptanceCreated',false);norm:=jsonb_build_array('SM-PV-08','AC-005','AC-086');
+  end if;
+  update crm_private.b03_proposals set revision=revision+1 where proposal_id=root;
+  insert into crm_private.b03_offer_operations values(op,root,vid,s,actor,fp,action,cov,at_time,a,res,a->>'sourceRef',a->>'reason',clock_timestamp());
+  insert into crm_private.b03_offer_history(history_id,admin_scope,before_data,after_data,normative_ids,actor_id) values(op,s,original,res,norm,actor);
+  res:=jsonb_build_object('id',op,'replayed',false,'result',res);
+ end if;
+ perform crm_f2.verify(f2p,f2s,q,'C03','human_evidence','write_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');return res;
+end $$;
+create function crm_api.offer_read(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea) returns jsonb
+language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
+declare hf text[];tf text[];f text[];a jsonb;vid uuid;data jsonb;
+begin
+ hf:=crm_f2.admit(f2p,f2s,q,'C01','read_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');
+ if hf[17] collate "C"<>tf[14] collate "C" then raise exception 'OFFER_DENIED';end if;
+ f:=crm_f1.fields(q);if cardinality(f)<>2 or f[1]<>'CRM-H2-OFFER-READ1' then raise exception 'OFFER_INPUT_INVALID';end if;a:=f[2]::jsonb;vid:=(a->>'versionId')::uuid;
+ if not exists(select 1 from crm_private.b03_proposal_versions where version_id=vid and proposal_id=(a->>'proposalId')::uuid and admin_scope=hf[17]) then raise exception 'OFFER_DENIED';end if;
+ select jsonb_build_object('issuance',(select to_jsonb(t) from crm_private.b03_offer_issuances t where version_id=vid),'events',coalesce((select jsonb_agg(to_jsonb(t) order by recorded_at,operation_id) from crm_private.b03_offer_operations t where version_id=vid),'[]')) into data;
+ perform crm_f2.verify(f2p,f2s,q,'C01','human_evidence','read_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');return data;
+end $$;
+do $$ declare f text;begin foreach f in array array['offer_apply(bytea,bytea,bytea,bytea,bytea)','offer_read(bytea,bytea,bytea,bytea,bytea)'] loop
+ execute 'alter function crm_api.'||f||' owner to crm_h0_f2_executor';execute 'revoke all on function crm_api.'||f||' from public';execute 'grant execute on function crm_api.'||f||' to crm_h0_runtime';end loop;end $$;
+revoke create on schema crm_private from crm_h0_f2_owner;revoke create on schema crm_api from crm_h0_f2_executor;
+commit;
