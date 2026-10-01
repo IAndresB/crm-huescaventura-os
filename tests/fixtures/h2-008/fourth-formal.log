@@ -1,0 +1,40 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-acceptance-fixtures.ts:15
+ const accepterId=uid(),designationId=uid();await h.identities.apply(await h.auth(),write,{action:'create_entity',operationId:uid(),targetId:accepterId,kind:'contact',expectedVersion:0,sourceRef:'synthetic identity',evidenceRef:'synthetic identity evidence',reason:'synthetic',verified:true,displayName:'SYNTHETIC CLIENT'});
+ await h.identities.apply(await h.auth(),write,{action:'designate',operationId:uid(),targetId:designationId,relatedId:accepterId,contextId:opp.targetId,kind:'primary_contact',expectedVersion:0,sourceRef:'synthetic designation',evidenceRef:'synthetic faculty',reason:'synthetic',verified:true,happenedAt:new Date(Date.now()000).toISOString()});
+                                                                                                                                                                                                                                                                                                                                  ^^^
+ const proof=async(claim:string,coverage:string,at:string,certainty='reviewed')=>{const r=h.req('evidence',{claim,coverage,certainty,source_kind:'manual'},opp.targetId);await h.evidence.apply(await h.auth(),write,{...r,coverage,occurredAt:at});return r.targetId;};
+
+SyntaxError [ERR_INVALID_TYPESCRIPT_SYNTAX]: Expected ',', got 'numeric literal'
+    at parseTypeScript (node:internal/modules/typescript:72:36)
+    at processTypeScriptCode (node:internal/modules/typescript:146:42)
+    at stripTypeScriptModuleTypes (node:internal/modules/typescript:215:22)
+    at ModuleLoader.<anonymous> (node:internal/modules/esm/translators:680:29)
+    at #translate (node:internal/modules/esm/loader:438:20)
+    at afterLoad (node:internal/modules/esm/loader:506:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:511:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)
+    at afterResolve (node:internal/modules/esm/loader:611:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12) {
+  code: 'ERR_INVALID_TYPESCRIPT_SYNTAX'
+}
+
+Node.js v24.21.0
+✖ tests/integration/postgres-h2-008.test.ts (149.62025ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 160.577458
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-008.test.ts:1:1
+✖ tests/integration/postgres-h2-008.test.ts (149.62025ms)
+  'test failed'

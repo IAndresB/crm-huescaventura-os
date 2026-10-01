@@ -120,3 +120,22 @@ V-DAT real PostgreSQL17 aislado: rol runtime sin propietario/BYPASSRLS; autoriza
 ## Límites preservados
 
 H2-009+ y H3–H6 NOT STARTED; H2 IN PROGRESS; E2E-01/02 no completados. PLAN-AUTH001–006 globales pendientes, PLAN-PENDING-003 abierto, DM-PENDING-005, BR-PENDING-022/033; datos reales/catálogo/tarifas/costes/capacidades/prioridades/plazos no acreditados. Hosted H2 no acreditado; Production no autorizada; sin conectores/envíos/fondos/proveedores reales.
+
+## Complementos fijados antes de ejecución
+
+- R47 Revalidación material previa acreditada para acto exacto tras caducidad permite verificar, conserva emisión/vencimiento; pruebas revisadas con momento anterior al acto y vínculo H2-005.
+- R48 Cada prueba material de precios/disponibilidad/condiciones/capacidad retirada bloquea sin efectos.
+- R49 WhatsApp/email/formulario/web exactos con Communication atribuible permiten verificar; distinto canal/aceptante/versión/cobertura/momento bloquea.
+- R50 Aceptación total de versión conserva términos exactos.
+- R51 Authority/designación ajena o posterior al acto permanece pendiente; pagador no sustituye aceptante.
+- R52 Ganada exige origen comercial activo.
+- R53 Revisión optimista no admite null/string, firma directa SQL incluido.
+- R54 Migración conserva ACL/functions/policies anteriores salvo incorporación puntual de la guarda Ganada.
+- R55 Dos sesiones autorizadas concurrentes contra la misma raíz reconocen un resultado o conflicto sin efectos incompatibles.
+
+- R56 Integración H2-005: rechazar alcance ya aceptado válidamente no es SM-PV-08; intento se rechaza atómicamente. B aún no aceptada sigue rechazable mediante sus propias pruebas, conservando Acceptance A.
+- R57 Verificación válida sin Ganada inicial permite solicitar evaluación comercial/Ganada posteriormente sobre el mismo hecho exacto; no crear segunda Acceptance ni editar la verificación anterior. Nueva actuación conserva resultados previos.
+
+- R58 V-AT: fijación de nueva versión y verificación/Ganada concurrentes en ambos órdenes: exactamente una unidad compatible y conflicto de la otra, sin overwrite.
+- R59 SM-AC-03 también rectifica Acceptance registrada no verificada; conserva original y no inventa Ganada anterior.
+- R60 SM-PV-07 selección de línea expresamente independiente/seleccionable: Acceptance identifica únicamente esa línea, no toda modalidad.

@@ -1,0 +1,92 @@
+✔ R01 incomplete candidate preserves evidence without Acceptance (1107.95925ms)
+✔ R02 registered immutable fact is unverified (37.419125ms)
+✔ R03 verification without won requested preserves commercial state (40.260541ms)
+✔ R04 verified Acceptance + exact won/history/result T02 (40.247625ms)
+✔ R05 missing each identity/faculty/context guard stays pending (111.814875ms)
+✔ R06 each incorrect commercial relation rejects atomically (216.580875ms)
+✔ R07 different exact terms cannot register (31.271459ms)
+✔ R08 verification cannot replace registered selection (122.799041ms)
+✔ R09 ambiguous evidence cannot verify (125.676042ms)
+✔ R10 outside effective material expiry cannot verify (208.2455ms)
+✔ R11 late recording preserves real act within validity (54.915666ms)
+✔ R12 missing evidence of real act time blocks (127.315583ms)
+✔ R13 selection A leaves B neither accepted nor rejected (33.354666ms)
+✔ R14 nonselectable request needs new version before Acceptance (27.156917ms)
+✔ R15 exact phone act requires no fictitious Communication (35.187042ms)
+✔ R16 insufficient phone cannot verify (150.561666ms)
+✔ R17 advance unequivocally linked is evidence without Payment (163.329667ms)
+✔ R18 Human Approval cannot replace client (286.510291ms)
+✔ R19 sent/read/silence/supposed payment/provider are not agreement (874.716333ms)
+✔ R20 changing Primary Contact preserves earlier accepter (39.649708ms)
+✔ R21 ordinary win with historical or claimed acceptance blocked (27.163625ms)
+✔ R22 replaced version cannot silently verify as current (219.201875ms)
+✔ R23 rejected coverage cannot verify without review (219.457042ms)
+✔ R24 later revalidation cannot rescue an earlier expired act (310.403375ms)
+✔ R25 direct ordinary Ganada write denied; DB guard too (202.85625ms)
+✔ R26 direct editing/deleting historical facts denied (224.93825ms)
+✔ R27 rectification preserves original and historical verification; reeval explicit (39.208209ms)
+✔ R28 every material rectification guard required (844.978875ms)
+✔ R29 opinion change is not an error (240.56875ms)
+✔ R30 lost response replay recovers persisted result without second effect (240.707791ms)
+✔ R31 changed replay conflicts and preserves every fact (262.604708ms)
+✔ R32 concurrent verifications in both dispatch orders (121.821042ms)
+✔ R33 new version and stale verification serialize without overwrite (277.930291ms)
+✔ R34 pre-write fault rolls back all T02 effects (279.212667ms)
+✔ R35 late history fault rolls back verification/Ganada/result (577.769708ms)
+✔ R36 authorized administrator and independent observer see exact chain (36.514125ms)
+✔ R37 missing auth/context cannot write (282.366792ms)
+✔ R38 forged context and signature reject from direct SQL (290.233167ms)
+✔ R39 disabled/unprovisioned actor denied including replay (311.51275ms)
+✔ R40 minimal ACL/FORCE RLS/ordinary roles and successful direct authorized SQL (55.527125ms)
+✔ R41 upgrade retains all prior H0/H1/H2 persisted fixtures (0.399375ms)
+✔ R42 empty database installs full chain through new migration (212.061417ms)
+✔ R43 old IDs, human OP/PR codes and contexts remain retained (35.466917ms)
+✔ R44 B07 records/links/Tasks immutable during Acceptance (320.749125ms)
+✔ R45 no forbidden future/economic/operational effects from actual paths (40.999459ms)
+✔ R46 historical agreement not revoked by later expired evaluation (35.562625ms)
+✔ R47 prior material revalidation for exact expired act permits verification (132.090542ms)
+✔ R48 every material review guard independently withdrawn (1264.47875ms)
+✔ R49 exact received multichannel agreement; each Communication guard (2016.244042ms)
+✔ R50 total acceptance retains exact immutable terms (37.484708ms)
+✔ R51 wrong identity/faculty is not client acceptance (29.960041ms)
+✔ R52 lost/paused origin cannot become won from ordinary verification (396.829333ms)
+✔ R53 null/string revision attempts direct SQL rejected atomically (1528.117458ms)
+✔ R54 historical migration source bytes and ACL preserved (325.616166ms)
+✔ R55 two authorized sessions concurrently verify same root (36.653ms)
+✖ R56 actual H2-005 rejection cannot affect accepted A but B remains independent (220.82825ms)
+✖ R57 later requested Ganada preserves the initial verification and same Acceptance (40.251709ms)
+ℹ tests 57
+ℹ suites 0
+ℹ pass 55
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16027.641083
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-008.test.ts:101:1
+✖ R56 actual H2-005 rejection cannot affect accepted A but B remains independent (220.82825ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-008.test.ts:101:961)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h2-008.test.ts:102:1
+✖ R57 later requested Ganada preserves the initial verification and same Acceptance (40.251709ms)
+  Error: ACCEPTANCE_ALREADY_DECIDED
+      at H2007AcceptanceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2007AcceptanceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-008.test.ts:102:165)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)

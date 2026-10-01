@@ -1,0 +1,84 @@
+✔ R01 incomplete candidate preserves evidence without Acceptance (1056.951625ms)
+✔ R02 registered immutable fact is unverified (37.125916ms)
+✔ R03 verification without won requested preserves commercial state (39.627583ms)
+✔ R04 verified Acceptance + exact won/history/result T02 (39.118541ms)
+✔ R05 missing each identity/faculty/context guard stays pending (109.525792ms)
+✔ R06 each incorrect commercial relation rejects atomically (210.596375ms)
+✔ R07 different exact terms cannot register (27.191208ms)
+✔ R08 verification cannot replace registered selection (101.216666ms)
+✔ R09 ambiguous evidence cannot verify (113.307209ms)
+✔ R10 outside effective material expiry cannot verify (202.593333ms)
+✔ R11 late recording preserves real act within validity (51.2155ms)
+✔ R12 missing evidence of real act time blocks (125.350333ms)
+✔ R13 selection A leaves B neither accepted nor rejected (33.579625ms)
+✔ R14 nonselectable request needs new version before Acceptance (25.058583ms)
+✔ R15 exact phone act requires no fictitious Communication (32.435ms)
+✔ R16 insufficient phone cannot verify (145.09375ms)
+✔ R17 advance unequivocally linked is evidence without Payment (156.029542ms)
+✔ R18 Human Approval cannot replace client (270.881542ms)
+✔ R19 sent/read/silence/supposed payment/provider are not agreement (845.052042ms)
+✔ R20 changing Primary Contact preserves earlier accepter (37.283333ms)
+✔ R21 ordinary win with historical or claimed acceptance blocked (22.713333ms)
+✔ R22 replaced version cannot silently verify as current (197.889083ms)
+✔ R23 rejected coverage cannot verify without review (208.210125ms)
+✔ R24 later revalidation cannot rescue an earlier expired act (304.008ms)
+✔ R25 direct ordinary Ganada write denied; DB guard too (198.742625ms)
+✔ R26 direct editing/deleting historical facts denied (214.609583ms)
+✔ R27 rectification preserves original and historical verification; reeval explicit (39.64525ms)
+✔ R28 every material rectification guard required (809.729167ms)
+✔ R29 opinion change is not an error (239.609208ms)
+✔ R30 lost response replay recovers persisted result without second effect (235.892125ms)
+✔ R31 changed replay conflicts and preserves every fact (241.308917ms)
+✔ R32 concurrent verifications in both dispatch orders (119.758167ms)
+✔ R33 new version and stale verification serialize without overwrite (270.894125ms)
+✔ R34 pre-write fault rolls back all T02 effects (280.538208ms)
+✔ R35 late history fault rolls back verification/Ganada/result (558.388667ms)
+✔ R36 authorized administrator and independent observer see exact chain (36.44625ms)
+✔ R37 missing auth/context cannot write (281.284625ms)
+✔ R38 forged context and signature reject from direct SQL (286.079042ms)
+✔ R39 disabled/unprovisioned actor denied including replay (295.467417ms)
+✔ R40 minimal ACL/FORCE RLS/ordinary roles and successful direct authorized SQL (51.313084ms)
+✔ R41 upgrade retains all prior H0/H1/H2 persisted fixtures (0.385ms)
+✔ R42 empty database installs full chain through new migration (209.630333ms)
+✔ R43 old IDs, human OP/PR codes and contexts remain retained (33.558625ms)
+✔ R44 B07 records/links/Tasks immutable during Acceptance (299.631666ms)
+✔ R45 no forbidden future/economic/operational effects from actual paths (38.074292ms)
+✔ R46 historical agreement not revoked by later expired evaluation (41.904583ms)
+✔ R47 prior material revalidation for exact expired act permits verification (128.306042ms)
+✔ R48 every material review guard independently withdrawn (1243.535833ms)
+✖ R49 exact received multichannel agreement; each Communication guard (1642.376375ms)
+✔ R50 total acceptance retains exact immutable terms (33.160917ms)
+✔ R51 wrong identity/faculty is not client acceptance (29.375833ms)
+✖ R52 lost/paused origin cannot become won from ordinary verification (26.209291ms)
+✔ R53 null/string revision attempts direct SQL rejected atomically (1503.429ms)
+✔ R54 historical migration source bytes preserved (324.108958ms)
+✔ R55 two authorized sessions concurrently verify same root (36.723959ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 53
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14545.709542
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-008.test.ts:86:1
+✖ R49 exact received multichannel agreement; each Communication guard (1642.376375ms)
+  Error: B07_INPUT_INVALID
+      at H1013EvidenceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h1-evidence-adapter.ts:103:88)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-008.test.ts:87:511)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h2-008.test.ts:91:1
+✖ R52 lost/paused origin cannot become won from ordinary verification (26.209291ms)
+  Error: COMMERCIAL_INPUT_INVALID
+      at H2001CommercialAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-commercial-adapter.ts:44:75)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2001CommercialAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-commercial-adapter.ts:54:10)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-008.test.ts:91:142)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
