@@ -1,6 +1,6 @@
 # TSK-H2-004 — Expected normativo y matriz independiente
 
-Estado: NO EJECUTADA. Expected fijado antes del código el 2026-10-01.
+Estado vigente: PASS local/aislado el 2026-10-01, contra `a080eb76e800126d155e78471ad2f6b59e382a7d`. Estado inicial conservado: NO EJECUTADA; expected y matriz fijados antes del código (commit69a0ef1).
 Base comprobada tras fetch: `8ec1c7a3cad4954b1fb316be10b1b8b1be7feb82`; main limpio, HEAD == origin/main.
 H0 técnico/local/aislado, H1 local/aislado y H2-001/002 COMPLETED; H2 IN PROGRESS; H2-003/004 y H2-005+/H3–H6 NOT STARTED.
 
@@ -26,44 +26,46 @@ Cada Rxx ejecutará expected anterior en PostgreSQL17 aislado con datos sintéti
 
 | Caso | Expected / comprobación | Observed | Resultado |
 |---|---|---|---|
-| R01 | Preparación para Opportunity real; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R02 | Guardas de preparación: Opportunity/alcance/fuentes/pendientes; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R03 | Alternativas coexistentes; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R04 | Fijar v1; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R05 | Guardas individuales de fijación; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R06 | Editar versión fijada por contrato; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R07 | Precio material crea v2; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R08 | Composición material crea v2; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R09 | Términos materiales crean v2; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R10 | Modalidades y selección crean v2; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R11 | Antes/después/motivo/sustitución; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R12 | Petición parcial no seleccionable conservada; nueva versión requerida; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R13 | Modalidades A10 rafting/2 noches y B2 sin rafting/1 noche; cena12; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R14 | 100.01 x 10 = 1000.10 EUR; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R15 | Calculado/final/manual/actor/motivo/diferencia; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R16 | Proyección comercial económica mínima; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R17 | Desconocido no cero; bloqueo dependiente; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R18 | Referencias exactas H1; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R19 | Maestros posteriores no alteran v1; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R20 | PM09 reconstrucción histórica; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R21 | SQL directo ACL/RLS e inmutabilidad; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R22 | Sin contexto; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R23 | Contexto falsificado; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R24 | Actor inhabilitado; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R25 | Rol ordinario y actor no provisionado; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R26 | Fallo antes de escritura; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R27 | Fallo durante historia; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R28 | Respuesta perdida y replay equivalente; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R29 | Replay distinto conflicto; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R30 | Sesiones concurrentes revisión/fijación; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R31 | Carrera numeración; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R32 | Historia conexión independiente; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R33 | SM-FORB-02 intento explícito; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R34 | Sin efectos Acceptance/Ganada/Booking/economía/operación; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R35 | Límites H2-005+; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R36 | SM-OP-04 positivo y guardas negativas; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R37 | V-MIG cadena vacía y upgrade con fixtures/permisos; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
-| R38 | Fuentes exactas, estimación autorizada, elegibilidad independiente de recomendación; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | NO EJECUTADO | NO EJECUTADA |
+| R01 | Preparación para Opportunity real; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R02 | Guardas de preparación: Opportunity/alcance/fuentes/pendientes; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R03 | Alternativas coexistentes; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R04 | Fijar v1; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R05 | Guardas individuales de fijación; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R06 | Editar versión fijada por contrato; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R07 | Precio material crea v2; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R08 | Composición material crea v2; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R09 | Términos materiales crean v2; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R10 | Modalidades y selección crean v2; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R11 | Antes/después/motivo/sustitución; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R12 | Petición parcial no seleccionable conservada; nueva versión requerida; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R13 | Modalidades A10 rafting/2 noches y B2 sin rafting/1 noche; cena12; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R14 | 100.01 x 10 = 1000.10 EUR; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R15 | Calculado/final/manual/actor/motivo/diferencia; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R16 | Proyección comercial económica mínima; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R17 | Desconocido no cero; bloqueo dependiente; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R18 | Referencias exactas H1; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R19 | Maestros posteriores no alteran v1; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R20 | PM09 reconstrucción histórica; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R21 | SQL directo ACL/RLS e inmutabilidad; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R22 | Sin contexto; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R23 | Contexto falsificado; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R24 | Actor inhabilitado; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R25 | Rol ordinario y actor no provisionado; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R26 | Fallo antes de escritura; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R27 | Fallo durante historia; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R28 | Respuesta perdida y replay equivalente; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R29 | Replay distinto conflicto; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R30 | Sesiones concurrentes revisión/fijación; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R31 | Carrera numeración; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R32 | Historia conexión independiente; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R33 | SM-FORB-02 intento explícito; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R34 | Sin efectos Acceptance/Ganada/Booking/economía/operación; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R35 | Límites H2-005+; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R36 | SM-OP-04 positivo y guardas negativas; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R37 | V-MIG cadena vacía y upgrade con fixtures/permisos; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+| R38 | Fuentes exactas, estimación autorizada, elegibilidad independiente de recomendación; aplicar expected anterior, retirar cada guarda material y comprobar cero efecto parcial/historia perdida donde corresponda. | Expected satisfecho; pruebas y estado persistido en final-formal.log, conexiones independientes. | PASS local |
+
+| R39 | AC085: regla objetiva no deriva de recomendación Alta; falta/candidata/ineligible bloquean únicamente definitivo; Evidence reviewed eligible con regla/alcance permite fijar. Expected concretado desde R38 congelado. | Fuentes y Evidence H1 reales aisladas, estado/history inspeccionados. | PASS local |
 
 ## Trazabilidad íntegra Tasks §6
 
@@ -137,3 +139,93 @@ Cuarta matriz completa: R01–R38 38/38 PASS tras F02; log `fourth-formal.log`. 
 **H2-004-F03 OPEN — MATERIAL**. Expected congelado AC085: recomendación no acredita elegibilidad objetiva; regla material incumplida/no comprobada bloquea el compromiso dependiente y permite preparación independiente. R39 añadido para concretar esa obligación ya fijada: crea H1 Eligibility Rule Version known sobre servicio, prepara y trata de fijar precio definitivo sin evidencia de cumplimiento. Observed: fijación permitida. Quinta matriz 38/39 PASS / 1 FAIL (`fifth-formal.log`, `f03-verifier.ts.txt`), commit `b40a241` de producto. Corrección prevista: resolver y conservar reglas H1 aplicables, exigir Evidence revisada de cumplimiento con regla/alcance, bloqueo limitado a definitivo; sin motor paralelo ni umbrales inventados.
 
 F03 corrección: fuente real de Eligibility Rule Version H1 aplicable al servicio, sin sustituir elegibilidad por recomendación. Preparación conserva blockers, reglas y evidencia; fijación definitiva verifica Evidence revisada scoped con referencia de regla. R39 ampliado prueba recomendación Alta + regla objetiva, ausencia/candidata/ineligible no habilitan compromiso; evidencia reviewed eligible de regla exacta sí permite fijar y queda conservada. No se evalúan umbrales inventados ni se crea motor H1 paralelo. Sexta matriz39/39 PASS; séptima42tests tuvo41PASS/1FAIL por fixture del verificador (publicación de recomendación H1 requiere IDs de revisión de endpoints, no IDs de maestro); log preservado y fixture corregido, expected intacto. Octava matriz completa39/39 PASS; F03 FIX IMPLEMENTED / PENDING FINAL REGRESSION.
+
+## Resultado final y ejecución recuperable
+
+Commit de producto probado: `a080eb76e800126d155e78471ad2f6b59e382a7d`. Nueva ejecución formal íntegra R01–R39 **39/39 PASS**, 0 fail/skipped/cancelled: `tests/fixtures/h2-004/final-formal.log`. Expected normativo permaneció anterior al observed; no se tomó implementación como oráculo. Verificador independiente: `tests/integration/postgres-h2-004.test.ts`; fuentes congeladas con las 46 filas originales arriba.
+
+R39 concreta el expected de elegibilidad ya congelado en R38/AC085. Complementos `tests/support/h2-004-modalities.mjs` y `modalities.log`: R13 con identidades distintas de rafting/cena/alojamiento y unit personas, modalidades A10/B2, rafting expresamente excluido en B, cantidades10/12/12/10 y1000.10; R37 aplicación H1 previa con fuentes de cálculo versionadas idéntica después de migración. El ensayo primario R13 prueba líneas/contribuciones, el complemento prueba identidad y unidades exactas. Ninguna Booking ni compromiso operacional.
+
+Entorno real: macOS/Postgres.app PostgreSQL17.11, Node24.21.0, pnpm11.19.0, Postgres.js3.4.9, Next16.3.6, TypeScript7.0.2, Supabase CLI2.118.0 solo generador de migración. Clúster formal efímero propio `crm_h2_004` puerto55467, complemento55473 y reproducers55468–55472; datos exclusivamente sintéticos, login runtime `crm_h0_runtime` ordinario, migration/provision/observer separados. Un único Administrador según autoridad V1; carreras con dos sesiones y conexiones independientes del actor autorizado, más actor no provisionado denegado R25. Doble únicamente del proveedor Auth: no acredita Auth real; permisos/RLS/rollback/concurrencia/datos se prueban en PostgreSQL real. Finalización HA/TTE H0 no se modifica.
+
+V-DOM R14/15/17/20/38/39; V-DAT R21–25/32/33; V-MIG R37 y complemento; V-AT R26–31 y T01 R01/04; V-SM SM-OP04 R01/02/36, SM-PV01 R01–03/11, SM-PV02 R04–06/14–18/38/39, SM-PV06 R07–11; V-NEG SM-FORB02 R06/21/33; V-EVI este registro y archivos recuperables. Cada rechazo compara tablas de estado, versiones, composición, historia, operaciones, códigos/contadores anteriores y posteriores. R24 deshabilita al actor únicamente por canal de fixture/provision, nunca lo usa como identidad de negocio. Inmutabilidad ante runtime y roles API genéricos comprobada mediante SQL real.
+
+La migración nueva se aplica sobre base publicada H2-001/002 con fixtures H0/H1/H2 anteriores: identidad/contexto/códigos OP, catálogo/unidades/formas/tarifas/packs, Lead/Opportunity/historia, Evidence/Communication/Task y aplicación H1 conservados. Comparación de datos y ACL/columnas/roles/memberships/policies/funciones/esquemas previos idéntica; cadena completa en segunda base vacía PASS. Migraciones publicadas H0/H1/H2-001/002 byte a byte intactas. Las correcciones de esta nueva migración se realizaron en commits adicionales antes de su primera publicación, sin amend/rebase.
+
+### Comandos y regresión
+
+```sh
+POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin node --test --experimental-strip-types tests/integration/postgres-h2-004.test.ts
+POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin node --experimental-strip-types tests/support/h2-004-modalities.mjs
+pnpm install --frozen-lockfile
+pnpm run typecheck
+pnpm run lint
+pnpm test
+POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin pnpm run test:postgres
+pnpm run build
+pnpm audit --prod
+git diff --check
+```
+
+Regresión íntegra posterior a matriz PASS: instalación congelada/typecheck/lint/build/audit/diffcheck PASS; **77/77 unitarias +399/399 PostgreSQL17**, 0 fail/skipped/cancelled; audit producción sin vulnerabilidades conocidas. Runner íntegro H0/H1/H2 anterior y nuevo, sin filtros ni debilitamiento; 396436ms PostgreSQL con esperas históricas deliberadas. Logs por comando y `regression-summary.json` recuperables en `tests/fixtures/h2-004/`. F01/F02/F03 **CLOSED localmente** tras matriz actual y regresión completas; 0 Fxx abiertos. Tres reproducers históricos PASS en runner íntegro, adicionales al crédito formal actual, sin ocultar FAIL previos.
+
+### Limitaciones y STOP
+
+Fijar no certifica envío, vigencia efectiva, aceptación, disponibilidad ni proveedor. El estado Propuesta enviada de SM-OP04 requiere funcionalidad posterior: no se construye mediante fixture ficticio ni se acredita ese recorrido antes de H2-005. SM-OP04 se habilita mediante el contrato que crea preparación real; el comando ordinario H2-001 no inventa una Proposal para cambiar el estado. Preparación editable conserva revisiones; no se vuelve editable el snapshot fijado.
+
+AC013 acredita únicamente conservación de petición no seleccionable y exigencia de versión nueva, cero Acceptance; AC017 solo composición/cantidades, sin convertir. E2E01/02/PT02 y demás fuentes compartidas mantienen sus integraciones asignadas posteriores. Estimación admite únicamente prueba sintética explícita de regla aprobada; no acredita ninguna regla/precio comercial real. La proyección mínima mantiene certainty estimated/pending en el campo de precio no definitivo; nunca publica costes, unidad fija interna, ajuste/actor/motivo ni rentabilidad. Source/version histórico conserva lo usado; no afirma vigencia actual H2-005.
+
+TSK-H2-003/004 COMPLETED exclusivamente local/aislado; H2 IN PROGRESS. H2-005+/H3–H6 NOT STARTED. PLAN-AUTH001–006 globales, PLAN-PENDING003 parte abierta, DM-PENDING005, BR-PENDING022/033 y políticas/datos personales/comerciales/catálogos/tarifas/costes/capacidades/prioridades/plazos reales siguen pendientes. Hosted H2 no acreditado; Production no autorizada; sin conectores/envíos/pagos/proveedores reales. STOP obligatorio antes de H2-005.
+
+## Correspondencia individual de las 46 filas asignadas
+
+| ID | Evidencia local / pendiente preservado |
+|---|---|
+| SPEC-FR-CAT-001 | R18/19/37 + complemento R13/R37 |
+| SPEC-FR-CAT-004 | R17/18/19/20/38 |
+| SPEC-FR-CAT-005 | R03/13/18/19 |
+| SPEC-FR-PROP-001 | R01/02/03/11 |
+| SPEC-FR-PROP-002 | R04–11/21/33 |
+| SPEC-FR-PROP-003 | R13/16/18 + complemento R13 |
+| SPEC-FR-PROP-005 | R14/15/17/20/38/39 |
+| SPEC-FR-PROP-007 | R07–12; sustitución, no rechazo formal/vigencia futura |
+| SPEC-FR-ACC-003 | R12; límite previo, cero Acceptance |
+| SPEC-FR-ECON-013 | R15/17/18/20; snapshot/coste desconocido, no rentabilidad integrada H3 |
+| SPEC-FR-HIST-002 | R07–11/19/20/32/33 |
+| SPEC-FR-CONC-001 | R29/30/31 |
+| SPEC-FR-SEC-003 | R16/21/25 |
+| AC-001 | R02/17 |
+| AC-007 | R04–11/33 |
+| AC-010 | R17/38 |
+| AC-011 | R14/15/16/18 |
+| AC-013 | R12; sin Acceptance |
+| AC-017 | R13 y complemento; sin Booking |
+| AC-065 | R16/21/25; superficies implementadas |
+| AC-067 | R29/30/31; no Acceptance futura |
+| AC-085 | R18/19/20/39 |
+| SPEC-NFR-012 | R07–11/19/20/32/33 |
+| DM-INV-001 | R02/17/38 |
+| DM-INV-008 | R04–11/21/33 |
+| DM-INV-024 | R13 + complemento |
+| DM-INV-025 | R16/21 |
+| DM-INV-026 | R14/15/20 |
+| DM-INV-028 | R18/19/20/37 + complemento |
+| SM-OP-04 | R01/02/36; origen Propuesta enviada reservado H2-005 |
+| SM-PV-01 | R01/02/03/11 |
+| SM-PV-02 | R04/05/06/17/18/38/39 |
+| SM-PV-06 | R07/08/09/10/11 |
+| SM-FORB-02 | R06/21/33 |
+| P07 | R07–11/19/20/32/33 |
+| PLAN-DEC-003 | R01/04/13/18/21/37 |
+| PLAN-B03 | R01–18/34/35/36 |
+| PLAN-C02 | R02/05/11/17/38/39 |
+| PLAN-T01 | R01/04/26/27/28/29/30/31/32 |
+| PT-02 | R04–12/33; local solamente, Acceptance/vigencia/conversión posteriores |
+| E2E-01 | R01/04/13; contribución, integración total H6 NO ACREDITADA |
+| E2E-02 | R01/04; contribución sin Lead/envíos ficticios, cadena Acceptance/Booking H6 NO ACREDITADA |
+| PM-09 | R19/20 |
+| G4 | R07–11/19/20/32/33 |
+| D011 | R01/04/12/34/35; solo frontera comercial |
+| D023 | R14/15/20 |
+
+Referencia técnica consultada (no sustituye autoridad del repo): [Supabase RLS](https://supabase.com/docs/guides/database/postgres/row-level-security), ACL y RLS conjuntamente; [changelog PG17.11](https://supabase.com/changelog/postgres-15-19-17-11-breaking-changes). No índices ltree/btree_gist float ni cifrado legado introducidos; migración usa infraestructura H0 existente y pruebas reales.
