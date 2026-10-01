@@ -25,17 +25,14 @@ create table crm_private.b03_offer_history (
  before_data jsonb,after_data jsonb not null,normative_ids jsonb not null,
  actor_id uuid not null references crm_private.crm_actors(actor_id),recorded_at timestamptz not null default clock_timestamp()
 );
-do $$ declare t text;r text;begin foreach t in array array['b03_offer_issuances','b03_offer_operations','b03_offer_history'] loop
+do $$ declare t text;begin foreach t in array array['b03_offer_issuances','b03_offer_operations','b03_offer_history'] loop
  execute format('alter table crm_private.%I owner to crm_h0_f2_owner',t);
  execute format('alter table crm_private.%I enable row level security',t);
  execute format('alter table crm_private.%I force row level security',t);
  execute format('create policy offer_executor on crm_private.%I to crm_h0_f2_executor using(true) with check(true)',t);
  execute format('create policy offer_migration on crm_private.%I to crm_h0_migration using(true) with check(true)',t);
  execute format('grant select,insert on crm_private.%I to crm_h0_f2_executor,crm_h0_migration',t);
- execute format('revoke all on crm_private.%I from public,crm_h0_runtime',t);
- foreach r in array array['anon','authenticated'] loop
-  if exists(select 1 from pg_roles where rolname=r) then execute format('revoke all on crm_private.%I from %I',t,r);end if;
- end loop;
+ execute format('revoke all on crm_private.%I from public,crm_h0_runtime,anon,authenticated',t);
 end loop;end $$;
 -- A reviewed B07 fact is scoped and checked for the exact act, not inferred from attachment.
 create function crm_private.offer_evidence(ref uuid,opp uuid,s text,claim text,coverage text,lo timestamptz,hi timestamptz)

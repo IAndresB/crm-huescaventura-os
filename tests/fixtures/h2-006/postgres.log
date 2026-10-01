@@ -1,0 +1,1031 @@
+$ node scripts/test-postgres.mjs
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-Gq9IZZ/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-Gq9IZZ/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ F1 migration from H0-M01 preserves data; C01 returns only public projection (3446.838417ms)
+✔ A01 modification of authenticated claim is denied (4.991334ms)
+✔ A02 modification of authenticated claim is denied (7.814417ms)
+✔ A03 modification of authenticated claim is denied (13.833459ms)
+✔ A04 modification of authenticated claim is denied (4.906375ms)
+✔ A05 modification of authenticated claim is denied (6.727209ms)
+✔ A06 modification of authenticated claim is denied (4.695959ms)
+✔ A07/A08 malformed capability, MAC lengths and random MAC fail closed (23.442667ms)
+✔ A09/A10/A24 copied capability fails on another transaction or connection (33.347834ms)
+✔ A11/A12/A30 valid capability cannot widen scope, operation or material input (133.057375ms)
+✔ A13/A25 C03 consumption permits only one surviving application, savepoints roll back effects together (179.654333ms)
+✔ A14/A15/A16/A17/A18 runtime cannot reach helpers, keys, roles or unsigned executors (50.628125ms)
+✔ A19 false GUC, verified flags and baseline envelope never authorize direct access (15.194583ms)
+✔ A20/A21/A22 hostile search_path and shadow attempts do not alter resolution (32.277625ms)
+✔ A23 driver/public failure paths do not include synthetic sensitive input (65.898333ms)
+✔ A26 commit, rollback, SQL error and reused max-one connection retain no authority (32.624ms)
+✔ A28 expiration and future not-before are denied with a valid MAC (4.924917ms)
+✔ A29 exact key selection and revocation fail closed, no fallback (12.152958ms)
+✔ D037 effective ownership, memberships, FORCE RLS and split verifier/executor permissions (22.411667ms)
+✔ C03 first/intermediate error and explicit rollback leave no partial writes (28.217292ms)
+✔ Codec rejects invalid UTF-8 source, oversized strings/input and unknown client authority fields (18.271083ms)
+✔ A27 connection lost before COMMIT returns E4 without blind retry (1100.826791ms)
+✔ A29 key rotation supports overlap, exact selection and retirement (19.40425ms)
+✔ RLS independently limits the executor to authenticated scope, row and manifest (21.204458ms)
+✔ D037 comparator checks every MAC bit and has fresh internal blinding with a fixed loop (461.1535ms)
+✔ Authenticated but incompatible version, audience, generation, binding and limits fail closed (13.517792ms)
+✔ H0-M03 upgrades historical chain; only migration can apply and mapping is unique (3807.019917ms)
+✔ H0-M03 injected mid-migration failure is atomic and a clean retry succeeds (239.715375ms)
+✔ H0-006-F01 forward migration is atomic, preserves predecessor and restores narrow ACL (49.229083ms)
+✔ H0-006-F02 forward migration upgrades F01 atomically and preserves function ACL (512.908792ms)
+✔ verified Auth boundary rejects client-shaped claims and incomplete full identification (7.655542ms)
+✔ full identification creates two independent sessions and minimal F2+F1 C01 (57.726959ms)
+✔ H0-006-F02: six F2 operations expire while waiting for the actor lock (30188.606291ms)
+ℹ {"sixCallsBlocked":true,"allExpiredAtRelease":true,"outcome":[{"name":"establish","ok":false,"code":"42501"},{"name":"reidentify","ok":false,"code":"42501"},{"name":"revoke_one","ok":false,"code":"42501"},{"name":"revoke_all","ok":false,"code":"42501"},{"name":"human_read_probe","ok":false,"code":"42501"},{"name":"human_apply_probe_batch","ok":false,"code":"42501"}]}
+✔ H0-006-F02: a short actor-lock wait still permits a current F2 (103.685584ms)
+✔ H0-006-F02: an INSERT lock wait after actor admission cannot commit an expired F2 (30155.321916ms)
+✔ H0-006-F02: expiry during delegated Core waits rolls back C01/C03 (60331.851834ms)
+ℹ {"operation":"C01","waitedInsideCore":true,"f2ExpiredWhileF1Valid":true,"ok":false,"code":"42501"}
+ℹ {"operation":"C03","waitedInsideCore":true,"f2ExpiredWhileF1Valid":true,"ok":false,"code":"42501"}
+✔ F2 owners, FORCE RLS and grants exclude runtime, generic roles and the key (21.800833ms)
+✔ M2 plain GUCs, wrong scope, altered MAC and F1/F2 substitution cannot authorize (27.347583ms)
+✔ F2 is transaction/PID bound; valid F1 alone and valid F2 alone both fail (3.964708ms)
+✔ C03 writes and human activity commit together; failed F1 leaves neither (17.79525ms)
+✔ interactive read moves only its own epoch; refresh/polling/passive cannot claim activity (3.834167ms)
+✔ 7/30 day boundaries deny at equality; expired epoch needs a new full identification (15.773625ms)
+✔ single revoke isolates devices; global revoke advances generation and disables prior sessions (6.633709ms)
+✔ disabled/recovery/enrollment actor never grants Core; enable does not revive old generation (5.938792ms)
+✔ actor lock serializes authorize versus one-revoke, global revoke and disable (169.429666ms)
+✔ reidentification committed first invalidates an old epoch capability in a live transaction (5.902666ms)
+✔ two concurrent reads serialize safely and do not share connection/session authority (3.979833ms)
+✔ fault after activity update rolls back activity and Core; reidentify and generation faults roll back (13.809625ms)
+✔ F2 authenticates every authority claim and material input; malformed MACs fail closed (28.660042ms)
+✔ F2 capability from another live backend cannot cross PID (2.306208ms)
+✔ runtime cannot enable actor, invent subject, sign, or exploit search_path/temp shadow (2.403209ms)
+✔ F2 issuer requires branded interactive route and a key distinct from F1 (2.366333ms)
+✔ F2 exact key selection, generation and rotation fail closed without fallback (8.504792ms)
+✔ synthetic sensitive canaries do not escape the server-facing failure (3.437167ms)
+✔ H0-006-F01 preparation denies revoked, stale, old epoch, disabled and expired authority (23.910166ms)
+✔ H0-006-F01 locked recheck denies a capability issued before revoke-one COMMIT (7.808542ms)
+✔ H0-006-F01 locked recheck rejects a pre-issued old epoch and expired session (9.231042ms)
+✔ H0-006-F01 generation overflow fails closed without partial mutation (4.623584ms)
+✔ H0-006 N11: revoked session cannot invoke global revocation through server F2 issuance (4351.498ms)
+ℹ {"revokedSessionDeniedForCore":true,"globalRevocationDenied":true,"generationBefore":"1","generationAfter":"1","otherSessionStillAuthorized":true}
+✔ H0-006 R22: independent predecessor upgrade, rollback and reapply (2197.553208ms)
+✔ H0-006 R07/R18: F2 expiry while waiting for actor lock must deny establishment (31620.375417ms)
+ℹ {"initialValidControl":true,"initialExpiredControlDenied":true,"sawLockWait":true,"releasedAfterExpiry":true,"accepted":false,"code":"42501","sessions":0,"epochs":0,"created_after_expiry":null,"coreAllowed":false}
+▶ H0-006 third execution: independent actor, lookup and M2 controls
+  ✔ R03 generic lookup is metadata, not authority; revoke-all lookup requires live session (6.022041ms)
+  ✔ R03 revoke-all lookup rejects revoked, stale, old epoch, disabled and 7/30 expiry (6.580333ms)
+  ✔ R04 M2 SQL cannot create an actor, session, epoch or mutate authority (7.6355ms)
+  ✔ R05/R20 independently signed F2 and F1 are both necessary and scope-bound (11.079167ms)
+  ✔ R06 independent 25-field framing rejects mutation and malformed input (23.681125ms)
+  ✔ R07 a valid capability cannot cross transactions or backends (13.090792ms)
+  ✔ R08 plain GUC and reused pooled connection grant no authority (3.161458ms)
+  ✔ R09 key custody and exact key lifecycle fail closed (6.842541ms)
+  ✔ R10 singleton mapping cannot be duplicated or changed by runtime (1.34375ms)
+  ✔ R11 session, subject and epoch must match current coherent rows (2.072875ms)
+  ✔ R12 unverified Auth, incomplete MFA and unclassified interaction deny (1.4475ms)
+  ✔ R13/R14 elapsed 7/30-day limits deny at equality before activity update (7.266625ms)
+  ✔ R02 pre-issued authority loses to a committed revocation (13.303125ms)
+  ✔ R15 two devices keep independent activity and reidentify without history rewrite (7.38275ms)
+  ✔ R19 failed Core operation rolls back F2 activity and F1 consumption (7.706916ms)
+  ✔ R21 roles, SECURITY DEFINER and FORCE RLS remain effective (3.1195ms)
+  ✔ R18 F02 six independently issued operations deny after a real actor-lock expiry (30156.497959ms)
+  ✔ R18 a short real lock wait may continue while F2 remains valid (226.323333ms)
+  ✔ R18 F2 also expires while waiting on session and epoch locks (60278.254666ms)
+  ✔ R17 disable, recovery and enrollment deny; re-enable does not revive old generation (42.522208ms)
+  ✔ R23 a committed global revocation stays effective after response loss (8.553541ms)
+  ✔ R16 revoke-one/global are scoped and generation overflow fails closed (9.957625ms)
+✔ H0-006 third execution: independent actor, lookup and M2 controls (91845.618416ms)
+ℹ {"f02SixBlocked":true,"postLockClockAfterExpiry":true,"sixDeniedWithoutPartialEffect":true}
+✔ H0-007 runtime is non-owner and has no global privilege attributes (3121.475958ms)
+✔ H0-007 runtime cannot administer schema (28.268542ms)
+✔ H0-007 runtime cannot grant itself privileges or roles (3.827542ms)
+✔ H0-007 generic untrusted role cannot connect to the Core database (9.100917ms)
+✔ H0-007 absence of context is denied by grants and the capability interface (3.872459ms)
+✔ H0-007 valid technical context authorizes only its scoped projection (14.987542ms)
+✔ H0-007 hostile client fields cannot establish trusted context (0.69975ms)
+✔ H0-007 commit clears transaction-local identity (9.685292ms)
+✔ H0-007 rollback clears transaction-local identity (6.133125ms)
+✔ H0-007 database error clears transaction-local identity (2.542542ms)
+✔ H0-007 reused max-one connection does not inherit the prior actor (8.340542ms)
+✔ H0-007 grants and RLS jointly hide rows from another scope (4.86475ms)
+✔ H0-007 runtime cannot read the reserved column directly (3.593792ms)
+✔ H0-007 runtime cannot perform arbitrary table DML (2.175292ms)
+✔ H0-007 H0-M01 migrations execute from an empty local cluster (0.127292ms)
+✔ H0-007 migration and runtime authorities are separate (2.148958ms)
+✔ H0-007 C01 consumes a real authorized PostgreSQL read port (4.345375ms)
+✔ H0-007 C03 commits a real PostgreSQL unit through the narrow function (12.186167ms)
+✔ H0-007 C03 rolls back all changes after a database error (15.310083ms)
+▶ H0-008 formal independent D037 reverification (fail-fast)
+  ✔ V-MIG: failed forward is atomic; retry preserves H0-M01 data without superuser (92.607708ms)
+  ✔ V-DAT: effective catalogs, owners, PUBLIC, transitive memberships and proconfig (15.881209ms)
+  ✔ V-DAT: hostile direct SQL cannot escalate, mutate ACL or use a privileged helper (27.547584ms)
+  ✔ Capability: every one of 21 fields is authenticated, not just the six original mutations (286.699708ms)
+  ✔ Codec: signed malformed payload/input, trailing bytes, UTF-8 and exact limits fail closed (95.694959ms)
+  ✔ Binding: public observations and persistent forged envelope cannot cross transaction/pool (29.840916ms)
+  ✔ C03: authenticated order, complete manifest, no second surviving application or partial effect (19.036541ms)
+  ✔ D037 expiry during executor rolls back effects; no success after deadline (631.149583ms)
+  ✔ Keys: exact length, missing/revoked selection and no secret-bearing SQL definitions (30.355041ms)
+  ✔ C01/C03 server boundary: minimum projection, hostile input and real SQL errors do not leak canaries (42.793292ms)
+✔ H0-008 formal independent D037 reverification (fail-fast) (4871.938ms)
+✔ H0-008 knowing GUC names must not let runtime self-declare authority (3145.967625ms)
+✔ H0-009 migration upgrades F1, preserves prior data and creates only technical objects (3532.467917ms)
+✔ H0-009 persists state, complete minimal history, fixed result and intent atomically (121.949041ms)
+✔ H0-009 later history records real before/after without rewriting the original (82.301583ms)
+✔ H0-009 equivalent replay reauthorizes, returns fixed result and creates only a new attempt (82.7525ms)
+✔ H0-009 same operation identity with different material returns E2 and no second effect (13.362875ms)
+✔ H0-009 concurrent equivalent operations converge on one durable result (73.643541ms)
+✔ H0-009 concurrent same identity with different fingerprints applies once and returns E2 (43.140208ms)
+✔ H0-009 expected version prevents concurrent overwrite (72.110416ms)
+✔ H0-009 failures at every critical boundary leave no partial unit (96.091667ms)
+✔ H0-009 response lost after real COMMIT recovers the previous result without duplicate material work (97.692167ms)
+✔ H0-009 runtime cannot directly read, mutate or erase durable records (33.64475ms)
+✔ H0-009 roles, ownership, FORCE RLS and grants keep verifier/executor split (20.763708ms)
+✔ H0-009 C04 remains candidate and C05 persists intent without provider attempt or outcome (0.8025ms)
+✔ H0-009 PostgreSQL deadlock aborts one complete transaction and does not preserve its marker (143.216583ms)
+✔ H0-009 migration is transactional: an injected failure leaves no H0-M02 objects (261.795208ms)
+✔ H0-010 V-MIG starts from an empty PostgreSQL 17 cluster and preserves the F1 predecessor (1626.890459ms)
+✔ H0-010 history represents creation, later before/after and immutable chronology (65.73775ms)
+✔ H0-010 equivalent replay after a later root change returns the historical fixed result (76.1845ms)
+✔ H0-010 every material field change conflicts instead of reusing the prior result (136.066041ms)
+✔ H0-010 visually similar byte-distinct Unicode and boundary inputs are not conflated (27.567667ms)
+✔ H0-010 SQL pack_fields is byte-for-byte equal to an independent reference codec (8.597ms)
+✔ H0-010 distinct operation/effect/intent identities cannot mint a second material right (20.851041ms)
+✔ H0-010 concurrent equivalent operation converges, with one effect and distinct attempts (11.96675ms)
+✔ H0-010 concurrent different material under one operation identity applies once and returns E2 (53.496875ms)
+✔ H0-010 concurrent different operations on one expected version prevent lost update (132.125333ms)
+✔ H0-010 failures at every C03 boundary commit no partial root, operation, attempt, history, result or intent (114.354709ms)
+✔ H0-010 a real post-COMMIT response loss is recovered only by a newly authorized transaction (60.812667ms)
+✔ H0-010 C04 candidate is not verification and C05 creates intent only (18.370708ms)
+✔ H0-010 runtime cannot create provider attempt/result/uncertain or mutate durable records directly (15.763208ms)
+✔ H0-010 H0-M02 rejects forged GUCs and binds valid capabilities to input, transaction, PID and target (43.177459ms)
+✔ H0-010 GUC authority is observationally absent after success, replay, conflict, error and connection reuse (25.627791ms)
+✔ H0-010 savepoint rollback removes capability consumption, material effects and GUC authority together (15.9485ms)
+✔ H0-010 catalog audit preserves D037 roles, ownership, minimal grants, SECURITY DEFINER and FORCE RLS (15.274875ms)
+✔ H0-010 hostile search_path, temporary shadows and public helpers cannot bypass the narrow API (6.066084ms)
+✔ H0-010 a real deadlock aborts one complete H0-M02 unit and the adapter returns E2 (1214.978125ms)
+✔ H0-010 migration rejects runtime, reapplication is fail-safe and injected failure leaves no hybrid schema (188.521875ms)
+✔ F01 correction V-MIG: predecessor M04/M02 survives denied authority, DDL rollback, upgrade and safe reapply denial (1845.7245ms)
+✔ F02 correction V-MIG: M02/M04 fixtures survive denied authority, DDL rollback, forward upgrade and safe reapply denial (0.491042ms)
+✔ F01 correction executor is narrow, NOLOGIN, fixed search_path, with no public grant or new key access (9.235625ms)
+✔ F02 partitions technical and human M02 entry points while keeping the internal core unreachable (28.45825ms)
+ℹ {"runtimeFunctionSurface":["crm_api.apply_probe_batch(bytea,bytea,bytea)","crm_api.commit_internal_unit(bytea,bytea,bytea)","crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)","crm_api.establish_session(bytea,bytea,bytea)","crm_api.f2_lookup(uuid,uuid)","crm_api.f2_lookup_revoke_all_authority(uuid,uuid)","crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)","crm_api.h0_m04_read_proposal(bytea,bytea,bytea,bytea,bytea,text)","crm_api.human_apply_probe_batch(bytea,bytea,bytea,bytea,bytea)","crm_api.human_read_probe(bytea,bytea,bytea,bytea,bytea)","crm_api.read_probe(bytea,bytea,bytea)","crm_api.reidentify_session(bytea,bytea,bytea)","crm_api.revoke_all_sessions(bytea,bytea,bytea)","crm_api.revoke_session(bytea,bytea,bytea)"]}
+✔ F02 keeps legitimate H0-009 technical commits, concurrent convergence and replay (31.447ms)
+✔ H0-011 V-MIG applies M04 forward after M01/F1/M02/M03 on PostgreSQL 17 (6.553875ms)
+✔ synthetic AI proposal requires an independent human decision before exact-part reservation (172.47325ms)
+✔ human approval is exact, immutable and distinct from execution; uncertainty keeps reservation (173.552792ms)
+✔ material fingerprint separates absent, empty and every authorized material slot (1.555ms)
+✔ changed material, expired/unverifiable evidence and unverified identity never reserve (35.769917ms)
+✔ same exact part is serialized across two PostgreSQL runtime connections (71.335166ms)
+✔ approved effect can be consumed part by part without reusing the completed part (75.021583ms)
+✔ direct runtime and PUBLIC SQL cannot mutate or read approval tables (22.051292ms)
+✔ same operation identity conflicts on changed material and recovers after lost post-COMMIT response (58.733042ms)
+✔ failure writing the M02 effect intent rolls back reservation and history atomically (35.013209ms)
+✔ decision actor, technical executor, attempt and outcome remain separate records (45.217417ms)
+✔ revoked session cannot approve a previously proposed effect (13.111542ms)
+✔ H0-012 R11 control: short real M02 ledger wait commits with live F2 (2261.761458ms)
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":true,"deniedBeforeLedger":false,"protocolWindowSeconds":30,"f2ExpiredAtRelease":false,"f1ExpiredAtRelease":false,"f2AgeMsAtRelease":141,"ledgerWaitMs":107,"committed":true,"activityChanged":true,"reservations":1,"events":1,"receipts":1,"operations":1,"roots":1,"attempts":1,"history":1,"results":1,"intents":1,"proposals":1,"decisions":1}
+✔ H0-012 R11 control: M02 wait above 30s expires both capabilities and rolls back (30295.548667ms)
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":true,"deniedBeforeLedger":false,"protocolWindowSeconds":30,"f2ExpiredAtRelease":true,"f1ExpiredAtRelease":true,"f2AgeMsAtRelease":30257,"ledgerWaitMs":30230,"committed":false,"activityChanged":false,"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}
+✔ H0-012 R11: expired F2 must roll back M04 plus M02 even while later F1 remains live (30329.356416ms)
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":true,"deniedBeforeLedger":false,"protocolWindowSeconds":30,"f2ExpiredAtRelease":true,"f1ExpiredAtRelease":false,"f2AgeMsAtRelease":30279,"ledgerWaitMs":27222,"committed":false,"activityChanged":false,"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}
+✔ F01 correction: expiry in the first phase denies before ledger and preserves every snapshot field (30297.044416ms)
+ℹ real actor wait; F2 age >30s: true
+✔ F01 correction: normal concurrent units, durable replay and actual post-COMMIT response loss (48.450833ms)
+✔ H0-012 F02 regression inside trusted executor: selecting the technical overload cannot bypass final human authority (30282.756ms)
+ℹ {"runtimeEntryPoints":{"session_user":"crm_h0_ha_tx","current_user":"crm_h0_ha_tx","m04":true,"technical":true,"human":true}}
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":false,"deniedBeforeLedger":true,"protocolWindowSeconds":30,"f2ExpiredAtRelease":true,"f1ExpiredAtRelease":false,"f2AgeMsAtRelease":30266,"ledgerWaitMs":27206,"committed":false,"activityChanged":false,"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}
+▶ H0-012 D039 formal R01-R25 execution: independent matrix, stop at first material failure
+  ✔ R01 AI origin cannot decide without human authority; live human decides (30.941666ms)
+  ✔ R02 pending and rejected proposals permit neither reservation nor attempts/outcomes (56.657333ms)
+  ✔ R03 approval alone creates no external attempt, success or reservation (13.580125ms)
+  ✔ R04 exact material persists byte-for-byte with an independently computed fingerprint (13.869083ms)
+  ✔ R05 each changed material component denies and preserves the original approval (126.136417ms)
+  ✔ R06 independent codec vectors distinguish Unicode, slots, framing and exact limits (4.824584ms)
+  ✔ R07 part ID, fingerprint, scope, effect and cross-proposal swaps deny (100.165709ms)
+  ✔ R08 positive: current independently checked evidence must permit exact approved reservation (115.446125ms)
+  ✔ R08 negative: source/material expiry, missing provider and altered authenticated proof (197.295084ms)
+  ✔ R08 final evidence authority: immediate-short (78.758125ms)
+  ✔ R08 final evidence authority: deferred-expired (2621.648417ms)
+  ✔ R08 final evidence authority: immediate-expired (2628.130167ms)
+  ✔ R08 M2: runtime cannot build HA even with current evidence (22.375542ms)
+  ✔ R08/R23 M2: final evidence authority must survive omission or early invocation of the F04 wrapper (36.452166ms)
+  ✔ R09 revoked, disabled, generations, epochs, MFA and identification limits deny without activity (88.536667ms)
+  ✔ R10 real actor/session/epoch/command/part waits cannot outlive original F2 (151015.165625ms)
+  ✔ R11 original F01/F02 ledger races, current control and original F2 retention (91239.236709ms)
+  ✔ R12 revocation and authorized unit serialize on real actor/session locks (733.467666ms)
+  ✔ R13 signed login/purpose/target/scope/input crossings and missing F1/F2 deny (1150.347917ms)
+  ✔ R14 runtime, HA login and Data API cannot directly access authority or persisted data (14.325667ms)
+  ✔ R15 copied capabilities cannot survive backend, transaction, rollback or GUC substitution (195.9305ms)
+  ✔ R16 concurrent connections cannot reserve the same exact part twice (43.328375ms)
+  ✔ R17 partial execution preserves the independent remaining part (88.232916ms)
+  ✔ R18 uncertain attempt retains reservation and forbids blind retry (107.643167ms)
+  ✔ R19 reconciliation requires the exact original uncertain attempt (77.973625ms)
+  ✔ R20 known failure allows a new attempt; success consumes and cannot repeat (67.001875ms)
+  ✔ R21 committed replay uses durable result without provider refresh and different material conflicts (2063.563583ms)
+  ✔ R22 fault injection rolls back the whole unit; dispatched COMMIT response loss stays uncertain (138.571833ms)
+{
+  severity_local: 'WARNING',
+  severity: 'WARNING',
+  code: '25P01',
+  message: 'there is no transaction in progress',
+  file: 'xact.c',
+  line: '4113',
+  routine: 'EndTransactionBlock'
+}
+  ✔ R23 private finalization authority, owner separation, RLS and immutable public surface (6412.490625ms)
+  ✔ R24 fresh chain, predecessor upgrade, injected DDL rollback and scoped read (127.024958ms)
+  ✔ R25 AI proposer, human registrar/approver and technical executor remain separately attributable (0.874167ms)
+✔ H0-012 D039 formal R01-R25 execution: independent matrix, stop at first material failure (259639.782916ms)
+ℹ {"row":"R08","sourceFingerprintChecked":true,"sourceStillCurrent":true,"approvedMaterialMatches":true,"negativeExpiredDenied":true,"negativeMissingDenied":true,"noEvidenceControlReserved":true,"expected":"reserved","observed":"reserved","noResidueIfDenied":false}
+ℹ {"mode":"immediate-short","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":47269,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":false,"evidenceExpiryUs":"1790868596930000","releasedAtUs":"1790868594504691","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":true,"proofCount":1,"activityChanged":true,"counts":{"reservations":1,"events":1,"receipts":1,"operations":1,"roots":1,"attempts":1,"history":1,"results":1,"intents":1,"proposals":1,"decisions":1}}
+ℹ {"mode":"deferred-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":47269,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":false,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1790868597009000","releasedAtUs":"1790868597120956","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"immediate-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":47269,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1790868599631000","releasedAtUs":"1790868599753517","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"runtime-commit-short","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"runtime-commit-expired","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+✔ F03 focal: verified positive, immutable trace, effective minimum and replay without provider (21.698ms)
+▶ F03 focal: expired, missing, mismatched, incomplete and unavailable providers deny without residue
+  ✔ expired (18.885292ms)
+  ✔ reference (24.978959ms)
+  ✔ fingerprint (21.714458ms)
+  ✔ missing (20.724625ms)
+  ✔ failure (19.287084ms)
+  ✔ incomplete (20.378542ms)
+  ✔ ambiguous (18.663333ms)
+  ✔ future (19.720917ms)
+✔ F03 focal: expired, missing, mismatched, incomplete and unavailable providers deny without residue (165.225792ms)
+▶ F03 focal: SQL checks signed proposal/part/scope/reference/fingerprint/time and MAC
+  ✔ proposal (22.557541ms)
+  ✔ part (19.864417ms)
+  ✔ scope (20.333917ms)
+  ✔ reference (20.651875ms)
+  ✔ fingerprint (24.09325ms)
+  ✔ command (20.516958ms)
+  ✔ future-check (20.927125ms)
+  ✔ extended-validity (23.206667ms)
+  ✔ mac (20.739958ms)
+✔ F03 focal: SQL checks signed proposal/part/scope/reference/fingerprint/time and MAC (193.894541ms)
+▶ F03 focal: real ledger wait expires evidence with F1/F2 live; short wait and committed replay work
+  ✔ expired (1918.500833ms)
+  ✔ short (1812.31125ms)
+✔ F03 focal: real ledger wait expires evidence with F1/F2 live; short wait and committed replay work (3731.213208ms)
+✔ F03 focal: V-MIG result, ACL/NOLOGIN/RLS and private helpers (3.774084ms)
+✔ F03 focal: no signed proof cannot reserve; a proof alone cannot commit (51.801417ms)
+▶ F05 focal D039: runtime A/B denied, TTE short/expired waits and internal durable delay
+  ✔ runtime-commit-expired (24.496542ms)
+  ✔ split-finalize-expired (22.617ms)
+  ✔ immediate-short (87.798334ms)
+  ✔ immediate-expired (2630.525875ms)
+  ✔ deferred-expired (2638.258ms)
+{
+  severity_local: 'WARNING',
+  severity: 'WARNING',
+  code: '25P01',
+  message: 'there is no transaction in progress',
+  file: 'xact.c',
+  line: '4113',
+  routine: 'EndTransactionBlock'
+}
+  ✔ private pool API positive and no SQL or transaction handles (34.083792ms)
+  ✔ D039 does not require physical durable completion before expiry (3616.881ms)
+✔ F05 focal D039: runtime A/B denied, TTE short/expired waits and internal durable delay (9055.922667ms)
+ℹ {"mode":"runtime-commit-expired","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"split-finalize-expired","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"immediate-short","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":47269,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":false,"evidenceExpiryUs":"1790868860122000","releasedAtUs":"1790868857701677","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":true,"proofCount":1,"activityChanged":true,"counts":{"reservations":1,"events":1,"receipts":1,"operations":1,"roots":1,"attempts":1,"history":1,"results":1,"intents":1,"proposals":1,"decisions":1}}
+ℹ {"mode":"immediate-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":47269,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1790868860210000","releasedAtUs":"1790868860322502","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"deferred-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":47269,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":false,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1790868862840000","releasedAtUs":"1790868862964327","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+✔ R19/R20 focal: a historical attempt cannot settle a newer active attempt (65.825125ms)
+✖ H0-013 completes Core and Auth revocation without preserving emitter authority (1976.780125ms)
+✖ H0-013 keeps Core closed and reports known Auth failure explicitly (0.429958ms)
+✖ H0-013 records provider uncertainty without fictitious success (0.076042ms)
+✖ H0-013 returns pending if post-provider persistence fails and does not reopen Core (0.030083ms)
+✖ H0-013 does not contact Auth when the Core revocation unit is denied (0.054208ms)
+✖ H0-M05 is forward-only, atomic, preserves predecessor fixtures and restores ACL (0.025208ms)
+✖ H0-014 R01-R04/R13/R16/R18: global closure is durable, includes emitter and permits only new identification (1660.877459ms)
+✖ H0-014 R05-R08: every partial Auth outcome leaves Core denied and never reports success (0.58525ms)
+✖ H0-014 R09: concurrent global closures serialize and coordinate Auth once (0.1225ms)
+✖ H0-014 R10: an already-authorized Core operation may finish before later revocation (0.037459ms)
+✖ H0-014 R11: revocation that holds actor first defeats an in-flight old Core request (0.050834ms)
+✖ H0-014 R12/R14/R15: revoked, disabled, stale and non-human routes cannot revive activity (0.035459ms)
+✖ H0-014 R17/R20/R21: ACL, capability binding and TTE partition deny indirect authority (0.028916ms)
+✖ H0-014 R19: independent predecessor upgrade is atomic and preserves D039 objects (0.027459ms)
+✖ H0-016 I01/I03/I05/I06 D027 closes Core and needs TOTP before new identification (1649.207375ms)
+✖ H0-016 I01 invalid/unverified email and owner cannot open recovery (0.509125ms)
+✖ H0-016 I02/I05 D031 requires new factor and verified new paper copy (0.1775ms)
+✖ H0-016 I02/I04/I05 D031 failure is partial; new factor and paper required (0.144667ms)
+✖ H0-016 I07/I08 duplicate attempts and direct runtime writes denied (0.047625ms)
+✖ H0-017 R01/R02/R07 password recovery denies pre-MFA and stale authority (1498.5705ms)
+✖ H0-017 R11 recovered access retains independent 7/30 server limits (0.765333ms)
+✖ H0-017 R04/R05 owner independence and factor replacement are mandatory (0.128958ms)
+✖ H0-017 R08 concurrent starts allow one generation and one incident (0.041959ms)
+✖ H0-017 R06/R09 provider uncertainty preserves denial and SQL boundary (0.0545ms)
+✖ H0-017 R10 forward migration preserves previous actor, session and epoch (0.042916ms)
+✔ H1-001 identities remain distinct, incomplete and attributable (1518.16275ms)
+✔ H1-001 separate roles, provenance, version, replay and rollback (33.850708ms)
+✔ H1-001 runtime SQL surface denies direct writes and unauthenticated reads (1.312667ms)
+✔ H1-001 unverified identity cannot become primary while independent work continues (22.220459ms)
+✔ H1-001 overlapping primary changes have one winner and no partial history (34.501ms)
+✔ H1-001 ACL keeps human tables outside runtime, public, Data API and SET ROLE (1.632958ms)
+✔ H1-001 contact signals and group counts preserve unknown versus known (56.177916ms)
+✔ H1-001 C01 limits and pages history with explicit provenance (14.873667ms)
+✔ H1-001 injected history failure rolls back the entity and result together (8.4355ms)
+✔ H1-002 R01-R08,R17: distinct parties, context, history and denied inference (1412.808084ms)
+✔ H1-002 R09-R10,R15: C01/C02 and narrow SQL authority (12.786834ms)
+✔ H1-002 R11-R14: concurrent versions, replay and cross-connection rollback (33.116834ms)
+✔ H1-002 R16,R18: migration chain and synthetic fixture discipline (1.246708ms)
+✔ H1-003 I01-I03: candidates are passive; human merge and archive keep both histories (1257.531792ms)
+✔ H1-003 I04-I06: server year, independent annual series, concurrency and replay (341.083583ms)
+✔ H1-003 I07: scope, authorization, atomicity and SQL privileges (17.648167ms)
+✔ H1-004 R01-R04: no automatic merge, scoped resolution, retained links and restoration (1310.120917ms)
+✔ H1-004 R05-R07: D040 cut, distinct serials, no reuse and replay competition (141.531292ms)
+✔ H1-004 R06: code remains searchable after linked identities merge and archive (35.049125ms)
+✔ H1-004 R08-R10: rollback, SQL authority, RLS and old session (20.649875ms)
+✔ H1-005 smoke: create and read (1554.839375ms)
+✔ H1-005 I01-I06: typed relations, exact versions, immutable applied snapshot (140.12825ms)
+✔ H1-005 I05/I07: provider identity link, invalid relation, replay and concurrency (44.661459ms)
+✔ H1-005 I07/I08: injected history failure rolls back and runtime cannot bypass (36.962125ms)
+✔ H1-006 R01-R06: independent domain and persistence matrix (1690.924042ms)
+✔ H1-006 R07-R10: independent rejection, atomicity, security and predecessor (48.575ms)
+✔ H1-007 smoke: tariff version and exact catalog reference (1324.2385ms)
+✔ H1-007 I01/I07: tariff unknown, known decimal, source, validity and frozen application (39.588ms)
+✔ H1-007 I02/I03/I04/I05: custom pack, manual promotion, promotion rule and unknown guards (54.456708ms)
+✔ H1-007 I01/I04/I05: tiers, scoped requirements and exact rule versions (78.104792ms)
+✔ H1-007 I08/I09: replay, concurrency, rollback, scope and SQL authority (131.319ms)
+✔ H1-007 I01: exact civil-date and instant validity stay distinct (33.94625ms)
+✔ H1-008 R01-R08: independent version, unknown and cross-connection history matrix (1527.373666ms)
+✔ H1-008 R09-R11: independent race, replay, fault, scope and prior-data matrix (55.53225ms)
+✔ H1-013 E01/E02: document, evidence, derived and late manual call remain distinct (1416.729584ms)
+✔ H1-013 E03: one original links two contexts without broadening either read (25.190791ms)
+✔ H1-013 E05: incoming begins received, outgoing facts require separate evidence (26.816375ms)
+✔ H1-013 E05/E06: proposal send guard and external candidate are not confirmation (18.822042ms)
+✔ H1-013 E07/E08: correction, replay, conflict and atomic rollback (21.202125ms)
+✔ H1-013 E08/E09: concurrent replay and runtime direct access denial (16.73825ms)
+✔ R01-R04/R09: original, two links, late manual fact, incoming and no business inference (1468.093083ms)
+✔ R05-R08: send, receipt and response are separate; proposal guard rejects inference (62.462291ms)
+✔ R10-R14: external pending, correction, replay conflict, concurrency and rollback (64.984334ms)
+✔ R13: concurrent distinct links to the same context have one durable winner (5.911375ms)
+✔ R15-R17: role boundary, forced RLS and local migration (7.47675ms)
+✔ E01-E03: real Storage prepare/upload/accredit/link and authorized bytes (1816.197834ms)
+✔ E01/E02/E05/E06: reference absent, repair, replay and lost metadata after upload (221.339625ms)
+✔ E04/E07: replacement preserves original, concurrency rejects incompatible successors (142.473334ms)
+✔ E08-E10: orphan diagnostic keeps real bytes, direct and wrong-context access deny (43.426916ms)
+✔ R01-R04/R08: independent conservation oracle and durable replay (1691.847791ms)
+✔ R05: real same-path corruption and media mismatch are not conserved (267.699459ms)
+✔ R10/R11/R13: independently signed foreign scope and generic JWT cannot access (37.433584ms)
+✔ R06/R07/R15/R17: real upload survives internal rollback and repair/orphan retains bytes (117.259708ms)
+✔ R09/R10/R16: all five concurrency surfaces and retained original (202.001375ms)
+✔ R11-R14: actual signed URL remains technically valid; Core access is reauthorized (3612.68075ms)
+✔ R18/R19: forced RLS, narrow grants and migration rollback/reapply (379.255083ms)
+✔ E01/E02/E03/E08: business needs preserve unknowns and never prove the motivating fact (1319.795667ms)
+✔ E04: civil and exact instant deadlines preserve sources; D020 grants a complete day (22.407625ms)
+✔ E05-E07/E09: functional dedup differs from replay, revision and separate causes (36.564041ms)
+✔ E09/E10/E11: concurrent receipts, history rollback, context and runtime (12.733375ms)
+✔ R01-R06: independent unknown, civil/instant/D020 and priority oracle (1307.053292ms)
+✔ R07-R12: independent technical replay, structured cause separation and concurrency (47.56575ms)
+✔ R13/R14: independent fault create/update rollback and no motivating-fact inference (23.932125ms)
+✔ R15-R17: scope/context/purpose, stale authority and forced RLS (22.761834ms)
+✔ R18: predecessor upgrade retains records, DDL rollback/reapply and unique cause backstop (349.781666ms)
+✔ H2 focal: direct creation, H1 OP and atomic replay (1223.577917ms)
+✔ H2 focal: incomplete lead converts preserving source and owner (9.228541ms)
+✔ H2 focal: loss/pause/reactivate and forbidden Ganada preserve history (12.122583ms)
+✔ H2 focal: runtime has no direct DML (0.677417ms)
+✔ F01 historical: approved reviewed B07 contact incorrectly rejected at 00cf358 (1238.166458ms)
+✔ F02 historical: malformed numeric contact accepted by SQL at a5bbb06 (1171.13675ms)
+✔ R01: three exact minima; each individually absent rejected by PostgreSQL (1408.83725ms)
+✔ R02: unknown final data never adds mandatory minima or inferred values (34.815ms)
+✔ R03: incomplete Lead, source/owner/link and direct H1 identity reuse (14.215417ms)
+✔ R04: committed response discarded, replay and equivalent conversion use one H1 OP (33.975167ms)
+✔ R05: OP-02 every material guard and real scoped B07 contact, attempt not response (105.226208ms)
+✔ R06: OP-03 both origins with each guard removed and final details still unknown (110.095958ms)
+✔ R07: OP-04 commercial guards and every normative origin; Proposal dependency pending (72.614083ms)
+✔ R08: OP-05 exact version/send evidence cannot be fabricated; future capability pending (98.189709ms)
+✔ R09: OP-06 identifiable exchange and affected scope; offer/provider unchanged (185.82525ms)
+✔ R10: OP-08 all approved reasons, unknown explicit, no loss from alternative rejection (874.694583ms)
+✔ R11: OP-09 all active states guard matrix; actual pause retains previous state (147.039916ms)
+✔ R12: OP-10 lost/paused to both supported destinations; history and old vigencies preserved (887.214375ms)
+✔ R13: OP-11 backwards with documented change, human evaluation and supported destination (268.637916ms)
+✔ R14: seven attempts at Ganada cannot replace future verified Acceptance (400.708958ms)
+✔ R15: explicit SM-FORB-30 attempts do not erase loss or renew external validity (141.608833ms)
+✔ R16: actual V-DAT admission, forgery, disabled actor, ordinary SQL and ACL/RLS (249.124167ms)
+✔ R17: independent history and strict separation across all persisted commercial effects (5.847375ms)
+✔ R18: atomic write faults, changed replay, two actors absence/races/revision (144.293833ms)
+✔ R19: empty-chain and exact H1 upgrade preserve IDs/codes/history/B07/Task/permissions (441.730458ms)
+✔ R20: C02 normative decision, every approved state/unknown and pending limits (0.28075ms)
+✔ H2-003 focal T01 preparation/fix/price/PR/privacy/replay (1405.058333ms)
+✔ H2-004-F01 historical jsonb reproducer fails old comparator, current reconstructs exact historic (1638.92325ms)
+✔ H2-004-F02 historical projection misses estimation label; current preserves it (3871.065041ms)
+✔ H2-004-F03 historical omission allows definitive price without eligibility; current blocks (3571.629875ms)
+✔ R01 preparation real Opportunity, PR and atomic commercial progress (1659.140459ms)
+✔ R02 each preparation guard removed, no side effect (87.24225ms)
+✔ R03 independent alternatives retained (42.34875ms)
+✔ R04 fixed v1 exact linked preparation; not sent or verified (46.507334ms)
+✔ R05 individual fixed guards quantities/participants/composition/conditions/sources (326.074666ms)
+✔ R06 ordinary contract cannot edit fixed v1 (72.649ms)
+✔ R07 material price creates v2 and keeps v1 (72.627542ms)
+✔ R08 material composition creates v2 and keeps v1 (69.1555ms)
+✔ R09 material terms creates v2 and keeps v1 (57.144292ms)
+✔ R10 material selectability creates v2 and keeps v1 (55.472ms)
+✔ R11 SM-PV06 before/after/review/motive/base individually guarded (290.0855ms)
+✔ R12 AC013 nonselectable partial request recorded no historical repair (83.017583ms)
+✔ R13 modalities preserve rafting10/cena12/night12/night10 contributions (39.166875ms)
+✔ R14 exact PM02 100.01 x10 =1000.10 (39.228333ms)
+✔ R15 calculated90/manual100.01/difference10.01 actor and immutable costs (35.281542ms)
+✔ R16 commercial projection excludes economics outside UI (31.813917ms)
+✔ R17 unknown material cost only dependent fixation blocked, independent work allowed (140.273625ms)
+✔ R18 exact unit/tariff/pack references preserved structurally (37.916ms)
+✔ R19 masters changed later preserve v1 (82.266417ms)
+✔ R20 PM09 replay historical calculation and unknown is not zero (38.059583ms)
+✔ R21 direct SQL runtime/API roles denied and private FORCE RLS (129.411917ms)
+✔ R22 missing context denied with no writes (85.776583ms)
+✔ R23 forged context/signature denied with no writes (223.4355ms)
+✔ R24 disabled actor denies write/read/replay (144.992375ms)
+✔ R25 ordinary role/unprovisioned actor cannot use authorized contract (96.224041ms)
+✔ R26 prewrite fault rolls back whole T01 (93.796791ms)
+✔ R27 late history fault rolls back version/modalities/lines/result (117.3875ms)
+✔ R28 lost response after commit recovers equivalent original (228.268ms)
+✔ R29 same key changed content is conflict not overwrite (181.12925ms)
+✔ R30 two authorized sessions concurrent revision one winner (184.107125ms)
+✔ R31 numbering race fixes only one v1, alternative unaffected (45.901708ms)
+✔ R32 independent observer sees complete history and results (48.623209ms)
+✔ R33 explicit SM-FORB02 SQL and ordinary edit both denied (262.19875ms)
+✔ R34 no Acceptance/Ganada/Booking/economic/operational effects (18.198ms)
+✔ R35 future commands rejected, no H2-005 capacities (859.371375ms)
+✔ R36 SM-OP04 real preparation, origin/guards/pause forbid fake progress (241.831125ms)
+✔ R37 V-MIG prior fixtures/data/ACL and empty full chain (265.630958ms)
+✔ R38 exact sources, authorized estimates and unknown boundaries (302.437083ms)
+✔ R39 AC085 objective eligibility rule cannot be bypassed by recommendation (448.249458ms)
+✔ H2-005 focal immutable issuance and intent without send (2056.452041ms)
+✔ H2-006 preserved F01/F02/F03 reproduce on archived implementation (7080.568333ms)
+✔ R01 default seven days/configuration (1845.635792ms)
+✔ R02 most restrictive material limit (41.254625ms)
+✔ R03 limit/source guards (65.65275ms)
+✔ R04 inside/outside expiry without rejection (140.458875ms)
+✔ R05 uncertainty evidence and missing source (59.08475ms)
+✔ R06 act revalidation preserves original (115.061208ms)
+✔ R07 each material review guard (172.660625ms)
+✔ R08 exact act scope/time/version revalidation (279.522416ms)
+✔ R09 no silent reissue/new validity (100.950042ms)
+✔ R10 new condition requires T01 replacement retains v1 (106.219834ms)
+✔ R11 intent not sent or received (42.21075ms)
+✔ R12 real manual send exact commercial effects (66.725667ms)
+✔ R13 every send guard invalidated (682.853625ms)
+✔ R14 approval/intention/AI not send (159.416959ms)
+✔ R15 expired no review blocks (140.285583ms)
+✔ R16 expired act review permits exact send not extension (102.904209ms)
+✔ R17 unknown material costs retained not zero (66.599875ms)
+✔ R18 rejection modality no whole loss (52.074125ms)
+✔ R19 rejection version/line retains exact history (61.966542ms)
+✔ R20 each rejection guard removed (506.051625ms)
+✔ R21 read/silence/nonselection never acceptance/rejection (311.039333ms)
+✔ R22 rejected scope cannot reuse without current review (116.43875ms)
+✔ R23 no positive Acceptance/Ganada/economy operations (355.230875ms)
+✔ R24 direct ordinary SQL denies update/delete/insert (162.217708ms)
+✔ R25 FORCE RLS ownership and minimum ACL (0.698625ms)
+✔ R26 absent context no writes (57.3755ms)
+✔ R27 forged scope or signature no writes (91.732542ms)
+✔ R28 disabled actor read/write/replay denied (94.982584ms)
+✔ R29 no provisioned actor and ordinary API role (32.774083ms)
+✔ R30 prewrite fault atomic (92.232209ms)
+✔ R31 late fault rolls back send/Commercial/history/result (111.440167ms)
+✔ R32 lost postcommit response and equivalent replay (187.925125ms)
+✔ R33 changed replay is conflict (120.508292ms)
+✔ R34 concurrent sessions both orders one winner (99.835709ms)
+✔ R35 independent connection sees append history/results/exact refs (41.672375ms)
+✔ R36 migration preserves every prior row and ACL (1.247542ms)
+✔ R37 empty full chain native PG17 (252.990291ms)
+✔ R38 published migrations bytewise unchanged (13.471125ms)
+✔ R39 dimensions separate and no future objects (0.883375ms)
+✔ R40 aggregate send must include rejected modality review (119.885416ms)
+✔ R41 attributable rejection requires responsible context identity (101.47675ms)
+✔ R42 missing/null/typed revisions cannot bypass concurrency (338.707875ms)
+ℹ tests 443
+ℹ suites 0
+ℹ pass 418
+ℹ fail 25
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 402165.269916
+
+✖ failing tests:
+
+test at tests/integration/postgres-h0-013.test.ts:121:1
+✖ H0-013 completes Core and Auth revocation without preserving emitter authority (1976.780125ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-013.test.ts:141:1
+✖ H0-013 keeps Core closed and reports known Auth failure explicitly (0.429958ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-013.test.ts:151:1
+✖ H0-013 records provider uncertainty without fictitious success (0.076042ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-013.test.ts:161:1
+✖ H0-013 returns pending if post-provider persistence fails and does not reopen Core (0.030083ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-013.test.ts:179:1
+✖ H0-013 does not contact Auth when the Core revocation unit is denied (0.054208ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-013.test.ts:191:1
+✖ H0-M05 is forward-only, atomic, preserves predecessor fixtures and restores ACL (0.025208ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-014.test.ts:123:1
+✖ H0-014 R01-R04/R13/R16/R18: global closure is durable, includes emitter and permits only new identification (1660.877459ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-014.test.ts:148:1
+✖ H0-014 R05-R08: every partial Auth outcome leaves Core denied and never reports success (0.58525ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-014.test.ts:198:1
+✖ H0-014 R09: concurrent global closures serialize and coordinate Auth once (0.1225ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-014.test.ts:212:1
+✖ H0-014 R10: an already-authorized Core operation may finish before later revocation (0.037459ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-014.test.ts:229:1
+✖ H0-014 R11: revocation that holds actor first defeats an in-flight old Core request (0.050834ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-014.test.ts:245:1
+✖ H0-014 R12/R14/R15: revoked, disabled, stale and non-human routes cannot revive activity (0.035459ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-014.test.ts:261:1
+✖ H0-014 R17/R20/R21: ACL, capability binding and TTE partition deny indirect authority (0.028916ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-014.test.ts:304:1
+✖ H0-014 R19: independent predecessor upgrade is atomic and preserves D039 objects (0.027459ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-016.test.ts:104:1
+✖ H0-016 I01/I03/I05/I06 D027 closes Core and needs TOTP before new identification (1649.207375ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-016.test.ts:125:1
+✖ H0-016 I01 invalid/unverified email and owner cannot open recovery (0.509125ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-016.test.ts:139:1
+✖ H0-016 I02/I05 D031 requires new factor and verified new paper copy (0.1775ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-016.test.ts:155:1
+✖ H0-016 I02/I04/I05 D031 failure is partial; new factor and paper required (0.144667ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-016.test.ts:163:1
+✖ H0-016 I07/I08 duplicate attempts and direct runtime writes denied (0.047625ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-017.test.ts:106:1
+✖ H0-017 R01/R02/R07 password recovery denies pre-MFA and stale authority (1498.5705ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-017.test.ts:124:1
+✖ H0-017 R11 recovered access retains independent 7/30 server limits (0.765333ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-017.test.ts:141:1
+✖ H0-017 R04/R05 owner independence and factor replacement are mandatory (0.128958ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-017.test.ts:163:1
+✖ H0-017 R08 concurrent starts allow one generation and one incident (0.041959ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-017.test.ts:183:1
+✖ H0-017 R06/R09 provider uncertainty preserves denial and SQL boundary (0.0545ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+
+test at tests/integration/postgres-h0-017.test.ts:201:1
+✖ H0-017 R10 forward migration preserves previous actor, session and epoch (0.042916ms)
+  Error [PostgresError]: role "anon" does not exist
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42704',
+    where: 'SQL statement "revoke all on crm_private.b03_offer_issuances from public,crm_h0_runtime,anon,authenticated"\nPL/pgSQL function inline_code_block line 8 at EXECUTE',
+    file: 'acl.c',
+    line: '5446',
+    routine: 'get_role_oid'
+  }
+waiting for server to shut down.... done
+server stopped
+[ELIFECYCLE] Command failed with exit code 1.
