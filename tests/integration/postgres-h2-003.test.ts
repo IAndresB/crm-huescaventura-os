@@ -1,0 +1,20 @@
+import assert from "node:assert/strict";
+import {before,after,test} from "node:test";
+import {randomUUID} from "node:crypto";
+import {isolatedProposal,read,write} from "../support/h2-proposal-isolated.ts";
+let h:Awaited<ReturnType<typeof isolatedProposal>>;
+before(async()=>{h=await isolatedProposal("crm_h2_003",55466);});after(async()=>{await h?.close();});
+test("H2-003 focal T01 preparation/fix/price/PR/privacy/replay",async()=>{
+ const f=await h.fixtures(),p=f.command();await h.proposal.apply(await h.auth(),write,p);
+ const fix={...p,action:"fix" as const,operationId:randomUUID(),versionId:randomUUID(),expectedRevision:1,content:undefined};
+ const r=await h.proposal.apply(await h.auth(),write,fix);assert.equal(r.id,fix.versionId);
+ const v=await h.proposal.read(await h.auth(),read,p.proposalId,"internal") as any;
+ assert.equal(v.economics[0].calculated,"90.00");assert.equal(v.economics[0].finalCalculation.output.amount,"1000.10");assert.equal(v.economics[0].difference,"10.01");assert.match(v.human_code,/^PR-/);
+ assert.equal((await h.proposal.apply(await h.auth(),write,fix)).replayed,true);
+ const view=await h.proposal.read(await h.auth(),read,p.proposalId,"commercial") as any[];assert.deepEqual(Object.keys(view[0]).sort(),["finalPersonPrice","included","participants"]);
+ const revised={...f.content,modalities:[{...f.content.modalities[0]!,finalPersonPrice:"110.00"}]};
+ await h.proposal.apply(await h.auth(),write,{...p,operationId:randomUUID(),expectedRevision:2,expectedOpportunityRevision:2,baseVersionId:fix.versionId,reviewed:true,content:revised});
+ await h.proposal.apply(await h.auth(),write,{...fix,operationId:randomUUID(),versionId:randomUUID(),expectedRevision:3});
+ const old=await h.proposal.read(await h.auth(),read,p.proposalId,"internal",fix.versionId) as any;assert.deepEqual(old,v);
+ await assert.rejects(h.runtime`update crm_private.b03_proposal_versions set scope='overwrite'`,/permission denied/);
+});

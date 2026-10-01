@@ -188,6 +188,7 @@ export function allocate(total:string,parts:readonly AllocationPart[],context:Mo
 }
 
 export type CalculationInput =
+  | Readonly<{kind:"composition";components:readonly Readonly<{amount:string;quantity:string}>[];participants:number}>
   | Readonly<{kind:"materialize";value:string}>
   | Readonly<{kind:"per_person";finalPersonPrice:string;participations:number}>
   | Readonly<{kind:"percentage";base:string;percent:string}>
@@ -216,6 +217,12 @@ function frozenCopy<T>(value:T):T {
 }
 function calculate(input:CalculationInput,context:MoneyTrace):CalculationOutput {
   switch(input.kind) {
+    case "composition": {
+      if(!input.components.length) fail();
+      const total=input.components.reduce((sum,c)=>add(sum,multiply(parse(c.amount),parse(c.quantity))),ZERO);
+      const each=ratio(total.n,total.d*positiveInteger(input.participants));
+      return materializeRatio(each,context);
+    }
     case "materialize": return materialize(input.value,context);
     case "per_person": return perPersonTotal(input.finalPersonPrice,input.participations,context);
     case "percentage": return percentageSplit(input.base,input.percent,context);
@@ -262,4 +269,8 @@ export function selectManualFinalPrice(calculated:string,final:string,actorRef:s
     || Number.isNaN(Date.parse(recordedAt))) fail();
   return Object.freeze({calculated:money(cents(parse(calculated))),final:money(cents(parse(final))),
     actorRef,recordedAt,reason,trace:trace(context)});
+}
+
+export function moneyDifference(after:string,before:string):string {
+  return money(cents(parse(after))-cents(parse(before)));
 }
