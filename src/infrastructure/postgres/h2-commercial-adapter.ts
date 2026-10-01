@@ -48,7 +48,7 @@ export class H2001CommercialAdapter {
  async apply(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,input:CommercialCommand):Promise<{id:string;replayed:boolean}> {
   if(!Object.keys(input).every(k=>["action","operationId","targetId","leadId","expectedRevision","sourceRef","reason","material","event"].includes(k))||
    !["lead","direct","convert","progress"].includes(input.action)||![input.targetId,input.operationId,...(input.leadId?[input.leadId]:[])].every(x=>/^[0-9a-f-]{36}$/.test(x))||
-   !Number.isSafeInteger(input.expectedRevision)||input.expectedRevision<0||!input.sourceRef?.trim()||!input.reason?.trim()) throw new Error("COMMERCIAL_INPUT_INVALID");
+   !Number.isSafeInteger(input.expectedRevision)||input.expectedRevision<0||typeof input.sourceRef!=="string"||typeof input.reason!=="string"||!input.sourceRef.trim()||!input.reason.trim()) throw new Error("COMMERCIAL_INPUT_INVALID");
   if(input.action!=="progress"&&(!input.material||!validMaterial(input.material))) throw new Error("COMMERCIAL_INPUT_INVALID");
   if((input.action==="direct"||input.action==="convert")&&!decideCreation(input.material!).allowed) throw new Error("COMMERCIAL_MINIMUM_REQUIRED:SM-OP-01");
   return await this.call(auth,interaction,true,{...input}) as {id:string;replayed:boolean};

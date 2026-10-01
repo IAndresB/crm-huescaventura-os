@@ -114,6 +114,7 @@ begin
  m:=v[2]::jsonb;a:=m->'material';e:=m->'event';actor:=hf[12]::uuid;scope:=hf[17];
  action:=m->>'action';target:=(m->>'targetId')::uuid;opid:=(m->>'operationId')::uuid;lead:=nullif(m->>'leadId','')::uuid;
  if m-array['action','targetId','operationId','leadId','expectedRevision','sourceRef','reason','material','event']<>'{}'::jsonb
+  or jsonb_typeof(m->'sourceRef') is distinct from 'string' or jsonb_typeof(m->'reason') is distinct from 'string'
   or nullif(btrim(m->>'sourceRef'),'') is null or nullif(btrim(m->>'reason'),'') is null or coalesce(m->>'expectedRevision','') !~ '^(0|[1-9][0-9]*)$'
   or action is null or action not in ('lead','direct','convert','progress') then raise exception 'COMMERCIAL_INPUT_INVALID';end if;
  fingerprint:=encode(crm_crypto.digest(convert_to(m::text,'UTF8'),'sha256'),'hex');
@@ -131,6 +132,8 @@ begin
     or (a->'need'<>'null'::jsonb and (jsonb_typeof(a->'need')<>'string' or nullif(btrim(a->>'need'),'') is null))
     or a->'commercialPossible' not in ('null'::jsonb,'true'::jsonb,'false'::jsonb) then raise exception 'COMMERCIAL_INPUT_INVALID';end if;
    if a->'contact'<>'null'::jsonb and (jsonb_typeof(a->'contact')<>'object' or (a->'contact')-array['channel','address','sourceRef','valid']<>'{}'::jsonb
+    or jsonb_typeof(a->'contact'->'channel') is distinct from 'string' or jsonb_typeof(a->'contact'->'address') is distinct from 'string'
+    or jsonb_typeof(a->'contact'->'sourceRef') is distinct from 'string'
     or not((a->'contact') ?& array['channel','address','sourceRef','valid']) or a->'contact'->'valid' not in ('true'::jsonb,'false'::jsonb)
     or nullif(btrim(a->'contact'->>'channel'),'') is null or nullif(btrim(a->'contact'->>'address'),'') is null
     or nullif(btrim(a->'contact'->>'sourceRef'),'') is null) then raise exception 'COMMERCIAL_INPUT_INVALID';end if;

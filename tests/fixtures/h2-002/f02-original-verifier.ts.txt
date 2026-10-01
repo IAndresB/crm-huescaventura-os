@@ -82,10 +82,6 @@ after(async()=>{await h?.close();});
 test("R01: three exact minima; each individually absent rejected by PostgreSQL",async()=>{
  const p=h.input();await rawApply(p);assert.equal((await state(p.targetId)).state,"Nueva");
  for(const material of [{...p.material!,contact:{...p.material!.contact!,address:123} as never},{...p.material!,contact:{...p.material!.contact!,channel:123} as never},{...p.material!,contact:{...p.material!.contact!,sourceRef:123} as never},{...p.material!,contact:null},{...p.material!,contact:{...p.material!.contact!,valid:false}},{...p.material!,need:null},{...p.material!,commercialPossible:false}]) await unchangedReject(h.input({material}),true);
- for(const field of ["sourceRef","reason"] as const) for(const value of ["",123]) {
-  const invalid={...h.input(),[field]:value} as unknown as CommercialCommand;await unchangedReject(invalid,true);await unchangedReject(invalid);
- }
-
 });
 test("R02: unknown final data never adds mandatory minima or inferred values",async()=>{
  for(const key of ["scoring","dates","participants","services","budget"]){

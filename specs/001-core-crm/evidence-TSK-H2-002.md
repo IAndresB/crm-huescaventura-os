@@ -56,3 +56,57 @@ Reproducer original y observed preservados: `tests/fixtures/h2-002/f01-original-
 Reejecución completa tras corrección: R01–R20 **20/20 PASS**, cero fail/skipped/cancelled, 4109.93725 ms, en cluster nuevo. Incluye tarifa H1 publicada sintética `100` con vigencia final `2026-09-10` y Evidence histórica de disponibilidad caducada; precio/vigencia/referencia conservados al reactivar. Snapshot upgrade incluye catálogo/tarifas/Applications previos. F01 **CLOSED localmente** por esta ejecución completa; verificación final del commit de corrección y regresión pendientes.
 
 Reproducer ejecutable independiente añadido: `tests/integration/postgres-h2-002-f01.test.ts` carga la migración original mediante `git show 00cf358c24829d21529893eaf846ad40ab931bec:…` en cluster propio y comprueba el rechazo original de contacto revisado. Su PASS significa defecto histórico reproducido; no acredita el expected positivo, que pertenece únicamente a R05/R09 actuales. No requiere cambiar checkout ni reescribir migraciones. La corrección modifica exclusivamente la migración H2 aún no publicada; H0/H1 permanecen intactas.
+
+## Primera reverificación completa del commit de corrección F01
+
+Commit probado exacto: `a5bbb06e323e897d853a5ea9527bc3a931a814fc`. PostgreSQL 17.11 (Postgres.app), Node 24.21.0, pnpm 11.19.0, Postgres.js 3.4.9. Fixtures creados por el verifier, sin datos personales/comerciales reales; cluster `crm_h2_002` efímero distinto de `crm_h2_001`, credenciales y claves aleatorias no conservadas. Migración/inspección mediante `crm_h0_migration`, preparación de roles mediante bootstrap; actuaciones comerciales exclusivamente `crm_h0_runtime`, no propietario/no BYPASSRLS. C01/C03 verifican F1/F2 y actor/sesión/alcance actuales; dominio no recibe SQL/framework.
+
+Comando formal: `POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin node --test --experimental-strip-types tests/integration/postgres-h2-002.test.ts`. Resultado: **R01–R20 20/20 PASS**, cero fail/skipped/cancelled, 3670.954333 ms. Transcript: `tests/fixtures/h2-002/post-f01-formal.txt`; casos/fixtures/assertions recuperables en el verifier. La consulta `observer` independiente comprueba snapshots persistidos y rechazos sin cambios, no mocks PostgreSQL.
+
+| R | Observed frente al expected previo | Resultado |
+|---|---|---|
+| R01 | Nueva con los tres mínimos; SQL firmado independiente deniega contacto ausente/inválido, necesidad ausente y posibilidad falsa; snapshot completo idéntico tras cada rechazo | PASS |
+| R02 | Cinco altas separadas omiten scoring/fecha/personas/servicios/presupuesto; otra conserva null explícito; ninguno se infiere | PASS |
+| R03 | Lead incompleto intacto tras conversión, vínculo/origen/responsable/contactId preservados; directa reutiliza contexto y OP H1 ya asignado, sin Lead ficticio | PASS |
+| R04 | Resultado de commit descartado y replay equivalente sin mutación; misma clave/material distinto denegada; nueva clave/conversión equivalente recupera misma Opportunity/OP | PASS |
+| R05 | Contacto B07 real contextual con Evidence manual reviewed y resultado conocido permite En contacto; retirada de fuente/Communication/Evidence/resultado y referencias inexistentes/cruzadas deniega; cero hecho respuesta | PASS |
+| R06 | Ambos orígenes Nueva/En contacto llegan a Necesidad definida; fuente/necesidad/alcance/pendientes individualmente ausentes deniegan; datos finales desconocidos conservados | PASS |
+| R07 | Todos los orígenes comerciales y guardas de OP-04 evaluados; SQL real conserva todo y bloquea exclusivamente capacidad Proposal H2-003; cada guarda ausente bloquea | PASS local, positivo integrado pendiente H2-004 |
+| R08 | OP-05 no puede acreditar versión/envío inexistentes; cada guarda ausente deniega; con referencias sintéticas mantiene dependencia exacta H2-005 sin fabricar versión o envío | PASS local, positivo integrado pendiente H2-006 |
+| R09 | Intercambio Evidence reviewed contextual y alcance desde Necesidad definida permiten Negociación; cada guarda/ref inválida deniega; material previo idéntico. Orígenes Proposal dependientes quedan evaluados en dominio, sin acreditar Proposal | PASS local |
+| R10 | Nueve motivos aprobados persistidos literalmente; cada guarda ausente deniega, desconocido explícito no causa inferida; pérdida desde pausa conserva historia; rechazo de alternativa conserva Nueva | PASS |
+| R11 | Orígenes activos y guardas evaluados; pausa persistida conserva Nueva como anterior; cada ausencia deniega; pausa repetida deniega | PASS |
+| R12 | Cuatro combinaciones pérdida/pausa → contacto/necesidad actuales; retirada de cada guarda y soporte material deniega; preparación permanece pendiente. Historia/motivos/referencias/vigencia de tarifa H1 caducada idénticos | PASS local |
+| R13 | Negociación → contacto → necesidad con cambio/evaluación humana/soporte; cada guarda retirada deniega; antes/después e historia íntegros | PASS |
+| R14 | Siete sustitutos de Ganada intentados mediante SQL firmado; todos denegados, igual que DML directo; aceptación histórica no habilita Ganada | PASS |
+| R15 | Cuatro intentos explícitos SM-FORB-30: pérdida sin motivo, eraseLoss, renewTariff, renewAvailability; todos denegados y snapshots idénticos | PASS |
+| R16 | Admin válido, API sin contexto/GUC falso/MAC manipulado/alcance falsificado/actor inhabilitado/anon/authenticated/runtime directo; denegaciones reales. FORCE RLS y ACL/inmutabilidad comprobadas | PASS |
+| R17 | Historia y estados consultados desde otra conexión; ninguna tabla/registro Acceptance, Booking, pagos, Refund o confirmación creada; ningún código RES/PR/INC ni contexto Booking por arrastre | PASS |
+| R18 | Trigger de fallo durante historia revierte Opportunity/contexto/OP/contador/operación; revisión concurrente admite una sola. Dos sesiones Admin compiten sin hijos, conversión/replay y revisiones en ambos órdenes; actor no provisionado pierde ambos órdenes. Singleton H0 conservado | PASS |
+| R19 | Cadena vacía nueva y upgrade H1 inmediato; snapshots H1 previos exactamente iguales tras migración, históricos conservados tras actuaciones; identidades, OP previo, B07/Tasks, catálogo/tarifa y permisos conservados | PASS |
+| R20 | Vocabulario exacto, mínimos/unknown y decisiones C02 con IDs normativos/bloqueos; Ganada denegada desde cada estado | PASS |
+
+R19 complementario: `POSTGRES_H0_BIN=… node --experimental-strip-types tests/support/h2-migration-permissions.mjs`, cluster propio `crm_h2_permissions`. Expected: relaciones/columnas/ACL/propietarios/RLS/políticas/definiciones H0/H1, privilegios de schemas, roles y membresías idénticos antes/después. Observed idéntico: **42 relaciones, 73 políticas, 56 funciones**, PASS; transcript `tests/fixtures/h2-002/migration-permissions.txt`. No se usan claves ni datos sensibles en los snapshots publicados; funciones comparadas por digest. El script es evidencia suplementaria R19, separada del conteo del runner.
+
+F01 histórico ejecutable: `POSTGRES_H0_BIN=… node --test --experimental-strip-types tests/integration/postgres-h2-002-f01.test.ts`, **1/1 PASS de reproducción**, transcript `tests/fixtures/h2-002/f01-reproduced.txt`. Matriz actual positiva completa PASS acredita cierre F01; reproducir su rechazo histórico no se suma a las 20 filas normativas actuales.
+
+## Límites y pendientes conservados
+
+**SM-OP-07 no implementada ni acreditada.** No Acceptance ficticia/positiva, Human Approval como sustituto, Proposal/Version/modalidades/precios de propuestas, Booking, pago/conciliación/Refund, disponibilidad real ni confirmación/ejecución de proveedor. SM-OP-04/05 y destino preparación OP-10 preparados solo como decisión/guarda comercial; sus dependencias positivas esperan H2-003/005 y las verificaciones asignadas. Integración con Acceptance espera H2-008; E2E-01 total espera H6-001. No se declara satisfecha globalmente una fila compartida ni el hito H2.
+
+H2-003 y posteriores, H3–H6 **NOT STARTED**. PLAN-AUTH-001–006 pendientes globales, PLAN-PENDING-003 parcialmente abierto, DM-PENDING-005, BR-PENDING-022 y demás pendientes vigentes. Datos personales/comerciales, catálogo/tarifas/costes/capacidades, prioridades/plazos reales no acreditados. Hosted H2 no acreditado; Production no autorizada. Sin conectores, envíos, pagos ni proveedores reales. El ensayo de tarifas usa configuración H1 sintética; Evidence de disponibilidad histórica no equivale a Availability H4 real. La Task H1 fixture prueba conservación, nunca un hecho comercial.
+
+Regresión acumulada y coordinación final: pendientes de resultado, no sustituidas por este PASS focal/formal.
+
+## F02 — integridad tipada del método de contacto al invocar SQL
+
+Expected previo: contacto válido y fuente textual conforme BR-LEAD-002/DM-INV-005/SM-OP-01; ningún acceso fuera de UI puede saltarse el contrato validado de contacto. Nuevo caso adversarial R01 retira la validez material sustituyendo dirección/canal/fuente por un valor JSON numérico, sin cambiar los otros dos mínimos.
+
+Observed contra producto `a5bbb06e323e897d853a5ea9527bc3a931a814fc`: SQL firmado aceptó `contact.address: 123` con `valid: true` y creó Opportunity. Dominio/adaptador lo rechazaban; la guarda SQL convertía número a texto al comprobar solo no vacío. Matriz reforzada **19/20 PASS, 1 FAIL**, 3897.309458 ms, R01 `Missing expected rejection`. F02 material por inconsistencia de integridad del contrato en acceso SQL independiente. Reproducer/verifier y transcript conservados en `tests/fixtures/h2-002/f02-original-verifier.ts.txt` / `f02-first-run.txt`; SQL original inmutable recuperable con `git show a5bbb06:…`.
+
+La regresión anterior de a5bbb06 había pasado 355/355 PostgreSQL (397975.205125 ms), 75/75 unitarias, instalación congelada/typecheck/lint/build/audit/diff check. Esa regresión no se hereda para cerrar F02 ni sustituye el caso adicional.
+
+Corrección mínima: comprobar tipo JSON string de channel/address/sourceRef de contacto y procedencia/motivo del comando, además de presencia/validez existentes. No se añade formato de teléfono/email ni vocabulario de canales no aprobado. Cambio exclusivamente en migración H2 todavía no publicada; H0/H1 intactas. Estado F02 OPEN hasta nueva matriz completa PASS y regresión del nuevo estado.
+
+
+F02: corrección implementada también en validación del adaptador para devolver rechazo explícito ante procedencia/motivo numéricos. Reejecución completa R01–R20 tras corrección PASS, incluyendo los tres campos de contacto numéricos y procedencia/motivo vacíos o numéricos, con snapshots idénticos. El reproducer `tests/integration/postgres-h2-002-f02.test.ts` carga SQL histórico a5bbb06 en cluster propio y reproduce exactamente el alta incorrecta; **1/1 PASS de reproducción**, 1250.427542 ms, `tests/fixtures/h2-002/f02-reproduced.txt`. Expected actual positivo/negativo permanece en R01 del verifier actual. Matriz exacta del commit de corrección y regresión nueva pendientes; F02 todavía no se cierra por la regresión anterior.
