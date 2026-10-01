@@ -130,3 +130,14 @@ Fijado 2026-10-01T20:08:47.065958+00:00 antes de código de producto/pruebas obs
 ## Límites
 
 T03 incluye raíz/detalle/historia/resultado/RES y cadena directa cuando la componga. Preparaciones válidas existentes no se falsean al fallar conversión. T04 solo integridad y revisión inicial; modificaciones posteriores fuera de alcance. E2E01/02/03 solo contribución local; integración H6 no acreditada. Todos PLAN-AUTH/PLAN-PENDING/DM-PENDING/BR-PENDING globales abiertos se conservan; datos/catálogos/tarifas/costes/capacidades/prioridades/plazos reales no acreditados; sin hosted/Production/efectos externos/económicos/confirmación operacional.
+
+## Complementos fijados antes de su ejecución
+
+|Caso|Expected|Observed|
+|---|---|---|
+|R61|Dos Participant IDs vinculados al mismo Contact verificado en el mismo alcance nominal no pueden contar dos veces a la misma persona; rechazo/revisión atómica.|NO EJECUTADO|
+|R62|Organization, pagador contextual no participante y aceptante H1 separados; cambios de interlocutor no reescriben cadena ni conceden permisos.|NO EJECUTADO|
+|R63|Fallos reales durante noches/ocupaciones/participantes/asignaciones hacen rollback integral.|NO EJECUTADO|
+|R64|Directa compone nueva Proposal/Version, emisión y Acceptance reales más Booking en T03; fallo tardío no conserva esos efectos nuevos.|NO EJECUTADO|
+|R65|Nueva clave con contenido distinto concurrente: solo un resultado íntegro, otro conflicto; dos sesiones autorizadas sin hijos previos.|NO EJECUTADO|
+|R66|Revisión/estado material cambiado y envejecimiento de referencias no se sobrescriben; FK/snapshots/ACL/funciones previas preservados por upgrade.|NO EJECUTADO|

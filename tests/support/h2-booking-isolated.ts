@@ -5,6 +5,6 @@ export {write,read};
 export const bookingMigration='20261001200941_h2_booking_conversion.sql';
 export async function isolatedBooking(label:string,port:number,upgrade=false){
  const h=await isolatedAcceptance(label,port);
- if(!upgrade)await h.migration.unsafe(await readFile(new URL(`../../supabase/migrations/${bookingMigration}`,import.meta.url),'utf8'));
+ if(!upgrade)await h.migration.unsafe(await readFile(new URL(process.env.H2010_REPRO_SQL??`../../supabase/migrations/${bookingMigration}`,import.meta.url),'utf8'));
  return {...h,booking:new H2009BookingAdapter(h.runtime,h.f1,h.f2)};
 }

@@ -54,8 +54,6 @@ create table crm_private.b04_participants(
  admin_scope text not null,name text not null,contact_id uuid references crm_private.identity_entities(identity_id),
  evidence_id uuid not null references crm_private.b07_records(record_id),source_ref text not null
 );
--- A verified Contact denotes the same person; reuse that Participant across scopes.
-create unique index booking_verified_contact_once on crm_private.b04_participants(booking_id,contact_id) where contact_id is not null;
 create table crm_private.b04_assignments(
  participant_id uuid not null references crm_private.b04_participants(participant_id),
  service_id uuid not null references crm_private.b04_services(service_id),night_id uuid references crm_private.b04_nights(night_id),

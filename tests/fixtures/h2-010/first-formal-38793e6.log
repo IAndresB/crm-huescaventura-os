@@ -1,0 +1,168 @@
+✔ R01 normal valid chain exact immutable Booking (1104.497958ms)
+✔ R02 direct reuses existing real chain without Lead or fake sends (73.024958ms)
+✖ R03 direct composes real T02 then T03 atomically; missing agreement retains preparation (39.641583ms)
+✔ R04 uniqueness at database boundary (41.760583ms)
+✔ R05 concurrent same keys both dispatch orders (104.930125ms)
+✔ R06 concurrent different keys both dispatch orders (80.709208ms)
+✔ R07 exact replay retains root code detail and history (121.654625ms)
+✔ R08 committed result survives lost response (39.920958ms)
+✔ R09 changed replay conflicts E2 (132.469208ms)
+✔ R10 unverified Acceptance no Booking (132.327875ms)
+✔ R11 textual Ganada cannot substitute exact chain (242.270958ms)
+✔ R12 rectified Acceptance does not permit conversion (149.335417ms)
+✔ R13 exact modality A leaves B uncontracted (37.136375ms)
+✔ R14 exact selectable line only (45.807625ms)
+✔ R15 no unselected/nonselectable part sneaks into Booking (169.366417ms)
+✔ R16 wrong version and terms reject atomically (437.263625ms)
+✔ R17 incomplete detail no fictitious complete Booking (306.921792ms)
+✖ R18 AC017 rafting10 dinner12 nights12/10 with contributions (68.528875ms)
+✔ R19 exact inclusions only no extra contribution (194.803917ms)
+✔ R20 same catalog does not merge incompatible prestations (38.627375ms)
+✔ R21 unit and quantity remain distinct from estimated attendees (36.648ms)
+✖ R22 night occupancy independent no rooms or person-night pricing inferred (65.725209ms)
+✖ R23 partial nominal4 explains12 without double count or fictitious8 (86.8675ms)
+✖ R24 nominal necessity required (62.681625ms)
+✖ R25 unverified Contact cannot become verified Participant association (63.205875ms)
+✖ R26 duplicate nominal assignment rejected (68.547167ms)
+✔ R27 accepter and actor not nominal participants by default (35.973667ms)
+✖ R28 changing Primary Contact preserves Acceptance and Booking chain (37.035ms)
+✔ R29 fault identity_contexts material write rolls back all (281.234208ms)
+✔ R30 fault b04_services material write rolls back all (296.05675ms)
+✔ R31 fault b04_contributions material write rolls back all (295.202792ms)
+✔ R32 fault b04_modalities material write rolls back all (306.476542ms)
+✔ R33 fault b04_contributions material write rolls back all (301.457667ms)
+✔ R34 fault b04_history material write rolls back all (311.650125ms)
+✔ R35 fault b04_operations at COMMIT rolls back all (318.751375ms)
+✔ R36 concurrent revision change rejects stale conversion (74.257875ms)
+✔ R37 rectification first prevents conversion; original never erased (337.919292ms)
+✔ R38 no trusted auth context or null SQL envelope (33.778833ms)
+✔ R39 forged context and signature fail closed (342.295917ms)
+✔ R40 disabled and unprovisioned actor including replay (351.683584ms)
+✔ R41 ordinary SQL roles ACL/FORCE RLS and authorized direct SQL (67.018167ms)
+✔ R42 append-only immutable facts visible independently (40.23675ms)
+✔ R43 RES reuses H1 allocator Madrid year stable replay (35.945167ms)
+✔ R44 empty database full migration chain (218.80375ms)
+✔ R45 predecessor upgrade retains all prior fixtures (0.417208ms)
+✔ R46 migration fault rolls back objects and privileges (212.945125ms)
+✔ R47 optional anon/authenticated roles absent migration (209.192083ms)
+✔ R48 SM-FORB04 tempting Ganada cannot confirm or reconcile (391.646125ms)
+✖ R49 SM-FORB10 global quantity/gratuity cannot overwrite scope (68.772416ms)
+✔ R50 SM-FORB31 split/merge or second distinct Booking rejected (1135.58875ms)
+✔ R51 no Payment funds reconciliation Refund invoice (396.68625ms)
+✔ R52 no provider availability confirmation execution (402.929417ms)
+✔ R53 no fake Lead Proposal Acceptance Communications Human Approval or external effect (412.605458ms)
+✔ R54 SM-BK01 each material guard withdrawn (2741.526042ms)
+✔ R55 SM-BS01 each source detail guard withdrawn (3878.054083ms)
+✔ R56 AI creation without exact Human Approval denied G3 (874.748041ms)
+✔ R57 retained sources after catalog change not reinterpreted (39.763416ms)
+✔ R58 authorized C01 read reauthorizes result (38.060084ms)
+✔ R59 H1/H2 historical migrations unchanged and previous persisted fixtures retained (3.9345ms)
+✔ R60 scope limits no future operation economy external module (0.690625ms)
+ℹ tests 60
+ℹ suites 0
+ℹ pass 51
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19115.59475
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-010.test.ts:36:1
+✖ R03 direct composes real T02 then T03 atomically; missing agreement retains preparation (39.641583ms)
+  Error: BOOKING_REVISION_OR_STATE_CONFLICT:G6
+      at H2009BookingAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-booking-adapter.ts:38:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2009BookingAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-booking-adapter.ts:40:175)
+      at async scope (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+      at async sql.begin (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:36:227)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h2-010.test.ts:67:1
+✖ R18 AC017 rafting10 dinner12 nights12/10 with contributions (68.528875ms)
+  Error: ACCEPTANCE_REGISTRATION_IMMUTABLE
+      at H2007AcceptanceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2007AcceptanceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)
+      at async multimodal (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:61:2)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:67:86)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h2-010.test.ts:71:1
+✖ R22 night occupancy independent no rooms or person-night pricing inferred (65.725209ms)
+  Error: ACCEPTANCE_REGISTRATION_IMMUTABLE
+      at H2007AcceptanceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2007AcceptanceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)
+      at async multimodal (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:61:2)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:71:100)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h2-010.test.ts:73:1
+✖ R23 partial nominal4 explains12 without double count or fictitious8 (86.8675ms)
+  Error: ACCEPTANCE_REGISTRATION_IMMUTABLE
+      at H2007AcceptanceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2007AcceptanceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)
+      at async multimodal (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:61:2)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:73:94)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h2-010.test.ts:74:1
+✖ R24 nominal necessity required (62.681625ms)
+  Error: ACCEPTANCE_REGISTRATION_IMMUTABLE
+      at H2007AcceptanceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2007AcceptanceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)
+      at async multimodal (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:61:2)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:74:57)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h2-010.test.ts:75:1
+✖ R25 unverified Contact cannot become verified Participant association (63.205875ms)
+  Error: ACCEPTANCE_REGISTRATION_IMMUTABLE
+      at H2007AcceptanceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2007AcceptanceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)
+      at async multimodal (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:61:2)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:75:96)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h2-010.test.ts:76:1
+✖ R26 duplicate nominal assignment rejected (68.547167ms)
+  Error: ACCEPTANCE_REGISTRATION_IMMUTABLE
+      at H2007AcceptanceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2007AcceptanceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)
+      at async multimodal (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:61:2)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:76:68)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h2-010.test.ts:78:1
+✖ R28 changing Primary Contact preserves Acceptance and Booking chain (37.035ms)
+  Error: IDENTITY_VERSION_CONFLICT
+      at H1001IdentityAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h1-identity-adapter.ts:137:15)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:78:537)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h2-010.test.ts:94:1
+✖ R49 SM-FORB10 global quantity/gratuity cannot overwrite scope (68.772416ms)
+  Error: ACCEPTANCE_REGISTRATION_IMMUTABLE
+      at H2007AcceptanceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2007AcceptanceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)
+      at async multimodal (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:61:2)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-010.test.ts:94:88)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)

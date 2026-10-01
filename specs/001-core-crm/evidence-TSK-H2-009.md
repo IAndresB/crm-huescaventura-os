@@ -13,3 +13,7 @@ Directa compone únicamente actuaciones tipadas de los contratos H2 existentes d
 PostgreSQL17.11 nativo aislado, datos sintéticos, rol crm_h0_runtime distinto de migración/owner/BYPASSRLS. Node24.21.0/pnpm11.19.0. Comando `POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin node --test --experimental-strip-types tests/integration/postgres-h2-009.test.ts`. quinto intento1/1 PASS: raíz/detalle/RES/replay/read/inmutabilidad. Logs first–fourth-focal FAIL preservados: error del fixture al usar JSON.stringify como parámetro jsonb (cliente serializa cadena); diagnóstico hash/observed en third/fourth, corregido cast intermedio text en fixture. Expected intacto. Typecheck desarrollo PASS. No Fxx formal aún; H2-010 y regresión NO EJECUTADAS.
 
 Pendientes globales intactos, H2 IN PROGRESS,011+/H3–H6 NOT STARTED; sin hosted H2/Production/datos reales/conectores. Evidencia local incompleta hasta H2-010; no COMPLETED todavía.
+
+## Corrección tras verificación independiente
+
+H2-010 detecta F01 duplicado nominal de Contact verificado. Guarda persistente añadida en la migración nueva aún no publicada, sin alterar las29 migraciones anteriores. Historial de defecto/SQL/log original preservado en evidencia H2-010. Matriz ampliada66/66 +1/1 reproducer PASS, regresión pendiente.
