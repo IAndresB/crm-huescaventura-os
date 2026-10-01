@@ -1,10 +1,10 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
-Actualización 2026-10-01: H0 COMPLETED técnico/local/aislado y H1 COMPLETED local/aislado conservados. **TSK-H2-001–004 COMPLETED local/aislado**; H2 IN PROGRESS. Nuevo bloque: [implementación H2-003](../specs/001-core-crm/evidence-TSK-H2-003.md) y [verificación independiente H2-004](../specs/001-core-crm/evidence-TSK-H2-004.md), commit de producto probado `a080eb76e800126d155e78471ad2f6b59e382a7d`, R01–R39 39/39 PASS y complementos R13/R37 PASS; regresión íntegra399/399 PostgreSQL17 +77/77 unitarias. H2-004-F01/F02/F03 CLOSED localmente, FAIL/reproducers preservados. H2-005 y posteriores/H3–H6 NOT STARTED; STOP tras H2-004. PLAN-AUTH-001–006 globales, PLAN-PENDING-003 parte abierta, DM-PENDING-005, BR-PENDING-022/033 y demás pendientes conservados. Datos/políticas personales/comerciales, catálogo/tarifas/costes/capacidades, prioridades/plazos reales no acreditados; hosted H2 no acreditado; Production no autorizada; sin conectores/envíos/pagos/proveedores reales.
+Actualizacion 2026-10-01: H0 COMPLETED tecnico/local/aislado y H1 COMPLETED local/aislado conservados. **TSK-H2-001–006 COMPLETED local/aislado**; H2 IN PROGRESS. Nuevo bloque: [implementacion H2-005](../specs/001-core-crm/evidence-TSK-H2-005.md) y [verificacion independiente H2-006](../specs/001-core-crm/evidence-TSK-H2-006.md), producto probado `ad28a0ed25b598e891e7eb88e95b058a08e59137`, R01–R43 43/43 PASS +3/3 reproducers/V-MIG; regresion446/446 PostgreSQL17 +79/79 unitarias. H2-006-F01–F05 CLOSED localmente, FAIL originales conservados. H2-007+ y H3–H6 NOT STARTED; STOP tras H2-006. PLAN-AUTH-001–006 globales, PLAN-PENDING-003 abierto, DM-PENDING-005, BR-PENDING-022/033 conservados. Datos/politicas personales/comerciales, catalogo/tarifas/costes/capacidades y prioridades/plazos reales no acreditados; hosted H2 no acreditado; Production no autorizada; sin conectores/envios/pagos/proveedores reales.
 
 ## Current Step
 
-**Estado vigente:** Autorización exclusiva H2-003/004 cumplida. Preparaciones y versiones inmutables con modalidades/precio manual implementadas; verificación independiente39/39 PASS, complementos R13/R37 PASS y regresión399/399 PostgreSQL +77/77 unitarias. F01–F03 CLOSED localmente, FAIL originales conservados. **H2 IN PROGRESS; STOP obligatorio tras H2-004. H2-005+ y H3–H6 siguen NOT STARTED**. Vigencia/caducidad/revalidación/envío/rechazo formal, Acceptance positiva/SM-PV-07/SM-OP-07, Ganada, Booking/economía/operación, E2E integrado, datos reales, hosted y Production pendientes. No preparar ni avanzar H2-005. PLAN-AUTH001–006 globales, PLAN-PENDING003 parte abierta, DM-PENDING005, BR-PENDING022/033 conservados.
+**Estado vigente:** Autorizacion exclusiva H2-005/006 cumplida. Vigencia efectiva, revalidacion del acto, envio manual acreditado B07 y rechazo contextual implementados/verificados localmente;43/43 formal +3/3 complementos,446/446 PostgreSQL y79/79 unitarias PASS. F01–F05 CLOSED localmente con FAIL originales. **H2 IN PROGRESS; STOP obligatorio tras H2-006. H2-007+ y H3–H6 NOT STARTED**. No preparar ni avanzar H2-007. Acceptance positiva/SM-PV-07/SM-OP-07, Ganada, Booking/economia/operacion, E2E integrado, datos reales, hosted y Production pendientes. PLAN-AUTH001–006, PLAN-PENDING003 abierto, DM-PENDING005, BR-PENDING022/033 conservados.
 
 **Los párrafos siguientes conservan la coordinación y los puntos de parada históricos de H0.**
 
@@ -61,7 +61,7 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 COMPLETED en alcance técnico/local/aislado: TSK-H0-001–018 COMPLETED en sus respectivos alcances; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY. H1 COMPLETED en alcance local/aislado con H1-001–019 COMPLETED localmente; H2 IN PROGRESS con H2-001–004 COMPLETED local/aislado; H2-005 y posteriores/H3–H6 NOT STARTED. STOP tras H2-004.
+9. implementación — H0 COMPLETED en alcance técnico/local/aislado: TSK-H0-001–018 COMPLETED en sus respectivos alcances; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY. H1 COMPLETED en alcance local/aislado con H1-001–019 COMPLETED localmente; H2 IN PROGRESS con H2-001–006 COMPLETED local/aislado; H2-007 y posteriores/H3–H6 NOT STARTED. STOP tras H2-006.
 
 ## Working Rule
 
