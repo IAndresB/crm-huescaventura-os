@@ -6,8 +6,8 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 IN PROGRESS, H2-001–006 COMPLETED local/aislado; H2-007–012 y H3–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 IN PROGRESS, H2-001–006 COMPLETED local/aislado; H2-007–012 y H3–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 IN PROGRESS, H2-001–008 COMPLETED local/aislado; H2-009–012 y H3–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 IN PROGRESS, H2-001–008 COMPLETED local/aislado; H2-009–012 y H3–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-01
 
@@ -847,7 +847,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H2-007 — Registrar, verificar y rectificar Acceptance exacta
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H2. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Registro: [evidence-TSK-H2-007.md](evidence-TSK-H2-007.md). Hito: H2. Tipo: implementación.
 - **Objetivo y alcance:** Identidad material, facultad, versión/términos/alcance, vigencia al acto, selección D018 y verificación que habilita Ganada.
 - **Fuentes exactas:** Plan §§5.1, 7.2–7.3; SPEC-FR-COM-003, SPEC-FR-ACC-001, SPEC-FR-ACC-002, SPEC-FR-ACC-003, SPEC-FR-ACC-004, SPEC-FR-ACC-005, AC-002, AC-008, AC-009, AC-012, AC-013, AC-014, AC-016, AC-044, AC-056, AC-067, AC-075, AC-086, D018. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H2-007.
 - **Bloques, contratos y unidades:** B03/B07; C02/C03/C04; T02.
@@ -858,14 +858,14 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Salida observable:** Ganada solo sobre aceptación verificada; ni Administrador ni Human Approval sustituyen al cliente, fondos o mandato real.
 - **Verificación y esperado:** Selección A expresamente prevista no contrata/rechaza B; no seleccionable exige v2 antes de aceptar. Llamada/anticipo admitidos con pruebas propias; registro tardío distingue vigencia acreditada de ficticia; escritura directa no altera Acceptance; error conserva original y reevaluación. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H2-008].
 - **Integración adicional obligatoria:** [TSK-H2-010], [TSK-H6-002]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** [evidence-TSK-H2-007.md](evidence-TSK-H2-007.md): expected previo, commit probado `800de9518f0289f46e74a5a3a2c1218ad4b403d0`, R01–R62 62/62 PASS +1/1 reproducer histórico; V-DOM/DAT/MIG/AT/SM/NEG/EVI. Regresión510/510 PostgreSQL17.11 +80/80 unitarias; cero FAIL/skipped/cancelled. F01/F02 CLOSED local/aislado, originales/FAIL conservados. H2 IN PROGRESS; H2-009+/H3–H6 NOT STARTED; sin Booking/economía/operación/conectores/datos/envíos reales/hosted/Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T02 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h2-008"></a>
 
 #### TSK-H2-008 — Verificar: Registrar, verificar y rectificar Acceptance exacta
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H2. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Registro: [evidence-TSK-H2-008.md](evidence-TSK-H2-008.md). Hito: H2. Tipo: comprobación.
 - **Objetivo y alcance:** Identidad material, facultad, versión/términos/alcance, vigencia al acto, selección D018 y verificación que habilita Ganada.
 - **Fuentes exactas:** Plan §§5.1, 7.2–7.3; SPEC-FR-ID-002, SPEC-FR-COM-003, SPEC-FR-PROP-004, SPEC-FR-ACC-001, SPEC-FR-ACC-002, SPEC-FR-ACC-003, SPEC-FR-ACC-004, SPEC-FR-ACC-005, SPEC-FR-HIST-001, SPEC-FR-HA-005, AC-002, AC-008, AC-009, AC-012, AC-013, AC-016, AC-044, AC-056, AC-067, AC-075, AC-086, D018. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H2-008.
 - **Bloques, contratos y unidades:** B03/B07; C02/C03/C04; T02.
@@ -875,7 +875,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H2-007; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Ganada solo sobre aceptación verificada; ni Administrador ni Human Approval sustituyen al cliente, fondos o mandato real. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Selección A expresamente prevista no contrata/rechaza B; no seleccionable exige v2 antes de aceptar. Llamada/anticipo admitidos con pruebas propias; registro tardío distingue vigencia acreditada de ficticia; escritura directa no altera Acceptance; error conserva original y reevaluación. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** [evidence-TSK-H2-008.md](evidence-TSK-H2-008.md): expected previo, commit probado `800de9518f0289f46e74a5a3a2c1218ad4b403d0`, R01–R62 62/62 PASS +1/1 reproducer histórico; V-DOM/DAT/MIG/AT/SM/NEG/EVI. Regresión510/510 PostgreSQL17.11 +80/80 unitarias; cero FAIL/skipped/cancelled. F01/F02 CLOSED local/aislado, originales/FAIL conservados. H2 IN PROGRESS; H2-009+/H3–H6 NOT STARTED; sin Booking/economía/operación/conectores/datos/envíos reales/hosted/Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T02 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h2-009"></a>
