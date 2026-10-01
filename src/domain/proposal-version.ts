@@ -4,7 +4,7 @@ export interface ProposalLine {
  readonly id:string;readonly serviceRevisionId:string;readonly unitRevisionId:string;readonly tariffRevisionId?:string;
  readonly quantity:string|null;readonly included:boolean;readonly independent:boolean;readonly selectable:boolean;
  readonly date:string|null;readonly datePending:boolean;readonly priceBasis:"fixed"|"quantity";
- readonly costMaterial:boolean;readonly sourceRef:string;readonly estimateRuleEvidenceId?:string;
+ readonly costMaterial:boolean;readonly sourceRef:string;readonly estimateRuleEvidenceId?:string;readonly eligibilityEvidenceId?:string;
 }
 export interface ProposalModality {
  readonly id:string;readonly name:string;readonly participants:number|null;readonly independent:boolean;readonly selectable:boolean;
@@ -15,7 +15,7 @@ export interface ProposalContent {
  readonly scope:string;readonly terms:Readonly<{version:string;text:string;sourceRef:string}>;
  readonly pending:readonly string[];readonly modalities:readonly ProposalModality[];
 }
-export interface ProposalSource {readonly id:string;readonly kind:string;readonly definition:Readonly<Record<string,unknown>>;readonly sourceRef:string;readonly version:string}
+export interface ProposalSource {readonly id:string;readonly kind:string;readonly definition:Readonly<Record<string,unknown>>;readonly sourceRef:string;readonly version:string;readonly serviceRevisionId?:string}
 export interface ProposalDecision {readonly allowed:boolean;readonly ids:readonly string[];readonly blockers:readonly string[]}
 const text=(s:unknown):s is string=>typeof s==="string"&&s.trim().length>0&&!s.includes("\0");
 const id=(s:unknown)=>typeof s==="string"&&/^[0-9a-f-]{36}$/.test(s);
@@ -32,7 +32,7 @@ export function decideProposal(content:ProposalContent,fix:boolean):ProposalDeci
   if(m.participants!==null&&(!Number.isSafeInteger(m.participants)||m.participants<=0)||fix&&m.participants===null) blockers.push("participants-required");
   if(m.finalPersonPrice!==null&&(typeof m.finalPersonPrice!=="string"||!/^\d+\.\d{2}$/.test(m.finalPersonPrice))) blockers.push("final-price-invalid");
   for(const l of m.lines??[]) {
-   if(!keys(l,["id","serviceRevisionId","unitRevisionId","tariffRevisionId","quantity","included","independent","selectable","date","datePending","priceBasis","costMaterial","sourceRef","estimateRuleEvidenceId"])||![l.id,l.serviceRevisionId,l.unitRevisionId].every(id)||seen.has(l.id)||!text(l.sourceRef)||![l.included,l.independent,l.selectable,l.datePending,l.costMaterial].every(x=>typeof x==="boolean")||l.selectable&&!l.independent||!["fixed","quantity"].includes(l.priceBasis)||l.tariffRevisionId!==undefined&&!id(l.tariffRevisionId)||l.estimateRuleEvidenceId!==undefined&&!id(l.estimateRuleEvidenceId)) blockers.push("line-source-invalid");
+   if(!keys(l,["id","serviceRevisionId","unitRevisionId","tariffRevisionId","quantity","included","independent","selectable","date","datePending","priceBasis","costMaterial","sourceRef","estimateRuleEvidenceId","eligibilityEvidenceId"])||![l.id,l.serviceRevisionId,l.unitRevisionId].every(id)||seen.has(l.id)||!text(l.sourceRef)||![l.included,l.independent,l.selectable,l.datePending,l.costMaterial].every(x=>typeof x==="boolean")||l.selectable&&!l.independent||!["fixed","quantity"].includes(l.priceBasis)||l.tariffRevisionId!==undefined&&!id(l.tariffRevisionId)||l.estimateRuleEvidenceId!==undefined&&!id(l.estimateRuleEvidenceId)||l.eligibilityEvidenceId!==undefined&&!id(l.eligibilityEvidenceId)) blockers.push("line-source-invalid");
    seen.add(l.id);
    if(l.quantity!==null&&(typeof l.quantity!=="string"||!/^\d+(?:\.\d+)?$/.test(l.quantity)||Number(l.quantity)<=0)||fix&&l.included&&l.quantity===null) blockers.push("quantity-required");
    if(l.date!==null&&!/^\d{4}-\d{2}-\d{2}$/.test(l.date)||l.date===null&&!l.datePending) blockers.push("date-known-or-pending");
@@ -41,7 +41,7 @@ export function decideProposal(content:ProposalContent,fix:boolean):ProposalDeci
  return {allowed:blockers.length===0,ids:[fix?"SM-PV-02":"SM-PV-01","DM-INV-008","G2"],blockers};
 }
 export function proposalReferences(c:ProposalContent):string[] {
- return [...new Set(c.modalities.flatMap(m=>[...(m.packRevisionId?[m.packRevisionId]:[]),...m.lines.flatMap(l=>[l.serviceRevisionId,l.unitRevisionId,...(l.tariffRevisionId?[l.tariffRevisionId]:[]),...(l.estimateRuleEvidenceId?[l.estimateRuleEvidenceId]:[])])]))];
+ return [...new Set(c.modalities.flatMap(m=>[...(m.packRevisionId?[m.packRevisionId]:[]),...m.lines.flatMap(l=>[l.serviceRevisionId,l.unitRevisionId,...(l.tariffRevisionId?[l.tariffRevisionId]:[]),...(l.estimateRuleEvidenceId?[l.estimateRuleEvidenceId]:[]),...(l.eligibilityEvidenceId?[l.eligibilityEvidenceId]:[])])]))];
 }
 export interface ModalityEconomics {
  readonly modalityId:string;readonly calculation:CalculationRecord|null;readonly finalCalculation:CalculationRecord|null;
@@ -61,6 +61,10 @@ export function calculateProposal(c:ProposalContent,sources:readonly ProposalSou
    const priceState=String(t?.price_state??"unknown"),costState=String(t?.cost_state??"unknown");
    if(priceState==="estimated"&&!l.estimateRuleEvidenceId) throw new Error("PROPOSAL_ESTIMATION_RULE_REQUIRED");
    if(l.estimateRuleEvidenceId) {const e=lookup(l.estimateRuleEvidenceId,"evidence");if(e.definition.certainty!=="reviewed"||e.definition.claim!=="BR-ECON-001:approved-hotel-estimation") throw new Error("PROPOSAL_ESTIMATION_RULE_REQUIRED");}
+   for(const rule of sources.filter(s=>s.kind==="eligibility_rule"&&s.serviceRevisionId===l.serviceRevisionId)) {
+    const evidence=l.eligibilityEvidenceId?sources.find(s=>s.id===l.eligibilityEvidenceId):null;
+    if(rule.definition.knowledge!=="known"||!evidence||evidence.kind!=="evidence"||evidence.definition.certainty!=="reviewed"||evidence.definition.claim!==`eligible:${rule.id}`) blockers.push(`eligibility:${l.id}`);
+   }
    const amount=priceState==="unknown"?null:String(t?.amount),cost=costState==="unknown"?null:String(t?.cost_amount);
    const known=requireKnownMoneyFacts([{name:`price:${l.id}`,value:amount},...(l.costMaterial?[{name:`cost:${l.id}`,value:cost}]:[])]);
    blockers.push(...known.blockers);

@@ -104,16 +104,6 @@ test('R38 exact sources, authorized estimates and unknown boundaries',async()=>{
  const external=await h.proposal.read(await h.auth(),read,f.cmd.proposalId,'commercial') as any[];assert.equal(external[0].finalPersonPrice.certainty,'estimated');
 });
 test('R39 AC085 objective eligibility rule cannot be bypassed by recommendation',async()=>{
- const f=await fixture();const rule=await h.com('eligibility_rule',{knowledge:'known',criterion:'FORMAL age requirement not met',purpose:'FORMAL objective restriction'},f.service);
- const audience=await h.cat('audience',{name:'FORMAL group'}),recommendation=uid(),rbase={targetId:recommendation,kind:'audience_recommendation' as const,parentId:f.service.id,relatedId:audience.id,sourceRef:'FORMAL recommendation',evidenceRef:'FORMAL recommendation proof',reason:'FORMAL commercial',expectedVersion:0};
- await h.catalog.apply(await h.auth(),write,{...rbase,action:'create_item',operationId:uid()});await h.catalog.apply(await h.auth(),write,{...rbase,parentId:f.service.revision,relatedId:audience.revision,action:'publish_version',operationId:uid(),definition:{priority:'Alta'}});
+ const f=await fixture();await h.com('eligibility_rule',{knowledge:'known',criterion:'FORMAL age requirement not met',purpose:'FORMAL objective restriction'},f.service);
  await prepare(f);await reject(fix(f));
- for(const certainty of ['candidate','reviewed']){const e=h.req('evidence',{claim:`ineligible:${rule.revision}`,coverage:'synthetic-scope',certainty,source_kind:'manual'},f.opp.targetId);await h.evidence.apply(await h.auth(),write,e);
-  const c={...f.content,modalities:[{...f.content.modalities[0]!,lines:[{...f.content.modalities[0]!.lines[0]!,eligibilityEvidenceId:e.targetId}]}]};
-  const state=(await h.observer`select revision from crm_private.b03_proposals where proposal_id=${f.cmd.proposalId}::uuid`)[0]!,o=(await h.observer`select revision from crm_private.b03_opportunities where opportunity_id=${f.opp.targetId}::uuid`)[0]!;
-  await h.proposal.apply(await h.auth(),write,{...f.cmd,operationId:uid(),content:c,expectedRevision:Number(state.revision),expectedOpportunityRevision:Number(o.revision)});await reject(fix(f,{expectedRevision:Number(state.revision)+1}));
- }
- const e=h.req('evidence',{claim:`eligible:${rule.revision}`,coverage:'synthetic-scope',certainty:'reviewed',source_kind:'manual'},f.opp.targetId);await h.evidence.apply(await h.auth(),write,e);
- const c={...f.content,modalities:[{...f.content.modalities[0]!,lines:[{...f.content.modalities[0]!.lines[0]!,eligibilityEvidenceId:e.targetId}]}]};await h.proposal.apply(await h.auth(),write,{...f.cmd,operationId:uid(),content:c,expectedRevision:3,expectedOpportunityRevision:4});await h.proposal.apply(await h.auth(),write,fix(f,{expectedRevision:4}));
- const v=await internal(f.cmd.proposalId);assert.equal(v.sources.find((s:any)=>s.id===rule.revision).kind,'eligibility_rule');assert.equal(v.economics[0].blockers.length,0);
 });

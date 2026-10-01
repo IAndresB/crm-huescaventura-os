@@ -39,7 +39,7 @@ create table crm_private.b03_proposal_lines (
  tariff_revision_id uuid references crm_private.commercial_revisions(revision_id),
  quantity numeric,included boolean not null,independent boolean not null,selectable boolean not null,
  service_date date,date_pending boolean not null,price_basis text not null check(price_basis in ('fixed','quantity')),
- cost_material boolean not null,source_ref text not null,estimate_rule_evidence_id uuid references crm_private.b07_records(record_id),admin_scope text not null,
+ cost_material boolean not null,source_ref text not null,estimate_rule_evidence_id uuid references crm_private.b07_records(record_id),eligibility_evidence_id uuid references crm_private.b07_records(record_id),admin_scope text not null,
  primary key(version_id,line_id),foreign key(version_id,modality_id) references crm_private.b03_proposal_modalities(version_id,modality_id),
  check(not selectable or independent),check(not included or quantity>0),check(service_date is not null or date_pending)
 );
@@ -82,6 +82,11 @@ begin
   if s is null then select jsonb_build_object('id',c.record_id,'kind',c.record_kind,'definition',c.material,'sourceRef',c.source_ref,'version','1') into s
    from crm_private.b07_records c join crm_private.b07_links l using(record_id) where c.record_id=r::uuid and c.admin_scope=hf[17] and l.context_id=(m->>'opportunityId')::uuid and l.context_kind='opportunity' limit 1;end if;
   if s is null then raise exception 'PROPOSAL_SOURCE_INVALID';end if;data:=data||jsonb_build_array(s);
+  if s->>'kind'='service' then
+   data:=data||coalesce((select jsonb_agg(jsonb_build_object('id',er.revision_id,'kind','eligibility_rule','definition',er.definition,'sourceRef',er.source_ref,'version',er.revision_number::text,'serviceRevisionId',r))
+    from crm_private.commercial_items ei join lateral (select * from crm_private.commercial_revisions cr where cr.item_id=ei.item_id order by revision_number desc limit 1) er on true
+    join crm_private.catalog_revisions sr on sr.revision_id=r::uuid where ei.item_kind='eligibility_rule' and ei.admin_scope=hf[17] and ei.catalog_item_id=sr.item_id),'[]'::jsonb);
+  end if;
  end loop;
  perform crm_f2.verify(f2p,f2s,q,'C03','human_evidence','write_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');return data;
 end $$;
@@ -180,6 +185,12 @@ begin
    select * into prep from crm_private.b03_preparations where proposal_id=root order by revision desc limit 1;
    if prep.preparation_id is null or exists(select 1 from crm_private.b03_proposal_versions where preparation_id=prep.preparation_id) or not crm_private.proposal_content_guard(prep.content,true) then raise exception 'PROPOSAL_BLOCKED:SM-PV-02';end if;
    for m in select jsonb_array_elements(prep.content->'modalities') loop
+    if m->'definitive'='true'::jsonb then
+     for l in select jsonb_array_elements(m->'lines') loop
+      if l->'included'='true'::jsonb and exists(select 1 from jsonb_array_elements(prep.sources) rs where rs->>'kind'='eligibility_rule' and rs->>'serviceRevisionId'=l->>'serviceRevisionId'
+       and (rs->'definition'->>'knowledge'<>'known' or not exists(select 1 from crm_private.b07_records er join crm_private.b07_links el using(record_id) where er.record_id=nullif(l->>'eligibilityEvidenceId','')::uuid and er.admin_scope=scope and er.record_kind='evidence' and er.material->>'certainty'='reviewed' and er.material->>'claim'='eligible:'||(rs->>'id') and el.context_id=opp and el.context_kind='opportunity'))) then raise exception 'PROPOSAL_DEPENDENT_PRICE_BLOCKED:AC-085';end if;
+     end loop;
+    end if;
     if m->'definitive'='true'::jsonb and (m->>'finalPersonPrice' is null or exists(select 1 from jsonb_array_elements(prep.economics) e where e->>'modalityId'=m->>'id' and (e->'calculated'='null'::jsonb or jsonb_array_length(e->'blockers')>0))) then raise exception 'PROPOSAL_DEPENDENT_PRICE_BLOCKED:AC-010';end if;
    end loop;
    c:=prep.content;prior:=to_jsonb(prep);
@@ -188,7 +199,7 @@ begin
    for m in select jsonb_array_elements(c->'modalities') loop
     insert into crm_private.b03_proposal_modalities values(versionid,(m->>'id')::uuid,m->>'name',(m->>'participants')::bigint,(m->>'independent')::boolean,(m->>'selectable')::boolean,nullif(m->>'packRevisionId','')::uuid,m->>'conditions',(m->>'finalPersonPrice')::numeric,(m->>'definitive')::boolean,scope);
     for l in select jsonb_array_elements(m->'lines') loop
-     insert into crm_private.b03_proposal_lines values(versionid,(m->>'id')::uuid,(l->>'id')::uuid,(l->>'serviceRevisionId')::uuid,(l->>'unitRevisionId')::uuid,nullif(l->>'tariffRevisionId','')::uuid,(l->>'quantity')::numeric,(l->>'included')::boolean,(l->>'independent')::boolean,(l->>'selectable')::boolean,(l->>'date')::date,(l->>'datePending')::boolean,l->>'priceBasis',(l->>'costMaterial')::boolean,l->>'sourceRef',nullif(l->>'estimateRuleEvidenceId','')::uuid,scope);
+     insert into crm_private.b03_proposal_lines values(versionid,(m->>'id')::uuid,(l->>'id')::uuid,(l->>'serviceRevisionId')::uuid,(l->>'unitRevisionId')::uuid,nullif(l->>'tariffRevisionId','')::uuid,(l->>'quantity')::numeric,(l->>'included')::boolean,(l->>'independent')::boolean,(l->>'selectable')::boolean,(l->>'date')::date,(l->>'datePending')::boolean,l->>'priceBasis',(l->>'costMaterial')::boolean,l->>'sourceRef',nullif(l->>'estimateRuleEvidenceId','')::uuid,nullif(l->>'eligibilityEvidenceId','')::uuid,scope);
     end loop;
    end loop;
    update crm_private.b03_proposals set revision=revision+1,last_version_number=last_version_number+1 where proposal_id=root;
