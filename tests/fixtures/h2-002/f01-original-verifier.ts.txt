@@ -1,0 +1,244 @@
+// Formal expected is frozen in evidence-TSK-H2-002.md at 00cf358, before observed.
+// Independent fixtures/assertions; the shared helper only provisions auth/cluster.
+import assert from "node:assert/strict";
+import {before,after,test} from "node:test";
+import {randomUUID} from "node:crypto";
+import {readFile} from "node:fs/promises";
+import {join} from "node:path";
+import {isolatedH2,h2Migration,write,read} from "../support/h2-isolated.ts";
+import {decideCreation,decideProgress,commercialStates,type CommercialEvent,type CommercialState} from "../../src/domain/commercial-progress.ts";
+import {H1003ResolutionAdapter} from "../../src/infrastructure/postgres/h1-resolution-adapter.ts";
+import {H0005PostgresAdapter} from "../../src/infrastructure/postgres/h0-005-adapter.ts";
+import {H2001CommercialAdapter,type CommercialCommand} from "../../src/infrastructure/postgres/h2-commercial-adapter.ts";
+import {verifyAuth,type VerifiedAuthEvidence} from "../../src/application/verified-auth.ts";
+import {createF1Issuer,encodeF1Fields} from "../../src/infrastructure/postgres/f1-codec.ts";
+import {createF2Issuer} from "../../src/infrastructure/postgres/f2-codec.ts";
+import {issueTrustedContext} from "../../src/application/trusted-context.ts";
+import {postgresF1Binding} from "../../src/infrastructure/postgres/transaction.ts";
+import type postgres from "postgres";
+
+let h:Awaited<ReturnType<typeof isolatedH2>>,previous:unknown,upgradeObserved:unknown,contactId:string,contextId:string,legacyCode:string;
+const oldTables=["identity_entities","identity_contexts","identity_codes","identity_code_counters","identity_history","identity_operations","b07_records","b07_links","b07_operations","b07_history","b07_pending_tasks"];
+async function oldSnapshot(){const data:Record<string,unknown>={};for(const t of oldTables) data[t]=(await h.observer.unsafe(`select coalesce(jsonb_agg(to_jsonb(t) order by to_jsonb(t)::text),'[]'::jsonb) data from crm_private.${t} t`))[0]?.data;return data;}
+async function state(id:string){return (await h.observer`select to_jsonb(t) data from crm_private.b03_opportunities t where opportunity_id=${id}::uuid`)[0]?.data;}
+async function allSnapshot(){const data:Record<string,unknown>={};for(const t of ["b03_leads","b03_opportunities","b03_operations","b03_history","identity_contexts","identity_codes","identity_code_counters","identity_operations","identity_history","b07_records","b07_links"]) data[t]=(await h.observer.unsafe(`select coalesce(jsonb_agg(to_jsonb(t) order by to_jsonb(t)::text),'[]'::jsonb) data from crm_private.${t} t`))[0]?.data;return data;}
+async function direct(change:Partial<CommercialCommand>={}){const p=h.input(change);await h.adapter.apply(await h.auth(),write,p);return p.targetId;}
+function event(id:string,revision:number,e:CommercialEvent):CommercialCommand{return {action:"progress",operationId:randomUUID(),targetId:id,expectedRevision:revision,sourceRef:"formal-synthetic",reason:"formal-commercial-decision",event:e};}
+async function apply(id:string,e:CommercialEvent){return h.adapter.apply(await h.auth(),write,event(id,(await state(id)).revision,e));}
+async function unchangedReject(command:CommercialCommand,raw=false){const before=await allSnapshot();await assert.rejects(raw?rawApply(command):h.adapter.apply(await h.auth(),write,command),/COMMERCIAL_|permission denied/);assert.deepEqual(await allSnapshot(),before);}
+// Separate signing path exercises SQL guards without the production adapter's input validation.
+async function rawApply(input:CommercialCommand|Record<string,unknown>,override:Readonly<{scope?:string;tamper?:boolean;auth?:VerifiedAuthEvidence}>={}) {
+ const auth=override.auth??await h.auth(),f1=createF1Issuer(h.f1),f2=createF2Issuer(h.f2);
+ return h.runtime.begin(async tx=>{
+  const row=(await tx`select actor_id::text,admin_scope,access_generation::text,epoch_id::text from crm_api.f2_lookup(${auth.subject}::uuid,${auth.sessionId!}::uuid)`)[0]!;
+  const binding=await postgresF1Binding(tx),identity={actorId:row.actor_id,scope:override.scope??row.admin_scope,accessGeneration:row.access_generation,sessionId:auth.sessionId!,epochId:row.epoch_id};
+  const ctx=(purpose:string)=>issueTrustedContext({identityId:"formal-verifier",identityKind:"technical",purpose,scope:identity.scope,requestId:randomUUID(),serverTime:new Date().toISOString()});
+  const q=encodeF1Fields(["CRM-H2-COM-1",JSON.stringify(input)]),hf=f2(auth,identity,binding,"evidence_write",q,write),tf=f1(ctx("h1-evidence"),binding,"C03",q,{resource:"evidence",action:"write_evidence"});
+  const cq=encodeF1Fields(["CRM-H1-RESOLVE1","assign_code",String(input.targetId),String(input.targetId),"","OP",String(input.sourceRef),String(input.sourceRef),String(input.reason),"0"]);
+  const ch=f2(auth,identity,binding,"identity_write",cq,write),ct=f1(ctx("h1-identities"),binding,"C03",cq,{resource:"identities",action:"write_identity"});
+  const signature=override.tamper?Buffer.alloc(32):hf.mac;
+  return tx.unsafe("select * from crm_api.b03_apply($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)",[hf.payload,signature,tf.payload,tf.mac,q,ch.payload,ch.mac,ct.payload,ct.mac,cq]);
+ });
+}
+async function proof(id:string,claim="synthetic manual commercial act"){
+ const p=h.req("evidence",{claim,coverage:"synthetic-scope",certainty:"reviewed",source_kind:"manual"},id);await h.evidence.apply(await h.auth(),write,p);return p.targetId;
+}
+async function contactEvent(id:string):Promise<CommercialEvent>{
+ const c=h.req("communication",{direction:"outgoing",channel:"manual",recipient_ref:"synthetic-client",coverage:"synthetic-scope",initial_fact:"none"},id);
+ await h.evidence.apply(await h.auth(),write,c);return {type:"contact",sourceRef:"synthetic-manual",communicationId:c.targetId,evidenceId:await proof(id,"manual attempt, no reply"),outcome:"attempt; response unknown"};
+}
+async function removeGuards(id:string,e:CommercialEvent,guards:readonly string[]){
+ for(const key of guards){const x={...e} as Record<string,unknown>;delete x[key];await unchangedReject(event(id,(await state(id)).revision,x as unknown as CommercialEvent),true);}
+}
+before(async()=>{
+ h=await isolatedH2("crm_h2_002",55462,true);contactId=randomUUID();contextId=randomUUID();
+ await h.identities.apply(await h.auth(),write,{action:"create_entity",operationId:randomUUID(),targetId:contactId,kind:"contact",expectedVersion:0,sourceRef:"pre-H2-identity",reason:"pre-H2-fixture",verified:false,displayName:"Synthetic prior identity"});
+ await h.identities.apply(await h.auth(),write,{action:"create_context",operationId:randomUUID(),targetId:contextId,kind:"opportunity",expectedVersion:0,sourceRef:"pre-H2-context",evidenceRef:"pre-H2-proof",reason:"pre-H2-fixture",verified:true});
+ const resolution=new H1003ResolutionAdapter(h.runtime,h.f1,h.f2);
+ legacyCode=(await resolution.apply(await h.auth(),write,{action:"assign_code",operationId:randomUUID(),targetId:contextId,kind:"OP",sourceRef:"pre-H2-code",evidenceRef:"pre-H2-proof",reason:"pre-H2-fixture",expectedVersion:0})).code!;
+ const evidence=h.req("evidence",{claim:"old commercial proof",coverage:"synthetic-scope",certainty:"reviewed",source_kind:"manual"},contextId);await h.evidence.apply(await h.auth(),write,evidence);
+ const comm=h.req("communication",{direction:"outgoing",channel:"manual",recipient_ref:"synthetic-client",coverage:"synthetic-scope",initial_fact:"none"},contextId);await h.evidence.apply(await h.auth(),write,comm);
+ await h.tasks.apply(await h.auth(),write,{action:"receive",operationId:randomUUID(),taskId:randomUUID(),expectedRevision:0,
+  identity:{causeKind:"review",causeId:randomUUID(),contextKind:"opportunity",contextId,scopeRef:"synthetic-scope",relatedKind:null,relatedId:null,effect:"review-only"},
+  material:{title:"old pending work",deadline:{kind:"unknown",reason:"unverified"},priority:{kind:"pending",reason:"unverified"},sourceRef:"old-manual",sourceVersion:"v1",triggerRef:"manual",triggerVersion:"v1"},reason:"old need"});
+ previous=await oldSnapshot();
+ await h.migration.unsafe(await readFile(join(import.meta.dirname,"../../supabase/migrations",h2Migration),"utf8"));
+ upgradeObserved=await oldSnapshot();
+});
+after(async()=>{await h?.close();});
+
+test("R01: three exact minima; each individually absent rejected by PostgreSQL",async()=>{
+ const p=h.input();await rawApply(p);assert.equal((await state(p.targetId)).state,"Nueva");
+ for(const material of [{...p.material!,contact:null},{...p.material!,contact:{...p.material!.contact!,valid:false}},{...p.material!,need:null},{...p.material!,commercialPossible:false}]) await unchangedReject(h.input({material}),true);
+});
+test("R02: unknown final data never adds mandatory minima or inferred values",async()=>{
+ for(const key of ["scoring","dates","participants","services","budget"]){
+  const id=await direct();const row=await state(id);assert.equal(row.state,"Nueva");assert.equal(row.material[key],undefined);
+  assert.deepEqual(row.material.pending,["date","participants","services","budget"]);
+ }
+ const id=await direct({material:{...h.input().material!,dates:null,participants:null,services:null,budget:null}});
+ assert.equal((await state(id)).material.dates,null);assert.equal((await state(id)).material.budget,null);
+ assert.equal(decideCreation(h.input().material!).allowed,true);
+});
+test("R03: incomplete Lead, source/owner/link and direct H1 identity reuse",async()=>{
+ const p=h.input({action:"lead",sourceRef:"distinct-lead-origin",material:{contact:null,need:null,commercialPossible:null,pending:["unknown"],contactId}});await rawApply(p);
+ const lead=(await h.observer`select to_jsonb(t) data from crm_private.b03_leads t where lead_id=${p.targetId}::uuid`)[0]?.data;
+ const op=h.input({action:"convert",leadId:p.targetId,sourceRef:"conversion-registrar",material:{...h.input().material!,contactId}});await rawApply(op);
+ assert.equal((await state(op.targetId)).lead_id,p.targetId);assert.equal((await state(op.targetId)).source_ref,"distinct-lead-origin");assert.equal((await state(op.targetId)).responsible_actor,h.actorId);
+ assert.deepEqual((await h.observer`select to_jsonb(t) data from crm_private.b03_leads t where lead_id=${p.targetId}::uuid`)[0]?.data,lead);
+ const before=(await h.observer`select count(*)::int n from crm_private.b03_leads`)[0]!.n;
+ const id=await direct({targetId:contextId,material:{...h.input().material!,contactId}});
+ assert.equal((await h.adapter.read(await h.auth(),read,id,"opportunity") as {human_code:string}).human_code,legacyCode);
+ assert.equal((await h.observer`select count(*)::int n from crm_private.b03_leads`)[0]!.n,before);
+ assert.equal((await state(id)).lead_id,null);assert.equal((await state(id)).material.contactId,contactId);
+});
+test("R04: committed response discarded, replay and equivalent conversion use one H1 OP",async()=>{
+ const p=h.input();await rawApply(p);const snapshot=await allSnapshot();assert.equal((await h.adapter.apply(await h.auth(),write,p)).replayed,true);assert.deepEqual(await allSnapshot(),snapshot);
+ await unchangedReject({...p,reason:"different-material"},true);
+ const lead=h.input({action:"lead"});await rawApply(lead);const convert=h.input({action:"convert",leadId:lead.targetId});await rawApply(convert);
+ const eq=await h.adapter.apply(await h.auth(),write,{...convert,targetId:randomUUID(),operationId:randomUUID()});assert.equal(eq.id,convert.targetId);assert.equal(eq.replayed,true);
+ assert.equal((await h.observer`select count(*)::int n from crm_private.identity_codes where target_id=${convert.targetId}::uuid and code_kind='OP'`)[0]!.n,1);
+});
+test("R05: OP-02 every material guard and real scoped B07 contact, attempt not response",async()=>{
+ const id=await direct(),e=await contactEvent(id);await removeGuards(id,e,["sourceRef","communicationId","evidenceId","outcome"]);
+ await unchangedReject(event(id,1,{...e,communicationId:randomUUID()}),true);await unchangedReject(event(id,1,{...e,evidenceId:randomUUID()}),true);
+ const other=await direct();await unchangedReject(event(other,1,e),true);
+ await apply(id,e);assert.equal((await state(id)).state,"En contacto");
+ assert.equal((await h.observer`select count(*)::int n from crm_private.b07_records where original_id=${e.communicationId!}::uuid and material->>'fact_kind'='response'`)[0]!.n,0);
+ await unchangedReject(event(id,2,e),true);
+});
+test("R06: OP-03 both origins with each guard removed and final details still unknown",async()=>{
+ const e:CommercialEvent={type:"define_need",sourceRef:"manual",need:"current event",scope:"synthetic scope",pending:["date","people"]};
+ for(const contacted of [false,true]){const id=await direct();if(contacted) await apply(id,await contactEvent(id));await removeGuards(id,e,["sourceRef","need","scope","pending"]);
+  await apply(id,e);assert.equal((await state(id)).state,"Necesidad definida");assert.deepEqual((await state(id)).material.pending,["date","people"]);assert.equal((await state(id)).material.dates,undefined);}
+});
+test("R07: OP-04 commercial guards and every normative origin; Proposal dependency pending",async()=>{
+ const e:CommercialEvent={type:"prepare",sourceRef:"manual",scope:"current",sufficient:true,alternativeRef:"future-proposal",pending:[]};
+ for(const s of ["Nueva","En contacto","Necesidad definida","Propuesta enviada","Negociación / cambios"] as const){
+  assert.equal(decideProgress(s,e).allowed,false);assert.deepEqual(decideProgress(s,e).blockers,["proposal-capability-pending-H2-003"]);
+  for(const key of ["scope","sufficient","alternativeRef","pending"]){const bad={...e} as Record<string,unknown>;delete bad[key];assert.equal(decideProgress(s,bad as unknown as CommercialEvent).allowed,false);}
+ }
+ const id=await direct();await removeGuards(id,e,["sourceRef","scope","sufficient","alternativeRef","pending"]);await unchangedReject(event(id,1,e),true);
+});
+test("R08: OP-05 exact version/send evidence cannot be fabricated; future capability pending",async()=>{
+ const e:CommercialEvent={type:"send",sourceRef:"manual",versionRef:"synthetic-old-version",sendEvidenceRef:"synthetic-send",communicationId:randomUUID()};
+ for(const s of ["Nueva","En contacto","Necesidad definida","Propuesta en preparación","Propuesta enviada","Negociación / cambios"] as const) {
+  assert.equal(decideProgress(s,e).allowed,false);assert.deepEqual(decideProgress(s,e).blockers,["exact-version-send-capability-pending-H2-005"]);
+ }
+ const id=await direct();await removeGuards(id,e,["sourceRef","versionRef","sendEvidenceRef","communicationId"]);await unchangedReject(event(id,1,e),true);
+});
+test("R09: OP-06 identifiable exchange and affected scope; offer/provider unchanged",async()=>{
+ const id=await direct();await apply(id,{type:"define_need",sourceRef:"manual",need:"event",scope:"scope",pending:[]});
+ const e:CommercialEvent={type:"negotiate",sourceRef:"manual",exchangeRef:await proof(id,"client request to change"),scope:"affected service"};await removeGuards(id,e,["sourceRef","exchangeRef","scope"]);
+ await unchangedReject(event(id,2,{...e,exchangeRef:randomUUID()}),true);const before=(await state(id)).material;await apply(id,e);
+ assert.equal((await state(id)).state,"Negociación / cambios");assert.deepEqual((await state(id)).material,before);
+ for(const s of ["Propuesta en preparación","Propuesta enviada"] as const) assert.equal(decideProgress(s,e).destination,"Negociación / cambios");
+ const fresh=await direct();await unchangedReject(event(fresh,1,e),true);
+});
+test("R10: OP-08 all approved reasons, unknown explicit, no loss from alternative rejection",async()=>{
+ const reasons=["precio","fechas","falta de disponibilidad","cliente no responde","eligió otra empresa","canceló/cambió viaje","no encaja","otro","desconocido"];
+ for(const lossReason of reasons){const id=await direct();const e:CommercialEvent={type:"lose",sourceRef:"manual",lossReason,context:"documented cause or explicitly unknown"};await removeGuards(id,e,["sourceRef","lossReason","context"]);await apply(id,e);assert.equal((await state(id)).loss_reason,lossReason);assert.equal((await state(id)).state,"Perdida");}
+ const id=await direct();await apply(id,{type:"reject_alternative",sourceRef:"manual",alternativeRef:"rejected-only-one",context:"client rejects this alternative"});assert.equal((await state(id)).state,"Nueva");assert.equal((await state(id)).loss_reason,null);
+ await apply(id,{type:"pause",sourceRef:"manual",decision:"pause",context:"reason",followup:"review"});await apply(id,{type:"lose",sourceRef:"manual",lossReason:"desconocido",context:"silence does not identify true cause"});assert.equal((await state(id)).state,"Perdida");
+});
+test("R11: OP-09 all active states guard matrix; actual pause retains previous state",async()=>{
+ const e:CommercialEvent={type:"pause",sourceRef:"manual",decision:"human pause",context:"waiting",followup:"review situation"};
+ for(const s of ["Nueva","En contacto","Necesidad definida","Propuesta en preparación","Propuesta enviada","Negociación / cambios"] as const){assert.equal(decideProgress(s,e).destination,"En pausa");for(const key of ["decision","context","followup"]){const x={...e} as Record<string,unknown>;delete x[key];assert.equal(decideProgress(s,x as unknown as CommercialEvent).allowed,false);}}
+ const id=await direct();await removeGuards(id,e,["sourceRef","decision","context","followup"]);await apply(id,e);assert.equal((await state(id)).previous_state,"Nueva");
+ await unchangedReject(event(id,2,e),true);
+});
+test("R12: OP-10 lost/paused to both supported destinations; history and old vigencies preserved",async()=>{
+ for(const from of ["lose","pause"]){for(const destination of ["En contacto","Necesidad definida"] as const){
+  const id=await direct({material:{...h.input().material!,dates:{value:null,tariffRef:"expired-v1",availabilityRef:"expired-a1"}}});
+  await apply(id,from==="lose"?{type:"lose",sourceRef:"manual",lossReason:"desconocido",context:"unknown cause"}:{type:"pause",sourceRef:"manual",decision:"pause",context:"reason",followup:"review"});
+  const prior=await h.adapter.read(await h.auth(),read,id,"history");
+  const e:CommercialEvent={type:"reactivate",sourceRef:"manual",interest:"new interest or followup decision",review:"current human review; old prices/availability still pending",destination,support:destination==="En contacto"?{contact:"current followup decision"}:{need:"updated need",scope:"updated scope",pending:["price","availability"]}};
+  await removeGuards(id,e,["sourceRef","interest","review","destination","support"]);
+  for(const key of Object.keys(e.support!)){const support={...e.support} as Record<string,unknown>;delete support[key];await unchangedReject(event(id,2,{...e,support}),true);}
+  await unchangedReject(event(id,2,{...e,destination:"Propuesta en preparación"}),true);
+  await apply(id,e);const row=await state(id);assert.equal(row.state,destination);if(from==="lose") assert.equal(row.loss_reason,"desconocido");else assert.equal(row.previous_state,"Nueva");
+  assert.deepEqual(row.material.dates,{value:null,tariffRef:"expired-v1",availabilityRef:"expired-a1"});
+  const history=await h.adapter.read(await h.auth(),read,id,"history") as unknown[];assert.deepEqual(history.slice(0,-1),prior);
+ }}
+});
+test("R13: OP-11 backwards with documented change, human evaluation and supported destination",async()=>{
+ const id=await direct();await apply(id,{type:"define_need",sourceRef:"manual",need:"old need",scope:"old scope",pending:[]});
+ await apply(id,{type:"negotiate",sourceRef:"manual",exchangeRef:await proof(id,"new negotiation"),scope:"old scope"});
+ for(const destination of ["En contacto","Necesidad definida"] as const){const e:CommercialEvent={type:"revise",sourceRef:"manual",change:"need changed",humanEvaluation:"human current progress review",destination,support:destination==="En contacto"?{contact:"contact to clarify"}:{need:"new need",scope:"new scope",pending:["dates"]}};
+  await removeGuards(id,e,["sourceRef","change","humanEvaluation","destination","support"]);const before=await h.adapter.read(await h.auth(),read,id,"history");await apply(id,e);
+  assert.equal((await state(id)).state,destination);assert.deepEqual((await h.adapter.read(await h.auth(),read,id,"history") as unknown[]).slice(0,-1),before);
+ }
+});
+test("R14: seven attempts at Ganada cannot replace future verified Acceptance",async()=>{
+ for(const substitute of ["direct-state","human-approval","communication-sent","communication-read","supposed-payment","supposed-provider","historical-acceptance"]){
+  const id=await direct();if(substitute==="historical-acceptance") {await apply(id,{type:"lose",sourceRef:"manual",lossReason:"otro",context:"history"});await unchangedReject(event(id,2,{type:"reactivate",sourceRef:substitute,interest:"new",review:"old acceptance",destination:"Aceptada / Ganada",support:{contact:"old fact"}}),true);}
+  else await unchangedReject(event(id,1,{type:"win",sourceRef:substitute}),true);
+  await assert.rejects(h.runtime`update crm_private.b03_opportunities set state='Aceptada / Ganada' where opportunity_id=${id}::uuid`,/permission denied/);
+ }
+});
+test("R15: explicit SM-FORB-30 attempts do not erase loss or renew external validity",async()=>{
+ const id=await direct();await unchangedReject(event(id,1,{type:"lose",sourceRef:"manual",context:"without reason"}),true);
+ await apply(id,{type:"lose",sourceRef:"manual",lossReason:"desconocido",context:"cause unknown"});
+ const e={type:"reactivate",sourceRef:"manual",interest:"new",review:"current",destination:"En contacto",support:{contact:"current"}};
+ for(const extra of [{eraseLoss:true},{renewTariff:true},{renewAvailability:true}]) await unchangedReject(event(id,2,{...e,...extra} as CommercialEvent),true);
+ assert.equal((await state(id)).loss_reason,"desconocido");assert.equal((await state(id)).state,"Perdida");
+});
+test("R16: actual V-DAT admission, forgery, disabled actor, ordinary SQL and ACL/RLS",async()=>{
+ const p=h.input();const snapshot=await allSnapshot();
+ await assert.rejects(h.runtime`select * from crm_api.b03_apply(null,null,null,null,null,null,null,null,null,null)`);
+ await h.runtime`select set_config('crm.actor_id',${h.actorId},false)`;
+ await assert.rejects(rawApply(p,{tamper:true}));await assert.rejects(rawApply(p,{scope:"forged-scope"}));
+ for(const role of ["crm_h0_runtime","anon","authenticated"]){const sql=h.connect(role);for(const table of ["b03_leads","b03_opportunities","b03_history","b03_operations"]){await assert.rejects(sql.unsafe(`select * from crm_private.${table}`),/permission denied/);await assert.rejects(sql.unsafe(`delete from crm_private.${table}`),/permission denied/);}
+  await assert.rejects(sql.unsafe("update crm_private.b03_history set reason='rewrite'"),/permission denied/);
+ }
+ const roles=await h.observer`select rolsuper,rolbypassrls from pg_roles where rolname='crm_h0_runtime'`;assert.equal(roles[0]?.rolsuper,false);assert.equal(roles[0]?.rolbypassrls,false);
+ for(const table of ["b03_leads","b03_opportunities","b03_history","b03_operations"]){const r=(await h.observer`select relrowsecurity,relforcerowsecurity from pg_class where oid=${'crm_private.'+table}::regclass`)[0]!;assert.equal(r.relrowsecurity,true);assert.equal(r.relforcerowsecurity,true);}
+ await h.migration`update crm_private.crm_actors set enabled=false where actor_id=${h.actorId}::uuid`;await assert.rejects(h.adapter.apply(await h.auth(),write,p));await h.migration`update crm_private.crm_actors set enabled=true where actor_id=${h.actorId}::uuid`;
+ assert.deepEqual(await allSnapshot(),snapshot);
+});
+test("R17: independent history and strict separation across all persisted commercial effects",async()=>{
+ const rows=await h.observer`select state,lead_id,revision from crm_private.b03_opportunities`;assert.ok(rows.length>20);assert.equal(rows.some(x=>x.state==="Aceptada / Ganada"),false);
+ const history=await h.observer`select event,normative_ids,before_state,after_state,actor_id::text from crm_private.b03_history`;assert.ok(history.length>rows.length);assert.ok(history.every(x=>x.actor_id===h.actorId));assert.ok(history.some(x=>x.before_state?.state==="Perdida"&&x.after_state?.loss_reason==="desconocido"));
+ const forbidden=await h.observer`select count(*)::int n from information_schema.tables where table_schema='crm_private' and (table_name like '%booking%' or table_name like '%acceptance%' or table_name like '%payment%' or table_name like '%refund%' or table_name like '%provider_confirmation%')`;assert.equal(forbidden[0]?.n,0);
+ assert.equal((await h.observer`select count(*)::int n from crm_private.identity_contexts where context_kind='booking'`)[0]?.n,0);
+ assert.equal((await h.observer`select count(*)::int n from crm_private.identity_codes where code_kind<>'OP'`)[0]?.n,0);
+});
+test("R18: atomic write faults, changed replay, two actors absence/races/revision",async()=>{
+ const p=h.input(),snapshot=await allSnapshot();await h.admin.unsafe("create function crm_private.h2_test_fault() returns trigger language plpgsql as $$ begin raise exception 'COMMERCIAL_INJECTED_HISTORY_FAILURE';end $$; create trigger h2_test_fault before insert on crm_private.b03_history for each row execute function crm_private.h2_test_fault()");
+ await assert.rejects(rawApply(p),/COMMERCIAL_INJECTED_HISTORY_FAILURE/);assert.deepEqual(await allSnapshot(),snapshot);await h.admin.unsafe("drop trigger h2_test_fault on crm_private.b03_history; drop function crm_private.h2_test_fault()");
+ const id=await direct();const rev=1;const pair=[event(id,rev,{type:"pause",sourceRef:"manual",decision:"A",context:"reason",followup:"review"}),event(id,rev,{type:"lose",sourceRef:"manual",lossReason:"desconocido",context:"B"})];
+ const auth=await h.auth();const r=await Promise.allSettled(pair.map(x=>h.adapter.apply(auth,write,x)));
+ assert.equal(r.filter(x=>x.status==="fulfilled").length,1);
+ // Actual two authorized actors, independent sessions, same scope.
+ const subject2=randomUUID(),actor2=randomUUID();await h.migration`select crm_api.provision_actor_mapping(${actor2}::uuid,${subject2}::uuid,${h.scope})`;
+ const runtime2=h.connect("crm_h0_runtime"),first=await verifyAuth({verify:async()=>({subject:subject2,passwordVerified:true,mfaVerified:true})},randomUUID());
+ const session2=(await new H0005PostgresAdapter(runtime2,h.f1,h.f2).establish(first)).sessionId;
+ const auth2=()=>verifyAuth({verify:async()=>({subject:subject2,sessionId:session2,passwordVerified:true,mfaVerified:true})},randomUUID());
+ const adapter2=new H2001CommercialAdapter(runtime2,h.f1,h.f2);
+ for(const order of [false,true]){
+  const lead=h.input({action:"lead"});await rawApply(lead);const a=h.input({action:"convert",leadId:lead.targetId}),b={...a,operationId:randomUUID(),targetId:randomUUID()};
+  const one=()=>h.adapter.apply(awaitedAuth!,write,a);const awaitedAuth=await h.auth(),otherAuth=await auth2();
+  const result=await Promise.all(order?[adapter2.apply(otherAuth,write,b),one()]:[one(),adapter2.apply(otherAuth,write,b)]);assert.equal(result[0]!.id,result[1]!.id);
+  assert.equal((await h.observer`select count(*)::int n from crm_private.b03_opportunities where lead_id=${lead.targetId}::uuid`)[0]?.n,1);
+ }
+ for(const order of [false,true]){
+  const target=h.input(),a=await h.auth(),b=await auth2();
+  const result=await Promise.allSettled(order?[adapter2.apply(b,write,target),h.adapter.apply(a,write,target)]:[h.adapter.apply(a,write,target),adapter2.apply(b,write,target)]);
+  assert.equal(result.filter(x=>x.status==="fulfilled").length,1);assert.equal((await h.observer`select count(*)::int n from crm_private.identity_codes where target_id=${target.targetId}::uuid`)[0]?.n,1);
+ }
+ const revisionId=await direct();const current=(await state(revisionId)).revision,a=await h.auth(),b=await auth2();const updated=await Promise.allSettled([h.adapter.apply(a,write,event(revisionId,current,{type:"pause",sourceRef:"manual",decision:"A",context:"reason",followup:"review"})),adapter2.apply(b,write,event(revisionId,current,{type:"lose",sourceRef:"manual",lossReason:"otro",context:"B"}))]);assert.equal(updated.filter(x=>x.status==="fulfilled").length,1);
+});
+test("R19: empty-chain and exact H1 upgrade preserve IDs/codes/history/B07/Task/permissions",async()=>{
+ // Compare the captured immediately-pre-migration snapshot, not current mutated test data.
+ assert.deepEqual(upgradeObserved,previous);const preserved=previous as Record<string,unknown>;
+ for(const t of oldTables.filter(t=>t!=="identity_code_counters")){const original=preserved[t] as unknown[];const now=(await oldSnapshot())[t] as unknown[];for(const item of original) assert.ok(now.some(x=>JSON.stringify(x)===JSON.stringify(item)),`${t} historical fixture retained`);}
+ await h.admin.unsafe("create database crm_h2_empty owner crm_h0_migration");const admin=h.connect("h2_bootstrap","crm_h2_empty"),migration=h.connect("crm_h0_migration","crm_h2_empty");await h.applyChain(migration,admin);
+ assert.equal((await migration`select count(*)::int n from crm_private.b03_opportunities`)[0]?.n,0);
+ await assert.rejects(h.connect("crm_h0_runtime","crm_h2_empty")`insert into crm_private.b03_leads(lead_id) values(${randomUUID()}::uuid)`,/permission denied/);
+});
+test("R20: C02 normative decision, every approved state/unknown and pending limits",()=>{
+ assert.deepEqual([...commercialStates],["Nueva","En contacto","Necesidad definida","Propuesta en preparación","Propuesta enviada","Negociación / cambios","Aceptada / Ganada","Perdida","En pausa"]);
+ for(const s of commercialStates){const d=decideProgress(s,{type:"win",sourceRef:"manual"});assert.equal(d.allowed,false);assert.deepEqual(d.normativeIds,["SPEC-FR-COM-003"]);}
+ assert.equal(decideCreation({...h.input().material!,commercialPossible:null}).allowed,false);
+ assert.equal(decideProgress("Perdida",{type:"reactivate",sourceRef:"manual",interest:"new",review:"current",destination:"Propuesta en preparación",support:{need:"current"}}).allowed,false);
+});

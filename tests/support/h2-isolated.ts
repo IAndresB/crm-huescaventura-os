@@ -38,7 +38,7 @@ export async function isolatedH2(label:string,port:number,upgrade=false) {
  };
  await applyChain(migration,admin,upgrade?"20260930185257_h1_pending_business_tasks.sql":h2Migration);
  const subject=randomUUID(),actorId=randomUUID(),scope=`${label}-synthetic`;
- const f1:F1SigningConfiguration={key:randomBytes(32),keyId:randomUUID(),audience:label,generation:randomUUID(),allowedPurposes:["h1-evidence","h1-identities"]};
+ const f1:F1SigningConfiguration={key:randomBytes(32),keyId:randomUUID(),audience:label,generation:randomUUID(),allowedPurposes:["h1-evidence","h1-identities","h1-catalog"]};
  const f2:F2SigningConfiguration={key:randomBytes(32),keyId:randomUUID(),audience:label,generation:randomUUID(),allowedPurposes:["full-identification","core-human-access","session-revocation"]};
  await migration`insert into crm_f1.keys(key_id,secret,audience,generation,purposes,enabled,valid_from,valid_until) values(${f1.keyId},${Buffer.from(f1.key)},${f1.audience},${f1.generation},${f1.allowedPurposes},true,clock_timestamp()-interval '1 minute',clock_timestamp()+interval '2 hours')`;
  await migration`insert into crm_f2.keys(key_id,secret,audience,generation,purposes,enabled,valid_from,valid_until) values(${f2.keyId},${Buffer.from(f2.key)},${f2.audience},${f2.generation},${f2.allowedPurposes},true,clock_timestamp()-interval '1 minute',clock_timestamp()+interval '2 hours')`;
@@ -48,7 +48,7 @@ export async function isolatedH2(label:string,port:number,upgrade=false) {
  const sessionId=(await access.establish(first)).sessionId;
  const auth=()=>verifyAuth({verify:async()=>({subject,sessionId,passwordVerified:true,mfaVerified:true})},randomUUID());
  const adapter=new H2001CommercialAdapter(runtime,f1,f2),identities=new H1001IdentityAdapter(runtime,f1,f2),evidence=new H1013EvidenceAdapter(runtime,f1,f2),tasks=new H1017TaskAdapter(runtime,f1,f2);
- const req=(kind:B07Command["kind"],material:Record<string,unknown>,contextId:string,contextKind:B07Command["contextKind"]="opportunity"):B07Command=>({action:"create",operationId:randomUUID(),targetId:randomUUID(),kind,material,sourceRef:"synthetic-manual",purpose:"commercial-test",contextKind,contextId,coverage:"synthetic-scope",reason:"synthetic-register"});
+ const req=(kind:B07Command["kind"],material:Record<string,unknown>,contextId:string,contextKind:B07Command["contextKind"]="opportunity"):B07Command=>({action:"create",operationId:randomUUID(),targetId:randomUUID(),kind,material,sourceRef:"synthetic-manual",purpose:"commercial-test",occurredAt:"2026-09-28T10:00:00Z",contextKind,contextId,coverage:"synthetic-scope",reason:"synthetic-register"});
  const input=(change:Partial<CommercialCommand>={}):CommercialCommand=>({action:"direct",operationId:randomUUID(),targetId:randomUUID(),expectedRevision:0,sourceRef:"synthetic-origin",reason:"synthetic-sale",
   material:{contact:{channel:"manual",address:"synthetic-client",sourceRef:"synthetic-check",valid:true},need:"synthetic-event",commercialPossible:true,pending:["date","participants","services","budget"]},...change});
  const close=async()=>{await Promise.allSettled(connections.map(x=>x.end({timeout:1})));command("pg_ctl",["-D",join(temporary,"data"),"-m","fast","-w","stop"]);await rm(temporary,{recursive:true,force:true});};

@@ -44,3 +44,15 @@ Cada R se ejecutará con fixtures sintéticos nuevos y PostgreSQL 17 efímero se
 ## Observed
 
 Pendiente. No se acredita todavía ninguna fila ni se cierra H2-001/002.
+
+## F01 — integración B07, descubierto por primera matriz ejecutable
+
+Estado inicial: OPEN, material. Commit de implementación observado `00cf358c24829d21529893eaf846ad40ab931bec`. Expected: Evidence manual revisada, Communication contextual y resultado conocido permiten OP-02; intercambio revisado permite OP-06. Fuente H1 B07: `202609300001_h1_evidence_communications.sql`, `b07_valid_material`, certeza persistida `candidate`/`reviewed`, distinta de proyección C01 `verified`.
+
+Observed: `COMMERCIAL_ACTUAL_EVIDENCE_REQUIRED` en R05, R06, R09, R13; H2 comparaba certeza persistida con `verified`. Primera matriz ejecutable 15/20 PASS, 5 FAIL, 6535.187042 ms. El quinto fallo R18 era del harness: intentaba provisionar segundo CRM Actor contra singleton H0; no defecto de producto. Las primeras preparaciones de harness fallaron antes de ejecutar R por `expectedVersion`/momento B07 omitidos y valor de certeza inválido; no acreditaron nada. Se corrigieron los fixtures para respetar los contratos H1.
+
+Reproducer original y observed preservados: `tests/fixtures/h2-002/f01-original-verifier.ts.txt`, `tests/fixtures/h2-002/f01-first-run.txt`; migración original recuperable con `git show 00cf358:supabase/migrations/20261001081941_h2_commercial_progress.sql`. Copiar verifier al path original y ejecutar contra ese estado reproduce el bloqueo de R05/R09. Expected original en esta evidencia permanece intacto. Corrección mínima: H2 consulta `reviewed`, sin cambiar ni reinterpretar B07/H1. Harness V-AT preserva singleton: dos sesiones autorizadas del Administrador más actor/subject no provisionado, ambos órdenes y solapamiento. No se amplían roles.
+
+Reejecución completa tras corrección: R01–R20 **20/20 PASS**, cero fail/skipped/cancelled, 4109.93725 ms, en cluster nuevo. Incluye tarifa H1 publicada sintética `100` con vigencia final `2026-09-10` y Evidence histórica de disponibilidad caducada; precio/vigencia/referencia conservados al reactivar. Snapshot upgrade incluye catálogo/tarifas/Applications previos. F01 **CLOSED localmente** por esta ejecución completa; verificación final del commit de corrección y regresión pendientes.
+
+Reproducer ejecutable independiente añadido: `tests/integration/postgres-h2-002-f01.test.ts` carga la migración original mediante `git show 00cf358c24829d21529893eaf846ad40ab931bec:…` en cluster propio y comprueba el rechazo original de contacto revisado. Su PASS significa defecto histórico reproducido; no acredita el expected positivo, que pertenece únicamente a R05/R09 actuales. No requiere cambiar checkout ni reescribir migraciones. La corrección modifica exclusivamente la migración H2 aún no publicada; H0/H1 permanecen intactas.

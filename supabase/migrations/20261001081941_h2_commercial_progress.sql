@@ -192,7 +192,7 @@ begin
     ref:=case when e->>'type'='contact' then e->>'evidenceId' else e->>'exchangeRef' end;
     if not exists(select 1 from crm_private.b07_records r join crm_private.b07_links b using(record_id)
      where r.record_id=ref::uuid and r.admin_scope=scope and b.admin_scope=scope and b.context_kind='opportunity' and b.context_id=target
-     and ((r.record_kind='evidence' and r.material->>'certainty'='verified') or (r.record_kind='communication' and r.material->>'direction'='incoming'))) then
+     and ((r.record_kind='evidence' and r.material->>'certainty'='reviewed') or (r.record_kind='communication' and r.material->>'direction'='incoming'))) then
      raise exception 'COMMERCIAL_ACTUAL_EVIDENCE_REQUIRED';end if;
    end if;
    prior:=to_jsonb(old);
