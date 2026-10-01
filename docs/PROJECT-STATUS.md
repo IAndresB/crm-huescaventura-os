@@ -1,6 +1,6 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-Actualizacion 2026-10-01: H0 COMPLETED tecnico/local/aislado y H1 COMPLETED local/aislado conservados. **TSK-H2-001–008 COMPLETED local/aislado**; H2 IN PROGRESS. Nuevo bloque: [implementacion H2-007](../specs/001-core-crm/evidence-TSK-H2-007.md) y [verificacion independiente H2-008](../specs/001-core-crm/evidence-TSK-H2-008.md), producto probado `800de9518f0289f46e74a5a3a2c1218ad4b403d0`, R01–R62 62/62 PASS +1/1 reproducer historico; regresion510/510 PostgreSQL17.11 +80/80 unitarias. H2-008-F01/F02 CLOSED localmente, FAIL originales conservados. H2-009+ y H3–H6 NOT STARTED; STOP tras H2-008. PLAN-AUTH-001–006 globales, PLAN-PENDING-003 abierto, DM-PENDING-005, BR-PENDING-022/033 conservados. Datos/politicas personales/comerciales, catalogo/tarifas/costes/capacidades y prioridades/plazos reales no acreditados; hosted H2 no acreditado; Production no autorizada; sin conectores/envios/pagos/proveedores reales.
+Actualizacion 2026-10-01: H0 COMPLETED tecnico/local/aislado y H1 COMPLETED local/aislado conservados. **TSK-H2-001–010 COMPLETED local/aislado**; H2 IN PROGRESS. [Implementacion H2-009](../specs/001-core-crm/evidence-TSK-H2-009.md) y [verificacion independiente H2-010](../specs/001-core-crm/evidence-TSK-H2-010.md), commit probado `cb2246ea4830fdf08a3a723bfc759309716712ca`,66/66 formal +2/2 reproducers historicos +V-MIG PASS;579/579 PostgreSQL17.11 y81/81 unitarias, gates completos PASS. H2-010-F01/F02 CLOSED localmente con originales/FAIL conservados. H2-011/012 y H3–H6 NOT STARTED; STOP tras H2-010. PLAN-AUTH001–006 globales, PLAN-PENDING003 abierto y demas pendientes globales abiertos conservados; DM-PENDING005, BR-PENDING022/033. Datos personales/comerciales, catalogo/tarifas/costes/capacidades y prioridades/plazos reales no acreditados; hosted H2 no acreditado, Production no autorizada; sin pagos/fondos/conciliacion/Refund/facturacion/proveedor/confirmacion operacional/conectores/envios reales.
 
 Status: ACTIVE
 Last updated: 2026-10-01
@@ -80,9 +80,11 @@ Last updated: 2026-10-01
 
 - TSK-H2-007/008 — COMPLETED local/aislado el 2026-10-01: Acceptance exacta/seleccion/terminos/facultad, verificacion y Ganada solicitada atomicas T02, rectificacion por error con original/reevaluacion preservados. [Evidencia H2-008](../specs/001-core-crm/evidence-TSK-H2-008.md):62/62 formal +1/1 historico;510/510 PostgreSQL17.11 y80/80 unitarias. F01/F02 CLOSED localmente; STOP tras008, sin H2-009+ ni efectos externos/economicos/operativos.
 
+- TSK-H2-009/010 — COMPLETED local/aislado: Booking unica normal/directa con cadena verificada, detalle inicial y RES H1; [evidencia H2-010](../specs/001-core-crm/evidence-TSK-H2-010.md),66/66 +2/2 historicos +V-MIG,579/579 PostgreSQL y81/81 unitarias. F01/F02 CLOSED; STOP tras010, sin posteriores ni efectos economicos/operativos/externos.
+
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 COMPLETED en alcance local/aislado con H1-001–019 COMPLETED localmente; H2 IN PROGRESS con H2-001–008 COMPLETED local/aislado; H2-009 y posteriores/H3–H6 NOT STARTED. STOP tras H2-008.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 COMPLETED en alcance local/aislado con H1-001–019 COMPLETED localmente; H2 IN PROGRESS con H2-001–010 COMPLETED local/aislado; H2-011 y posteriores/H3–H6 NOT STARTED. STOP tras H2-010.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending

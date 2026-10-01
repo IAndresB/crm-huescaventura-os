@@ -1,5 +1,7 @@
 # Evidencia independiente — TSK-H2-010
 
+**Estado vigente: COMPLETED local/aislado.** Commit probado `cb2246ea4830fdf08a3a723bfc759309716712ca`;66/66 formal +2/2 históricos, V-MIG y579/579 PostgreSQL +81/81 unitarias PASS. Historial de intentos y FAIL conservado debajo.
+
 Base `fd1c1e1b06bffbef786383e98827ade4b13c919d`. Expected [expected-TSK-H2-009-010.md](expected-TSK-H2-009-010.md) congelado antes de38793e677368008193ad785862e2f8b9d5cdef3a; R61–R66 fijados antes de ensayarlos. Todas las filas Tasks §6 copiadas. PostgreSQL17.11 aislado en cluster nuevo crm_h2_010:55483, reproducer histórico cluster crm_h2_010_hist:55484, datos sintéticos, runtime sin owner/BYPASSRLS. Node24.21.0/pnpm11.19.0/Supabase CLI2.118.0.
 
 ## Resultados históricos
@@ -14,7 +16,7 @@ Nueva ejecución completa third-formal-corrected.log:66/66 casos normativos +1/1
 
 Regresión completa PENDIENTE. Matriz final por caso y commit probado se anexan después de ejecución fresca. Ningún cierre todavía en Tasks. H2 IN PROGRESS, H2-011+/H3–H6 NOT STARTED; pendientes globales conservados; hosted H2 no acreditado/Production no autorizada. Sin módulos/efectos positivos económicos/operativos/externos ni datos reales. Origen IA se deniega: el ensayo de G3 no acredita nueva automatización sensible ni habilita acciones H5/H6; Administrador manual y Acceptance real siguen siendo hechos distintos.
 
-## Matriz sobre candidato4aa784ce2ccec3fd11a7f8989922063ac1c7355d
+## Matriz material Rxx — expected/observed sobre4aa784c y repetida sobre cb2246e
 
 66/66 +1/1 histórico PASS,0fallos/omisiones/cancelaciones. Regresión81/81 unitarias y gates install/typecheck/lint/boundaries/build/audit PASS; runner PostgreSQL en curso, no cierre todavía.
 
@@ -94,3 +96,43 @@ Runner completo sobre4aa784c: FAIL de R54 H2-008 y wrapper histórico H2-008. Su
 F02 expected: las migraciones de la base histórica siguen byte a byte y con ACL; observed: R54 intenta exigir a la base anterior una migración futura y rompe también el reproducer. Materialidad: bloquea la acreditación de la regresión. Original legacy-R54-4aa784c.ts.txt y FAIL postgres-4aa784c.log preservados. Reproducer específico ejecuta R54 original contra inventario actual y exige el fallo original, manteniendo su expected. Estado pendiente de repetición completa.
 
 Diffcheck previo a siguiente commit detectó únicamente blanco final/trailing spaces de outputs. Originales completos comprimidos antes de normalizar exclusivamente esos espacios de presentación; hashes/raw-log-manifest.json recuperan bytes originales. Los FAIL no se sustituyen: ningún mensaje/caso/expected/assertion retirado. Diffcheck se repite antes de publicar.
+
+## Complemento V-MIG recuperable R45/R66
+
+Sobre producto cb2246ea4830fdf08a3a723bfc759309716712ca, script migration-preservation.ts.txt ejecutado como `.ts` temporal en el mismo directorio con Node experimental-strip-types/POSTGRES_H0_BIN17, cluster independiente crm_h2010_mig:55486. Communication recibida manual sintética y Task pending previas creadas con contratos runtime H1; no conector/envío real. Datos/IDs/códigos/Acceptance/Version/Communication/Task iguales antes/después;58 tablas previas,71 funciones,118 políticas y478 triggers previos con mismos OID/definiciones/ACL/owners/RLS/roles. Solo36 triggers RI nuevos de FK hacia b04, explícitamente comprobados, sin reemplazar ninguno anterior. PASS, log migration-preservation-cb2246e.log.
+
+Tres FAIL de preparación del complemento se conservan: tabla Task mal nombrada corregida al nombre real b07_pending_tasks; comparación que incluía36 FK nuevos en conjunto de triggers anteriores; y diferencia de prototipo Result/Array normalizada en ambos lados sin omitir filas. No fallos de producto ni alteración del expected de preservar objetos/datos anteriores.
+
+## Correspondencia normativa del expected congelado
+
+Esta tabla enlaza la matriz previa y las filas fuente ya copiadas; no modifica sus resultados esperados.
+
+| Casos | IDs y contratos contrastados |
+|---|---|
+| R01–03,13–18,54,64 | SPEC-FR-COM-002, PROP-003, BOOK-001/002; SM-BK-01; DM-INV-006/012; D018; AC-014/016; PLAN-B03/C02/T01/T02/T03; contribución E2E-01/02, sin cierre H6. |
+| R04–09,36–37,43,65 | SPEC-FR-BOOK-003, ID-005, IDEMP-001/002, CONC-002/003; SPEC-NFR-006/007; ARCH-DEC-013/014; PLAN-DEC-004/C03; G6/E2; AC-015/068; RES D040 reutilizado H1. |
+| R18–28,55,61–63 | SPEC-FR-ID-004/SVC-001/002/003/004; SM-BS-01; DM-INV-013/014/015/016; AC-017/019; P09; D010; cantidades iniciales PT-03/contribución E2E-03. T04 solamente integridad/baseline inicial, sin cambios operativos futuros. |
+| R29–35,63–64 | PLAN-C03/T03; SPEC-FR-CONC-003; ARCH-DEC-014; AC-068; V-AT: efecto/historia/resultado/RES/cadena compuesta juntos o rollback. Sin intención externa aplicable, sin módulo externo inventado. |
+| R38–42,58 | Tasks §2.2 V-DAT/C01/C03/C04; contexto/actor exactos, ACL/FORCE RLS, acceso SQL directo, reautorización y protección de historias/Acceptance/Version. |
+| R44–47,59,66 + complemento V-MIG | Tasks §2.2 V-MIG; datos/IDs/ACL/RLS/owners/functions/triggers antiguos preservados y migración vacía/predecesor/fallo/roles opcionales. |
+| R48–53 | SM-FORB-04/10/31; P08/DM-INV-006; BR-CONV-001–004; D018; AC-016. Intentos explícitos sin efectos económicos/operativos/externos ni hechos ficticios. |
+| R54–56 | SM-BK-01/SM-BS-01: origen normativo válido, retirada de cada guarda material de cadena/detalle/contexto/revisión/procedencia; G3 IA no habilitada por aprobación supuesta. |
+| R57–60 | P07; DM-INV-012/013; PLAN §9; PT-02/03/12; E2E-01/02/03 solo contribución local, pendientes globales y posteriores preservados. |
+
+B03 contrata; B04 conserva detalle inicial; B07 conserva pruebas reales sintéticas y vínculos; B08/C03 resultado durable y recuperación técnica, sin jobs/efectos externos futuros. C04 es el registro H1 reutilizado. No crédito global a NFR/E2E o partes compartidas con H2-011/H3–H6.
+
+## Cierre final — COMPLETED local/aislado
+
+Base `fd1c1e1b06bffbef786383e98827ade4b13c919d`; commit probado exacto `cb2246ea4830fdf08a3a723bfc759309716712ca`. Producto idéntico a4aa784c (cb2246e corrige exclusivamente el harness histórico). Matriz formal independiente R01–R66 **66/66 PASS**, **2/2 reproducers históricos PASS** (originales conservados), y complemento V-MIG R45/R66 PASS. Log formal-cb2246e.log. F01/F02 **CLOSED local/aislado**, cero abiertos; matriz completa afectada y regresión completa repetidas después de las correcciones.
+
+Regresión final fresca: instalación congelada, typecheck, lint/import boundaries, **81/81 unitarias**, **579/579 PostgreSQL17.11**, build y audit--prod sin vulnerabilidades conocidas: PASS;0FAIL/skipped/cancelled. PostgreSQL395547.974667ms, todas las esperas H0 intactas. Logs `tests/fixtures/h2-010/*-cb2246e.log`, regression-summary.json y originales comprimidos con digest en raw-log-manifest.json. Gates ejecutados con pnpm11.19.0/Node24.21.0 y POSTGRES_H0_BIN17.
+
+Comandos: `pnpm install --frozen-lockfile`; `pnpm run typecheck`; `pnpm run lint` (incluye check:boundaries); `pnpm test`; `pnpm run build`; `pnpm audit --prod`; `POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin pnpm run test:postgres`; formal: misma variable + `node --test --experimental-strip-types tests/integration/postgres-h2-010.test.ts tests/integration/postgres-h2-010-defects.test.ts`. Diffcheck y comparación de coordinación final se registran antes de publicación.
+
+Solo H2-009/010 cerradas en este bloque. **H2 IN PROGRESS; H2-011/012 y H3–H6 NOT STARTED. STOP tras010**. No iniciar/preparar posteriores. PLAN-AUTH001–006 globales, PLAN-PENDING003 en parte abierta, restantes PLAN-PENDING/ARCH-PENDING/DM-PENDING/BR-PENDING globales todavía abiertos conservados, incluidos DM-PENDING005 y BR-PENDING022/033. Datos personales/comerciales, catálogo/tarifas/costes/capacidades y prioridades/plazos reales no acreditados. Hosted H2 no acreditado; Production no autorizada. Sin módulos/efectos positivos Payment/fondos/conciliación/Refund/facturación/proveedor/disponibilidad operacional/ejecución/conectores/WhatsApp/email/telefonía reales. E2E y normas compartidas acreditadas solo en contribución local asignada; no integración total H6 ni cierre de pendientes por inferencia.
+
+R57 reforzado por el mismo complemento recuperable: tras crear Booking se publica una nueva revisión del **mismo maestro de catálogo**, incluso con naturaleza actual cambiada a internal. El snapshot y la naturaleza aplicada external de la Booking permanecen idénticos; dos revisiones reales conservadas. PASS, migration-and-master-preservation-cb2246e.log. No catálogo real ni reclasificación histórica.
+
+## Comprobación de publicación
+
+`coordination-check.json`: PASS;125 fichas, únicamente009/010 actualizadas;78 tareas posteriores NOT STARTED. Tasks §§6–7, todas las fuentes APPROVED y29 migraciones anteriores idénticas a la base. Producto y fuentes de ensayos sin cambios desde cb2246e; solo evidencia/coordinación y el complemento recuperable como artefacto textual. `git diff --check` y diff agregado contra fd1c1e1: PASS. Fetch previo confirma origin/main en base autorizada. Hashes de originales comprimidos: PASS.

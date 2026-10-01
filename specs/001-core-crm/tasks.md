@@ -6,8 +6,8 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 IN PROGRESS, H2-001–008 COMPLETED local/aislado; H2-009–012 y H3–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 IN PROGRESS, H2-001–008 COMPLETED local/aislado; H2-009–012 y H3–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 IN PROGRESS, H2-001–010 COMPLETED local/aislado; H2-011–012 y H3–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 IN PROGRESS, H2-001–010 COMPLETED local/aislado; H2-011–012 y H3–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-01
 
@@ -882,7 +882,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H2-009 — Convertir cadena normal/directa en Booking íntegra
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H2. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Registro: [evidence-TSK-H2-009.md](evidence-TSK-H2-009.md). Hito: H2. Tipo: implementación.
 - **Objetivo y alcance:** Una Booking por Opportunity aceptada; prestaciones, modalidades, contribuciones, cantidades, noches y asignación nominal opcional inicial.
 - **Fuentes exactas:** Plan §§5.1, 7.2–7.3, 9; SPEC-FR-ID-004, SPEC-FR-COM-002, SPEC-FR-PROP-003, SPEC-FR-BOOK-001, SPEC-FR-BOOK-002, SPEC-FR-BOOK-003, SPEC-FR-SVC-001, SPEC-FR-SVC-002, SPEC-FR-SVC-003, SPEC-FR-SVC-004, SPEC-FR-CONC-002, AC-014, AC-015, AC-016, AC-017, AC-019, AC-068, D018. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H2-009.
 - **Bloques, contratos y unidades:** B03/B04/B07/B08; C01/C02/C03/C04; T01/T02/T03.
@@ -893,14 +893,14 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Salida observable:** Booking Pendiente de preparación con cadena, términos y detalle obligatorio íntegros; sin fondos ni confirmación operacional implícitos.
 - **Verificación y esperado:** Dos altas simultáneas y reintento tras respuesta perdida devuelven una Booking completa; clave distinta sobre misma Opportunity tampoco crea segunda. Fallos intermedios hacen rollback de unidad; preparaciones previas válidas siguen preparaciones. Sin Lead/envíos/factores aceptados ficticios. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H2-010].
 - **Integración adicional obligatoria:** [TSK-H2-011], [TSK-H4-021], [TSK-H6-001], [TSK-H6-002], [TSK-H6-003], [TSK-H6-016]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** [evidence-TSK-H2-009.md](evidence-TSK-H2-009.md): expected previo; commit probado `cb2246ea4830fdf08a3a723bfc759309716712ca`; R01–R66 66/66 PASS +2/2 reproducers históricos y complemento V-MIG PASS. V-DOM/DAT/MIG/AT/SM/NEG/EVI. Regresión579/579 PostgreSQL17.11 +81/81 unitarias, gates completos PASS,0FAIL/skipped/cancelled. F01/F02 CLOSED local/aislado, originales/FAIL conservados. H2 IN PROGRESS,011+/H3–H6 NOT STARTED; sin efectos económicos/operativos/externos/hosted/Production/datos reales.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T01/T02/T03 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h2-010"></a>
 
 #### TSK-H2-010 — Verificar: Convertir cadena normal/directa en Booking íntegra
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H2. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Registro: [evidence-TSK-H2-010.md](evidence-TSK-H2-010.md). Hito: H2. Tipo: comprobación.
 - **Objetivo y alcance:** Una Booking por Opportunity aceptada; prestaciones, modalidades, contribuciones, cantidades, noches y asignación nominal opcional inicial.
 - **Fuentes exactas:** Plan §§5.1, 7.2–7.3, 9; SPEC-FR-ID-005, SPEC-FR-COM-002, SPEC-FR-BOOK-001, SPEC-FR-BOOK-002, SPEC-FR-BOOK-003, SPEC-FR-SVC-001, SPEC-FR-IDEMP-001, SPEC-FR-IDEMP-002, SPEC-FR-CONC-002, SPEC-FR-CONC-003, AC-014, AC-015, AC-016, AC-068, D018. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H2-010.
 - **Bloques, contratos y unidades:** B03/B04/B07/B08; C01/C02/C03/C04; T01/T02/T03.
@@ -910,7 +910,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H2-009; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Booking Pendiente de preparación con cadena, términos y detalle obligatorio íntegros; sin fondos ni confirmación operacional implícitos. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Dos altas simultáneas y reintento tras respuesta perdida devuelven una Booking completa; clave distinta sobre misma Opportunity tampoco crea segunda. Fallos intermedios hacen rollback de unidad; preparaciones previas válidas siguen preparaciones. Sin Lead/envíos/factores aceptados ficticios. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** [evidence-TSK-H2-010.md](evidence-TSK-H2-010.md): expected previo; commit probado `cb2246ea4830fdf08a3a723bfc759309716712ca`; R01–R66 66/66 PASS +2/2 reproducers históricos y complemento V-MIG PASS. V-DOM/DAT/MIG/AT/SM/NEG/EVI. Regresión579/579 PostgreSQL17.11 +81/81 unitarias, gates completos PASS,0FAIL/skipped/cancelled. F01/F02 CLOSED local/aislado, originales/FAIL conservados. H2 IN PROGRESS,011+/H3–H6 NOT STARTED; sin efectos económicos/operativos/externos/hosted/Production/datos reales.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T01/T02/T03 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h2-011"></a>
