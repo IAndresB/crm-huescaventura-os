@@ -1,6 +1,6 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-Actualización 2026-10-01: H0 COMPLETED técnico/local/aislado; **H1 COMPLETED en alcance local/aislado**, H1-001–019 COMPLETED. [Cierre H1-019](../specs/001-core-crm/evidence-TSK-H1-019.md): nueve parejas implementación/verificación PASS, PM-01–13 acreditados, siete migraciones históricas H1 intactas y ningún Fxx material abierto. Regresión nueva PostgreSQL 330/330 y unitarias 71/71 PASS. H2–H6 NOT STARTED. PLAN-AUTH-001–006, PLAN-PENDING-003, DM-PENDING-005, BR-PENDING-022 y demás pendientes conservados; datos/prioridad/plazos/fiscalidad/referencia contractual/límites y privacidad reales no acreditados. H1/Storage NO ACREDITADOS hosted; Production no autorizada.
+Actualización 2026-10-01: H0 COMPLETED técnico/local/aislado y H1 COMPLETED local/aislado conservados. **TSK-H2-001/002 COMPLETED local/aislado**, H2 IN PROGRESS únicamente por este bloque: [implementación](../specs/001-core-crm/evidence-TSK-H2-001.md) y [verificación independiente](../specs/001-core-crm/evidence-TSK-H2-002.md), R01–R20 20/20 PASS; regresión nueva 356/356 PostgreSQL + 75/75 unitarias PASS. H2-002-F01/F02 CLOSED, FAIL/reproducers preservados. H2-003 y posteriores/H3–H6 NOT STARTED; STOP tras H2-002. PLAN-AUTH-001–006, PLAN-PENDING-003 en su parte abierta, DM-PENDING-005, BR-PENDING-022 y demás pendientes conservados. Datos personales/comerciales, catálogo/tarifas/costes/capacidades y prioridades/plazos reales no acreditados; hosted H2 no acreditado; Production no autorizada. Sin conectores/envíos/pagos/proveedores reales.
 
 Status: ACTIVE
 Last updated: 2026-10-01
@@ -71,9 +71,12 @@ Last updated: 2026-10-01
 - H1-005/006: catálogo estructural versionado, relaciones Provider/Offering, unidades/formas de precio y referencias aplicadas inmutables; matriz formal R01–R10 PASS con PostgreSQL efímero y datos sintéticos. No hay tarifas, capacidades, disponibilidad ni otros datos comerciales **reales** acreditados; hosted y Production siguen pendientes.
 - H1-007/008: Tariff, Pack, Promotion y reglas/requisitos estructurales versionados con snapshots aplicados; personalización sin maestro y promoción manual trazable; desconocidos explícitos. Matriz formal R01–R11 PASS tras corregir H1-008-F01–F04, incluido fallo de compatibilidad de migración detectado en regresión. BR-PENDING-022 sigue abierto para tratamiento/tipos fiscales reales; no se acreditan tarifas, costes, capacidades ni requisitos comerciales reales; el cálculo monetario se acredita por H1-009/010.
 
+- TSK-H2-001 — COMPLETED local/aislado el 2026-10-01: [captación/progreso](../specs/001-core-crm/evidence-TSK-H2-001.md), Lead/Opportunity con exactamente tres mínimos, contexto/procedencia/historia, OP H1 reutilizado y guardas de progreso/pérdida/pausa/reactivación/retroceso. No Acceptance positiva/SM-OP-07 ni Booking/economía/operación por arrastre.
+- TSK-H2-002 — COMPLETED local/aislado el 2026-10-01: [matriz independiente](../specs/001-core-crm/evidence-TSK-H2-002.md), commit de producto probado `6aba8be5dfffdca46c355b405314fb261643869b`, R01–R20 20/20 PASS, V-DOM/DAT/MIG/AT/SM/NEG/EVI; regresión 356/356 PostgreSQL y 75/75 unitarias. F01/F02 CLOSED, historia de FAIL intacta. Proposal/Version dependiente OP-04/05 y preparación OP-10 permanecen pendientes de sus tareas, igual que integración Acceptance H2-008/E2E H6. H2 no COMPLETED; H2-003 y posteriores NOT STARTED.
+
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 COMPLETED en alcance local/aislado con H1-001–019 COMPLETED localmente; H2–H6 NOT STARTED.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED en alcance técnico/local/aislado. H1 COMPLETED en alcance local/aislado con H1-001–019 COMPLETED localmente; H2 IN PROGRESS solo por H2-001/002 COMPLETED local/aislado; H2-003 y posteriores/H3–H6 NOT STARTED. STOP tras H2-002.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending

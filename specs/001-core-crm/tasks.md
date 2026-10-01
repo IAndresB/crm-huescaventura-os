@@ -6,8 +6,8 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 IN PROGRESS, solo H2-001/002 COMPLETED local/aislado; H2-003–012 y H3–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 IN PROGRESS, solo H2-001/002 COMPLETED local/aislado; H2-003–012 y H3–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-01
 
@@ -742,7 +742,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H2-001 — Registrar captación y progreso comercial
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H2. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: [H2-001](evidence-TSK-H2-001.md), PASS — 2026-10-01.** Hito: H2. Tipo: implementación.
 - **Objetivo y alcance:** Lead/Opportunity, mínimos, contexto, estados, pausa/pérdida/reactivación con pruebas; Ganada delega en Acceptance verificada.
 - **Fuentes exactas:** Plan §§4, 7.3; SPEC-FR-COM-001, SPEC-FR-COM-002, SPEC-FR-COM-003, SPEC-FR-COM-004, SPEC-FR-COM-005, AC-001, AC-004, AC-005, AC-006. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H2-001.
 - **Bloques, contratos y unidades:** B03/B07; C01/C02/C03/C04; T02.
@@ -753,14 +753,14 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Salida observable:** Progreso comercial y motivos verificables sin estados operativos ni económicos por arrastre.
 - **Verificación y esperado:** Tres mínimos permiten Opportunity sin scoring/fecha final; falta cada mínimo impide convertir; pérdida sin motivo rechazada, desconocido admitido; reactivación conserva historia y no revalida tarifa ni salta a Ganada. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H2-002].
 - **Integración adicional obligatoria:** [TSK-H2-008], [TSK-H6-001]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **SATISFACTORIA local/aislada**: [H2-001](evidence-TSK-H2-001.md); R01–R20 20/20 PASS, R19 permisos/migración PASS y regresión 356/356 PostgreSQL + 75/75 unitarias. H2-002-F01/F02 CLOSED localmente, FAIL y reproducers conservados. SM-OP-04/05 y preparación OP-10 solo en su límite comercial/dependencia pendiente; integraciones Proposal/Version/Acceptance posteriores no acreditadas, SM-OP-07 no implementada ni acreditada; E2E-01 total pendiente H6. H2-003 y posteriores NOT STARTED; STOP tras este bloque.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T02 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h2-002"></a>
 
 #### TSK-H2-002 — Verificar: Registrar captación y progreso comercial
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H2. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: [H2-002](evidence-TSK-H2-002.md), PASS — 2026-10-01.** Hito: H2. Tipo: comprobación.
 - **Objetivo y alcance:** Lead/Opportunity, mínimos, contexto, estados, pausa/pérdida/reactivación con pruebas; Ganada delega en Acceptance verificada.
 - **Fuentes exactas:** Plan §§4, 7.3; SPEC-FR-COM-001, SPEC-FR-COM-002, SPEC-FR-COM-003, SPEC-FR-COM-004, SPEC-FR-COM-005, AC-001, AC-004, AC-005, AC-006. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H2-002.
 - **Bloques, contratos y unidades:** B03/B07; C01/C02/C03/C04; T02.
@@ -770,7 +770,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H2-001; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Progreso comercial y motivos verificables sin estados operativos ni económicos por arrastre. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Tres mínimos permiten Opportunity sin scoring/fecha final; falta cada mínimo impide convertir; pérdida sin motivo rechazada, desconocido admitido; reactivación conserva historia y no revalida tarifa ni salta a Ganada. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **SATISFACTORIA local/aislada**: [H2-002](evidence-TSK-H2-002.md); R01–R20 20/20 PASS, R19 permisos/migración PASS y regresión 356/356 PostgreSQL + 75/75 unitarias. H2-002-F01/F02 CLOSED localmente, FAIL y reproducers conservados. SM-OP-04/05 y preparación OP-10 solo en su límite comercial/dependencia pendiente; integraciones Proposal/Version/Acceptance posteriores no acreditadas, SM-OP-07 no implementada ni acreditada; E2E-01 total pendiente H6. H2-003 y posteriores NOT STARTED; STOP tras este bloque.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T02 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h2-003"></a>

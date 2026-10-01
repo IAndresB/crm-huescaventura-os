@@ -1,10 +1,10 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
-Actualización 2026-10-01: H0 COMPLETED técnico/local/aislado; **H1 COMPLETED en alcance local/aislado**, H1-001–019 COMPLETED. [Cierre H1-019](../specs/001-core-crm/evidence-TSK-H1-019.md): nueve parejas implementación/verificación PASS, PM-01–13 acreditados, siete migraciones históricas H1 intactas y ningún Fxx material abierto. Regresión nueva PostgreSQL 330/330 y unitarias 71/71 PASS. H2–H6 NOT STARTED. PLAN-AUTH-001–006, PLAN-PENDING-003, DM-PENDING-005, BR-PENDING-022 y demás pendientes conservados; datos/prioridad/plazos/fiscalidad/referencia contractual/límites y privacidad reales no acreditados. H1/Storage NO ACREDITADOS hosted; Production no autorizada.
+Actualización 2026-10-01: H0 COMPLETED técnico/local/aislado y H1 COMPLETED local/aislado conservados. **TSK-H2-001/002 COMPLETED local/aislado**, H2 IN PROGRESS únicamente por este bloque: [implementación](../specs/001-core-crm/evidence-TSK-H2-001.md) y [verificación independiente](../specs/001-core-crm/evidence-TSK-H2-002.md), R01–R20 20/20 PASS; regresión nueva 356/356 PostgreSQL + 75/75 unitarias PASS. H2-002-F01/F02 CLOSED, FAIL/reproducers preservados. H2-003 y posteriores/H3–H6 NOT STARTED; STOP tras H2-002. PLAN-AUTH-001–006, PLAN-PENDING-003 en su parte abierta, DM-PENDING-005, BR-PENDING-022 y demás pendientes conservados. Datos personales/comerciales, catálogo/tarifas/costes/capacidades y prioridades/plazos reales no acreditados; hosted H2 no acreditado; Production no autorizada. Sin conectores/envíos/pagos/proveedores reales.
 
 ## Current Step
 
-**Estado vigente:** H0 cerrado técnico/local/aislado. **H1 cerrado local/aislado por TSK-H1-019**, con H1-001–019 COMPLETED y matriz/regresión final PASS. La siguiente fase autorizable es H2; **H2–H6 permanecen NOT STARTED**. H2 requiere una nueva instrucción humana: no iniciar H2-001, ni crear Lead/Opportunity, Proposal, Acceptance o Booking. Las capacidades disponibles y los límites de integración están en la evidencia de cierre. PLAN-AUTH-001–006, DM-PENDING-005, BR-PENDING-022 y demás pendientes globales/datos reales conservados; sin hosted/Production ni efectos externos reales. STOP tras H1-019.
+**Estado vigente:** H0 y H1 cerrados en sus alcances locales. La autorización exclusiva H2-001/002 está cumplida: captación/progreso comercial implementados y verificación independiente R01–R20 PASS, con regresión nueva 356/356 PostgreSQL y 75/75 unitarias. Evidencia y correcciones F01/F02 preservadas. **STOP obligatorio tras H2-002. H2-003 y posteriores/H3–H6 siguen NOT STARTED**; no preparar ni avanzar otra tarea sin nueva autorización. Proposal/Version y Acceptance positivas, SM-OP-07, Booking, economía/operación, E2E-01 integrado, datos reales, hosted H2 y Production continúan pendientes. PLAN-AUTH-001–006, PLAN-PENDING-003 abierto parcialmente, DM-PENDING-005, BR-PENDING-022 y demás pendientes conservados.
 
 **Los párrafos siguientes conservan la coordinación y los puntos de parada históricos de H0.**
 
@@ -61,7 +61,7 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 COMPLETED en alcance técnico/local/aislado: TSK-H0-001–018 COMPLETED en sus respectivos alcances; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY. H1 COMPLETED en alcance local/aislado con H1-001–019 COMPLETED localmente; H2–H6 NOT STARTED.
+9. implementación — H0 COMPLETED en alcance técnico/local/aislado: TSK-H0-001–018 COMPLETED en sus respectivos alcances; F01–F05 de H0-012 CLOSED localmente, D039 IMPLEMENTED LOCALLY. H1 COMPLETED en alcance local/aislado con H1-001–019 COMPLETED localmente; H2 IN PROGRESS solo por H2-001/002 COMPLETED local/aislado; H2-003 y posteriores/H3–H6 NOT STARTED. STOP tras H2-002.
 
 ## Working Rule
 

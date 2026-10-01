@@ -110,3 +110,29 @@ Corrección mínima: comprobar tipo JSON string de channel/address/sourceRef de 
 
 
 F02: corrección implementada también en validación del adaptador para devolver rechazo explícito ante procedencia/motivo numéricos. Reejecución completa R01–R20 tras corrección PASS, incluyendo los tres campos de contacto numéricos y procedencia/motivo vacíos o numéricos, con snapshots idénticos. El reproducer `tests/integration/postgres-h2-002-f02.test.ts` carga SQL histórico a5bbb06 en cluster propio y reproduce exactamente el alta incorrecta; **1/1 PASS de reproducción**, 1250.427542 ms, `tests/fixtures/h2-002/f02-reproduced.txt`. Expected actual positivo/negativo permanece en R01 del verifier actual. Matriz exacta del commit de corrección y regresión nueva pendientes; F02 todavía no se cierra por la regresión anterior.
+
+
+## Cierre formal final y regresión posterior a F02
+
+**Commit probado exacto: `6aba8be5dfffdca46c355b405314fb261643869b`.** Última matriz reforzada R01–R20 **20/20 PASS**, 3889.15 ms; cero fallos/skipped/cancelled. Transcript final `tests/fixtures/h2-002/final-formal.txt`. R01 incluye dirección/canal/fuente de contacto numéricos y procedencia/motivo vacíos o numéricos, rechazados tanto por contrato servidor como por SQL firmado independiente, sin Opportunity/contexto/OP/historia parcial. El resto de filas vuelve a ejecutarse íntegramente, sin heredar el PASS anterior. R19 suplementario reejecutado sobre este commit: 42 relaciones, 73 políticas y 56 funciones H0/H1 idénticas antes/después; mismos roles/membresías/schemas/ACL/definiciones.
+
+**F01 CLOSED localmente; F02 CLOSED localmente; 0 Fxx materiales abiertos.** Ambos FAIL, expected, observed, materialidad, correcciones y reproducciones históricas recuperables se conservan. No se ha amendado ni reescrito historia. Todas las migraciones H0/H1 son idénticas a la base; únicamente se añade H2. Las dos reproducciones históricas incluidas en el runner acreditan la conservación de los defectos originales; el contrato actual lo acredita la matriz final separada.
+
+Regresión nueva después de matriz PASS, mismo commit de producto:
+
+| Comando | Observed |
+|---|---|
+| `pnpm install --frozen-lockfile` | PASS, lockfile intacto, ya actualizado, 259ms según transcript |
+| `pnpm run typecheck` | PASS |
+| `pnpm run lint` | PASS, fronteras de imports |
+| `pnpm test` | **75/75 PASS**, 0 fail/skipped/cancelled, 456.490083 ms |
+| `POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin pnpm run test:postgres` | **356/356 PASS**, 0 fail/skipped/cancelled, 397698.539583 ms; runner completo sin filtros H0/H1/H2 y Storage oficial privado aislado |
+| `pnpm run build` | PASS, Next.js 16.3.6 |
+| `pnpm audit --prod` | PASS, No known vulnerabilities found |
+| `git diff --check` | PASS |
+
+Resumen recuperable con salida real: `tests/fixtures/h2-002/final-regression-summary.txt`. Los 356 se descomponen en 330 anteriores + 4 focales PostgreSQL H2 + 20 formales H2 + 2 reproducciones históricas F01/F02; los 75 unitarios son 71 anteriores + 4 H2. Ninguna prueba H0/H1 se elimina, salta o debilita. Runner Storage conserva la fuente oficial congelada `5def1dfc15ab7f08fe271c7d1e70542424524e4e`; esto acredita solo aislamiento local. Los clústeres/Storage efímeros se destruyen tras los ensayos, sin credenciales en evidencia.
+
+Resultado: **TSK-H2-002 COMPLETED local/aislado**; TSK-H2-001 satisfecha en su alcance autorizado. Las ramas integradas futuras y los pendientes de la sección Límites permanecen abiertos. H2 no COMPLETED. H2-003 y posteriores/H3–H6 NOT STARTED. STOP obligatorio después de publicar evidencia y coordinación, sin preparación de la tarea siguiente.
+
+Publicación: implementación `00cf358c24829d21529893eaf846ad40ab931bec`, corrección F01/verifier `a5bbb06e323e897d853a5ea9527bc3a931a814fc`, corrección F02/verifier final `6aba8be5dfffdca46c355b405314fb261643869b`. Este cierre se publica en el commit posterior de evidencia/coordinación; su SHA exacto se obtiene del historial y se informa tras push y comprobación main limpio/HEAD = origin/main. No se introduce un SHA autorreferencial ficticio en el documento.
