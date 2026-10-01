@@ -117,3 +117,17 @@ Cada Rxx ejecutará expected anterior en PostgreSQL17 aislado con datos sintéti
 ## Pendientes preservados
 
 PLAN-AUTH-001–006 globales, PLAN-PENDING-003 abierto parcialmente, DM-PENDING-005, BR-PENDING-022/033, datos/políticas personales/comerciales reales, catálogo/tarifas/costes/capacidades reales, prioridades/plazos reales. Hosted H2 no acreditado; Production no autorizada. H2-005+/H3–H6 NOT STARTED.
+
+## Primera ejecución formal conservada
+
+Commit probado `69a0ef1bb2bf012bb29e65a1bcd36e560c9cd944`. PostgreSQL17.11 real aislado; R01–R38: 34 PASS / 4 FAIL, 0 skipped/cancelled. Log y verificador originales en `tests/fixtures/h2-004/first-formal.log` y `first-verifier.ts.txt`.
+
+**H2-004-F01 OPEN — MATERIAL**. R20, expected PM09: reconstrucción de snapshot monetario persistido equivale exactamente a cálculo histórico. Observed: `MONEY_HISTORY_MISMATCH` tras roundtrip jsonb por orden de claves diferente. Materialidad: impediría reconstrucción histórica aunque bases/valores permanecen correctos. Reproducer: fixture R20 contra SHA anterior y módulo anterior `exact-money-69a0ef1.ts.txt`. Corrección prevista: comparación estructural canónica, conservando arrays, tipos y todos los valores; no recalcular ni cambiar importes históricos. Estado CLOSED solo tras nueva matriz completa PASS y regresión.
+
+R11/R32/R37: defectos del verificador, no del producto. R11 comparó historia base sin código con proyección enriquecida PR; R32 JOIN nombró operation_id inexistente en history (history_id referencia operación); R37 incluyó índices nuevos en comparación de columnas anteriores. Expected permanece; corregir consulta/comparación y rerun. Tipos del verificador corregibles, sin cambio normativo.
+
+## Reverificación y cobertura ampliada
+
+Segunda ejecución completa: 38/38 PASS sobre implementación + corrección F01, antes del commit corrector; log `second-formal.log`. La comparación canónica conserva valores/tipos/orden de arrays; una alteración real del importe sigue produciendo MONEY_HISTORY_MISMATCH. F01 FIX IMPLEMENTED / PENDING FINAL REGRESSION.
+
+**H2-004-F02 OPEN — MATERIAL**. La extensión positiva de R38 crea estimación con Evidence revisada explícita de la regla BR-ECON-001, fija contenido no definitivo y consulta proyección comercial. Expected BR-PROP-003/DM-INV-001: importe mostrado con etiqueta de estimación, sin compromiso confirmado. Observed: string100.01 sin certeza/etiqueta. Tercera matriz: 37/38 PASS / 1 FAIL, 0 skipped/cancelled. Verificador/log/SQL original preservados en `f02-verifier.ts.txt`, `third-formal.log`, `proposal-69a0ef1.sql.txt`. Corrección prevista: el campo precio final de la misma proyección mínima conserva amount + certainty estimated/pending para alcance no definitivo, sin desglose reservado ni implementar envío/vigencia/Acceptance.
