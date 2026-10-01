@@ -100,3 +100,9 @@ R40: guardas de cobertura SM-PV-08/AC-086 se aplican a todo contenido incluido: 
 | F03 | R42: null/string en revisiones debe rechazar | Quinta/sexta ejecución: intención escrita con revisión null | Material, omite concurrencia. Validación SQL tipos y presencia, además de comparación bajo locks | OPEN hasta matriz y regresión |
 
 Original de migración `offer-ac6d770.sql.txt`, verifier `sixth-verifier.ts.txt` y FAIL/logs completos en `tests/fixtures/h2-006/`. Primera matriz39/39 PASS; ampliaciones conservadas. Tercera ejecución falló por fixture H1 expectedVersion=1 incorrecto (contexto empieza0), corregido solo en harness sin cambiar expected. R41 inicial usaba destinatario original por cierre del helper: se corrigió antes del FAIL material auténtico en sexta ejecución.
+
+### F04 — límite anterior a emisión
+
+Expected R43 fijado antes de décima ejecución: SM-PV-04 requiere alcance ofrecido vigente en el momento evaluado; un acto anterior a emisión no acredita vigencia (BR-PROP-004/DM-INV-011/G2). Observed: `pending=false` y escritura permitida antes de emisión, Missing expected rejection. Materialidad: condición temporal indebida para acto; no hubo Acceptance. Corrección: comprobar emisión antes de evaluación, igual que envío/revalidación. Original `offer-12814f4.sql.txt` y `tenth-verifier.ts.txt`, FAIL original `tenth-formal.log`. Estado OPEN hasta matriz completa y regresión. La primera regresión iniciada sobre12814f4 se conserva como anterior a F04; no acredita el estado corregido.
+
+Repetición posterior a F04: matriz43/43 PASS y2/2 reproducers históricos PASS (`twelfth-formal.log`), sin skipped/cancelled. Undécima ejecución:43 casos actuales PASS, reproducerF04 no arrancó por ruta de socket Unix macOS >103bytes; log PostgreSQL nativo conservado en `historical-harness-socket.log`. Se acortó exclusivamente la etiqueta sintética del cluster; expected y reglas no cambiados.

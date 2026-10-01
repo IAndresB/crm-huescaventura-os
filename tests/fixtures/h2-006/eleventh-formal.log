@@ -1,0 +1,269 @@
+✔ H2-006 preserved F01/F02/F03 reproduce on archived implementation (6356.994458ms)
+✖ H2-006 preserved F04 reproduces on archived temporal guard (1089.524458ms)
+✔ R01 default seven days/configuration (1393.188416ms)
+✔ R02 most restrictive material limit (43.28475ms)
+✔ R03 limit/source guards (65.745375ms)
+✔ R04 inside/outside expiry without rejection (136.320542ms)
+✔ R05 uncertainty evidence and missing source (53.677167ms)
+✔ R06 act revalidation preserves original (108.046875ms)
+✔ R07 each material review guard (175.611584ms)
+✔ R08 exact act scope/time/version revalidation (223.70625ms)
+✔ R09 no silent reissue/new validity (85.438167ms)
+✔ R10 new condition requires T01 replacement retains v1 (69.194084ms)
+✔ R11 intent not sent or received (27.566541ms)
+✔ R12 real manual send exact commercial effects (41.782709ms)
+✔ R13 every send guard invalidated (535.968542ms)
+✔ R14 approval/intention/AI not send (153.322333ms)
+✔ R15 expired no review blocks (140.407917ms)
+✔ R16 expired act review permits exact send not extension (107.926584ms)
+✔ R17 unknown material costs retained not zero (70.543167ms)
+✔ R18 rejection modality no whole loss (46.42625ms)
+✔ R19 rejection version/line retains exact history (71.23575ms)
+✔ R20 each rejection guard removed (569.423792ms)
+✔ R21 read/silence/nonselection never acceptance/rejection (320.140834ms)
+✔ R22 rejected scope cannot reuse without current review (105.830417ms)
+✔ R23 no positive Acceptance/Ganada/economy operations (334.649166ms)
+✔ R24 direct ordinary SQL denies update/delete/insert (178.803292ms)
+✔ R25 FORCE RLS ownership and minimum ACL (1.290875ms)
+✔ R26 absent context no writes (59.605542ms)
+✔ R27 forged scope or signature no writes (94.448125ms)
+✔ R28 disabled actor read/write/replay denied (102.427833ms)
+✔ R29 no provisioned actor and ordinary API role (36.189625ms)
+✔ R30 prewrite fault atomic (100.9075ms)
+✔ R31 late fault rolls back send/Commercial/history/result (113.054ms)
+✔ R32 lost postcommit response and equivalent replay (187.572125ms)
+✔ R33 changed replay is conflict (107.231791ms)
+✔ R34 concurrent sessions both orders one winner (89.5295ms)
+✔ R35 independent connection sees append history/results/exact refs (36.504833ms)
+✔ R36 migration preserves every prior row and ACL (1.221125ms)
+✔ R37 empty full chain native PG17 (277.80825ms)
+✔ R38 published migrations bytewise unchanged (17.542875ms)
+✔ R39 dimensions separate and no future objects (1.095042ms)
+✔ R40 aggregate send must include rejected modality review (141.779167ms)
+✔ R41 attributable rejection requires responsible context identity (159.855417ms)
+✔ R42 missing/null/typed revisions cannot bypass concurrency (393.02725ms)
+✔ R43 validity cannot be accredited before original issuance (116.56025ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 44
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7661.685
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-006-defects.test.ts:14:1
+✖ H2-006 preserved F04 reproduces on archived temporal guard (1089.524458ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /fail 1/. Input:
+  
+  '✖ R01 default seven days/configuration (764.977708ms)\n' +
+    '✖ R02 most restrictive material limit (0.368333ms)\n' +
+    '✖ R03 limit/source guards (0.112958ms)\n' +
+    '✖ R04 inside/outside expiry without rejection (0.029542ms)\n' +
+    '✖ R05 uncertainty evidence and missing source (0.0325ms)\n' +
+    '✖ R06 act revalidation preserves original (0.022542ms)\n' +
+    '✖ R07 each material review guard (0.028208ms)\n' +
+    '✖ R08 exact act scope/time/version revalidation (0.031958ms)\n' +
+    '✖ R09 no silent reissue/new validity (0.048583ms)\n' +
+    '✖ R10 new condition requires T01 replacement retains v1 (0.077125ms)\n' +
+    '✖ R11 intent not sent or received (0.01975ms)\n' +
+    '✖ R12 real manual send exact commercial effects (0.019417ms)\n' +
+    '✖ R13 every send guard invalidated (0.014ms)\n' +
+    '✖ R14 approval/intention/AI not send (0.018417ms)\n' +
+    '✖ R15 expired no review blocks (0.025625ms)\n' +
+    '✖ R16 expired act review permits exact send not extension (0.014583ms)\n' +
+    '✖ R17 unknown material costs retained not zero (0.014584ms)\n' +
+    '✖ R18 rejection modality no whole loss (0.013292ms)\n' +
+    '✖ R19 rejection version/line retains exact history (0.015791ms)\n' +
+    '✖ R20 each rejection guard removed (0.027792ms)\n' +
+    '✖ R21 read/silence/nonselection never acceptance/rejection (0.022667ms)\n' +
+    '✖ R22 rejected scope cannot reuse without current review (0.023084ms)\n' +
+    '✖ R23 no positive Acceptance/Ganada/economy operations (0.023125ms)\n' +
+    '✖ R24 direct ordinary SQL denies update/delete/insert (0.023042ms)\n' +
+    '✖ R25 FORCE RLS ownership and minimum ACL (0.01625ms)\n' +
+    '✖ R26 absent context no writes (0.027875ms)\n' +
+    '✖ R27 forged scope or signature no writes (0.020792ms)\n' +
+    '✖ R28 disabled actor read/write/replay denied (0.0155ms)\n' +
+    '✖ R29 no provisioned actor and ordinary API role (0.015583ms)\n' +
+    '✖ R30 prewrite fault atomic (0.015875ms)\n' +
+    '✖ R31 late fault rolls back send/Commercial/history/result (0.022625ms)\n' +
+    '✖ R32 lost postcommit response and equivalent replay (0.077709ms)\n' +
+    '✖ R33 changed replay is conflict (0.084667ms)\n' +
+    '✖ R34 concurrent sessions both orders one winner (0.022541ms)\n' +
+    '✖ R35 independent connection sees append history/results/exact refs (0.01825ms)\n' +
+    '✖ R36 migration preserves every prior row and ACL (0.024292ms)\n' +
+    '✖ R37 empty full chain native PG17 (0.021417ms)\n' +
+    '✖ R38 published migrations bytewise unchanged (0.019916ms)\n' +
+    '✖ R39 dimensions separate and no future objects (0.016542ms)\n' +
+    '✖ R40 aggregate send must include rejected modality review (0.016167ms)\n' +
+    '✖ R41 attributable rejection requires responsible context identity (0.016167ms)\n' +
+    '✖ R42 missing/null/typed revisions cannot bypass concurrency (0.018958ms)\n' +
+    '✖ R43 validity cannot be accredited before original issuance (0.021375ms)\n' +
+    'ℹ tests 43\n' +
+    'ℹ suites 0\n' +
+    'ℹ pass 0\n' +
+    'ℹ fail 43\n' +
+    'ℹ cancelled 0\n' +
+    'ℹ skipped 0\n' +
+    'ℹ todo 0\n' +
+    'ℹ duration_ms 950.975125\n' +
+    '\n' +
+    '✖ failing tests:\n' +
+    '\n' +
+    'test at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:69:1\n' +
+    '✖ R01 default seven days/configuration (764.977708ms)\n' +
+    '  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n' +
+    '  Examine the log output.\n' +
+    '  \n' +
+    '  \n' +
+    '  1 !== 0\n' +
+    '  \n' +
+    '      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n' +
+    '      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n' +
+    '      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n' +
+    '      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n' +
+    '      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n' +
+    '      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n' +
+    '    generatedMessage: false,\n' +
+    "    code: 'ERR_ASSERTION',\n" +
+    '    actual: 1,\n' +
+    '    expected: 0,\n' +
+    "    operator: 'strictEqual',\n" +
+    "    diff: 'simple'\n" +
+    '  }\n' +
+    '\n' +
+    'test at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:70:1\n' +
+    '✖ R02 most restrictive material limit (0.368333ms)\n' +
+    '  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n' +
+    '  Examine the log output.\n' +
+    '  \n' +
+    '  \n' +
+    '  1 !== 0\n' +
+    '  \n' +
+    '      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n' +
+    '      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n' +
+    '      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n' +
+    '      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n' +
+    '      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n' +
+    '      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n' +
+    '    generatedMessage: false,\n' +
+    "    code: 'ERR_ASSERTION',\n" +
+    '    actual: 1,\n' +
+    '    expected: 0,\n' +
+    "    operator: 'strictEqual',\n" +
+    "    diff: 'simple'\n" +
+    '  }\n' +
+    '\n' +
+    'test at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:71:1\n' +
+    '✖ R03 limit/source guards (0.112958ms)\n' +
+    '  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n' +
+    '  Examine the log output.\n' +
+    '  \n' +
+    '  \n' +
+    '  1 !== 0\n' +
+    '  \n' +
+    '      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n' +
+    '      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n' +
+    '      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n' +
+    '      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n' +
+    '      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n' +
+    '      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n' +
+    '    generatedMessage: false,\n' +
+    "    code: 'ERR_ASSERTION',\n" +
+    '    actual: 1,\n' +
+    '    expected: 0,\n' +
+    "    operator: 'strictEqual',\n" +
+    "    diff: 'simple'\n" +
+    '  }\n' +
+    '\n' +
+    'test at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:72:1\n' +
+    '✖ R04 inside/outside expiry without rejection (0.029542ms)\n' +
+    '  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n' +
+    '  Examine the log output.\n' +
+    '  \n' +
+    '  \n' +
+    '  1 !== 0\n' +
+    '  \n' +
+    '      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n' +
+    '      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n' +
+    '      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n' +
+    '      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n' +
+    '      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n' +
+    '      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n' +
+    '    generatedMessage: false,\n' +
+    "    code: 'ERR_ASSERTION',\n" +
+    '    actual: 1,\n' +
+    '    expected: 0,\n' +
+    "    operator: 'strictEqual',\n" +
+    "    diff: 'simple'\n" +
+    '  }\n' +
+    '\n' +
+    'test at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:73:1\n' +
+    '✖ R05 uncertainty evidence and missing source (0.0325ms)\n' +
+    '  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n' +
+    '  Examine the log output.\n' +
+    '  \n' +
+    '  \n' +
+    '  1 !== 0\n' +
+    '  \n' +
+    '      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n' +
+    '      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n' +
+    '      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n' +
+    '      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n' +
+    '      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n' +
+    '      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n' +
+    '    generatedMessage: false,\n' +
+    "    code: 'ERR_ASSERTION',\n" +
+    '    actual: 1,\n' +
+    '    expected: 0,\n' +
+    "    operator: 'strictEqual',\n" +
+    "    diff: 'simple'\n" +
+    '  }\n' +
+    '\n' +
+    'test at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:74:1\n' +
+    '✖ R06 act revalidation preserves original (0.022542ms)\n' +
+    '  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n' +
+    '  Examine the log output.\n' +
+    '  \n' +
+    '  \n' +
+    '  1 !== 0\n' +
+    '  \n' +
+    '      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n' +
+    '      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n' +
+    '      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n' +
+    '      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n' +
+    '      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n' +
+    '      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n' +
+    '    generatedMessage: false,\n' +
+    "    code: 'ERR_ASSERTION',\n" +
+    '    actual: 1,\n' +
+    '    expected: 0,\n' +
+    "    operator: 'strictEqual',\n" +
+    "    diff: 'simple'\n" +
+    '  }\n' +
+    '\n' +
+    'test at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:75:1\n' +
+    '✖ R07 each material review guard (0.028208ms)\n' +
+    '  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n' +
+    '  Examine the log output.\n' +
+    '  \n' +
+    '  \n' +
+    '  1 !== 0\n' +
+    '  \n' +
+    '      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n' +
+    '      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n' +
+    '      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n' +
+    '      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10'... 40511 more characters
+  
+      at TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-006-defects.test.ts:19:285)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "✖ R01 default seven days/configuration (764.977708ms)\n✖ R02 most restrictive material limit (0.368333ms)\n✖ R03 limit/source guards (0.112958ms)\n✖ R04 inside/outside expiry without rejection (0.029542ms)\n✖ R05 uncertainty evidence and missing source (0.0325ms)\n✖ R06 act revalidation preserves original (0.022542ms)\n✖ R07 each material review guard (0.028208ms)\n✖ R08 exact act scope/time/version revalidation (0.031958ms)\n✖ R09 no silent reissue/new validity (0.048583ms)\n✖ R10 new condition requires T01 replacement retains v1 (0.077125ms)\n✖ R11 intent not sent or received (0.01975ms)\n✖ R12 real manual send exact commercial effects (0.019417ms)\n✖ R13 every send guard invalidated (0.014ms)\n✖ R14 approval/intention/AI not send (0.018417ms)\n✖ R15 expired no review blocks (0.025625ms)\n✖ R16 expired act review permits exact send not extension (0.014583ms)\n✖ R17 unknown material costs retained not zero (0.014584ms)\n✖ R18 rejection modality no whole loss (0.013292ms)\n✖ R19 rejection version/line retains exact history (0.015791ms)\n✖ R20 each rejection guard removed (0.027792ms)\n✖ R21 read/silence/nonselection never acceptance/rejection (0.022667ms)\n✖ R22 rejected scope cannot reuse without current review (0.023084ms)\n✖ R23 no positive Acceptance/Ganada/economy operations (0.023125ms)\n✖ R24 direct ordinary SQL denies update/delete/insert (0.023042ms)\n✖ R25 FORCE RLS ownership and minimum ACL (0.01625ms)\n✖ R26 absent context no writes (0.027875ms)\n✖ R27 forged scope or signature no writes (0.020792ms)\n✖ R28 disabled actor read/write/replay denied (0.0155ms)\n✖ R29 no provisioned actor and ordinary API role (0.015583ms)\n✖ R30 prewrite fault atomic (0.015875ms)\n✖ R31 late fault rolls back send/Commercial/history/result (0.022625ms)\n✖ R32 lost postcommit response and equivalent replay (0.077709ms)\n✖ R33 changed replay is conflict (0.084667ms)\n✖ R34 concurrent sessions both orders one winner (0.022541ms)\n✖ R35 independent connection sees append history/results/exact refs (0.01825ms)\n✖ R36 migration preserves every prior row and ACL (0.024292ms)\n✖ R37 empty full chain native PG17 (0.021417ms)\n✖ R38 published migrations bytewise unchanged (0.019916ms)\n✖ R39 dimensions separate and no future objects (0.016542ms)\n✖ R40 aggregate send must include rejected modality review (0.016167ms)\n✖ R41 attributable rejection requires responsible context identity (0.016167ms)\n✖ R42 missing/null/typed revisions cannot bypass concurrency (0.018958ms)\n✖ R43 validity cannot be accredited before original issuance (0.021375ms)\nℹ tests 43\nℹ suites 0\nℹ pass 0\nℹ fail 43\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 950.975125\n\n✖ failing tests:\n\ntest at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:69:1\n✖ R01 default seven days/configuration (764.977708ms)\n  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n  Examine the log output.\n  \n  \n  1 !== 0\n  \n      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:70:1\n✖ R02 most restrictive material limit (0.368333ms)\n  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n  Examine the log output.\n  \n  \n  1 !== 0\n  \n      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:71:1\n✖ R03 limit/source guards (0.112958ms)\n  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n  Examine the log output.\n  \n  \n  1 !== 0\n  \n      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:72:1\n✖ R04 inside/outside expiry without rejection (0.029542ms)\n  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n  Examine the log output.\n  \n  \n  1 !== 0\n  \n      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:73:1\n✖ R05 uncertainty evidence and missing source (0.0325ms)\n  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n  Examine the log output.\n  \n  \n  1 !== 0\n  \n      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:74:1\n✖ R06 act revalidation preserves original (0.022542ms)\n  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n  Examine the log output.\n  \n  \n  1 !== 0\n  \n      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10)\n      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:64:4)\n      at async TestHook.run (node:internal/test_runner/test:1409:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: 1,\n    expected: 0,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at tests/integration/h2006-time-history-b7ab25e9-d035-413a-97b9-26db7d5393c9.ts:75:1\n✖ R07 each material review guard (0.028208ms)\n  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server\n  Examine the log output.\n  \n  \n  1 !== 0\n  \n      at command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:24:142)\n      at isolatedH2 (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-isolated.ts:26:2)\n      at async isolatedProposal (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:11:10)\n      at async isolatedOffer (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h2-offer-isolated.ts:7:10"... 40511 more characters,
+    expected: /fail 1/,
+    operator: 'match',
+    diff: 'simple'
+  }

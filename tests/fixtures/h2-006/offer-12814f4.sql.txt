@@ -115,7 +115,7 @@ begin
    if nullif(a->>'recipientId','') is null or nullif(a->>'channel','') is null then raise exception 'OFFER_RECIPIENT_REQUIRED';end if;
    res:=jsonb_build_object('pendingExternal',true,'sent',false,'versionId',vid,'recipientId',a->>'recipientId','channel',a->>'channel');norm:=jsonb_build_array('PLAN-C05','BR-COMM-002');
   elsif action='evaluate' then
-   if i.version_id is null or at_time<i.issued_at then raise exception 'OFFER_ISSUANCE_REQUIRED:SM-PV-04';end if;
+   if i.version_id is null then raise exception 'OFFER_ISSUANCE_REQUIRED';end if;
    pending:=at_time>i.effective_until;
    if a ? 'evidenceId' then
     if not crm_private.offer_evidence((a->>'evidenceId')::uuid,opp,s,'offer:uncertain:'||vid,cov,'-infinity',at_time) then raise exception 'OFFER_UNCERTAINTY_EVIDENCE_REQUIRED';end if;pending:=true;

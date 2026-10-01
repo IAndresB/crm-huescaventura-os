@@ -1,0 +1,69 @@
+✔ R01 default seven days/configuration (1206.911166ms)
+✔ R02 most restrictive material limit (37.537833ms)
+✔ R03 limit/source guards (57.75825ms)
+✔ R04 inside/outside expiry without rejection (123.635333ms)
+✔ R05 uncertainty evidence and missing source (46.628333ms)
+✔ R06 act revalidation preserves original (100.846667ms)
+✔ R07 each material review guard (140.860708ms)
+✔ R08 exact act scope/time/version revalidation (231.629ms)
+✔ R09 no silent reissue/new validity (77.012584ms)
+✔ R10 new condition requires T01 replacement retains v1 (71.356041ms)
+✔ R11 intent not sent or received (26.354792ms)
+✔ R12 real manual send exact commercial effects (36.923916ms)
+✔ R13 every send guard invalidated (498.426167ms)
+✔ R14 approval/intention/AI not send (155.236208ms)
+✔ R15 expired no review blocks (144.597666ms)
+✔ R16 expired act review permits exact send not extension (118.441459ms)
+✔ R17 unknown material costs retained not zero (78.092875ms)
+✔ R18 rejection modality no whole loss (49.596666ms)
+✔ R19 rejection version/line retains exact history (58.299667ms)
+✔ R20 each rejection guard removed (494.638375ms)
+✔ R21 read/silence/nonselection never acceptance/rejection (317.772917ms)
+✔ R22 rejected scope cannot reuse without current review (114.390458ms)
+✔ R23 no positive Acceptance/Ganada/economy operations (783.054458ms)
+✔ R24 direct ordinary SQL denies update/delete/insert (180.677167ms)
+✔ R25 FORCE RLS ownership and minimum ACL (1.192209ms)
+✔ R26 absent context no writes (65.288375ms)
+✔ R27 forged scope or signature no writes (132.574958ms)
+✔ R28 disabled actor read/write/replay denied (117.682334ms)
+✔ R29 no provisioned actor and ordinary API role (32.936792ms)
+✔ R30 prewrite fault atomic (95.250709ms)
+✔ R31 late fault rolls back send/Commercial/history/result (125.080166ms)
+✔ R32 lost postcommit response and equivalent replay (176.151208ms)
+✔ R33 changed replay is conflict (97.955375ms)
+✔ R34 concurrent sessions both orders one winner (78.865709ms)
+✔ R35 independent connection sees append history/results/exact refs (38.291375ms)
+✔ R36 migration preserves every prior row and ACL (1.327084ms)
+✔ R37 empty full chain native PG17 (250.658584ms)
+✔ R38 published migrations bytewise unchanged (42.308667ms)
+✔ R39 dimensions separate and no future objects (0.992209ms)
+✔ R40 aggregate send must include rejected modality review (119.733209ms)
+✔ R41 attributable rejection requires responsible context identity (139.354875ms)
+✔ R42 missing/null/typed revisions cannot bypass concurrency (375.765542ms)
+✖ R43 validity cannot be accredited before original issuance (71.525417ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 42
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7607.699083
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-006.test.ts:115:1
+✖ R43 validity cannot be accredited before original issuance (71.525417ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async reject (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-006.test.ts:55:75)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-006.test.ts:115:138)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
