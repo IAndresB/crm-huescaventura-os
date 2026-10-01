@@ -1,0 +1,52 @@
+PostgresError: BOOKING_DETAIL_EVIDENCE_REQUIRED
+    at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  detail: '{"d": {"services": [{"id": "c21a5cc7-d3bd-4e17-b4d3-70e4add9f32f", "place": null, "nature": "external", "nights": [], "variant": null, "provider": null, "schedule": null, "contributions": [{"id": "36999f1a-0a23-4245-99ab-e06a6f446594", "lineId": "dc06e854-07b4-4c6f-b1bf-2be408828ade", "quantity": "1", "attendees": 10, "certainty": "estimated", "modalityId": "861296be-9363-4bc7-928f-a88a6c10110f"}], "serviceRevisionId": "712312ff-6733-46b5-815b-f826638f22f5"}, {"id": "e70758f9-2dda-4869-839e-dc72b4cac5b3", "place": null, "nature": "external", "nights": [], "variant": null, "provider": null, "schedule": null, "contributions": [{"id": "9e3ae226-a9f5-42ac-8ca0-252e929313cd", "lineId": "0a1b228e-26f8-46b2-a2a9-d2558826a366", "quantity": "1", "attendees": 10, "certainty": "estimated", "modalityId": "7af683c6-6f3b-4c9a-a31b-4c1d13cb57b5"}], "serviceRevisionId": "712312ff-6733-46b5-815b-f826638f22f5"}], "assignments": [], "participants": []}, "aid": "ef0de2ef-fc53-49cf-9426-bc2f18aa0de5", "now": "2026-10-01T22:17:19.260917+02:00", "hash": "7e6b26d42defdf9355ea35927a25d9205b6cae44b155a87a357018cfeb7e42d2", "scope": "crm_h2_009-synthetic", "evidence": "09980744-3a59-4527-bb85-82b1468d980f"}',
+  where: 'PL/pgSQL function crm_api.booking_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 46 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+Result(1) [
+  {
+    material: {
+      claim: 'booking:detail:ef0de2ef-fc53-49cf-9426-bc2f18aa0de5:b6776ba99ceb57c49460ef9138f267d5dd4c95389d8ed8dc088e2f05df1dccc5',
+      coverage: 'H2 exact synthetic scope',
+      certainty: 'reviewed',
+      source_kind: 'manual'
+    },
+    occurred_at: 2026-10-01T20:17:19.256Z,
+    coverage: 'H2 exact synthetic scope',
+    hash: 'b6776ba99ceb57c49460ef9138f267d5dd4c95389d8ed8dc088e2f05df1dccc5'
+  }
+] ef0de2ef-fc53-49cf-9426-bc2f18aa0de5 H2 exact synthetic scope
+✖ H2-009 focal: exact immutable chain, complete detail, RES H1, replay and authorized read (1108.261042ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1210.894875
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-009.test.ts:5:1
+✖ H2-009 focal: exact immutable chain, complete detail, RES H1, replay and authorized read (1108.261042ms)
+  Error: BOOKING_DETAIL_EVIDENCE_REQUIRED
+      at H2009BookingAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-booking-adapter.ts:38:77)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2009BookingAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-booking-adapter.ts:40:175)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-009.test.ts:7:333)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)

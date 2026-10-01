@@ -1,0 +1,52 @@
+PostgresError: BOOKING_DETAIL_EVIDENCE_REQUIRED
+    at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  detail: '{"aid": "c4f076db-a9b9-4580-b0e4-463e73ad13db", "now": "2026-10-01T22:17:04.441087+02:00", "hash": "e29c75b2fe53844577e33b03a52b4e9f75d6f52b520a5d3adfdded99aeef1034", "scope": "crm_h2_009-synthetic", "evidence": "88f2b2c0-d024-4834-ad4e-b04b9969be9c"}',
+  where: 'PL/pgSQL function crm_api.booking_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 46 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+Result(1) [
+  {
+    material: {
+      claim: 'booking:detail:c4f076db-a9b9-4580-b0e4-463e73ad13db:a151cfe3c0fa12baa147fb54fea0be7415eba6b2e140e394d01e6a781a3ccae1',
+      coverage: 'H2 exact synthetic scope',
+      certainty: 'reviewed',
+      source_kind: 'manual'
+    },
+    occurred_at: 2026-10-01T20:17:04.436Z,
+    coverage: 'H2 exact synthetic scope',
+    hash: 'a151cfe3c0fa12baa147fb54fea0be7415eba6b2e140e394d01e6a781a3ccae1'
+  }
+] c4f076db-a9b9-4580-b0e4-463e73ad13db H2 exact synthetic scope
+✖ H2-009 focal: exact immutable chain, complete detail, RES H1, replay and authorized read (1193.734667ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1303.88975
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-009.test.ts:5:1
+✖ H2-009 focal: exact immutable chain, complete detail, RES H1, replay and authorized read (1193.734667ms)
+  Error: BOOKING_DETAIL_EVIDENCE_REQUIRED
+      at H2009BookingAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-booking-adapter.ts:38:77)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2009BookingAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-booking-adapter.ts:40:175)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-009.test.ts:7:333)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
