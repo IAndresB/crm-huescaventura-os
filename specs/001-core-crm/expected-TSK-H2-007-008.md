@@ -139,3 +139,6 @@ H2-009+ y H3–H6 NOT STARTED; H2 IN PROGRESS; E2E-01/02 no completados. PLAN-AU
 - R58 V-AT: fijación de nueva versión y verificación/Ganada concurrentes en ambos órdenes: exactamente una unidad compatible y conflicto de la otra, sin overwrite.
 - R59 SM-AC-03 también rectifica Acceptance registrada no verificada; conserva original y no inventa Ganada anterior.
 - R60 SM-PV-07 selección de línea expresamente independiente/seleccionable: Acceptance identifica únicamente esa línea, no toda modalidad.
+
+- R61 Integración AC-002/SPEC-FR-ID-002: Organization con dos interlocutores verificables y pagador contextual no participante, cambio Primary Contact después de Acceptance conserva aceptante/designación anterior y no concede permisos internos.
+- R62 Designación real H1 de payer, aun con prueba candidata favorable, no sustituye a Primary Contact facultado para aceptar; conserva candidato y cero Acceptance válida.

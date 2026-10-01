@@ -4,7 +4,7 @@ Base autorizada y comprobada: `d333f140abf63b900b7e6ffbfdcfc4869575cca5`. Primer
 
 ## Expected, datos y entorno
 
-El expected recuperable contiene todas las filas asignadas de Tasks §6 y matriz R01–R60, fijada antes de cada ejecución/ampliación. Oráculo: fuentes APPROVED, no respuestas del producto. Implementación focal no sustituye este ensayo. PostgreSQL17.11 nativo, cluster/data sintéticos nuevos e independientes de007; runtime `crm_h0_runtime` sin owner/superuser/BYPASSRLS; migración y observador separados. Deux sesiones sintéticas autorizadas del Administrador V1 para carreras; no introducir segundo Administrador (singleton aprobado H1). No hosted ni Auth reales.
+El expected recuperable contiene todas las filas asignadas de Tasks §6 y matriz R01–R60, fijada antes de cada ejecución/ampliación. Oráculo: fuentes APPROVED, no respuestas del producto. Implementación focal no sustituye este ensayo. PostgreSQL17.11 nativo, cluster/data sintéticos nuevos e independientes de007; runtime `crm_h0_runtime` sin owner/superuser/BYPASSRLS; migración y observador separados. Dos sesiones sintéticas autorizadas del Administrador V1 para carreras; no introducir segundo Administrador (singleton aprobado H1). No hosted ni Auth reales.
 
 Datos: identidades de contacto/designación H1, Opportunity directa y códigos OP/PR H1, dos modalidades A/B, fuentes catálogo/tarifa sintéticas conocidas, precio final100.01, condiciones sintéticas T1 sin mandato inventado; evidencias revisadas B07/candidatas, Communications concretas cuando hay canal escrito, llamada sin Communication ficticia, anticipo solo evidencia inequívoca sin Payment. Momentos reales y de registro diferenciados. Preupgrade incluye código/identidad/contexto, catálogo/comercial/propuesta fijada/issuance/evidencia/Communication/Task H1.
 
@@ -34,3 +34,9 @@ node --test --experimental-strip-types \
 ```
 
 Regresión completa aún PENDIENTE en este commit; no cerrar007/008 hasta PASS. Commit de producto probado y resultados finales se anexarán tras ejecutar. Pendientes globales preservados: PLAN-AUTH001–006, PLAN-PENDING003 abierto, DM-PENDING005, BR-PENDING022/033; datos/políticas/catálogo/tarifas/costes/capacidades/prioridades/plazos reales no acreditados. Hosted H2 no acreditado, Production no autorizada. Sin conectores/envíos/pagos/proveedores reales ni ampliación Booking/operación/economía.
+
+## Integración adicional de identidad y primera regresión
+
+Producto `76cfc7160ee598fd2c3a3316de7fc70b9436c8de`: matriz60/60 +1/1 histórico PASS; runner completo508/508 PostgreSQL17.11,80/80 unitarias; instalación congelada/typecheck/lint/boundaries/build/audit PASS. Raw logs recuperables en fixtures/h2-008. Duración PostgreSQL397210.413208ms; esperas H0 conservadas.
+
+R61/R62 amplían el ensayo de la integración obligatoria AC-002/SPEC-FR-ID-002: Organization y vínculos a dos Contacts H1; payer contextual real no participante; cambio Primary Contact conserva aceptante/designación/historia; payer no adquiere facultad de aceptación ni acceso CRM. Expected fijado antes del ensayo; complemento2/2 PASS. Ningún cambio de producto. Se repetirá matriz completa62/62+histórico y regresión contra commit con estos ensayos; estados aún no cerrados.
