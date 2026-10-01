@@ -1,0 +1,816 @@
+$ node scripts/test-postgres.mjs
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-ctVmQ4/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-ctVmQ4/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ F1 migration from H0-M01 preserves data; C01 returns only public projection (1793.985125ms)
+✔ A01 modification of authenticated claim is denied (6.391333ms)
+✔ A02 modification of authenticated claim is denied (4.768375ms)
+✔ A03 modification of authenticated claim is denied (4.058791ms)
+✔ A04 modification of authenticated claim is denied (3.029167ms)
+✔ A05 modification of authenticated claim is denied (2.406666ms)
+✔ A06 modification of authenticated claim is denied (2.70475ms)
+✔ A07/A08 malformed capability, MAC lengths and random MAC fail closed (15.715833ms)
+✔ A09/A10/A24 copied capability fails on another transaction or connection (31.908584ms)
+✔ A11/A12/A30 valid capability cannot widen scope, operation or material input (7.565917ms)
+✔ A13/A25 C03 consumption permits only one surviving application, savepoints roll back effects together (10.787709ms)
+✔ A14/A15/A16/A17/A18 runtime cannot reach helpers, keys, roles or unsigned executors (9.678583ms)
+✔ A19 false GUC, verified flags and baseline envelope never authorize direct access (2.781416ms)
+✔ A20/A21/A22 hostile search_path and shadow attempts do not alter resolution (6.883208ms)
+✔ A23 driver/public failure paths do not include synthetic sensitive input (54.881916ms)
+✔ A26 commit, rollback, SQL error and reused max-one connection retain no authority (60.902ms)
+✔ A28 expiration and future not-before are denied with a valid MAC (7.078958ms)
+✔ A29 exact key selection and revocation fail closed, no fallback (11.759833ms)
+✔ D037 effective ownership, memberships, FORCE RLS and split verifier/executor permissions (18.111583ms)
+✔ C03 first/intermediate error and explicit rollback leave no partial writes (16.435542ms)
+✔ Codec rejects invalid UTF-8 source, oversized strings/input and unknown client authority fields (4.78075ms)
+✔ A27 connection lost before COMMIT returns E4 without blind retry (1039.142875ms)
+✔ A29 key rotation supports overlap, exact selection and retirement (12.473833ms)
+✔ RLS independently limits the executor to authenticated scope, row and manifest (7.132833ms)
+✔ D037 comparator checks every MAC bit and has fresh internal blinding with a fixed loop (303.975291ms)
+✔ Authenticated but incompatible version, audience, generation, binding and limits fail closed (14.108959ms)
+✔ H0-M03 upgrades historical chain; only migration can apply and mapping is unique (1854.9845ms)
+✔ H0-M03 injected mid-migration failure is atomic and a clean retry succeeds (215.782958ms)
+✔ H0-006-F01 forward migration is atomic, preserves predecessor and restores narrow ACL (56.101584ms)
+✔ H0-006-F02 forward migration upgrades F01 atomically and preserves function ACL (241.7675ms)
+✔ verified Auth boundary rejects client-shaped claims and incomplete full identification (2.055ms)
+✔ full identification creates two independent sessions and minimal F2+F1 C01 (32.909708ms)
+✔ H0-006-F02: six F2 operations expire while waiting for the actor lock (30163.687375ms)
+ℹ {"sixCallsBlocked":true,"allExpiredAtRelease":true,"outcome":[{"name":"establish","ok":false,"code":"42501"},{"name":"reidentify","ok":false,"code":"42501"},{"name":"revoke_one","ok":false,"code":"42501"},{"name":"revoke_all","ok":false,"code":"42501"},{"name":"human_read_probe","ok":false,"code":"42501"},{"name":"human_apply_probe_batch","ok":false,"code":"42501"}]}
+✔ H0-006-F02: a short actor-lock wait still permits a current F2 (111.564917ms)
+✔ H0-006-F02: an INSERT lock wait after actor admission cannot commit an expired F2 (30136.188375ms)
+✔ H0-006-F02: expiry during delegated Core waits rolls back C01/C03 (60323.496041ms)
+ℹ {"operation":"C01","waitedInsideCore":true,"f2ExpiredWhileF1Valid":true,"ok":false,"code":"42501"}
+ℹ {"operation":"C03","waitedInsideCore":true,"f2ExpiredWhileF1Valid":true,"ok":false,"code":"42501"}
+✔ F2 owners, FORCE RLS and grants exclude runtime, generic roles and the key (26.237291ms)
+✔ M2 plain GUCs, wrong scope, altered MAC and F1/F2 substitution cannot authorize (19.129292ms)
+✔ F2 is transaction/PID bound; valid F1 alone and valid F2 alone both fail (6.305792ms)
+✔ C03 writes and human activity commit together; failed F1 leaves neither (15.960708ms)
+✔ interactive read moves only its own epoch; refresh/polling/passive cannot claim activity (3.661709ms)
+✔ 7/30 day boundaries deny at equality; expired epoch needs a new full identification (12.74275ms)
+✔ single revoke isolates devices; global revoke advances generation and disables prior sessions (7.018833ms)
+✔ disabled/recovery/enrollment actor never grants Core; enable does not revive old generation (4.910125ms)
+✔ actor lock serializes authorize versus one-revoke, global revoke and disable (175.333291ms)
+✔ reidentification committed first invalidates an old epoch capability in a live transaction (8.994209ms)
+✔ two concurrent reads serialize safely and do not share connection/session authority (6.145042ms)
+✔ fault after activity update rolls back activity and Core; reidentify and generation faults roll back (13.02975ms)
+✔ F2 authenticates every authority claim and material input; malformed MACs fail closed (25.392125ms)
+✔ F2 capability from another live backend cannot cross PID (2.761375ms)
+✔ runtime cannot enable actor, invent subject, sign, or exploit search_path/temp shadow (2.079333ms)
+✔ F2 issuer requires branded interactive route and a key distinct from F1 (1.59425ms)
+✔ F2 exact key selection, generation and rotation fail closed without fallback (5.541416ms)
+✔ synthetic sensitive canaries do not escape the server-facing failure (2.472042ms)
+✔ H0-006-F01 preparation denies revoked, stale, old epoch, disabled and expired authority (11.833958ms)
+✔ H0-006-F01 locked recheck denies a capability issued before revoke-one COMMIT (5.777291ms)
+✔ H0-006-F01 locked recheck rejects a pre-issued old epoch and expired session (6.455125ms)
+✔ H0-006-F01 generation overflow fails closed without partial mutation (2.177708ms)
+✔ H0-006 N11: revoked session cannot invoke global revocation through server F2 issuance (2241.598166ms)
+ℹ {"revokedSessionDeniedForCore":true,"globalRevocationDenied":true,"generationBefore":"1","generationAfter":"1","otherSessionStillAuthorized":true}
+✔ H0-006 R22: independent predecessor upgrade, rollback and reapply (1782.561125ms)
+✔ H0-006 R07/R18: F2 expiry while waiting for actor lock must deny establishment (31363.550959ms)
+ℹ {"initialValidControl":true,"initialExpiredControlDenied":true,"sawLockWait":true,"releasedAfterExpiry":true,"accepted":false,"code":"42501","sessions":0,"epochs":0,"created_after_expiry":null,"coreAllowed":false}
+▶ H0-006 third execution: independent actor, lookup and M2 controls
+  ✔ R03 generic lookup is metadata, not authority; revoke-all lookup requires live session (6.004042ms)
+  ✔ R03 revoke-all lookup rejects revoked, stale, old epoch, disabled and 7/30 expiry (8.155459ms)
+  ✔ R04 M2 SQL cannot create an actor, session, epoch or mutate authority (8.183792ms)
+  ✔ R05/R20 independently signed F2 and F1 are both necessary and scope-bound (10.17525ms)
+  ✔ R06 independent 25-field framing rejects mutation and malformed input (20.371375ms)
+  ✔ R07 a valid capability cannot cross transactions or backends (18.053875ms)
+  ✔ R08 plain GUC and reused pooled connection grant no authority (3.039417ms)
+  ✔ R09 key custody and exact key lifecycle fail closed (8.651292ms)
+  ✔ R10 singleton mapping cannot be duplicated or changed by runtime (1.407084ms)
+  ✔ R11 session, subject and epoch must match current coherent rows (1.913625ms)
+  ✔ R12 unverified Auth, incomplete MFA and unclassified interaction deny (1.199959ms)
+  ✔ R13/R14 elapsed 7/30-day limits deny at equality before activity update (8.782625ms)
+  ✔ R02 pre-issued authority loses to a committed revocation (13.90075ms)
+  ✔ R15 two devices keep independent activity and reidentify without history rewrite (12.539583ms)
+  ✔ R19 failed Core operation rolls back F2 activity and F1 consumption (9.232167ms)
+  ✔ R21 roles, SECURITY DEFINER and FORCE RLS remain effective (3.694ms)
+  ✔ R18 F02 six independently issued operations deny after a real actor-lock expiry (30148.912042ms)
+  ✔ R18 a short real lock wait may continue while F2 remains valid (226.105209ms)
+  ✔ R18 F2 also expires while waiting on session and epoch locks (60277.882583ms)
+  ✔ R17 disable, recovery and enrollment deny; re-enable does not revive old generation (53.078416ms)
+  ✔ R23 a committed global revocation stays effective after response loss (9.229333ms)
+  ✔ R16 revoke-one/global are scoped and generation overflow fails closed (10.859208ms)
+✔ H0-006 third execution: independent actor, lookup and M2 controls (91898.0285ms)
+ℹ {"f02SixBlocked":true,"postLockClockAfterExpiry":true,"sixDeniedWithoutPartialEffect":true}
+✔ H0-007 runtime is non-owner and has no global privilege attributes (1716.089792ms)
+✔ H0-007 runtime cannot administer schema (11.344084ms)
+✔ H0-007 runtime cannot grant itself privileges or roles (2.183875ms)
+✔ H0-007 generic untrusted role cannot connect to the Core database (6.851209ms)
+✔ H0-007 absence of context is denied by grants and the capability interface (3.643375ms)
+✔ H0-007 valid technical context authorizes only its scoped projection (9.036875ms)
+✔ H0-007 hostile client fields cannot establish trusted context (0.397209ms)
+✔ H0-007 commit clears transaction-local identity (5.550792ms)
+✔ H0-007 rollback clears transaction-local identity (1.761666ms)
+✔ H0-007 database error clears transaction-local identity (2.223459ms)
+✔ H0-007 reused max-one connection does not inherit the prior actor (3.283ms)
+✔ H0-007 grants and RLS jointly hide rows from another scope (1.938083ms)
+✔ H0-007 runtime cannot read the reserved column directly (1.46ms)
+✔ H0-007 runtime cannot perform arbitrary table DML (1.332958ms)
+✔ H0-007 H0-M01 migrations execute from an empty local cluster (0.093833ms)
+✔ H0-007 migration and runtime authorities are separate (2.221792ms)
+✔ H0-007 C01 consumes a real authorized PostgreSQL read port (2.9815ms)
+✔ H0-007 C03 commits a real PostgreSQL unit through the narrow function (7.610625ms)
+✔ H0-007 C03 rolls back all changes after a database error (7.961667ms)
+▶ H0-008 formal independent D037 reverification (fail-fast)
+  ✔ V-MIG: failed forward is atomic; retry preserves H0-M01 data without superuser (33.990209ms)
+  ✔ V-DAT: effective catalogs, owners, PUBLIC, transitive memberships and proconfig (12.22ms)
+  ✔ V-DAT: hostile direct SQL cannot escalate, mutate ACL or use a privileged helper (18.174666ms)
+  ✔ Capability: every one of 21 fields is authenticated, not just the six original mutations (53.173084ms)
+  ✔ Codec: signed malformed payload/input, trailing bytes, UTF-8 and exact limits fail closed (27.722208ms)
+  ✔ Binding: public observations and persistent forged envelope cannot cross transaction/pool (17.675208ms)
+  ✔ C03: authenticated order, complete manifest, no second surviving application or partial effect (12.463166ms)
+  ✔ D037 expiry during executor rolls back effects; no success after deadline (609.966167ms)
+  ✔ Keys: exact length, missing/revoked selection and no secret-bearing SQL definitions (14.839292ms)
+  ✔ C01/C03 server boundary: minimum projection, hostile input and real SQL errors do not leak canaries (18.6325ms)
+✔ H0-008 formal independent D037 reverification (fail-fast) (2673.188667ms)
+✔ H0-008 knowing GUC names must not let runtime self-declare authority (1771.982666ms)
+✔ H0-009 migration upgrades F1, preserves prior data and creates only technical objects (1819.082791ms)
+✔ H0-009 persists state, complete minimal history, fixed result and intent atomically (23.936834ms)
+✔ H0-009 later history records real before/after without rewriting the original (7.253542ms)
+✔ H0-009 equivalent replay reauthorizes, returns fixed result and creates only a new attempt (13.106667ms)
+✔ H0-009 same operation identity with different material returns E2 and no second effect (16.323792ms)
+✔ H0-009 concurrent equivalent operations converge on one durable result (27.642875ms)
+✔ H0-009 concurrent same identity with different fingerprints applies once and returns E2 (18.259958ms)
+✔ H0-009 expected version prevents concurrent overwrite (31.34325ms)
+✔ H0-009 failures at every critical boundary leave no partial unit (57.038958ms)
+✔ H0-009 response lost after real COMMIT recovers the previous result without duplicate material work (55.517625ms)
+✔ H0-009 runtime cannot directly read, mutate or erase durable records (37.913791ms)
+✔ H0-009 roles, ownership, FORCE RLS and grants keep verifier/executor split (65.76475ms)
+✔ H0-009 C04 remains candidate and C05 persists intent without provider attempt or outcome (2.045416ms)
+✔ H0-009 PostgreSQL deadlock aborts one complete transaction and does not preserve its marker (49.166375ms)
+✔ H0-009 migration is transactional: an injected failure leaves no H0-M02 objects (143.298667ms)
+✔ H0-010 V-MIG starts from an empty PostgreSQL 17 cluster and preserves the F1 predecessor (1531.201875ms)
+✔ H0-010 history represents creation, later before/after and immutable chronology (28.781208ms)
+✔ H0-010 equivalent replay after a later root change returns the historical fixed result (38.2575ms)
+✔ H0-010 every material field change conflicts instead of reusing the prior result (49.285667ms)
+✔ H0-010 visually similar byte-distinct Unicode and boundary inputs are not conflated (17.749ms)
+✔ H0-010 SQL pack_fields is byte-for-byte equal to an independent reference codec (9.882334ms)
+✔ H0-010 distinct operation/effect/intent identities cannot mint a second material right (15.604667ms)
+✔ H0-010 concurrent equivalent operation converges, with one effect and distinct attempts (16.589875ms)
+✔ H0-010 concurrent different material under one operation identity applies once and returns E2 (7.789ms)
+✔ H0-010 concurrent different operations on one expected version prevent lost update (34.380792ms)
+✔ H0-010 failures at every C03 boundary commit no partial root, operation, attempt, history, result or intent (75.284375ms)
+✔ H0-010 a real post-COMMIT response loss is recovered only by a newly authorized transaction (30.793292ms)
+✔ H0-010 C04 candidate is not verification and C05 creates intent only (6.041167ms)
+✔ H0-010 runtime cannot create provider attempt/result/uncertain or mutate durable records directly (4.425042ms)
+✔ H0-010 H0-M02 rejects forged GUCs and binds valid capabilities to input, transaction, PID and target (13.669208ms)
+✔ H0-010 GUC authority is observationally absent after success, replay, conflict, error and connection reuse (18.052125ms)
+✔ H0-010 savepoint rollback removes capability consumption, material effects and GUC authority together (5.479875ms)
+✔ H0-010 catalog audit preserves D037 roles, ownership, minimal grants, SECURITY DEFINER and FORCE RLS (15.149875ms)
+✔ H0-010 hostile search_path, temporary shadows and public helpers cannot bypass the narrow API (6.147291ms)
+✔ H0-010 a real deadlock aborts one complete H0-M02 unit and the adapter returns E2 (1212.754708ms)
+✔ H0-010 migration rejects runtime, reapplication is fail-safe and injected failure leaves no hybrid schema (142.742041ms)
+✔ F01 correction V-MIG: predecessor M04/M02 survives denied authority, DDL rollback, upgrade and safe reapply denial (1543.606916ms)
+✔ F02 correction V-MIG: M02/M04 fixtures survive denied authority, DDL rollback, forward upgrade and safe reapply denial (0.170333ms)
+✔ F01 correction executor is narrow, NOLOGIN, fixed search_path, with no public grant or new key access (9.684875ms)
+✔ F02 partitions technical and human M02 entry points while keeping the internal core unreachable (23.179708ms)
+ℹ {"runtimeFunctionSurface":["crm_api.apply_probe_batch(bytea,bytea,bytea)","crm_api.commit_internal_unit(bytea,bytea,bytea)","crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)","crm_api.establish_session(bytea,bytea,bytea)","crm_api.f2_lookup(uuid,uuid)","crm_api.f2_lookup_revoke_all_authority(uuid,uuid)","crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)","crm_api.h0_m04_read_proposal(bytea,bytea,bytea,bytea,bytea,text)","crm_api.human_apply_probe_batch(bytea,bytea,bytea,bytea,bytea)","crm_api.human_read_probe(bytea,bytea,bytea,bytea,bytea)","crm_api.read_probe(bytea,bytea,bytea)","crm_api.reidentify_session(bytea,bytea,bytea)","crm_api.revoke_all_sessions(bytea,bytea,bytea)","crm_api.revoke_session(bytea,bytea,bytea)"]}
+✔ F02 keeps legitimate H0-009 technical commits, concurrent convergence and replay (36.066875ms)
+✔ H0-011 V-MIG applies M04 forward after M01/F1/M02/M03 on PostgreSQL 17 (3.933666ms)
+✔ synthetic AI proposal requires an independent human decision before exact-part reservation (37.800084ms)
+✔ human approval is exact, immutable and distinct from execution; uncertainty keeps reservation (98.302459ms)
+✔ material fingerprint separates absent, empty and every authorized material slot (1.355917ms)
+✔ changed material, expired/unverifiable evidence and unverified identity never reserve (39.051208ms)
+✔ same exact part is serialized across two PostgreSQL runtime connections (36.051042ms)
+✔ approved effect can be consumed part by part without reusing the completed part (47.946459ms)
+✔ direct runtime and PUBLIC SQL cannot mutate or read approval tables (15.684542ms)
+✔ same operation identity conflicts on changed material and recovers after lost post-COMMIT response (38.26875ms)
+✔ failure writing the M02 effect intent rolls back reservation and history atomically (47.304084ms)
+✔ decision actor, technical executor, attempt and outcome remain separate records (43.83025ms)
+✔ revoked session cannot approve a previously proposed effect (18.047791ms)
+✔ H0-012 R11 control: short real M02 ledger wait commits with live F2 (1757.5425ms)
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":true,"deniedBeforeLedger":false,"protocolWindowSeconds":30,"f2ExpiredAtRelease":false,"f1ExpiredAtRelease":false,"f2AgeMsAtRelease":136,"ledgerWaitMs":103,"committed":true,"activityChanged":true,"reservations":1,"events":1,"receipts":1,"operations":1,"roots":1,"attempts":1,"history":1,"results":1,"intents":1,"proposals":1,"decisions":1}
+✔ H0-012 R11 control: M02 wait above 30s expires both capabilities and rolls back (30318.945583ms)
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":true,"deniedBeforeLedger":false,"protocolWindowSeconds":30,"f2ExpiredAtRelease":true,"f1ExpiredAtRelease":true,"f2AgeMsAtRelease":30283,"ledgerWaitMs":30253,"committed":false,"activityChanged":false,"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}
+✔ H0-012 R11: expired F2 must roll back M04 plus M02 even while later F1 remains live (30328.475459ms)
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":true,"deniedBeforeLedger":false,"protocolWindowSeconds":30,"f2ExpiredAtRelease":true,"f1ExpiredAtRelease":false,"f2AgeMsAtRelease":30291,"ledgerWaitMs":27226,"committed":false,"activityChanged":false,"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}
+✔ F01 correction: expiry in the first phase denies before ledger and preserves every snapshot field (30289.499792ms)
+ℹ real actor wait; F2 age >30s: true
+✔ F01 correction: normal concurrent units, durable replay and actual post-COMMIT response loss (47.394667ms)
+✔ H0-012 F02 regression inside trusted executor: selecting the technical overload cannot bypass final human authority (30320.098709ms)
+ℹ {"runtimeEntryPoints":{"session_user":"crm_h0_ha_tx","current_user":"crm_h0_ha_tx","m04":true,"technical":true,"human":true}}
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":false,"deniedBeforeLedger":true,"protocolWindowSeconds":30,"f2ExpiredAtRelease":true,"f1ExpiredAtRelease":false,"f2AgeMsAtRelease":30302,"ledgerWaitMs":27242,"committed":false,"activityChanged":false,"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}
+▶ H0-012 D039 formal R01-R25 execution: independent matrix, stop at first material failure
+  ✔ R01 AI origin cannot decide without human authority; live human decides (34.563542ms)
+  ✔ R02 pending and rejected proposals permit neither reservation nor attempts/outcomes (43.754333ms)
+  ✔ R03 approval alone creates no external attempt, success or reservation (11.117583ms)
+  ✔ R04 exact material persists byte-for-byte with an independently computed fingerprint (8.323584ms)
+  ✔ R05 each changed material component denies and preserves the original approval (64.198083ms)
+  ✔ R06 independent codec vectors distinguish Unicode, slots, framing and exact limits (1.560125ms)
+  ✔ R07 part ID, fingerprint, scope, effect and cross-proposal swaps deny (40.466709ms)
+  ✔ R08 positive: current independently checked evidence must permit exact approved reservation (56.369833ms)
+  ✔ R08 negative: source/material expiry, missing provider and altered authenticated proof (128.854042ms)
+  ✔ R08 final evidence authority: immediate-short (80.216166ms)
+  ✔ R08 final evidence authority: deferred-expired (2642.554417ms)
+  ✔ R08 final evidence authority: immediate-expired (2620.242375ms)
+  ✔ R08 M2: runtime cannot build HA even with current evidence (34.412625ms)
+  ✔ R08/R23 M2: final evidence authority must survive omission or early invocation of the F04 wrapper (37.517125ms)
+  ✔ R09 revoked, disabled, generations, epochs, MFA and identification limits deny without activity (68.395375ms)
+  ✔ R10 real actor/session/epoch/command/part waits cannot outlive original F2 (150820.89625ms)
+  ✔ R11 original F01/F02 ledger races, current control and original F2 retention (91072.154959ms)
+  ✔ R12 revocation and authorized unit serialize on real actor/session locks (91.577ms)
+  ✔ R13 signed login/purpose/target/scope/input crossings and missing F1/F2 deny (149.672959ms)
+  ✔ R14 runtime, HA login and Data API cannot directly access authority or persisted data (2.674917ms)
+  ✔ R15 copied capabilities cannot survive backend, transaction, rollback or GUC substitution (66.59225ms)
+  ✔ R16 concurrent connections cannot reserve the same exact part twice (20.265875ms)
+  ✔ R17 partial execution preserves the independent remaining part (30.81ms)
+  ✔ R18 uncertain attempt retains reservation and forbids blind retry (33.724958ms)
+  ✔ R19 reconciliation requires the exact original uncertain attempt (28.453042ms)
+  ✔ R20 known failure allows a new attempt; success consumes and cannot repeat (40.59675ms)
+  ✔ R21 committed replay uses durable result without provider refresh and different material conflicts (2056.822291ms)
+  ✔ R22 fault injection rolls back the whole unit; dispatched COMMIT response loss stays uncertain (105.36775ms)
+{
+  severity_local: 'WARNING',
+  severity: 'WARNING',
+  code: '25P01',
+  message: 'there is no transaction in progress',
+  file: 'xact.c',
+  line: '4113',
+  routine: 'EndTransactionBlock'
+}
+  ✔ R23 private finalization authority, owner separation, RLS and immutable public surface (6412.477083ms)
+  ✔ R24 fresh chain, predecessor upgrade, injected DDL rollback and scoped read (69.770875ms)
+  ✔ R25 AI proposer, human registrar/approver and technical executor remain separately attributable (0.938166ms)
+✔ H0-012 D039 formal R01-R25 execution: independent matrix, stop at first material failure (256882.789292ms)
+ℹ {"row":"R08","sourceFingerprintChecked":true,"sourceStillCurrent":true,"approvedMaterialMatches":true,"negativeExpiredDenied":true,"negativeMissingDenied":true,"noEvidenceControlReserved":true,"expected":"reserved","observed":"reserved","noResidueIfDenied":false}
+ℹ {"mode":"immediate-short","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":19184,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":false,"evidenceExpiryUs":"1790886964628000","releasedAtUs":"1790886962202839","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":true,"proofCount":1,"activityChanged":true,"counts":{"reservations":1,"events":1,"receipts":1,"operations":1,"roots":1,"attempts":1,"history":1,"results":1,"intents":1,"proposals":1,"decisions":1}}
+ℹ {"mode":"deferred-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":19184,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":false,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1790886964708000","releasedAtUs":"1790886964836428","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"immediate-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":19184,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1790886967351000","releasedAtUs":"1790886967457380","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"runtime-commit-short","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"runtime-commit-expired","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+✔ F03 focal: verified positive, immutable trace, effective minimum and replay without provider (19.01775ms)
+▶ F03 focal: expired, missing, mismatched, incomplete and unavailable providers deny without residue
+  ✔ expired (24.580916ms)
+  ✔ reference (17.965667ms)
+  ✔ fingerprint (17.801083ms)
+  ✔ missing (17.126417ms)
+  ✔ failure (19.737833ms)
+  ✔ incomplete (17.681542ms)
+  ✔ ambiguous (17.52775ms)
+  ✔ future (18.488042ms)
+✔ F03 focal: expired, missing, mismatched, incomplete and unavailable providers deny without residue (151.692583ms)
+▶ F03 focal: SQL checks signed proposal/part/scope/reference/fingerprint/time and MAC
+  ✔ proposal (21.209458ms)
+  ✔ part (19.283417ms)
+  ✔ scope (18.726542ms)
+  ✔ reference (19.1085ms)
+  ✔ fingerprint (22.723042ms)
+  ✔ command (19.656459ms)
+  ✔ future-check (19.637584ms)
+  ✔ extended-validity (21.3265ms)
+  ✔ mac (19.524042ms)
+✔ F03 focal: SQL checks signed proposal/part/scope/reference/fingerprint/time and MAC (182.162ms)
+▶ F03 focal: real ledger wait expires evidence with F1/F2 live; short wait and committed replay work
+  ✔ expired (1954.07675ms)
+  ✔ short (1832.203ms)
+✔ F03 focal: real ledger wait expires evidence with F1/F2 live; short wait and committed replay work (3786.916084ms)
+✔ F03 focal: V-MIG result, ACL/NOLOGIN/RLS and private helpers (5.3245ms)
+✔ F03 focal: no signed proof cannot reserve; a proof alone cannot commit (67.838625ms)
+▶ F05 focal D039: runtime A/B denied, TTE short/expired waits and internal durable delay
+  ✔ runtime-commit-expired (21.785959ms)
+  ✔ split-finalize-expired (21.135ms)
+  ✔ immediate-short (89.699791ms)
+  ✔ immediate-expired (2635.589416ms)
+  ✔ deferred-expired (2634.498083ms)
+{
+  severity_local: 'WARNING',
+  severity: 'WARNING',
+  code: '25P01',
+  message: 'there is no transaction in progress',
+  file: 'xact.c',
+  line: '4113',
+  routine: 'EndTransactionBlock'
+}
+  ✔ private pool API positive and no SQL or transaction handles (38.6765ms)
+  ✔ D039 does not require physical durable completion before expiry (3626.153416ms)
+✔ F05 focal D039: runtime A/B denied, TTE short/expired waits and internal durable delay (9068.794333ms)
+ℹ {"mode":"runtime-commit-expired","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"split-finalize-expired","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"immediate-short","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":19184,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":false,"evidenceExpiryUs":"1790887225373000","releasedAtUs":"1790887222953227","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":true,"proofCount":1,"activityChanged":true,"counts":{"reservations":1,"events":1,"receipts":1,"operations":1,"roots":1,"attempts":1,"history":1,"results":1,"intents":1,"proposals":1,"decisions":1}}
+ℹ {"mode":"immediate-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":19184,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1790887225463000","releasedAtUs":"1790887225575921","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"deferred-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":19184,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":false,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1790887228099000","releasedAtUs":"1790887228210862","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+✔ R19/R20 focal: a historical attempt cannot settle a newer active attempt (62.135375ms)
+✔ H0-013 completes Core and Auth revocation without preserving emitter authority (1654.460166ms)
+✔ H0-013 keeps Core closed and reports known Auth failure explicitly (9.844125ms)
+✔ H0-013 records provider uncertainty without fictitious success (6.7215ms)
+✔ H0-013 returns pending if post-provider persistence fails and does not reopen Core (9.728875ms)
+✔ H0-013 does not contact Auth when the Core revocation unit is denied (13.742ms)
+✔ H0-M05 is forward-only, atomic, preserves predecessor fixtures and restores ACL (219.539167ms)
+✔ H0-014 R01-R04/R13/R16/R18: global closure is durable, includes emitter and permits only new identification (1452.312541ms)
+✔ H0-014 R05-R08: every partial Auth outcome leaves Core denied and never reports success (40.064042ms)
+✔ H0-014 R09: concurrent global closures serialize and coordinate Auth once (7.202666ms)
+✔ H0-014 R10: an already-authorized Core operation may finish before later revocation (57.432709ms)
+✔ H0-014 R11: revocation that holds actor first defeats an in-flight old Core request (49.044375ms)
+✔ H0-014 R12/R14/R15: revoked, disabled, stale and non-human routes cannot revive activity (13.814334ms)
+✔ H0-014 R17/R20/R21: ACL, capability binding and TTE partition deny indirect authority (24.2105ms)
+✔ H0-014 R19: independent predecessor upgrade is atomic and preserves D039 objects (194.576334ms)
+✔ H0-016 I01/I03/I05/I06 D027 closes Core and needs TOTP before new identification (1248.712375ms)
+✔ H0-016 I01 invalid/unverified email and owner cannot open recovery (1.079292ms)
+✔ H0-016 I02/I05 D031 requires new factor and verified new paper copy (29.797167ms)
+✔ H0-016 I02/I04/I05 D031 failure is partial; new factor and paper required (27.869ms)
+✔ H0-016 I07/I08 duplicate attempts and direct runtime writes denied (34.552167ms)
+✔ H0-017 R01/R02/R07 password recovery denies pre-MFA and stale authority (1281.763709ms)
+✔ H0-017 R11 recovered access retains independent 7/30 server limits (10.3645ms)
+✔ H0-017 R04/R05 owner independence and factor replacement are mandatory (12.885542ms)
+✔ H0-017 R08 concurrent starts allow one generation and one incident (8.209083ms)
+✔ H0-017 R06/R09 provider uncertainty preserves denial and SQL boundary (5.399875ms)
+✔ H0-017 R10 forward migration preserves previous actor, session and epoch (195.099625ms)
+✔ H1-001 identities remain distinct, incomplete and attributable (1019.477167ms)
+✔ H1-001 separate roles, provenance, version, replay and rollback (54.124708ms)
+✔ H1-001 runtime SQL surface denies direct writes and unauthenticated reads (1.171125ms)
+✔ H1-001 unverified identity cannot become primary while independent work continues (24.429ms)
+✔ H1-001 overlapping primary changes have one winner and no partial history (34.158042ms)
+✔ H1-001 ACL keeps human tables outside runtime, public, Data API and SET ROLE (2.137792ms)
+✔ H1-001 contact signals and group counts preserve unknown versus known (34.992ms)
+✔ H1-001 C01 limits and pages history with explicit provenance (10.939334ms)
+✔ H1-001 injected history failure rolls back the entity and result together (5.894208ms)
+✔ H1-002 R01-R08,R17: distinct parties, context, history and denied inference (1066.386708ms)
+✔ H1-002 R09-R10,R15: C01/C02 and narrow SQL authority (16.426958ms)
+✔ H1-002 R11-R14: concurrent versions, replay and cross-connection rollback (43.754416ms)
+✔ H1-002 R16,R18: migration chain and synthetic fixture discipline (1.685125ms)
+✔ H1-003 I01-I03: candidates are passive; human merge and archive keep both histories (1057.844333ms)
+✔ H1-003 I04-I06: server year, independent annual series, concurrency and replay (50.481334ms)
+✔ H1-003 I07: scope, authorization, atomicity and SQL privileges (13.710792ms)
+✔ H1-004 R01-R04: no automatic merge, scoped resolution, retained links and restoration (1167.012792ms)
+✔ H1-004 R05-R07: D040 cut, distinct serials, no reuse and replay competition (91.189833ms)
+✔ H1-004 R06: code remains searchable after linked identities merge and archive (30.055042ms)
+✔ H1-004 R08-R10: rollback, SQL authority, RLS and old session (24.820875ms)
+✔ H1-005 smoke: create and read (1024.7685ms)
+✔ H1-005 I01-I06: typed relations, exact versions, immutable applied snapshot (147.532958ms)
+✔ H1-005 I05/I07: provider identity link, invalid relation, replay and concurrency (44.049333ms)
+✔ H1-005 I07/I08: injected history failure rolls back and runtime cannot bypass (36.77825ms)
+✔ H1-006 R01-R06: independent domain and persistence matrix (1204.352708ms)
+✔ H1-006 R07-R10: independent rejection, atomicity, security and predecessor (62.829875ms)
+✔ H1-007 smoke: tariff version and exact catalog reference (1059.108708ms)
+✔ H1-007 I01/I07: tariff unknown, known decimal, source, validity and frozen application (46.496042ms)
+✔ H1-007 I02/I03/I04/I05: custom pack, manual promotion, promotion rule and unknown guards (71.613583ms)
+✔ H1-007 I01/I04/I05: tiers, scoped requirements and exact rule versions (52.20925ms)
+✔ H1-007 I08/I09: replay, concurrency, rollback, scope and SQL authority (73.855375ms)
+✔ H1-007 I01: exact civil-date and instant validity stay distinct (63.617667ms)
+✔ H1-008 R01-R08: independent version, unknown and cross-connection history matrix (1256.340292ms)
+✔ H1-008 R09-R11: independent race, replay, fault, scope and prior-data matrix (56.139291ms)
+✔ H1-013 E01/E02: document, evidence, derived and late manual call remain distinct (1065.859083ms)
+✔ H1-013 E03: one original links two contexts without broadening either read (11.97925ms)
+✔ H1-013 E05: incoming begins received, outgoing facts require separate evidence (12.669959ms)
+✔ H1-013 E05/E06: proposal send guard and external candidate are not confirmation (13.044958ms)
+✔ H1-013 E07/E08: correction, replay, conflict and atomic rollback (33.541416ms)
+✔ H1-013 E08/E09: concurrent replay and runtime direct access denial (25.267583ms)
+✔ R01-R04/R09: original, two links, late manual fact, incoming and no business inference (1123.726042ms)
+✔ R05-R08: send, receipt and response are separate; proposal guard rejects inference (33.296291ms)
+✔ R10-R14: external pending, correction, replay conflict, concurrency and rollback (37.459875ms)
+✔ R13: concurrent distinct links to the same context have one durable winner (9.717125ms)
+✔ R15-R17: role boundary, forced RLS and local migration (6.137209ms)
+✔ E01-E03: real Storage prepare/upload/accredit/link and authorized bytes (1304.443209ms)
+✔ E01/E02/E05/E06: reference absent, repair, replay and lost metadata after upload (167.07225ms)
+✔ E04/E07: replacement preserves original, concurrency rejects incompatible successors (105.330334ms)
+✔ E08-E10: orphan diagnostic keeps real bytes, direct and wrong-context access deny (42.518ms)
+✔ R01-R04/R08: independent conservation oracle and durable replay (1277.01325ms)
+✔ R05: real same-path corruption and media mismatch are not conserved (143.919458ms)
+✔ R10/R11/R13: independently signed foreign scope and generic JWT cannot access (31.0395ms)
+✔ R06/R07/R15/R17: real upload survives internal rollback and repair/orphan retains bytes (94.039917ms)
+✔ R09/R10/R16: all five concurrency surfaces and retained original (135.521041ms)
+✔ R11-R14: actual signed URL remains technically valid; Core access is reauthorized (3593.939083ms)
+✔ R18/R19: forced RLS, narrow grants and migration rollback/reapply (205.576583ms)
+✔ E01/E02/E03/E08: business needs preserve unknowns and never prove the motivating fact (1277.3045ms)
+✔ E04: civil and exact instant deadlines preserve sources; D020 grants a complete day (20.533542ms)
+✔ E05-E07/E09: functional dedup differs from replay, revision and separate causes (37.688959ms)
+✔ E09/E10/E11: concurrent receipts, history rollback, context and runtime (12.923333ms)
+✔ R01-R06: independent unknown, civil/instant/D020 and priority oracle (1204.669875ms)
+✔ R07-R12: independent technical replay, structured cause separation and concurrency (48.441791ms)
+✔ R13/R14: independent fault create/update rollback and no motivating-fact inference (26.233209ms)
+✔ R15-R17: scope/context/purpose, stale authority and forced RLS (24.314958ms)
+✔ R18: predecessor upgrade retains records, DDL rollback/reapply and unique cause backstop (481.197375ms)
+✔ H2 focal: direct creation, H1 OP and atomic replay (1217.700875ms)
+✔ H2 focal: incomplete lead converts preserving source and owner (7.506583ms)
+✔ H2 focal: loss/pause/reactivate and forbidden Ganada preserve history (9.623209ms)
+✔ H2 focal: runtime has no direct DML (0.557625ms)
+✔ F01 historical: approved reviewed B07 contact incorrectly rejected at 00cf358 (963.662917ms)
+✔ F02 historical: malformed numeric contact accepted by SQL at a5bbb06 (924.847042ms)
+✔ R01: three exact minima; each individually absent rejected by PostgreSQL (1095.289958ms)
+✔ R02: unknown final data never adds mandatory minima or inferred values (20.188375ms)
+✔ R03: incomplete Lead, source/owner/link and direct H1 identity reuse (9.807667ms)
+✔ R04: committed response discarded, replay and equivalent conversion use one H1 OP (21.096459ms)
+✔ R05: OP-02 every material guard and real scoped B07 contact, attempt not response (91.222334ms)
+✔ R06: OP-03 both origins with each guard removed and final details still unknown (83.884834ms)
+✔ R07: OP-04 commercial guards and every normative origin; Proposal dependency pending (55.473ms)
+✔ R08: OP-05 exact version/send evidence cannot be fabricated; future capability pending (45.676833ms)
+✔ R09: OP-06 identifiable exchange and affected scope; offer/provider unchanged (59.046584ms)
+✔ R10: OP-08 all approved reasons, unknown explicit, no loss from alternative rejection (363.576083ms)
+✔ R11: OP-09 all active states guard matrix; actual pause retains previous state (102.472167ms)
+✔ R12: OP-10 lost/paused to both supported destinations; history and old vigencies preserved (587.643042ms)
+✔ R13: OP-11 backwards with documented change, human evaluation and supported destination (180.853458ms)
+✔ R14: seven attempts at Ganada cannot replace future verified Acceptance (156.082416ms)
+✔ R15: explicit SM-FORB-30 attempts do not erase loss or renew external validity (95.879584ms)
+✔ R16: actual V-DAT admission, forgery, disabled actor, ordinary SQL and ACL/RLS (218.209041ms)
+✔ R17: independent history and strict separation across all persisted commercial effects (3.103417ms)
+✔ R18: atomic write faults, changed replay, two actors absence/races/revision (137.077083ms)
+✔ R19: empty-chain and exact H1 upgrade preserve IDs/codes/history/B07/Task/permissions (358.648917ms)
+✔ R20: C02 normative decision, every approved state/unknown and pending limits (0.333292ms)
+✔ H2-003 focal T01 preparation/fix/price/PR/privacy/replay (1021.66375ms)
+✔ H2-004-F01 historical jsonb reproducer fails old comparator, current reconstructs exact historic (1157.865375ms)
+✔ H2-004-F02 historical projection misses estimation label; current preserves it (2465.084792ms)
+✔ H2-004-F03 historical omission allows definitive price without eligibility; current blocks (2435.778833ms)
+✔ R01 preparation real Opportunity, PR and atomic commercial progress (1203.009166ms)
+✔ R02 each preparation guard removed, no side effect (75.350083ms)
+✔ R03 independent alternatives retained (57.787542ms)
+✔ R04 fixed v1 exact linked preparation; not sent or verified (34.208958ms)
+✔ R05 individual fixed guards quantities/participants/composition/conditions/sources (245.25725ms)
+✔ R06 ordinary contract cannot edit fixed v1 (51.005917ms)
+✔ R07 material price creates v2 and keeps v1 (43.36125ms)
+✔ R08 material composition creates v2 and keeps v1 (39.665125ms)
+✔ R09 material terms creates v2 and keeps v1 (39.126041ms)
+✔ R10 material selectability creates v2 and keeps v1 (39.044708ms)
+✔ R11 SM-PV06 before/after/review/motive/base individually guarded (278.647292ms)
+✔ R12 AC013 nonselectable partial request recorded no historical repair (75.178333ms)
+✔ R13 modalities preserve rafting10/cena12/night12/night10 contributions (34.60775ms)
+✔ R14 exact PM02 100.01 x10 =1000.10 (32.172208ms)
+✔ R15 calculated90/manual100.01/difference10.01 actor and immutable costs (36.725917ms)
+✔ R16 commercial projection excludes economics outside UI (30.118333ms)
+✔ R17 unknown material cost only dependent fixation blocked, independent work allowed (128.0975ms)
+✔ R18 exact unit/tariff/pack references preserved structurally (27.716833ms)
+✔ R19 masters changed later preserve v1 (38.01575ms)
+✔ R20 PM09 replay historical calculation and unknown is not zero (32.291458ms)
+✔ R21 direct SQL runtime/API roles denied and private FORCE RLS (62.235334ms)
+✔ R22 missing context denied with no writes (67.262042ms)
+✔ R23 forged context/signature denied with no writes (94.427083ms)
+✔ R24 disabled actor denies write/read/replay (96.399833ms)
+✔ R25 ordinary role/unprovisioned actor cannot use authorized contract (109.37175ms)
+✔ R26 prewrite fault rolls back whole T01 (90.968333ms)
+✔ R27 late history fault rolls back version/modalities/lines/result (102.698375ms)
+✔ R28 lost response after commit recovers equivalent original (171.902041ms)
+✔ R29 same key changed content is conflict not overwrite (112.517334ms)
+✔ R30 two authorized sessions concurrent revision one winner (117.564333ms)
+✔ R31 numbering race fixes only one v1, alternative unaffected (36.563333ms)
+✔ R32 independent observer sees complete history and results (44.425208ms)
+✔ R33 explicit SM-FORB02 SQL and ordinary edit both denied (222.111458ms)
+✔ R34 no Acceptance/Ganada/Booking/economic/operational effects (5.391292ms)
+✔ R35 future commands rejected, no H2-005 capacities (699.11675ms)
+✔ R36 SM-OP04 real preparation, origin/guards/pause forbid fake progress (222.268792ms)
+✔ R37 V-MIG prior fixtures/data/ACL and empty full chain (259.584708ms)
+✔ R38 exact sources, authorized estimates and unknown boundaries (246.622291ms)
+✔ R39 AC085 objective eligibility rule cannot be bypassed by recommendation (385.384583ms)
+✔ H2-005 focal immutable issuance and intent without send (1241.114792ms)
+✔ H2-006 preserved F01/F02/F03 reproduce on archived implementation (6382.32225ms)
+✔ H2-006 preserved F04 reproduces on archived temporal guard (7696.288666ms)
+✔ H2-006 preserved F05 native roles regression and forward compatibility (1154.055208ms)
+✔ R01 default seven days/configuration (1211.574833ms)
+✔ R02 most restrictive material limit (34.536417ms)
+✔ R03 limit/source guards (60.471041ms)
+✔ R04 inside/outside expiry without rejection (138.110208ms)
+✔ R05 uncertainty evidence and missing source (60.837334ms)
+✔ R06 act revalidation preserves original (112.919625ms)
+✔ R07 each material review guard (161.756ms)
+✔ R08 exact act scope/time/version revalidation (290.393167ms)
+✔ R09 no silent reissue/new validity (101.370625ms)
+✔ R10 new condition requires T01 replacement retains v1 (85.851417ms)
+✔ R11 intent not sent or received (31.615375ms)
+✔ R12 real manual send exact commercial effects (52.622625ms)
+✔ R13 every send guard invalidated (562.110333ms)
+✔ R14 approval/intention/AI not send (164.984667ms)
+✔ R15 expired no review blocks (148.370792ms)
+✔ R16 expired act review permits exact send not extension (113.82ms)
+✔ R17 unknown material costs retained not zero (85.744666ms)
+✔ R18 rejection modality no whole loss (62.760917ms)
+✔ R19 rejection version/line retains exact history (78.859875ms)
+✔ R20 each rejection guard removed (558.563708ms)
+✔ R21 read/silence/nonselection never acceptance/rejection (317.591708ms)
+✔ R22 rejected scope cannot reuse without current review (144.403042ms)
+✔ R23 no positive Acceptance/Ganada/economy operations (367.920625ms)
+✔ R24 direct ordinary SQL denies update/delete/insert (176.56925ms)
+✔ R25 FORCE RLS ownership and minimum ACL (0.9075ms)
+✔ R26 absent context no writes (64.922084ms)
+✔ R27 forged scope or signature no writes (97.281959ms)
+✔ R28 disabled actor read/write/replay denied (100.587583ms)
+✔ R29 no provisioned actor and ordinary API role (34.2015ms)
+✔ R30 prewrite fault atomic (101.324ms)
+✔ R31 late fault rolls back send/Commercial/history/result (121.810167ms)
+✔ R32 lost postcommit response and equivalent replay (209.336667ms)
+✔ R33 changed replay is conflict (109.666417ms)
+✔ R34 concurrent sessions both orders one winner (126.940542ms)
+✔ R35 independent connection sees append history/results/exact refs (48.122625ms)
+✔ R36 migration preserves every prior row and ACL (1.228375ms)
+✔ R37 empty full chain native PG17 (248.464292ms)
+✔ R38 published migrations bytewise unchanged (14.341542ms)
+✔ R39 dimensions separate and no future objects (0.901917ms)
+✔ R40 aggregate send must include rejected modality review (150.754041ms)
+✔ R41 attributable rejection requires responsible context identity (123.602042ms)
+✔ R42 missing/null/typed revisions cannot bypass concurrency (379.963292ms)
+✔ R43 validity cannot be accredited before original issuance (127.075791ms)
+✔ H2-007 focal migration and runtime private integrity (1227.769042ms)
+✖ H2-008 F01/F02 original15dbf11 reproduces normative FAIL without weakening expected (18851.679792ms)
+✔ R01 incomplete candidate preserves evidence without Acceptance (1139.776916ms)
+✔ R02 registered immutable fact is unverified (44.749167ms)
+✔ R03 verification without won requested preserves commercial state (57.770208ms)
+✔ R04 verified Acceptance + exact won/history/result T02 (46.769958ms)
+✔ R05 missing each identity/faculty/context guard stays pending (190.630709ms)
+✔ R06 each incorrect commercial relation rejects atomically (282.672417ms)
+✔ R07 different exact terms cannot register (36.145833ms)
+✔ R08 verification cannot replace registered selection (134.57925ms)
+✔ R09 ambiguous evidence cannot verify (135.682042ms)
+✔ R10 outside effective material expiry cannot verify (216.434917ms)
+✔ R11 late recording preserves real act within validity (65.269959ms)
+✔ R12 missing evidence of real act time blocks (151.774125ms)
+✔ R13 selection A leaves B neither accepted nor rejected (41.648917ms)
+✔ R14 nonselectable request needs new version before Acceptance (33.49575ms)
+✔ R15 exact phone act requires no fictitious Communication (44.143292ms)
+✔ R16 insufficient phone cannot verify (210.881666ms)
+✔ R17 advance unequivocally linked is evidence without Payment (186.79125ms)
+✔ R18 Human Approval cannot replace client (328.337958ms)
+✔ R19 sent/read/silence/supposed payment/provider are not agreement (1144.444125ms)
+✔ R20 changing Primary Contact preserves earlier accepter (75.001375ms)
+✔ R21 ordinary win with historical or claimed acceptance blocked (49.47225ms)
+✔ R22 replaced version cannot silently verify as current (254.720458ms)
+✔ R23 rejected coverage cannot verify without review (250.730458ms)
+✔ R24 later revalidation cannot rescue an earlier expired act (345.833792ms)
+✔ R25 direct ordinary Ganada write denied; DB guard too (251.176542ms)
+✔ R26 direct editing/deleting historical facts denied (277.512167ms)
+✔ R27 rectification preserves original and historical verification; reeval explicit (47.878875ms)
+✔ R28 every material rectification guard required (1036.475375ms)
+✔ R29 opinion change is not an error (309.229125ms)
+✔ R30 lost response replay recovers persisted result without second effect (312.839667ms)
+✔ R31 changed replay conflicts and preserves every fact (307.44875ms)
+✔ R32 concurrent verifications in both dispatch orders (148.879458ms)
+✔ R33 new version and stale verification serialize without overwrite (346.566958ms)
+✔ R34 pre-write fault rolls back all T02 effects (351.704291ms)
+✔ R35 late history fault rolls back verification/Ganada/result (712.71825ms)
+✔ R36 authorized administrator and independent observer see exact chain (55.072708ms)
+✔ R37 missing auth/context cannot write (329.85275ms)
+✔ R38 forged context and signature reject from direct SQL (369.556ms)
+✔ R39 disabled/unprovisioned actor denied including replay (324.369041ms)
+✔ R40 minimal ACL/FORCE RLS/ordinary roles and successful direct authorized SQL (61.17825ms)
+✔ R41 upgrade retains all prior H0/H1/H2 persisted fixtures (0.434209ms)
+✔ R42 empty database installs full chain through new migration (223.39475ms)
+✔ R43 old IDs, human OP/PR codes and contexts remain retained (45.024208ms)
+✔ R44 B07 records/links/Tasks immutable during Acceptance (332.049958ms)
+✔ R45 no forbidden future/economic/operational effects from actual paths (50.537625ms)
+✔ R46 historical agreement not revoked by later expired evaluation (41.703125ms)
+✔ R47 prior material revalidation for exact expired act permits verification (132.6595ms)
+✔ R48 every material review guard independently withdrawn (1369.12375ms)
+✔ R49 exact received multichannel agreement; each Communication guard (2366.274458ms)
+✔ R50 total acceptance retains exact immutable terms (40.862375ms)
+✔ R51 wrong identity/faculty is not client acceptance (35.567375ms)
+✔ R52 lost/paused origin cannot become won from ordinary verification (441.138667ms)
+✔ R53 null/string revision attempts direct SQL rejected atomically (1605.135708ms)
+fatal: path 'supabase/migrations/20261001200941_h2_booking_conversion.sql' exists on disk, but not in 'd333f140abf63b900b7e6ffbfdcfc4869575cca5'
+✖ R54 historical migration source bytes and ACL preserved (348.785667ms)
+✔ R55 two authorized sessions concurrently verify same root (37.930584ms)
+✔ R56 actual H2-005 rejection cannot affect accepted A but B remains independent (629.348333ms)
+✔ R57 later requested Ganada preserves the initial verification and same Acceptance (42.075708ms)
+✔ R58 actual fix/verify concurrency in both dispatch orders (79.547084ms)
+✔ R59 rectification of unverified registration preserves original (33.646042ms)
+✔ R60 expressly selectable line preserves exact partial scope (33.49225ms)
+✔ R61 Organization/context payer/nonparticipant and changed interlocutor preserve Acceptance (48.705875ms)
+✔ R62 actual verified H1 payer designation cannot act as accepter authority (35.533708ms)
+✔ H2-009 focal: exact immutable chain, complete detail, RES H1, replay and authorized read (1415.22925ms)
+✔ H2-010 historical F01 reproduces original immutable FAIL and expected (1687.7965ms)
+✔ R01 normal valid chain exact immutable Booking (1202.553958ms)
+✔ R02 direct reuses existing real chain without Lead or fake sends (102.169667ms)
+✔ R03 direct composes real T02 then T03 atomically; missing agreement retains preparation (182.368667ms)
+✔ R04 uniqueness at database boundary (65.353917ms)
+✔ R05 concurrent same keys both dispatch orders (140.443459ms)
+✔ R06 concurrent different keys both dispatch orders (129.101959ms)
+✔ R07 exact replay retains root code detail and history (172.544708ms)
+✔ R08 committed result survives lost response (75.684208ms)
+✔ R09 changed replay conflicts E2 (178.829708ms)
+✔ R10 unverified Acceptance no Booking (172.779959ms)
+✔ R11 textual Ganada cannot substitute exact chain (315.597541ms)
+✔ R12 rectified Acceptance does not permit conversion (249.326625ms)
+✔ R13 exact modality A leaves B uncontracted (59.3915ms)
+✔ R14 exact selectable line only (56.886708ms)
+✔ R15 no unselected/nonselectable part sneaks into Booking (208.947292ms)
+✔ R16 wrong version and terms reject atomically (569.600958ms)
+✔ R17 incomplete detail no fictitious complete Booking (399.127167ms)
+✔ R18 AC017 rafting10 dinner12 nights12/10 with contributions (97.942417ms)
+✔ R19 exact inclusions only no extra contribution (230.880125ms)
+✔ R20 same catalog does not merge incompatible prestations (45.423459ms)
+✔ R21 unit and quantity remain distinct from estimated attendees (44.702833ms)
+✔ R22 night occupancy independent no rooms or person-night pricing inferred (101.409542ms)
+✔ R23 partial nominal4 explains12 without double count or fictitious8 (98.631209ms)
+✔ R24 nominal necessity required (334.624833ms)
+✔ R25 unverified Contact cannot become verified Participant association (360.933792ms)
+✔ R26 duplicate nominal assignment rejected (368.642ms)
+✔ R27 accepter and actor not nominal participants by default (45.242333ms)
+✔ R28 changing Primary Contact preserves Acceptance and Booking chain (45.234958ms)
+✔ R29 fault identity_contexts material write rolls back all (341.83325ms)
+✔ R30 fault b04_services material write rolls back all (368.136459ms)
+✔ R31 fault b04_contributions material write rolls back all (400.720041ms)
+✔ R32 fault b04_modalities material write rolls back all (448.234667ms)
+✔ R33 fault b04_contributions material write rolls back all (392.092834ms)
+✔ R34 fault b04_history material write rolls back all (373.609958ms)
+✔ R35 fault b04_operations at COMMIT rolls back all (378.28125ms)
+✔ R36 concurrent revision change rejects stale conversion (99.680459ms)
+✔ R37 rectification first prevents conversion; original never erased (391.895041ms)
+✔ R38 no trusted auth context or null SQL envelope (47.910333ms)
+✔ R39 forged context and signature fail closed (412.127292ms)
+✔ R40 disabled and unprovisioned actor including replay (429.076417ms)
+✔ R41 ordinary SQL roles ACL/FORCE RLS and authorized direct SQL (70.594958ms)
+✔ R42 append-only immutable facts visible independently (40.255458ms)
+✔ R43 RES reuses H1 allocator Madrid year stable replay (41.494625ms)
+✔ R44 empty database full migration chain (228.748125ms)
+✔ R45 predecessor upgrade retains all prior fixtures (0.399833ms)
+✔ R46 migration fault rolls back objects and privileges (214.937125ms)
+✔ R47 optional anon/authenticated roles absent migration (219.181292ms)
+✔ R48 SM-FORB04 tempting Ganada cannot confirm or reconcile (431.524583ms)
+✔ R49 SM-FORB10 global quantity/gratuity cannot overwrite scope (877.960958ms)
+✔ R50 SM-FORB31 split/merge or second distinct Booking rejected (1244.759625ms)
+✔ R51 no Payment funds reconciliation Refund invoice (411.297125ms)
+✔ R52 no provider availability confirmation execution (424.478042ms)
+✔ R53 no fake Lead Proposal Acceptance Communications Human Approval or external effect (423.787791ms)
+✔ R54 SM-BK01 each material guard withdrawn (2880.7005ms)
+✔ R55 SM-BS01 each source detail guard withdrawn (4048.75925ms)
+✔ R56 AI creation without exact Human Approval denied G3 (910.973667ms)
+✔ R57 retained sources after catalog change not reinterpreted (41.763334ms)
+✔ R58 authorized C01 read reauthorizes result (37.419958ms)
+✔ R59 H1/H2 historical migrations unchanged and previous persisted fixtures retained (3.359334ms)
+✔ R60 scope limits no future operation economy external module (0.686083ms)
+✔ R61 duplicate known Contact identity must not count as two Participants (538.779791ms)
+✔ R62 Organization and payer contextual stay distinct from participant and internal actor (46.316083ms)
+✔ R63 actual nights occupancy participant assignment fault rollbacks (2341.116917ms)
+✔ R64 direct composes T01 T02 T03 same commit with full late rollback (615.926334ms)
+✔ R65 distinct conflicting keys two authorized sessions both orders (70.756125ms)
+✔ R66 actual stale revision plus FK and historical source invariance (918.785167ms)
+ℹ tests 578
+ℹ suites 0
+ℹ pass 576
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 396598.154333
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-008-defects.test.ts:8:1
+✖ H2-008 F01/F02 original15dbf11 reproduces normative FAIL without weakening expected (18851.679792ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /fail 2/. Input:
+
+  '✔ R01 incomplete candidate preserves evidence without Acceptance (1161.687542ms)\n' +
+    '✔ R02 registered immutable fact is unverified (42.16275ms)\n' +
+    '✔ R03 verification without won requested preserves commercial state (51.986833ms)\n' +
+    '✔ R04 verified Acceptance + exact won/history/result T02 (54.08ms)\n' +
+    '✔ R05 missing each identity/faculty/context guard stays pending (163.931833ms)\n' +
+    '✔ R06 each incorrect commercial relation rejects atomically (258.130542ms)\n' +
+    '✔ R07 different exact terms cannot register (39.972292ms)\n' +
+    '✔ R08 verification cannot replace registered selection (136.302459ms)\n' +
+    '✔ R09 ambiguous evidence cannot verify (134.663ms)\n' +
+    '✔ R10 outside effective material expiry cannot verify (218.657917ms)\n' +
+    '✔ R11 late recording preserves real act within validity (56.27625ms)\n' +
+    '✔ R12 missing evidence of real act time blocks (185.631166ms)\n' +
+    '✔ R13 selection A leaves B neither accepted nor rejected (67.710916ms)\n' +
+    '✔ R14 nonselectable request needs new version before Acceptance (36.562ms)\n' +
+    '✔ R15 exact phone act requires no fictitious Communication (48.8425ms)\n' +
+    '✔ R16 insufficient phone cannot verify (181.939833ms)\n' +
+    '✔ R17 advance unequivocally linked is evidence without Payment (167.727125ms)\n' +
+    '✔ R18 Human Approval cannot replace client (331.919417ms)\n' +
+    '✔ R19 sent/read/silence/supposed payment/provider are not agreement (1101.026042ms)\n' +
+    '✔ R20 changing Primary Contact preserves earlier accepter (50.802167ms)\n' +
+    '✔ R21 ordinary win with historical or claimed acceptance blocked (32.851041ms)\n' +
+    '✔ R22 replaced version cannot silently verify as current (236.957833ms)\n' +
+    '✔ R23 rejected coverage cannot verify without review (249.028208ms)\n' +
+    '✔ R24 later revalidation cannot rescue an earlier expired act (374.48725ms)\n' +
+    '✔ R25 direct ordinary Ganada write denied; DB guard too (250.551542ms)\n' +
+    '✔ R26 direct editing/deleting historical facts denied (262.597333ms)\n' +
+    '✔ R27 rectification preserves original and historical verification; reeval explicit (49.563375ms)\n' +
+    '✔ R28 every material rectification guard required (1073.099458ms)\n' +
+    '✔ R29 opinion change is not an error (328.312ms)\n' +
+    '✔ R30 lost response replay recovers persisted result without second effect (291.349417ms)\n' +
+    '✔ R31 changed replay conflicts and preserves every fact (277.626042ms)\n' +
+    '✔ R32 concurrent verifications in both dispatch orders (145.590208ms)\n' +
+    '✔ R33 new version and stale verification serialize without overwrite (352.390291ms)\n' +
+    '✔ R34 pre-write fault rolls back all T02 effects (358.175708ms)\n' +
+    '✔ R35 late history fault rolls back verification/Ganada/result (674.589792ms)\n' +
+    '✔ R36 authorized administrator and independent observer see exact chain (49.382125ms)\n' +
+    '✔ R37 missing auth/context cannot write (349.63ms)\n' +
+    '✔ R38 forged context and signature reject from direct SQL (358.6255ms)\n' +
+    '✔ R39 disabled/unprovisioned actor denied including replay (378.128417ms)\n' +
+    '✔ R40 minimal ACL/FORCE RLS/ordinary roles and successful direct authorized SQL (64.998542ms)\n' +
+    '✔ R41 upgrade retains all prior H0/H1/H2 persisted fixtures (0.372959ms)\n' +
+    '✔ R42 empty database installs full chain through new migration (271.898208ms)\n' +
+    '✔ R43 old IDs, human OP/PR codes and contexts remain retained (51.731916ms)\n' +
+    '✔ R44 B07 records/links/Tasks immutable during Acceptance (368.049084ms)\n' +
+    '✔ R45 no forbidden future/economic/operational effects from actual paths (59.038958ms)\n' +
+    '✔ R46 historical agreement not revoked by later expired evaluation (49.993ms)\n' +
+    '✔ R47 prior material revalidation for exact expired act permits verification (158.855458ms)\n' +
+    '✔ R48 every material review guard independently withdrawn (1494.876291ms)\n' +
+    '✔ R49 exact received multichannel agreement; each Communication guard (2225.1875ms)\n' +
+    '✔ R50 total acceptance retains exact immutable terms (39.235834ms)\n' +
+    '✔ R51 wrong identity/faculty is not client acceptance (37.009917ms)\n' +
+    '✔ R52 lost/paused origin cannot become won from ordinary verification (509.218125ms)\n' +
+    '✔ R53 null/string revision attempts direct SQL rejected atomically (1719.07425ms)\n' +
+    "fatal: path 'supabase/migrations/20261001200941_h2_booking_conversion.sql' exists on disk, but not in 'd333f140abf63b900b7e6ffbfdcfc4869575cca5'\n" +
+    '✖ R54 historical migration source bytes and ACL preserved (380.220958ms)\n' +
+    '✔ R55 two authorized sessions concurrently verify same root (50.4445ms)\n' +
+    '✖ R56 actual H2-005 rejection cannot affect accepted A but B remains independent (248.851ms)\n' +
+    '✖ R57 later requested Ganada preserves the initial verification and same Acceptance (49.179417ms)\n' +
+    'ℹ tests 57\n' +
+    'ℹ suites 0\n' +
+    'ℹ pass 54\n' +
+    'ℹ fail 3\n' +
+    'ℹ cancelled 0\n' +
+    'ℹ skipped 0\n' +
+    'ℹ todo 0\n' +
+    'ℹ duration_ms 18796.134084\n' +
+    '\n' +
+    '✖ failing tests:\n' +
+    '\n' +
+    'test at tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:99:1\n' +
+    '✖ R54 historical migration source bytes and ACL preserved (380.220958ms)\n' +
+    '  Error: Command failed: git show d333f140abf63b900b7e6ffbfdcfc4869575cca5:supabase/migrations/20261001200941_h2_booking_conversion.sql\n' +
+    "  fatal: path 'supabase/migrations/20261001200941_h2_booking_conversion.sql' exists on disk, but not in 'd333f140abf63b900b7e6ffbfdcfc4869575cca5'\n" +
+    '  \n' +
+    '      at genericNodeError (node:internal/errors:986:15)\n' +
+    '      at wrappedFn (node:internal/errors:540:14)\n' +
+    '      at checkExecSyncError (node:child_process:942:11)\n' +
+    '      at execFileSync (node:child_process:978:15)\n' +
+    '      at TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:99:376)\n' +
+    '      at async Test.run (node:internal/test_runner/test:1409:7)\n' +
+    '      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n' +
+    '    status: 128,\n' +
+    '    signal: null,\n' +
+    '    output: [ null, <Buffer >, <Buffer 66 61 74 61 6c 3a 20 70 61 74 68 20 27 73 75 70 61 62 61 73 65 2f 6d 69 67 72 61 74 69 6f 6e 73 2f 32 30 32 36 31 30 30 31 32 30 30 39 34 31 5f 68 32 ... 95 more bytes> ],\n' +
+    '    pid: 20804,\n' +
+    '    stdout: <Buffer >,\n' +
+    '    stderr: <Buffer 66 61 74 61 6c 3a 20 70 61 74 68 20 27 73 75 70 61 62 61 73 65 2f 6d 69 67 72 61 74 69 6f 6e 73 2f 32 30 32 36 31 30 30 31 32 30 30 39 34 31 5f 68 32 ... 95 more bytes>\n' +
+    '  }\n' +
+    '\n' +
+    'test at tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:101:1\n' +
+    '✖ R56 actual H2-005 rejection cannot affect accepted A but B remains independent (248.851ms)\n' +
+    '  AssertionError [ERR_ASSERTION]: Missing expected rejection.\n' +
+    '      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n' +
+    '      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:101:961)\n' +
+    '      at async Test.run (node:internal/test_runner/test:1409:7)\n' +
+    '      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n' +
+    '    generatedMessage: false,\n' +
+    "    code: 'ERR_ASSERTION',\n" +
+    '    actual: undefined,\n' +
+    '    expected: undefined,\n' +
+    "    operator: 'rejects',\n" +
+    "    diff: 'simple'\n" +
+    '  }\n' +
+    '\n' +
+    'test at tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:102:1\n' +
+    '✖ R57 later requested Ganada preserves the initial verification and same Acceptance (49.179417ms)\n' +
+    '  Error: ACCEPTANCE_ALREADY_DECIDED\n' +
+    '      at H2007AcceptanceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)\n' +
+    '      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n' +
+    '      at async H2007AcceptanceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)\n' +
+    '      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:102:165)\n' +
+    '      at async Test.run (node:internal/test_runner/test:1409:7)\n' +
+    '      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)\n'
+
+      at TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-008-defects.test.ts:13:43)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "✔ R01 incomplete candidate preserves evidence without Acceptance (1161.687542ms)\n✔ R02 registered immutable fact is unverified (42.16275ms)\n✔ R03 verification without won requested preserves commercial state (51.986833ms)\n✔ R04 verified Acceptance + exact won/history/result T02 (54.08ms)\n✔ R05 missing each identity/faculty/context guard stays pending (163.931833ms)\n✔ R06 each incorrect commercial relation rejects atomically (258.130542ms)\n✔ R07 different exact terms cannot register (39.972292ms)\n✔ R08 verification cannot replace registered selection (136.302459ms)\n✔ R09 ambiguous evidence cannot verify (134.663ms)\n✔ R10 outside effective material expiry cannot verify (218.657917ms)\n✔ R11 late recording preserves real act within validity (56.27625ms)\n✔ R12 missing evidence of real act time blocks (185.631166ms)\n✔ R13 selection A leaves B neither accepted nor rejected (67.710916ms)\n✔ R14 nonselectable request needs new version before Acceptance (36.562ms)\n✔ R15 exact phone act requires no fictitious Communication (48.8425ms)\n✔ R16 insufficient phone cannot verify (181.939833ms)\n✔ R17 advance unequivocally linked is evidence without Payment (167.727125ms)\n✔ R18 Human Approval cannot replace client (331.919417ms)\n✔ R19 sent/read/silence/supposed payment/provider are not agreement (1101.026042ms)\n✔ R20 changing Primary Contact preserves earlier accepter (50.802167ms)\n✔ R21 ordinary win with historical or claimed acceptance blocked (32.851041ms)\n✔ R22 replaced version cannot silently verify as current (236.957833ms)\n✔ R23 rejected coverage cannot verify without review (249.028208ms)\n✔ R24 later revalidation cannot rescue an earlier expired act (374.48725ms)\n✔ R25 direct ordinary Ganada write denied; DB guard too (250.551542ms)\n✔ R26 direct editing/deleting historical facts denied (262.597333ms)\n✔ R27 rectification preserves original and historical verification; reeval explicit (49.563375ms)\n✔ R28 every material rectification guard required (1073.099458ms)\n✔ R29 opinion change is not an error (328.312ms)\n✔ R30 lost response replay recovers persisted result without second effect (291.349417ms)\n✔ R31 changed replay conflicts and preserves every fact (277.626042ms)\n✔ R32 concurrent verifications in both dispatch orders (145.590208ms)\n✔ R33 new version and stale verification serialize without overwrite (352.390291ms)\n✔ R34 pre-write fault rolls back all T02 effects (358.175708ms)\n✔ R35 late history fault rolls back verification/Ganada/result (674.589792ms)\n✔ R36 authorized administrator and independent observer see exact chain (49.382125ms)\n✔ R37 missing auth/context cannot write (349.63ms)\n✔ R38 forged context and signature reject from direct SQL (358.6255ms)\n✔ R39 disabled/unprovisioned actor denied including replay (378.128417ms)\n✔ R40 minimal ACL/FORCE RLS/ordinary roles and successful direct authorized SQL (64.998542ms)\n✔ R41 upgrade retains all prior H0/H1/H2 persisted fixtures (0.372959ms)\n✔ R42 empty database installs full chain through new migration (271.898208ms)\n✔ R43 old IDs, human OP/PR codes and contexts remain retained (51.731916ms)\n✔ R44 B07 records/links/Tasks immutable during Acceptance (368.049084ms)\n✔ R45 no forbidden future/economic/operational effects from actual paths (59.038958ms)\n✔ R46 historical agreement not revoked by later expired evaluation (49.993ms)\n✔ R47 prior material revalidation for exact expired act permits verification (158.855458ms)\n✔ R48 every material review guard independently withdrawn (1494.876291ms)\n✔ R49 exact received multichannel agreement; each Communication guard (2225.1875ms)\n✔ R50 total acceptance retains exact immutable terms (39.235834ms)\n✔ R51 wrong identity/faculty is not client acceptance (37.009917ms)\n✔ R52 lost/paused origin cannot become won from ordinary verification (509.218125ms)\n✔ R53 null/string revision attempts direct SQL rejected atomically (1719.07425ms)\nfatal: path 'supabase/migrations/20261001200941_h2_booking_conversion.sql' exists on disk, but not in 'd333f140abf63b900b7e6ffbfdcfc4869575cca5'\n✖ R54 historical migration source bytes and ACL preserved (380.220958ms)\n✔ R55 two authorized sessions concurrently verify same root (50.4445ms)\n✖ R56 actual H2-005 rejection cannot affect accepted A but B remains independent (248.851ms)\n✖ R57 later requested Ganada preserves the initial verification and same Acceptance (49.179417ms)\nℹ tests 57\nℹ suites 0\nℹ pass 54\nℹ fail 3\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 18796.134084\n\n✖ failing tests:\n\ntest at tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:99:1\n✖ R54 historical migration source bytes and ACL preserved (380.220958ms)\n  Error: Command failed: git show d333f140abf63b900b7e6ffbfdcfc4869575cca5:supabase/migrations/20261001200941_h2_booking_conversion.sql\n  fatal: path 'supabase/migrations/20261001200941_h2_booking_conversion.sql' exists on disk, but not in 'd333f140abf63b900b7e6ffbfdcfc4869575cca5'\n  \n      at genericNodeError (node:internal/errors:986:15)\n      at wrappedFn (node:internal/errors:540:14)\n      at checkExecSyncError (node:child_process:942:11)\n      at execFileSync (node:child_process:978:15)\n      at TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:99:376)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    status: 128,\n    signal: null,\n    output: [ null, <Buffer >, <Buffer 66 61 74 61 6c 3a 20 70 61 74 68 20 27 73 75 70 61 62 61 73 65 2f 6d 69 67 72 61 74 69 6f 6e 73 2f 32 30 32 36 31 30 30 31 32 30 30 39 34 31 5f 68 32 ... 95 more bytes> ],\n    pid: 20804,\n    stdout: <Buffer >,\n    stderr: <Buffer 66 61 74 61 6c 3a 20 70 61 74 68 20 27 73 75 70 61 62 61 73 65 2f 6d 69 67 72 61 74 69 6f 6e 73 2f 32 30 32 36 31 30 30 31 32 30 30 39 34 31 5f 68 32 ... 95 more bytes>\n  }\n\ntest at tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:101:1\n✖ R56 actual H2-005 rejection cannot affect accepted A but B remains independent (248.851ms)\n  AssertionError [ERR_ASSERTION]: Missing expected rejection.\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:101:961)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    generatedMessage: false,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: undefined,\n    operator: 'rejects',\n    diff: 'simple'\n  }\n\ntest at tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:102:1\n✖ R57 later requested Ganada preserves the initial verification and same Acceptance (49.179417ms)\n  Error: ACCEPTANCE_ALREADY_DECIDED\n      at H2007AcceptanceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async H2007AcceptanceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)\n      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/historical-4158ae75-d114-4e46-89a6-2a8f0d17ee64.ts:102:165)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)\n",
+    expected: /fail 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h2-008.test.ts:99:1
+✖ R54 historical migration source bytes and ACL preserved (348.785667ms)
+  Error: Command failed: git show d333f140abf63b900b7e6ffbfdcfc4869575cca5:supabase/migrations/20261001200941_h2_booking_conversion.sql
+  fatal: path 'supabase/migrations/20261001200941_h2_booking_conversion.sql' exists on disk, but not in 'd333f140abf63b900b7e6ffbfdcfc4869575cca5'
+
+      at genericNodeError (node:internal/errors:986:15)
+      at wrappedFn (node:internal/errors:540:14)
+      at checkExecSyncError (node:child_process:942:11)
+      at execFileSync (node:child_process:978:15)
+      at TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-008.test.ts:99:376)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    status: 128,
+    signal: null,
+    output: [ null, <Buffer >, <Buffer 66 61 74 61 6c 3a 20 70 61 74 68 20 27 73 75 70 61 62 61 73 65 2f 6d 69 67 72 61 74 69 6f 6e 73 2f 32 30 32 36 31 30 30 31 32 30 30 39 34 31 5f 68 32 ... 95 more bytes> ],
+    pid: 21019,
+    stdout: <Buffer >,
+    stderr: <Buffer 66 61 74 61 6c 3a 20 70 61 74 68 20 27 73 75 70 61 62 61 73 65 2f 6d 69 67 72 61 74 69 6f 6e 73 2f 32 30 32 36 31 30 30 31 32 30 30 39 34 31 5f 68 32 ... 95 more bytes>
+  }
+waiting for server to shut down.... done
+server stopped
+[ELIFECYCLE] Command failed with exit code 1.
