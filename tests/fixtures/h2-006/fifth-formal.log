@@ -1,0 +1,84 @@
+✔ R01 default seven days/configuration (1190.530042ms)
+✔ R02 most restrictive material limit (31.5055ms)
+✔ R03 limit/source guards (45.440208ms)
+✔ R04 inside/outside expiry without rejection (121.92475ms)
+✔ R05 uncertainty evidence and missing source (38.304458ms)
+✔ R06 act revalidation preserves original (98.667792ms)
+✔ R07 each material review guard (111.009333ms)
+✔ R08 exact act scope/time/version revalidation (191.05625ms)
+✔ R09 no silent reissue/new validity (60.523792ms)
+✔ R10 new condition requires T01 replacement retains v1 (54.912917ms)
+✔ R11 intent not sent or received (23.414ms)
+✔ R12 real manual send exact commercial effects (30.997792ms)
+✔ R13 every send guard invalidated (365.97475ms)
+✔ R14 approval/intention/AI not send (105.690958ms)
+✔ R15 expired no review blocks (126.906584ms)
+✔ R16 expired act review permits exact send not extension (102.58025ms)
+✔ R17 unknown material costs retained not zero (60.96875ms)
+✔ R18 rejection modality no whole loss (24.481875ms)
+✔ R19 rejection version/line retains exact history (50.365917ms)
+✔ R20 each rejection guard removed (352.612791ms)
+✔ R21 read/silence/nonselection never acceptance/rejection (214.264166ms)
+✔ R22 rejected scope cannot reuse without current review (79.4435ms)
+✔ R23 no positive Acceptance/Ganada/economy operations (224.504041ms)
+✔ R24 direct ordinary SQL denies update/delete/insert (182.04675ms)
+✔ R25 FORCE RLS ownership and minimum ACL (1.261375ms)
+✔ R26 absent context no writes (52.147042ms)
+✔ R27 forged scope or signature no writes (67.550666ms)
+✔ R28 disabled actor read/write/replay denied (65.64625ms)
+✔ R29 no provisioned actor and ordinary API role (27.917459ms)
+✔ R30 prewrite fault atomic (72.708ms)
+✔ R31 late fault rolls back send/Commercial/history/result (83.991541ms)
+✔ R32 lost postcommit response and equivalent replay (137.814875ms)
+✔ R33 changed replay is conflict (74.371458ms)
+✔ R34 concurrent sessions both orders one winner (66.708333ms)
+✔ R35 independent connection sees append history/results/exact refs (30.687084ms)
+✔ R36 migration preserves every prior row and ACL (1.009666ms)
+✔ R37 empty full chain native PG17 (226.896958ms)
+✔ R38 published migrations bytewise unchanged (33.233292ms)
+✔ R39 dimensions separate and no future objects (0.976625ms)
+✖ R40 aggregate send must include rejected modality review (61.83425ms)
+✔ R41 attributable rejection requires responsible context identity (80.973666ms)
+✖ R42 missing/null/typed revisions cannot bypass concurrency (54.071334ms)
+ℹ tests 42
+ℹ suites 0
+ℹ pass 40
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5488.959958
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-006.test.ts:108:1
+✖ R40 aggregate send must include rejected modality review (61.83425ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async reject (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-006.test.ts:54:75)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-006.test.ts:108:170)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h2-006.test.ts:112:1
+✖ R42 missing/null/typed revisions cannot bypass concurrency (54.071334ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async reject (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-006.test.ts:54:75)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-006.test.ts:112:258)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }

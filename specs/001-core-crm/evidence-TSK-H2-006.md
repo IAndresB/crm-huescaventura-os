@@ -88,3 +88,15 @@ Estado: **NO EJECUTADA**. Expected derivado de fuentes APPROVED/Tasks, no de imp
 ## Límites y pendientes
 
 H2-007+ y H3–H6 NOT STARTED. PLAN-AUTH-001–006, parte abierta PLAN-PENDING-003, DM-PENDING-005, BR-PENDING-022/033 preservados. Datos personales/comerciales/políticas, catálogo/tarifas/costes/capacidades, prioridades/plazos reales no acreditados. Hosted H2 no acreditado, Production no autorizada, sin conectores/envíos/pagos/proveedores reales.
+
+## Ampliación normativa y defectos formales (antes de corrección)
+
+R40: guardas de cobertura SM-PV-08/AC-086 se aplican a todo contenido incluido: rechazo de modalidad/línea también afecta el reenvío agregado. R41: atribución al responsable contextual H1, BR-PROP-005/G1. R42: revisiones obligatorias tipadas no pueden ser null/string y eludir precondiciones concurrentes, PLAN-C03/G6. Expected fijado antes de sus ejecuciones; no derivado de salida.
+
+| Fxx | Reproducer / expected | Observed original | Materialidad / corrección | Estado |
+|---|---|---|---|---|
+| F01 | R40: rechazo de modalidad; reenviar conjunto sin revalidación debe bloquear | Segundo/sixth formal: envío permitido; Missing expected rejection | Material, compromiso incluye alcance rechazado. Intersección versión/modalidad/línea y nueva revisión exacta | OPEN hasta matriz y regresión |
+| F02 | R41: contacto verificado ajeno al contexto no puede rechazar oferta del responsable | Sexta ejecución: rechazo permitido | Material, atribución comercial indebida. Reutilizar Primary Contact verificado H1 con vigencia al acto | OPEN hasta matriz y regresión |
+| F03 | R42: null/string en revisiones debe rechazar | Quinta/sexta ejecución: intención escrita con revisión null | Material, omite concurrencia. Validación SQL tipos y presencia, además de comparación bajo locks | OPEN hasta matriz y regresión |
+
+Original de migración `offer-ac6d770.sql.txt`, verifier `sixth-verifier.ts.txt` y FAIL/logs completos en `tests/fixtures/h2-006/`. Primera matriz39/39 PASS; ampliaciones conservadas. Tercera ejecución falló por fixture H1 expectedVersion=1 incorrecto (contexto empieza0), corregido solo en harness sin cambiar expected. R41 inicial usaba destinatario original por cierre del helper: se corrigió antes del FAIL material auténtico en sexta ejecución.

@@ -1,0 +1,72 @@
+✖ H2-006 preserved F01/F02/F03 reproduce on archived implementation (53.286208ms)
+✔ R01 default seven days/configuration (1171.573375ms)
+✔ R02 most restrictive material limit (27.98275ms)
+✔ R03 limit/source guards (50.087541ms)
+✔ R04 inside/outside expiry without rejection (123.437875ms)
+✔ R05 uncertainty evidence and missing source (48.674833ms)
+✔ R06 act revalidation preserves original (102.170583ms)
+✔ R07 each material review guard (136.537292ms)
+✔ R08 exact act scope/time/version revalidation (223.418708ms)
+✔ R09 no silent reissue/new validity (72.019167ms)
+✔ R10 new condition requires T01 replacement retains v1 (61.358625ms)
+✔ R11 intent not sent or received (22.590625ms)
+✔ R12 real manual send exact commercial effects (31.678666ms)
+✔ R13 every send guard invalidated (477.271708ms)
+✔ R14 approval/intention/AI not send (129.54025ms)
+✔ R15 expired no review blocks (143.33475ms)
+✔ R16 expired act review permits exact send not extension (104.462417ms)
+✔ R17 unknown material costs retained not zero (63.612083ms)
+✔ R18 rejection modality no whole loss (40.904542ms)
+✔ R19 rejection version/line retains exact history (55.304166ms)
+✔ R20 each rejection guard removed (494.862875ms)
+✔ R21 read/silence/nonselection never acceptance/rejection (289.666792ms)
+✔ R22 rejected scope cannot reuse without current review (89.240542ms)
+✔ R23 no positive Acceptance/Ganada/economy operations (290.826625ms)
+✔ R24 direct ordinary SQL denies update/delete/insert (184.101958ms)
+✔ R25 FORCE RLS ownership and minimum ACL (1.230208ms)
+✔ R26 absent context no writes (68.206209ms)
+✔ R27 forged scope or signature no writes (81.396416ms)
+✔ R28 disabled actor read/write/replay denied (85.85725ms)
+✔ R29 no provisioned actor and ordinary API role (28.786875ms)
+✔ R30 prewrite fault atomic (80.864834ms)
+✔ R31 late fault rolls back send/Commercial/history/result (96.728209ms)
+✔ R32 lost postcommit response and equivalent replay (186.94425ms)
+✔ R33 changed replay is conflict (86.634166ms)
+✔ R34 concurrent sessions both orders one winner (70.738459ms)
+✔ R35 independent connection sees append history/results/exact refs (29.946458ms)
+✔ R36 migration preserves every prior row and ACL (1.206875ms)
+✔ R37 empty full chain native PG17 (222.419917ms)
+✔ R38 published migrations bytewise unchanged (35.478417ms)
+✔ R39 dimensions separate and no future objects (0.85225ms)
+✔ R40 aggregate send must include rejected modality review (112.692041ms)
+✔ R41 attributable rejection requires responsible context identity (96.739542ms)
+✔ R42 missing/null/typed revisions cannot bypass concurrency (322.709167ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 42
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6506.784541
+
+✖ failing tests:
+
+test at tests/integration/postgres-h2-006-defects.test.ts:6:1
+✖ H2-006 preserved F01/F02/F03 reproduce on archived implementation (53.286208ms)
+  AssertionError [ERR_ASSERTION]: (node:46186) Warning: node:test run() is being called recursively within a test file. skipping running files.
+  (Use `node --trace-warnings ...` to show where the warning was created)
+  
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h2-006-defects.test.ts:10:219)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
