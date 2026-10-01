@@ -1,0 +1,27 @@
+import {randomUUID as uid} from 'node:crypto';
+import {write} from './h2-acceptance-isolated.ts';
+import type {isolatedAcceptance} from './h2-acceptance-isolated.ts';
+import type {AcceptanceCommand} from '../../src/infrastructure/postgres/h2-acceptance-adapter.ts';
+type H=Awaited<ReturnType<typeof isolatedAcceptance>>;
+export const now=()=>new Date(Date.now()-1).toISOString();
+export async function acceptanceFixture(h:H){
+ const service=await h.cat('service',{name:'H2 SYNTHETIC service',nature:'external'}),unit=await h.cat('unit',{name:'SYNTHETIC group',definition:'fixed group'}),form=await h.cat('pricing_form',{name:'SYNTHETIC fixed',definition:'fixed'});
+ const tariff=await h.com('tariff',{label:'synthetic',price_state:'confirmed',amount:'900.00',cost_state:'confirmed',cost_amount:'700.00',vat_treatment:'included',unit_revision_id:unit.revision,pricing_form_revision_id:form.revision},service);
+ const opp=h.input();await h.adapter.apply(await h.auth(),write,opp);
+ const mid=uid(),line=uid(),other=uid(),content={scope:'H2 exact synthetic scope',terms:{version:'H2-T1',text:'Existing synthetic conditions; no mandate',sourceRef:'synthetic retained terms'},pending:[],modalities:[mid,other].map((id,i)=>({id,name:i?'B':'A',participants:10,independent:true,selectable:true,conditions:'synthetic exact',finalPersonPrice:'100.01',manualReason:'human synthetic',definitive:true,lines:[{id:i?uid():line,serviceRevisionId:service.revision,unitRevisionId:unit.revision,tariffRevisionId:tariff.revision,quantity:'1',included:true,independent:false,selectable:false,date:'2026-10-20',datePending:false,priceBasis:'fixed' as const,costMaterial:true,sourceRef:'synthetic quantity'}]}))};
+ const proposalId=uid(),versionId=uid(),c={action:'prepare' as const,operationId:uid(),proposalId,opportunityId:opp.targetId,expectedRevision:0,expectedOpportunityRevision:1,sourceRef:'synthetic',reason:'synthetic',content};
+ await h.proposal.apply(await h.auth(),write,c);await h.proposal.apply(await h.auth(),write,{...c,action:'fix',operationId:uid(),versionId,content:undefined,expectedRevision:1});
+ const accepterId=uid(),designationId=uid();await h.identities.apply(await h.auth(),write,{action:'create_entity',operationId:uid(),targetId:accepterId,kind:'contact',expectedVersion:0,sourceRef:'synthetic identity',evidenceRef:'synthetic identity evidence',reason:'synthetic',verified:true,displayName:'SYNTHETIC CLIENT'});
+ await h.identities.apply(await h.auth(),write,{action:'designate',operationId:uid(),targetId:designationId,relatedId:accepterId,contextId:opp.targetId,kind:'primary_contact',expectedVersion:0,sourceRef:'synthetic designation',evidenceRef:'synthetic faculty',reason:'synthetic',verified:true,happenedAt:new Date(Date.now()-1000).toISOString()});
+ const proof=async(claim:string,coverage:string,at:string,certainty='reviewed')=>{const r=h.req('evidence',{claim,coverage,certainty,source_kind:'manual'},opp.targetId);await h.evidence.apply(await h.auth(),write,{...r,coverage,occurredAt:at});return r.targetId;};
+ const revisions=async()=>({expectedRevision:Number((await h.observer`select revision from crm_private.b03_proposals where proposal_id=${proposalId}::uuid`)[0]!.revision),expectedOpportunityRevision:Number((await h.observer`select revision from crm_private.b03_opportunities where opportunity_id=${opp.targetId}::uuid`)[0]!.revision)});
+ const issued=now(),evidenceId=await proof(`offer:issue:${versionId}:${issued}:7`,content.scope,issued);
+ await h.offer.apply(await h.auth(),write,{action:'issue',operationId:uid(),proposalId,opportunityId:opp.targetId,versionId,...await revisions(),sourceRef:'synthetic',reason:'synthetic',coverage:content.scope,at:issued,issuance:{issuedAt:issued,limits:[]},evidenceId});
+ const q=async(change:Partial<AcceptanceCommand>={}):Promise<AcceptanceCommand>=>({action:'candidate',operationId:uid(),acceptanceId:uid(),proposalId,opportunityId:opp.targetId,versionId,...await revisions(),sourceRef:'synthetic exact act',reason:'synthetic decision',coverage:content.scope,at:now(),...change});
+ const registration=async(coverage=content.scope,channel='phone',certainty='reviewed')=>{const at=now(),acceptanceId=uid(),authorityEvidenceId=await proof(`acceptance:authority:${versionId}:${accepterId}:${designationId}`,coverage,at),evidenceId=await proof(`acceptance:agree:${versionId}:${acceptanceId}:${accepterId}:${channel}`,coverage,at,certainty);
+  return q({action:'register',acceptanceId,at,coverage,accepterId,designationId,channel,terms:content.terms,authorityEvidenceId,evidenceId});};
+ const register=async(coverage=content.scope,channel='phone')=>{const r=await registration(coverage,channel);await h.acceptance.apply(await h.auth(),write,r);return r;};
+ const verification=async(r:AcceptanceCommand,won=true)=>{const reviewEvidence:Record<string,string>={};for(const aspect of ['prices','availability','conditions','capacity']) reviewEvidence[aspect]=await proof(`offer:review:${versionId}:${r.acceptanceId}:accept:${aspect}`,r.coverage,r.at);
+  return q({action:'verify',acceptanceId:r.acceptanceId,at:r.at,coverage:r.coverage,reviewEvidence,won});};
+ return {opp,content,mid,line,other,proposalId,versionId,accepterId,designationId,proof,q,revisions,registration,register,verification};
+}
