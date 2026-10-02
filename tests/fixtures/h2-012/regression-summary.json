@@ -1,0 +1,100 @@
+{
+  "approvedBase": "b94bdb10e7182a7affe2738f2a7277bc25ea23a3",
+  "effectiveBase": "d9d76363f5589f83093aff9b802280408b2e890b",
+  "testedCommit": "226b53559dc0786dd14dead0039eed394144fade",
+  "formal": {
+    "tests": 279,
+    "pass": 279,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "formalPrimaryCases": 266,
+  "historicalReproducersAndComplements": 13,
+  "H2011": {
+    "cases": 36,
+    "reproducers": 2,
+    "pass": 38
+  },
+  "exitCriteria": 20,
+  "postgres": {
+    "tests": 617,
+    "pass": 617,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "unit": {
+    "tests": 81,
+    "pass": 81,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "gates": {
+    "install": {
+      "command": [
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit": 0
+    },
+    "typecheck": {
+      "command": [
+        "pnpm",
+        "run",
+        "typecheck"
+      ],
+      "exit": 0
+    },
+    "lint": {
+      "command": [
+        "pnpm",
+        "run",
+        "lint"
+      ],
+      "exit": 0
+    },
+    "boundaries": {
+      "command": [
+        "pnpm",
+        "run",
+        "check:boundaries"
+      ],
+      "exit": 0
+    },
+    "unit": {
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "exit": 0
+    },
+    "build": {
+      "command": [
+        "pnpm",
+        "run",
+        "build"
+      ],
+      "exit": 0
+    },
+    "audit": {
+      "command": [
+        "pnpm",
+        "audit",
+        "--prod"
+      ],
+      "exit": 0
+    }
+  },
+  "migration": "PASS preservation/fresh/upgrade/rollback/optional roles; no new migration",
+  "defects": {
+    "H2-011-F01": "CLOSED verifier arithmetic",
+    "H2-011-F02": "CLOSED verifier query",
+    "materialOpen": 0,
+    "newProductDefects": 0
+  },
+  "H2": "COMPLETED local/isolated",
+  "H3-H6": "NOT STARTED"
+}

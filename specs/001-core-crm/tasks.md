@@ -6,10 +6,10 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 IN PROGRESS, H2-001–010 COMPLETED local/aislado; H2-011–012 y H3–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 IN PROGRESS, H2-001–010 COMPLETED local/aislado; H2-011–012 y H3–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
-Last updated: 2026-10-01
+Last updated: 2026-10-03
 
 ## 1. Autoridad, base y alcance
 
@@ -917,7 +917,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H2-011 — Verificar cantidades iniciales y lista nominal por alcance
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H2. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Registro: [evidence-TSK-H2-011.md](evidence-TSK-H2-011.md). Hito: H2. Tipo: comprobación.
 - **Objetivo y alcance:** Detalle de conversión por servicio/noche, unidades y personas nominales necesarias sin doble cómputo.
 - **Fuentes exactas:** Plan §§5.1, 7.3, 9–10; SPEC-FR-ID-004, SPEC-FR-CAT-002, SPEC-FR-PROP-003, SPEC-FR-BOOK-003, SPEC-FR-SVC-001, SPEC-FR-SVC-002, SPEC-FR-SVC-003, SPEC-FR-SVC-004, AC-017, AC-019. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H2-011.
 - **Bloques, contratos y unidades:** B02/B03/B04/B07; C01/C02/C03; T03.
@@ -927,14 +927,14 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Acción futura:** Ejecutar dominio y persistencia real de cantidades originadas por conversión; contrastar listas parciales y proyecciones.
 - **Salida observable:** Detalle inicial y origen de cada contribución reconstruibles; edición material posterior se verifica en H4 sin dar por confirmada capacidad en H2.
 - **Verificación y esperado:** 10 con rafting/2 noches + 2 sin rafting/1 noche → rafting10/cena12/noches12 y10; 4 nombres en12 no suman16 ni crean8 personas ficticias. Casa completa sin reparto de habitaciones; dos prestaciones de catálogo igual mantienen identidad si horario/proveedor difieren. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** [evidence-TSK-H2-011.md](evidence-TSK-H2-011.md): expected previo y erratum trazable sin alterar original; commit probado `226b53559dc0786dd14dead0039eed394144fade`; H2-011 R01–R36 36/36 +2/2 reproducers PASS; revalidación H2 279/279 y salida S01–S20 20/20 PASS. V-DOM/DAT/MIG/AT/SM/NEG/EVI;617/617 PostgreSQL17.11 y81/81 unitarias, gates completos PASS,0FAIL/skipped/cancelled. F01/F02 del verificador CLOSED, originales conservados; sin cambios de producto ni migración nueva. H2 COMPLETED únicamente local/aislado; H3–H6 NOT STARTED, STOP tras012 y límites globales preservados.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T03 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h2-012"></a>
 
 #### TSK-H2-012 — Registrar salida de contratación y conversión
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H2. Tipo: documentación/evidencia.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Registro: [evidence-TSK-H2-012.md](evidence-TSK-H2-012.md). Hito: H2. Tipo: documentación/evidencia.
 - **Objetivo y alcance:** Consolidar inmutabilidad y conversión única con cantidades iniciales.
 - **Fuentes exactas:** Plan §§9–10; Plan §9 (resultado y salida del hito); correspondencias específicas de §6. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H2-012.
 - **Bloques, contratos y unidades:** B03/B04/B07/B10; C01–C05; T01/T02/T03.
@@ -944,7 +944,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Acción futura:** Revisar pruebas T01/T02/T03, escritura directa, selecciones y matrices de cantidades, incluidos fallos y carreras.
 - **Salida observable:** H2 completo únicamente con evidencia requerida; confirmación, fondos y cierres se conservan sin acreditar.
 - **Verificación y esperado:** Ninguna unidad visible incompleta ni criterio de conversión satisfecho solo por fixture de estado; todas las referencias de aceptación comprobadas. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** [evidence-TSK-H2-012.md](evidence-TSK-H2-012.md): expected previo y erratum trazable sin alterar original; commit probado `226b53559dc0786dd14dead0039eed394144fade`; H2-011 R01–R36 36/36 +2/2 reproducers PASS; revalidación H2 279/279 y salida S01–S20 20/20 PASS. V-DOM/DAT/MIG/AT/SM/NEG/EVI;617/617 PostgreSQL17.11 y81/81 unitarias, gates completos PASS,0FAIL/skipped/cancelled. F01/F02 del verificador CLOSED, originales conservados; sin cambios de producto ni migración nueva. H2 COMPLETED únicamente local/aislado; H3–H6 NOT STARTED, STOP tras012 y límites globales preservados.
 - **Paralelismo y restricciones:** La recopilación parcial puede acompañar trabajo independiente; el cierre espera todas sus dependencias. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T01/T02/T03 conservan atomicidad y revisión conjunta.
 
 ### 4.4. H3 — Economía operativa
