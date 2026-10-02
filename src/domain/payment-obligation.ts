@@ -40,14 +40,20 @@ export function determineSchedule(policy:PaymentPolicy,value:ScheduleDefinition)
 // No producer of accredited portions exists in H3-001/002. H3-006 must supply a trusted
 // economic facts port. A client JSON boolean can never mint this authority.
 declare const verifiedPortion:unique symbol;
+// Admission is deliberately empty until H3-006 connects real verified facts. The
+// evaluator below is ready for that contract; no public factory admits forecasts.
+const admittedCoveragePortions=new WeakSet<object>();
 export interface VerifiedCoveragePortion {readonly [verifiedPortion]:true;readonly id:string;readonly obligationRef:string;readonly amount:string;readonly factRef:string;}
 export interface CoverageEvaluation {readonly state:'pending'|'partial'|'complete';readonly verifiedAmount:string;readonly remaining:string;readonly expired:boolean|null;}
 export function evaluateExpected(part:ExpectedPart,reference:CivilReference,at:string,portions:readonly VerifiedCoveragePortion[]=[]):CoverageEvaluation {
  // Fail closed until the actual trusted funds integration is available. No fake positive coverage.
- if(portions.length)throw new Error('OBLIGATION_VERIFIED_FUNDS_INTEGRATION_PENDING');
+ if(portions.some(p=>!admittedCoveragePortions.has(p)))throw new Error('OBLIGATION_VERIFIED_FUNDS_INTEGRATION_PENDING');
+ if(new Set(portions.map(p=>p.id)).size!==portions.length||new Set(portions.map(p=>p.obligationRef)).size>1)invalid();
  exactNonnegativeAmount(part.amount);const act=dateAtInstant(instant(at),reference.zone);
  const expired=part.due.kind==='civil'?act>localDate(part.due.date):null;
- return {state:'pending',verifiedAmount:'0.00',remaining:part.amount,expired};
+ const remaining=remainingRight(part.amount,portions.map(p=>exactNonnegativeAmount(p.amount)));
+ const verifiedAmount=moneyDifference(part.amount,remaining);
+ return {state:portions.length===0?'pending':remaining==='0.00'?'complete':verifiedAmount==='0.00'?'pending':'partial',verifiedAmount,remaining,expired};
 }
 export function obligationAdjustment(original:ExpectedPart,amount:string,due:Due) {
  exactNonnegativeAmount(amount);if(due.kind==='civil')localDate(due.date);

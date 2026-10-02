@@ -126,7 +126,7 @@ begin
     d:=a->'definition';c:=a->'computed';policy:=a->'policy';
     if jsonb_typeof(d) is distinct from 'object' or not(d ?& array['base','reference','at']) or d-array['base','reference','at','exception']<>'{}'::jsonb
      or jsonb_typeof(d->'base') is distinct from 'object' or (d->'base')-array['amount','sourceRef','version']<>'{}'::jsonb
-     or not(d->'base' ?& array['amount','sourceRef','version']) or jsonb_typeof((d->'base')->'amount') is distinct from 'string' or (d->'base')->>'amount' !~ '^(0|[1-9][0-9]*)\.[0-9]{2}$'
+     or not(d->'base' ?& array['amount','sourceRef','version']) or (d->'base')->>'amount' !~ '^(0|[1-9][0-9]*)\.[0-9]{2}$'
      or coalesce((d->'base')->>'sourceRef','')='' or coalesce((d->'base')->>'version','')='' or d->>'at' is distinct from a->>'at'
      or policy-array['id','version','rule']<>'{}'::jsonb or policy->>'id' is distinct from pid::text or policy->>'rule' is distinct from 'ordinary_50_50'
     then raise exception 'OBLIGATION_MATERIAL_REQUIRED';end if;
@@ -225,7 +225,7 @@ declare hf text[];tf text[];fs text[];a jsonb;r jsonb;begin
  if jsonb_typeof(a) is distinct from 'object' or a-array['bookingId','scheduleId']<>'{}'::jsonb or not(a ?& array['bookingId','scheduleId']) then raise exception 'OBLIGATION_INPUT_INVALID';end if;
  select jsonb_build_object('current',(select to_jsonb(x) from crm_private.b05_schedule_revisions x where x.schedule_id=ps.schedule_id order by revision desc limit 1),
  'original',(select jsonb_agg(jsonb_build_object('slot',x.slot,'amount',to_char(x.amount,'FM999999999999999999999999999999990.00'),'due',x.due) order by x.slot) from crm_private.b05_expected_payments x where x.schedule_id=ps.schedule_id),
- 'history',coalesce((select jsonb_agg(to_jsonb(x)||jsonb_build_object('difference',x.difference::text) order by x.revision) from crm_private.b05_obligation_adjustments x where x.schedule_id=ps.schedule_id),'[]')) into r
+ 'history',coalesce((select jsonb_agg(to_jsonb(x) order by x.revision) from crm_private.b05_obligation_adjustments x where x.schedule_id=ps.schedule_id),'[]')) into r
  from crm_private.b05_payment_schedules ps where ps.schedule_id=(a->>'scheduleId')::uuid and ps.booking_id=(a->>'bookingId')::uuid and ps.admin_scope=hf[17];
  perform crm_f2.verify(f2p,f2s,q,'C01','human_evidence','read_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');return r;
 end $$;
