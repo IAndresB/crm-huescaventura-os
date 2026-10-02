@@ -1,0 +1,13 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {determineSchedule,evaluateExpected,obligationAdjustment,type VerifiedCoveragePortion} from '../src/domain/payment-obligation.ts';
+import {civilReference,localDate,zoneEvidence} from '../src/domain/civil-time.ts';
+import {reconstructCalculation} from '../src/domain/exact-money.ts';
+const ref=civilReference({scope:'global',scopeId:'synthetic-booking'},localDate('2026-10-20'),zoneEvidence('Europe/Madrid','synthetic-contract','1'),'synthetic-service','1');
+const definition={base:{amount:'1000.01',sourceRef:'synthetic-version',version:'1'},reference:ref,at:'2026-10-13T21:59:59Z'};
+const policy={id:'synthetic-policy',version:1,rule:'ordinary_50_50' as const};
+test('PM-03 exact H1 trace and reconstruction',()=>{const r=determineSchedule(policy,definition);assert.deepEqual(r.parts.map(p=>p.amount),['500.01','500.00']);assert.equal((r.calculation.output as {internal:{decimal:string}}).internal.decimal,'500.005');assert.deepEqual(reconstructCalculation(r.calculation),r.calculation.output);});
+test('D020 whole seven-day boundary and balance expiry',()=>{const r=determineSchedule(policy,definition),p=r.parts[1]!;assert.equal(p.due.kind,'civil');assert.equal(evaluateExpected(p,ref,definition.at).expired,false);assert.equal(evaluateExpected(p,ref,'2026-10-13T22:00:00Z').expired,true);assert.equal(determineSchedule(policy,{...definition,at:'2026-10-13T22:00:00Z'}).parts[0]!.amount,'1000.01');});
+test('No client or predicted fact can mint positive coverage',()=>{const p=determineSchedule(policy,definition).parts[0]!;for(const fact of [{verified:true},{amount:'500.01',id:'expected',factRef:'promise'}])assert.throws(()=>evaluateExpected(p,ref,definition.at,[fact as unknown as VerifiedCoveragePortion]));assert.equal(evaluateExpected(p,ref,definition.at).state,'pending');});
+test('Odd cents and authorized corrections reuse H1 exact difference',()=>{for(const [amount,parts] of [['0.01',['0.01','0.00']],['0.03',['0.02','0.01']],['0.00',['0.00','0.00']]] as const)assert.deepEqual(determineSchedule(policy,{...definition,base:{...definition.base,amount}}).parts.map(x=>x.amount),parts);const p=determineSchedule(policy,definition).parts[0]!,a=obligationAdjustment(p,'0.00',p.due);assert.equal(a.difference,'-500.01');assert.equal(p.amount,'500.01');});
+test('Unknown/float/negative amounts and unsupported policies fail closed',()=>{for(const amount of ['1000.005','-1.00',500 as unknown as string])assert.throws(()=>determineSchedule(policy,{...definition,base:{...definition.base,amount}}));assert.throws(()=>determineSchedule({...policy,rule:'invented' as 'ordinary_50_50'},definition));});
