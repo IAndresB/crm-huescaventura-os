@@ -1,5 +1,9 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+Actualización H3 — 2026-10-03: **TSK-H3-001/002 COMPLETED local/aislado; H3 IN PROGRESS; H3-003+ y H4–H6 NOT STARTED. STOP tras H3-002.** Políticas/schedules/Expected Payments y ajustes históricos, PM-03=500,01+500,00 y límites D020 verificados; [implementación](../specs/001-core-crm/evidence-TSK-H3-001.md) y [verificación](../specs/001-core-crm/evidence-TSK-H3-002.md). Commit exacto probado `a2bbcd0cf85ebd3f0ecdf9d0383d7d54df3ae9a0`:60/60 matriz+4/4 históricos+1/1 focal;682/682 PostgreSQL y86/86 unitarias; gates/V-MIG/preservación PASS. F01–F04 CLOSED, cero materiales abiertos. H0–H2 locales conservados; H3-006/H4-021/H6-005 pendientes. Cobertura positiva pendiente de hechos verificados H3-006, sin dinero/fondos/Customer Payment/Reconciliation/Refund/facturación/proveedores/operación/conectores/envíos reales. Hosted H2/H3 no acreditados; Production no autorizada; health-check independiente conservado. Todos los pendientes globales vigentes permanecen abiertos en su alcance.
+
+Registro histórico anterior a H3 (cierre H2-012):
+
 Actualización 2026-10-03: H0 COMPLETED técnico/local/aislado y H1 COMPLETED local/aislado conservados. **H2 COMPLETED local/aislado; TSK-H2-001–012 COMPLETED local/aislado.** [Verificación H2-011](../specs/001-core-crm/evidence-TSK-H2-011.md) y [salida H2-012](../specs/001-core-crm/evidence-TSK-H2-012.md), commit exacto probado `226b53559dc0786dd14dead0039eed394144fade`: 36/36 casos H2-011 +2/2 reproducciones; revalidación H2 266 casos de matrices +13 reproducciones/complementos =279/279 PASS; salida S01–S20 20/20 PASS. Regresión 617/617 PostgreSQL 17.11 y81/81 unitarias; gates y V-MIG/preservación PASS. H2-011-F01/F02 del verificador CLOSED, cero materiales abiertos; FAIL originales conservados, sin cambios de producto ni migraciones nuevas. **H3–H6 NOT STARTED; STOP tras H2-012, sin preparación de H3.** PLAN-AUTH-001–006 PENDING globalmente; PLAN-PENDING-003 en su parte abierta y todos los ARCH-PENDING, DM-PENDING y BR-PENDING vigentes conservados, incluidos DM-PENDING-005 y BR-PENDING-022/033. Datos personales/comerciales, catálogo/tarifas/costes/capacidades y prioridades/plazos reales no acreditados. Hosted H2 no acreditado; Production no autorizada. Sin pagos/fondos/conciliación/Refund/facturación/proveedores confirmados/operación/conectores/envíos reales. Health-check independiente conservado; no acredita hosted H2.
 
 Status: ACTIVE
@@ -84,9 +88,11 @@ Last updated: 2026-10-03
 
 - TSK-H2-011/012 — COMPLETED local/aislado el 2026-10-03: cantidades 10/12/12/10, nominal parcial sin doble cómputo y salida H2 contrastada con evidencias materiales y regresión fresca. [Cierre H2](../specs/001-core-crm/evidence-TSK-H2-012.md):36/36 +2/2 históricos;279/279 revalidación H2;20/20 salida;617/617 PostgreSQL y81/81 unitarias. F01/F02 de verificación CLOSED; H2 COMPLETED solo local/aislado. STOP antes de H3.
 
+- TSK-H3-001/002 — COMPLETED local/aislado: [modelo](../specs/001-core-crm/evidence-TSK-H3-001.md) y [matriz](../specs/001-core-crm/evidence-TSK-H3-002.md);60/60+4/4 históricos+1/1 focal,682/682 PostgreSQL y86/86 unitarias. F01–F04 CLOSED. H3 sigue IN PROGRESS; integraciones H3-006/H4-021/H6-005 pendientes.
+
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED técnico/local/aislado, H1 y H2 COMPLETED local/aislado. H3–H6 NOT STARTED. STOP obligatorio tras H2-012; el siguiente hito requiere nueva autorización humana.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED técnico/local/aislado, H1 y H2 COMPLETED local/aislado. H3 IN PROGRESS; únicamente H3-001/002 COMPLETED local/aislado. H3-003+ y H4–H6 NOT STARTED. STOP obligatorio tras H3-002; continuidad requiere nueva autorización humana.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending

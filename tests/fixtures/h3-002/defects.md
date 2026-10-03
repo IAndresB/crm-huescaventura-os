@@ -9,3 +9,5 @@ Expected congelado en8d1f527 intacto. first-formal.log:56/60 PASS,4 FAIL.
 Estados iniciales OPEN; solo cerrar tras matriz y regresión completas. SQL y verificador originales conservados con FAIL.
 
 - F04 de verificador de regresión: PostgreSQL completo sobre6f53c32 termina680/681 PASS por R35 H2-011:31!==30. Inventario vivo incluye migración H3 futura al comparar con base histórica d9d7636 (30). Expected de preservar30 migraciones H2 y sus bytes intacto; se limita inventario a bookingMigration, sin retirar comparaciones/ensayo V-MIG. Original verificador y FAIL completo conservados; nuevo reproducer exige31 y el FAIL30 original. Corrección necesaria para continuar H3 sin modificar producto/normativa H2. Estado OPEN hasta regresión fresca completa.
+
+Cierre tras regresión fresca completa sobre `a2bbcd0cf85ebd3f0ecdf9d0383d7d54df3ae9a0`: **F01/F02/F03/F04 CLOSED local/aislado**, cuatro reproducciones históricas PASS y682/682 PostgreSQL +86/86 unitarias; cero abiertos. Expected intacto y originales/FAIL preservados.

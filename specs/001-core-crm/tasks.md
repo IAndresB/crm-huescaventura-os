@@ -6,8 +6,8 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003+ y H4–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003+ y H4–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-03
 
@@ -953,35 +953,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H3-001 — Determinar vencimientos y cobertura de obligaciones
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA.** Hito: H3. Tipo: implementación. Registro: [evidence-TSK-H3-001.md](evidence-TSK-H3-001.md).
 - **Objetivo y alcance:** Payment Policy/Schedule/Expected Payment, 50/50 y excepción, 100 % a menos de 7 días, cobertura desde porciones verificadas.
 - **Fuentes exactas:** Plan §§5.2, 7.3, 9; SPEC-FR-ECON-001, SPEC-FR-ECON-002, AC-023, AC-025, AC-041, AC-042, PM-03, D020, D023. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-001.
 - **Bloques, contratos y unidades:** B05; C02/C03/C06; T05/T06.
 - **Entregable previsto:** Áreas propuestas de obligaciones y políticas aplicadas con migraciones. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H2-012], [TSK-H1-012], [TSK-H1-010]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H2 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Referencia/importe/política ausentes detienen obligación afectada; no plazo inventado. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Registrar vencimientos, base/versiones y modificaciones justificadas; calcular anticipo redondeado y saldo por diferencia; exponer evaluación de cobertura para integrar fondos.
+- **Bloqueo localizado / condición para levantarlo:** Referencia/importe/política ausentes detienen obligación afectada; no plazo inventado. El detalle de evidencia/decisión y puerta está en §7; el bloqueo permanece localizado a los datos/efectos ausentes; alcance local verificado, sin datos reales inventados.
+- **Acción ejecutada:** Vencimientos, base/versiones y modificaciones justificadas persistidos; anticipo redondeado y saldo por diferencia mediante H1. Evaluación de cobertura pendiente y contrato para integrar hechos verificados en H3-006.
 - **Salida observable:** Obligaciones y vencimiento reproducibles; cobertura solo cambia mediante hechos verificados, integrada en la tarea de fondos.
 - **Verificación y esperado:** PM-03 500,01+500,00; día límite completo; previsión no crea recepción; excepción necesita actor/motivo. Ajuste conserva deuda original y causa, sin deuda nueva por simple devolución. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H3-002].
 - **Integración adicional obligatoria:** [TSK-H3-006], [TSK-H4-021], [TSK-H6-005]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado** sobre `a2bbcd0cf85ebd3f0ecdf9d0383d7d54df3ae9a0`:60/60 matriz,4/4 históricos,1/1 focal;682/682 PostgreSQL y86/86 unitarias, gates y V-MIG PASS;F01–F04 CLOSED. Integración H3-006/H4-021/H6-005 pendiente; sin Customer Payment/Reconciliation/fondos/hosted/Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T05/T06 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-002"></a>
 
 #### TSK-H3-002 — Verificar: Determinar vencimientos y cobertura de obligaciones
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA.** Hito: H3. Tipo: comprobación. Registro: [evidence-TSK-H3-002.md](evidence-TSK-H3-002.md).
 - **Objetivo y alcance:** Payment Policy/Schedule/Expected Payment, 50/50 y excepción, 100 % a menos de 7 días, cobertura desde porciones verificadas.
 - **Fuentes exactas:** Plan §§5.2, 7.3, 9; SPEC-FR-ECON-001, SPEC-FR-ECON-002, AC-025, AC-041, AC-042, PM-03, D020, D023. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-002.
 - **Bloques, contratos y unidades:** B05; C02/C03/C06; T05/T06.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H2-012], [TSK-H3-001]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H2 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Referencia/importe/política ausentes detienen obligación afectada; no plazo inventado. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H3-001; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** Referencia/importe/política ausentes detienen obligación afectada; no plazo inventado. El detalle de evidencia/decisión y puerta está en §7; el bloqueo permanece localizado a los datos/efectos ausentes; alcance local verificado, sin datos reales inventados.
+- **Acción ejecutada:** V-DOM + V-DAT + V-MIG ejecutados sobre TSK-H3-001 con expected normativo congelado previo;60/60 matriz y regresión fresca completas PASS.
 - **Salida observable:** Obligaciones y vencimiento reproducibles; cobertura solo cambia mediante hechos verificados, integrada en la tarea de fondos. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** PM-03 500,01+500,00; día límite completo; previsión no crea recepción; excepción necesita actor/motivo. Ajuste conserva deuda original y causa, sin deuda nueva por simple devolución. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado** sobre `a2bbcd0cf85ebd3f0ecdf9d0383d7d54df3ae9a0`:60/60 matriz,4/4 históricos,1/1 focal;682/682 PostgreSQL y86/86 unitarias, gates y V-MIG PASS;F01–F04 CLOSED. Integración H3-006/H4-021/H6-005 pendiente; sin Customer Payment/Reconciliation/fondos/hosted/Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T05/T06 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-003"></a>
