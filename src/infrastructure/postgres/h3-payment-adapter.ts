@@ -11,7 +11,7 @@ export interface PaymentCommand {
  readonly action:'detect'|'receive'|'propose'|'verify'|'discrepancy'|'rectify'|'resolve';
  readonly operationId:string;readonly paymentId:string;readonly expectedRevision:number;
  readonly sourceRef:string;readonly reason:string;readonly at:string;readonly evidenceId:string;
- readonly origin?:'manual'|'ai';readonly detection?:Detection;
+ readonly origin?:'manual'|'ai';readonly detection?:Detection;readonly presentedEvidenceId?:string;
  readonly amount?:string;readonly identity?:MovementIdentity;readonly sourceEvidenceId?:string;
  readonly discrepancy?:string|null;readonly reconciliationId?:string;readonly incidentId?:string;
  readonly start?:string;readonly bookingId?:string;readonly scheduleId?:string;readonly slot?:'initial'|'balance';

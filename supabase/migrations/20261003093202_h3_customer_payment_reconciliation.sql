@@ -115,7 +115,7 @@ begin
  if hf[17] collate "C"<>tf[14] collate "C" then raise exception 'PAYMENT_DENIED';end if;
  fs:=crm_f1.fields(q);if cardinality(fs)<>2 or fs[1]<>'CRM-H3-PAYMENT1' then raise exception 'PAYMENT_INPUT_INVALID';end if;a:=fs[2]::jsonb;
  action:=a->>'action';allowed:=array['action','operationId','paymentId','expectedRevision','sourceRef','reason','at','evidenceId','origin'];
- if action='detect' then allowed:=allowed||array['detection','sourceEvidenceId'];
+ if action='detect' then allowed:=allowed||array['detection','sourceEvidenceId','presentedEvidenceId'];
  elsif action='receive' then allowed:=allowed||array['amount','identity','sourceEvidenceId','discrepancy'];
  elsif action='propose' then allowed:=allowed||array['reconciliationId','start','amount','bookingId','scheduleId','slot'];
  elsif action='verify' then allowed:=allowed||array['reconciliationId','sourceEvidenceId'];
@@ -171,13 +171,16 @@ begin
    then raise exception 'PAYMENT_AUTHORIZED_SOURCE_REQUIRED';end if;
   end if;
   if action='detect' then
+   if a?'presentedEvidenceId' and not exists(select 1 from crm_private.b07_records er join crm_private.b07_links el using(record_id)
+    where er.record_id=(a->>'presentedEvidenceId')::uuid and er.admin_scope=s and el.admin_scope=s and el.context_kind='other' and el.context_id=pid and el.coverage=pid::text)
+    then raise exception 'PAYMENT_PRESENTED_EVIDENCE_REQUIRED';end if;
    if p.payment_id is not null then
     if p.detection_fingerprint<>effecthash then raise exception 'PAYMENT_MOVEMENT_CONFLICT:E2';end if;changed:=false;
    else
     if (a->>'expectedRevision')::bigint<>0 then raise exception 'PAYMENT_REVISION_CONFLICT:E2';end if;
     if d->'bookingId'<>'null'::jsonb then select * into b from crm_private.b04_bookings where booking_id=(d->>'bookingId')::uuid and admin_scope=s;if not found then raise exception 'PAYMENT_CONTEXT_REQUIRED';end if;end if;
     insert into crm_private.b05_customer_payments values(pid,s,d,effecthash,(a->>'evidenceId')::uuid,actor,clock_timestamp());
-    current_state:=jsonb_build_object('detection',d,'receipt',null,'correspondences','[]'::jsonb,'incidents','[]'::jsonb,'duplicateOf',null,'revision',1);rev:=0;
+    current_state:=jsonb_build_object('detection',d,'receipt',null,'correspondences','[]'::jsonb,'incidents','[]'::jsonb,'duplicateOf',null,'presentedEvidenceId',a->'presentedEvidenceId','revision',1);rev:=0;
     if keydata<>'null'::jsonb then insert into crm_private.b05_movement_keys values(keydata->>'sourceRef',keydata->>'externalId',pid,s);end if;
    end if;
   else
@@ -188,7 +191,7 @@ begin
     if current_state->'detection'->'identity'<>'null'::jsonb and current_state->'detection'->'identity'<>keydata then raise exception 'PAYMENT_MOVEMENT_CONFLICT:E2';end if;
     newreceipt:=jsonb_build_object('amount',a->>'amount','sourceRef',a->>'sourceRef','evidenceId',a->>'evidenceId','identity',keydata,'discrepancy',a->'discrepancy');
     if current_state->'receipt'<>'null'::jsonb then
-     if (current_state->'receipt'-'evidenceId')<>(newreceipt-'evidenceId') then raise exception 'PAYMENT_RECEIPT_CONFLICT:E2';end if;changed:=false;
+     if ((current_state->'receipt')-'evidenceId')<>(newreceipt-'evidenceId') then raise exception 'PAYMENT_RECEIPT_CONFLICT:E2';end if;changed:=false;
     else
      if (a->>'expectedRevision')::bigint<>rev then raise exception 'PAYMENT_REVISION_CONFLICT:E2';end if;
      if canonical is not null and canonical<>pid then

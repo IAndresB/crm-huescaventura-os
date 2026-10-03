@@ -16,7 +16,7 @@ export interface PaymentIncident {readonly id:string;readonly reconciliationId:s
 export interface PaymentSnapshot {
  readonly detection:Detection;readonly receipt:Readonly<{amount:string;sourceRef:string;evidenceId:string;identity:MovementIdentity;discrepancy:string|null}>|null;
  readonly correspondences:readonly Correspondence[];readonly incidents:readonly PaymentIncident[];
- readonly duplicateOf:string|null;readonly revision:number;
+ readonly presentedEvidenceId?:string|null;readonly duplicateOf:string|null;readonly revision:number;
 }
 const cmp=(a:string,b:string)=>{const d=moneyDifference(a,b);return d==='0.00'?0:d.startsWith('-')?-1:1;};
 const add=(a:string,b:string)=>moneyDifference(a,'-'+b);
