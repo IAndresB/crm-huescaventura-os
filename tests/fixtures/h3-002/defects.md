@@ -7,3 +7,5 @@ Expected congelado en8d1f527 intacto. first-formal.log:56/60 PASS,4 FAIL.
 - F03 de verificador: R53 compara literalmente last_human_activity_at antes/después de acto autorizado; H0/D026/F2 debe avanzar esa actividad. El expected conserva H0–H2; comparar hechos de negocio e identidad completos y comprobar avance monotónico explícito de este único campo es la corrección del harness, no un cambio de expected. Log/test originales retenidos; reproducción pide fallo de la comparación original.
 
 Estados iniciales OPEN; solo cerrar tras matriz y regresión completas. SQL y verificador originales conservados con FAIL.
+
+- F04 de verificador de regresión: PostgreSQL completo sobre6f53c32 termina680/681 PASS por R35 H2-011:31!==30. Inventario vivo incluye migración H3 futura al comparar con base histórica d9d7636 (30). Expected de preservar30 migraciones H2 y sus bytes intacto; se limita inventario a bookingMigration, sin retirar comparaciones/ensayo V-MIG. Original verificador y FAIL completo conservados; nuevo reproducer exige31 y el FAIL30 original. Corrección necesaria para continuar H3 sin modificar producto/normativa H2. Estado OPEN hasta regresión fresca completa.
