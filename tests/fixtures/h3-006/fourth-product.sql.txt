@@ -187,9 +187,7 @@ create function crm_private.fund_assign(q jsonb,p jsonb,s text,actor uuid,op uui
 declare aid uuid;pid uuid;rc jsonb;d jsonb;state jsonb;old jsonb;pr bigint;sid uuid;bid uuid;amt numeric;start_at numeric;coverage jsonb;part jsonb;used numeric;due numeric;revision bigint:=1;
 begin
  aid:=(q->>'allocationId')::uuid;pid:=(q->>'paymentId')::uuid;d:=q->'destination';amt:=(q->>'amount')::numeric;start_at:=(q->>'start')::numeric;bid:=(d->>'bookingId')::uuid;sid:=(d->>'scheduleId')::uuid;
- if aid is null or jsonb_typeof(q->'expectedReconciliationRevision') is distinct from 'number' or q->>'expectedReconciliationRevision'!~'^[0-9]+$'
- or (q?'expectedScheduleRevision' and (jsonb_typeof(q->'expectedScheduleRevision') is distinct from 'number' or q->>'expectedScheduleRevision'!~'^[0-9]+$'))
- or not coalesce(crm_private.payment_amount(q->'amount',true),false) or not coalesce(crm_private.payment_amount(q->'start'),false)
+ if aid is null or not coalesce(crm_private.payment_amount(q->'amount',true),false) or not coalesce(crm_private.payment_amount(q->'start'),false)
  or jsonb_typeof(d) is distinct from 'object' or d-array['bookingId','purpose','reference','scheduleId','slot','serviceId']<>'{}'::jsonb or not(d ?& array['bookingId','purpose','reference'])
  or d->>'purpose' not in ('obligation','managed_client_funds','fee','deposit') or jsonb_typeof(d->'reference') is distinct from 'string' or btrim(d->>'reference')='' or lower(d->>'reference')='unknown'
  or (d?'scheduleId')<>(d?'slot') or (d->>'purpose'='obligation' and sid is null) then raise exception 'ALLOCATION_DESTINATION_REQUIRED';end if;
