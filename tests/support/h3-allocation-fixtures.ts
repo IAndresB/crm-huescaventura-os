@@ -5,8 +5,8 @@ import type {AllocationCommand} from '../../src/infrastructure/postgres/h3-alloc
 import type {AllocationDestination} from '../../src/domain/payment-allocation.ts';
 export type {AllocationCommand};
 type H=Awaited<ReturnType<typeof isolatedAllocation>>;
-export async function allocationFixture(h:H,received='500.00',correspondence='500.00',stage='verified'){
- const f=await paymentFixture(h,received,true,'1000.00');
+export async function allocationFixture(h:H,received='500.00',correspondence='500.00',stage='verified',obligationAmount='1000.00'){
+ const f=await paymentFixture(h,received,true,obligationAmount);
  if(stage!=='none')await h.payments.apply(await h.auth(),write,f.detect);
  if(!['none','detected'].includes(stage))await h.payments.apply(await h.auth(),write,await f.receive());
  const p=await f.propose(2,correspondence);
@@ -24,5 +24,5 @@ export async function allocationFixture(h:H,received='500.00',correspondence='50
  const assign=async(amount=correspondence,start='0.00',dest=destination)=>command('assign',{allocationId:uid(),reconciliationId:p.reconciliationId,expectedReconciliationRevision:stage==='proposed'?1:2,start,amount,destination:dest,expectedScheduleRevision:1});
  const consume=async(q:AllocationCommand,amount=q.amount!,start=q.start!)=>command('consume',{allocationId:q.allocationId,amount,start,destination:q.destination});
  const reverse=async(act:string)=>command('reverse',{originalActId:act,cause:'correction'});
- return {...f,p,destination,see,attest,command,assign,consume,reverse};
+ return {...f,paymentAttest:f.attest,p,destination,see,attest,command,assign,consume,reverse};
 }
