@@ -6,8 +6,8 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005+ y H4–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005+ y H4–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007+ y H4–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007+ y H4–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-03
 
@@ -1023,35 +1023,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H3-005 — Asignar y consumir porciones sin sobreasignación
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA.** Hito: H3. Tipo: implementación. Registro: [evidence-TSK-H3-005.md](evidence-TSK-H3-005.md).
 - **Objetivo y alcance:** Movimiento/fondos compartidos, finalidad, destinos dentro del expediente, cobertura de obligaciones y ajustes reversibles por historia.
 - **Fuentes exactas:** Plan §§5.1–5.2, 7.2–7.3; SPEC-FR-CHG-008, SPEC-FR-ECON-002, SPEC-FR-ECON-004, SPEC-FR-ECON-005, SPEC-FR-ECON-006, SPEC-FR-IDEMP-002, SPEC-FR-CONC-002, AC-023, AC-026, AC-027, AC-028, AC-040, AC-044, AC-068, PM-08, PM-11, PM-12, PM-13, D029. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-005.
 - **Bloques, contratos y unidades:** B05/B08; C02/C03/C06; T05/T07.
-- **Entregable previsto:** Áreas propuestas de porciones/asignaciones y migraciones. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable local:** Dominio payment-allocation, adaptador PostgreSQL estrecho y migración forward20261003110048; referencias, snapshots/actos/historia, porciones, consumo interno y cobertura integrada localmente, con evidencia enlazada.
 - **Dependencias y precondiciones:** [TSK-H2-012], [TSK-H3-004]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H2 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Derecho D019 previo para ajustes dependientes; fondos no determinan derecho ni autorizan financiación/compensación entre clientes. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Serializar raíz compartida y conservar recibido/previsto/asignado/consumido/devuelto/disponible; actualizar cobertura en la misma unidad material.
+- **Bloqueo localizado / condición para levantarlo:** Derecho D019 previo para ajustes dependientes; fondos no determinan derecho ni autorizan financiación/compensación entre clientes. El detalle de evidencia/decisión y puerta está en §7; no acredita efectos posteriores fuera del alcance local verificado.
+- **Acción ejecutada local/aislado:** Serializar raíz compartida y conservar recibido/previsto/asignado/consumido/devuelto/disponible; actualizar cobertura en la misma unidad material.
 - **Salida observable:** Suma por finalidad coherente y evidencia de rollback/reintento; carrera real con Refund/fianza se añade obligatoriamente en H4.
 - **Verificación y esperado:** 100 disponibles y dos consumos80: no160; ambos órdenes/solapamiento y ausencia inicial de hijos. Varios pagos cubren obligación y un pago destinos sin duplicar; PM-11/12/13 conserva total, pesos/restos/orden legítimos; PM-08 invierte original exacto. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H3-006].
 - **Integración adicional obligatoria:** [TSK-H4-019], [TSK-H6-005], [TSK-H6-016]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI [evidence-TSK-H3-005.md](evidence-TSK-H3-005.md), **EJECUTADA local/aislado** sobre `3113028f26a906f2b4f6935ae0bb59877c59d74d`:75/75 matriz +7/7 reproducers +1/1 focal;852/852 PostgreSQL y100/100 unitarias; gates/V-MIG/preservación PASS,0 FAIL/skipped/cancelled. H3-006-F01–F08 CLOSED, expected intacto. H3-007+/H4-019/H6-005/H6-016 pendientes; carrera Refund/fianza/Provider Payment/conectores/fondos reales/hosted/Production no acreditados.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T05/T07 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-006"></a>
 
 #### TSK-H3-006 — Verificar: Asignar y consumir porciones sin sobreasignación
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA.** Hito: H3. Tipo: comprobación. Registro: [evidence-TSK-H3-006.md](evidence-TSK-H3-006.md).
 - **Objetivo y alcance:** Movimiento/fondos compartidos, finalidad, destinos dentro del expediente, cobertura de obligaciones y ajustes reversibles por historia.
 - **Fuentes exactas:** Plan §§5.1–5.2, 7.2–7.3; SPEC-FR-ECON-002, SPEC-FR-ECON-004, SPEC-FR-ECON-005, SPEC-FR-ECON-006, SPEC-FR-IDEMP-001, SPEC-FR-CONC-003, AC-026, AC-027, AC-028, AC-044, AC-068, PM-08, PM-11, PM-12, PM-13, D029. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-006.
 - **Bloques, contratos y unidades:** B05/B08; C02/C03/C06; T05/T07.
-- **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable local:** Matriz independiente75 casos,7 reproducciones, focal, regresión completa y evidencias/raw con comparación normativa por ID, según §2.3.
 - **Dependencias y precondiciones:** [TSK-H2-012], [TSK-H3-005]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H2 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Derecho D019 previo para ajustes dependientes; fondos no determinan derecho ni autorizan financiación/compensación entre clientes. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H3-005; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** Derecho D019 previo para ajustes dependientes; fondos no determinan derecho ni autorizan financiación/compensación entre clientes. El detalle de evidencia/decisión y puerta está en §7; no acredita efectos posteriores fuera del alcance local verificado.
+- **Acción ejecutada local/aislado:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H3-005; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Suma por finalidad coherente y evidencia de rollback/reintento; carrera real con Refund/fianza se añade obligatoriamente en H4. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** 100 disponibles y dos consumos80: no160; ambos órdenes/solapamiento y ausencia inicial de hijos. Varios pagos cubren obligación y un pago destinos sin duplicar; PM-11/12/13 conserva total, pesos/restos/orden legítimos; PM-08 invierte original exacto. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI [evidence-TSK-H3-006.md](evidence-TSK-H3-006.md), **EJECUTADA local/aislado** sobre `3113028f26a906f2b4f6935ae0bb59877c59d74d`:75/75 matriz +7/7 reproducers +1/1 focal;852/852 PostgreSQL y100/100 unitarias; gates/V-MIG/preservación PASS,0 FAIL/skipped/cancelled. H3-006-F01–F08 CLOSED, expected intacto. H3-007+/H4-019/H6-005/H6-016 pendientes; carrera Refund/fianza/Provider Payment/conectores/fondos reales/hosted/Production no acreditados.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T05/T07 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-007"></a>

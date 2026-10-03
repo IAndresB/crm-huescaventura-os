@@ -17,3 +17,18 @@ H3-006-F06 — Producto/revisión: R46 con revisión de Schedule nula (clave pre
 H3-006-F07 — Verificador, ampliación R11: retiraba Schedule/slot de la propuesta Reconciliation aunque el contrato H3-003/004 acreditado exige ese contexto de destino. PAYMENT_CONTEXT_REQUIRED es rechazo correcto; independencia de Customer Payment respecto de Expected no elimina guardas de Reconciliation. FAIL conservado. Corrección del verificador: conservar correspondencia H3-003 íntegra y probar destino de finalidad sin obligación enlazada cuando procede; añadir reproducer negativo de la retirada. Expected y producto H3-003 intactos.
 
 H3-006-F08 — Verificador histórico/V-MIG: primera regresión completa 848/850, dos FAIL en reproducers F07/F08 H3-004 que contaban todas las migraciones futuras como parte de su base de 32. Fuente: V-MIG/preservación H0–H3-004 y R68–R75; conservar cadena histórica exige congelar su inventario hasta `paymentMigration`, sin modificar las 32 migraciones ni su expected original. Raw completo conservado. Corrección localizada exclusivamente del inventario de esos dos reproducer(s); añade reproducción mínima del 33 vs32 y filtro histórico32. Pendiente regresión completa.
+
+## Cierre posterior a regresión completa
+
+H3-006-F01–F08 **CLOSED local/aislado**, cero materiales abiertos. 4 de producto (F01/F02/F04/F06), 4 del verificador (F03/F05/F07/F08). Cinco reproducciones iniciales y dos añadidas forman 7/7 PASS; el reproducer F01 incluye el setup minúsculo corregido de F05. V-MIG poblado adicional PASS. Revalidación afectada 91/91 y final 852/852 PostgreSQL +100/100 unitarias sobre `3113028f26a906f2b4f6935ae0bb59877c59d74d`, 0 FAIL/skipped/cancelled; gates PASS. FAIL originales y SQL anteriores permanecen íntegros. Expected congelado sin modificación.
+
+| Defecto | Fuente normativa exacta | Reproducer / cierre |
+|---|---|---|
+| F01 | Tasks §2.2 V-MIG; fichas TSK-H3-005/006 y PLAN-B05 | SQL original42601, instalación actual PASS |
+| F02 | PLAN-C03/PLAN-T05; AC-068; V-DAT/V-MIG | Cobertura original42702, cualificada PASS |
+| F03 | SPEC-FR-IDEMP-001/E2; Tasks §2.2 expected independiente | Identidad distinta por hecho distinto y rechazo/rollback PASS |
+| F04 | D019; SPEC-FR-CHG-008/ECON-002; SM-RC-02/G2; AC-023/040 | NULL original admitido, actual bloqueado PASS |
+| F05 | Tasks §2.2 V-MIG/V-EVI local/aislado | Setup minúsculo en reproducer F01 PASS |
+| F06 | PLAN-DEC-004/E2; SPEC-FR-CONC-003; AC-068/G6 | Revisión NULL original admitida, actual bloqueada PASS |
+| F07 | SPEC-FR-ECON-004; SM-RC-01/G2; precondición H3-004 acreditada | Contexto Reconciliation incompleto rechazado PASS |
+| F08 | Tasks §2.2 V-MIG/V-EVI; R68–R75; preservación H3-004 | Inventario global33 frente a histórico32, filtro congelado PASS |
