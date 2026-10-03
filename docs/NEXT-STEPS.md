@@ -65,7 +65,7 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 COMPLETED técnico/local/aislado; H1 y H2 COMPLETED local/aislado, H2-001–012 COMPLETED en ese alcance. H3–H6 NOT STARTED. STOP tras H2-012; sin preparación del siguiente hito.
+9. implementación — H0 COMPLETED técnico/local/aislado; H1 y H2 COMPLETED local/aislado, H2-001–012 COMPLETED en ese alcance. H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003+ y H4–H6 NOT STARTED. STOP tras H3-002; continuidad requiere nueva autorización humana.
 
 ## Working Rule
 
