@@ -3,7 +3,7 @@ import {issueTrustedContext} from "../../application/trusted-context.ts";
 import {isVerifiedAuth,type VerifiedAuthEvidence} from "../../application/verified-auth.ts";
 import {isVerifiedServerInteraction,type VerifiedServerInteraction} from "../../application/verified-interaction.ts";
 import {canonicalCommercial} from "../../domain/commercial-progress.ts";
-import {determineSchedule,evaluateExpected,type PaymentPolicy,type ScheduleDefinition,type ExpectedPart,type Due} from "../../domain/payment-obligation.ts";
+import {determineSchedule,evaluateExpected,evaluateDerivedExpected,type PaymentPolicy,type ScheduleDefinition,type ExpectedPart,type Due} from "../../domain/payment-obligation.ts";
 import {createF1Issuer,encodeF1Fields,type F1SigningConfiguration} from "./f1-codec.ts";
 import {createF2Issuer,type F2SigningConfiguration} from "./f2-codec.ts";
 import {postgresF1Binding,type PostgresSql} from "./transaction.ts";
@@ -37,11 +37,11 @@ export class H3001ObligationAdapter {
   return await this.call(auth,interaction,true,value) as {id:string;replayed:boolean;result:Record<string,unknown>};
  }
  async read(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,bookingId:string,scheduleId:string):Promise<{
-  current:{snapshot:ReturnType<typeof determineSchedule>};original:ExpectedPart[];history:unknown[]}|null>{
-  return await this.call(auth,interaction,false,{bookingId,scheduleId}) as {current:{snapshot:ReturnType<typeof determineSchedule>};original:ExpectedPart[];history:unknown[]}|null;
+  current:{snapshot:ReturnType<typeof determineSchedule>};original:ExpectedPart[];history:unknown[];coverage?:{slot:string;verifiedAmount:string}[]}|null>{
+  return await this.call(auth,interaction,false,{bookingId,scheduleId}) as {current:{snapshot:ReturnType<typeof determineSchedule>};original:ExpectedPart[];history:unknown[];coverage?:{slot:string;verifiedAmount:string}[]}|null;
  }
  async evaluate(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,bookingId:string,scheduleId:string,at:string){
   const record=await this.read(auth,interaction,bookingId,scheduleId);if(!record)return null;
-  return record.current.snapshot.parts.map(p=>({slot:p.slot,...evaluateExpected(p,record.current.snapshot.reference,at)}));
+  return record.current.snapshot.parts.map(p=>{const fact=record.coverage?.find(x=>x.slot===p.slot);return {slot:p.slot,...(fact?evaluateDerivedExpected(p,record.current.snapshot.reference,at,fact.verifiedAmount):evaluateExpected(p,record.current.snapshot.reference,at))};});
  }
 }

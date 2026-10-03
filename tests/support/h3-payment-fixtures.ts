@@ -4,8 +4,8 @@ import type {isolatedPayment} from './h3-payment-isolated.ts';
 import type {PaymentCommand} from '../../src/infrastructure/postgres/h3-payment-adapter.ts';
 import {obligationFixture} from './h3-obligation-fixtures.ts';
 type H=Awaited<ReturnType<typeof isolatedPayment>>;
-export async function paymentFixture(h:H,amount='500.00',known=true){
- const f=await obligationFixture(h);await h.obligations.apply(await h.auth(),write,f.q);
+export async function paymentFixture(h:H,amount='500.00',known=true,obligationAmount='1000.01'){
+ const f=await obligationFixture(h,obligationAmount);await h.obligations.apply(await h.auth(),write,f.q);
  const paymentId=uid(),identity={sourceRef:'SYNTHETIC-BANK-STATEMENT',externalId:uid()},at=new Date().toISOString();
  const proof=async(root:string,claim:string,certainty='reviewed',source_kind='manual',moment=at)=>{
   const q={action:'create' as const,operationId:uid(),targetId:uid(),kind:'evidence' as const,material:{claim,coverage:root,certainty,source_kind},sourceRef:'SYNTHETIC source',purpose:'SYNTHETIC internal payment verification',occurredAt:moment,contextKind:'other' as const,contextId:root,coverage:root,reason:'SYNTHETIC Administrator checked'};

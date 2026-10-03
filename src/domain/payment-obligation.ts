@@ -59,3 +59,12 @@ export function obligationAdjustment(original:ExpectedPart,amount:string,due:Due
  exactNonnegativeAmount(amount);if(due.kind==='civil')localDate(due.date);
  return {before:original,after:{...original,amount,due},difference:moneyDifference(amount,original.amount),moneyVersion:MONEY_ALGORITHM_VERSION};
 }
+
+// Pure C02 arithmetic for the C06 ledger projection admitted by the narrow server
+// adapter. This accepts an amount, never claims that a payload can verify funds.
+export function evaluateDerivedExpected(part:ExpectedPart,reference:CivilReference,at:string,verifiedAmount:string):CoverageEvaluation {
+ exactNonnegativeAmount(part.amount);exactNonnegativeAmount(verifiedAmount);
+ const remaining=remainingRight(part.amount,[verifiedAmount]);
+ const act=dateAtInstant(instant(at),reference.zone);
+ return {state:verifiedAmount==='0.00'?'pending':remaining==='0.00'?'complete':'partial',verifiedAmount,remaining,expired:part.due.kind==='civil'?act>localDate(part.due.date):null};
+}

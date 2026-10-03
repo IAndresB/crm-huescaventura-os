@@ -1,0 +1,353 @@
+-- H3-005/006. Internal portions and use, never a bank output/Refund/Provider Payment.
+begin;
+do $$begin if current_user<>'crm_h0_migration' then raise exception 'ALLOCATION_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;
+grant create on schema crm_private to crm_h0_f2_owner;
+grant create on schema crm_api to crm_h0_f2_executor;
+create table crm_private.b05_allocations(
+ allocation_id uuid primary key,payment_id uuid not null references crm_private.b05_customer_payments(payment_id),
+ reconciliation_id uuid not null references crm_private.b05_reconciliations(reconciliation_id),admin_scope text not null,
+ booking_id uuid not null references crm_private.b04_bookings(booking_id),purpose text not null check(purpose in ('obligation','managed_client_funds','fee','deposit')),
+ destination_ref text not null,schedule_id uuid,slot text,service_id uuid references crm_private.b04_services(service_id),
+ start_amount numeric not null check(start_amount>=0 and start_amount=trunc(start_amount,2)),amount numeric not null check(amount>0 and amount=trunc(amount,2)),
+ original_allocation_id uuid references crm_private.b05_allocations(allocation_id),
+ foreign key(schedule_id,slot) references crm_private.b05_expected_payments(schedule_id,slot),check((schedule_id is null)=(slot is null))
+);
+create table crm_private.b05_allocation_revisions(
+ allocation_id uuid not null references crm_private.b05_allocations(allocation_id),revision bigint not null check(revision>0),
+ admin_scope text not null,snapshot jsonb not null,actor_id uuid not null references crm_private.crm_actors(actor_id),
+ recorded_at timestamptz not null default clock_timestamp(),primary key(allocation_id,revision)
+);
+create table crm_private.b05_fund_operations(
+ operation_id uuid primary key,payment_id uuid not null references crm_private.b05_customer_payments(payment_id),admin_scope text not null,
+ actor_id uuid not null references crm_private.crm_actors(actor_id),fingerprint text not null,event jsonb not null,result jsonb not null,recorded_at timestamptz not null default clock_timestamp()
+);
+create table crm_private.b05_allocation_acts(
+ act_id uuid primary key,operation_id uuid not null references crm_private.b05_fund_operations(operation_id) deferrable initially deferred,
+ allocation_id uuid not null references crm_private.b05_allocations(allocation_id),payment_id uuid not null references crm_private.b05_customer_payments(payment_id),admin_scope text not null,
+ kind text not null check(kind in ('plan','assign','verify','consume','reverse','rectify','distribute','reverse_distribution')),
+ start_amount numeric not null check(start_amount>=0),signed_amount numeric not null check(signed_amount=trunc(signed_amount,2)),
+ original_act_id uuid unique references crm_private.b05_allocation_acts(act_id),before_data jsonb,after_data jsonb not null,
+ actor_id uuid not null references crm_private.crm_actors(actor_id),reason text not null,source_ref text not null,evidence_id uuid not null references crm_private.b07_records(record_id),
+ occurred_at timestamptz not null,recorded_at timestamptz not null default clock_timestamp()
+);
+create table crm_private.b05_fund_revisions(
+ payment_id uuid not null references crm_private.b05_customer_payments(payment_id),revision bigint not null check(revision>0),
+ payment_revision bigint not null,admin_scope text not null,snapshot jsonb not null,actor_id uuid not null references crm_private.crm_actors(actor_id),
+ cause_kind text not null,cause_ref uuid not null,cause_revision bigint,recorded_at timestamptz not null default clock_timestamp(),primary key(payment_id,revision)
+);
+create table crm_private.b05_fund_history(
+ history_id uuid primary key references crm_private.b05_fund_operations(operation_id),payment_id uuid not null references crm_private.b05_customer_payments(payment_id),admin_scope text not null,
+ before_data jsonb,after_data jsonb not null,actor_id uuid not null references crm_private.crm_actors(actor_id),reason text not null,source_ref text not null,
+ evidence_id uuid not null references crm_private.b07_records(record_id),occurred_at timestamptz not null,recorded_at timestamptz not null default clock_timestamp()
+);
+create table crm_private.b05_coverage_evaluations(
+ evaluation_id uuid primary key,schedule_id uuid not null references crm_private.b05_payment_schedules(schedule_id),slot text not null,
+ schedule_revision bigint not null,admin_scope text not null,snapshot jsonb not null,actor_id uuid not null references crm_private.crm_actors(actor_id),
+ cause_kind text not null,cause_ref uuid not null,cause_revision bigint,recorded_at timestamptz not null default clock_timestamp()
+);
+create table crm_private.b05_fund_distributions(
+ distribution_id uuid primary key,payment_id uuid not null references crm_private.b05_customer_payments(payment_id),admin_scope text not null,
+ operation_id uuid not null references crm_private.b05_fund_operations(operation_id) deferrable initially deferred,
+ original_distribution_id uuid unique references crm_private.b05_fund_distributions(distribution_id),calculation jsonb not null,
+ actor_id uuid not null references crm_private.crm_actors(actor_id),recorded_at timestamptz not null default clock_timestamp()
+);
+create index b05_allocations_payment on crm_private.b05_allocations(payment_id);
+create index b05_allocations_destination on crm_private.b05_allocations(schedule_id,slot);
+create index b05_allocation_acts_payment on crm_private.b05_allocation_acts(payment_id);
+create index b05_allocation_acts_source on crm_private.b05_allocation_acts(allocation_id);
+create index b05_fund_history_payment on crm_private.b05_fund_history(payment_id);
+create index b05_coverage_schedule on crm_private.b05_coverage_evaluations(schedule_id,slot,recorded_at);
+create index b05_distributions_payment on crm_private.b05_fund_distributions(payment_id);
+do $$declare t text;r text;begin foreach t in array array['b05_allocations','b05_allocation_revisions','b05_allocation_acts','b05_fund_operations','b05_fund_revisions','b05_fund_history','b05_coverage_evaluations','b05_fund_distributions'] loop
+ execute format('alter table crm_private.%I owner to crm_h0_f2_owner',t);execute format('alter table crm_private.%I enable row level security',t);execute format('alter table crm_private.%I force row level security',t);
+ execute format('create policy allocation_executor on crm_private.%I to crm_h0_f2_executor using(true) with check(true)',t);
+ execute format('create policy allocation_migration on crm_private.%I to crm_h0_migration using(true) with check(true)',t);
+ execute format('grant select,insert on crm_private.%I to crm_h0_f2_executor,crm_h0_migration',t);
+ execute format('revoke all on crm_private.%I from public,crm_h0_runtime',t);
+ execute format('create trigger allocation_immutable before update or delete on crm_private.%I for each row execute function crm_private.payment_immutable()',t);
+ foreach r in array array['anon','authenticated'] loop if exists(select 1 from pg_roles where rolname=r) then execute format('revoke all on crm_private.%I from %I',t,r);end if;end loop;
+end loop;end$$;
+-- Exact interval arithmetic on H1-materialized cents. No alternate quantizer.
+create function crm_private.fund_usable(a jsonb,p jsonb) returns numeric language plpgsql stable set search_path=pg_catalog,pg_temp as $$
+declare rc jsonb;lo numeric;hi numeric;doubts nummultirange;part numrange;lost numeric;
+begin
+ if a->>'status'<>'verified' or p->'receipt'='null'::jsonb or p->>'duplicateOf' is not null then return 0;end if;
+ select value into rc from jsonb_array_elements(p->'correspondences') where value->>'id'=a->>'reconciliationId' and value->>'status'='verified';
+ if rc is null or rc->>'bookingId'<>a->'destination'->>'bookingId' or rc->>'scheduleId'<>a->>'sourceScheduleId' or rc->>'slot'<>a->>'sourceSlot' then return 0;end if;
+ lo:=greatest((a->>'start')::numeric,(rc->>'start')::numeric);hi:=least((a->>'start')::numeric+(a->>'amount')::numeric,(rc->>'start')::numeric+(rc->>'amount')::numeric);
+ if hi<=lo then return 0;end if;part:=numrange(lo,hi,'[)');
+ select coalesce(range_agg(numrange((x->>'start')::numeric,(x->>'start')::numeric+(x->>'amount')::numeric,'[)')),'{}'::nummultirange) into doubts from jsonb_array_elements(p->'incidents') x where not(x->>'resolved')::boolean;
+ select coalesce(sum(upper(r)-lower(r)),0) into lost from unnest(nummultirange(part)*doubts) r;
+ return hi-lo-lost;
+end$$;
+create function crm_private.fund_allocations(pid uuid,s text) returns jsonb language sql stable set search_path=pg_catalog,pg_temp as $$
+ select coalesce(jsonb_agg(x.snapshot order by x.allocation_id),'[]') from
+ (select distinct on(r.allocation_id) r.allocation_id,r.snapshot from crm_private.b05_allocation_revisions r join crm_private.b05_allocations a using(allocation_id)
+ where a.payment_id=pid and a.admin_scope=s and r.admin_scope=s order by r.allocation_id,r.revision desc) x
+$$;
+create function crm_private.fund_coverage(sid uuid,s text) returns jsonb language plpgsql stable set search_path=pg_catalog,pg_temp as $$
+declare current_schedule jsonb;revision bigint;part jsonb;allocation jsonb;payment jsonb;u numeric;covered numeric;items jsonb;result jsonb:='[]';due numeric;
+begin
+ select r.snapshot,r.revision into current_schedule,revision from crm_private.b05_schedule_revisions r where r.schedule_id=sid and r.admin_scope=s order by r.revision desc limit 1;
+ if not found then return null;end if;
+ for part in select value from jsonb_array_elements(current_schedule->'parts') loop
+  due:=(part->>'amount')::numeric;covered:=0;items:='[]';
+  for allocation in select r.snapshot from crm_private.b05_allocations a join lateral(select snapshot from crm_private.b05_allocation_revisions where allocation_id=a.allocation_id order by revision desc limit 1) r on true where a.schedule_id=sid and a.slot=part->>'slot' and a.admin_scope=s loop
+   select snapshot into payment from crm_private.b05_payment_revisions where payment_id=(allocation->>'paymentId')::uuid and admin_scope=s order by revision desc limit 1;
+   u:=crm_private.fund_usable(allocation,payment);covered:=covered+u;
+   if u>0 then items:=items||jsonb_build_array(jsonb_build_object('id',allocation->>'id','paymentId',allocation->>'paymentId','reconciliationId',allocation->>'reconciliationId','start',allocation->>'start','amount',trunc(u,2)::text,'allocationRevision',allocation->'revision','paymentRevision',payment->'revision'));end if;
+  end loop;
+  -- An excess is retained visibly, never funding another destination implicitly.
+  result:=result||jsonb_build_array(jsonb_build_object('scheduleId',sid,'slot',part->>'slot','scheduleRevision',revision,'obligationAmount',trunc(due,2)::text,'verifiedAmount',trunc(least(due,covered),2)::text,'excess',trunc(greatest(0,covered-due),2)::text,'remaining',trunc(greatest(0,due-covered),2)::text,
+   'state',case when covered=0 then 'pending' when covered<due then 'partial' else 'complete' end,'portions',items,'algorithmVersion','h1-money-d023-d028-d029-v1'));
+ end loop;return result;
+end$$;
+create function crm_private.fund_summary(pid uuid,s text) returns jsonb language plpgsql stable set search_path=pg_catalog,pg_temp as $$
+declare p jsonb;ps jsonb;a jsonb;c record;allocated numeric:=0;usable numeric:=0;consumed numeric:=0;used_valid numeric:=0;u numeric;total numeric;plans numeric:=0;purposes jsonb:='{}';x jsonb;k text;amount numeric;
+begin
+ select snapshot into p from crm_private.b05_payment_revisions where payment_id=pid and admin_scope=s order by revision desc limit 1;if not found then return null;end if;
+ ps:=crm_private.payment_summary(p);total:=(ps->>'grossReceived')::numeric;
+ for a in select value from jsonb_array_elements(crm_private.fund_allocations(pid,s)) loop
+  if a->>'status'='planned' then plans:=plans+(a->>'amount')::numeric;continue;end if;if a->>'status'<>'verified' then continue;end if;
+  amount:=(a->>'amount')::numeric;u:=crm_private.fund_usable(a,p);allocated:=allocated+amount;usable:=usable+u;k:=a->'destination'->>'purpose';
+  x:=coalesce(purposes->k,jsonb_build_object('assigned','0.00','usableAssigned','0.00','consumed','0.00','usableConsumed','0.00'));
+  x:=x||jsonb_build_object('assigned',trunc((x->>'assigned')::numeric+amount,2)::text,'usableAssigned',trunc((x->>'usableAssigned')::numeric+u,2)::text);
+  for c in select z.* from crm_private.b05_allocation_acts z where z.allocation_id=(a->>'id')::uuid and z.kind='consume' and not exists(select 1 from crm_private.b05_allocation_acts rev where rev.original_act_id=z.act_id) loop
+   consumed:=consumed-c.signed_amount;u:=crm_private.fund_usable(a||jsonb_build_object('start',trunc(c.start_amount,2)::text,'amount',trunc(-c.signed_amount,2)::text),p);used_valid:=used_valid+u;
+   x:=x||jsonb_build_object('consumed',trunc((x->>'consumed')::numeric-c.signed_amount,2)::text,'usableConsumed',trunc((x->>'usableConsumed')::numeric+u,2)::text);
+  end loop;
+  x:=x||jsonb_build_object('availableForPurpose',trunc((x->>'usableAssigned')::numeric-(x->>'usableConsumed')::numeric,2)::text);
+  purposes:=jsonb_set(purposes,array[k],x);
+ end loop;
+ if total is not null and (allocated>total or usable<used_valid or usable>(ps->>'verifiedCorrespondence')::numeric) then raise exception 'ALLOCATION_CONSERVATION_VIOLATION';end if;
+ return jsonb_build_object('received',ps->'grossReceived','verifiedCorrespondence',ps->'verifiedCorrespondence','planned',trunc(plans,2)::text,'assigned',trunc(allocated,2)::text,'usableAssigned',trunc(usable,2)::text,
+ 'unassigned',case when total is null then null else trunc(total-allocated,2)::text end,'available',case when total is null then null else trunc((ps->>'verifiedCorrespondence')::numeric-usable,2)::text end,
+ 'consumed',trunc(consumed,2)::text,'usableConsumed',trunc(used_valid,2)::text,'suspendedAssigned',trunc(allocated-usable,2)::text,'suspendedConsumed',trunc(consumed-used_valid,2)::text,
+ 'representedReturned','0.00','externalReturned',null,'suspended',ps->'suspended','byPurpose',purposes,'algorithmVersion','h1-money-d023-d028-d029-v1');
+end$$;
+create function crm_private.fund_record_coverage(bid uuid,s text,actor uuid,cause text,ref uuid,rev bigint) returns void language plpgsql set search_path=pg_catalog,pg_temp as $$
+declare sid uuid;item jsonb;
+begin
+ perform pg_advisory_xact_lock(hashtextextended(bid::text,52));
+ for sid in select schedule_id from crm_private.b05_payment_schedules where booking_id=bid and admin_scope=s order by schedule_id loop
+  for item in select value from jsonb_array_elements(crm_private.fund_coverage(sid,s)) loop
+   insert into crm_private.b05_coverage_evaluations values(gen_random_uuid(),sid,item->>'slot',(item->>'scheduleRevision')::bigint,s,item,actor,cause,ref,rev,clock_timestamp());
+  end loop;
+ end loop;
+end$$;
+create function crm_private.fund_refresh(pid uuid,s text,actor uuid,cause text,ref uuid,cause_rev bigint) returns bigint language plpgsql set search_path=pg_catalog,pg_temp as $$
+declare revision bigint;pr bigint;bid uuid;state jsonb;
+begin
+ perform pg_advisory_xact_lock(hashtextextended('payment-root:'||pid,0));
+ select coalesce(max(r.revision),0)+1 into revision from crm_private.b05_fund_revisions r where r.payment_id=pid;
+ select r.revision into pr from crm_private.b05_payment_revisions r where r.payment_id=pid order by r.revision desc limit 1;
+ state:=crm_private.fund_summary(pid,s);
+ insert into crm_private.b05_fund_revisions values(pid,revision,pr,s,state,actor,cause,ref,cause_rev,clock_timestamp());
+ for bid in select distinct booking_id from crm_private.b05_allocations where payment_id=pid and admin_scope=s order by booking_id loop perform crm_private.fund_record_coverage(bid,s,actor,cause,ref,cause_rev);end loop;
+ return revision;
+end$$;
+create function crm_private.fund_payment_changed() returns trigger language plpgsql set search_path=pg_catalog,pg_temp as $$
+begin perform crm_private.fund_refresh(new.payment_id,new.admin_scope,new.actor_id,'payment_revision',new.payment_id,new.revision);return new;end$$;
+create function crm_private.fund_obligation_changed() returns trigger language plpgsql set search_path=pg_catalog,pg_temp as $$
+declare bid uuid;begin select booking_id into bid from crm_private.b05_payment_schedules where schedule_id=new.schedule_id;
+ perform crm_private.fund_record_coverage(bid,new.admin_scope,new.actor_id,'obligation_revision',new.schedule_id,new.revision);return new;end$$;
+create trigger fund_payment_changed after insert on crm_private.b05_payment_revisions for each row execute function crm_private.fund_payment_changed();
+create trigger fund_obligation_changed after insert on crm_private.b05_schedule_revisions for each row execute function crm_private.fund_obligation_changed();
+-- Validate a captured H1 calculation; only exact rational/cents equalities, no rounding policy here.
+create function crm_private.fund_calculation_valid(c jsonb) returns boolean language plpgsql immutable set search_path=pg_catalog,pg_temp as $$
+declare p jsonb;q jsonb;total numeric;weights numeric:=0;sum_full numeric:=0;residual numeric;rank bigint;num numeric;den numeric;full_cents numeric;extra numeric;sign numeric;
+begin
+ if c->>'algorithmVersion'<>'h1-money-d023-d028-d029-v1' or c->'input'->>'kind'<>'allocation' or c->'output'->>'algorithmVersion'<>c->>'algorithmVersion'
+ or c->'input'->>'total'<>c->'output'->>'total' or jsonb_array_length(c->'input'->'parts')<>jsonb_array_length(c->'output'->'parts') or jsonb_array_length(c->'input'->'parts') not between 1 and 1000 then return false;end if;
+ total:=(c->'input'->>'total')::numeric;sign:=case when total<0 then -1 else 1 end;
+ if total<>trunc(total,2) then return false;end if;
+ for p in select value from jsonb_array_elements(c->'input'->'parts') loop if (p->>'weight')::numeric<=0 then return false;end if;weights:=weights+(p->>'weight')::numeric;end loop;
+ for p in select value from jsonb_array_elements(c->'output'->'parts') loop
+  select value into q from jsonb_array_elements(c->'input'->'parts') where value->>'id'=p->>'id' and value->>'order'=p->>'order' and value->>'weight'=p->>'weight';if q is null then return false;end if;
+  num:=abs((p->'internal'->>'numerator')::numeric);den:=(p->'internal'->>'denominator')::numeric;
+  if den<=0 or num*weights<>abs(total)*(p->>'weight')::numeric*den or sign*(p->'internal'->>'numerator')::numeric<0 then return false;end if;
+  full_cents:=div(num*100,den);if full_cents<>(p->>'fullCents')::numeric then return false;end if;sum_full:=sum_full+full_cents;
+  if (p->'remainder'->>'numerator')::numeric*den<>(num-full_cents*den/100)*(p->'remainder'->>'denominator')::numeric then return false;end if;
+ end loop;
+ residual:=abs(total)*100-sum_full;if residual<0 or residual>jsonb_array_length(c->'output'->'parts') then return false;end if;
+ for p in select value from jsonb_array_elements(c->'output'->'parts') loop
+  select count(*) into rank from jsonb_array_elements(c->'output'->'parts') other where
+   (other->'remainder'->>'numerator')::numeric*(p->'remainder'->>'denominator')::numeric>(p->'remainder'->>'numerator')::numeric*(other->'remainder'->>'denominator')::numeric
+   or ((other->'remainder'->>'numerator')::numeric*(p->'remainder'->>'denominator')::numeric=(p->'remainder'->>'numerator')::numeric*(other->'remainder'->>'denominator')::numeric and (other->>'order')::bigint<(p->>'order')::bigint);
+  extra:=case when rank<residual then 1 else 0 end;
+  if extra<>(p->>'residualCents')::numeric or (p->>'amount')::numeric<>sign*((p->>'fullCents')::numeric+extra)/100 then return false;end if;
+ end loop;
+ if (select count(distinct value->>'id') from jsonb_array_elements(c->'output'->'parts'))<>jsonb_array_length(c->'output'->'parts')
+ or (select count(distinct value->>'order') from jsonb_array_elements(c->'output'->'parts'))<>jsonb_array_length(c->'output'->'parts') then return false;end if;
+ return true;
+exception when others then return false;
+end$$;
+-- Insert/verify one relational allocation. Caller already owns admission, root and operation.
+create function crm_private.fund_assign(q jsonb,p jsonb,s text,actor uuid,op uuid,action text,original uuid default null) returns jsonb language plpgsql set search_path=pg_catalog,pg_temp as $$
+declare aid uuid;pid uuid;rc jsonb;d jsonb;state jsonb;old jsonb;pr bigint;sid uuid;bid uuid;amt numeric;start_at numeric;coverage jsonb;part jsonb;used numeric;due numeric;revision bigint:=1;
+begin
+ aid:=(q->>'allocationId')::uuid;pid:=(q->>'paymentId')::uuid;d:=q->'destination';amt:=(q->>'amount')::numeric;start_at:=(q->>'start')::numeric;bid:=(d->>'bookingId')::uuid;sid:=(d->>'scheduleId')::uuid;
+ if aid is null or not coalesce(crm_private.payment_amount(q->'amount',true),false) or not coalesce(crm_private.payment_amount(q->'start'),false)
+ or jsonb_typeof(d) is distinct from 'object' or d-array['bookingId','purpose','reference','scheduleId','slot','serviceId']<>'{}'::jsonb or not(d ?& array['bookingId','purpose','reference'])
+ or d->>'purpose' not in ('obligation','managed_client_funds','fee','deposit') or jsonb_typeof(d->'reference') is distinct from 'string' or btrim(d->>'reference')='' or lower(d->>'reference')='unknown'
+ or (d?'scheduleId')<>(d?'slot') or (d->>'purpose'='obligation' and sid is null) then raise exception 'ALLOCATION_DESTINATION_REQUIRED';end if;
+ if not exists(select 1 from crm_private.b04_bookings where booking_id=bid and admin_scope=s) or (p->'detection'->>'bookingId' is not null and p->'detection'->>'bookingId'<>bid::text)
+ or (d?'serviceId' and not exists(select 1 from crm_private.b04_services where service_id=(d->>'serviceId')::uuid and booking_id=bid)) then raise exception 'ALLOCATION_CONTEXT_REQUIRED';end if;
+ select value into rc from jsonb_array_elements(p->'correspondences') where value->>'id'=q->>'reconciliationId';
+ if rc is null or rc->>'bookingId'<>bid::text or rc->>'revision' is distinct from q->>'expectedReconciliationRevision' then raise exception 'ALLOCATION_CORRESPONDENCE_REQUIRED';end if;
+ if sid is not null then
+  if sid::text<>rc->>'scheduleId' or d->>'slot'<>rc->>'slot' then raise exception 'ALLOCATION_CONTEXT_REQUIRED';end if;
+  perform pg_advisory_xact_lock(hashtextextended(bid::text,52));
+  select r.revision into pr from crm_private.b05_schedule_revisions r where schedule_id=sid and admin_scope=s order by revision desc limit 1;
+  if q?'expectedScheduleRevision' and pr<>(q->>'expectedScheduleRevision')::bigint then raise exception 'ALLOCATION_REVISION_CONFLICT:E2';end if;
+ end if;
+ state:=jsonb_build_object('id',aid,'paymentId',pid,'reconciliationId',rc->>'id','reconciliationRevision',rc->'revision','sourceScheduleId',rc->>'scheduleId','sourceSlot',rc->>'slot','destination',d,'start',q->>'start','amount',q->>'amount','status',case when action='plan' then 'planned' else 'verified' end,'revision',revision,'originalRef',original);
+ if action='verify' then select snapshot into old from crm_private.b05_allocation_revisions where allocation_id=aid and admin_scope=s order by revision desc limit 1;
+  if old is null or old->>'status'<>'planned' or old-'status'-'revision'-'reconciliationRevision' is distinct from state-'status'-'revision'-'reconciliationRevision' then raise exception 'ALLOCATION_ORIGINAL_REQUIRED';end if;
+  revision:=(old->>'revision')::bigint+1;state:=state||jsonb_build_object('revision',revision);
+ elsif exists(select 1 from crm_private.b05_allocations where allocation_id=aid) then raise exception 'ALLOCATION_EXISTS_CONFLICT:E2';end if;
+ if action<>'plan' then
+  if p->'receipt'='null'::jsonb or rc->>'status'<>'verified' or start_at<(rc->>'start')::numeric or start_at+amt>(rc->>'start')::numeric+(rc->>'amount')::numeric or crm_private.fund_usable(state,p)<>amt then raise exception 'ALLOCATION_PORTION_UNVERIFIED';end if;
+  if exists(select 1 from jsonb_array_elements(crm_private.fund_allocations(pid,s)) x where x->>'id'<>aid::text and x->>'status'='verified' and (x->>'start')::numeric<start_at+amt and (x->>'start')::numeric+(x->>'amount')::numeric>start_at) then raise exception 'ALLOCATION_PORTION_USED';end if;
+  if sid is not null then coverage:=crm_private.fund_coverage(sid,s);select value into part from jsonb_array_elements(coverage) where value->>'slot'=d->>'slot';if part is null then raise exception 'ALLOCATION_OBLIGATION_REQUIRED';end if;
+   due:=(part->>'obligationAmount')::numeric;used:=(part->>'verifiedAmount')::numeric+(part->>'excess')::numeric;if used+amt>due then raise exception 'ALLOCATION_OBLIGATION_EXCESS';end if;
+  end if;
+ end if;
+ if action<>'verify' then insert into crm_private.b05_allocations values(aid,pid,(rc->>'id')::uuid,s,bid,d->>'purpose',d->>'reference',sid,d->>'slot',(d->>'serviceId')::uuid,start_at,amt,original);end if;
+ insert into crm_private.b05_allocation_revisions values(aid,revision,s,state,actor,clock_timestamp());
+ insert into crm_private.b05_allocation_acts values(gen_random_uuid(),op,aid,pid,s,action,start_at,amt,null,old,state,actor,q->>'reason',q->>'sourceRef',(q->>'evidenceId')::uuid,(q->>'at')::timestamptz,clock_timestamp());
+ return state;
+end$$;
+create function crm_private.fund_reverse(q jsonb,s text,actor uuid,op uuid) returns jsonb language plpgsql set search_path=pg_catalog,pg_temp as $$
+declare original crm_private.b05_allocation_acts;a jsonb;pid uuid;amt numeric;state jsonb;
+begin
+ select * into original from crm_private.b05_allocation_acts where act_id=(q->>'originalActId')::uuid and admin_scope=s;
+ if not found or original.kind in ('plan','reverse','reverse_distribution') or original.payment_id<>(q->>'paymentId')::uuid or exists(select 1 from crm_private.b05_allocation_acts where original_act_id=original.act_id) then raise exception 'ALLOCATION_ORIGINAL_REQUIRED';end if;
+ pid:=original.payment_id;select snapshot into a from crm_private.b05_allocation_revisions where allocation_id=original.allocation_id order by revision desc limit 1;
+ if a->>'status'<>'verified' then raise exception 'ALLOCATION_ORIGINAL_REQUIRED';end if;
+ if original.kind<>'consume' then
+  if exists(select 1 from crm_private.b05_allocation_acts z where z.allocation_id=original.allocation_id and z.kind='consume' and not exists(select 1 from crm_private.b05_allocation_acts rev where rev.original_act_id=z.act_id)) then raise exception 'ALLOCATION_CONSUMED_REQUIRES_CORRECTION';end if;
+  state:=a||jsonb_build_object('status','reversed','revision',(a->>'revision')::bigint+1);
+  insert into crm_private.b05_allocation_revisions values(original.allocation_id,(state->>'revision')::bigint,s,state,actor,clock_timestamp());
+ else state:=a;end if;
+ amt:=-original.signed_amount;
+ insert into crm_private.b05_allocation_acts values(gen_random_uuid(),op,original.allocation_id,pid,s,case when q->>'action'='reverse_distribution' then 'reverse_distribution' else 'reverse' end,original.start_amount,amt,original.act_id,a,state,actor,q->>'reason',q->>'sourceRef',(q->>'evidenceId')::uuid,(q->>'at')::timestamptz,clock_timestamp());
+ return jsonb_build_object('originalActId',original.act_id,'originalAmount',trunc(original.signed_amount,2)::text,'amount',trunc(amt,2)::text,'originalRetained',true,'algorithmVersion','h1-money-d023-d028-d029-v1');
+end$$;
+create function crm_api.allocation_apply(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea) returns jsonb language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
+declare hf text[];tf text[];fs text[];a jsonb;p jsonb;prev crm_private.b05_fund_operations;pid uuid;op uuid;actor uuid;s text;fp text;hash text;rev bigint;pr bigint;action text;r jsonb;old jsonb;state jsonb;item jsonb;calcp jsonb;partq jsonb;start_at numeric;amt numeric;at_time timestamptz;basis jsonb;basis_hash text;original crm_private.b05_fund_distributions;act record;results jsonb:='[]';
+begin
+ hf:=crm_f2.admit(f2p,f2s,q,'C03','write_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');if hf[17] collate "C"<>tf[14] collate "C" then raise exception 'ALLOCATION_DENIED';end if;
+ fs:=crm_f1.fields(q);if cardinality(fs)<>2 or fs[1]<>'CRM-H3-ALLOCATION1' then raise exception 'ALLOCATION_INPUT_INVALID';end if;a:=fs[2]::jsonb;action:=a->>'action';
+ if jsonb_typeof(a) is distinct from 'object' or a-array['action','operationId','paymentId','expectedRevision','expectedPaymentRevision','sourceRef','reason','at','evidenceId','origin','cause','economicBasis','allocationId','originalAllocationId','originalActId','reconciliationId','expectedReconciliationRevision','destination','start','amount','expectedScheduleRevision','distributionId','total','parts','calculation']<>'{}'::jsonb
+ or not(a ?& array['action','operationId','paymentId','expectedRevision','expectedPaymentRevision','sourceRef','reason','at','evidenceId']) or action not in ('plan','assign','verify','consume','reverse','rectify','distribute','reverse_distribution')
+ or jsonb_typeof(a->'expectedRevision') is distinct from 'number' or a->>'expectedRevision'!~'^[0-9]+$' or jsonb_typeof(a->'expectedPaymentRevision') is distinct from 'number' or a->>'expectedPaymentRevision'!~'^[0-9]+$'
+ or coalesce(a->>'origin','manual') not in ('manual','ai') or (coalesce(a->>'origin','manual')='ai' and action<>'plan')
+ or coalesce(a->>'cause','ordinary') not in ('ordinary','correction','cancellation','refund','new_obligation','modification')
+ or exists(select 1 from jsonb_each(a) x where x.key in ('sourceRef','reason','at') and (jsonb_typeof(x.value)<>'string' or btrim(x.value#>>'{}')=''))
+ or a->>'at'!~'^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$' then raise exception 'ALLOCATION_INPUT_INVALID';end if;
+ pid:=(a->>'paymentId')::uuid;op:=(a->>'operationId')::uuid;actor:=hf[12]::uuid;s:=hf[17];at_time:=(a->>'at')::timestamptz;
+ fp:=encode(crm_crypto.digest(convert_to(a::text,'UTF8'),'sha256'),'hex');perform pg_advisory_xact_lock(hashtextextended('allocation-op:'||op,0));
+ select * into prev from crm_private.b05_fund_operations where operation_id=op;
+ if found then if prev.admin_scope<>s or prev.actor_id<>actor or prev.fingerprint<>fp then raise exception 'ALLOCATION_REPLAY_CONFLICT:E2';end if;r:=prev.result||jsonb_build_object('replayed',true);
+ else
+  perform pg_advisory_xact_lock(hashtextextended('payment-root:'||pid,0));
+  select revision,snapshot into pr,p from crm_private.b05_payment_revisions where payment_id=pid and admin_scope=s order by revision desc limit 1;if not found then raise exception 'ALLOCATION_CONTEXT_REQUIRED';end if;
+  select coalesce(max(revision),0) into rev from crm_private.b05_fund_revisions where payment_id=pid and admin_scope=s;
+  if rev<>(a->>'expectedRevision')::bigint or pr<>(a->>'expectedPaymentRevision')::bigint then raise exception 'ALLOCATION_REVISION_CONFLICT:E2';end if;
+  hash:=encode(crm_crypto.digest(convert_to((a-array['operationId','evidenceId','calculation'])::text,'UTF8'),'sha256'),'hex');
+  if not crm_private.payment_evidence((a->>'evidenceId')::uuid,pid,s,'allocation:'||action||':'||hash,at_time,action<>'plan') then raise exception 'ALLOCATION_EVIDENCE_REQUIRED';end if;
+  if a->>'cause' in ('cancellation','refund','new_obligation','modification') then
+   basis:=a->'economicBasis';basis_hash:=encode(crm_crypto.digest(convert_to((basis-'evidenceId')::text,'UTF8'),'sha256'),'hex');
+   if jsonb_typeof(basis) is distinct from 'object' or basis-array['kind','amount','originalRef','sourceRef','version','evidenceId']<>'{}'::jsonb or not(basis ?& array['kind','amount','originalRef','sourceRef','version','evidenceId'])
+   or basis->>'kind'<>a->>'cause' or not coalesce(crm_private.payment_amount(basis->'amount'),false) or btrim(basis->>'originalRef')='' or btrim(basis->>'sourceRef')='' or btrim(basis->>'version')=''
+   or not crm_private.payment_evidence((basis->>'evidenceId')::uuid,pid,s,'fund-right:'||basis_hash,at_time,true) then raise exception 'ALLOCATION_D019_REQUIRED:E3';end if;
+   if a?'amount' and abs((a->>'amount')::numeric)<>(basis->>'amount')::numeric or a?'total' and abs((a->>'total')::numeric)<>(basis->>'amount')::numeric then raise exception 'ALLOCATION_D019_REQUIRED:E3';end if;
+  elsif a?'economicBasis' then raise exception 'ALLOCATION_INPUT_INVALID';end if;
+  old:=crm_private.fund_summary(pid,s);
+  if action in ('plan','assign','verify','rectify') then
+   if action='rectify' then
+    select act_id into op from crm_private.b05_allocation_acts where allocation_id=(a->>'originalAllocationId')::uuid and kind in ('assign','verify','distribute') order by recorded_at limit 1;
+    if op is null then raise exception 'ALLOCATION_ORIGINAL_REQUIRED';end if;
+    results:=jsonb_build_array(crm_private.fund_reverse(a||jsonb_build_object('originalActId',op),s,actor,(a->>'operationId')::uuid));op:=(a->>'operationId')::uuid;
+   end if;
+   state:=crm_private.fund_assign(a,p,s,actor,op,case when action='rectify' then 'assign' else action end,(a->>'originalAllocationId')::uuid);results:=results||jsonb_build_array(state);
+  elsif action='consume' then
+   select snapshot into state from crm_private.b05_allocation_revisions where allocation_id=(a->>'allocationId')::uuid and admin_scope=s order by revision desc limit 1;
+   if state is null or state->>'paymentId'<>pid::text or state->>'status'<>'verified' or not coalesce(crm_private.payment_amount(a->'start'),false) or not coalesce(crm_private.payment_amount(a->'amount',true),false) or a->'destination' is distinct from state->'destination' then raise exception 'ALLOCATION_CONSUMPTION_REQUIRED';end if;
+   start_at:=(a->>'start')::numeric;amt:=(a->>'amount')::numeric;
+   if start_at<(state->>'start')::numeric or start_at+amt>(state->>'start')::numeric+(state->>'amount')::numeric or crm_private.fund_usable(state||jsonb_build_object('start',a->>'start','amount',a->>'amount'),p)<>amt
+   or exists(select 1 from crm_private.b05_allocation_acts z where z.allocation_id=(state->>'id')::uuid and z.kind='consume' and z.start_amount<start_at+amt and z.start_amount-z.signed_amount>start_at and not exists(select 1 from crm_private.b05_allocation_acts correction where correction.original_act_id=z.act_id)) then raise exception 'ALLOCATION_CONSUMPTION_USED_OR_SUSPENDED';end if;
+   insert into crm_private.b05_allocation_acts values(gen_random_uuid(),op,(state->>'id')::uuid,pid,s,action,start_at,-amt,null,state,state,actor,a->>'reason',a->>'sourceRef',(a->>'evidenceId')::uuid,at_time,clock_timestamp());results:=jsonb_build_array(jsonb_build_object('consumed',a->>'amount','purpose',state->'destination'->>'purpose','externalExecution',false));
+  elsif action='reverse' then results:=jsonb_build_array(crm_private.fund_reverse(a,s,actor,op));
+  elsif action in ('distribute','reverse_distribution') then
+   if not coalesce(crm_private.fund_calculation_valid(a->'calculation'),false) or (a->'calculation'->'input'->>'total') is distinct from a->>'total' then raise exception 'ALLOCATION_CALCULATION_INVALID';end if;
+   if action='distribute' then
+    if not coalesce(crm_private.payment_amount(a->'total',true),false) or not coalesce(crm_private.payment_amount(a->'start'),false) or a->>'distributionId' is null or jsonb_array_length(a->'parts')<>jsonb_array_length(a->'calculation'->'output'->'parts') then raise exception 'ALLOCATION_DISTRIBUTION_REQUIRED';end if;
+    insert into crm_private.b05_fund_distributions values((a->>'distributionId')::uuid,pid,s,op,null,a->'calculation',actor,clock_timestamp());start_at:=(a->>'start')::numeric;
+    for calcp in select value from jsonb_array_elements(a->'calculation'->'output'->'parts') order by (value->>'order')::bigint loop
+     select value into item from jsonb_array_elements(a->'parts') where value->>'id'=calcp->>'id';if item is null or item->>'weight'<>calcp->>'weight' or item->>'order'<>calcp->>'order' then raise exception 'ALLOCATION_DISTRIBUTION_REQUIRED';end if;
+     if (calcp->>'amount')::numeric>0 then partq:=a||jsonb_build_object('allocationId',item->>'id','reconciliationId',item->>'reconciliationId','expectedReconciliationRevision',item->'expectedReconciliationRevision','destination',item->'destination','start',trunc(start_at,2)::text,'amount',calcp->>'amount');
+      state:=crm_private.fund_assign(partq,p,s,actor,op,'distribute');results:=results||jsonb_build_array(state);end if;
+     start_at:=start_at+(calcp->>'amount')::numeric;
+    end loop;
+   else
+    select * into original from crm_private.b05_fund_distributions where distribution_id=(a->>'distributionId')::uuid and payment_id=pid and admin_scope=s;
+    if not found or original.original_distribution_id is not null or (a->>'total')::numeric<>-(original.calculation->'output'->>'total')::numeric or a->'calculation'->'input'->'parts' is distinct from original.calculation->'input'->'parts' then raise exception 'ALLOCATION_ORIGINAL_REQUIRED';end if;
+    for act in select z.act_id from crm_private.b05_allocation_acts z where z.operation_id=original.operation_id and z.kind='distribute' order by z.start_amount loop results:=results||jsonb_build_array(crm_private.fund_reverse(a||jsonb_build_object('originalActId',act.act_id),s,actor,op));end loop;
+    insert into crm_private.b05_fund_distributions values(op,pid,s,op,original.distribution_id,a->'calculation',actor,clock_timestamp());
+   end if;
+  end if;
+  rev:=crm_private.fund_refresh(pid,s,actor,'allocation_operation',op,null);
+  r:=jsonb_build_object('id',pid,'replayed',false,'result',jsonb_build_object('revision',rev,'effects',results,'summary',crm_private.fund_summary(pid,s)));
+  insert into crm_private.b05_fund_operations values(op,pid,s,actor,fp,a,r,clock_timestamp());
+  insert into crm_private.b05_fund_history values(op,pid,s,old,r,actor,a->>'reason',a->>'sourceRef',(a->>'evidenceId')::uuid,at_time,clock_timestamp());
+ end if;
+ perform crm_f2.verify(f2p,f2s,q,'C03','human_evidence','write_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');return r;
+end$$;
+create function crm_api.allocation_read(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea) returns jsonb language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
+declare hf text[];tf text[];fs text[];a jsonb;pid uuid;s text;rev bigint;pr bigint;r jsonb;coverage jsonb:='[]';sid uuid;
+begin
+ hf:=crm_f2.admit(f2p,f2s,q,'C01','read_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');if hf[17] collate "C"<>tf[14] collate "C" then raise exception 'ALLOCATION_DENIED';end if;
+ fs:=crm_f1.fields(q);if cardinality(fs)<>2 or fs[1]<>'CRM-H3-ALLOCATION-READ1' then raise exception 'ALLOCATION_INPUT_INVALID';end if;a:=fs[2]::jsonb;
+ if jsonb_typeof(a) is distinct from 'object' or a-'paymentId'<>'{}'::jsonb or not(a?'paymentId') then raise exception 'ALLOCATION_INPUT_INVALID';end if;pid:=(a->>'paymentId')::uuid;s:=hf[17];
+ select revision into pr from crm_private.b05_payment_revisions where payment_id=pid and admin_scope=s order by revision desc limit 1;
+ if found then
+  select coalesce(max(revision),0) into rev from crm_private.b05_fund_revisions where payment_id=pid and admin_scope=s;
+  for sid in select distinct schedule_id from crm_private.b05_reconciliations where payment_id=pid and admin_scope=s order by schedule_id loop coverage:=coverage||crm_private.fund_coverage(sid,s);end loop;
+  r:=jsonb_build_object('revision',rev,'paymentRevision',pr,'summary',crm_private.fund_summary(pid,s),'allocations',crm_private.fund_allocations(pid,s),
+   'acts',coalesce((select jsonb_agg(to_jsonb(z)||jsonb_build_object('signed_amount',trunc(z.signed_amount,2)::text,'start_amount',trunc(z.start_amount,2)::text) order by recorded_at,act_id) from crm_private.b05_allocation_acts z where z.payment_id=pid and z.admin_scope=s),'[]'),
+   'coverage',coverage,'history',coalesce((select jsonb_agg(to_jsonb(z) order by recorded_at) from crm_private.b05_fund_history z where z.payment_id=pid and z.admin_scope=s),'[]'),
+   'distributions',coalesce((select jsonb_agg(to_jsonb(z) order by recorded_at) from crm_private.b05_fund_distributions z where z.payment_id=pid and z.admin_scope=s),'[]'));
+ end if;
+ perform crm_f2.verify(f2p,f2s,q,'C01','human_evidence','read_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');return r;
+end$$;
+
+-- Same C01 contract with authenticated, derived funds coverage; old content retained.
+create or replace function crm_api.obligation_read(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea) returns jsonb
+language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
+declare hf text[];tf text[];fs text[];a jsonb;r jsonb;begin
+ hf:=crm_f2.admit(f2p,f2s,q,'C01','read_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');
+ if hf[17] collate "C"<>tf[14] collate "C" then raise exception 'OBLIGATION_DENIED';end if;
+ fs:=crm_f1.fields(q);if cardinality(fs)<>2 or fs[1]<>'CRM-H3-OBLIGATION-READ1' then raise exception 'OBLIGATION_INPUT_INVALID';end if;a:=fs[2]::jsonb;
+ if jsonb_typeof(a) is distinct from 'object' or a-array['bookingId','scheduleId']<>'{}'::jsonb or not(a ?& array['bookingId','scheduleId']) then raise exception 'OBLIGATION_INPUT_INVALID';end if;
+ select jsonb_build_object('coverage',crm_private.fund_coverage(ps.schedule_id,hf[17]),'current',(select to_jsonb(x) from crm_private.b05_schedule_revisions x where x.schedule_id=ps.schedule_id order by revision desc limit 1),
+ 'original',(select jsonb_agg(jsonb_build_object('slot',x.slot,'amount',to_char(x.amount,'FM999999999999999999999999999999990.00'),'due',x.due) order by x.slot) from crm_private.b05_expected_payments x where x.schedule_id=ps.schedule_id),
+ 'history',coalesce((select jsonb_agg(to_jsonb(x)||jsonb_build_object('difference',x.difference::text) order by x.revision) from crm_private.b05_obligation_adjustments x where x.schedule_id=ps.schedule_id),'[]')) into r
+ from crm_private.b05_payment_schedules ps where ps.schedule_id=(a->>'scheduleId')::uuid and ps.booking_id=(a->>'bookingId')::uuid and ps.admin_scope=hf[17];
+ perform crm_f2.verify(f2p,f2s,q,'C01','human_evidence','read_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');return r;
+end $$;
+
+do $$declare f record;begin
+ for f in select p.oid::regprocedure signature from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='crm_private' and p.proname in ('fund_usable','fund_allocations','fund_coverage','fund_summary','fund_record_coverage','fund_refresh','fund_payment_changed','fund_obligation_changed','fund_calculation_valid','fund_assign','fund_reverse') loop
+  execute 'alter function '||f.signature||' owner to crm_h0_f2_owner';execute 'revoke all on function '||f.signature||' from public';execute 'grant execute on function '||f.signature||' to crm_h0_f2_executor,crm_h0_migration';
+ end loop;
+end$$;
+do $$declare f text;begin foreach f in array array['allocation_apply','allocation_read'] loop
+ execute 'alter function crm_api.'||f||'(bytea,bytea,bytea,bytea,bytea) owner to crm_h0_f2_executor';
+ execute 'revoke all on function crm_api.'||f||'(bytea,bytea,bytea,bytea,bytea) from public';
+ execute 'grant execute on function crm_api.'||f||'(bytea,bytea,bytea,bytea,bytea) to crm_h0_runtime';
+end loop;end$$;
+revoke create on schema crm_private from crm_h0_f2_owner;
+revoke create on schema crm_api from crm_h0_f2_executor;
+commit;
