@@ -1,5 +1,9 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+Actualización H3-003/004 — 2026-10-03: **TSK-H3-003/004 COMPLETED local/aislado; H3 IN PROGRESS; H3-001–004 COMPLETED local/aislado; H3-005+ y H4–H6 NOT STARTED. STOP tras H3-004; continuidad requiere nueva autorización humana.** Customer Payment separa detección/recepción y Reconciliation propuesta/validación; 500 recibidos/200 comprobados/300 pendientes, duplicados/dos transferencias, revisión/rectificación y garantías locales verificados. [Implementación](../specs/001-core-crm/evidence-TSK-H3-003.md) y [verificación](../specs/001-core-crm/evidence-TSK-H3-004.md). Commit exacto probado `b4f26877a3be3877852129471719cd6dfb512c15`: 78/78 matriz + 8/8 reproducers + 1/1 focal; 769/769 PostgreSQL y 94/94 unitarias, gates/V-MIG/preservación PASS, 0 FAIL/skipped/cancelled. F01–F08 de H3-004 CLOSED, cero materiales abiertos; F01–F04 anteriores CLOSED conservados. H0 COMPLETED técnico/local/aislado; H1/H2 COMPLETED local/aislado y H3-001/002 preservados. H3-005/H3-006/H4-019/H6-005 pendientes; integración previa H4-021 pendiente. Sin Payment Allocation/cobertura integrada/Refund/Provider Payment/facturación/confirmaciones/fondos/banco/conectores reales acreditados. Hosted H2/H3 no acreditados; Production no autorizada; health-check independiente conservado. Todos los pendientes globales vigentes permanecen abiertos en su alcance.
+
+Registro histórico anterior a H3-003/004 (cierre H3-002):
+
 Actualización H3 — 2026-10-03: **TSK-H3-001/002 COMPLETED local/aislado; H3 IN PROGRESS; H3-003+ y H4–H6 NOT STARTED. STOP tras H3-002.** Políticas/schedules/Expected Payments y ajustes históricos, PM-03=500,01+500,00 y límites D020 verificados; [implementación](../specs/001-core-crm/evidence-TSK-H3-001.md) y [verificación](../specs/001-core-crm/evidence-TSK-H3-002.md). Commit exacto probado `a2bbcd0cf85ebd3f0ecdf9d0383d7d54df3ae9a0`:60/60 matriz+4/4 históricos+1/1 focal;682/682 PostgreSQL y86/86 unitarias; gates/V-MIG/preservación PASS. F01–F04 CLOSED, cero materiales abiertos. H0–H2 locales conservados; H3-006/H4-021/H6-005 pendientes. Cobertura positiva pendiente de hechos verificados H3-006, sin dinero/fondos/Customer Payment/Reconciliation/Refund/facturación/proveedores/operación/conectores/envíos reales. Hosted H2/H3 no acreditados; Production no autorizada; health-check independiente conservado. Todos los pendientes globales vigentes permanecen abiertos en su alcance.
 
 Registro histórico anterior a H3 (cierre H2-012):
@@ -89,10 +93,11 @@ Last updated: 2026-10-03
 - TSK-H2-011/012 — COMPLETED local/aislado el 2026-10-03: cantidades 10/12/12/10, nominal parcial sin doble cómputo y salida H2 contrastada con evidencias materiales y regresión fresca. [Cierre H2](../specs/001-core-crm/evidence-TSK-H2-012.md):36/36 +2/2 históricos;279/279 revalidación H2;20/20 salida;617/617 PostgreSQL y81/81 unitarias. F01/F02 de verificación CLOSED; H2 COMPLETED solo local/aislado. STOP antes de H3.
 
 - TSK-H3-001/002 — COMPLETED local/aislado: [modelo](../specs/001-core-crm/evidence-TSK-H3-001.md) y [matriz](../specs/001-core-crm/evidence-TSK-H3-002.md);60/60+4/4 históricos+1/1 focal,682/682 PostgreSQL y86/86 unitarias. F01–F04 CLOSED. H3 sigue IN PROGRESS; integraciones H3-006/H4-021/H6-005 pendientes.
+- TSK-H3-003/004 — COMPLETED local/aislado: [modelo](../specs/001-core-crm/evidence-TSK-H3-003.md) y [matriz](../specs/001-core-crm/evidence-TSK-H3-004.md); 78/78 + 8/8 reproducers + 1/1 focal,769/769 PostgreSQL y 94/94 unitarias. F01–F08 CLOSED; H3 IN PROGRESS; H3-005/H3-006/H4-019/H6-005 pendientes.
 
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED técnico/local/aislado, H1 y H2 COMPLETED local/aislado. H3 IN PROGRESS; únicamente H3-001/002 COMPLETED local/aislado. H3-003+ y H4–H6 NOT STARTED. STOP obligatorio tras H3-002; continuidad requiere nueva autorización humana.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED técnico/local/aislado, H1 y H2 COMPLETED local/aislado. H3 IN PROGRESS; H3-001–004 COMPLETED local/aislado. H3-005+ y H4–H6 NOT STARTED. STOP obligatorio tras H3-004; continuidad requiere nueva autorización humana.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending

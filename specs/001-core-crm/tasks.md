@@ -6,8 +6,8 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003+ y H4–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003+ y H4–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005+ y H4–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005+ y H4–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-03
 
@@ -988,35 +988,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H3-003 — Distinguir detección, recepción y conciliación de cobros
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA.** Hito: H3. Tipo: implementación. Registro: [evidence-TSK-H3-003.md](evidence-TSK-H3-003.md).
 - **Objetivo y alcance:** Customer Payment, propuesta/verificación de Reconciliation y discrepancias; parciales y dos transferencias similares.
 - **Fuentes exactas:** Plan §§5.1, 7.2–7.3; SPEC-FR-ECON-003, SPEC-FR-ECON-004, SPEC-FR-ECON-006, SPEC-FR-IDEMP-003, AC-025, AC-026, AC-028. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-003.
 - **Bloques, contratos y unidades:** B05/B07; C01/C02/C03/C04/C06; T05.
 - **Entregable previsto:** Áreas propuestas de cobros y conciliación con migraciones. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H2-012], [TSK-H3-002], [TSK-H1-014], [TSK-H1-018]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H2 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Correspondencia/fuente dudosa suspende solo porción afectada. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Registrar movimiento e identificación fiable, verificar recepción separadamente, resolver dudas humanamente y conservar correcciones; preparar asignaciones comprobables.
+- **Bloqueo localizado / condición para levantarlo:** Correspondencia/fuente dudosa suspende solo porción afectada. El detalle de evidencia/decisión y puerta está en §7; bloqueo localizado a datos/efectos ausentes y fuentes reales no acreditadas, sin impedir comprobación local completa.
+- **Acción ejecutada:** Movimiento identificado/detección, recepción contrastada separada, propuesta/validación y discrepancias/rectificaciones enlazadas persistidos con historia, idempotencia y APIs estrechas. Porciones de correspondencia mínimas; integración de asignación/consumo/cobertura posterior pendiente.
 - **Salida observable:** Recepción y correspondencia acreditadas con original/corrección; la validez de las porciones se completa con fondos.
 - **Verificación y esperado:** Esperado/aviso no dinero; recibido500 y solo200 identificados deja300 sin conciliar; aviso duplicado no suma y segunda transferencia real igual se conserva; error posterior enlaza ajuste sin reversión bancaria. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H3-004].
 - **Integración adicional obligatoria:** [TSK-H3-006], [TSK-H4-019], [TSK-H6-005]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI [evidence-TSK-H3-003.md](evidence-TSK-H3-003.md), **EJECUTADA local/aislado** sobre `b4f26877a3be3877852129471719cd6dfb512c15`: 78/78 matriz + 8/8 reproducers + 1/1 focal; 769/769 PostgreSQL y 94/94 unitarias, gates y V-MIG PASS, 0 FAIL/skipped/cancelled. F01–F08 CLOSED, originales preservados. H3-005/H3-006/H4-019/H6-005 pendientes; sin fondos/banco/conectores reales, Allocation/cobertura integrada/Refund/hosted/Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T05 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-004"></a>
 
 #### TSK-H3-004 — Verificar: Distinguir detección, recepción y conciliación de cobros
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA.** Hito: H3. Tipo: comprobación. Registro: [evidence-TSK-H3-004.md](evidence-TSK-H3-004.md).
 - **Objetivo y alcance:** Customer Payment, propuesta/verificación de Reconciliation y discrepancias; parciales y dos transferencias similares.
 - **Fuentes exactas:** Plan §§5.1, 7.2–7.3; SPEC-FR-ACC-005, SPEC-FR-ECON-003, SPEC-FR-ECON-004, SPEC-FR-ECON-006, SPEC-FR-IDEMP-003, AC-025, AC-026, AC-028. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-004.
 - **Bloques, contratos y unidades:** B05/B07; C01/C02/C03/C04/C06; T05.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H2-012], [TSK-H3-003]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H2 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Correspondencia/fuente dudosa suspende solo porción afectada. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H3-003; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** Correspondencia/fuente dudosa suspende solo porción afectada. El detalle de evidencia/decisión y puerta está en §7; bloqueo localizado a datos/efectos ausentes y fuentes reales no acreditadas, sin impedir comprobación local completa.
+- **Acción ejecutada:** V-DOM + V-DAT + V-MIG y familias aplicables ejecutadas con expected congelado previo independiente; 78/78 matriz y regresión completa PASS, sin producto como oráculo.
 - **Salida observable:** Recepción y correspondencia acreditadas con original/corrección; la validez de las porciones se completa con fondos. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Esperado/aviso no dinero; recibido500 y solo200 identificados deja300 sin conciliar; aviso duplicado no suma y segunda transferencia real igual se conserva; error posterior enlaza ajuste sin reversión bancaria. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI [evidence-TSK-H3-004.md](evidence-TSK-H3-004.md), **EJECUTADA local/aislado** sobre `b4f26877a3be3877852129471719cd6dfb512c15`: 78/78 matriz + 8/8 reproducers + 1/1 focal; 769/769 PostgreSQL y 94/94 unitarias, gates y V-MIG PASS, 0 FAIL/skipped/cancelled. F01–F08 CLOSED, originales preservados. H3-005/H3-006/H4-019/H6-005 pendientes; sin fondos/banco/conectores reales, Allocation/cobertura integrada/Refund/hosted/Production.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T05 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-005"></a>
