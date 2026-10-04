@@ -1,0 +1,70 @@
+$ node scripts/test-postgres.mjs postgres-h3-011.test.ts
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-yPA7UO/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-yPA7UO/data -l logfile start
+
+waiting for server to start.... done
+server started
+Result(1) [
+  {
+    fields: [
+      'CRM-H0-HA-PART1',
+      'pp-part-8b31f967-bd4f-4902-b8ee-60268bdc1092',
+      'provider-payment-schedule',
+      'h3-011-v1',
+      '{"action":"schedule","at":"2026-10-04T19:10:47.421Z","bookingId":"8964131a-642d-4c78-9b9a-363aa0a1a279","evidenceId":"a636517c-0252-4ae0-9833-708524499bda","expectedRevision":1,"operationId":"b60b1d51-556f-4838-9971-0e4d2832d0b6","providerPaymentId":"e01bcceb-1397-441e-a4e2-e6e9fbb10cd1","reason":"SYNTHETIC Administrator verified fact","schedule":{"amount":"500.00","conditions":"SYNTHETIC only internal intention; no bank dispatch","fundsKind":"verified","method":"SYNTHETIC manual transfer","portions":[{"allocationId":"e3fa299b-754f-4f78-ac51-e681634d33be","amount":"500.00","fundRevision":5,"paymentId":"7fd4a335-4794-4fe5-aab3-27b117a2182e","paymentRevision":4,"start":"0.00"}],"recipientId":"f5f174f9-8b99-4e70-8ec1-79360caed4c5","scheduledDate":"2026-10-05"},"sourceRef":"SYNTHETIC manual bank contrast","suplidoId":"61d176ee-c6d1-4e56-a15b-60c74109dc2d"}',
+      'value',
+      'f5f174f9-8b99-4e70-8ec1-79360caed4c5',
+      'value',
+      '500.00',
+      'value',
+      'SYNTHETIC only internal intention; no bank dispatch',
+      'crm_h3_011-synthetic',
+      'record-payment-intention'
+    ]
+  }
+]
+2026-10-04 21:10:47.451 CEST [80523] ERROR:  PROVIDER_PAYMENT_APPROVAL_MATERIAL_CHANGED:{"scope": "crm_h3_011-synthetic", "amount": "500.00", "partScope": "crm_h3_011-synthetic", "recipient": "f5f174f9-8b99-4e70-8ec1-79360caed4c5", "amountBody": null, "contentDiff": true, "recipientBody": null}
+2026-10-04 21:10:47.451 CEST [80523] CONTEXT:  PL/pgSQL function crm_api.provider_payment_sensitive_schedule(bytea,bytea,bytea,bytea,bytea,jsonb) line 10 at RAISE
+✖ H3-011 TTE programming, verified partial200/500 and final Suplido integration (1429.283209ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1557.628708
+
+✖ failing tests:
+
+test at tests/integration/postgres-h3-011.test.ts:5:1
+✖ H3-011 TTE programming, verified partial200/500 and final Suplido integration (1429.283209ms)
+  Error: H0_011_RESERVE_DENIED
+      at H0011PostgresAdapter.command (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h0-011-adapter.ts:280:13)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-011.test.ts:8:100)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+waiting for server to shut down.... done
+server stopped
+[ELIFECYCLE] Command failed with exit code 1.

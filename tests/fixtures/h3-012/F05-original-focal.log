@@ -1,0 +1,71 @@
+$ node scripts/test-postgres.mjs postgres-h3-011.test.ts
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-rn8gWn/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-rn8gWn/data -l logfile start
+
+waiting for server to start.... done
+server started
+Result(1) [
+  {
+    fields: [
+      'CRM-H0-HA-PART1',
+      'pp-part-a6f23c71-86c5-4267-8193-1dcf7817dbef',
+      'provider-payment-schedule',
+      'h3-011-v1',
+      '{"action":"schedule","at":"2026-10-04T19:11:17.593Z","bookingId":"06d0cb0b-eb96-499c-8edb-a4503bbc5ecc","evidenceId":"786add2c-eee9-4e0d-bb20-06fe07020514","expectedRevision":1,"operationId":"c1309250-3e65-4da5-a553-9b2c2cb06463","providerPaymentId":"d34de3f7-7019-412d-92ee-c1e35bf0db23","reason":"SYNTHETIC Administrator verified fact","schedule":{"amount":"500.00","conditions":"SYNTHETIC only internal intention; no bank dispatch","fundsKind":"verified","method":"SYNTHETIC manual transfer","portions":[{"allocationId":"ac784fe7-187e-4358-b5ab-5b7d780284d0","amount":"500.00","fundRevision":5,"paymentId":"ac12c743-68be-4b40-9935-31e52afc9a41","paymentRevision":4,"start":"0.00"}],"recipientId":"dbb3f74e-88ee-4320-a528-2bc0a2f0c845","scheduledDate":"2026-10-05"},"sourceRef":"SYNTHETIC manual bank contrast","suplidoId":"eccaf3f4-94f5-44bb-87c8-f58b2b49148e"}',
+      'value',
+      'dbb3f74e-88ee-4320-a528-2bc0a2f0c845',
+      'value',
+      '500.00',
+      'value',
+      'SYNTHETIC only internal intention; no bank dispatch',
+      'crm_h3_011-synthetic',
+      'record-payment-intention'
+    ]
+  }
+]
+2026-10-04 21:11:17.643 CEST [80622] ERROR:  invalid input syntax for type json at character 680
+2026-10-04 21:11:17.643 CEST [80622] CONTEXT:  JSON data, line 1: identity
+✖ H3-011 TTE programming, verified partial200/500 and final Suplido integration (1447.627416ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1576.155333
+
+✖ failing tests:
+
+test at tests/integration/postgres-h3-011.test.ts:5:1
+✖ H3-011 TTE programming, verified partial200/500 and final Suplido integration (1447.627416ms)
+  Error: PROVIDER_PAYMENT_DENIED
+      at H3011ProviderPaymentAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h3-provider-payment-adapter.ts:24:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H3011ProviderPaymentAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h3-provider-payment-adapter.ts:27:10)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-011.test.ts:10:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+waiting for server to shut down.... done
+server stopped
+[ELIFECYCLE] Command failed with exit code 1.
