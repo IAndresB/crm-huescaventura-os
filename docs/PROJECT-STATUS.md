@@ -1,5 +1,9 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+Actualización H3-007/008 — 2026-10-04: **TSK-H3-007/008 COMPLETED local/aislado; H3 IN PROGRESS; H3-001–008 COMPLETED local/aislado; H3-009+ y H4–H6 NOT STARTED. STOP tras H3-008; continuidad requiere nueva autorización humana.** Provider Invoice distingue necesidad/Pendiente, Recibida, Revisada, Vinculada e Incidencia; original B07, porciones documentales y correcciones enlazadas sin inferir pago, fondos, fiscalidad ni mandato. [Implementación](../specs/001-core-crm/evidence-TSK-H3-007.md) y [verificación](../specs/001-core-crm/evidence-TSK-H3-008.md). Commit exacto probado `39a31c03bdd091e6b659952193b75493ded06f4f`:65/65 matriz +8/8 reproducers +1/1 focal;927/927 PostgreSQL y104/104 unitarias, gates/V-MIG/preservación PASS,0 FAIL/skipped/cancelled. H3-008-F01–F08 CLOSED, cero materiales abiertos; anteriores CLOSED conservados. H0 técnico/local/aislado y H1/H2 local/aislado COMPLETED. H3-009+, H3-012/H5-014/H5-016/H6-007, Provider Payment, cierre completo Suplido, fiscalidad, mandato, facturación y todos los pendientes globales conservados. Sin datos/fondos/conectores reales; hosted H2/H3 no acreditados, Production no autorizada; health-check independiente intacto.
+
+Registro histórico anterior a H3-007/008 (cierre H3-006):
+
 Actualización H3-005/006 — 2026-10-03: **TSK-H3-005/006 COMPLETED local/aislado; H3 IN PROGRESS; H3-001–006 COMPLETED local/aislado; H3-007+ y H4–H6 NOT STARTED. STOP tras H3-006; continuidad requiere nueva autorización humana.** Payment Allocation distingue plan/asignación/consumo/disponibilidad e integra cobertura local de obligaciones con porciones recibidas/conciliadas verificadas;100/80/80 sin doble cómputo, PM08/11/12/13 exactos e historia reproducible. [Implementación](../specs/001-core-crm/evidence-TSK-H3-005.md) y [verificación](../specs/001-core-crm/evidence-TSK-H3-006.md). Commit exacto probado `3113028f26a906f2b4f6935ae0bb59877c59d74d`:75/75 matriz +7/7 reproducers +1/1 focal;852/852 PostgreSQL y100/100 unitarias, gates/V-MIG/preservación PASS,0 FAIL/skipped/cancelled. F01–F08 H3-006 CLOSED, cero materiales abiertos; anteriores CLOSED conservados. H0 técnico/local/aislado y H1/H2 local/aislado COMPLETED. H3-007+/H4-019/H6-005/H6-016, carrera completa Refund/fianza, Provider Payment, integración H4-021 y todos los pendientes globales conservados. Sin banco/fondos/conectores reales, hosted H2/H3 no acreditados, Production no autorizada; health-check independiente intacto.
 
 Registro histórico anterior a H3-005/006 (cierre H3-004):
@@ -15,7 +19,7 @@ Registro histórico anterior a H3 (cierre H2-012):
 Actualización 2026-10-03: H0 COMPLETED técnico/local/aislado y H1 COMPLETED local/aislado conservados. **H2 COMPLETED local/aislado; TSK-H2-001–012 COMPLETED local/aislado.** [Verificación H2-011](../specs/001-core-crm/evidence-TSK-H2-011.md) y [salida H2-012](../specs/001-core-crm/evidence-TSK-H2-012.md), commit exacto probado `226b53559dc0786dd14dead0039eed394144fade`: 36/36 casos H2-011 +2/2 reproducciones; revalidación H2 266 casos de matrices +13 reproducciones/complementos =279/279 PASS; salida S01–S20 20/20 PASS. Regresión 617/617 PostgreSQL 17.11 y81/81 unitarias; gates y V-MIG/preservación PASS. H2-011-F01/F02 del verificador CLOSED, cero materiales abiertos; FAIL originales conservados, sin cambios de producto ni migraciones nuevas. **H3–H6 NOT STARTED; STOP tras H2-012, sin preparación de H3.** PLAN-AUTH-001–006 PENDING globalmente; PLAN-PENDING-003 en su parte abierta y todos los ARCH-PENDING, DM-PENDING y BR-PENDING vigentes conservados, incluidos DM-PENDING-005 y BR-PENDING-022/033. Datos personales/comerciales, catálogo/tarifas/costes/capacidades y prioridades/plazos reales no acreditados. Hosted H2 no acreditado; Production no autorizada. Sin pagos/fondos/conciliación/Refund/facturación/proveedores confirmados/operación/conectores/envíos reales. Health-check independiente conservado; no acredita hosted H2.
 
 Status: ACTIVE
-Last updated: 2026-10-03
+Last updated: 2026-10-04
 
 ## Completed
 
@@ -99,11 +103,13 @@ Last updated: 2026-10-03
 - TSK-H3-001/002 — COMPLETED local/aislado: [modelo](../specs/001-core-crm/evidence-TSK-H3-001.md) y [matriz](../specs/001-core-crm/evidence-TSK-H3-002.md);60/60+4/4 históricos+1/1 focal,682/682 PostgreSQL y86/86 unitarias. F01–F04 CLOSED. H3 sigue IN PROGRESS; integración H3-006 COMPLETED local/aislado por el bloque005/006; H4-021/H6-005 pendientes.
 - TSK-H3-003/004 — COMPLETED local/aislado: [modelo](../specs/001-core-crm/evidence-TSK-H3-003.md) y [matriz](../specs/001-core-crm/evidence-TSK-H3-004.md); 78/78 + 8/8 reproducers + 1/1 focal,769/769 PostgreSQL y 94/94 unitarias. F01–F08 CLOSED; H3 IN PROGRESS; H3-005/H3-006 COMPLETED local/aislado por el bloque005/006; H4-019/H6-005 pendientes.
 
-- TSK-H3-005/006 — COMPLETED local/aislado: [modelo](../specs/001-core-crm/evidence-TSK-H3-005.md) y [matriz](../specs/001-core-crm/evidence-TSK-H3-006.md),75/75+7/7+1/1;852/852 PostgreSQL y100/100 unitarias, gates/V-MIG PASS, F01–F08 CLOSED. Integración local H3-006 de obligaciones/porciones anteriores completada; H3-007+/H4-019/H6-005/H6-016 y carrera Refund/fianza pendientes.
+- TSK-H3-005/006 — COMPLETED local/aislado: [modelo](../specs/001-core-crm/evidence-TSK-H3-005.md) y [matriz](../specs/001-core-crm/evidence-TSK-H3-006.md),75/75+7/7+1/1;852/852 PostgreSQL y100/100 unitarias, gates/V-MIG PASS, F01–F08 CLOSED. Integración local H3-006 de obligaciones/porciones anteriores completada; H3-009+/H4-019/H6-005/H6-016 y carrera Refund/fianza pendientes.
+
+- TSK-H3-007/008 — COMPLETED local/aislado: [modelo](../specs/001-core-crm/evidence-TSK-H3-007.md) y [matriz](../specs/001-core-crm/evidence-TSK-H3-008.md),65/65+8/8+1/1;927/927 PostgreSQL y104/104 unitarias, gates/V-MIG/preservación PASS. H3-008-F01–F08 CLOSED. Factura externa documental y originales B07 conservados; sin pago/fondos/fiscalidad/mandato/cierre inferidos. H3 IN PROGRESS; H3-009+ y H4–H6 NOT STARTED; STOP tras H3-008.
 
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED técnico/local/aislado, H1 y H2 COMPLETED local/aislado. H3 IN PROGRESS; H3-001–006 COMPLETED local/aislado. H3-007+ y H4–H6 NOT STARTED. STOP obligatorio tras H3-006; continuidad requiere nueva autorización humana.
+- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED técnico/local/aislado, H1 y H2 COMPLETED local/aislado. H3 IN PROGRESS; H3-001–008 COMPLETED local/aislado. H3-009+ y H4–H6 NOT STARTED. STOP obligatorio tras H3-008; continuidad requiere nueva autorización humana.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending

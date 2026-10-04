@@ -6,10 +6,10 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007+ y H4–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007+ y H4–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009+ y H4–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009+ y H4–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
-Last updated: 2026-10-03
+Last updated: 2026-10-04
 
 ## 1. Autoridad, base y alcance
 
@@ -1058,35 +1058,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H3-007 — Recibir, revisar y vincular factura externa al cliente
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Hito: H3. Tipo: implementación.
 - **Objetivo y alcance:** Exigencia documental, original, emisor/destinatario/importe/alcance y corrección; porciones por servicio.
 - **Fuentes exactas:** Plan §§5.3, 7.3; SPEC-FR-ECON-010, AC-045, AC-046. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-007.
 - **Bloques, contratos y unidades:** B05/B07; C02/C03/C04/C06; —.
 - **Entregable previsto:** Áreas propuestas de documento externo y correspondencia, con migraciones. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H2-012], [TSK-H1-014], [TSK-H3-006]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H2 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-002 / BR-PENDING-021/022/033: revisión operativa no valida fiscalidad ni crea mandato. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Registrar necesidad, recepción, revisión y vinculación comprobada; discrepancia abre revisión conservando original y vínculos.
+- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-002 / BR-PENDING-021/022/033: revisión operativa no valida fiscalidad ni crea mandato. El detalle de evidencia/decisión y puerta está en §7; no acredita fiscalidad ni mandato y conserva las integraciones posteriores pendientes.
+- **Acción ejecutada:** Registrar necesidad, recepción, revisión y vinculación comprobada; discrepancia abre revisión conservando original y vínculos.
 - **Salida observable:** Cada estado documental sustentado; ninguna factura o enlace acredita pago ni legitimidad fiscal del modelo.
 - **Verificación y esperado:** Recibida no Revisada/Vinculada; destinatario o importe distintos producen incidencia; un documento cubre varios servicios solo con porciones verificables; no documento ficticio de Tararí. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H3-008].
 - **Integración adicional obligatoria:** [TSK-H3-012], [TSK-H5-014], [TSK-H5-016], [TSK-H6-007]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: expected independiente `0052f09` intacto; producto/verificación probados `39a31c03bdd091e6b659952193b75493ded06f4f`;65/65 matriz +8/8 reproducers +1/1 focal,927/927 PostgreSQL y104/104 unitarias, gates/V-MIG/preservación PASS. H3-008-F01–F08 CLOSED;0 FAIL/skipped/cancelled/materiales abiertos. STOP tras H3-008; H3 IN PROGRESS, H3-009+ y H4–H6 NOT STARTED; continuidad requiere nueva autorización humana. [Implementación](evidence-TSK-H3-007.md), [verificación](evidence-TSK-H3-008.md) y [expected](expected-TSK-H3-007-008.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-008"></a>
 
 #### TSK-H3-008 — Verificar: Recibir, revisar y vincular factura externa al cliente
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Hito: H3. Tipo: comprobación.
 - **Objetivo y alcance:** Exigencia documental, original, emisor/destinatario/importe/alcance y corrección; porciones por servicio.
 - **Fuentes exactas:** Plan §§5.3, 7.3; SPEC-FR-ECON-010, AC-045. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-008.
 - **Bloques, contratos y unidades:** B05/B07; C02/C03/C04/C06; —.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H2-012], [TSK-H3-007]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H2 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-002 / BR-PENDING-021/022/033: revisión operativa no valida fiscalidad ni crea mandato. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H3-007; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-002 / BR-PENDING-021/022/033: revisión operativa no valida fiscalidad ni crea mandato. El detalle de evidencia/decisión y puerta está en §7; no acredita fiscalidad ni mandato y conserva las integraciones posteriores pendientes.
+- **Acción ejecutada:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H3-007; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Cada estado documental sustentado; ninguna factura o enlace acredita pago ni legitimidad fiscal del modelo. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Recibida no Revisada/Vinculada; destinatario o importe distintos producen incidencia; un documento cubre varios servicios solo con porciones verificables; no documento ficticio de Tararí. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: expected independiente `0052f09` intacto; producto/verificación probados `39a31c03bdd091e6b659952193b75493ded06f4f`;65/65 matriz +8/8 reproducers +1/1 focal,927/927 PostgreSQL y104/104 unitarias, gates/V-MIG/preservación PASS. H3-008-F01–F08 CLOSED;0 FAIL/skipped/cancelled/materiales abiertos. STOP tras H3-008; H3 IN PROGRESS, H3-009+ y H4–H6 NOT STARTED; continuidad requiere nueva autorización humana. [Implementación](evidence-TSK-H3-007.md), [verificación](evidence-TSK-H3-008.md) y [expected](expected-TSK-H3-007-008.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-009"></a>
