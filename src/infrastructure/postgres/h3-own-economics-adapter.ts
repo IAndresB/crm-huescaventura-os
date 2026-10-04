@@ -21,7 +21,9 @@ export class H3013OwnEconomicsAdapter {
  const c=input as unknown as OwnEconomicsCommand;
  const sources=await invoke('CRM-H3-OWN-SOURCES1','own_economics_sources',{bookingId:c.bookingId,references:ownReferences(c.input)}) as EconomicSource;
  const computed=calculateOwnEconomics(c.input,sources,row.actor_id,c.at,c.reason,c.sourceRef);
- return invoke('CRM-H3-OWN1','own_economics_apply',{...c,sources,computed});
+ // The authoritative sources are carried once; C03 restores the identical retained projection.
+ const wireComputed=Object.fromEntries(Object.entries(computed).filter(([key])=>!['bookingSource','modalities'].includes(key)));
+ return invoke('CRM-H3-OWN1','own_economics_apply',{...c,sources,computed:wireComputed});
  });
  }
  async apply(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,c:OwnEconomicsCommand):Promise<{id:string;replayed:boolean;result:OwnEconomicsView}>{

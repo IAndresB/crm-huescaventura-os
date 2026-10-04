@@ -14,3 +14,6 @@ test('H3-014-F08 one promotion per Booking across economic scopes',async()=>{
 test('H3-014-F09 equivalent economic material with a new technical key reuses snapshot',async()=>{
  const h=await isolatedOwnEconomics('h3014_f09',55936);try{const f=await ownEconomicsFixture(h),q=await f.command();await h.ownEconomics.apply(await h.auth(),write,q);const same=await f.attest({...q,operationId:uid(),expectedRevision:1});const r=await h.ownEconomics.apply(await h.auth(),write,same);assert.equal(r.result.revision,1);assert.equal((await f.see())!.history.length,1);}finally{await h.close();}
 });
+test('H3-014-F11 historical V-MIG keeps its 36-migration boundary',async()=>{
+ const {readdir,readFile}=await import('node:fs/promises'),{providerPaymentMigration}=await import('../support/h3-provider-payment-isolated.ts');const files=(await readdir(new URL('../../supabase/migrations',import.meta.url))).filter(f=>f.endsWith('.sql'));assert.equal(files.length,37);assert.equal(files.filter(f=>f<=providerPaymentMigration).length,36);const verifier=await readFile(new URL('./postgres-h3-012.test.ts',import.meta.url),'utf8');assert.ok(verifier.includes("f.endsWith('.sql')&&f<=providerPaymentMigration"));
+});

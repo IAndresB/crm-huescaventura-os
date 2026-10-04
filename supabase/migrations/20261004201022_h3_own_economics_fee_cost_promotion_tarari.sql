@@ -96,6 +96,7 @@ begin
   end if;
   select coalesce(jsonb_agg(to_jsonb(x) order by x),'[]') into refs from(select distinct value x from (select value->>'unitRevisionId' value from jsonb_array_elements(a->'input'->'fees') union all select value->>'pricingFormRevisionId' from jsonb_array_elements(a->'input'->'fees') union all select value->>'unitRevisionId' from jsonb_array_elements(a->'input'->'costs') union all select value->>'pricingFormRevisionId' from jsonb_array_elements(a->'input'->'costs') union all select value->>'unitRevisionId' from jsonb_array_elements(a->'input'->'tarari') union all select value->>'pricingFormRevisionId' from jsonb_array_elements(a->'input'->'tarari') union all select a->'input'->'promotion'->>'revisionId' where a->'input'->'promotion'<>'null'::jsonb) allrefs where value is not null) distinctrefs;
   sources:=crm_private.own_economic_sources(bid,refs,s);if sources is distinct from a->'sources' then raise exception 'OWN_ECONOMICS_SOURCE_CHANGED:E2';end if;
+  a:=jsonb_set(a,'{computed}',(a->'computed')||jsonb_build_object('bookingSource',sources->'booking','modalities',sources->'modalities'));
   if old is not null and old->'input'=a->'input' and old->'computed'=a->'computed' and old->>'reason'=a->>'reason' and old->>'sourceRef'=a->>'sourceRef' and old->>'actorId'=actor::text and (old->>'at')::timestamptz=at_time then
    r:=jsonb_build_object('id',eid,'replayed',true,'result',old);insert into crm_private.b05_own_economic_operations values(op,eid,s,actor,fp,material,r,rev,clock_timestamp());
   else
