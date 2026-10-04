@@ -1,0 +1,148 @@
+$ node scripts/test-postgres.mjs postgres-h3-009.test.ts postgres-h3-010.test.ts
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-oN6xo2/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-oN6xo2/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ H3-009 real coordination keeps 300 assigned/200 pending and invoice independent (1592.485875ms)
+▶ H3-010 independent frozen normative matrix
+  ✔ R01 (287.829084ms)
+  ✔ R02 (154.417292ms)
+  ✔ R03 (155.083458ms)
+  ✔ R04 (121.907625ms)
+  ✔ R05 (226.744875ms)
+  ✔ R06 (123.156958ms)
+  ✔ R07 (155.858125ms)
+  ✔ R08 (111.47325ms)
+  ✔ R09 (120.092667ms)
+  ✔ R10 (128.221917ms)
+  ✔ R11 (113.036333ms)
+  ✔ R12 (164.191542ms)
+  ✔ R13 (121.259833ms)
+  ✔ R14 (118.140959ms)
+  ✔ R15 (120.405333ms)
+  ✔ R16 (238.187583ms)
+  ✔ R17 (134.452833ms)
+  ✔ R18 (127.003125ms)
+  ✔ R19 (120.781958ms)
+  ✔ R20 (126.010875ms)
+  ✔ R21 (172.69475ms)
+  ✔ R22 (308.470541ms)
+  ✔ R23 (274.244625ms)
+  ✔ R24 (118.339542ms)
+  ✔ R25 (156.209584ms)
+  ✔ R26 (118.034583ms)
+  ✔ R27 (223.249709ms)
+  ✔ R28 (0.139625ms)
+  ✔ R29 (0.122084ms)
+  ✔ R30 (0.067125ms)
+  ✔ R31 (298.517291ms)
+  ✖ R32 (128.618083ms)
+  ✔ R33 (170.953833ms)
+  ✔ R34 (366.880708ms)
+  ✔ R35 (132.485458ms)
+  ✔ R36 (120.954458ms)
+  ✔ R37 (166.906917ms)
+  ✔ R38 (136.97825ms)
+  ✔ R39 (132.103458ms)
+  ✔ R40 (188.313666ms)
+  ✖ R41 (252.266208ms)
+  ✔ R42 (109.869041ms)
+  ✔ R43 (111.171792ms)
+  ✔ R44 (120.679834ms)
+  ✔ R45 (130.72375ms)
+  ✔ R46 (112.3105ms)
+  ✔ R47 (111.755125ms)
+  ✔ R48 (360.804666ms)
+  ✔ R49 (269.835959ms)
+  ✔ R50 (172.230917ms)
+  ✔ R51 (238.2305ms)
+  ✔ R52 (207.42075ms)
+  ✔ R53 (124.574875ms)
+  ✔ R54 (129.438666ms)
+  ✔ R55 (127.142375ms)
+  ✔ R56 (107.342625ms)
+  ✔ R57 (311.086666ms)
+  ✔ R58 (119.467291ms)
+  ✔ R59 (109.857166ms)
+  ✔ R60 (111.218875ms)
+  ✔ R61 (342.452541ms)
+  ✔ R62 (161.090459ms)
+  ✔ R63 (129.249625ms)
+  ✔ R64 (1.506708ms)
+  ✔ R65 (150.240958ms)
+  ✔ R66 (381.047792ms)
+  ✖ R67 (1390.015042ms)
+  ✔ R68 (1335.306458ms)
+  ✔ R69 (13.4125ms)
+✖ H3-010 independent frozen normative matrix (14731.708917ms)
+ℹ tests 71
+ℹ suites 0
+ℹ pass 67
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14892.197417
+
+✖ failing tests:
+
+test at tests/integration/postgres-h3-010.test.ts:125:167
+✖ R32 (128.618083ms)
+  Error: SUPLIDO_REVISION_CONFLICT:E2
+      at H3009SuplidoAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h3-suplido-adapter.ts:37:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H3009SuplidoAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h3-suplido-adapter.ts:40:10)
+      at async R32 (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-010.test.ts:82:129)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-010.test.ts:125:159)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/integration/postgres-h3-010.test.ts:125:167
+✖ R41 (252.266208ms)
+  Error: SUPLIDO_REVISION_CONFLICT:E2
+      at H3009SuplidoAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h3-suplido-adapter.ts:37:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H3009SuplidoAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h3-suplido-adapter.ts:40:10)
+      at async R41 (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-010.test.ts:91:170)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-010.test.ts:125:159)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/integration/postgres-h3-010.test.ts:125:167
+✖ R67 (1390.015042ms)
+  Error: SUPLIDO_DENIED
+      at H3009SuplidoAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h3-suplido-adapter.ts:37:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H3009SuplidoAdapter.read (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h3-suplido-adapter.ts:43:10)
+      at async command (file:///Users/andres/Developer/crm-huescaventura-os/tests/support/h3-suplido-fixtures.ts:20:162)
+      at async R67 (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-010.test.ts:121:218)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-010.test.ts:125:159)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+waiting for server to shut down.... done
+server stopped
+[ELIFECYCLE] Command failed with exit code 1.

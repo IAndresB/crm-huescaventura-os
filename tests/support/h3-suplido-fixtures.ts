@@ -17,11 +17,11 @@ export async function suplidoFixture(h:H,received='700.00',amount='500.00',natur
   return {...q,evidenceId:await funds.proof(q.suplidoId,`suplido:${q.action}:${hash}`,certainty,source_kind,q.at)};
  };
  const see=async()=>h.suplidos.read(await h.auth(),read,suplidoId,bookingId);
- const command=async(action:SuplidoCommand['action'],changes:Partial<SuplidoCommand>={})=>attest({action,suplidoId,bookingId,operationId:uid(),expectedRevision:(await see())?.revision??0,sourceRef:'SYNTHETIC component contrast',reason:'SYNTHETIC Administrator decision',at,evidenceId:uid(),...changes});
+ const command=async(action:SuplidoCommand['action'],changes:Partial<SuplidoCommand>={})=>attest({action,suplidoId,bookingId,operationId:uid(),expectedRevision:changes.expectedRevision??(await see())?.revision??0,sourceRef:'SYNTHETIC component contrast',reason:'SYNTHETIC Administrator decision',at,evidenceId:uid(),...changes});
  const open=()=>command('open',{basis,expectedRevision:0});
  const assign=async(amt='300.00',start='0.00',purpose:'managed_client_funds'|'fee'='managed_client_funds')=>{const q=await funds.assign(amt,start,{bookingId,purpose,reference:'SYNTHETIC client service purpose',serviceId:basis.serviceId});await h.allocations.apply(await h.auth(),write,q);return q;};
  const fundsCommand=async(ids:readonly string[])=>command('component',{component:'funds',allocationIds:ids});
- const attachInvoice=async(stage=4,wrong:Record<string,unknown>={})=>{
+ const attachInvoice=async(stage=4,wrong:Record<string,unknown>={},expectedRevision?:number)=>{
   const ib={...invoice.basis,recipientId:basis.clientId,serviceIds:[basis.serviceId],amount,...wrong};
   await h.invoices.apply(await h.auth(),write,await invoice.attest({...await invoice.need(),bookingId,basis:ib}));
   const d=stage>=2?await invoice.document({recipientId:ib.recipientId,serviceIds:ib.serviceIds,amount:ib.amount!}):undefined;
@@ -30,7 +30,7 @@ export async function suplidoFixture(h:H,received='700.00',amount='500.00',natur
   if(stage>=2)await h.invoices.apply(await h.auth(),write,await invoice.attest({...await invoice.receive(d),bookingId,expectedRevision:1}));
   if(stage>=3)await h.invoices.apply(await h.auth(),write,await invoice.attest({...await invoice.review(),bookingId,expectedRevision:2}));
   if(stage>=4)await h.invoices.apply(await h.auth(),write,await invoice.attest({...await invoice.link(),bookingId,expectedRevision:3,portions:[{serviceId:basis.serviceId,amount,sourceRef:'SYNTHETIC one service attribution'}]}));
-  return command('component',{component:'invoice',invoiceId:invoice.invoiceId});
+  return command('component',{component:'invoice',invoiceId:invoice.invoiceId,...(expectedRevision!==undefined?{expectedRevision}:{})});
  };
  const mandate=async():Promise<MandateFact>=>{
   const m={id:uid(),version:'SYNTHETIC-M1',content:'SYNTHETIC ONLY accepted administration permission; no legal validity',acceptanceRef:uid(),acceptedBy:basis.clientId,acceptedAt:at};

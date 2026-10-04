@@ -225,13 +225,37 @@ begin
  perform crm_f2.verify(f2p,f2s,q,'C03','human_evidence','write_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');return r;
 end$$;
 create function crm_api.suplido_read(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea) returns jsonb language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
-declare hf text[];tf text[];fs text[];a jsonb;r jsonb;
+declare hf text[];tf text[];fs text[];a jsonb;r jsonb;current_components jsonb;changed jsonb;source_root text;x jsonb;client uuid;provider uuid;service uuid;bid uuid;ids jsonb;
 begin
  hf:=crm_f2.admit(f2p,f2s,q,'C01','read_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');
  if hf[17] collate "C" is distinct from tf[14] collate "C" then raise exception 'SUPLIDO_DENIED';end if;
  fs:=crm_f1.fields(q);if cardinality(fs)<>2 or fs[1]<>'CRM-H3-SUPLIDO-READ1' then raise exception 'SUPLIDO_INPUT_INVALID';end if;a:=fs[2]::jsonb;
  if jsonb_typeof(a) is distinct from 'object' or a-array['suplidoId','bookingId']<>'{}'::jsonb or not coalesce(crm_private.invoice_text(a->'suplidoId'),false) or not coalesce(crm_private.invoice_text(a->'bookingId'),false) then raise exception 'SUPLIDO_INPUT_INVALID';end if;
  select v.after_data into r from crm_private.b05_suplido_revisions v join crm_private.b05_suplidos i using(suplido_id) where i.suplido_id=(a->>'suplidoId')::uuid and i.booking_id=(a->>'bookingId')::uuid and i.admin_scope=hf[17] and v.admin_scope=hf[17] order by v.revision desc limit 1;
+ if r is not null then
+  perform pg_advisory_xact_lock(hashtextextended('suplido-root:'||(a->>'suplidoId'),0));
+  select after_data into r from crm_private.b05_suplido_revisions where suplido_id=(a->>'suplidoId')::uuid and admin_scope=hf[17] order by revision desc limit 1;
+  current_components:=r->'components';changed:='[]';bid:=(r->>'bookingId')::uuid;service:=(r->'basis'->>'serviceId')::uuid;client:=(r->'basis'->>'clientId')::uuid;provider:=(r->'basisApplied'->'provider'->>'item_id')::uuid;
+  ids:=coalesce(current_components->'funds'->'allocationIds','[]');
+  for source_root in select distinct k from (
+   select 'payment-root:'||al.payment_id k from crm_private.b05_allocations al where al.admin_scope=hf[17] and ids @> jsonb_build_array(al.allocation_id::text)
+   union select 'invoice-root:'||(current_components->'invoice'->>'invoiceId') where current_components->'invoice'<>'null'::jsonb
+   union select 'payment-root:'||rc.payment_id from crm_private.b05_reconciliations rc where rc.admin_scope=hf[17] and rc.reconciliation_id=(current_components->'reconciliation'->>'reconciliationId')::uuid
+  ) locks order by k loop perform pg_advisory_xact_lock(hashtextextended(source_root,0));end loop;
+  if current_components->'funds'<>'null'::jsonb then
+   x:=crm_private.suplido_funds(ids,bid,service,hf[17]);if x is distinct from current_components->'funds' then changed:=changed||'"funds"'::jsonb;end if;current_components:=jsonb_set(current_components,'{funds}',x);
+  end if;
+  if current_components->'invoice'<>'null'::jsonb then
+   x:=crm_private.suplido_invoice((current_components->'invoice'->>'invoiceId')::uuid,bid,service,client,provider,hf[17]);if x is distinct from current_components->'invoice' then changed:=changed||'"invoice"'::jsonb;end if;current_components:=jsonb_set(current_components,'{invoice}',x);
+  end if;
+  if current_components->'reconciliation'<>'null'::jsonb then
+   begin x:=crm_private.suplido_correspondence((current_components->'reconciliation'->>'reconciliationId')::uuid,bid,hf[17]);
+   exception when raise_exception then x:=current_components->'reconciliation'||jsonb_build_object('requiresReview',true);end;
+   if x is distinct from current_components->'reconciliation' then changed:=changed||'"reconciliation"'::jsonb;end if;current_components:=jsonb_set(current_components,'{reconciliation}',x);
+  end if;
+  r:=r||jsonb_build_object('currentComponents',current_components,'sourceRevalidationRequired',changed,'snapshotRevision',r->'revision');
+  if changed<>'[]'::jsonb then r:=r||jsonb_build_object('status','Revisión','pending',(r->'pending')||jsonb_build_array('source_revalidation'),'currentDocumentaryResolved',false);end if;
+ end if;
  if r is not null then r:=r||jsonb_build_object('history',(select jsonb_agg(jsonb_build_object('revision',revision,'action',action_kind,'before',before_data,'after',after_data,'actorId',actor_id,'reason',reason,'sourceRef',source_ref,'evidenceId',evidence_id,'at',occurred_at,'recordedAt',recorded_at) order by revision) from crm_private.b05_suplido_revisions where suplido_id=(a->>'suplidoId')::uuid and admin_scope=hf[17]));end if;
  perform crm_f2.verify(f2p,f2s,q,'C01','human_evidence','read_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');return r;
 end$$;
