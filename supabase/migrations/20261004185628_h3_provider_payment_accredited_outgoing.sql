@@ -99,7 +99,7 @@ begin
  if comp->'funds'<>'null'::jsonb then comp:=jsonb_set(comp,'{funds}',crm_private.suplido_funds(comp->'funds'->'allocationIds',(state->>'bookingId')::uuid,(state->'basis'->>'serviceId')::uuid,s));end if;
  if comp->'invoice'<>'null'::jsonb then comp:=jsonb_set(comp,'{invoice}',crm_private.suplido_invoice((comp->'invoice'->>'invoiceId')::uuid,(state->>'bookingId')::uuid,(state->'basis'->>'serviceId')::uuid,(state->'basis'->>'clientId')::uuid,(state->'basisApplied'->'provider'->>'item_id')::uuid,s));end if;
  paid:=coalesce((p->>'paid')::numeric,0);
- if p is null or paid is distinct from due then pending:=pending||'"payment"'::jsonb;end if;
+ if p is null or paid is distinct from due or p->>'remaining' is distinct from '0.00' then pending:=pending||'"payment"'::jsonb;end if;
  if matched is distinct from due or p->>'status'='Incidencia' then pending:=pending||'"outgoing_reconciliation"'::jsonb;end if;
  if comp->'invoice'='null'::jsonb or not coalesce((comp->'invoice'->>'linked')::boolean,false) or (comp->'invoice'->'portion'->>'amount')::numeric is distinct from due then pending:=pending||'"invoice"'::jsonb;end if;
  for x in select value from jsonb_array_elements(state->'differences') where not(value->>'resolved')::boolean loop pending:=pending||jsonb_build_array('difference:'||(x->>'component'));end loop;
@@ -112,9 +112,9 @@ begin
  or not(a?&array['action','operationId','providerPaymentId','bookingId','expectedRevision','sourceRef','reason','at','evidenceId'])
  or exists(select 1 from unnest(array['action','operationId','providerPaymentId','bookingId','sourceRef','reason','at','evidenceId']) k where not coalesce(crm_private.invoice_text(a->k),false))
  or jsonb_typeof(a->'expectedRevision') is distinct from 'number' or a->>'expectedRevision'!~'^[0-9]+$'
- or coalesce(a->>'origin','manual')<>'manual' or a->>'action' not in ('open','confirm','schedule','record','incident','resolve','correct','withdraw')
+ or coalesce(a->>'origin','manual') not in ('manual','ai') or (a->>'origin'='ai' and (a->>'action'<>'schedule' or reservation is null)) or a->>'action' not in ('open','confirm','schedule','record','incident','resolve','correct','withdraw')
  or a->>'at'!~'^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$' then raise exception 'PROVIDER_PAYMENT_INPUT_INVALID';end if;
- action:=a->>'action';id:=(a->>'providerPaymentId')::uuid;op:=(a->>'operationId')::uuid;bid:=(a->>'bookingId')::uuid;at_time:=(a->>'at')::timestamptz;
+ action:=a->>'action';id:=(a->>'providerPaymentId')::uuid;op:=(a->>'operationId')::uuid;bid:=(a->>'bookingId')::uuid;at_time:=(a->>'at')::timestamptz;if at_time>clock_timestamp() then raise exception 'PROVIDER_PAYMENT_OCCURRENCE_REQUIRED';end if;
  if action='schedule' and reservation is null then raise exception 'PROVIDER_PAYMENT_TTE_REQUIRED';end if;
  fp:=encode(crm_crypto.digest(convert_to(a::text,'UTF8'),'sha256'),'hex');perform pg_advisory_xact_lock(hashtextextended('provider-payment-op:'||op,0));
  select * into previous from crm_private.b05_provider_payment_operations where operation_id=op;
@@ -185,7 +185,7 @@ begin
     or (v->>'amount')::numeric>coalesce((applied_basis->>'confirmedAmount')::numeric,(applied_basis->>'expectedAmount')::numeric)-(state->>'paid')::numeric then raise exception 'PROVIDER_PAYMENT_SCHEDULE_REQUIRED';end if;
    if v->>'fundsKind'='verified' and (not crm_private.provider_payment_funds(v->'portions',state,s,true) or (select sum((value->>'amount')::numeric) from jsonb_array_elements(v->'portions'))<>(v->>'amount')::numeric) then raise exception 'PROVIDER_PAYMENT_FUNDS_REQUIRED';end if;
    if v->>'fundsKind'='planned' and v->'portions'<>'[]'::jsonb then raise exception 'PROVIDER_PAYMENT_FUNDS_REQUIRED';end if;
-   state:=state||jsonb_build_object('schedule',v||jsonb_build_object('approvalReservation',reservation,'operationId',op,'at',a->>'at','withdrawn',false),'status','Programado');
+   state:=state||jsonb_build_object('schedule',v||jsonb_build_object('approvalReservation',reservation,'operationId',op,'at',a->>'at','basisApplied',state->'basis','withdrawn',false),'status','Programado');
   elsif action='record' then
    matched:=coalesce(crm_private.provider_payment_funds(m->'portions',state,s,true) and (select sum((value->>'amount')::numeric) from jsonb_array_elements(m->'portions'))=(m->>'amount')::numeric,false);
    movement_id:=gen_random_uuid();insert into crm_private.b05_provider_outgoing_movements values(movement_id,id,s,m->'identity'->>'source',m->'identity'->>'externalId',m,op);
@@ -204,10 +204,11 @@ begin
    -- Approval is historical and must predate the actual effect; partials may share one schedule.
    reservation:=state->'schedule'->>'approvalReservation';
    if reservation is null or coalesce((state->'schedule'->>'withdrawn')::boolean,true) or not exists(select 1 from crm_ha.reservations where reservation_id=reservation and created_at<=(m->>'occurredAt')::timestamptz)
+    or state->'schedule'->'basisApplied' is distinct from state->'basis' or (state->>'paid')::numeric+(m->>'amount')::numeric>(state->'schedule'->>'amount')::numeric
     or state->'schedule'->>'recipientId'<>m->>'providerId' or state->'schedule'->>'method'<>m->>'method' then
     reservation:=null;state:=jsonb_set(state,'{incidents}',state->'incidents'||jsonb_build_array(jsonb_build_object('id',gen_random_uuid(),'result','discrepancy','kind','unapproved_real','movementId',movement_id,'resolved',false,'sourceRef',a->>'sourceRef','evidenceId',a->>'evidenceId')));
    end if;
-   state:=jsonb_set(state,'{movements}',state->'movements'||jsonb_build_array(jsonb_build_object('id',movement_id,'material',m,'correspondenceVerified',matched,'consumptionActIds',acts,'approvalReservation',reservation,'actualEffectPrecedesRegistration',true)));
+   state:=jsonb_set(state,'{movements}',state->'movements'||jsonb_build_array(jsonb_build_object('id',movement_id,'material',m,'correspondenceVerified',matched,'consumptionActIds',acts,'approvalReservation',reservation,'actualEffectPrecedesRegistration',true,'externalExecutionAuthorizedByCRM',false)));
   elsif action='incident' then
    incident:=a->'incident';if jsonb_typeof(incident) is distinct from 'object' or incident-array['id','sourceRef','attemptRef','result','scope']<>'{}'::jsonb or not(incident?&array['id','sourceRef','attemptRef','result','scope'])
     or exists(select 1 from unnest(array['id','sourceRef','attemptRef','result','scope']) k where not coalesce(crm_private.invoice_text(incident->k),false)) or incident->>'result' not in ('uncertain','failed_verified','discrepancy')
@@ -229,7 +230,7 @@ begin
  end if;
  select coalesce(sum((entries.item->'material'->>'amount')::numeric),0) into paid from jsonb_array_elements(state->'movements') entries(item) where not exists(select 1 from jsonb_array_elements(state->'corrections') c where c->>'originalMovementId'=entries.item->>'id');
  due:=coalesce((state->'basis'->>'confirmedAmount')::numeric,(state->'basis'->>'expectedAmount')::numeric);
- state:=state||jsonb_build_object('revision',rev+1,'paid',trunc(paid,2)::text,'remaining',trunc(greatest(0,due-paid),2)::text,'excess',trunc(greatest(0,paid-due),2)::text,'complete',paid=due,
+ state:=state||jsonb_build_object('revision',rev+1,'grossAccredited',(select trunc(coalesce(sum((value->'material'->>'amount')::numeric),0),2)::text from jsonb_array_elements(state->'movements')),'paid',trunc(paid,2)::text,'remaining',trunc(greatest(0,due-paid),2)::text,'excess',trunc(greatest(0,paid-due),2)::text,'complete',paid=due,
  'status',case when exists(select 1 from jsonb_array_elements(state->'incidents') z where not(z->>'resolved')::boolean) or state->'corrections'<>'[]'::jsonb then 'Incidencia' when paid>0 then 'Pagado' when state->'schedule'<>'null'::jsonb and not(state->'schedule'->>'withdrawn')::boolean then 'Programado' else 'Pendiente' end);
  insert into crm_private.b05_provider_payment_revisions values(id,rev+1,s,op,action,a,old,state,actor,(a->>'evidenceId')::uuid,a->>'sourceRef',a->>'reason',at_time,clock_timestamp());
  r:=jsonb_build_object('id',id,'replayed',false,'result',state);insert into crm_private.b05_provider_payment_operations values(op,id,s,actor,fp,r,rev+1,clock_timestamp());
