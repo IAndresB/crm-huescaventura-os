@@ -6,8 +6,8 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013+ y H4–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013+ y H4–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015+ y H4–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015+ y H4–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-04
 
@@ -1163,7 +1163,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H3-013 — Aplicar honorarios, costes, promoción y Tararí
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: PASS.** Hito: H3. Tipo: implementación.
 - **Objetivo y alcance:** Snapshot económico por alcance, previsto/confirmado/real, remuneración/costes propios separados de fondos; promoción con modalidad concreta.
 - **Fuentes exactas:** Plan §§5.1–5.2, 6.5, 7.3; SPEC-FR-CAT-006, SPEC-FR-SVC-009, SPEC-FR-ECON-012, SPEC-FR-ECON-013, SPEC-FR-ECON-014, SPEC-FR-HIST-002, SPEC-FR-SEC-007, AC-038, AC-044, AC-047, AC-048, AC-049, AC-056, AC-078, AC-085, PM-09, D019. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-013.
 - **Bloques, contratos y unidades:** B02/B05; C01/C02/C03; —.
@@ -1174,14 +1174,14 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Salida observable:** Importes internos reconstruibles con certeza y privacidad; no motor fiscal, factura interna ni promedio/prorrateo inventado.
 - **Verificación y esperado:** Novio en A150 y 15 asistentes elegibles: gratuidad150, asistentes/deuda proveedor intactos; sin modalidad no efecto definitivo. Tararí2 copas15/3,80, extras175/325 sin coste extrapolado. Rentabilidad=honorarios−costes propios; desconocido no cero; PM-09 historia tras cambio de tarifa. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H3-014].
 - **Integración adicional obligatoria:** [TSK-H6-017], [TSK-H6-005]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: expected independiente `14a1aa8` intacto; producto/verificación probados `fee9d9b0a35ee2b2dbbb57592a728014fb11c218`;93/93 matriz +4/4 adicionales +3/3 reproducers +1/1 focal;1215/1215 PostgreSQL y117/117 unitarias,gates/V-MIG/preservación PASS. H3-014-F01–F12 CLOSED;0 FAIL/skipped/cancelled/materiales abiertos. STOP tras H3-014;H3 IN PROGRESS,H3-015+ yH4–H6 NOT STARTED;continuidad requiere nueva autorización humana. [Implementación](evidence-TSK-H3-013.md),[verificación](evidence-TSK-H3-014.md),[expected](expected-TSK-H3-013-014.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-014"></a>
 
 #### TSK-H3-014 — Verificar: Aplicar honorarios, costes, promoción y Tararí
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: PASS.** Hito: H3. Tipo: comprobación.
 - **Objetivo y alcance:** Snapshot económico por alcance, previsto/confirmado/real, remuneración/costes propios separados de fondos; promoción con modalidad concreta.
 - **Fuentes exactas:** Plan §§5.1–5.2, 6.5, 7.3; SPEC-FR-CAT-004, SPEC-FR-CAT-006, SPEC-FR-SVC-009, SPEC-FR-ECON-012, SPEC-FR-ECON-013, SPEC-FR-ECON-014, SPEC-FR-HIST-002, SPEC-FR-SEC-007, AC-038, AC-044, AC-047, AC-048, AC-049, AC-085, PM-09, D019. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-014.
 - **Bloques, contratos y unidades:** B02/B05; C01/C02/C03; —.
@@ -1191,7 +1191,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H3-013; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Importes internos reconstruibles con certeza y privacidad; no motor fiscal, factura interna ni promedio/prorrateo inventado. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Novio en A150 y 15 asistentes elegibles: gratuidad150, asistentes/deuda proveedor intactos; sin modalidad no efecto definitivo. Tararí2 copas15/3,80, extras175/325 sin coste extrapolado. Rentabilidad=honorarios−costes propios; desconocido no cero; PM-09 historia tras cambio de tarifa. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: expected independiente `14a1aa8` intacto; producto/verificación probados `fee9d9b0a35ee2b2dbbb57592a728014fb11c218`;93/93 matriz +4/4 adicionales +3/3 reproducers +1/1 focal;1215/1215 PostgreSQL y117/117 unitarias,gates/V-MIG/preservación PASS. H3-014-F01–F12 CLOSED;0 FAIL/skipped/cancelled/materiales abiertos. STOP tras H3-014;H3 IN PROGRESS,H3-015+ yH4–H6 NOT STARTED;continuidad requiere nueva autorización humana. [Implementación](evidence-TSK-H3-013.md),[verificación](evidence-TSK-H3-014.md),[expected](expected-TSK-H3-013-014.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-015"></a>
