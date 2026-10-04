@@ -1,3 +1,5 @@
+import type {ProviderPaymentCommand} from '../../domain/provider-payment.ts';
+import {canonicalCommercial} from '../../domain/commercial-progress.ts';
 import { createHash, randomUUID } from "node:crypto";
 import { isTrustedContext, issueTrustedContext, type TrustedExecutionContext } from "../../application/trusted-context.ts";
 import { isVerifiedAuth, type VerifiedAuthEvidence } from "../../application/verified-auth.ts";
@@ -208,7 +210,7 @@ export class H0011PostgresAdapter {
     human?: { auth: VerifiedAuthEvidence; interaction: VerifiedServerInteraction };
     scope?: string; context?: TrustedExecutionContext; ledgerState: string;
     intent?: { effectId: string; recipientReference: string; contentVersion: string };
-    evidence?: EvidenceRevalidationRequest }): Promise<H0M04Receipt> {
+    providerPayment?: ProviderPaymentCommand; evidence?: EvidenceRevalidationRequest }): Promise<H0M04Receipt> {
     assertId(input.commandId);
     if (input.human && !isVerifiedServerInteraction(input.human.interaction, "interactive_action")) throw new Error("H0_011_INTERACTION_REQUIRED");
     const q = encodeF1Fields(["CRM-H0-M04", input.action, input.commandId, ...input.data]);
@@ -246,6 +248,10 @@ export class H0011PostgresAdapter {
       const rows = await tx.unsafe<DbReceipt[]>("select * from crm_api.h0_m04_command($1,$2,$3,$4,$5)",
         [f2.payload, f2.mac, f1.payload, f1.mac, q]);
       if (!rows[0]) throw new Error("H0_011_COMMAND_DENIED");
+      if (input.providerPayment) {
+        await tx.unsafe("select crm_api.provider_payment_sensitive_schedule($1,$2,$3,$4,$5,convert_from($6::bytea,'UTF8')::jsonb)",
+          [f2.payload,f2.mac,f1.payload,f1.mac,q,Buffer.from(canonicalCommercial(input.providerPayment),"utf8")]);
+      }
       await this.commitLedger(tx, context, input.commandId, input.ledgerState, input.intent,
         f2.payload && f2.mac ? { payload: f2.payload, mac: f2.mac, input: q } : undefined);
       const r = rows[0];
@@ -258,7 +264,7 @@ export class H0011PostgresAdapter {
         // D039: drain deferred work before the mandatory final check, then
         // initiate COMMIT in this same private server message. No caller hook.
         commitStarted = true;
-        await tx.unsafe(`set constraints all immediate; select crm_api.h0_m04_finalize_evidence('${input.commandId}'); commit`);
+        await tx.unsafe(`set constraints all immediate; ${input.providerPayment ? `select crm_api.provider_payment_finalize('${input.commandId}'); ` : ''}select crm_api.h0_m04_finalize_evidence('${input.commandId}'); commit`);
       }
       return receipt;
     }); } catch (error) {
@@ -290,9 +296,9 @@ export class H0011PostgresAdapter {
       human: { auth, interaction }, ledgerState: `decision-${decision}` });
   }
 
-  reserve(auth: VerifiedAuthEvidence, interaction: VerifiedServerInteraction, commandId: string,
+  private reserveUnit(auth: VerifiedAuthEvidence, interaction: VerifiedServerInteraction, commandId: string,
     proposalId: string, decisionId: string, partId: string, proposalFingerprint: string,
-    partFingerprint: string, material: HumanApprovalMaterial) {
+    partFingerprint: string, material: HumanApprovalMaterial, providerPayment?: ProviderPaymentCommand) {
     assertId(proposalId); assertId(decisionId); assertId(partId);
     if (fingerprintHumanApprovalMaterial(material) !== proposalFingerprint) throw new Error("H0_011_MATERIAL_CHANGED");
     const approvedPart = material.parts.find((part) => part.partId === partId);
@@ -308,7 +314,21 @@ export class H0011PostgresAdapter {
       ...(material.evidence ? { evidence: { reference: material.evidence.reference, fingerprint: material.evidence.fingerprint,
         approvedExpiresAt: material.evidence.expiresAt,
         proposalId, commandId, partId, materialFingerprint: proposalFingerprint, scope: material.scope } } : {}),
-      ledgerState: "reserved", intent: { effectId, recipientReference: recipient[1], contentVersion: approvedPart.contentVersion } });
+      ...(providerPayment ? {providerPayment} : {}), ledgerState: "reserved", intent: { effectId, recipientReference: recipient[1], contentVersion: approvedPart.contentVersion } });
+  }
+
+  reserve(auth: VerifiedAuthEvidence, interaction: VerifiedServerInteraction, commandId: string,
+    proposalId: string, decisionId: string, partId: string, proposalFingerprint: string,
+    partFingerprint: string, material: HumanApprovalMaterial) {
+    return this.reserveUnit(auth,interaction,commandId,proposalId,decisionId,partId,proposalFingerprint,partFingerprint,material);
+  }
+
+  scheduleProviderPayment(auth: VerifiedAuthEvidence, interaction: VerifiedServerInteraction, commandId: string,
+    proposalId: string, decisionId: string, partId: string, proposalFingerprint: string,
+    partFingerprint: string, material: HumanApprovalMaterial, input: ProviderPaymentCommand) {
+    if (input.action !== 'schedule' || canonicalCommercial(input) !== material.parts.find(p => p.partId===partId)?.content)
+      throw new Error('H0_011_PROVIDER_PAYMENT_MATERIAL_CHANGED');
+    return this.reserveUnit(auth,interaction,commandId,proposalId,decisionId,partId,proposalFingerprint,partFingerprint,material,input);
   }
 
   recordAttempt(context: TrustedExecutionContext, commandId: string, reservationId: string, attemptId: string) {

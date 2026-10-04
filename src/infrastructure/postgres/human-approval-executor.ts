@@ -30,3 +30,14 @@ export function createHumanApprovalExecutor(input: {
   });
   return Object.freeze({ operations, close: () => sql.end({ timeout: 5 }) });
 }
+
+// A separate narrow TTE facade preserves the historical HA operation surface.
+export function createProviderPaymentExecutor(input: {
+ readonly databaseUrl:string;readonly capability:F1SigningConfiguration;readonly humanAuthorization:F2SigningConfiguration;
+ readonly evidenceProvider?:EvidenceRevalidationProvider;readonly ssl?:postgres.Options<never>["ssl"];
+}): {readonly scheduleProviderPayment:H0011PostgresAdapter["scheduleProviderPayment"];close():Promise<void>} {
+ if(!input.databaseUrl.trim())throw new Error('HA_DATABASE_URL_REQUIRED');
+ const sql=postgres(input.databaseUrl,{max:1,prepare:false,ssl:input.ssl??"require"});
+ const adapter=new H0011PostgresAdapter(sql,input.capability,input.humanAuthorization,input.evidenceProvider);
+ return Object.freeze({scheduleProviderPayment:adapter.scheduleProviderPayment.bind(adapter),close:()=>sql.end({timeout:5})});
+}
