@@ -1,5 +1,5 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {randomUUID as uid} from 'node:crypto';
-import {isolatedOwnEconomics,ownEconomicsMigration,write} from '../support/h3-own-economics-isolated.ts';import {ownEconomicsFixture,promotion} from '../support/h3-own-economics-fixtures.ts';
+import {isolatedOwnEconomics,write} from '../support/h3-own-economics-isolated.ts';import {ownEconomicsFixture,promotion} from '../support/h3-own-economics-fixtures.ts';
 test('H3-014-F08 one promotion per Booking across economic scopes',async()=>{
  const h=await isolatedOwnEconomics('h3014_f08',55935);try{const f=await ownEconomicsFixture(h),q=await f.command();Object.assign(q.input,{promotion:{...promotion(f.b.f.mid),revisionId:f.promo.revision}});await h.ownEconomics.apply(await h.auth(),write,await f.attest(q));
  const otherId=uid(),other={...q,economyId:otherId,scope:'SYNTHETIC different scope',expectedRevision:0,operationId:uid()};
@@ -15,5 +15,5 @@ test('H3-014-F09 equivalent economic material with a new technical key reuses sn
  const h=await isolatedOwnEconomics('h3014_f09',55936);try{const f=await ownEconomicsFixture(h),q=await f.command();await h.ownEconomics.apply(await h.auth(),write,q);const same=await f.attest({...q,operationId:uid(),expectedRevision:1});const r=await h.ownEconomics.apply(await h.auth(),write,same);assert.equal(r.result.revision,1);assert.equal((await f.see())!.history.length,1);}finally{await h.close();}
 });
 test('H3-014-F11 historical V-MIG keeps its 36-migration boundary',async()=>{
- const {readdir,readFile}=await import('node:fs/promises'),{providerPaymentMigration}=await import('../support/h3-provider-payment-isolated.ts');const files=(await readdir(new URL('../../supabase/migrations',import.meta.url))).filter(f=>f.endsWith('.sql')&&f<=ownEconomicsMigration);assert.equal(files.length,37);assert.equal(files.filter(f=>f<=providerPaymentMigration).length,36);const verifier=await readFile(new URL('./postgres-h3-012.test.ts',import.meta.url),'utf8');assert.ok(verifier.includes("f.endsWith('.sql')&&f<=providerPaymentMigration"));
+ const {readdir,readFile}=await import('node:fs/promises'),{providerPaymentMigration}=await import('../support/h3-provider-payment-isolated.ts');const files=(await readdir(new URL('../../supabase/migrations',import.meta.url))).filter(f=>f.endsWith('.sql'));assert.equal(files.length,37);assert.equal(files.filter(f=>f<=providerPaymentMigration).length,36);const verifier=await readFile(new URL('./postgres-h3-012.test.ts',import.meta.url),'utf8');assert.ok(verifier.includes("f.endsWith('.sql')&&f<=providerPaymentMigration"));
 });
