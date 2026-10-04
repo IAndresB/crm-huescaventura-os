@@ -82,6 +82,8 @@ begin
    rulehash:=encode(crm_crypto.digest(convert_to(((comp->'rule')-'approvalEvidenceId')::text,'UTF8'),'sha256'),'hex');
    if not crm_private.payment_evidence((comp->'rule'->>'approvalEvidenceId')::uuid,eid,s,'own-rule:'||rulehash,at_time,true) then raise exception 'OWN_ECONOMICS_APPROVED_RULE_REQUIRED';end if;
   end loop;
+  perform pg_advisory_xact_lock(hashtextextended('own-economic-booking:'||s||':'||bid,0));
+  if a->'computed'->'promotion'->>'status'='applied' and exists(select 1 from crm_private.b05_own_economies e join lateral(select after_data from crm_private.b05_own_economic_revisions v where v.economy_id=e.economy_id order by revision desc limit 1) v on true where e.booking_id=bid and e.admin_scope=s and e.economy_id<>eid and v.after_data->'computed'->'promotion'->>'status'='applied') then raise exception 'OWN_ECONOMICS_PROMOTION_ALREADY_APPLIED';end if;
   perform pg_advisory_xact_lock(hashtextextended('own-economic-scope:'||s||':'||bid||':'||(a->>'scope'),0));
   select * into root from crm_private.b05_own_economies where booking_id=bid and scope_ref=a->>'scope' and admin_scope=s;
   if not found then
@@ -94,6 +96,9 @@ begin
   end if;
   select coalesce(jsonb_agg(to_jsonb(x) order by x),'[]') into refs from(select distinct value x from (select value->>'unitRevisionId' value from jsonb_array_elements(a->'input'->'fees') union all select value->>'pricingFormRevisionId' from jsonb_array_elements(a->'input'->'fees') union all select value->>'unitRevisionId' from jsonb_array_elements(a->'input'->'costs') union all select value->>'pricingFormRevisionId' from jsonb_array_elements(a->'input'->'costs') union all select value->>'unitRevisionId' from jsonb_array_elements(a->'input'->'tarari') union all select value->>'pricingFormRevisionId' from jsonb_array_elements(a->'input'->'tarari') union all select a->'input'->'promotion'->>'revisionId' where a->'input'->'promotion'<>'null'::jsonb) allrefs where value is not null) distinctrefs;
   sources:=crm_private.own_economic_sources(bid,refs,s);if sources is distinct from a->'sources' then raise exception 'OWN_ECONOMICS_SOURCE_CHANGED:E2';end if;
+  if old is not null and old->'input'=a->'input' and old->'computed'=a->'computed' and old->>'reason'=a->>'reason' and old->>'sourceRef'=a->>'sourceRef' and old->>'actorId'=actor::text and (old->>'at')::timestamptz=at_time then
+   r:=jsonb_build_object('id',eid,'replayed',true,'result',old);insert into crm_private.b05_own_economic_operations values(op,eid,s,actor,fp,material,r,rev,clock_timestamp());
+  else
   rev:=rev+1;state:=jsonb_build_object('id',eid,'bookingId',bid,'scope',a->>'scope','revision',rev,'input',a->'input','computed',a->'computed','sources',sources,'actorId',actor,'at',at_time,'reason',a->>'reason','sourceRef',a->>'sourceRef','previousRevision',rev-1);
   insert into crm_private.b05_own_economic_operations values(op,eid,s,actor,fp,material,jsonb_build_object('id',eid,'replayed',false,'result',state),rev,clock_timestamp());
   foreach kind in array array['fee','cost','tarari','promotion'] loop
@@ -103,6 +108,7 @@ begin
    end loop;end if;
   end loop;
   insert into crm_private.b05_own_economic_revisions values(eid,rev,s,op,old,state,actor,(a->>'evidenceId')::uuid,a->>'reason',a->>'sourceRef',at_time,clock_timestamp());r:=jsonb_build_object('id',eid,'replayed',false,'result',state);
+  end if;
  end if;
  perform crm_f2.verify(f2p,f2s,q,'C03','human_evidence','write_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');return r;
 end$$;
