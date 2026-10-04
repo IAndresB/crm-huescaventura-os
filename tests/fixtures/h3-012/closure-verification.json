@@ -1,0 +1,759 @@
+{
+  "base": "028cbaef887acf68a23bffd2069b91c477ac7e0c",
+  "tested_commit": "aaa1ce94ebae591225a1f64054d1001372ae6f7b",
+  "final_published_commit": "The subsequent documentation commit is recorded by Git and in the final publication report; distinct from tested_commit.",
+  "environment": "local/aislado; fixtures exclusively synthetic",
+  "versions": {
+    "node": "24.21.0",
+    "pnpm": "11.19.0",
+    "postgres": "17.11",
+    "supabase_cli": "2.118.0",
+    "storage_source_commit": "5def1dfc15ab7f08fe271c7d1e70542424524e4e"
+  },
+  "expected_commit": "095078128bb18f8e6dc28eb4d8282039b0b1f57b",
+  "expected_sha256": "1bd64acbfd4ea6dd197e5dcc4feb714c1dc27097b1916403c8d2af416be63151",
+  "expected_cases": 100,
+  "tasks_section6_assigned_rows": 23,
+  "migration": "20261004185628_h3_provider_payment_accredited_outgoing.sql",
+  "prior_migrations_preserved": 35,
+  "fresh_migrations": 36,
+  "protected_files_byte_identical": [
+    "docs/DECISIONS.md",
+    "docs/SUPABASE-KEEPALIVE.md",
+    "docs/architecture.md",
+    "docs/business-rules.md",
+    "docs/constitution.md",
+    "docs/domain-model.md",
+    "docs/state-machines.md",
+    "specs/001-core-crm/evidence-TSK-H3-001.md",
+    "specs/001-core-crm/evidence-TSK-H3-002.md",
+    "specs/001-core-crm/evidence-TSK-H3-003.md",
+    "specs/001-core-crm/evidence-TSK-H3-004.md",
+    "specs/001-core-crm/evidence-TSK-H3-005.md",
+    "specs/001-core-crm/evidence-TSK-H3-006.md",
+    "specs/001-core-crm/evidence-TSK-H3-007.md",
+    "specs/001-core-crm/evidence-TSK-H3-008.md",
+    "specs/001-core-crm/evidence-TSK-H3-009.md",
+    "specs/001-core-crm/evidence-TSK-H3-010.md",
+    "specs/001-core-crm/expected-TSK-H3-001-002.md",
+    "specs/001-core-crm/expected-TSK-H3-003-004.md",
+    "specs/001-core-crm/expected-TSK-H3-005-006.md",
+    "specs/001-core-crm/expected-TSK-H3-007-008.md",
+    "specs/001-core-crm/expected-TSK-H3-009-010.md",
+    "specs/001-core-crm/plan.md",
+    "specs/001-core-crm/spec.md",
+    "src/app/health/route.ts",
+    "supabase/migrations/202609150000_h0_m01_roles.sql",
+    "supabase/migrations/202609150001_h0_m01_context.sql",
+    "supabase/migrations/202609160000_h0_f1_authorities.sql",
+    "supabase/migrations/202609160001_h0_f1_capabilities.sql",
+    "supabase/migrations/202609250000_h0_m02_unit_history.sql",
+    "supabase/migrations/202609260000_h0_m03_authorities.sql",
+    "supabase/migrations/202609260001_h0_m03_actor_session_access.sql",
+    "supabase/migrations/202609260002_h0_m03_revoke_all_authority_fix.sql",
+    "supabase/migrations/202609260003_h0_m03_f2_expiry_revalidation_fix.sql",
+    "supabase/migrations/202609270000_h0_m04_human_approval.sql",
+    "supabase/migrations/202609270001_h0_m04_f2_unit_revalidation_fix.sql",
+    "supabase/migrations/202609270002_h0_m04_m02_authority_partition_fix.sql",
+    "supabase/migrations/202609270003_h0_m04_evidence_revalidation_fix.sql",
+    "supabase/migrations/20260927231932_h0_m04_f04_transaction_commit_guard.sql",
+    "supabase/migrations/20260928193107_h0_m04_tte_authorities.sql",
+    "supabase/migrations/20260928193111_h0_m04_tte_boundary.sql",
+    "supabase/migrations/20260928223934_h0_m05_global_access_revocation.sql",
+    "supabase/migrations/20260929000000_h0_m06_access_recovery.sql",
+    "supabase/migrations/202609290001_h1_contextual_identities.sql",
+    "supabase/migrations/202609290002_h1_merge_archive_codes.sql",
+    "supabase/migrations/202609290003_h1_catalog_versions.sql",
+    "supabase/migrations/202609290004_h1_commercial_rules.sql",
+    "supabase/migrations/202609300001_h1_evidence_communications.sql",
+    "supabase/migrations/20260930170533_h1_private_object_conservation.sql",
+    "supabase/migrations/20260930185257_h1_pending_business_tasks.sql",
+    "supabase/migrations/20261001081941_h2_commercial_progress.sql",
+    "supabase/migrations/20261001115235_h2_proposal_versions.sql",
+    "supabase/migrations/20261001150357_h2_offer_lifecycle.sql",
+    "supabase/migrations/20261001172433_h2_exact_acceptance.sql",
+    "supabase/migrations/20261001200941_h2_booking_conversion.sql",
+    "supabase/migrations/20261002233922_h3_expected_obligations.sql",
+    "supabase/migrations/20261003093202_h3_customer_payment_reconciliation.sql",
+    "supabase/migrations/20261003110048_h3_payment_allocation_funds.sql",
+    "supabase/migrations/20261004161012_h3_provider_invoice_documentary.sql",
+    "supabase/migrations/20261004175435_h3_managed_client_funds_documentary.sql",
+    "supabase/operations/20261002225221_crm_supabase_daily_health.sql",
+    "tests/operations/supabase-health.test.mjs"
+  ],
+  "protected_sha256": {
+    "docs/DECISIONS.md": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe",
+    "docs/SUPABASE-KEEPALIVE.md": "73f4ea78eca90892484bb1cf895907668b9689829914767e5f606bb800d0b349",
+    "docs/architecture.md": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117",
+    "docs/business-rules.md": "ab2504153a32ef9abfaec45efa5ee6846fc9ebcd8b5c244877d0d633ebfcbc07",
+    "docs/constitution.md": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a",
+    "docs/domain-model.md": "f9fafbb715ca57ef843d673af3a475847b4bcae6c37c0469552430c2a8558ddf",
+    "docs/state-machines.md": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240",
+    "specs/001-core-crm/evidence-TSK-H3-001.md": "baf3adfe1388da9060f8ad714b98b2be1706051ad1ad3fc3e12f4290ee681b50",
+    "specs/001-core-crm/evidence-TSK-H3-002.md": "174f07b6e529ac0ff5ab6177980cb3e1deddd8d622f609304bd35f52f29130a7",
+    "specs/001-core-crm/evidence-TSK-H3-003.md": "b66208d5f5bedae63a358e6e9f11c7275d64d8b49f4b881fcfac27fd680f99f1",
+    "specs/001-core-crm/evidence-TSK-H3-004.md": "c5093f0e3ff150677e611e40598afac39296e77672ca06d0ce3f5e647f874884",
+    "specs/001-core-crm/evidence-TSK-H3-005.md": "1a78a3802002885ed3e8d28c97db31fa25ddeb76322456a8078d36c5a7368e27",
+    "specs/001-core-crm/evidence-TSK-H3-006.md": "d1234eb30100f73bdf5ce3d5da94e3e6ac346786a075f720e7ecff7e5a534bc9",
+    "specs/001-core-crm/evidence-TSK-H3-007.md": "2cfbb2cddddd1630db231d5f0cdd19d9826e94b2046e24f8d5096477e2f4959c",
+    "specs/001-core-crm/evidence-TSK-H3-008.md": "e4cfd17015f08560ec995ad3973f9b858432ff84dfe01791b62c99ac2ae4f1d0",
+    "specs/001-core-crm/evidence-TSK-H3-009.md": "c5c0e63ba5eb8830c4493839c0be183f25c9d8c26150f12f289a8522d32f0d6f",
+    "specs/001-core-crm/evidence-TSK-H3-010.md": "a51a9ae8e35b7343f458511f3e9bb15b073ac8d815f19103114fc682eb55858a",
+    "specs/001-core-crm/expected-TSK-H3-001-002.md": "3b5784814e023c80f8d3b3370abec2a354d151fd9eea515cb7b8982f92f698bd",
+    "specs/001-core-crm/expected-TSK-H3-003-004.md": "6c5fc44529df479ea19c618ea89238a83767466367f1811ba6f4f1692dce85e9",
+    "specs/001-core-crm/expected-TSK-H3-005-006.md": "a1ef3d39bbeaf78db6eb437338e9ba38a321608bd0ce97fd73d0eb2735f835a8",
+    "specs/001-core-crm/expected-TSK-H3-007-008.md": "5ecb8c721b88c0404daa43be42e1bb0ec6ac5d26b56c8a43316a89faa3755b18",
+    "specs/001-core-crm/expected-TSK-H3-009-010.md": "41c591ef5c7c75fc197867aeb703bc2dd949242f03b06d7eca3b542c13d18b89",
+    "specs/001-core-crm/plan.md": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e",
+    "specs/001-core-crm/spec.md": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747",
+    "src/app/health/route.ts": "7bfbf9dce50f2aca7e53f67bc1e1ce915a9f972274a6b425a47aee9144ca289a",
+    "supabase/migrations/202609150000_h0_m01_roles.sql": "b80cae6d88fb2a3dfea504293fbc2b87ea5766a5e0b5436a05062be0a76f387e",
+    "supabase/migrations/202609150001_h0_m01_context.sql": "42f3a225708c3c73beee06837477528da25f59b13f73b01ce382de21eebd44b3",
+    "supabase/migrations/202609160000_h0_f1_authorities.sql": "d8a93d5b43f49fea63df02989bb1ac61a918b726bebabad7b4818d61be33d5de",
+    "supabase/migrations/202609160001_h0_f1_capabilities.sql": "9edccd04ecd53c917005585cf675e96c607759b7d9db0face90db7cd633ea7c3",
+    "supabase/migrations/202609250000_h0_m02_unit_history.sql": "35df65cac631c42669472f7382f2dbd36c5529b78c083aff30245fdefa9ee0f7",
+    "supabase/migrations/202609260000_h0_m03_authorities.sql": "cd80130df5e2d44acdda5008eb6f7d8f635d876003277a57a154c6675c8e584b",
+    "supabase/migrations/202609260001_h0_m03_actor_session_access.sql": "4b9767833e28268c609a0ecf4ef6b7e983e2940231acaec8b10ba9ab84df60a4",
+    "supabase/migrations/202609260002_h0_m03_revoke_all_authority_fix.sql": "943ad2130d3276dfee42e943b32a5414f49e6be53021a9aa6ef7cd2185128ae0",
+    "supabase/migrations/202609260003_h0_m03_f2_expiry_revalidation_fix.sql": "c27d785eb04fceb6450b76d5b87ad2a210083f158aea80397af89a687499ad98",
+    "supabase/migrations/202609270000_h0_m04_human_approval.sql": "a84df7f26adc7375a15ad1b9712a7457e244b2c1ef3553ac25b858cd9633dcb2",
+    "supabase/migrations/202609270001_h0_m04_f2_unit_revalidation_fix.sql": "4f74bcd7a72da8a2bfe68b52d0cddc83713bad94391705ae79ff96a818f3f1c7",
+    "supabase/migrations/202609270002_h0_m04_m02_authority_partition_fix.sql": "32c2f2e422108adcf44932192cd9da8def3ab052a55e2f571005a6b09e7c533b",
+    "supabase/migrations/202609270003_h0_m04_evidence_revalidation_fix.sql": "80644d746b03afce35573df9ac48859f64ba86a93baf3956bcd760d8f047b3e9",
+    "supabase/migrations/20260927231932_h0_m04_f04_transaction_commit_guard.sql": "bc78d7a0672de2dedd10a76e6f6845267c1b02b8dfa19cef863f4feac873650d",
+    "supabase/migrations/20260928193107_h0_m04_tte_authorities.sql": "747cc553e75a7075328e5d260026e96f6a019d2e603f57acf69291a7bf3695ea",
+    "supabase/migrations/20260928193111_h0_m04_tte_boundary.sql": "568e322cb3026e90f442ccfbaa167dc724b6dc14d0de51a3549470323a38ed7a",
+    "supabase/migrations/20260928223934_h0_m05_global_access_revocation.sql": "cfeb9fc74d3e7640966773cd1e95354249a7a11e8dd91c2c55fc8ccc6475933a",
+    "supabase/migrations/20260929000000_h0_m06_access_recovery.sql": "704efa623e281c37bf6032eefdf286c02700c64ab6446ccc11cb7289aad629fc",
+    "supabase/migrations/202609290001_h1_contextual_identities.sql": "f93b3ef87f75c3ee8b229d2f76d8255a0f004b23813a26e444e3e0e72ff2cb14",
+    "supabase/migrations/202609290002_h1_merge_archive_codes.sql": "db58cdaa641ccf92c9fb7aa5c32ff27b9ce0bbd34cdd2e321d7cf33f394af798",
+    "supabase/migrations/202609290003_h1_catalog_versions.sql": "6a7a3360e8840d7ad10bb0cc268d35410b87edf3e600c4389b0e4c2382d25350",
+    "supabase/migrations/202609290004_h1_commercial_rules.sql": "9aba006c13e59449630e3e1f9b1fd04f01eba1e6aa1c4efc244ec3fbb8e9de38",
+    "supabase/migrations/202609300001_h1_evidence_communications.sql": "8a773c60aa7e022cb30a3b26a680abacc9ebde1f42b37e340185195011ec38d2",
+    "supabase/migrations/20260930170533_h1_private_object_conservation.sql": "c380e0d357ce8da779418b94623ee636a727619e8f5bc85a33afca2b8e0c09bb",
+    "supabase/migrations/20260930185257_h1_pending_business_tasks.sql": "83590124eb3e85372076eb95e6a0b5aa3def76c8d6db61a6e5487281d509dc55",
+    "supabase/migrations/20261001081941_h2_commercial_progress.sql": "a0ac4480391209653b031bfb610c537e55fa40dc7261adbe707e93c1d2122b7e",
+    "supabase/migrations/20261001115235_h2_proposal_versions.sql": "d98c7d5844bdb7ae09a6324787d85c46a14eca1a22fa84cd44a073f5facfefe3",
+    "supabase/migrations/20261001150357_h2_offer_lifecycle.sql": "77190038dd85a287fcbf9e42011dea3813dbddaba5e911ccb4347b724da716ab",
+    "supabase/migrations/20261001172433_h2_exact_acceptance.sql": "8ee31e652c43a795de0b8122f52a105ae9ea6570b7502fcf392590abb86625b7",
+    "supabase/migrations/20261001200941_h2_booking_conversion.sql": "9c229b6938f504b1c486d3b76f27ea7b8c597d7feba20b697a036db0806de9ab",
+    "supabase/migrations/20261002233922_h3_expected_obligations.sql": "62be52879e1c86a010be084157423e1fe8cadfcab524713e3508d96734d6faf2",
+    "supabase/migrations/20261003093202_h3_customer_payment_reconciliation.sql": "db0c2a3642e45c6b88d773d68b1b3ad2cbbd4eaef975d54001c9baf6abaa8060",
+    "supabase/migrations/20261003110048_h3_payment_allocation_funds.sql": "c70589c4a8fb9ff55f987b278a41d38bc7d3588b4f1a551399e5c6a6b58035f5",
+    "supabase/migrations/20261004161012_h3_provider_invoice_documentary.sql": "443f5b6a082ab6289beea7bf11d410b13f80be0a4634093d405149379c2937e8",
+    "supabase/migrations/20261004175435_h3_managed_client_funds_documentary.sql": "41b5eea0a24df9407e484805a5413904bc0e6bffe90a69848db5b9cb8107fa44",
+    "supabase/operations/20261002225221_crm_supabase_daily_health.sql": "d118b72a7c09a54e1d41fb6059fddb792bbebd7552037f8a4cad2a59e0e567f1",
+    "tests/operations/supabase-health.test.mjs": "aedd952383139a38c5bcc81c06efc0bc1398dc306c4ac8b7ed410a41d896758a"
+  },
+  "future_task_cards_from_h3_013_sha256": "83730cd6b94f4c0a94e9ae522fd55b4ae1a15fe76f80d1d571826cbf3c4d05a7",
+  "results": {
+    "independent_matrix_pass": 100,
+    "focal_pass": 1,
+    "reproducers_pass": 7,
+    "logical_h3_local_cases": 108,
+    "node_h3_local_tests_with_containers": 110,
+    "postgres_total": 1113,
+    "postgres_pass": 1113,
+    "unit_total": 109,
+    "unit_pass": 109,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "material_open_defects": 0
+  },
+  "defects": {
+    "H3-012-F01": "CLOSED local/aislado",
+    "H3-012-F02": "CLOSED local/aislado",
+    "H3-012-F03": "CLOSED local/aislado",
+    "H3-012-F04": "CLOSED local/aislado",
+    "H3-012-F05": "CLOSED local/aislado",
+    "H3-012-F06": "CLOSED local/aislado",
+    "H3-012-F07": "CLOSED local/aislado"
+  },
+  "gates": {
+    "install": {
+      "command": "pnpm install --frozen-lockfile",
+      "exit_code": 0
+    },
+    "typecheck": {
+      "command": "pnpm run typecheck",
+      "exit_code": 0
+    },
+    "lint_boundaries_imports": {
+      "command": "pnpm run lint",
+      "exit_code": 0
+    },
+    "unit": {
+      "command": "pnpm test",
+      "exit_code": 0
+    },
+    "postgres_full_including_focal_matrix_reproducers_v_mig": {
+      "command": "POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin pnpm run test:postgres",
+      "exit_code": 0
+    },
+    "build": {
+      "command": "pnpm run build",
+      "exit_code": 0
+    },
+    "audit_production": {
+      "command": "pnpm audit --prod --json",
+      "exit_code": 0,
+      "known_vulnerabilities": 0
+    },
+    "diff_check": {
+      "command": "git diff --check and git diff --cached --check",
+      "exit_code": 0
+    }
+  },
+  "v_mig": {
+    "fresh": "PASS",
+    "populated_upgrade_35_to_36": "PASS; prior rows and private B07 original bytes preserved",
+    "failed_migration_rollback": "PASS",
+    "owners_acl_force_rls_policies_functions_triggers_roles": "PASS",
+    "h0_h3_010_preservation": "PASS"
+  },
+  "cases": [
+    {
+      "id": "R001",
+      "status": "PASS",
+      "duration_ms": 285.540041
+    },
+    {
+      "id": "R002",
+      "status": "PASS",
+      "duration_ms": 182.288125
+    },
+    {
+      "id": "R003",
+      "status": "PASS",
+      "duration_ms": 166.713042
+    },
+    {
+      "id": "R004",
+      "status": "PASS",
+      "duration_ms": 220.263416
+    },
+    {
+      "id": "R005",
+      "status": "PASS",
+      "duration_ms": 170.867292
+    },
+    {
+      "id": "R006",
+      "status": "PASS",
+      "duration_ms": 205.7025
+    },
+    {
+      "id": "R007",
+      "status": "PASS",
+      "duration_ms": 225.91075
+    },
+    {
+      "id": "R008",
+      "status": "PASS",
+      "duration_ms": 151.692
+    },
+    {
+      "id": "R009",
+      "status": "PASS",
+      "duration_ms": 223.120875
+    },
+    {
+      "id": "R010",
+      "status": "PASS",
+      "duration_ms": 168.807167
+    },
+    {
+      "id": "R011",
+      "status": "PASS",
+      "duration_ms": 160.199125
+    },
+    {
+      "id": "R012",
+      "status": "PASS",
+      "duration_ms": 161.974584
+    },
+    {
+      "id": "R013",
+      "status": "PASS",
+      "duration_ms": 174.484375
+    },
+    {
+      "id": "R014",
+      "status": "PASS",
+      "duration_ms": 153.394583
+    },
+    {
+      "id": "R015",
+      "status": "PASS",
+      "duration_ms": 178.380334
+    },
+    {
+      "id": "R016",
+      "status": "PASS",
+      "duration_ms": 144.691375
+    },
+    {
+      "id": "R017",
+      "status": "PASS",
+      "duration_ms": 156.71475
+    },
+    {
+      "id": "R018",
+      "status": "PASS",
+      "duration_ms": 131.671583
+    },
+    {
+      "id": "R019",
+      "status": "PASS",
+      "duration_ms": 314.599625
+    },
+    {
+      "id": "R020",
+      "status": "PASS",
+      "duration_ms": 148.080584
+    },
+    {
+      "id": "R021",
+      "status": "PASS",
+      "duration_ms": 135.983208
+    },
+    {
+      "id": "R022",
+      "status": "PASS",
+      "duration_ms": 2129.35525
+    },
+    {
+      "id": "R023",
+      "status": "PASS",
+      "duration_ms": 167.3535
+    },
+    {
+      "id": "R024",
+      "status": "PASS",
+      "duration_ms": 194.358875
+    },
+    {
+      "id": "R025",
+      "status": "PASS",
+      "duration_ms": 169.167875
+    },
+    {
+      "id": "R026",
+      "status": "PASS",
+      "duration_ms": 132.382583
+    },
+    {
+      "id": "R027",
+      "status": "PASS",
+      "duration_ms": 145.398375
+    },
+    {
+      "id": "R028",
+      "status": "PASS",
+      "duration_ms": 138.289208
+    },
+    {
+      "id": "R029",
+      "status": "PASS",
+      "duration_ms": 139.298584
+    },
+    {
+      "id": "R030",
+      "status": "PASS",
+      "duration_ms": 154.596916
+    },
+    {
+      "id": "R031",
+      "status": "PASS",
+      "duration_ms": 141.977584
+    },
+    {
+      "id": "R032",
+      "status": "PASS",
+      "duration_ms": 162.117292
+    },
+    {
+      "id": "R033",
+      "status": "PASS",
+      "duration_ms": 136.802333
+    },
+    {
+      "id": "R034",
+      "status": "PASS",
+      "duration_ms": 139.707834
+    },
+    {
+      "id": "R035",
+      "status": "PASS",
+      "duration_ms": 166.700792
+    },
+    {
+      "id": "R036",
+      "status": "PASS",
+      "duration_ms": 168.867541
+    },
+    {
+      "id": "R037",
+      "status": "PASS",
+      "duration_ms": 143.972917
+    },
+    {
+      "id": "R038",
+      "status": "PASS",
+      "duration_ms": 146.264584
+    },
+    {
+      "id": "R039",
+      "status": "PASS",
+      "duration_ms": 170.026625
+    },
+    {
+      "id": "R040",
+      "status": "PASS",
+      "duration_ms": 130.084541
+    },
+    {
+      "id": "R041",
+      "status": "PASS",
+      "duration_ms": 159.97475
+    },
+    {
+      "id": "R042",
+      "status": "PASS",
+      "duration_ms": 130.319625
+    },
+    {
+      "id": "R043",
+      "status": "PASS",
+      "duration_ms": 138.814958
+    },
+    {
+      "id": "R044",
+      "status": "PASS",
+      "duration_ms": 127.130208
+    },
+    {
+      "id": "R045",
+      "status": "PASS",
+      "duration_ms": 521.2405
+    },
+    {
+      "id": "R046",
+      "status": "PASS",
+      "duration_ms": 444.587375
+    },
+    {
+      "id": "R047",
+      "status": "PASS",
+      "duration_ms": 209.938334
+    },
+    {
+      "id": "R048",
+      "status": "PASS",
+      "duration_ms": 158.606375
+    },
+    {
+      "id": "R049",
+      "status": "PASS",
+      "duration_ms": 208.957708
+    },
+    {
+      "id": "R050",
+      "status": "PASS",
+      "duration_ms": 198.548834
+    },
+    {
+      "id": "R051",
+      "status": "PASS",
+      "duration_ms": 201.463625
+    },
+    {
+      "id": "R052",
+      "status": "PASS",
+      "duration_ms": 973.666417
+    },
+    {
+      "id": "R053",
+      "status": "PASS",
+      "duration_ms": 206.136833
+    },
+    {
+      "id": "R054",
+      "status": "PASS",
+      "duration_ms": 165.64975
+    },
+    {
+      "id": "R055",
+      "status": "PASS",
+      "duration_ms": 150.002125
+    },
+    {
+      "id": "R056",
+      "status": "PASS",
+      "duration_ms": 163.516166
+    },
+    {
+      "id": "R057",
+      "status": "PASS",
+      "duration_ms": 134.807834
+    },
+    {
+      "id": "R058",
+      "status": "PASS",
+      "duration_ms": 126.509
+    },
+    {
+      "id": "R059",
+      "status": "PASS",
+      "duration_ms": 137.100833
+    },
+    {
+      "id": "R060",
+      "status": "PASS",
+      "duration_ms": 132.325959
+    },
+    {
+      "id": "R061",
+      "status": "PASS",
+      "duration_ms": 128.304834
+    },
+    {
+      "id": "R062",
+      "status": "PASS",
+      "duration_ms": 132.840583
+    },
+    {
+      "id": "R063",
+      "status": "PASS",
+      "duration_ms": 142.222209
+    },
+    {
+      "id": "R064",
+      "status": "PASS",
+      "duration_ms": 144.088166
+    },
+    {
+      "id": "R065",
+      "status": "PASS",
+      "duration_ms": 167.674292
+    },
+    {
+      "id": "R066",
+      "status": "PASS",
+      "duration_ms": 198.501292
+    },
+    {
+      "id": "R067",
+      "status": "PASS",
+      "duration_ms": 153.593209
+    },
+    {
+      "id": "R068",
+      "status": "PASS",
+      "duration_ms": 145.37475
+    },
+    {
+      "id": "R069",
+      "status": "PASS",
+      "duration_ms": 137.401917
+    },
+    {
+      "id": "R070",
+      "status": "PASS",
+      "duration_ms": 129.372417
+    },
+    {
+      "id": "R071",
+      "status": "PASS",
+      "duration_ms": 132.607125
+    },
+    {
+      "id": "R072",
+      "status": "PASS",
+      "duration_ms": 155.404334
+    },
+    {
+      "id": "R073",
+      "status": "PASS",
+      "duration_ms": 300.98675
+    },
+    {
+      "id": "R074",
+      "status": "PASS",
+      "duration_ms": 185.964042
+    },
+    {
+      "id": "R075",
+      "status": "PASS",
+      "duration_ms": 151.761333
+    },
+    {
+      "id": "R076",
+      "status": "PASS",
+      "duration_ms": 175.967583
+    },
+    {
+      "id": "R077",
+      "status": "PASS",
+      "duration_ms": 167.450208
+    },
+    {
+      "id": "R078",
+      "status": "PASS",
+      "duration_ms": 184.894917
+    },
+    {
+      "id": "R079",
+      "status": "PASS",
+      "duration_ms": 171.639209
+    },
+    {
+      "id": "R080",
+      "status": "PASS",
+      "duration_ms": 650.453167
+    },
+    {
+      "id": "R081",
+      "status": "PASS",
+      "duration_ms": 620.955916
+    },
+    {
+      "id": "R082",
+      "status": "PASS",
+      "duration_ms": 500.662375
+    },
+    {
+      "id": "R083",
+      "status": "PASS",
+      "duration_ms": 543.678125
+    },
+    {
+      "id": "R084",
+      "status": "PASS",
+      "duration_ms": 505.894833
+    },
+    {
+      "id": "R085",
+      "status": "PASS",
+      "duration_ms": 506.90875
+    },
+    {
+      "id": "R086",
+      "status": "PASS",
+      "duration_ms": 510.945583
+    },
+    {
+      "id": "R087",
+      "status": "PASS",
+      "duration_ms": 535.852833
+    },
+    {
+      "id": "R088",
+      "status": "PASS",
+      "duration_ms": 508.910042
+    },
+    {
+      "id": "R089",
+      "status": "PASS",
+      "duration_ms": 525.598916
+    },
+    {
+      "id": "R090",
+      "status": "PASS",
+      "duration_ms": 535.839292
+    },
+    {
+      "id": "R091",
+      "status": "PASS",
+      "duration_ms": 128.710792
+    },
+    {
+      "id": "R092",
+      "status": "PASS",
+      "duration_ms": 219.538042
+    },
+    {
+      "id": "R093",
+      "status": "PASS",
+      "duration_ms": 2.925875
+    },
+    {
+      "id": "R094",
+      "status": "PASS",
+      "duration_ms": 128.604709
+    },
+    {
+      "id": "R095",
+      "status": "PASS",
+      "duration_ms": 3.775625
+    },
+    {
+      "id": "R096",
+      "status": "PASS",
+      "duration_ms": 1393.22275
+    },
+    {
+      "id": "R097",
+      "status": "PASS",
+      "duration_ms": 1096.942292
+    },
+    {
+      "id": "R098",
+      "status": "PASS",
+      "duration_ms": 372.872334
+    },
+    {
+      "id": "R099",
+      "status": "PASS",
+      "duration_ms": 240.590458
+    },
+    {
+      "id": "R100",
+      "status": "PASS",
+      "duration_ms": 199.498125
+    }
+  ],
+  "limits": {
+    "h3": "IN PROGRESS",
+    "h3_011_012": "COMPLETED local/aislado",
+    "h3_013_plus": "NOT STARTED",
+    "h4_h6": "NOT STARTED",
+    "h4_019_h5_014_h6_005": "PENDING",
+    "external_bank_transfer_by_crm": false,
+    "real_bank_funds_connectors": "NOT ACCREDITED",
+    "hosted_h2_h3": "NOT ACCREDITED",
+    "production": "NOT AUTHORIZED",
+    "refund_fianza_full": "PENDING",
+    "booking_economic_closure": "PENDING",
+    "fiscality_mandate_invoicing": "PENDING",
+    "independent_health_check": "byte-identical"
+  },
+  "artifact_sha256": {
+    "tests/fixtures/h3-012/F02-original-postgres.log": "d332f8460818f5d3863c7e1bdc735d9fb6852d09963edd9994c20ca7516cf803",
+    "tests/fixtures/h3-012/F03-original-diagnostic.log": "4ee74b597fc0b8d6f2914dd6059f3f22326fd6bb9e6f6b2dbbeaf870b862196f",
+    "tests/fixtures/h3-012/F06-second-matrix-original.log": "7800dd60d0e95c8fe252b9a421cc67aa985b0f796cc9b62dc99704c9e5602e51",
+    "tests/fixtures/h3-012/F04-original-focal.log": "9ac8f2cb708957a625397d57083c290b9b2a521b6407fcc15d35b005b42caa97",
+    "tests/fixtures/h3-012/F01-F07-reproducer-typecheck.log": "79b205ec168495cc84ce52262dfdb64d863a518fe0b2179809a52f68665e7296",
+    "tests/fixtures/h3-012/F03-second-diagnostic.log": "183e76e6bfb214ded6ad52ff7f10eb04cd7da0d975a77db9bfe61b5557934cb0",
+    "tests/fixtures/h3-012/closure-typecheck.log": "99d7c2179cdd316467c51f37901025a0753453664d741214ba56fc631fa6c0bc",
+    "tests/fixtures/h3-012/F02-original-focal.log": "7b0f4608ff7810dd64fdbabbbf9aa6f2ea4344a3a3772a51b1f4aa038e9cdd0d",
+    "tests/fixtures/h3-012/F07-first-full-postgres-original.log": "b925949dc2279df25548218f6af9b90d0df75088572775d2deef233ab022f375",
+    "tests/fixtures/h3-012/F01-fixture-typecheck.log": "60eae8af8c66f24d5b2ec2a7bd74938d6ed297e7ee460c49fcde6ed95eb3aab4",
+    "tests/fixtures/h3-012/closure-postgres.log": "0f49533144fd2a873d3f5ce8198cdf03cc923b5ef99c6d897851bf6e9631afd8",
+    "tests/fixtures/h3-012/closure-unit.log": "dd6a8bdb47942b6d212a1aa51a202198f68bd0cd0c48ac19419635ed71ad2f9f",
+    "tests/fixtures/h3-012/F04-original-diagnostic.log": "125b96472a02ebd9e3370c42c3d34f7c2655d3398a69a31d11899bc328bb0134",
+    "tests/fixtures/h3-012/F06-synchronous-guard-original.log": "8f42a2791db1ac164979b99ccf95efe8983b54e77322c9046bd388ead6fe3a8c",
+    "tests/fixtures/h3-012/closure-audit.log": "11124a8c8cd76328bb93c913c49494fd2f63d7a4193871141c812f5b1cffc655",
+    "tests/fixtures/h3-012/F03-original-focal.log": "d01261fb4ae3adf7d9e707b2f456977473074f7a93b22aad827aa59a17f0f4f5",
+    "tests/fixtures/h3-012/closure-install.log": "5117ead7cdc8a3765f992324f520b42836a83f5c81c98cb194059494790f83ee",
+    "tests/fixtures/h3-012/F06-first-matrix-original.log": "5bbdcdbc8319474babb0fb5ebbf7f319fed0a3bea52791f513e33d58a6867e5d",
+    "tests/fixtures/h3-012/F07-original-server.log": "5d409f4a08318adc1cd38de2a88e8b1a259b39aeb7c4c6d141b1c2a474624820",
+    "tests/fixtures/h3-012/F01-original-typecheck.log": "639ace1bf8998b4173e0d4f59134d0faf42445a14c4e8ba20b129fc59693990e",
+    "tests/fixtures/h3-012/closure-build.log": "c88e95c9ae73cd98def3f0ab93cddfba4a5186204f6e94cbf3071f80b597e7b3",
+    "tests/fixtures/h3-012/F05-original-focal.log": "b3c499ec5ae7d9d67fd5dd34c678328b9f8b3a4074b3d25a78d4eff97e56b59e",
+    "tests/fixtures/h3-012/closure-lint.log": "6eaeae66537f6e78eccf8bc1538038163c02589c1f4bcef2e62b3cc4e58dcc54",
+    "tests/fixtures/h3-012/F06-third-matrix-interrupted.log": "041dbab6890204a8cfbbef187052b0c5d531e12c908f28a5bea2ada009331f1c"
+  }
+}

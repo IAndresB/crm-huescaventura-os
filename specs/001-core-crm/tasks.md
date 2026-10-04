@@ -6,8 +6,8 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011+ y H4–H6 NOT STARTED
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011+ y H4–H6 NOT STARTED
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013+ y H4–H6 NOT STARTED
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 IN PROGRESS; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013+ y H4–H6 NOT STARTED
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-04
 
@@ -1128,35 +1128,35 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 #### TSK-H3-011 — Registrar programación y pago acreditado al proveedor
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Hito: H3. Tipo: implementación.
 - **Objetivo y alcance:** Provider Payment, intención/ejecución parcial e incidencia; movimiento real y porciones T07 sin transferencia externa.
 - **Fuentes exactas:** Plan §§7.2–7.3, 8; SPEC-FR-ECON-011, AC-045, AC-046, AC-063. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-011.
 - **Bloques, contratos y unidades:** B05/B07/B08; C02/C03/C04/C05/C06; T07/T08.
 - **Entregable previsto:** Áreas propuestas de pagos a proveedor y registro de salidas con migraciones. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H2-012], [TSK-H3-010], [TSK-H3-006]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H2 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Falta de fondos bloquea ejecución dependiente; falta de factura no impide registrar una salida real acreditada. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Programar con datos conocidos, registrar pagos verificados y correspondencia de fondos; retirar programación solo cuando no hay ejecución incierta; integrar cierre documental.
+- **Bloqueo localizado / condición para levantarlo:** Falta de fondos bloquea ejecución dependiente; falta de factura no impide registrar una salida real acreditada. El detalle de evidencia/decisión y puerta está en §7; no acredita ejecución externa ni integraciones posteriores pendientes.
+- **Acción ejecutada:** Programar con datos conocidos, registrar pagos verificados y correspondencia de fondos; retirar programación solo cuando no hay ejecución incierta; integrar cierre documental.
 - **Salida observable:** Salida, historia y porciones se confirman juntas; no movimiento duplicado ni falsa entrega externa.
 - **Verificación y esperado:** Programado no Pagado; salida parcial deja saldo; anomalía real se registra con incidencia sin aprobación retroactiva. Factura ausente deja suplido abierto; documento correcto/conciliación posteriores permiten resolver; PM-08 ajuste exacto. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H3-012].
 - **Integración adicional obligatoria:** [TSK-H4-019], [TSK-H5-014], [TSK-H6-005]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: expected independiente `0950781` intacto; producto/verificación probados `aaa1ce94ebae591225a1f64054d1001372ae6f7b`;100/100 matriz +7/7 reproducers +1/1 focal,1113/1113 PostgreSQL y109/109 unitarias, gates/V-MIG/preservación PASS. H3-012-F01–F07 CLOSED;0 FAIL/skipped/cancelled/materiales abiertos. STOP tras H3-012; H3 IN PROGRESS, H3-013+ y H4–H6 NOT STARTED; continuidad requiere nueva autorización humana. [Implementación](evidence-TSK-H3-011.md), [verificación](evidence-TSK-H3-012.md) y [expected](expected-TSK-H3-011-012.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T07/T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-012"></a>
 
 #### TSK-H3-012 — Verificar: Registrar programación y pago acreditado al proveedor
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H3. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Hito: H3. Tipo: comprobación.
 - **Objetivo y alcance:** Provider Payment, intención/ejecución parcial e incidencia; movimiento real y porciones T07 sin transferencia externa.
 - **Fuentes exactas:** Plan §§7.2–7.3, 8; SPEC-FR-ECON-009, SPEC-FR-ECON-011, AC-045, AC-046, AC-063. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H3-012.
 - **Bloques, contratos y unidades:** B05/B07/B08; C02/C03/C04/C05/C06; T07/T08.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H2-012], [TSK-H3-011]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H2 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Falta de fondos bloquea ejecución dependiente; falta de factura no impide registrar una salida real acreditada. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H3-011; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** Falta de fondos bloquea ejecución dependiente; falta de factura no impide registrar una salida real acreditada. El detalle de evidencia/decisión y puerta está en §7; no acredita ejecución externa ni integraciones posteriores pendientes.
+- **Acción ejecutada:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H3-011; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Salida, historia y porciones se confirman juntas; no movimiento duplicado ni falsa entrega externa. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Programado no Pagado; salida parcial deja saldo; anomalía real se registra con incidencia sin aprobación retroactiva. Factura ausente deja suplido abierto; documento correcto/conciliación posteriores permiten resolver; PM-08 ajuste exacto. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: expected independiente `0950781` intacto; producto/verificación probados `aaa1ce94ebae591225a1f64054d1001372ae6f7b`;100/100 matriz +7/7 reproducers +1/1 focal,1113/1113 PostgreSQL y109/109 unitarias, gates/V-MIG/preservación PASS. H3-012-F01–F07 CLOSED;0 FAIL/skipped/cancelled/materiales abiertos. STOP tras H3-012; H3 IN PROGRESS, H3-013+ y H4–H6 NOT STARTED; continuidad requiere nueva autorización humana. [Implementación](evidence-TSK-H3-011.md), [verificación](evidence-TSK-H3-012.md) y [expected](expected-TSK-H3-011-012.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T07/T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h3-013"></a>
