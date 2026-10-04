@@ -1,5 +1,9 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+Actualización H4-001/002 — 2026-10-05: **TSK-H4-001/002 COMPLETED local/aislado; H4 IN PROGRESS; H4-003+ y H5–H6 NOT STARTED. H3 COMPLETED local/aislado conservado.** [Implementación](../specs/001-core-crm/evidence-TSK-H4-001.md), [verificación](../specs/001-core-crm/evidence-TSK-H4-002.md), [expected congelado](../specs/001-core-crm/expected-TSK-H4-001-002.md). SHA exacto probado `9c26bd6ca0b0a3b23e5f1a4a8310089393c0166b`:68/68 matriz +8/8 reproducers/guardas +2/2 complementos +1/1 focal =79/79 H4, incluidos en1294/1294 PostgreSQL;118/118 unitarias y health-check independiente1/1. Gates/V-MIG/preservación PASS; única migración forward H4,37 previas intactas. Requirement separado de original B07, SM-DO-01–05,SM-FORB-20,AC-019/051, revisión explícita, No aplica motivado, bloqueo por alcance, V1/correcciones/historia privada y minimización acreditados localmente. H4-002-F01–F08 CLOSED,cero materiales abiertos; FAIL originales conservados. H0 técnico/local/aislado y H1/H2 local/aislado COMPLETED conservados. Pendientes: H4-003+; H4-021; H4-023; H5-014; Incident completo; confirmación/prestación completa; Refund/fianza; coordinación/avisos/jobs H5; política definitiva de retención/anonimización/eliminación; audio; datos reales; conectores; hosted; Production. Hosted H2/H3 no acreditados;Production no autorizada;health-check independiente intacto. **STOP tras publicar H4-002;sin iniciar ni preparar H4-003 ni ninguna tarea posterior.**
+
+Registro histórico anterior al bloque H4-001/002 (cierre H3-015):
+
 Actualización de salida H3 — 2026-10-04: **TSK-H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H3 COMPLETED local/aislado. H4–H6 siguen NOT STARTED.** [Evidencia de salida](../specs/001-core-crm/evidence-TSK-H3-015.md), [expected congelado](../specs/001-core-crm/expected-TSK-H3-015.md). SHA exacto probado `f7c44abbf1e47b3aea14b7bf8a3d3988d1259dba`:26/26 criterios de salida;1215/1215 PostgreSQL y117/117 unitarias; siete familias H3 con540 casos normativos literalmente incluidas, sin doble cómputo. Gates/V-MIG/preservación PASS;37 migraciones íntegras,ninguna nueva/editada;0 cambios de producto/tests lógicos;H3-015-F01 del auditor documental CLOSED y52/52 Fxx históricos CLOSED. T05/T07,PM-03/PM-08,fondos exactos,separación factura/pago/Suplido,economía reservada,promoción/Tararí e históricos acreditados localmente. H0 técnico/local/aislado,H1/H2 local/aislado COMPLETED conservados. Refund/fianza completos y carrera H4-019,operación/cierre Booking/Economic Closure,H5/H6,costes reales upsells/tipos fiscales/fiscalidad profesional/mandato real/facturación,conectores/banco/fondos/datos reales y pendientes globales vigentes conservados. Hosted H2/H3 no acreditados;Production no autorizada;health-check independiente intacto. Siguiente fase:H4 — Operación, cambios y cancelación;H4-001/H4-002 siguen NOT STARTED,sin inicio ni preparación. **STOP tras publicar H3-015;continuidad requiere nueva autorización humana.**
 
 Registro histórico anterior al cierre H3-015 (cierre H3-014):
@@ -35,7 +39,7 @@ Registro histórico anterior a H3 (cierre H2-012):
 Actualización 2026-10-03: H0 COMPLETED técnico/local/aislado y H1 COMPLETED local/aislado conservados. **H2 COMPLETED local/aislado; TSK-H2-001–012 COMPLETED local/aislado.** [Verificación H2-011](../specs/001-core-crm/evidence-TSK-H2-011.md) y [salida H2-012](../specs/001-core-crm/evidence-TSK-H2-012.md), commit exacto probado `226b53559dc0786dd14dead0039eed394144fade`: 36/36 casos H2-011 +2/2 reproducciones; revalidación H2 266 casos de matrices +13 reproducciones/complementos =279/279 PASS; salida S01–S20 20/20 PASS. Regresión 617/617 PostgreSQL 17.11 y81/81 unitarias; gates y V-MIG/preservación PASS. H2-011-F01/F02 del verificador CLOSED, cero materiales abiertos; FAIL originales conservados, sin cambios de producto ni migraciones nuevas. **H3–H6 NOT STARTED; STOP tras H2-012, sin preparación de H3.** PLAN-AUTH-001–006 PENDING globalmente; PLAN-PENDING-003 en su parte abierta y todos los ARCH-PENDING, DM-PENDING y BR-PENDING vigentes conservados, incluidos DM-PENDING-005 y BR-PENDING-022/033. Datos personales/comerciales, catálogo/tarifas/costes/capacidades y prioridades/plazos reales no acreditados. Hosted H2 no acreditado; Production no autorizada. Sin pagos/fondos/conciliación/Refund/facturación/proveedores confirmados/operación/conectores/envíos reales. Health-check independiente conservado; no acredita hosted H2.
 
 Status: ACTIVE
-Last updated: 2026-10-04
+Last updated: 2026-10-05
 
 ## Completed
 
@@ -132,9 +136,11 @@ Last updated: 2026-10-04
 
 - TSK-H3-015 — COMPLETED local/aislado: [salida](../specs/001-core-crm/evidence-TSK-H3-015.md),26/26 criterios; regresión actual1215/1215 PostgreSQL y117/117 unitarias,gates/V-MIG/preservación PASS en `f7c44abbf1e47b3aea14b7bf8a3d3988d1259dba`. H3 COMPLETED local/aislado,H3-001–015 COMPLETED;H4–H6 NOT STARTED y STOP obligatorio.H3-015-F01 auditor documental CLOSED,37 migraciones intactas,sin cambios de producto.
 
+- TSK-H4-001/002 — COMPLETED local/aislado: [modelo](../specs/001-core-crm/evidence-TSK-H4-001.md) y [matriz](../specs/001-core-crm/evidence-TSK-H4-002.md); SHA probado `9c26bd6ca0b0a3b23e5f1a4a8310089393c0166b`,79/79 H4,1294/1294 PostgreSQL,118/118 unitarias,gates/V-MIG PASS;F01–F08 CLOSED. H4 IN PROGRESS; STOP tras H4-002.
+
 ## In Progress
 
-- Implementación: IN PROGRESS para el proyecto; H0 COMPLETED técnico/local/aislado, H1 y H2 COMPLETED local/aislado. H3 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado. H4–H6 NOT STARTED. STOP obligatorio tras H3-015; continuidad requiere nueva autorización humana.
+- Implementación: IN PROGRESS; H0 COMPLETED técnico/local/aislado y H1/H2/H3 COMPLETED local/aislado. H4 IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003+ y H5–H6 NOT STARTED. STOP tras publicar H4-002; continuidad requiere nueva autorización humana.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
