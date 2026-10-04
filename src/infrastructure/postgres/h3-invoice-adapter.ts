@@ -12,6 +12,7 @@ export interface InvoiceCommand {
  readonly invoiceId:string;readonly bookingId:string;readonly expectedRevision:number;
  readonly sourceRef:string;readonly reason:string;readonly at:string;readonly evidenceId:string;
  readonly origin?:'manual'|'ai';readonly basis?:InvoiceBasis;readonly document?:InvoiceDocument;
+ readonly comparisonBasis?:InvoiceBasis;
  readonly checks?:{readonly provider:boolean;readonly recipient:boolean;readonly amount:boolean;readonly scope:boolean};
  readonly portions?:readonly InvoicePortion[];readonly affectedServiceIds?:readonly string[];
  readonly affectedRecipientId?:string;readonly affectedAmount?:string;

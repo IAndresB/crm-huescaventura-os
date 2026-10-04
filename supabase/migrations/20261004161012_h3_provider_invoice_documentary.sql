@@ -73,7 +73,7 @@ begin
 end$$;
 create function crm_api.invoice_apply(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea) returns jsonb language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
 declare hf text[];tf text[];fs text[];a jsonb;op uuid;iid uuid;bid uuid;actor uuid;s text;action text;fp text;proofhash text;rev bigint;at_time timestamptz;
- prev crm_private.b05_invoice_operations;root crm_private.b05_provider_invoices;b crm_private.b04_bookings;d jsonb;basis jsonb;old jsonb;state jsonb;r jsonb;diffs jsonb;item jsonb;sum_amount numeric;key text;prior_doc uuid;provider jsonb;client jsonb;
+ prev crm_private.b05_invoice_operations;root crm_private.b05_provider_invoices;b crm_private.b04_bookings;d jsonb;basis jsonb;old jsonb;state jsonb;r jsonb;diffs jsonb;item jsonb;sum_amount numeric;key text;prior_doc uuid;provider jsonb;client jsonb;comparison jsonb;
 begin
  hf:=crm_f2.admit(f2p,f2s,q,'C03','write_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');
  if hf[17] collate "C" is distinct from tf[14] collate "C" then raise exception 'INVOICE_DENIED';end if;
@@ -85,7 +85,7 @@ begin
  or a->>'action' not in ('need','receive','review','link','correct') or a->>'at' !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$' then raise exception 'INVOICE_INPUT_INVALID';end if;
  action:=a->>'action';
  if a-array['action','operationId','invoiceId','bookingId','expectedRevision','sourceRef','reason','at','evidenceId','origin']-
- (case action when 'need' then array['basis'] when 'receive' then array['document'] when 'review' then array['checks'] when 'link' then array['portions'] else array['document','affectedServiceIds','affectedRecipientId','affectedAmount'] end)<>'{}'::jsonb then raise exception 'INVOICE_INPUT_INVALID';end if;
+ (case action when 'need' then array['basis'] when 'receive' then array['document'] when 'review' then array['checks','comparisonBasis'] when 'link' then array['portions'] else array['document','affectedServiceIds','affectedRecipientId','affectedAmount'] end)<>'{}'::jsonb then raise exception 'INVOICE_INPUT_INVALID';end if;
  op:=(a->>'operationId')::uuid;iid:=(a->>'invoiceId')::uuid;bid:=(a->>'bookingId')::uuid;actor:=hf[12]::uuid;s:=hf[17];at_time:=(a->>'at')::timestamptz;
  select * into b from crm_private.b04_bookings where booking_id=bid and admin_scope=s;if not found then raise exception 'INVOICE_DENIED';end if;
  fp:=encode(crm_crypto.digest(convert_to(a::text,'UTF8'),'sha256'),'hex');perform pg_advisory_xact_lock(hashtextextended('invoice-op:'||op,0));
@@ -100,7 +100,7 @@ begin
    basis:=a->'basis';
    if jsonb_typeof(basis) is distinct from 'object' or basis-array['providerRevisionId','recipientId','amount','serviceIds','sourceRef','version']<>'{}'::jsonb or not(basis ?& array['providerRevisionId','recipientId','amount','serviceIds','sourceRef','version'])
    or exists(select 1 from unnest(array['providerRevisionId','recipientId','sourceRef','version']) k where not coalesce(crm_private.invoice_text(basis->k),false))
-   or not coalesce(crm_private.invoice_amount(basis->'amount'),false) or not crm_private.invoice_services(basis->'serviceIds',bid,s) or (a->>'expectedRevision')::bigint<>0 then raise exception 'INVOICE_BASIS_REQUIRED';end if;
+   or (basis->'amount'<>'null'::jsonb and not coalesce(crm_private.invoice_amount(basis->'amount'),false)) or not crm_private.invoice_services(basis->'serviceIds',bid,s) or (a->>'expectedRevision')::bigint<>0 then raise exception 'INVOICE_BASIS_REQUIRED';end if;
    select to_jsonb(cr) into provider from crm_private.catalog_revisions cr join crm_private.catalog_items ci using(item_id) where cr.revision_id=(basis->>'providerRevisionId')::uuid and cr.admin_scope=s and ci.item_kind='provider';
    select to_jsonb(e) into client from crm_private.identity_entities e where e.identity_id=(basis->>'recipientId')::uuid and e.admin_scope=s and e.identity_verified;
    if provider is null or client is null then raise exception 'INVOICE_BASIS_REQUIRED';end if;
@@ -138,6 +138,19 @@ begin
    if action='receive' then state:=state||jsonb_build_object('status','Recibida');
    elsif action='review' then
     if old->>'status' not in ('Recibida','Incidencia') or old->'document'='null'::jsonb or a->'checks' is distinct from '{"provider":true,"recipient":true,"amount":true,"scope":true}'::jsonb then raise exception 'INVOICE_REVIEW_REQUIRED';end if;
+    -- Identifying a need does not require knowing its comparison amount.
+    -- A subsequently verified base is a new review fact; the initial basis stays immutable.
+    if a?'comparisonBasis' then
+     comparison:=a->'comparisonBasis';
+     if jsonb_typeof(comparison) is distinct from 'object' or comparison-array['providerRevisionId','recipientId','amount','serviceIds','sourceRef','version']<>'{}'::jsonb
+     or not(comparison ?& array['providerRevisionId','recipientId','amount','serviceIds','sourceRef','version'])
+     or not coalesce(crm_private.invoice_amount(comparison->'amount'),false)
+     or not coalesce(crm_private.invoice_text(comparison->'sourceRef'),false) or not coalesce(crm_private.invoice_text(comparison->'version'),false)
+     or comparison->'providerRevisionId' is distinct from basis->'providerRevisionId' or comparison->'recipientId' is distinct from basis->'recipientId' or comparison->'serviceIds' is distinct from basis->'serviceIds'
+     or (basis->'amount'<>'null'::jsonb and comparison->'amount' is distinct from basis->'amount') then raise exception 'INVOICE_REVIEW_REQUIRED:E3';end if;
+     basis:=comparison;
+    end if;
+    if basis->'amount'='null'::jsonb then raise exception 'INVOICE_REVIEW_REQUIRED:E3';end if;
     d:=old->'document';diffs:='[]';
     if basis->>'providerRevisionId'<>d->>'issuerRevisionId' then diffs:=diffs||'"provider"'::jsonb;end if;
     if basis->>'recipientId'<>d->>'recipientId' then diffs:=diffs||'"recipient"'::jsonb;end if;
@@ -154,7 +167,7 @@ begin
      sum_amount:=sum_amount+(item->>'amount')::numeric;
     end loop;
     if sum_amount<>(old->'document'->>'amount')::numeric then raise exception 'INVOICE_PORTIONS_REQUIRED';end if;
-    state:=state||jsonb_build_object('status','Vinculada','link',jsonb_build_object('operationId',op,'reviewOperationId',old->'review'->>'operationId','documentId',old->'document'->>'documentId','portions',a->'portions','sourceRef',a->>'sourceRef','actorId',actor,'at',a->>'at','externalContext',basis,'documentaryOnly',true));
+    state:=state||jsonb_build_object('status','Vinculada','link',jsonb_build_object('operationId',op,'reviewOperationId',old->'review'->>'operationId','documentId',old->'document'->>'documentId','portions',a->'portions','sourceRef',a->>'sourceRef','actorId',actor,'at',a->>'at','externalContext',old->'review'->'basis','documentaryOnly',true));
    elsif action='correct' then
     if old->>'status' not in ('Recibida','Revisada','Vinculada','Incidencia') or old->'document'='null'::jsonb
     or not coalesce(crm_private.invoice_text(a->'affectedRecipientId'),false) or not coalesce(crm_private.invoice_amount(a->'affectedAmount'),false)

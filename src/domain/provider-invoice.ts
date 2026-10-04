@@ -3,7 +3,7 @@ import {moneyDifference} from './exact-money.ts';
 import {requirePaymentAmount} from './customer-payment.ts';
 export type InvoiceStatus='Pendiente'|'Recibida'|'Revisada'|'Vinculada'|'Incidencia';
 export interface InvoiceBasis {
- readonly providerRevisionId:string;readonly recipientId:string;readonly amount:string;
+ readonly providerRevisionId:string;readonly recipientId:string;readonly amount:string|null;
  readonly serviceIds:readonly string[];readonly sourceRef:string;readonly version:string;
 }
 export interface InvoiceDocument {
@@ -17,6 +17,7 @@ export function requireInvoiceAmount(value:unknown):string {
  if(moneyDifference(value,'0.00')!==value)throw new Error('INVOICE_AMOUNT_INVALID');return value;
 }
 export function invoiceDifferences(basis:InvoiceBasis,document:InvoiceDocument):readonly string[] {
+ if(basis.amount===null)throw new Error('INVOICE_COMPARISON_REQUIRED');
  requireInvoiceAmount(basis.amount);requireInvoiceAmount(document.amount);
  return [basis.providerRevisionId!==document.issuerRevisionId?'provider':null,
  basis.recipientId!==document.recipientId?'recipient':null,basis.amount!==document.amount?'amount':null,

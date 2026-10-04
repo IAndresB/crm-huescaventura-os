@@ -23,3 +23,14 @@ test('H3-008-F04 identified signed/zero document is retained; positive receipt v
   await h.invoices.apply(await h.auth(),write,await f.review());assert.equal((await f.state())!.status,'Incidencia');assert.equal((await f.state())!.basis.amount,'100.01');
  }
 });
+test('H3-008-F05 documentary need can have unknown comparison amount; review stays fail closed',async()=>{
+ const historic=execFileSync('git',['show','404fb77:supabase/migrations/20261004161012_h3_provider_invoice_documentary.sql'],{encoding:'utf8'});
+ const a=historic.indexOf('create function crm_api.invoice_apply('),b=historic.indexOf('create function crm_api.invoice_read(',a),old=historic.slice(a,b).replace('create function','create or replace function');
+ const current=(await h.observer`select pg_get_functiondef('crm_api.invoice_apply(bytea,bytea,bytea,bytea,bytea)'::regprocedure) f`)[0]!.f;
+ const f=await invoiceFixture(h),q=await f.attest({...await f.need(),basis:{...f.basis,amount:null}});
+ await h.admin.unsafe(old);try{if(process.env.H3008_REPRO_ORIGINAL==='F05')await h.invoices.apply(await h.auth(),write,q);else await assert.rejects(h.invoices.apply(await h.auth(),write,q),/INVOICE_BASIS_REQUIRED/);}finally{await h.admin.unsafe(current);}
+ await h.invoices.apply(await h.auth(),write,q);assert.equal((await f.state())!.status,'Pendiente');assert.equal((await f.state())!.basis.amount,null);
+ await h.invoices.apply(await h.auth(),write,await f.receive());await assert.rejects(h.invoices.apply(await h.auth(),write,await f.review()),/INVOICE_REVIEW_REQUIRED/);
+ await h.invoices.apply(await h.auth(),write,await f.attest({...await f.review(),comparisonBasis:f.basis}));await h.invoices.apply(await h.auth(),write,await f.link());assert.equal((await f.state())!.status,'Vinculada');assert.equal((await f.state())!.basis.amount,null);
+});
+test('H3-008-F06 historical verifier inventory is frozen at H3-006, not global live migrations',async()=>{const {readdir,readFile}=await import('node:fs/promises');const {allocationMigration}=await import('../support/h3-allocation-isolated.ts');const files=(await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql'));assert.equal(files.length,34);assert.throws(()=>assert.equal(files.length,33),/34 !== 33/);assert.equal(files.filter(x=>x<=allocationMigration).length,33);for(const file of ['tests/integration/postgres-h3-006.test.ts','tests/integration/postgres-h3-006-defects.test.ts'])assert.ok((await readFile(file,'utf8')).includes('<=allocationMigration'));});
