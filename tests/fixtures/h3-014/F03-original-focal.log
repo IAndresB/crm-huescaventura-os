@@ -1,0 +1,63 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-uuaKt8/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-uuaKt8/data -l logfile start
+
+waiting for server to start.... done
+server started
+2026-10-04 22:20:24.948 CEST [99117] ERROR:  operator is not unique: unknown - unknown at character 60
+2026-10-04 22:20:24.948 CEST [99117] CONTEXT:  PL/pgSQL function crm_api.own_economics_apply(bytea,bytea,bytea,bytea,bytea) line 20 at assignment
+✖ H3-013 own economy persisted with exact Fee/cost and A150/B120 promotion (1281.806042ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1395.210417
+
+✖ failing tests:
+
+test at tests/integration/postgres-h3-013.test.ts:3:1
+✖ H3-013 own economy persisted with exact Fee/cost and A150/B120 promotion (1281.806042ms)
+  Error [PostgresError]: operator is not unique: unknown - unknown
+      at ErrorResponse (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/Developer/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42725',
+    hint: 'Could not choose a best candidate operator. You might need to add explicit type casts.',
+    where: 'PL/pgSQL function crm_api.own_economics_apply(bytea,bytea,bytea,bytea,bytea) line 20 at assignment',
+    internal_position: '60',
+    internal_query: "rulehash:=encode(crm_crypto.digest(convert_to((comp->'rule'-'approvalEvidenceId')::text,'UTF8'),'sha256'),'hex')",
+    file: 'parse_oper.c',
+    line: '633',
+    routine: 'op_error'
+  }
+waiting for server to shut down.... done
+server stopped
