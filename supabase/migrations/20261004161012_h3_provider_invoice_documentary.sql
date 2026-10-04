@@ -57,7 +57,7 @@ begin
  end loop;return true;
 end$$;
 create function crm_private.invoice_original(d jsonb,bid uuid,s text,previous uuid) returns jsonb language plpgsql stable set search_path=pg_catalog,pg_temp as $$
-declare r crm_private.b07_records;o crm_private.b07_object_versions;
+declare r crm_private.b07_records;o crm_private.b07_object_versions;issuer jsonb;
 begin
  if jsonb_typeof(d) is distinct from 'object' or d-array['documentId','objectVersionId','issuerRevisionId','recipientId','amount','serviceIds']<>'{}'::jsonb or not(d ?& array['documentId','objectVersionId','issuerRevisionId','recipientId','amount','serviceIds'])
  or exists(select 1 from unnest(array['documentId','objectVersionId','issuerRevisionId','recipientId']) k where not coalesce(crm_private.invoice_text(d->k),false))
@@ -66,10 +66,10 @@ begin
  if not found or r.material->>'relation'<>'original' or r.corrects_id is distinct from previous or not exists(select 1 from crm_private.b07_links where record_id=r.record_id and admin_scope=s and context_kind='booking' and context_id=bid) then raise exception 'INVOICE_ORIGINAL_REQUIRED';end if;
  select * into o from crm_private.b07_object_versions where version_id=(d->>'objectVersionId')::uuid and document_id=r.record_id and admin_scope=s and state='stored';
  if not found then raise exception 'INVOICE_ORIGINAL_REQUIRED';end if;
- if not exists(select 1 from crm_private.catalog_revisions cr join crm_private.catalog_items ci using(item_id) where cr.revision_id=(d->>'issuerRevisionId')::uuid and cr.admin_scope=s and ci.item_kind='provider')
- or not exists(select 1 from crm_private.identity_entities where identity_id=(d->>'recipientId')::uuid and admin_scope=s) then raise exception 'INVOICE_DOCUMENT_REQUIRED';end if;
+ select to_jsonb(cr) into issuer from crm_private.catalog_revisions cr join crm_private.catalog_items ci using(item_id) where cr.revision_id=(d->>'issuerRevisionId')::uuid and cr.admin_scope=s and ci.item_kind='provider';
+ if issuer is null or not exists(select 1 from crm_private.identity_entities where identity_id=(d->>'recipientId')::uuid and admin_scope=s) then raise exception 'INVOICE_DOCUMENT_REQUIRED';end if;
  -- Keep reproducible object metadata, without exposing private references in invoice projections.
- return d||jsonb_build_object('conservation',jsonb_build_object('version',o.version_number,'digest',o.expected_digest,'size',o.expected_size::text,'media',o.expected_media,'sourceRef',r.source_ref,'recordedAt',r.recorded_at));
+ return d||jsonb_build_object('issuerApplied',issuer,'conservation',jsonb_build_object('version',o.version_number,'digest',o.expected_digest,'size',o.expected_size::text,'media',o.expected_media,'sourceRef',r.source_ref,'recordedAt',r.recorded_at));
 end$$;
 create function crm_api.invoice_apply(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea) returns jsonb language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
 declare hf text[];tf text[];fs text[];a jsonb;op uuid;iid uuid;bid uuid;actor uuid;s text;action text;fp text;proofhash text;rev bigint;at_time timestamptz;
@@ -152,7 +152,7 @@ begin
     end if;
     if basis->'amount'='null'::jsonb then raise exception 'INVOICE_REVIEW_REQUIRED:E3';end if;
     d:=old->'document';diffs:='[]';
-    if basis->>'providerRevisionId'<>d->>'issuerRevisionId' then diffs:=diffs||'"provider"'::jsonb;end if;
+    if old->'basisApplied'->'provider'->>'item_id' is distinct from d->'issuerApplied'->>'item_id' then diffs:=diffs||'"provider"'::jsonb;end if;
     if basis->>'recipientId'<>d->>'recipientId' then diffs:=diffs||'"recipient"'::jsonb;end if;
     if basis->>'amount'<>d->>'amount' then diffs:=diffs||'"amount"'::jsonb;end if;
     if (select jsonb_agg(value order by value) from jsonb_array_elements(basis->'serviceIds')) is distinct from (select jsonb_agg(value order by value) from jsonb_array_elements(d->'serviceIds')) then diffs:=diffs||'"scope"'::jsonb;end if;

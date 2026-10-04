@@ -16,10 +16,11 @@ export function requireInvoiceAmount(value:unknown):string {
  requirePaymentAmount(value.startsWith('-')?value.slice(1):value);
  if(moneyDifference(value,'0.00')!==value)throw new Error('INVOICE_AMOUNT_INVALID');return value;
 }
-export function invoiceDifferences(basis:InvoiceBasis,document:InvoiceDocument):readonly string[] {
+export function invoiceDifferences(basis:InvoiceBasis,document:InvoiceDocument,providers?:Readonly<{expectedProviderId:string;issuerId:string}>):readonly string[] {
  if(basis.amount===null)throw new Error('INVOICE_COMPARISON_REQUIRED');
  requireInvoiceAmount(basis.amount);requireInvoiceAmount(document.amount);
- return [basis.providerRevisionId!==document.issuerRevisionId?'provider':null,
+ if(!providers&&basis.providerRevisionId!==document.issuerRevisionId)throw new Error('INVOICE_COMPARISON_REQUIRED');
+ return [providers&&providers.expectedProviderId!==providers.issuerId?'provider':null,
  basis.recipientId!==document.recipientId?'recipient':null,basis.amount!==document.amount?'amount':null,
  JSON.stringify([...basis.serviceIds].sort())!==JSON.stringify([...document.serviceIds].sort())?'scope':null].filter((v):v is string=>v!==null);
 }
