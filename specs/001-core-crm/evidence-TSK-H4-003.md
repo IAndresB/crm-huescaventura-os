@@ -1,0 +1,45 @@
+# Evidencia TSK-H4-003 — Gestionar Incident y su impacto mínimo
+
+Estado: **COMPLETED local/aislado**, 2026-10-05. Comprobación independiente H4-004 y regresión exacta PASS.
+
+Base inicial publicada: `2f27ae3b5cd8a8d7f510ee32072fda0ddbc33d25`; main/origin/main y árbol limpio después de fetch. Dependencias H3-015, H4-002 y H1-004 documentadas COMPLETED local/aislado. No AGENTS.md adicional en repositorio/ancestros; instrucciones humanas AGENTS aplicadas, README y normativa vigente contrastados.
+
+Expected independiente: `0b2ec9623e2f44424910f4d66efce11f6a39b336`, [expected-TSK-H4-003-004.md](expected-TSK-H4-003-004.md), anterior al producto. Se conserva byte a byte (R37). Las 19 filas Tasks §6 están literalmente identificadas en el expected. Constitution → Product → BR → DM → SM → Architecture → SPEC → Plan → Tasks; tablas prevalecen sobre diagramas. Fuentes: Plan §§4/8–9, SPEC-FR-ID-005/COORD-006, AC-052/060, DM-INV-042, SM-BK-10/11, SM-BS-11, SM-IN-01–06, SM-FORB-18/24, PLAN-B04, PT-08 y E2E-07 como obligación futura. G1–G6, BR-INC-001/002, BR-ID-001/002, D040, D016/D017 y DM-PENDING-005 aplicados sin decisiones nuevas.
+
+SHA exacto probado: `6bbab09d36632b1d9ed7726230fb402c5d4009d2`. Producto tuvo último cambio en `894566f6b60f9a3e1a210d7344d4bfb979debbe9`; lógica de verificador en `cfac6180070450f4412fd3044f1b0d5a415b2033`. El commit documental final añade evidencias/logs/coordinación, sin cambiar producto ni lógica de pruebas. Su SHA se obtiene del commit que contiene estas evidencias y se registra expresamente en el informe de publicación; no se presenta como SHA ensayado.
+
+Entorno: Node 24.21.0, pnpm 11.19.0, PostgreSQL 17.11 Postgres.app, CLI Supabase 2.118.0. Binario nativo `/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin`. Storage oficial aislado en loopback, backend nativo de archivos y commit `5def1dfc15ab7f08fe271c7d1e70542424524e4e`, sin hosted. Fixtures únicamente sintéticos y efímeros, recuperables en `tests/support/h4-incident-*.ts` y builders históricos. Ninguna identidad ordinaria usa owner, service_role o BYPASSRLS; credencial técnica Storage solo dentro del backend aislado acreditado H1.
+
+Resultados finales: **1344/1344 PostgreSQL, 118/118 unitarias, health-check independiente 1/1**, 0 FAIL/skipped/cancelled. Las **50 pruebas de este bloque** (38 grupos normativos +1 focal +1 vínculos económicos +10 complementos/reproducer) están incluidas en las 1344; no se suman otra vez. Los múltiples guardas retirados dentro de cada grupo tampoco inflan ese recuento. F01–F10 CLOSED local/aislado; un defecto material (F06), nueve técnicos de verificador/ejecución. FAIL originales, correcciones y retests conservados en [defects.md](../../tests/fixtures/h4-004/defects.md), logs gzip sin alteración de bytes y hashes verificables en [log-originals.json](../../tests/fixtures/h4-004/log-originals.json).
+
+Pendientes expresos: **H4-005+; H4-021; H4-023; H5-016; H6-007/E2E-07**. Motor completo de preparación/confirmación/prestación/revalidación/modificaciones, Refund/fianza, Closure Assessment, coordinación/avisos/jobs H5 y ciclo integrado posterior no implementados ni preparados. DM-PENDING-005, política definitiva de retención/anonimización/eliminación, audio, datos reales, consentimiento, conectores, hosted y Production pendientes. Sin envíos, pagos, fondos externos, IA externa ni automatización sensible. Hosted H2/H3 no acreditado; Production no autorizada. H0 COMPLETED técnico/local/aislado; H1/H2/H3 y H4-001/002 COMPLETED local/aislado conservados. H4 IN PROGRESS; H4-003/004 COMPLETED local/aislado; H4-005+ y H5–H6 NOT STARTED. **STOP obligatorio tras publicar H4-004**; continuidad al hilo de dirección H4 con nueva autorización humana.
+
+## Producto y fronteras
+
+`src/domain/incident.ts` define el ciclo, gravedad e impacto; `src/infrastructure/postgres/h4-incident-adapter.ts` compone C01/C03/C04/C06 con F1/F2. Una única migración forward oficial CLI `20261004231359_h4_incidents.sql` crea tres tablas privadas: raíz Incident, operaciones/resultados durables y revisiones append-only. Claves diferidas enlazan raíz/operación/revisión y código H1 para impedir unidades parciales. Índice por Booking/scope y revisión por raíz. Las **38 anteriores permanecen idénticas**, 39 en total; [protected-baseline.json](../../tests/fixtures/h4-004/protected-baseline.json) incluye sus hashes y el health-check independiente. No almacenamiento ni generador paralelo.
+
+INC usa exclusivamente `crm_api.identity_resolve`, contadores/ledger/historia H1 y `code_year_at` de D040 dentro de la misma transacción. El instante asignado después de la serialización determina Europe/Madrid; el hecho de 2024 y servicio futuro no desplazan la serie de creación. Año y código permanecen inmutables durante resolución/cierre/reapertura. El corte local de 1 enero está ensayado. ID/código solo consultables dentro de Booking y scope autorizados.
+
+Detección conserva detector real V1, fecha del hecho y registro independientes, descripción, hechos, hipótesis explícita o desconocida, gravedad y evidencia B07 conocida. Contexto puede vincular cliente/proveedor reales autorizados y servicio/noche/persona mediante alcance validado existente. `effectLinks` vincula Requirement, Provider Invoice o Provider Payment existentes del mismo Booking/scope: no inventa sus estados. La situación documental Incidencia sigue separada de esta entidad Incident general.
+
+SM-IN-01 crea Abierta; SM-IN-02 exige responsable y actuación para En gestión, sin solución; SM-IN-03 exige comprobación, acciones/alcance resueltos y causa verificada o incertidumbre explícita compatible. SM-IN-04 exige revisión suficiente del Administrador para Cerrada. SM-IN-05 reabre Abierta o En gestión según actuación y conserva solución/cierre previos. SM-IN-06 revisa gravedad con evidencia/motivo y conserva clasificación anterior. Toda transición tiene actor/fuente/motivo/instantes/evidencia exacta y antes/después. No se resuelve incertidumbre invalidante.
+
+Impacto material localizado se deriva de revisiones atómicas, sin sustituir fases de Booking/servicio ni `bookingBlocked` global. C06 devuelve exclusivamente IDs/revisiones, estado/gravedad, alcance/efecto y pendientes pertinentes; no descripciones, hipótesis, economía o autorizaciones internas. S1 y S2 independientes. Resolver uno no retira condiciones sostenidas por otros. SM-BK-10/11 y SM-BS-11 acreditados en la guarda/componente local, conservando las fases existentes; integración del motor posterior pendiente.
+
+AC-060/DM-INV-042: Crítica Abierta/En gestión bloquea la guarda de cierre completo. Justificación explícita del Administrador, alcance/motivo/responsable/evidencia/auditoría, salva únicamente esa guarda admisible. No cambia gravedad/estado ni el impacto económico; `completeClosureImplemented=false` declara que no existe el motor H5. Reapertura/revisión de gravedad invalidan la dispensa vigente conservando la anterior. AC-052 y SM-FORB-18/24 ensayan intentos expresos de devolver, cerrar o fabricar cumplimiento, rechazados sin mutación económica/documental. Refund todavía no existe en este alcance y no se acredita con un doble.
+
+Seguridad: ENABLE/FORCE RLS en las tres tablas; owners NOLOGIN, ejecutor limitado; runtime/anon/authenticated sin CRUD directo; helpers privados sin EXECUTE público; APIs definer estrechas con `search_path=pg_catalog,pg_temp`, validación de actor/contexto/sesión y reautorización antes de replay y al finalizar. F1/F2/D039 y TTE histórico preservados en regresión. No se expone original, URL pública, audio, retención o borrado; información necesaria separada del original B07. Proveedor/cliente no adquieren acceso interno por sus vínculos.
+
+Idempotencia por identidad estable y material exacto; E2 en clave/material distinto o revisión obsoleta. No fusión por descripciones similares. Serialización por Booking y operación, admisión F2 vigente y ledger H1 evitan raíces/códigos competidores. Sesiones PG independientes y barreras observadas prueban solapamiento; F2 puede serializar en actor/sesión antes del dominio. Fallos de código/raíz/historia/resultado y COMMIT diferido revierten toda unidad. Pérdida real de respuesta después de COMMIT recupera resultado durable sin duplicación y con autorización actual.
+
+## Commits de producto/verificación
+
+```text
+0b2ec9623e2f44424910f4d66efce11f6a39b336 docs: freeze independent expected for H4-003/004
+570249bf8812943e44de9dfa7c8d52b6efd26b24 feat: add scoped B07 Incident lifecycle and H1 INC integration
+902bad1df6879f3d293e4032ed42cc924a0bab6c test: add independent H4-004 matrix and real PostgreSQL fixtures
+894566f6b60f9a3e1a210d7344d4bfb979debbe9 fix: H4-004-F06 preserve actual Provider Payment effect links
+effd8d73ee8ec911f7f39d3a32f89c4b6569c51b test: correct H4-004 verifier defects and freeze historical migration boundaries
+cfac6180070450f4412fd3044f1b0d5a415b2033 test: verify Incident lock overlap recovery privacy and economic independence
+6bbab09d36632b1d9ed7726230fb402c5d4009d2 test: preserve H4-004 original failures retests and protected baseline
+```

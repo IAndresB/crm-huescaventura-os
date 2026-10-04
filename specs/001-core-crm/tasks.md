@@ -6,7 +6,7 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 COMPLETED local/aislado; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H4 IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003+ y H5–H6 NOT STARTED; STOP tras H4-002; continuidad requiere nueva autorización humana
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 COMPLETED local/aislado; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H4 IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003/004 COMPLETED local/aislado; H4-005+ y H5–H6 NOT STARTED; STOP tras H4-004; continuidad requiere nueva autorización humana
 H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 COMPLETED local/aislado; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H4 IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003+ y H5–H6 NOT STARTED; STOP tras H4-002; continuidad requiere nueva autorización humana
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-05
@@ -1254,7 +1254,7 @@ Estado vigente: **IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003+ NOT S
 
 #### TSK-H4-003 — Gestionar Incident y su impacto mínimo
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H4. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA.** Registro: [evidence-TSK-H4-003.md](evidence-TSK-H4-003.md). SHA probado `6bbab09d36632b1d9ed7726230fb402c5d4009d2`;50/50 bloque,1344/1344 PostgreSQL,118/118 unitarias,gates/V-MIG PASS. H4-004-F01–F10 CLOSED. Hito: H4. Tipo: implementación.
 - **Objetivo y alcance:** B07 mínimo: gravedad separada, detección/hipótesis/causa, gestión, resolución, cierre y reapertura con evidencia.
 - **Fuentes exactas:** Plan §§4, 8–9; SPEC-FR-COORD-006, AC-052, AC-060. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H4-003.
 - **Bloques, contratos y unidades:** B04/B06/B07; C02/C03/C04/C06; —.
@@ -1265,14 +1265,14 @@ Estado vigente: **IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003+ NOT S
 - **Salida observable:** Impacto y ciclo verificables; listo para preparación y cierre posterior sin dependencia de H5.
 - **Verificación y esperado:** En gestión sigue crítica no resuelta; revisar gravedad exige fuente/motivo; reapertura conserva cierre/solución anteriores; resolver Incident no ejecuta Refund ni cierra economía. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H4-004].
 - **Integración adicional obligatoria:** [TSK-H4-021], [TSK-H4-023], [TSK-H5-016], [TSK-H6-007]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: fuentes/casos/observado/resultados recuperables en evidencia y expected independiente; integración posterior pendiente.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h4-004"></a>
 
 #### TSK-H4-004 — Verificar: Gestionar Incident y su impacto mínimo
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H4. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA.** Registro: [evidence-TSK-H4-004.md](evidence-TSK-H4-004.md). SHA probado `6bbab09d36632b1d9ed7726230fb402c5d4009d2`;50/50 bloque,1344/1344 PostgreSQL,118/118 unitarias,gates/V-MIG PASS. H4-004-F01–F10 CLOSED. Hito: H4. Tipo: comprobación.
 - **Objetivo y alcance:** B07 mínimo: gravedad separada, detección/hipótesis/causa, gestión, resolución, cierre y reapertura con evidencia.
 - **Fuentes exactas:** Plan §§4, 8–9; SPEC-FR-ID-005, SPEC-FR-COORD-006, AC-052, AC-060. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H4-004.
 - **Bloques, contratos y unidades:** B04/B06/B07; C02/C03/C04/C06; —.
@@ -1282,7 +1282,7 @@ Estado vigente: **IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003+ NOT S
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H4-003; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Impacto y ciclo verificables; listo para preparación y cierre posterior sin dependencia de H5. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** En gestión sigue crítica no resuelta; revisar gravedad exige fuente/motivo; reapertura conserva cierre/solución anteriores; resolver Incident no ejecuta Refund ni cierra economía. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: fuentes/casos/observado/resultados recuperables en evidencia y expected independiente; integración posterior pendiente.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h4-005"></a>

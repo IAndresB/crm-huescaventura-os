@@ -20,3 +20,9 @@ H4-004-F08 — Technical verifier, supplement-first.log.gz/supplement-debug.log.
 H4-004-F09 — Technical verifier, supplement-first.log.gz/supplement-debug.log.gz: direct helper probe used pre-serialized JSON string with ::jsonb, driver encoded it as JSON string. Use ::text::jsonb for the independent SQL fixture. Product command framing already parses text and does not have this defect. Original FAIL preserved.
 
 Affected matrices retest-2.log.gz 40/40 PASS and supplement-retest.log.gz 7/7 PASS. F01–F09 corrections verified locally; full exact-SHA regression pending before CLOSED declaration. Additional concurrency guards do not change expected.
+
+H4-004-F10 — Technical execution, health-independent.log.gz: omitted mandatory POSTGRES_H0_BIN in first command. No source/test change; explicit approved native PostgreSQL binary supplied in health-independent-retest.log.gz, 1/1 PASS.
+
+## Final closure — 2026-10-05
+
+F01–F10 CLOSED local/isolated on tested `6bbab09d36632b1d9ed7726230fb402c5d4009d2`: 1344/1344 PostgreSQL, 118/118 unit, health independent 1/1; all gates PASS. F06 is the only material product defect; other nine are technical verifier/execution defects. Original pending statuses above describe chronology, not current status. No material defect remains. F06 minimum reproducer deliberately reinstates the former invalid helper in a synthetic isolated database, observes missing-column failure, restores exact definition and verifies the valid economic link. F08/F09 original probes and errors are retained in supplement-first.log.gz and supplement-debug.log.gz. Frozen expected unchanged. See regression-summary.json and log-originals.json for exact SHA/counts/raw hashes.
