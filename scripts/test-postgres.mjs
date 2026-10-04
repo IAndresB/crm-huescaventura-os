@@ -57,7 +57,10 @@ try {
   if(!ready) throw new Error("ISOLATED_STORAGE_NOT_READY");
   environment={...environment,STORAGE_H1_RUNTIME:cache,STORAGE_H1_CONFIG:configPath,STORAGE_H1_ENDPOINT:endpoint};
  } else if(new URL(environment.STORAGE_H1_ENDPOINT).hostname!=="127.0.0.1") throw new Error("ISOLATED_LOOPBACK_REQUIRED");
- const files=(await readdir(join(root,"tests/integration"))).filter(x=>x.endsWith(".test.ts")).sort().map(x=>join(root,"tests/integration",x));
+ const available=(await readdir(join(root,"tests/integration"))).filter(x=>x.endsWith(".test.ts")).sort();
+ const selected=process.argv.slice(2);
+ if(selected.some(x=>!available.includes(x))) throw new Error("ISOLATED_TEST_NAME_INVALID");
+ const files=(selected.length?selected:available).map(x=>join(root,"tests/integration",x));
  const test=spawn(process.execPath,["--test","--experimental-strip-types",...files],{cwd:root,env:environment,stdio:"inherit"});
  const [code]=await once(test,"exit");process.exitCode=code??1;
 } finally {

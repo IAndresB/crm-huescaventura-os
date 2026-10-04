@@ -1,0 +1,6 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {invoiceDifferences,verifyInvoicePortions} from '../src/domain/provider-invoice.ts';
+const b={providerRevisionId:'provider',recipientId:'client',amount:'100.01',serviceIds:['A','B'],sourceRef:'source',version:'1'};
+const d={documentId:'original',objectVersionId:'version',issuerRevisionId:'provider',recipientId:'client',amount:'100.01',serviceIds:['A','B']};
+test('invoice C02 exact documentary differences preserve original amounts',()=>{assert.deepEqual(invoiceDifferences(b,d),[]);assert.deepEqual(invoiceDifferences(b,{...d,amount:'100.00',recipientId:'other'}),['recipient','amount']);assert.equal(d.amount,'100.01');});
+test('invoice C02 several services require exact attributable portions',()=>{verifyInvoicePortions('100.01',['A','B'],[{serviceId:'A',amount:'50.01',sourceRef:'verified'},{serviceId:'B',amount:'50.00',sourceRef:'verified'}]);assert.throws(()=>verifyInvoicePortions('100.01',['A','B'],[{serviceId:'A',amount:'100.01',sourceRef:'verified'}]));assert.throws(()=>verifyInvoicePortions('100.01',['A','B'],[{serviceId:'A',amount:'50.00',sourceRef:'verified'},{serviceId:'B',amount:'50.00',sourceRef:'verified'}]));});
