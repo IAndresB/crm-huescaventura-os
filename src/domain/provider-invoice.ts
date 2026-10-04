@@ -11,15 +11,20 @@ export interface InvoiceDocument {
  readonly recipientId:string;readonly amount:string;readonly serviceIds:readonly string[];
 }
 export interface InvoicePortion {readonly serviceId:string;readonly amount:string;readonly sourceRef:string;}
+export function requireInvoiceAmount(value:unknown):string {
+ if(typeof value!=='string')throw new Error('INVOICE_AMOUNT_INVALID');
+ requirePaymentAmount(value.startsWith('-')?value.slice(1):value);
+ if(moneyDifference(value,'0.00')!==value)throw new Error('INVOICE_AMOUNT_INVALID');return value;
+}
 export function invoiceDifferences(basis:InvoiceBasis,document:InvoiceDocument):readonly string[] {
- requirePaymentAmount(basis.amount,true);requirePaymentAmount(document.amount,true);
+ requireInvoiceAmount(basis.amount);requireInvoiceAmount(document.amount);
  return [basis.providerRevisionId!==document.issuerRevisionId?'provider':null,
  basis.recipientId!==document.recipientId?'recipient':null,basis.amount!==document.amount?'amount':null,
  JSON.stringify([...basis.serviceIds].sort())!==JSON.stringify([...document.serviceIds].sort())?'scope':null].filter((v):v is string=>v!==null);
 }
 export function verifyInvoicePortions(total:string,services:readonly string[],parts:readonly InvoicePortion[]):void {
- requirePaymentAmount(total,true);
+ requireInvoiceAmount(total);
  if(!parts.length||new Set(parts.map(p=>p.serviceId)).size!==parts.length||parts.length!==services.length)throw new Error('INVOICE_PORTIONS_REQUIRED');
- let sum='0.00';for(const p of parts){requirePaymentAmount(p.amount,true);if(!services.includes(p.serviceId)||!p.sourceRef?.trim())throw new Error('INVOICE_PORTIONS_REQUIRED');sum=moneyDifference(sum,'-'+p.amount);}
+ let sum='0.00';for(const p of parts){requireInvoiceAmount(p.amount);if(!services.includes(p.serviceId)||!p.sourceRef?.trim())throw new Error('INVOICE_PORTIONS_REQUIRED');sum=moneyDifference(sum,moneyDifference('0.00',p.amount));}
  if(sum!==total)throw new Error('INVOICE_PORTIONS_REQUIRED');
 }

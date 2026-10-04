@@ -1,0 +1,10 @@
+# Registro de defectos H3-008
+
+Expected `0052f09` inalterado. Fuente inicial del verificador `08e599d`; producto inicial `775fc5a`. Fixtures sintéticos, local/aislado, sin hosted. Los FAIL originales no se sustituyen por los resultados corregidos.
+
+|ID|Fuente normativa|FAIL original y reproducer|Causa / corrección|Estado|
+|---|---|---|---|---|
+|H3-008-F01|SM-PI-01, BR-TAR-001, V-DAT|first-matrix-original.log / first-matrix-terminated.log R05; defects test F01|El harness intentó deshabilitar triggers de sistema con rol de migración. Nuevo fixture Tararí usa catálogo, propuesta, Acceptance y Booking mediante APIs H2; ninguna alteración de Booking histórica.|CORREGIDO; pendiente regresión completa|
+|H3-008-F02|SM-PI-03/G2, V-SM retirada individual de guardas|Mismos logs R19; defects test F02|El helper reconstruía evidenceId tras ponerlo a null. La retirada se hace después de atestiguar los restantes datos; producto ya rechazaba la ausencia.|CORREGIDO; pendiente regresión completa|
+|H3-008-F03|V-AT, F1/F2, G1, lectura independiente antes de COMMIT|Mismos logs R48; ejecución detenida y dependientes R49/R50 no acreditados; defects test F03|Admisión F2 bloquea el actor durante una operación. El harness esperaba una lectura del mismo actor antes de liberar el bloqueo. Ahora probe MVCC en sesión independiente tras escritura pendiente, sin cambiar garantías F2. La interrupción y los cancelled originales se conservan.|CORREGIDO; pendiente regresión completa|
+|H3-008-F04|SPEC-FR-ECON-010, SM-PI-02 (importe conocido), SM-PI-03/E8, G2, C04, D023|F04-original-fail.log; defects test F04 restaura invoice_original de 775fc5a en entorno aislado|Validador de cobros positivos aplicado indebidamente a importe documental identificado. Conservar signo/zero exactos con helpers H1; revisión registra diferencia respecto de base, sin crear dinero/deuda ni validar fiscalidad. Original histórico positivo falla; corrección actual conserva importe y abre Incidencia.|CORREGIDO; pendiente regresión completa|

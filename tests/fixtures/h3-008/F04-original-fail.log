@@ -1,0 +1,51 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-796xTl/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-796xTl/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ H3-008-F01 fixture bootstrap authority differs from migration/runtime authority (1099.860666ms)
+✔ H3-008-F02 attest helper must not reinsert intentionally absent evidence (53.4385ms)
+✔ H3-008-F03 independent visibility probe avoids F2 actor-lock harness deadlock (55.155625ms)
+✖ H3-008-F04 identified signed/zero document is retained; positive receipt validator is historical defect (106.703417ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1621.896875
+
+✖ failing tests:
+
+test at tests/integration/postgres-h3-008-defects.test.ts:10:1
+✖ H3-008-F04 identified signed/zero document is retained; positive receipt validator is historical defect (106.703417ms)
+  Error: INVOICE_DOCUMENT_REQUIRED
+      at H3007InvoiceAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h3-invoice-adapter.ts:38:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H3007InvoiceAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h3-invoice-adapter.ts:41:10)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-008-defects.test.ts:19:48)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+waiting for server to shut down.... done
+server stopped

@@ -1,14 +1,14 @@
 import {randomUUID as uid} from 'node:crypto';
-import {bookingFixture} from './h2-booking-fixtures.ts';
+import {invoiceBookingFixture} from './h3-invoice-booking-fixtures.ts';
 import {write,read,type isolatedInvoice} from './h3-invoice-isolated.ts';
 import {digest} from '../../src/infrastructure/storage/private-storage.ts';
 import type {InvoiceCommand} from '../../src/infrastructure/postgres/h3-invoice-adapter.ts';
 import type {InvoiceBasis,InvoiceDocument} from '../../src/domain/provider-invoice.ts';
 export type {InvoiceCommand};
 type H=Awaited<ReturnType<typeof isolatedInvoice>>;
-export async function invoiceFixture(h:H){
- const b=await bookingFixture(h);await h.booking.apply(await h.auth(),write,b.q);
- const provider=await h.cat('provider',{name:'SYNTHETIC external issuer'}),invoiceId=uid(),bookingId=b.q.bookingId,at=new Date().toISOString();
+export async function invoiceFixture(h:H,nature:'internal'|'external'='external'){
+ const b=await invoiceBookingFixture(h,'total',true,nature);await h.booking.apply(await h.auth(),write,b.q);
+ const provider=nature==='external'?await h.cat('provider',{name:'SYNTHETIC external issuer'}):{id:uid(),revision:uid()},invoiceId=uid(),bookingId=b.q.bookingId,at=new Date().toISOString();
  const basis:InvoiceBasis={providerRevisionId:provider.revision,recipientId:b.f.accepterId,amount:'100.01',serviceIds:b.detail.services.map(v=>v.id),sourceRef:'SYNTHETIC external service amount source',version:'1'};
  const attest=async(q:InvoiceCommand,certainty='reviewed',source_kind='manual'):Promise<InvoiceCommand>=>{
   const value=Object.fromEntries(Object.entries(q).filter(([k,v])=>!['operationId','evidenceId'].includes(k)&&v!==undefined));
@@ -19,7 +19,7 @@ export async function invoiceFixture(h:H){
  const state=async()=>h.invoices.read(await h.auth(),read,invoiceId,bookingId);
  const command=async(action:InvoiceCommand['action'],change:Partial<InvoiceCommand>={})=>attest({action,invoiceId,bookingId,operationId:uid(),expectedRevision:(await state())?.revision??0,sourceRef:'SYNTHETIC original/contrast provenance',reason:'SYNTHETIC documentary decision',at,evidenceId:uid(),...change});
  const document=async(change:Partial<InvoiceDocument>={},correctsId?:string)=>{
-  const documentId=uid(),objectVersionId=uid(),bytes=new TextEncoder().encode(`SYNTHETIC invoice ${documentId}: no fiscal validity`),ctx={contextKind:'booking' as const,contextId:bookingId,purpose:'provider-invoice-documentary'};
+  const documentId=uid(),objectVersionId=uid(),bytes=new TextEncoder().encode(JSON.stringify({label:'SYNTHETIC invoice; no fiscal validity',documentId,issuerRevisionId:basis.providerRevisionId,recipientId:basis.recipientId,amount:basis.amount,serviceIds:basis.serviceIds,...change})),ctx={contextKind:'booking' as const,contextId:bookingId,purpose:'provider-invoice-documentary'};
   await h.evidence.apply(await h.auth(),write,{action:'create',operationId:uid(),targetId:documentId,kind:'document',material:{relation:'original',content_ref:'synthetic-private-original',content_kind:'synthetic-text',storage_state:'reference_only'},sourceRef:'SYNTHETIC external original',purpose:ctx.purpose,occurredAt:at,correctsId,contextKind:ctx.contextKind,contextId:ctx.contextId,coverage:documentId,reason:'SYNTHETIC original retained'});
   await h.objects.prepare(await h.auth(),write,{...ctx,documentId,rootId:uid(),versionId:objectVersionId,expectedVersion:0,operationId:uid(),sourceRef:'SYNTHETIC private upload',reason:'SYNTHETIC preserve bytes',digest:digest(bytes),size:bytes.length,media:'application/octet-stream'});
   await h.objects.upload(await h.auth(),read,write,objectVersionId,ctx,bytes,uid());

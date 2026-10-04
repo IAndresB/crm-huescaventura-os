@@ -44,6 +44,10 @@ end loop;end$$;
 create function crm_private.invoice_text(v jsonb) returns boolean language sql immutable set search_path=pg_catalog,pg_temp as $$
  select jsonb_typeof(v)='string' and length(v#>>'{}') between 1 and 16384 and btrim(v#>>'{}')<>''
 $$;
+-- Signed documentary amounts are identified facts, not incoming funds or fiscal validation.
+create function crm_private.invoice_amount(v jsonb) returns boolean language sql immutable set search_path=pg_catalog,pg_temp as $$
+ select jsonb_typeof(v)='string' and v#>>'{}'<>'-0.00' and crm_private.payment_amount(to_jsonb(case when left(v#>>'{}',1)='-' then substring(v#>>'{}' from 2) else v#>>'{}' end))
+$$;
 create function crm_private.invoice_services(ids jsonb,bid uuid,s text) returns boolean language plpgsql stable set search_path=pg_catalog,pg_temp as $$
 declare id jsonb;
 begin
@@ -57,7 +61,7 @@ declare r crm_private.b07_records;o crm_private.b07_object_versions;
 begin
  if jsonb_typeof(d) is distinct from 'object' or d-array['documentId','objectVersionId','issuerRevisionId','recipientId','amount','serviceIds']<>'{}'::jsonb or not(d ?& array['documentId','objectVersionId','issuerRevisionId','recipientId','amount','serviceIds'])
  or exists(select 1 from unnest(array['documentId','objectVersionId','issuerRevisionId','recipientId']) k where not coalesce(crm_private.invoice_text(d->k),false))
- or not coalesce(crm_private.payment_amount(d->'amount',true),false) or not crm_private.invoice_services(d->'serviceIds',bid,s) then raise exception 'INVOICE_DOCUMENT_REQUIRED';end if;
+ or not coalesce(crm_private.invoice_amount(d->'amount'),false) or not crm_private.invoice_services(d->'serviceIds',bid,s) then raise exception 'INVOICE_DOCUMENT_REQUIRED';end if;
  select * into r from crm_private.b07_records where record_id=(d->>'documentId')::uuid and admin_scope=s and record_kind='document';
  if not found or r.material->>'relation'<>'original' or r.corrects_id is distinct from previous or not exists(select 1 from crm_private.b07_links where record_id=r.record_id and admin_scope=s and context_kind='booking' and context_id=bid) then raise exception 'INVOICE_ORIGINAL_REQUIRED';end if;
  select * into o from crm_private.b07_object_versions where version_id=(d->>'objectVersionId')::uuid and document_id=r.record_id and admin_scope=s and state='stored';
@@ -96,7 +100,7 @@ begin
    basis:=a->'basis';
    if jsonb_typeof(basis) is distinct from 'object' or basis-array['providerRevisionId','recipientId','amount','serviceIds','sourceRef','version']<>'{}'::jsonb or not(basis ?& array['providerRevisionId','recipientId','amount','serviceIds','sourceRef','version'])
    or exists(select 1 from unnest(array['providerRevisionId','recipientId','sourceRef','version']) k where not coalesce(crm_private.invoice_text(basis->k),false))
-   or not coalesce(crm_private.payment_amount(basis->'amount',true),false) or not crm_private.invoice_services(basis->'serviceIds',bid,s) or (a->>'expectedRevision')::bigint<>0 then raise exception 'INVOICE_BASIS_REQUIRED';end if;
+   or not coalesce(crm_private.invoice_amount(basis->'amount'),false) or not crm_private.invoice_services(basis->'serviceIds',bid,s) or (a->>'expectedRevision')::bigint<>0 then raise exception 'INVOICE_BASIS_REQUIRED';end if;
    select to_jsonb(cr) into provider from crm_private.catalog_revisions cr join crm_private.catalog_items ci using(item_id) where cr.revision_id=(basis->>'providerRevisionId')::uuid and cr.admin_scope=s and ci.item_kind='provider';
    select to_jsonb(e) into client from crm_private.identity_entities e where e.identity_id=(basis->>'recipientId')::uuid and e.admin_scope=s and e.identity_verified;
    if provider is null or client is null then raise exception 'INVOICE_BASIS_REQUIRED';end if;
@@ -146,14 +150,14 @@ begin
     sum_amount:=0;
     for item in select value from jsonb_array_elements(a->'portions') loop
      if jsonb_typeof(item) is distinct from 'object' or item-array['serviceId','amount','sourceRef']<>'{}'::jsonb or not coalesce(crm_private.invoice_text(item->'serviceId'),false) or not coalesce(crm_private.invoice_text(item->'sourceRef'),false)
-     or not coalesce(crm_private.payment_amount(item->'amount',true),false) or not (basis->'serviceIds' @> jsonb_build_array(item->'serviceId')) then raise exception 'INVOICE_PORTIONS_REQUIRED';end if;
+     or not coalesce(crm_private.invoice_amount(item->'amount'),false) or not (basis->'serviceIds' @> jsonb_build_array(item->'serviceId')) then raise exception 'INVOICE_PORTIONS_REQUIRED';end if;
      sum_amount:=sum_amount+(item->>'amount')::numeric;
     end loop;
     if sum_amount<>(old->'document'->>'amount')::numeric then raise exception 'INVOICE_PORTIONS_REQUIRED';end if;
     state:=state||jsonb_build_object('status','Vinculada','link',jsonb_build_object('operationId',op,'reviewOperationId',old->'review'->>'operationId','documentId',old->'document'->>'documentId','portions',a->'portions','sourceRef',a->>'sourceRef','actorId',actor,'at',a->>'at','externalContext',basis,'documentaryOnly',true));
    elsif action='correct' then
     if old->>'status' not in ('Recibida','Revisada','Vinculada','Incidencia') or old->'document'='null'::jsonb
-    or not coalesce(crm_private.invoice_text(a->'affectedRecipientId'),false) or not coalesce(crm_private.payment_amount(a->'affectedAmount',true),false)
+    or not coalesce(crm_private.invoice_text(a->'affectedRecipientId'),false) or not coalesce(crm_private.invoice_amount(a->'affectedAmount'),false)
     or not crm_private.invoice_services(a->'affectedServiceIds',bid,s) or not ((basis->'serviceIds') @> (a->'affectedServiceIds'))
     or not exists(select 1 from crm_private.identity_entities where identity_id=(a->>'affectedRecipientId')::uuid and admin_scope=s) then raise exception 'INVOICE_CORRECTION_REQUIRED';end if;
     state:=state||jsonb_build_object('status','Incidencia','review',null,'link',null,'incident',jsonb_build_object('operationId',op,'sourceRef',a->>'sourceRef','reason',a->>'reason','previousDocumentId',old->'document'->>'documentId','affectedServiceIds',a->'affectedServiceIds','affectedRecipientId',a->>'affectedRecipientId','affectedAmount',a->>'affectedAmount','requiresReview',true,'requiresLink',true));
@@ -178,7 +182,7 @@ begin
  if r is not null then r:=r||jsonb_build_object('history',(select jsonb_agg(jsonb_build_object('revision',revision,'action',action_kind,'before',before_data,'after',after_data,'actorId',actor_id,'reason',reason,'sourceRef',source_ref,'evidenceId',evidence_id,'at',occurred_at,'recordedAt',recorded_at) order by revision) from crm_private.b05_invoice_revisions where invoice_id=iid and admin_scope=s));end if;
  perform crm_f2.verify(f2p,f2s,q,'C01','human_evidence','read_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');return r;
 end$$;
-do $$declare f record;begin for f in select p.oid::regprocedure signature from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='crm_private' and p.proname in ('invoice_text','invoice_services','invoice_original') loop
+do $$declare f record;begin for f in select p.oid::regprocedure signature from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='crm_private' and p.proname in ('invoice_text','invoice_amount','invoice_services','invoice_original') loop
  execute 'alter function '||f.signature||' owner to crm_h0_f2_owner';execute 'revoke all on function '||f.signature||' from public';execute 'grant execute on function '||f.signature||' to crm_h0_f2_executor,crm_h0_migration';end loop;end$$;
 do $$declare f text;begin foreach f in array array['invoice_apply','invoice_read'] loop
  execute 'alter function crm_api.'||f||'(bytea,bytea,bytea,bytea,bytea) owner to crm_h0_f2_executor';execute 'revoke all on function crm_api.'||f||'(bytea,bytea,bytea,bytea,bytea) from public';execute 'grant execute on function crm_api.'||f||'(bytea,bytea,bytea,bytea,bytea) to crm_h0_runtime';end loop;end$$;
