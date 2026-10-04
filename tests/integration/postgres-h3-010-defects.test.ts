@@ -1,4 +1,4 @@
-import {readFile} from 'node:fs/promises';import {spawnSync} from 'node:child_process';
+import {readFile,readdir} from 'node:fs/promises';import {spawnSync} from 'node:child_process';
 import {test} from 'node:test';import assert from 'node:assert/strict';import {randomUUID as uid} from 'node:crypto';
 import {isolatedSuplido,write} from '../support/h3-suplido-isolated.ts';
 import {suplidoFixture} from '../support/h3-suplido-fixtures.ts';
@@ -18,3 +18,5 @@ test('H3-010-F04 changed funds cannot be presented as current usable snapshot',a
  const func=(sql:string)=>sql.slice(sql.indexOf('create function crm_api.suplido_read'),sql.indexOf('end$$;',sql.indexOf('create function crm_api.suplido_read'))+7).replace('create function','create or replace function');
  await h.admin.unsafe(func(originalSql.stdout));try{const old=await f.see() as any;assert.equal(old.sourceRevalidationRequired,undefined);assert.equal(old.components.funds.usable,'300.00');assert.throws(()=>assert.equal(old.currentComponents?.funds.usable,'200.00'));}finally{await h.admin.unsafe(func(currentSql));}
  const now=await f.see() as any;assert.deepEqual(now.sourceRevalidationRequired,['funds']);assert.equal(now.currentComponents.funds.usable,'200.00');assert.equal(now.components.funds.usable,'300.00');assert.equal(now.history.length,previous.history.length);assert.equal(now.status,'Revisión');await h.suplidos.apply(await h.auth(),write,await f.command('evaluate'));assert.deepEqual((await f.see() as any).sourceRevalidationRequired,[]);}finally{await h.close();}});
+
+test('H3-010-F05 historical migration inventory must exclude subsequent forward migrations',async()=>{const {invoiceMigration}=await import('../support/h3-invoice-isolated.ts');const {suplidoMigration}=await import('../support/h3-suplido-isolated.ts');const all=(await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')&&x<=suplidoMigration);assert.equal(all.length,35);assert.throws(()=>assert.equal(all.length,34),/35 !== 34/);assert.equal(all.filter(x=>x<=invoiceMigration).length,34);const verifier=await readFile(new URL('./postgres-h3-008-defects.test.ts',import.meta.url),'utf8');assert.ok(verifier.includes('x<=invoiceMigration'));});
