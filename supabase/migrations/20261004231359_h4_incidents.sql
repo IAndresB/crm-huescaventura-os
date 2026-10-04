@@ -48,7 +48,7 @@ create function crm_private.incident_links(x jsonb,bid uuid,s text) returns bool
   if jsonb_typeof(e) is distinct from 'object' or e-array['kind','id']<>'{}'::jsonb or not(e ?& array['kind','id']) or not coalesce(crm_private.invoice_text(e->'id'),false) then return false;end if;
   if e->>'kind'='requirement' then if not exists(select 1 from crm_private.b07_requirements where requirement_id=(e->>'id')::uuid and booking_id=bid and admin_scope=s) then return false;end if;
   elsif e->>'kind'='invoice' then if not exists(select 1 from crm_private.b05_provider_invoices where invoice_id=(e->>'id')::uuid and booking_id=bid and admin_scope=s) then return false;end if;
-  elsif e->>'kind'='provider-payment' then if not exists(select 1 from crm_private.b05_provider_payments where payment_id=(e->>'id')::uuid and booking_id=bid and admin_scope=s) then return false;end if;
+  elsif e->>'kind'='provider-payment' then if not exists(select 1 from crm_private.b05_provider_payments where provider_payment_id=(e->>'id')::uuid and booking_id=bid and admin_scope=s) then return false;end if;
   else return false;end if;
  end loop;return true;end$$;
 create function crm_api.incident_apply(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea,cf2p bytea,cf2s bytea,cf1p bytea,cf1s bytea,cq bytea) returns jsonb
