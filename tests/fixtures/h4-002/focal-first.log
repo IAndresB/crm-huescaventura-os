@@ -1,0 +1,48 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-AqCQ1j/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-AqCQ1j/data -l logfile start
+
+waiting for server to start.... done
+server started
+✖ H4-001 focal need/receipt/explicit review/versioned reopening, B07 original preserved (1306.242916ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1450.751584
+
+✖ failing tests:
+
+test at tests/integration/postgres-h4-001.test.ts:4:1
+✖ H4-001 focal need/receipt/explicit review/versioned reopening, B07 original preserved (1306.242916ms)
+  Error: REQUIREMENT_DENIED
+      at H4001RequirementAdapter.call (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h4-requirement-adapter.ts:24:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H4001RequirementAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h4-requirement-adapter.ts:27:10)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h4-001.test.ts:8:2)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+waiting for server to shut down.... done
+server stopped

@@ -170,7 +170,7 @@ begin
    end if;
    insert into crm_private.b07_requirement_revisions values(iid,rev,s,op,action,a,old,state,actor,(a->>'evidenceId')::uuid,a->>'sourceRef',a->>'reason',at_time,clock_timestamp());
   end if;
-  r:=jsonb_build_object('id',iid,'replayed',coalesce(state=old,false) or equivalent is not null,'result',state);
+  r:=jsonb_build_object('id',iid,'replayed',state=old or equivalent is not null,'result',state);
   insert into crm_private.b07_requirement_operations values(op,iid,s,actor,fp,r,rev,clock_timestamp());
  end if;
  perform crm_f2.verify(f2p,f2s,q,'C03','human_evidence','write_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');return r;

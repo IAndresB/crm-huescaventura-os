@@ -89,7 +89,7 @@ begin
  if jsonb_typeof(a) is distinct from 'object' or not(a ?& array['action','operationId','requirementId','bookingId','expectedRevision','sourceRef','reason','at','evidenceId'])
  or exists(select 1 from unnest(array['action','operationId','requirementId','bookingId','sourceRef','reason','at','evidenceId']) k where not coalesce(crm_private.invoice_text(a->k),false))
  or jsonb_typeof(a->'expectedRevision') is distinct from 'number' or a->>'expectedRevision' !~ '^(0|[1-9][0-9]*)$'
- or (a?'origin' and jsonb_typeof(a->'origin') is distinct from 'string') or coalesce(a->>'origin','manual')<>'manual' or a->>'action' not in ('need','receive','review','no_apply','change')
+ or coalesce(a->>'origin','manual')<>'manual' or a->>'action' not in ('need','receive','review','no_apply','change')
  or a->>'at' !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$' then raise exception 'REQUIREMENT_INPUT_INVALID';end if;
  action:=a->>'action';
  if a-array['action','operationId','requirementId','bookingId','expectedRevision','sourceRef','reason','at','evidenceId','origin']-
@@ -149,10 +149,9 @@ begin
     basis:=a->'basis';if not crm_private.requirement_basis(basis,bid,s) or basis->'rule'->>'id'<>old->'basis'->'rule'->>'id' or basis->'rule'->>'purpose'<>old->'basis'->'rule'->>'purpose' or (basis=old->'basis' and not(a?'document') and not(a?'discrepancy')) then raise exception 'REQUIREMENT_MATERIAL_CHANGE_REQUIRED';end if;
     if basis->'context'->>'value'<>basis->'rule'->>'equals' then raise exception 'REQUIREMENT_NOT_APPLICABLE_REQUIRED';end if;
     if a?'document' and a->'document'<>'null'::jsonb then
-     previous:=case when basis=old->'basis' and a->'document'->>'documentId' is distinct from old->'document'->>'documentId' then (old->'document'->>'documentId')::uuid else null end;
+     previous:=case when a->'document'->>'documentId' is distinct from old->'document'->>'documentId' then (old->'document'->>'documentId')::uuid else null end;
      d:=crm_private.requirement_original(a->'document',bid,s,previous);
     else d:='null';end if;
-    if basis=old->'basis' and d=old->'document' and not(a?'discrepancy') then raise exception 'REQUIREMENT_MATERIAL_CHANGE_REQUIRED';end if;
     if a?'discrepancy' and not coalesce(crm_private.invoice_text(a->'discrepancy'),false) then raise exception 'REQUIREMENT_MATERIAL_CHANGE_REQUIRED';end if;
     if exists(select 1 from crm_private.b07_requirements i cross join lateral (select after_data from crm_private.b07_requirement_revisions v where v.requirement_id=i.requirement_id order by revision desc limit 1) v where i.booking_id=bid and i.admin_scope=s and i.requirement_id<>iid and v.after_data->'basis'->'rule'->>'id'=basis->'rule'->>'id' and v.after_data->'basis'->'scope'=basis->'scope' and v.after_data->'basis'->'rule'->>'purpose'=basis->'rule'->>'purpose') then raise exception 'REQUIREMENT_NEED_CONFLICT:E2';end if;
     state:=state||jsonb_build_object('basis',basis,'document',d,'review',null,'status',case when a?'discrepancy' then 'Incidencia' when d='null'::jsonb then 'Pendiente' else 'Recibido' end,'incident',case when a?'discrepancy' then jsonb_build_object('differences',jsonb_build_array(a->>'discrepancy'),'reason',a->>'reason','sourceRef',a->>'sourceRef') else null end);
@@ -170,7 +169,7 @@ begin
    end if;
    insert into crm_private.b07_requirement_revisions values(iid,rev,s,op,action,a,old,state,actor,(a->>'evidenceId')::uuid,a->>'sourceRef',a->>'reason',at_time,clock_timestamp());
   end if;
-  r:=jsonb_build_object('id',iid,'replayed',coalesce(state=old,false) or equivalent is not null,'result',state);
+  r:=jsonb_build_object('id',iid,'replayed',state=old or equivalent is not null,'result',state);
   insert into crm_private.b07_requirement_operations values(op,iid,s,actor,fp,r,rev,clock_timestamp());
  end if;
  perform crm_f2.verify(f2p,f2s,q,'C03','human_evidence','write_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');return r;

@@ -17,7 +17,7 @@ export async function requirementFixture(h:H,shared?:Awaited<ReturnType<typeof i
  const document=async(changes:Partial<RequirementDocument>={},previous?:string)=>{
   const d=await b.document({},previous);return {documentId:d.documentId,objectVersionId:d.objectVersionId,ruleVersion:'V1',purpose:basis.rule.purpose,coverage:[basis.scope],...changes};
  };
- const need=(changes:Partial<RequirementCommand>={})=>command('need',{basis,...changes});
+ const need=(changes:Partial<RequirementCommand>={})=>command('need',{basis,expectedRevision:0,...changes});
  const receive=async(d?:RequirementDocument)=>command('receive',{document:d??await document()});
  const review=(changes:Partial<RequirementCommand>={})=>command('review',{checks:{content:true,version:true,scope:true,purpose:true},...changes});
  return {b,requirementId,bookingId,basis,at,attest,command,document,need,receive,review,see};
