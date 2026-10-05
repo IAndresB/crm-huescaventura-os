@@ -248,4 +248,3 @@ Cada fixture es sintético identificado; prueba PostgreSQL real usa actor runtim
 - Expected/estado posterior: Cero material FAIL/skipped/cancelled; recuentos sin doble cómputo; Fxx conservados/retest; SHA exacto y logs recuperables.
 - Efectos prohibidos: Sin atribuir capacidades futuras ni ensayo no hecho.
 - Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.
-
