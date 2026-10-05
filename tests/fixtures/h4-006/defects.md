@@ -1,6 +1,6 @@
 # H4-006 — defectos y cronología preservada
 
-Expected `70dce887e73f74bb3e67d99d87806123c4b4b488` inalterado. Todos los casos corregidos pasan en `focused-freeze.log.gz` (55/55); cierre definitivo sujeto a regresión del SHA congelado. `raw-manifest.json` conserva bytes y SHA-256 de cada salida original comprimida sin modificar, incluidas todas las ejecuciones FAIL.
+Expected `70dce887e73f74bb3e67d99d87806123c4b4b488` inalterado. Todos los casos corregidos pasan en `focused-freeze.log.gz` (55/55); **H4-006-F01–F12 CLOSED** tras 1399/1399 PostgreSQL, 118/118 unitarias y gates PASS sobre `2f83122d1cbaedb5116f8ae5da69ac6598592807`; cero defectos materiales abiertos. `raw-manifest.json` conserva bytes y SHA-256 de cada salida original comprimida sin modificar, incluidas todas las ejecuciones FAIL.
 
 | ID | Clasificación / fuente | FAIL original / reproducer mínimo | Causa, corrección y retest |
 |---|---|---|---|
