@@ -6,7 +6,7 @@ import {invoiceFixture} from './h3-invoice-fixtures.ts';
 import {confirmationFixture} from './h4-confirmation-fixtures.ts';
 import {modificationFixture} from './h4-modification-fixtures.ts';
 export {read,write};
-export async function counterpartyHarness(name='crm_h4012_f16',port=56620,previous=false){const h=await isolatedModification(name,port);const files=(await readdir('supabase/migrations')).filter(x=>x.endsWith('_h4_modification_counterparty.sql'));if(!previous&&process.env.H4012_F16_BEFORE!=='1'&&files.length)await h.migration.unsafe(await readFile('supabase/migrations/'+files[0],'utf8'));return h;}
+export async function counterpartyHarness(name='crm_h4012_f16',port=56620,previous=false){const h=await isolatedModification(name,port,false,!previous&&process.env.H4012_CORRECTIVE44==='1');const files=(await readdir('supabase/migrations')).filter(x=>x.endsWith('_h4_modification_counterparty.sql'));if(!previous&&process.env.H4012_F16_BEFORE!=='1'&&files.length&&process.env.H4012_CORRECTIVE44!=='1')await h.migration.unsafe(await readFile('supabase/migrations/'+files[0],'utf8'));return h;}
 type H=Awaited<ReturnType<typeof counterpartyHarness>>;
 export async function counterpartyFixture(h:H,{fixed=true,variant=false}={}){
  const fallback=await invoiceFixture(h),b=await invoiceBookingFixture(h,'total',true),A=await h.cat('provider',{name:'SYNTHETIC A original counterpart'}),B=await h.cat('provider',{name:'SYNTHETIC B new counterpart'}),C=await h.cat('provider',{name:'SYNTHETIC C unrelated counterpart'}),service=b.detail.services[0]!;
