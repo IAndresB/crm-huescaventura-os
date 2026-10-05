@@ -6,6 +6,7 @@ import {canonicalCommercial} from "../../domain/commercial-progress.ts";
 import {createF1Issuer,encodeF1Fields,type F1SigningConfiguration} from "./f1-codec.ts";
 import {createF2Issuer,type F2SigningConfiguration} from "./f2-codec.ts";
 import {postgresF1Binding,type PostgresSql} from "./transaction.ts";
+import {validateModificationTemporal} from '../../domain/operational-modification.ts';
 import type {ModificationCommand,ModificationView,ModificationAssessment} from '../../domain/operational-modification.ts';
 export type {ModificationCommand,ModificationView};
 export class H4011ModificationAdapter {
@@ -16,6 +17,7 @@ export class H4011ModificationAdapter {
   const mutation=write;
   try{return await this.sql.begin("isolation level read committed",async tx=>{
    const row=(await tx.unsafe<{actor_id:string;admin_scope:string;access_generation:string;epoch_id:string}[]>("select actor_id::text,admin_scope,access_generation::text,epoch_id::text from crm_api.f2_lookup($1::uuid,$2::uuid)",[auth.subject,auth.sessionId!]))[0];if(!row?.epoch_id) throw new Error("MODIFICATION_DENIED");
+   if(mutation)validateModificationTemporal(input);
    const binding=await postgresF1Binding(tx),identity={actorId:row.actor_id,scope:row.admin_scope,accessGeneration:row.access_generation,sessionId:auth.sessionId!,epochId:row.epoch_id};
    const q=encodeF1Fields([mutation?"CRM-H4-MODIFICATION1":"CRM-H4-MODIFICATION-READ1",canonicalCommercial(input)]);
    const context=issueTrustedContext({identityId:"h4-modification-server",identityKind:"technical",purpose:"h1-evidence",scope:row.admin_scope,requestId:randomUUID(),serverTime:new Date().toISOString()});
