@@ -6,8 +6,8 @@ Approval: APPROVED — D036
 Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
-Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 COMPLETED local/aislado; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H4 IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003/004 COMPLETED local/aislado; H4-005/006 COMPLETED local/aislado; H4-007/008 COMPLETED local/aislado; H4-009/010 COMPLETED local/aislado; H4-011+ y H5–H6 NOT STARTED; STOP tras H4-010; continuidad requiere nueva autorización humana
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 COMPLETED local/aislado; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H4 IN PROGRESS; H4-001–010 COMPLETED local/aislado; H4-011+ y H5–H6 NOT STARTED; STOP tras H4-010; continuidad requiere nueva autorización humana
+Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 COMPLETED local/aislado; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H4 IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003/004 COMPLETED local/aislado; H4-005/006 COMPLETED local/aislado; H4-007/008 COMPLETED local/aislado; H4-009/010 COMPLETED local/aislado; H4-011/012 COMPLETED local/aislado; H4-013+ y H5–H6 NOT STARTED; STOP tras H4-012; continuidad requiere nueva autorización humana
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 COMPLETED local/aislado; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H4 IN PROGRESS; H4-001–012 COMPLETED local/aislado; H4-013+ y H5–H6 NOT STARTED; STOP tras H4-012; continuidad requiere nueva autorización humana
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-05
 
@@ -1213,7 +1213,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 ### 4.5. H4 — Operación, cambios y cancelación
 
-Estado vigente: **IN PROGRESS; H4-001–010 COMPLETED local/aislado; H4-011+ y H5–H6 NOT STARTED. STOP tras publicar H4-010.**
+Estado vigente: **IN PROGRESS; H4-001–012 COMPLETED local/aislado; H4-013+ y H5–H6 NOT STARTED. STOP tras publicar H4-012.**
 
 <a id="tsk-h4-001"></a>
 
@@ -1394,35 +1394,35 @@ Estado vigente: **IN PROGRESS; H4-001–010 COMPLETED local/aislado; H4-011+ y H
 
 #### TSK-H4-011 — Evaluar y aplicar modificación operativa y revalidación
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H4. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Hito: H4. Tipo: implementación.
 - **Objetivo y alcance:** Solicitud/evaluación/proveedor/aprobación/aplicación parcial/rechazo/retirada; cantidades/noches/horario/lugar y Review solo materiales.
 - **Fuentes exactas:** Plan §§5.1–5.2, 7.2–7.3, 8; SPEC-FR-SVC-002, SPEC-FR-SVC-003, SPEC-FR-SVC-005, SPEC-FR-SVC-010, SPEC-FR-SVC-011, SPEC-FR-CHG-001, SPEC-FR-CHG-002, SPEC-FR-CHG-003, SPEC-FR-CHG-004, SPEC-FR-CHG-005, SPEC-FR-CHG-009, SPEC-FR-HIST-005, AC-018, AC-024, AC-029, AC-030, AC-031, AC-040, AC-043, AC-067, AC-092. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H4-011.
 - **Bloques, contratos y unidades:** B03/B04/B06/B07/B08; C01–C06; T04/T06/T08.
 - **Entregable previsto:** Áreas propuestas de cambios y revalidación, con migraciones. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H3-015], [TSK-H4-010], [TSK-H1-012], [TSK-H4-004]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H3 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Importe indeterminado D019 bloquea únicamente efectos económicos; operación independiente puede avanzar. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** Importe indeterminado D019 bloquea únicamente efectos económicos; operación independiente puede avanzar. El detalle de evidencia/decisión y puerta está en §7; efectos económicos dependientes permanecen pendientes.
 - **Acción futura:** Conservar antes/después, petición y cobertura previa; aplicar conjunto operativo autorizado sin ampliar Approval; reevaluar dependencias materiales y necesidades.
 - **Salida observable:** T04/T06 preservan unidades atómicas acotadas, operación/resto y solicitudes; efectos económicos esperan determinación/aplicación propia.
 - **Verificación y esperado:** 18 confirmados frente a quizá16: no sobrescribir; respuesta de horario no ratifica cantidad/precio; cambio de una noche no altera otra. Alternativas11:00→10/12:30/16 se conservan; conflicto agenda avisa, excepción no dispensa capacidad. Aplicación parcial/retirada/cambio nuevo no oculta efectos ni restaura cobertura inválida. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H4-012].
 - **Integración adicional obligatoria:** [TSK-H4-014], [TSK-H4-023], [TSK-H5-016], [TSK-H6-003], [TSK-H6-004]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: [evidence-TSK-H4-011.md](evidence-TSK-H4-011.md); expected congelado `67b23439729813def29a09111092b417bf4313e8`, bytes intactos;70 nuevos incluidos en1558/1558 PostgreSQL,118/118 unitarias yhealth1/1; SHA exacto probado `8cee967867af41df2cd818669c322b7de18670c0`; V-MIG/gates/advisors PASS. F01–F15 CLOSED,cero materiales abiertos. H4-014/H4-023/H5-016/H6-003/H6-004 NO ACREDITADAS; STOP tras H4-012.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T04/T06/T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h4-012"></a>
 
 #### TSK-H4-012 — Verificar: Evaluar y aplicar modificación operativa y revalidación
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H4. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Hito: H4. Tipo: comprobación.
 - **Objetivo y alcance:** Solicitud/evaluación/proveedor/aprobación/aplicación parcial/rechazo/retirada; cantidades/noches/horario/lugar y Review solo materiales.
 - **Fuentes exactas:** Plan §§5.1–5.2, 7.2–7.3, 8; SPEC-FR-SVC-002, SPEC-FR-SVC-003, SPEC-FR-SVC-005, SPEC-FR-SVC-010, SPEC-FR-SVC-011, SPEC-FR-CHG-001, SPEC-FR-CHG-002, SPEC-FR-CHG-003, SPEC-FR-CHG-004, SPEC-FR-CHG-005, SPEC-FR-CHG-009, SPEC-FR-HIST-005, SPEC-FR-CONC-001, AC-018, AC-024, AC-029, AC-030, AC-031, AC-043, AC-067, AC-092. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H4-012.
 - **Bloques, contratos y unidades:** B03/B04/B06/B07/B08; C01–C06; T04/T06/T08.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H3-015], [TSK-H4-011]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H3 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Importe indeterminado D019 bloquea únicamente efectos económicos; operación independiente puede avanzar. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** Importe indeterminado D019 bloquea únicamente efectos económicos; operación independiente puede avanzar. El detalle de evidencia/decisión y puerta está en §7; efectos económicos dependientes permanecen pendientes.
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H4-011; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** T04/T06 preservan unidades atómicas acotadas, operación/resto y solicitudes; efectos económicos esperan determinación/aplicación propia. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** 18 confirmados frente a quizá16: no sobrescribir; respuesta de horario no ratifica cantidad/precio; cambio de una noche no altera otra. Alternativas11:00→10/12:30/16 se conservan; conflicto agenda avisa, excepción no dispensa capacidad. Aplicación parcial/retirada/cambio nuevo no oculta efectos ni restaura cobertura inválida. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: [evidence-TSK-H4-012.md](evidence-TSK-H4-012.md); expected congelado `67b23439729813def29a09111092b417bf4313e8`, bytes intactos;70 nuevos incluidos en1558/1558 PostgreSQL,118/118 unitarias yhealth1/1; SHA exacto probado `8cee967867af41df2cd818669c322b7de18670c0`; V-MIG/gates/advisors PASS. F01–F15 CLOSED,cero materiales abiertos. H4-014/H4-023/H5-016/H6-003/H6-004 NO ACREDITADAS; STOP tras H4-012.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T04/T06/T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h4-013"></a>

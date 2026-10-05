@@ -1,0 +1,1262 @@
+{
+  "expectedCommit": "67b23439729813def29a09111092b417bf4313e8",
+  "testedSha": "8cee967867af41df2cd818669c322b7de18670c0",
+  "scope": "local/isolated",
+  "normativeGroups": [
+    {
+      "id": "SM-MO-01",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-MO-01; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-MO-01 · Sin modificación; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Registrar petición cliente/proveedor/interna.",
+        "Guardas positivas y retirada individual": "Solicitante identificado, facultad/contexto, causa y parte afectada. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Solicitada. Conservar petición; no aplicar cifras ni cancelar servicios.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO01 request guards individually withdrawn and no quantity/cancellation effect",
+        "H4-012 MO01 source requester context part and scope guards, no arbitrary fields",
+        "H4-012 MO01 actual contextual client and actual provider Offering requests each record without applying"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-MO-02",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-MO-02; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-MO-02 · Solicitada; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Evaluar impactos.",
+        "Guardas positivas y retirada individual": "Situación anterior, alcance deseado, política/versión, efectos comerciales, operativos y económicos distinguibles. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "En evaluación. Abrir revalidaciones solo materiales: servicios/noches/personas, horario, precio, capacidad, proveedor y condiciones afectados.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO02 evaluate each material guard and preserves previous confirmed fact"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-MO-03",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-MO-03; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-MO-03 · En evaluación; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Requerir respuesta de proveedor.",
+        "Guardas positivas y retirada individual": "Qué compromiso externo debe confirmar/cambiar/cancelar y evidencia de petición si enviada. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Pendiente de proveedor. Conservar última confirmación; ni solicitud cliente ni envío acredita aceptación del proveedor.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO03 prepared request never sent; real synthetic communication fact and guards"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-MO-04",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-MO-04; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-MO-04 · Pendiente de proveedor; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Revisar respuesta.",
+        "Guardas positivas y retirada individual": "Fuente y alcance inequívocos, o discrepancia/alternativas explícitas. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "En evaluación si respuesta suficiente; sigue pendiente si ambigua. Registrar lo aceptado/rechazado/ofrecido; nueva alternativa se somete a revisión comercial pertinente.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO04 accepted rejected offered ambiguous responses and each guard",
+        "H4-012 MO04 mismatched source coverage old ambiguous late source E8 conserves fact"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-MO-05",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-MO-05; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-MO-05 · En evaluación; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Aprobar aplicación concreta.",
+        "Guardas positivas y retirada individual": "Administrador, antes/después, impactos conocidos y evidencia; acuerdo del cliente cuando cambia compromiso y confirmación del proveedor para efectos que la necesiten; base económica conforme a D019 o determinación económica todavía separada; G3. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Aprobada. La aprobación puede delimitar solo la parte evaluada. Aprobar un efecto operativo no autoriza por sí solo devolución, retención, nueva obligación o ajuste cuyo importe siga pendiente; la determinación económica exige decisión explícita del Administrador cuando no existe distribución aprobada/verificable.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO05 approve independent exact part guards, approval is no application"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-MO-06",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-MO-06; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-MO-06 · Aprobada; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Aplicar cambio.",
+        "Guardas positivas y retirada individual": "Alcance sin cambio material, guardas específicas de cada efecto satisfechas y hechos de aplicación acreditados; para efectos económicos, importe y regla determinados según D019. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Aplicada cuando se completó todo el alcance aprobado. Conservar partes aplicadas/pendientes si incompleta y permitir que efectos operativos independientes avancen. Actualizar solo datos/estados cubiertos; registrar obligación económica determinada sin fingir pago/devolución ni usar la situación física de los fondos como política contractual.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO06 apply exact approved scope guards, canonical reader and immutable accepted snapshot"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-MO-07",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-MO-07; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-MO-07 · Solicitada / En evaluación / Pendiente de proveedor; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Rechazar modificación.",
+        "Guardas positivas y retirada individual": "Decisión/respuesta y motivo conocidos. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Rechazada. Mantener acuerdo anterior y comprobar que no haya perdido cobertura; rechazo no revalida automáticamente condiciones anteriores.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO07 reject motive and prior invalid coverage never restored"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-MO-08",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-MO-08; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-MO-08 · Solicitada / En evaluación / Pendiente de proveedor / Aprobada sin aplicación; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Retirar/dejar sin efecto.",
+        "Guardas positivas y retirada individual": "Actor, motivo y verificación de que no quedan compromisos/efectos externos sin resolver. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Cancelada/sin efecto. Conservar solicitud y aprobación; si hubo aplicación parcial, resolver esa parte con ajuste/modificación vinculada, sin ocultarla.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO08 withdrawal exact no effects proof keeps request and approval history"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-MO-09",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-MO-09; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-MO-09 · Aprobada sin completar aplicación; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Cambiar materialmente alcance.",
+        "Guardas positivas y retirada individual": "Nueva petición/evidencia y comparación. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "En evaluación para nuevo alcance. La aprobación previa permanece histórica y no autoriza contenido nuevo; partes ya aplicadas permanecen registradas.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO09 AC030 partial approved applied then changed remaining part never lost"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-MO-10",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-MO-10; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-MO-10 · Cualquier progreso; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Fallo o discrepancia de aplicación.",
+        "Guardas positivas y retirada individual": "Intento, efectos realmente conocidos y parte incierta. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Incidencia sobre progreso base. Resolver con evidencia, volver a evaluación/aplicación según corresponda y comprobar efecto previo antes de repetir.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO10 resolved actual Incident plus reviewed checked previous effects permits safe continuation",
+        "H4-012 MO10 actual Incident on base progress no retry uncertain effect no Refund"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-RV-01",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-RV-01; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-RV-01 · Sin revisión en ese alcance; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Cambio material, caducidad explícita, dato incierto o discrepancia.",
+        "Guardas positivas y retirada individual": "Identificar fuente, causa y dependencias afectadas; una noticia ambigua se registra como tal. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Pendiente de revalidación para ese alcance. Conservar último hecho confirmado; abrir revisión/tarea. Impedir comprometer el alcance dudoso usando evidencia anterior.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO02 evaluate each material guard and preserves previous confirmed fact",
+        "H4-012 RV01/02 partial ratification hour does not ratify capacity price/date; all guards"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-RV-02",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-RV-02; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-RV-02 · Pendiente; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Ratificar lo anterior.",
+        "Guardas positivas y retirada individual": "Nueva comprobación válida de todos los aspectos afectados; vigencia suficiente para la acción concreta. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Revisión satisfecha en el alcance comprobado. Añadir resultado/evidencia; mantener el hecho original. Otras partes pendientes siguen pendientes.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 SMBS10 actual newly confirmed material scope then source-backed full ratification restores only covered part",
+        "H4-012 RV01/02 partial ratification hour does not ratify capacity price/date; all guards"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-RV-03",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-RV-03; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-RV-03 · Pendiente; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Confirmar contenido material distinto.",
+        "Guardas positivas y retirada individual": "Evidencia nueva y proceso de modificación/versión y aprobación aplicables. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Nuevo alcance acreditado; señal resuelta solo en lo cubierto. Enlazar antes/después; nueva versión o confirmación según corresponda. No cambiar silenciosamente el acuerdo aceptado.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 R09 actual new confirmation for operational version uses current scope not old snapshot",
+        "H4-012 MO06 apply exact approved scope guards, canonical reader and immutable accepted snapshot"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-RV-04",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-RV-04; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-RV-04 · Pendiente; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Revisión negativa o inconclusa.",
+        "Guardas positivas y retirada individual": "Registrar respuesta o falta de prueba y motivo. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Sigue pendiente para el compromiso no acreditado, o cambio rechazado. No presentar como actual el hecho histórico que perdió cobertura. Si se descarta la petición, retirar su señal solo tras comprobar que el alcance anterior sigue siendo utilizable.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 MO07 reject motive and prior invalid coverage never restored",
+        "H4-012 MO08 withdrawal exact no effects proof keeps request and approval history",
+        "H4-012 RV04 negative inconclusive no automatic restoration and original revision retained"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-BS-05",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-BS-05; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-BS-05 · Cualquier estado; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Cambio solicitado o dato material discrepante.",
+        "Guardas positivas y retirada individual": "Fuente, causa y alcance identificados; distinguir petición de hecho aceptado. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Mismo estado + Pendiente de revalidación en lo afectado. Revisar únicamente fecha, hora, cantidad, proveedor, precio, capacidad, condiciones y dependencias materiales afectadas; no aplicar todavía el cambio.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 R09 exact Requirement dependency reopens reviewed original locally other Need continues",
+        "H4-012 R09 actual new confirmation for operational version uses current scope not old snapshot",
+        "H4-012 R09 Availability old coverage remains historical and unusable for current changed date",
+        "H4-012 R09 Hold prior H2 conversion identity preserved changed scope does not release or remain silently covered",
+        "H4-012 R09 actual Hold new express date evidence checked linked to current service token without duplicate identity",
+        "H4-012 R09 automatic actual documentary context date change cannot be hidden by omitted dependency list",
+        "H4-012 MO02 evaluate each material guard and preserves previous confirmed fact"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-BS-06",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-BS-06; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-BS-06 · Estado no terminal; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Aplicar modificación válida.",
+        "Guardas positivas y retirada individual": "Booking Modification aprobada; acuerdo comercial/evidencias operativas necesarios para cada efecto; antes/después. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Modificado. Conservar alcance previo confirmado y nuevo aplicado. Si este aún requiere confirmación, señal pendiente; si ya existe evidencia completa, evaluar separadamente SM-BS-04.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 R09 exact Requirement dependency reopens reviewed original locally other Need continues",
+        "H4-012 R09 actual new confirmation for operational version uses current scope not old snapshot",
+        "H4-012 R09 Availability old coverage remains historical and unusable for current changed date",
+        "H4-012 R09 Hold prior H2 conversion identity preserved changed scope does not release or remain silently covered",
+        "H4-012 R09 actual Hold new express date evidence checked linked to current service token without duplicate identity",
+        "H4-012 R09 automatic actual documentary context date change cannot be hidden by omitted dependency list",
+        "H4-012 MO06 apply exact approved scope guards, canonical reader and immutable accepted snapshot"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-BS-09",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-BS-09; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-BS-09 · Estado previo no ejecutado ni cancelado; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Aplicar cancelación.",
+        "Guardas positivas y retirada individual": "Modificación aplicable y evidencia inequívoca del proveedor externo o responsable interno sobre alcance cancelado; G3. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Cancelado si cubre toda la prestación. Cancelación parcial deja prestación restante en su situación y conserva el detalle cancelado; no borra noches/participantes/historia ni paga devolución.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 R11 full covered cancellation explicit Booking approval last no accidental global cancellation",
+        "H4-012 R11 cancelS1 while actual prior S2 performance remains recorded no whole Booking Cancelada",
+        "H4-012 AC031/040 service cancellation without economic attribution no whole Booking label",
+        "H4-012 R11 actual performance proof prevents whole-scope cancellation but preserves history"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-BS-10",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-BS-10; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-BS-10 · Estado + revisión; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Ratificar alcance o resolver cambio.",
+        "Guardas positivas y retirada individual": "SM-RV-02/03/04, cobertura completa en la parte revisada. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Estado sustentado en los hechos, señal resuelta solo allí. Una revisión de horario no ratifica precio/capacidad no comprobados. Una respuesta negativa no restaura una confirmación inválida.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 SMBS10 actual newly confirmed material scope then source-backed full ratification restores only covered part",
+        "H4-012 RV04 negative inconclusive no automatic restoration and original revision retained"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "SM-BK-09",
+      "normativeExpected": {
+        "Fuente": "State Machines tabla normativa SM-BK-09; fila asignada Tasks §6 y FR/AC de inventario.",
+        "Fixture/precondición": "SM-BK-09 · Fases previas / En curso; Booking real con partes independientes y originales privados; progreso previo alcanzado por contrato.",
+        "Acción positiva": "Aplicar cancelación del alcance total.",
+        "Guardas positivas y retirada individual": "Booking Modification aprobada/aplicada y evidencia de cancelación de todo el alcance; no ocultar partes ejecutadas. Retirar cada elemento material en una ejecución separada; contexto/actor inválido rechaza, falta de prueba conserva pendiente localizada.",
+        "Expected": "Cancelada solo si no queda prestación ejecutada/activa incompatible con esa etiqueta. Si hubo ejecución parcial, conservarla y seguir curso/finalización del conjunto con cancelación parcial; no ejecutar Refund por inferencia.",
+        "Conservación": "petición, acuerdo aceptado, aprobación concreta histórica, hechos previos, partes aplicadas y restantes, actor/momentos/causa/evidencia/linaje.",
+        "Efectos prohibidos": "ninguna propagación a alcance independiente; aprobación/recepción no aplica; ningún pago/Refund/liberación/cierre/confirmación futura por inferencia.",
+        "Evidencia necesaria": "contrato real y SQL independiente, guardas retiradas identificadas individualmente, resultado/material vigente y snapshot histórico, log completo."
+      },
+      "tests": [
+        "H4-012 R11 full covered cancellation explicit Booking approval last no accidental global cancellation",
+        "H4-012 R11 cancelS1 while actual prior S2 performance remains recorded no whole Booking Cancelada",
+        "H4-012 R11 actual performance proof prevents whole-scope cancellation but preserves history"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R01",
+      "normativeExpected": {
+        "Fuente": "AC-018;DM-INV-014;P09.",
+        "Fixture/precondición": "Grupo12→14, rafting10 confirmado y petición cena.",
+        "Acción/retirada individual": "Registrar y evaluar petición; aplicar solo partes concretas aprobadas.",
+        "Expected": "Grupo no sobrescribe rafting/noches; petición no aplica; antes/después y dependencias cena visibles.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 AC018 actual H2 group12 to14 preserves rafting10 and dinner before after without fictitious nominal participants"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R02",
+      "normativeExpected": {
+        "Fuente": "AC-024;BR-AI-004/005;FORB-09.",
+        "Fixture/precondición": "18 confirmado; noticia quizá16; respuesta solo horario.",
+        "Acción/retirada individual": "Abrir Review y ratificar solo horario con nueva prueba.",
+        "Expected": "18 conservado; cantidad/precio/capacidad siguen pendientes; IA candidata conserva procedencia y no sobrescribe manual.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R13 B07 derived/candidate provenance keeps confirmed manual fact and local review no AI execution",
+        "H4-012 AC024 tentative16 preserves actual confirmed18 and hour ratification leaves quantity pending"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R03",
+      "normativeExpected": {
+        "Fuente": "AC-029/092;DM-INV-019;FORB-11.",
+        "Fixture/precondición": "Petición11:00; alternativas10/12:30/16.",
+        "Acción/retirada individual": "Respuesta ambigua, alternativa, acuerdo verificable; aviso agenda y excepción.",
+        "Expected": "Solo acuerdo autorizado fija final; petición/alternativas conservadas; excepción no dispensa capacidad/seguridad.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R10 AC029/092 actual known agenda overlap is warning with exact administrator exception no capacity waiver",
+        "H4-012 MO04 accepted rejected offered ambiguous responses and each guard",
+        "H4-012 MO04 mismatched source coverage old ambiguous late source E8 conserves fact"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R04",
+      "normativeExpected": {
+        "Fuente": "AC-030;MO-05/06/08/09.",
+        "Fixture/precondición": "Dos partes aprobadas; una aplicada.",
+        "Acción/retirada individual": "Cambiar restante, intentar aplicar aprobación anterior y retirar aplicado.",
+        "Expected": "Aplicado conservado; aprobación histórica inaplicable a contenido nuevo; retirada no borra aplicado ni resultado incierto.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R14 change invalidates prior evaluation and prior approval cannot authorize modified content",
+        "H4-012 MO09 AC030 partial approved applied then changed remaining part never lost"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R05",
+      "normativeExpected": {
+        "Fuente": "AC-031/040;D019;FORB-13/18.",
+        "Fixture/precondición": "Tres servicios;S1 cancelable;componente sin valor atribuible.",
+        "Acción/retirada individual": "Cancelar operativamente S1 con prueba; intentar Refund/cancelación resto.",
+        "Expected": "Resto y ejecución previa preservados; no BookingCancelada; economía indeterminada pendiente; ningún movimiento/obligación/ajuste.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R11 full covered cancellation explicit Booking approval last no accidental global cancellation",
+        "H4-012 R11 cancelS1 while actual prior S2 performance remains recorded no whole Booking Cancelada",
+        "H4-012 AC031/040 service cancellation without economic attribution no whole Booking label",
+        "H4-012 R11 actual performance proof prevents whole-scope cancellation but preserves history"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R06",
+      "normativeExpected": {
+        "Fuente": "AC-043;D020;CHG-009;SPEC11.2.",
+        "Fixture/precondición": "Servicio20;hora cambia mismo día;fecha cambia22;otra modalidad/noche.",
+        "Acción/retirada individual": "Evaluar días naturales y referencias por Booking/modalidad/servicio/noche y condición contractual expresa.",
+        "Expected": "Hora no cambia intervalo; fecha reevalúa solo dependientes; exactamente7/3 incluyen día completo; decisiones ejecutadas históricas intactas.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R06 AC043 D020 same day hour preserves interval date22 changes only scoped civil history",
+        "H4-012 R06 default Booking modality service night references current dates explicit contract override separate historical evaluation"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R07",
+      "normativeExpected": {
+        "Fuente": "P09;AC-019;DM-INV-016.",
+        "Fixture/precondición": "N1=12/N2=10;cuatro nominales N1.",
+        "Acción/retirada individual": "Aplicar cambio N2;leer Booking/cantidades/confirmaciones.",
+        "Expected": "N1=12,cuatro siguen N1,no16,no8ficticios;N2 vigente actualizado;sin habitaciones universales.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R07 N1=12 N2=10 four names only N1 changing N2 never increases aggregate or names"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R08",
+      "normativeExpected": {
+        "Fuente": "RV01–04;SVC010;G5.",
+        "Fixture/precondición": "Material cambio cantidad/lugar/duración o fuente externa.",
+        "Acción/retirada individual": "Ratificación parcial, negativa, rechazo/retirada y tardía.",
+        "Expected": "Solo dependencias demostradas; horario no ratificaotros; no restaura cobertura inválida; hecho antiguo tardío no manda llegada.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 MO04 mismatched source coverage old ambiguous late source E8 conserves fact",
+        "H4-012 MO07 reject motive and prior invalid coverage never restored",
+        "H4-012 MO08 withdrawal exact no effects proof keeps request and approval history",
+        "H4-012 RV01/02 partial ratification hour does not ratify capacity price/date; all guards",
+        "H4-012 RV04 negative inconclusive no automatic restoration and original revision retained"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R09",
+      "normativeExpected": {
+        "Fuente": "PLAN-B06/C06;T04;DMINV017.",
+        "Fixture/precondición": "H2 scope aceptado,AV/Hold/Confirmation/Requirement reales.",
+        "Acción/retirada individual": "Aplicar nueva cantidad/fecha por una parte; leer capacidades existentes.",
+        "Expected": "Lectores observan alcance vigente y linaje; original aceptado inmutable; evidencia antigua no cubre nuevo;Requirement afectado reabierto únicamente si su fundamento cambió.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R09 exact Requirement dependency reopens reviewed original locally other Need continues",
+        "H4-012 R09 actual new confirmation for operational version uses current scope not old snapshot",
+        "H4-012 R09 Availability old coverage remains historical and unusable for current changed date",
+        "H4-012 R09 Hold prior H2 conversion identity preserved changed scope does not release or remain silently covered",
+        "H4-012 R09 actual Hold new express date evidence checked linked to current service token without duplicate identity",
+        "H4-012 R09 automatic actual documentary context date change cannot be hidden by omitted dependency list"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R10",
+      "normativeExpected": {
+        "Fuente": "SVC005;BR-SVC009.",
+        "Fixture/precondición": "Horarios/duración/lugar y desplazamiento conocidos o desconocidos.",
+        "Acción/retirada individual": "Evaluar incompatibilidad obvia, excepción justificada, datos incompletos.",
+        "Expected": "Aviso local,no bloqueo automático; desconocido por revisar sin duración/desplazamiento inventados; no avisos entregados/jobs/calendario.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R10 AC029/092 actual known agenda overlap is warning with exact administrator exception no capacity waiver"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R11",
+      "normativeExpected": {
+        "Fuente": "SM-BK09/BS09;G4.",
+        "Fixture/precondición": "Prueba inequívoca de cancelación externa/interna,servicios/partes.",
+        "Acción/retirada individual": "Cancelar parcial,total y existencia de prestación previa acreditada.",
+        "Expected": "Solo cancelado cubierto;BookingCancelada exige todo alcance y ausenciaejecución incompatible;registro de hecho previo no implementa inicio/ejecuciónH4-022.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R11 full covered cancellation explicit Booking approval last no accidental global cancellation",
+        "H4-012 R11 cancelS1 while actual prior S2 performance remains recorded no whole Booking Cancelada",
+        "H4-012 R11 actual performance proof prevents whole-scope cancellation but preserves history"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R12",
+      "normativeExpected": {
+        "Fuente": "G1;F1/F2;D039/TTE.",
+        "Fixture/precondición": "Actor runtime scoped y pruebas exactas.",
+        "Acción/retirada individual": "Retirar contexto,F1/F2,actor habilitado,sesión,scope;replay revocado;CRUD/update/delete histórico.",
+        "Expected": "Deniega sin enumerar;roles noowner/BYPASSRLS;finalcheck existente no eludido;IA sensible sinHA exacta rechazada.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R12 disabled actor or revoked session denies read write and durable replay",
+        "H4-012 R12 signed false F1 F2 and AI sensitive source cannot authorize changes",
+        "H4-012 R12 ACL FORCE RLS no direct CRUD or mutable approved history; fake F1 F2",
+        "H4-012 R12/13 alien scope ID evidence and minimum purpose projection no private/economic leak"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R13",
+      "normativeExpected": {
+        "Fuente": "D016/D017;DM-PENDING005.",
+        "Fixture/precondición": "Original B07/corrección;historia y salida por finalidad.",
+        "Acción/retirada individual": "Leer distintos contextos yproyecciones.",
+        "Expected": "Privado/minimizado,noeconomíareservada/personas/secretosinnecesarios;sin audio/retención/borrado/consentimiento supuesto.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R13 B07 derived/candidate provenance keeps confirmed manual fact and local review no AI execution",
+        "H4-012 R12/13 alien scope ID evidence and minimum purpose projection no private/economic leak"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R14",
+      "normativeExpected": {
+        "Fuente": "G6;E2;CONC001.",
+        "Fixture/precondición": "Operación/hecho durable fiable.",
+        "Acción/retirada individual": "Replaymisma clave/material,cambio material,nuevaclavehechoigual,hechos parecidos distintos.",
+        "Expected": "Sin duplicar efecto/cancelación/Review/Task/historia;E2conflicto;reautoriza resultados;no dedup débil.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R14 change invalidates prior evaluation and prior approval cannot authorize modified content",
+        "H4-012 R14 operation and reliable same fact replay no duplicate history and E2 material conflict"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R15",
+      "normativeExpected": {
+        "Fuente": "AC067;T04/T06/T08.",
+        "Fixture/precondición": "SesionesPG independientes misma base y scopes distintos.",
+        "Acción/retirada individual": "Ambosórdenes/overlap:alta,aprobaciónvscontenido,aplicarvsretirar,parcialvsreevaluar,cancelacióncompetidora,RVvsprueba/documento/modificaciónvsAV/Hold/Confirmation.",
+        "Expected": "Nooverwrite/lostupdate,versiónporparte no revisiónBookingglobal;independientes continúan;locks estables padre/porciones.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R15 first request replay and material conflict both launch orders real overlap",
+        "H4-012 R15 AC067 two approved versions same service only one applies no lost update",
+        "H4-012 R15 approval against change material and application versus withdrawal both orders",
+        "H4-012 R15 independent services and nights remain valid after sibling material version",
+        "H4-012 R15 competing partial contribution cancellation and partial application/new evaluation both orders",
+        "H4-012 R15 Requirement revalidation versus modification application both orders no stale satisfaction",
+        "H4-012 R15 approval versus shared material scope application both orders stale approval never applies",
+        "H4-012 R15 actual Confirmation evaluation versus material scope application both orders never stale usable",
+        "H4-012 R15 actual Availability verification versus changed scope both orders overlap pending/rejection honest",
+        "H4-012 R15 actual Hold check versus operative change shared root both orders last fact retained no release"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R16",
+      "normativeExpected": {
+        "Fuente": "V-AT;G4/G6;T04/T06/T08.",
+        "Fixture/precondición": "Cada transición y unidad dependiente.",
+        "Acción/retirada individual": "Fallar cada escritura yCOMMIT real;comparar todo estado incluidos lectores previos;reintentar.",
+        "Expected": "Todos o ninguno alcance/historia/revisión/aprobación/Task/resultado;economía/fondos intactos;no transaccióndistribuida.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R16 fault every root history result canonical scope Task and actual COMMIT rolls back exact state",
+        "H4-012 R16 every evaluate transition fault at durable result preserves exact former scope and history",
+        "H4-012 R16 every provider transition fault at durable result preserves exact former scope and history",
+        "H4-012 R16 every approve transition fault at durable result preserves exact former scope and history",
+        "H4-012 R16 every reject transition fault at durable result preserves exact former scope and history",
+        "H4-012 R16 every withdraw transition fault at durable result preserves exact former scope and history",
+        "H4-012 R16 every change transition fault at durable result preserves exact former scope and history",
+        "H4-012 R16 every review transition fault at durable result preserves exact former scope and history",
+        "H4-012 R16 every review_negative transition fault at durable result preserves exact former scope and history",
+        "H4-012 R16 every ratify transition fault at durable result preserves exact former scope and history",
+        "H4-012 R16 every incident transition fault at durable result preserves exact former scope and history",
+        "H4-012 R16 documentary dependency write and COMMIT fail rolls back both old readers Need and operative version",
+        "H4-012 R16 provider response write fault preserves pending base and exact history then retry"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R17",
+      "normativeExpected": {
+        "Fuente": "V-AT;Architecture12.",
+        "Fixture/precondición": "COMMIT real durable,respuesta perdida después.",
+        "Acción/retirada individual": "Recuperar operación idempotente.",
+        "Expected": "Resultado durable sin reaplicar/reducir/cancelar dosveces;incierto no autoriza efecto externo ciego.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R17 real COMMIT then lost response recovered durable without second cancellation/application"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R18",
+      "normativeExpected": {
+        "Fuente": "V-MIG;Plan5.1.",
+        "Fixture/precondición": "Base42 poblada conNeed/INC/AV/Hold/Confirmation y privado.",
+        "Acción/retirada individual": "Fresh,upgrade,fallaDDLrollbackretry;compararcatálogo/data.",
+        "Expected": "42migracionesbytes intactos;owners/ACL/funciones/policies/triggersrolespreservados salvo funcionesintegración explícitas firma/ACL/owner;ningúnhealth/source editado.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R18 populated42 upgrade Need INC AV Hold PC and all old data permissions intact",
+        "H4-012 R18 DDL rollback retry42 to43 preserves prior inventory",
+        "H4-012 R18 fresh43 advisors full stdout stderr status signal loopback only",
+        "H4-012 R18 original42 migrations sources expected and health exact bytes unchanged"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R19",
+      "normativeExpected": {
+        "Fuente": "V-EVI;PT03/05;NFR008.",
+        "Fixture/precondición": "Producto/verificador frozenexactSHA.",
+        "Acción/retirada individual": "Gates/fullPG/unit/health/advisors/diffcheck,matriz/Fxx/hash.",
+        "Expected": "Preserva1488PG/118unit,conteoreal,sindobleconteo;logs completos,errorstatus;Fxxcerradossolo evidencia,noFAIL/skipped/cancelledmaterial.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R19 whole H3 monetary policies movements allocations funds snapshots unchanged by operational application"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    },
+    {
+      "id": "R20",
+      "normativeExpected": {
+        "Fuente": "FORB08/09/10/11/13/18;P06/P07.",
+        "Fixture/precondición": "Contexto aparentemente favorable.",
+        "Acción/retirada individual": "Intentar borraroriginal,IAoverwrite,globalcantidad/gratuidad,alternativafinal,solicitudcancelación,Refundporcancelación/Incident.",
+        "Expected": "Rechazo/independencia yconservación;no capacidades posteriores simuladas por mocks.",
+        "Conservación/prohibiciones": "G4/G5;cada negativo conserva antes/después e historia;solo efecto dependiente pendiente.",
+        "Evidencia": "fixtures sintéticos por contratos,assertions SQL independientes ylog completo/SHA/protocolo V-EVI."
+      },
+      "tests": [
+        "H4-012 R10 AC029/092 actual known agenda overlap is warning with exact administrator exception no capacity waiver",
+        "H4-012 R11 full covered cancellation explicit Booking approval last no accidental global cancellation",
+        "H4-012 MO10 resolved actual Incident plus reviewed checked previous effects permits safe continuation",
+        "H4-012 R13 B07 derived/candidate provenance keeps confirmed manual fact and local review no AI execution",
+        "H4-012 R11 cancelS1 while actual prior S2 performance remains recorded no whole Booking Cancelada",
+        "H4-012 MO06 apply exact approved scope guards, canonical reader and immutable accepted snapshot",
+        "H4-012 MO07 reject motive and prior invalid coverage never restored",
+        "H4-012 MO08 withdrawal exact no effects proof keeps request and approval history",
+        "H4-012 MO10 actual Incident on base progress no retry uncertain effect no Refund",
+        "H4-012 AC018 actual H2 group12 to14 preserves rafting10 and dinner before after without fictitious nominal participants",
+        "H4-012 AC024 tentative16 preserves actual confirmed18 and hour ratification leaves quantity pending",
+        "H4-012 AC031/040 service cancellation without economic attribution no whole Booking label",
+        "H4-012 R11 actual performance proof prevents whole-scope cancellation but preserves history"
+      ],
+      "observed": "Las aserciones SQL/contratos del caso y sus retiradas individuales finalizaron sin fallo; detalles de acciones y guardas en tests enlazados.",
+      "result": "PASS",
+      "evidence": "final3/postgres.stdout.log",
+      "testedSha": "8cee967867af41df2cd818669c322b7de18670c0"
+    }
+  ],
+  "nativeTestNodes": [
+    {
+      "test": "H4-011 focal request approval and applied scope preserve accepted snapshot and invalidate old coverage",
+      "observed": "PASS",
+      "duration": "1870.918167ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R15 first request replay and material conflict both launch orders real overlap",
+      "observed": "PASS",
+      "duration": "1988.993541ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R15 AC067 two approved versions same service only one applies no lost update",
+      "observed": "PASS",
+      "duration": "416.24675ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R15 approval against change material and application versus withdrawal both orders",
+      "observed": "PASS",
+      "duration": "814.447208ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R15 independent services and nights remain valid after sibling material version",
+      "observed": "PASS",
+      "duration": "381.331ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 fault every root history result canonical scope Task and actual COMMIT rolls back exact state",
+      "observed": "PASS",
+      "duration": "1772.206458ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R17 real COMMIT then lost response recovered durable without second cancellation/application",
+      "observed": "PASS",
+      "duration": "110.226417ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R12 disabled actor or revoked session denies read write and durable replay",
+      "observed": "PASS",
+      "duration": "2835.73325ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R12 signed false F1 F2 and AI sensitive source cannot authorize changes",
+      "observed": "PASS",
+      "duration": "67.378667ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R18 populated42 upgrade Need INC AV Hold PC and all old data permissions intact",
+      "observed": "PASS",
+      "duration": "1682.361458ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R18 DDL rollback retry42 to43 preserves prior inventory",
+      "observed": "PASS",
+      "duration": "1288.421667ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R18 fresh43 advisors full stdout stderr status signal loopback only",
+      "observed": "PASS",
+      "duration": "3316.942833ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R09 exact Requirement dependency reopens reviewed original locally other Need continues",
+      "observed": "PASS",
+      "duration": "159.885541ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R07 N1=12 N2=10 four names only N1 changing N2 never increases aggregate or names",
+      "observed": "PASS",
+      "duration": "272.464875ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R06 AC043 D020 same day hour preserves interval date22 changes only scoped civil history",
+      "observed": "PASS",
+      "duration": "146.272833ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R09 actual new confirmation for operational version uses current scope not old snapshot",
+      "observed": "PASS",
+      "duration": "235.449625ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R10 AC029/092 actual known agenda overlap is warning with exact administrator exception no capacity waiver",
+      "observed": "PASS",
+      "duration": "126.054167ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R11 full covered cancellation explicit Booking approval last no accidental global cancellation",
+      "observed": "PASS",
+      "duration": "258.80475ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R15 competing partial contribution cancellation and partial application/new evaluation both orders",
+      "observed": "PASS",
+      "duration": "237.784459ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R15 Requirement revalidation versus modification application both orders no stale satisfaction",
+      "observed": "PASS",
+      "duration": "275.348792ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R09 Availability old coverage remains historical and unusable for current changed date",
+      "observed": "PASS",
+      "duration": "301.389792ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R09 Hold prior H2 conversion identity preserved changed scope does not release or remain silently covered",
+      "observed": "PASS",
+      "duration": "231.3445ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 SMBS10 actual newly confirmed material scope then source-backed full ratification restores only covered part",
+      "observed": "PASS",
+      "duration": "533.547625ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO10 resolved actual Incident plus reviewed checked previous effects permits safe continuation",
+      "observed": "PASS",
+      "duration": "102.462125ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R13 B07 derived/candidate provenance keeps confirmed manual fact and local review no AI execution",
+      "observed": "PASS",
+      "duration": "269.63825ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R06 default Booking modality service night references current dates explicit contract override separate historical evaluation",
+      "observed": "PASS",
+      "duration": "227.905416ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R09 actual Hold new express date evidence checked linked to current service token without duplicate identity",
+      "observed": "PASS",
+      "duration": "536.55625ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R09 automatic actual documentary context date change cannot be hidden by omitted dependency list",
+      "observed": "PASS",
+      "duration": "102.42825ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R14 change invalidates prior evaluation and prior approval cannot authorize modified content",
+      "observed": "PASS",
+      "duration": "104.972708ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R19 whole H3 monetary policies movements allocations funds snapshots unchanged by operational application",
+      "observed": "PASS",
+      "duration": "83.253542ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 every evaluate transition fault at durable result preserves exact former scope and history",
+      "observed": "PASS",
+      "duration": "498.426584ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 every provider transition fault at durable result preserves exact former scope and history",
+      "observed": "PASS",
+      "duration": "493.770834ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 every approve transition fault at durable result preserves exact former scope and history",
+      "observed": "PASS",
+      "duration": "505.418792ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 every reject transition fault at durable result preserves exact former scope and history",
+      "observed": "PASS",
+      "duration": "517.644541ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 every withdraw transition fault at durable result preserves exact former scope and history",
+      "observed": "PASS",
+      "duration": "531.7015ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 every change transition fault at durable result preserves exact former scope and history",
+      "observed": "PASS",
+      "duration": "553.420708ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 every review transition fault at durable result preserves exact former scope and history",
+      "observed": "PASS",
+      "duration": "549.724541ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 every review_negative transition fault at durable result preserves exact former scope and history",
+      "observed": "PASS",
+      "duration": "556.841917ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 every ratify transition fault at durable result preserves exact former scope and history",
+      "observed": "PASS",
+      "duration": "564.870958ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 every incident transition fault at durable result preserves exact former scope and history",
+      "observed": "PASS",
+      "duration": "587.699541ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 documentary dependency write and COMMIT fail rolls back both old readers Need and operative version",
+      "observed": "PASS",
+      "duration": "566.892625ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R15 approval versus shared material scope application both orders stale approval never applies",
+      "observed": "PASS",
+      "duration": "232.454834ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R15 actual Confirmation evaluation versus material scope application both orders never stale usable",
+      "observed": "PASS",
+      "duration": "868.595666ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R15 actual Availability verification versus changed scope both orders overlap pending/rejection honest",
+      "observed": "PASS",
+      "duration": "969.671917ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R15 actual Hold check versus operative change shared root both orders last fact retained no release",
+      "observed": "PASS",
+      "duration": "729.311292ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R11 cancelS1 while actual prior S2 performance remains recorded no whole Booking Cancelada",
+      "observed": "PASS",
+      "duration": "291.413375ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO01 request guards individually withdrawn and no quantity/cancellation effect",
+      "observed": "PASS",
+      "duration": "1700.959375ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO01 source requester context part and scope guards, no arbitrary fields",
+      "observed": "PASS",
+      "duration": "136.8675ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO02 evaluate each material guard and preserves previous confirmed fact",
+      "observed": "PASS",
+      "duration": "226.077666ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO03 prepared request never sent; real synthetic communication fact and guards",
+      "observed": "PASS",
+      "duration": "230.641917ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO04 accepted rejected offered ambiguous responses and each guard",
+      "observed": "PASS",
+      "duration": "663.290375ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO04 mismatched source coverage old ambiguous late source E8 conserves fact",
+      "observed": "PASS",
+      "duration": "170.858541ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO05 approve independent exact part guards, approval is no application",
+      "observed": "PASS",
+      "duration": "119.962292ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO06 apply exact approved scope guards, canonical reader and immutable accepted snapshot",
+      "observed": "PASS",
+      "duration": "224.731041ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO07 reject motive and prior invalid coverage never restored",
+      "observed": "PASS",
+      "duration": "239.164834ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO08 withdrawal exact no effects proof keeps request and approval history",
+      "observed": "PASS",
+      "duration": "116.093125ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO09 AC030 partial approved applied then changed remaining part never lost",
+      "observed": "PASS",
+      "duration": "111.658834ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO10 actual Incident on base progress no retry uncertain effect no Refund",
+      "observed": "PASS",
+      "duration": "121.901792ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 RV01/02 partial ratification hour does not ratify capacity price/date; all guards",
+      "observed": "PASS",
+      "duration": "109.881792ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 RV04 negative inconclusive no automatic restoration and original revision retained",
+      "observed": "PASS",
+      "duration": "70.746625ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 AC018 actual H2 group12 to14 preserves rafting10 and dinner before after without fictitious nominal participants",
+      "observed": "PASS",
+      "duration": "612.489334ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 AC024 tentative16 preserves actual confirmed18 and hour ratification leaves quantity pending",
+      "observed": "PASS",
+      "duration": "333.182625ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 AC031/040 service cancellation without economic attribution no whole Booking label",
+      "observed": "PASS",
+      "duration": "169.725208ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R11 actual performance proof prevents whole-scope cancellation but preserves history",
+      "observed": "PASS",
+      "duration": "100.254042ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R14 operation and reliable same fact replay no duplicate history and E2 material conflict",
+      "observed": "PASS",
+      "duration": "58.048458ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R12 ACL FORCE RLS no direct CRUD or mutable approved history; fake F1 F2",
+      "observed": "PASS",
+      "duration": "215.210084ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R12/13 alien scope ID evidence and minimum purpose projection no private/economic leak",
+      "observed": "PASS",
+      "duration": "172.472084ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R18 original42 migrations sources expected and health exact bytes unchanged",
+      "observed": "PASS",
+      "duration": "702.877834ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 MO01 actual contextual client and actual provider Offering requests each record without applying",
+      "observed": "PASS",
+      "duration": "132.886625ms",
+      "evidence": "final3/postgres.stdout.log"
+    },
+    {
+      "test": "H4-012 R16 provider response write fault preserves pending base and exact history then retry",
+      "observed": "PASS",
+      "duration": "171.815708ms",
+      "evidence": "final3/postgres.stdout.log"
+    }
+  ],
+  "newPostgresNodes": 70,
+  "previousPostgresNodes": 1488,
+  "totalPostgresNodes": 1558,
+  "unit": 118,
+  "healthSeparate": 1,
+  "futureIntegrations": "H4-014/H4-023/H5-016/H6-003/H6-004 NO ACREDITADAS"
+}
