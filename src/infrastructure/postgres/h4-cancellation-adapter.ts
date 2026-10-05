@@ -23,5 +23,6 @@ export class H4013CancellationAdapter {
   });}catch(e){const m=e instanceof Error?e.message:"";throw new Error(/^CANCELLATION_[A-Z_]+(?::[A-Za-z0-9_,:./ -]+)?$/.test(m)?m:"CANCELLATION_DENIED");}
  }
  async apply(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,input:CancellationCommand):Promise<{id:string;replayed:boolean;result:any}>{const value=Object.fromEntries(Object.entries(input).filter(([,v])=>v!==undefined));if(input.action==='determine'){if(!input.facts)throw new Error('CANCELLATION_INPUT_INVALID');value.computed=determineCancellation(input.facts);}return await this.call(auth,interaction,true,value) as any;}
+ async basis(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,bookingId:string,scope:CancellationCommand['scope']):Promise<any>{return this.call(auth,interaction,false,{bookingId,scope,purpose:'basis'});}
  async read(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,bookingId:string,determinationId:string,purpose:'history'|'right'='history'):Promise<any>{return this.call(auth,interaction,false,{bookingId,determinationId,purpose});}
 }

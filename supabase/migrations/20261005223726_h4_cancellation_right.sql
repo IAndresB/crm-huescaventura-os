@@ -257,10 +257,16 @@ begin
  perform crm_f2.verify(f2p,f2s,q,'C03','human_evidence','write_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');return r;
 end$$;
 create function crm_api.cancellation_read(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea) returns jsonb language plpgsql stable security definer set search_path=pg_catalog,pg_temp as $$
-declare hf text[];tf text[];fs text[];a jsonb;r jsonb;begin
+declare hf text[];tf text[];fs text[];a jsonb;r jsonb;b crm_private.b04_bookings;m jsonb;begin
  hf:=crm_f2.admit(f2p,f2s,q,'C01','read_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');if hf[17] collate "C"<>tf[14] collate "C" then raise exception 'CANCELLATION_DENIED';end if;
  fs:=crm_f1.fields(q);if cardinality(fs)<>2 or fs[1]<>'CRM-H4-CANCELLATION-READ1' then raise exception 'CANCELLATION_INPUT_INVALID';end if;a:=fs[2]::jsonb;
- if a-array['bookingId','determinationId','purpose']<>'{}'::jsonb or a->>'purpose' not in('history','right') then raise exception 'CANCELLATION_INPUT_INVALID';end if;
+ if a->>'purpose'='basis' then
+  if a-array['bookingId','scope','purpose']<>'{}'::jsonb or not(a?&array['bookingId','scope','purpose']) or (a->'scope')-array['kind','id','serviceId']<>'{}'::jsonb or not(a->'scope'?&array['kind','id']) or a->'scope'->>'kind' not in('booking','modality','service','night') then raise exception 'CANCELLATION_INPUT_INVALID';end if;
+  select * into b from crm_private.b04_bookings where booking_id=(a->>'bookingId')::uuid and admin_scope=hf[17];
+  if found then m:=crm_private.cancellation_scope(a->'scope',b.booking_id,hf[17]);r:=jsonb_build_object('bookingId',b.booking_id,'scope',a->'scope','scopeToken',crm_private.cancellation_token(a->'scope',b.booking_id,hf[17]),'referenceDate',m->'date','acceptedVersion',b.version_id,'terms',b.terms,'participation',case when a->'scope'->>'kind'='modality' then jsonb_build_object('modalityId',a->'scope'->'id','amount',m->'modality'->>'final_person_price','quantity',m->'modality'->'participants','unit','participation') else null end);end if;
+  perform crm_f2.verify(f2p,f2s,q,'C01','human_evidence','read_evidence');return r;
+ end if;
+ if a-array['bookingId','determinationId','purpose']<>'{}'::jsonb or not(a?&array['bookingId','determinationId','purpose']) or a->>'purpose' not in('history','right') then raise exception 'CANCELLATION_INPUT_INVALID';end if;
  select x.after_data into r from crm_private.b06_cancellation_determinations d join crm_private.b06_cancellation_revisions x using(determination_id) where d.booking_id=(a->>'bookingId')::uuid and d.determination_id=(a->>'determinationId')::uuid and d.admin_scope=hf[17] order by x.revision desc limit 1;
  if r is not null then
   if a->>'purpose'='right' then r:=jsonb_build_object('id',r->'id','revision',r->'revision','status',r->'computed'->'status','right',r->'computed'->'right','retention',r->'computed'->'retention','missing',r->'computed'->'missing','applied',r->'applied','currentlyApplicable',r->>'scopeToken'=crm_private.cancellation_token(r->'scope',(a->>'bookingId')::uuid,hf[17]));
