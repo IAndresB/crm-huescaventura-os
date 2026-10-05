@@ -13,3 +13,7 @@ Reproducción ejecutada antes del fix en SHA73c7ab9: `repro-01/postgres.stdout.l
 - **F21 — técnico de entorno.** Advisors no pudieron iniciar su PostgreSQL por longitud del socket UNIX103 en `dev-f16-07/08`. Logs reales de PostgreSQL en `socket-failure`. Se acortó exclusivamente el nombre del fixture; advisors loopback completos status0,signal null,error null y results=[] en `dev-f16-09`.
 
 `dev-10`:95/95 PostgreSQL focales (70 anteriores +25 correctivos),typecheck PASS. Los bytes de expected original y suplemento siguen congelados. El cierre definitivo F16/F17–F21 requiere la regresión completa del producto/verificador congelado; las ejecuciones anteriores quedan como cronología, sin sustituir los FAIL ni final3.
+
+## Cierre correctivo definitivo — 2026-10-06
+
+F16 material yF17–F21 CLOSED local/aislado tras96/96 focales yregresión sobre `992c336cb16d39fffc1044a1b0737541614bd773`:1584/1584 PostgreSQL (1558+26, sin doble cómputo),118/118 unitarias yhealth1/1 separado; todos los gates,V-MIG yadvisors loopback PASS.0 FAIL/skipped/cancelled materiales y0 materiales abiertos. C01–C17 trazados enmatrix.json; los cuatro FAIL originales, ensayos técnicos fallidos yfinal3 siguen conservados. Ninguna modificación deexpected ni producto/verificador después del SHA probado. STOP,H4 IN PROGRESS,H4-013+ yH5–H6 NOT STARTED.
