@@ -1,5 +1,9 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
+Actualización H4-009/010 — 2026-10-05: **TSK-H4-009/010 COMPLETED local/aislado; H4 IN PROGRESS; H4-001–010 COMPLETED local/aislado; H4-011+ y H5–H6 NOT STARTED.** H0 técnico/local/aislado y H1/H2/H3 local/aislado COMPLETED conservados. [Implementación](../specs/001-core-crm/evidence-TSK-H4-009.md), [verificación independiente](../specs/001-core-crm/evidence-TSK-H4-010.md), [expected congelado](../specs/001-core-crm/expected-TSK-H4-009-010.md). SHA exacto probado `fc9c62ee514b0560fc94c980937bbb34160e0d9e`: 1488/1488 PostgreSQL (45 nuevos incluidos), 118/118 unitarias y health-check independiente 1/1; gates/V-MIG/advisors loopback PASS. Una migración nueva, 41 previas intactas. Hecho confirmado inmutable separado de cobertura aplicable; SM-BS-04/PC-01–03 y AC-020/022/048/092 acreditados localmente. F01–F13 CLOSED, FAIL conservados, cero materiales abiertos; expected bytes inalterados. H4-021/H6-001 integración futura NO ACREDITADA. Pendientes H4-011+, agenda/confirmación conjunta/operación/modificación completas, D019/D020, Refund/fianza/cierres/Closure Assessment, coordinación H5, DM-PENDING-005/audio/datos reales/conectores/hosted/Production. Hosted H2/H3 no acreditados; Production no autorizada. **STOP tras publicar H4-010; no iniciar ni preparar H4-011+ ni H5/H6. Continuidad al hilo de dirección H4 con nueva autorización humana.**
+
+### Registro histórico del cierre H4-007/008
+
 Actualización H4-007/008 — 2026-10-05: **TSK-H4-007/008 COMPLETED local/aislado; H4 IN PROGRESS; H4-001–008 COMPLETED local/aislado; H4-009+ y H5–H6 NOT STARTED.** H0 técnico/local/aislado yH1/H2/H3 local/aislado conservados. [Implementación](../specs/001-core-crm/evidence-TSK-H4-007.md), [verificación independiente](../specs/001-core-crm/evidence-TSK-H4-008.md), [expected congelado](../specs/001-core-crm/expected-TSK-H4-007-008.md). SHA producto/verificador probado `8849b0fa86d9efbc2fb09e6a05b9362438b1af9d`:1443/1443 PostgreSQL (44 del bloque incluidos),118/118 unitarias yhealth-check independiente1/1;gates/V-MIG/advisors loopback PASS. Migración única `20261005141534_h4_capacity_holds.sql`,40 previas intactas. AC-021,SM-HO-01–07,SM-BS-03 yprohibiciones acreditados localmente; vínculo conserva Hold en conversión H2 real. F01–F15 CLOSED,FAIL conservados,cero material abierto. Expected normativo inalterado; F15 corrige exclusivamenteEOF documental en47a5e62, sin acomodación al producto. Observación documental H4-003/004 sigue corregida ycronología intacta. H4-021 integración futura NO ACREDITADA; Provider Confirmation/confirmación firme,operación/modificaciones completas,Refund/fianza,Closure Assessment,cierres,coordinación/avisos/jobs H5,DM-PENDING-005/audio/datos reales/conectores/hosted/Production pendientes. Hosted H2/H3 no acreditados;Production no autorizada. **STOP tras publicar H4-008;no iniciar ni preparar H4-009+ niH5/H6;continuidad al hilo de dirección H4 con nueva autorización humana.**
 
 Registro histórico anterior a este bloque (H4-005/006):
@@ -52,7 +56,7 @@ Actualización 2026-10-03: H0 COMPLETED técnico/local/aislado y H1 COMPLETED lo
 
 ## Current Step
 
-**Estado vigente:** H0 COMPLETED técnico/local/aislado; H1/H2/H3 yH4-001–008 COMPLETED local/aislado. H4 IN PROGRESS; H4-009+ yH5–H6 NOT STARTED. SHA producto/verificador probado `8849b0fa86d9efbc2fb09e6a05b9362438b1af9d`:1443/1443 PostgreSQL,118/118 unitarias yhealth-check independiente1/1;gates/V-MIG/advisors PASS. [Cierre independiente H4-008](../specs/001-core-crm/evidence-TSK-H4-008.md). STOP tras publicar H4-008;esperar nueva autorización desde dirección H4. Observación documental H4-003/004 corregida previamente;históricos preservados. PLAN-AUTH-001–006 ypendientes globales conservados;DM-PENDING-005 abierto;hosted H2/H3 no acreditados;Production no autorizada.
+**Estado vigente:** H0 COMPLETED técnico/local/aislado; H1/H2/H3 yH4-001–010 COMPLETED local/aislado. H4 IN PROGRESS; H4-011+ yH5–H6 NOT STARTED. SHA producto/verificador probado `fc9c62ee514b0560fc94c980937bbb34160e0d9e`:1488/1488 PostgreSQL,118/118 unitarias yhealth-check independiente1/1;gates/V-MIG/advisors PASS. [Cierre independiente H4-010](../specs/001-core-crm/evidence-TSK-H4-010.md). STOP tras publicar H4-010;esperar nueva autorización desde dirección H4. Observación documental H4-003/004 corregida previamente;históricos preservados. PLAN-AUTH-001–006 ypendientes globales conservados;DM-PENDING-005 abierto;hosted H2/H3 no acreditados;Production no autorizada.
 
 **Los párrafos siguientes conservan la coordinación y los puntos de parada históricos de H0.**
 
@@ -109,7 +113,7 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H0 COMPLETED técnico/local/aislado; H1 y H2 COMPLETED local/aislado, H2-001–012 COMPLETED en ese alcance. H3 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado. H4 IN PROGRESS; H4-001–008 COMPLETED local/aislado; H4-009+ y H5–H6 NOT STARTED. STOP tras H4-008; continuidad requiere nueva autorización humana; no iniciar ni preparar tareas posteriores.
+9. implementación — H0 COMPLETED técnico/local/aislado; H1 y H2 COMPLETED local/aislado, H2-001–012 COMPLETED en ese alcance. H3 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado. H4 IN PROGRESS; H4-001–010 COMPLETED local/aislado; H4-011+ y H5–H6 NOT STARTED. STOP tras H4-010; continuidad requiere nueva autorización humana; no iniciar ni preparar tareas posteriores.
 
 ## Working Rule
 
