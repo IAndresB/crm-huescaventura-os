@@ -1,0 +1,3 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {isolatedConfirmation} from '../support/h4-confirmation-isolated.ts';import {confirmationFixture} from '../support/h4-confirmation-fixtures.ts';
+test('H4-009 focal phone fact and scoped service Confirmado independent',async()=>{const h=await isolatedConfirmation('crm_h4009',56500);try{const f=await confirmationFixture(h);await f.apply(await f.register());assert.equal((await f.assess())!.usable,false);await f.apply(await f.evaluate());assert.equal((await f.assess())!.serviceState,'Confirmado');assert.equal((await f.assess())!.bookingConfirmed,false);}finally{await h.close();}});
