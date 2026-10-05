@@ -1,0 +1,8 @@
+import {readFile} from 'node:fs/promises';
+import {isolatedConfirmation,read,write} from './h4-confirmation-isolated.ts';
+import {H4007HoldAdapter} from '../../src/infrastructure/postgres/h4-hold-adapter.ts';
+import {H4011ModificationAdapter} from '../../src/infrastructure/postgres/h4-modification-adapter.ts';
+export {read,write};
+export const modificationMigration='20261005202444_h4_operational_modification.sql';
+export const modificationTables=['b06_modifications','b06_modification_operations','b06_modification_revisions','b04_operational_versions'];
+export async function isolatedModification(label:string,port:number,upgrade=false){const h=await isolatedConfirmation(label,port);try{if(!upgrade)await h.migration.unsafe(await readFile(new URL('../../supabase/migrations/'+modificationMigration,import.meta.url),'utf8'));}catch(e){await h.close();throw e;}const diagnostic={begin:async(options:any,work:any)=>h.runtime.begin(options,async(tx:any)=>work(new Proxy(tx,{get(target,key){const v=target[key];if(key!=='unsafe')return typeof v==='function'?v.bind(target):v;return async(...args:any[])=>{try{return await v.apply(target,args);}catch(error){console.log('H4-012 isolated SQL diagnostic',error);throw error;}};}})))} as typeof h.runtime;return {...h,holds:new H4007HoldAdapter(diagnostic,h.f1,h.f2),modifications:new H4011ModificationAdapter(diagnostic,h.f1,h.f2)};}
