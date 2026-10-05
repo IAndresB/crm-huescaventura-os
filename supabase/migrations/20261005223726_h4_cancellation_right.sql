@@ -69,13 +69,13 @@ exception when others then return false;end$$;
 create function crm_private.cancellation_computed(f jsonb,c jsonb) returns boolean language plpgsql stable set search_path=pg_catalog,pg_temp as $$
 declare pct integer;days integer;amt numeric;cnt bigint;v numeric;ref jsonb:=f->'reference';out jsonb;act date;begin
  if c->>'version'<>'h4-d011-d019-d020-d023-v1' or c->>'moneyVersion'<>'h1-money-d023-d028-d029-v1' or c->>'civilVersion'<>'h1-civil-d020-v1' then return false;end if;
- if ref<>'null'::jsonb then
+ if ref<>'null'::jsonb and ref->'zone'<>'null'::jsonb then
   if not(ref?&array['scope','scopeId','date','zone','sourceRef','version','basis']) or (ref->'zone')-array['zone','sourceRef','version']<>'{}'::jsonb or not(ref->'zone'?&array['zone','sourceRef','version']) or not exists(select 1 from pg_timezone_names where name=ref->'zone'->>'zone') or not crm_private.invoice_text(ref->'zone'->'sourceRef') or not crm_private.invoice_text(ref->'zone'->'version') then return false;end if;
   act:=((f->>'at')::timestamptz at time zone (ref->'zone'->>'zone'))::date;days:=(ref->>'date')::date-act;
   if c->'temporal'->>'actDate'<>act::text or (c->'temporal'->>'daysBefore')::integer<>days or c->'temporal'->'reference' is distinct from ref then return false;end if;
  end if;
- if f->'cause'='null'::jsonb or f->'base'->'amount'='null'::jsonb or ref='null'::jsonb then
-  return c->>'status'='pending' and c->'right'='null'::jsonb and c->'retention'='null'::jsonb and c->'calculation'='null'::jsonb;
+ if f->'cause'='null'::jsonb or f->'base'->'amount'='null'::jsonb or ref='null'::jsonb or ref->'zone'='null'::jsonb then
+  return c->>'status'='pending' and c->'right'='null'::jsonb and c->'retention'='null'::jsonb and c->'calculation'='null'::jsonb and (ref<>'null'::jsonb and ref->'zone'<>'null'::jsonb or c->'temporal'='null'::jsonb);
  end if;
  pct:=case when f->>'cause' in('provider','huescaventura') then 100 when f->>'cause'<>'voluntary' or f->'nonRefundable'<>'null'::jsonb then 0 when days>=7 then 100 when days>=3 then 50 else 0 end;
  amt:=(f->'base'->>'amount')::numeric;cnt:=case when f->'base'->>'kind'='participation' then (f->'base'->>'count')::bigint else 1 end;v:=round(amt*pct/100,2);
@@ -132,6 +132,7 @@ begin
      or not crm_private.modification_proof((approval->>'evidenceId')::uuid,bid,s,'cancellation:base:'||encode(crm_crypto.digest(convert_to(jsonb_build_object('scope',a->'scope','base',(f->'base')-'administratorDecision','terms',b.terms)::text,'UTF8'),'sha256'),'hex'),(a->>'at')::timestamptz) then raise exception 'CANCELLATION_ADMIN_BASE_REQUIRED:E3';end if;
    end if;
    if ref<>'null'::jsonb then
+    if not(ref?&array['scope','scopeId','date','zone','sourceRef','version','basis']) or ref-array['scope','scopeId','date','zone','sourceRef','version','basis']<>'{}'::jsonb then raise exception 'CANCELLATION_REFERENCE_REQUIRED:E3';end if;
     if ref->>'scope'<>(case a->'scope'->>'kind' when 'booking' then 'global' else a->'scope'->>'kind' end) or ref->>'scopeId'<>a->'scope'->>'id' or not crm_private.invoice_text(ref->'sourceRef') or not crm_private.invoice_text(ref->'version') or ref->>'basis' not in('default','express_contract') then raise exception 'CANCELLATION_REFERENCE_REQUIRED:E3';end if;
     if ref->>'basis'='default' and ref->>'date' is distinct from material->>'date' or ref->>'basis'='express_contract' and position(ref->>'date' in b.terms->>'text')=0 then raise exception 'CANCELLATION_REFERENCE_REQUIRED:E3';end if;
    end if;

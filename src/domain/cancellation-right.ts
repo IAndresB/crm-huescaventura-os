@@ -6,7 +6,7 @@ export type CancellationCause='provider'|'huescaventura'|'voluntary'|'no_show'|'
 export interface CancellationFacts {
  readonly cause:CancellationCause|null;readonly policy:Readonly<{id:string;version:string;rule:'D011';terms:unknown}>;
  readonly base:Readonly<{kind:'participation'|'fixed'|'component';amount:string|null;count:number;start:number;modalityId?:string;components:readonly unknown[];administratorDecision?:Readonly<{recordId:string;evidenceId:string;reason:string}>}>;
- readonly reference:CivilReference|null;readonly nonRefundable:Readonly<{clause:string;evidenceId:string}>|null;
+ readonly reference:(Omit<CivilReference,'zone'>&Readonly<{zone:CivilReference['zone']|null}>)|null;readonly nonRefundable:Readonly<{clause:string;evidenceId:string}>|null;
  readonly at:string;
 }
 /** Pure C02. Authority and material scope are checked again by explicit C03. */
@@ -15,8 +15,8 @@ export function determineCancellation(f:CancellationFacts){
  instant(f.at);const missing:string[]=[];
  if(!f.cause)missing.push('cause');else if(!['provider','huescaventura','voluntary','no_show','late','alcohol_drugs','safety'].includes(f.cause))throw new Error('CANCELLATION_INPUT_INVALID');
  if(f.base.amount===null)missing.push('base:D019');else exactNonnegativeAmount(f.base.amount);
- if(!f.reference)missing.push('reference:D020');
- const reference=f.reference?civilReference({scope:f.reference.scope,scopeId:f.reference.scopeId},localDate(f.reference.date),f.reference.zone,f.reference.sourceRef,f.reference.version,f.reference.basis):null;
+ if(!f.reference)missing.push('reference:D020');else if(f.reference.zone===null){localDate(f.reference.date);missing.push('zone:D020');}
+ const reference=f.reference?.zone?civilReference({scope:f.reference.scope,scopeId:f.reference.scopeId},localDate(f.reference.date),f.reference.zone,f.reference.sourceRef,f.reference.version,f.reference.basis):null;
  const temporal=reference?evaluateInstant(reference,instant(f.at)):null;
  if(missing.length)return {status:'pending' as const,missing,temporal,calculation:null,right:null,retention:null,baseTotal:null,version:CANCELLATION_VERSION,currency:'EUR',unit:f.base.kind==='participation'?'participation':'contractual_component',moneyVersion:MONEY_ALGORITHM_VERSION,civilVersion:CIVIL_ALGORITHM_VERSION};
  const percent=['provider','huescaventura'].includes(f.cause!)?'100':f.cause!=='voluntary'||f.nonRefundable?'0':temporal!.daysBefore>=7?'100':temporal!.daysBefore>=3?'50':'0';

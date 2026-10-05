@@ -9,3 +9,5 @@ for(const [at,right] of [['2026-10-13T23:59:59+02:00','100.01'],['2026-10-17T23:
 for(const missing of ['cause','base','reference'])test('C02 E3 '+missing+' unknown is not zero',()=>{const x=f(),r=determineCancellation({...x,...(missing==='cause'?{cause:null}:missing==='base'?{base:{...x.base,amount:null}}:{reference:null})});assert.equal(r.status,'pending');assert.equal(r.right,null);});
 test('C02 PM06 fixed right minus accredited20 then30.01 never repeats percentage',()=>{assert.equal(pendingCancellationRight('50.01',['20.00']),'30.01');assert.equal(pendingCancellationRight('50.01',['20.00','30.01']),'0.00');});
 test('C02 PM07 fixed900 quantity changes preserve commitment',()=>assert.equal(fixedGroupPrice('900.00',12,11),'900.00'));
+
+test('C02 G07 known date unknown zone stays E3 without default time zone',()=>{const x=f(),r=determineCancellation({...x,reference:{...x.reference!,zone:null}});assert.equal(r.status,'pending');assert.equal(r.right,null);assert.equal(r.temporal,null);assert.deepEqual(r.missing,['zone:D020']);});
