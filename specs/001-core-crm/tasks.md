@@ -1,5 +1,7 @@
 # Tasks — SPEC 001 Core CRM
 
+**Revisión material correctiva H4-011/012 — H4-012-F16 OPEN:** observación estática de dirección sobre proveedor/variante histórica frente al alcance vigente; reproducción ycorrección pendientes. El cierre anterior permanece como antecedente, final3 no acredita este recorrido. Solo bloque correctivo autorizado; H4 IN PROGRESS, H4-013+ yH5–H6 NOT STARTED.
+
 Version: 0.1
 Status: APPROVED
 Approval: APPROVED — D036
