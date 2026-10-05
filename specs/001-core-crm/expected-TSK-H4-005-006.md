@@ -1,0 +1,46 @@
+# Expected independiente — TSK-H4-005/006
+
+Derivado antes del producto de fuentes aprobadas. Base inicial `139edbed8ffd25cd093722d76479b10fee0c053c`; corrección documental previa publicada `c5f891a93d221236968df316fbe2f2a360d72772`. Datos exclusivamente sintéticos. H4-006 contrasta fuentes y SQL observado, sin usar la implementación como oráculo. Este expected queda congelado en commit independiente.
+
+Autoridad: Constitution → Product → Business Rules → Domain Model → State Machines → Architecture → SPEC → Plan → Tasks. Fuentes: Tasks fichas H4-005/006 completas, §§2.2–2.3, filas asignadas §6 y bloqueos §7; Plan §§4,5.1,7.2 PLAN-T04,7.3,8; SPEC §§10.3,10.7,19,24.2; DM §5.1/operación/DM-INV-020; SM §§2.1–2.3,7,8.1,17; BR-AVAIL-001–005, BR-SUP-001–004, BR-INT-002; G1–G6 y D016/D017/D039. Las tablas prevalecen.
+
+Cada fila utiliza fixtures identificados de Booking/Service/Catalog/B07 existentes y actor Administrador autorizado salvo negación explícita. Evidencia necesaria común: comando/fixture recuperable, estado SQL anterior y posterior, fuente, actor, tiempos, historia, resultado esperado/observado, SHA exacto y registro de ejecución. Concurrencia exige sesiones reales independientes y solapamiento observado; permisos y rollback exigen PostgreSQL real. Estado posterior: el esperado de la fila, preservando hechos anteriores y partes independientes.
+
+| ID | Fuente | Fixture / precondición | Acción | Expected / estado posterior | Efectos prohibidos |
+|---|---|---|---|---|---|
+| R01 | SM-BS-02; SM-AV-01; SVC-006 | S1, 12, fecha/unidad y fuente conocidas | Registrar consulta sin respuesta | Consulta registrada, respuesta pendiente; vincular S1 | No disponibilidad, confirmación, reserva ni envío inferidos |
+| R02 | SM-AV-01; G1/G2 | Consulta sintética completa | Retirar servicio, fechas, cantidad, unidad, fuente o momento por separado | Rechazo sin escritura material | No valores por defecto ni alcance ficticio |
+| R03 | SM-AV-02; BR-SUP-003 | Consulta R01 | Registrar respuesta real hay sitio para 12 | Comunicada, original/registro y alcance conservados | No verificación automática |
+| R04 | SM-AV-02; G4 | Sin consulta | Registrar comunicación espontánea verificable | Respuesta conservada sin consulta ficticia | No envío/consulta retrospectivos |
+| R05 | SM-AV-02; G2 | Respuesta negativa, incierta o ambigua | Registrar cada contenido real | Negativa/Incierta; revisión/seguimiento localizado | No disponible ni negativa comprobada por silencio |
+| R06 | SM-AV-02 | Respuesta real | Retirar registro original o alcance | Rechazo; historia anterior intacta | No evidencia inventada |
+| R07 | SM-AV-03; AC-020 | Respuesta inequívoca para 12, fuente autorizada | Verificar cobertura para acción concreta | Disponibilidad confirmada exclusivamente en alcance verificado | No Provider Confirmation, Booking/servicio Confirmado |
+| R08 | SM-AV-03; G2 | Respuesta comunicada | Retirar autoridad, certeza, evidencia o cobertura | Rechazo o cobertura pendiente | No promoción por archivo, leído o Task |
+| R09 | AC-020; DM-INV-020 | Disponibilidad para 12 | Evaluar 16, otra noche/fecha/variante/proveedor/unidad | Cobertura insuficiente solo en alcance dependiente | No sumar nominales ni inventar capacidad |
+| R10 | SPEC-FR-CAT-003 | Provider/Offering reales sin respuesta | Evaluar disponibilidad | Pendiente; Offering solo conserva abastecimiento | No Offering como prueba de capacidad |
+| R11 | BR-AVAIL-003; SM-AV-04 | Prueba con vencimiento explícito | Evaluar compromiso antes, en y después del límite y que cruza límite | Respetar límite informado; cobertura pendiente si insuficiente | No TTL inventado ni liberación externa |
+| R12 | BR-AVAIL-003; G2 | Vigencia desconocida | Evaluar nueva acción concreta sin nueva comprobación y con ella | Desconocido visible; comprobación solo acredita acto revisado | No infinito ni caducidad inventada |
+| R13 | SM-AV-04; SM §2.3; SVC-010 | Evidencia previa confirmada | Registrar cambio/discrepancia/caducidad motivados | Pendiente de revalidación; conservar antes/después, causa, dependencias, actor, momentos, resultado y Task existente | No borrar último hecho ni acuerdo aceptado |
+| R14 | SM-AV-04 | Evidencia existente | Retirar límite/causa/fuente/dependencias | Rechazo sin revisión parcial | No revisión arbitraria |
+| R15 | SVC-010; SM §2.3 | Revisión pendiente de cantidad/horario/capacidad | Ratificar solo horario; rechazar cambio sin nueva prueba | Otros aspectos siguen pendientes; rechazo no restaura cobertura | No ratificación universal |
+| R16 | BR-AVAIL-005; BR-INT-002 | Prueba anterior verificada | Registrar/verificar prueba más reciente con precedencia acreditada | Anterior recuperable; nueva cobertura por alcance | No cambio de términos aceptados |
+| R17 | BR-AVAIL-005; G2 | Hecho actual verificado | Recibir después hecho ocurrido antes y noticia reciente no verificada | No reemplazo automático por orden de llegada | No retroceso por eco o candidato |
+| R18 | E8; BR-AVAIL-005 | Evidencias contradictorias sin precedencia verificada | Evaluar/verificar sin resolver discrepancia | Incertidumbre/E8, revisión con ambas fuentes | No elección arbitraria |
+| R19 | G5; T04 | S1 afectado y S2/noche independiente | Revisar S1 | Solo cobertura dependiente pendiente; otras continúan | No booleano global Booking |
+| R20 | BR-AVAIL-001; BR-SUP-001 | Servicio interno | Registrar/verificar fuente y responsable interno | Fuente interna real; cobertura exacta | No proveedor externo ficticio |
+| R21 | SM-FORB-03/05/07; AC-020 | Consulta/silencio/ambigüedad/disponibilidad/fecha prevista | Intentar aceptación, confirmación, reserva firme y ejecución | Rechazo; hechos conservados, fases previas intactas | No mocks/estados futuros acreditados |
+| R22 | G1/G3; D039; Tasks V-DAT | Actor ordinario y expediente privado | Contexto ausente/falso, inhabilitado, sesión revocada, entrada IA sin aprobación exacta | Denegación fail closed y replay reautorizado | No owner/BYPASS/cliente-proveedor como actor interno |
+| R23 | SPEC-FR-SEC; D016/D017; V-DAT | UUIDs ajenos, documentos originales privados | Leer/CRUD directo/enumerar/proyectar entre scopes | Denegación/null sin datos internos o económicos | No filtración por historia, error, código, objeto, resultado previo |
+| R24 | G4; DM-PENDING-005 | Solo fixtures sintéticos | Inspeccionar metadatos, originales/derivados y proyecciones | Minimización, linaje privado e historia intactos | No audio/consentimiento/retención/eliminación automática |
+| R25 | G6; T04; E2 | Misma clave y material; otra clave mismo hecho fiable | Repetir consulta/respuesta/verificación/revisión y replay perdido | Resultado durable sin duplicar efecto/historia/Task | No deduplicación por texto o filename |
+| R26 | E2; G6 | Clave ya utilizada | Repetir con material diferente; hechos distintos similares | E2 para conflicto; hechos distintos no fusionados | No sobrescritura silenciosa |
+| R27 | T04; V-AT | Sesiones PG independientes sin hijos previos | Alta equivalente simultánea; respuestas iguales y distintas, ambos órdenes y solapamiento | Una identidad vigente, historia completa; conflicto cuando corresponde | No raíz/resultado parcial |
+| R28 | T04; V-AT | Dos sesiones misma base | Verificar vs verificar/revisión/vencimiento; nueva prueba vs respuesta antigua | Serialización, revisión obsoleta rechazada y cobertura no retrocede | No overwrite ni prueba obsoleta aplicada a nueva base |
+| R29 | T04; G1/G5 | Versiones reales de servicio y padre | Evaluar contra base/versionado material; alcances independientes | Detectar base obsoleta; independientes no propagados | No implementar modificación futura para simularla |
+| R30 | T04; V-AT | Unidad completa con evidencia ya real | Fallo antes/después raíz, historia, Task/resultado y COMMIT | Rollback total; reintento seguro y durable tras COMMIT perdido | No seguimiento o historia parcial |
+| R31 | Tasks V-MIG | 39 migraciones congeladas; base anterior poblada | Fresh install y upgrade incluyendo Requirement revisado, Incident con INC/historia y original privado | IDs, objetos, datos y catálogo de permisos anteriores idénticos | No editar 39 previas ni health-check |
+| R32 | Tasks V-MIG; V-DAT | Rol de migración separado de runtime | Fallo DDL/rollback/reintento; comprobar owners/ACL/RLS/FORCE/policies/helpers/search_path | Atomicidad DDL y privilegios mínimos | No helpers PUBLIC ni CRUD runtime |
+| R33 | Tasks §2.2–2.3; PT-03; PLAN-B04 | H0–H4-004 congelados | Regresión PostgreSQL/unitarias/gates completos sobre SHA exacto | Preservación económica, cantidades, documentos, Incident, códigos, seguridad e historia | No expected adaptado al producto ni doble cómputo |
+| R34 | Tasks H4-005/006; Plan §8; H4-021 | Componente local disponible | Revisar límites y coordinación | H4-005/006 solo tras PASS; H4 IN PROGRESS; H4-007+ H5/H6 NOT STARTED | No Hold/Confirmation/modificación/cierre/H5/conector/hosted/Production |
+
+Integración futura H4-021 no acreditada localmente. Permanecen pendientes H4-007+, H5/H6, motor completo de modificación/revalidación, opciones/Capacity Hold, Provider Confirmation, operación/prestación/cierres completos, Refund/fianza, avisos/jobs, conectores, audio/datos reales, política definitiva DM-PENDING-005, hosted y Production. No se preparan tareas posteriores.
