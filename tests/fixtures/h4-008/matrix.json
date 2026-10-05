@@ -1,0 +1,575 @@
+{
+  "testedSha": "8849b0fa86d9efbc2fb09e6a05b9362438b1af9d",
+  "frozenExpectedCommit": "e4bba9b735cf345325755379c036e413fd009952",
+  "cases": [
+    {
+      "id": "R01",
+      "normativeExpected": "- Fuente: SPEC-FR-SVC-007; SM-HO-01; DM §5.1.\n- Fixture/precondición: Proveedor concede Hold en Proposal Version real antes de Booking.\n- Acción/guardas: Registrar evidencia revisada y compromiso identificado de 12 unidades.\n- Expected/estado posterior: Creado con identidad, procedencia, alcance, condiciones y momentos; Booking/Acceptance no requeridas.\n- Efectos prohibidos: Sin reserva firme ni envío ficticio.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R01 conceded pre-Booking Hold preserves real proposal and B07",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R02",
+      "normativeExpected": "- Fuente: SM-HO-01; G1/G2.\n- Fixture/precondición: Mismo fixture de concesión.\n- Acción/guardas: Retirar individualmente proveedor/fuente autorizada, prueba, servicio, fechas/noches, cantidad/unidad, creación, condiciones, concesión inequívoca.\n- Expected/estado posterior: Rechazo E3/denegación y cero raíz/historia parcial.\n- Efectos prohibidos: Solicitud, negativa, silencio/ambigüedad no crean Hold.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R02 each grant guard individually absent and unproved request cannot grant",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R03",
+      "normativeExpected": "- Fuente: SM-HO-02; BR-AVAIL-003.\n- Fixture/precondición: Hold Creado o No verificado.\n- Acción/guardas: Comprobar fuente actual, condiciones y cobertura para acción/intervalo exactos.\n- Expected/estado posterior: Vigente para acción/porción comprobadas; sin vencimiento mantiene revalidación posterior.\n- Efectos prohibidos: No vigencia indefinida.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R03 exact explicit check without TTL and later action requires new check",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R04",
+      "normativeExpected": "- Fuente: SM-HO-02; G2.\n- Fixture/precondición: Hold de 12; límite con offset explícito.\n- Acción/guardas: Retirar cada guarda fuente actual, evidencia suficiente, condiciones, acción, alcance; antes/frontera/después del límite acreditado.\n- Expected/estado posterior: Antes utilizable según límite; frontera/después sin cobertura; retiro rechaza sin modificar hecho.\n- Efectos prohibidos: No cobertura para16/otra unidad/noche/variante/proveedor.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R04 check guards, exact coverage and offset expiry before/at/after",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R05",
+      "normativeExpected": "- Fuente: SM-HO-03.\n- Fixture/precondición: Hold Vigente con vencimiento y adelanto configurado explícitos.\n- Acción/guardas: Evaluar antes y dentro del adelanto; retirar vencimiento/adelanto/versionado.\n- Expected/estado posterior: Solo evaluación pertinente Próximo a vencer + Task conceptual; ausencia mantiene programación pendiente.\n- Efectos prohibidos: Sin scheduler, extensión, envío ni liberación.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R05 near needs real expiry, configured advance and current validity",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R06",
+      "normativeExpected": "- Fuente: SM-HO-04; SM §2.3.\n- Fixture/precondición: Hold Creado/Vigente.\n- Acción/guardas: Vencimiento explícito o incertidumbre con causa/evidencia; retirar causa/límite/alcance.\n- Expected/estado posterior: Vencido o No verificado en parte afectada; Review conserva antes/después y dependencias; guardas ausentes rechazan.\n- Efectos prohibidos: Tiempo no reduce capacidad; partes independientes continúan.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R06 expiry/uncertainty conserves confirmed fact and capacity",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R07",
+      "normativeExpected": "- Fuente: SM-HO-05; G3; C05/T08.\n- Fixture/precondición: Hold Creado/Vigente/Vencido/No verificado.\n- Acción/guardas: Decisión humana, alcance y registro B07 manual de petición realmente enviada; retirar cada guarda.\n- Expected/estado posterior: Liberación solicitada con última vigencia y12 conservadas; preparada/aprobada sin envío rechaza.\n- Efectos prohibidos: Sin comunicación real, ejecutor nuevo, IA sin exacta aprobación ni fondos.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R07 sent release request independent of validity and exact sent evidence",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R08",
+      "normativeExpected": "- Fuente: SM-HO-06; BR-SUP-003/004.\n- Fixture/precondición: Hold12 con o sin solicitud.\n- Acción/guardas: Proveedor acredita liberar4 en porción/noche exacta.\n- Expected/estado posterior: Restan8 misma unidad; solicitud preservada; espontánea no fabrica petición.\n- Efectos prohibidos: No liberar otra noche ni más capacidad acreditada.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R08 spontaneous release4 leaves8 and replay never repeats reduction",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R09",
+      "normativeExpected": "- Fuente: SM-HO-06; G2/G6.\n- Fixture/precondición: Hold12 y respuesta parcial.\n- Acción/guardas: Retirar prueba inequívoca/proveedor/alcance/momentos; cantidad excesiva, unidad incompatible, negativa, silencio, ambigüedad.\n- Expected/estado posterior: Rechazo/pending sin reducción ni falsos hechos; replay fiable de4 no resta de nuevo.\n- Efectos prohibidos: Texto similar no fusiona hechos distintos.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R09 every release response/portion guard rejects without capacity effect",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R10",
+      "normativeExpected": "- Fuente: SM-HO-07.\n- Fixture/precondición: Hold Vigente/No verificado/Vencido con porciones.\n- Acción/guardas: Prórroga/cambio acreditado parcial con términos nuevos expresos; retirar fuente, revisión, condiciones o fecha nueva.\n- Expected/estado posterior: Solo parte cubierta reevaluada; original y anteriores recuperables; demás partes intactas.\n- Efectos prohibidos: No extensión silenciosa ni reactivación de parte liberada.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R10 partial express extension splits only its portion with retained terms",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R11",
+      "normativeExpected": "- Fuente: SM-HO-07; G4.\n- Fixture/precondición: Proveedor identifica compromiso distinto.\n- Acción/guardas: Registrar nueva identidad con sustitución acreditada.\n- Expected/estado posterior: Original y nuevo enlazados; no overwrite ni liberación implícita del anterior.\n- Efectos prohibidos: No fusionar dos Holds parecidos.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R11 replacement preserves original and two similar distinct commitments",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R12",
+      "normativeExpected": "- Fuente: SM-BS-03; DM §5.1; SPEC-FR-SVC-007.\n- Fixture/precondición: Hold anterior a Booking en línea seleccionada.\n- Acción/guardas: Convertir por contratos H2 reales; vincular al servicio/contribución pertinente; retirar identidad/cadena/alcance/condiciones/vigencia.\n- Expected/estado posterior: Mismo Hold/original/condiciones; proyección Opcionado/bloqueado cuando guardas; sin vencimiento Task revalidación; link insuficiente rechazado.\n- Efectos prohibidos: No Acceptance/Booking sembradas, cambios términos, confirmación o liberación automática.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R12 real H2 conversion preserves Hold identity and links exact source line",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R13",
+      "normativeExpected": "- Fuente: AC-021.\n- Fixture/precondición: Concesión sin vencimiento12; dos noches.\n- Acción/guardas: Revalidar; petición enviada; liberación4; prórroga expresa de parte.\n- Expected/estado posterior: Secuencia mantiene12 tras petición y8 tras liberación; revalidación sin fecha; partes/condiciones históricas visibles.\n- Efectos prohibidos: Sin TTL ni prórroga de resto.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R13 AC-021 complete chronological capacity dimensions",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        },
+        {
+          "test": "H4-007 focal AC-021: pre-Booking identity, explicit action, sent request, partial4 leaves8, partial extension",
+          "path": "tests/integration/postgres-h4-007.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R14",
+      "normativeExpected": "- Fuente: SM-FORB-07.\n- Fixture/precondición: Hold aparentemente favorable.\n- Acción/guardas: Intentar opción→reserva firme/servicio confirmado; fecha prevista→ejecutado.\n- Expected/estado posterior: Rechazo e independencia comprobada con hechos actuales.\n- Efectos prohibidos: Sin mocks o estados privilegiados de capacidades futuras.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R14/R15 explicit forbidden attempts cannot create firm/economic/execution/release",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R15",
+      "normativeExpected": "- Fuente: SM-FORB-12; DM-INV-021.\n- Fixture/precondición: Hold sin límite o pendiente de liberación.\n- Acción/guardas: Intentar TTL inventado; aviso/Task completada/aprobación/petición/tiempo→liberación.\n- Expected/estado posterior: Rechazo/sin inferencia; historial y restante conservados.\n- Efectos prohibidos: No declaración de capacidad externa liberada.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R14/R15 explicit forbidden attempts cannot create firm/economic/execution/release",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R16",
+      "normativeExpected": "- Fuente: BR-SUP-004; G2/G4/G6; E8.\n- Fixture/precondición: Términos posteriores verificados.\n- Acción/guardas: Respuesta antigua registrada tarde; contradicción sin precedencia demostrable; noticia reciente ambigua.\n- Expected/estado posterior: No overwrite por llegada; incertidumbre/revisión solo alcance afectado con E8; último hecho conservado.\n- Efectos prohibidos: No elección arbitraria ni alterar acuerdo aceptado.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R16 late old and ambiguous response cannot overwrite verified terms; E8 uncertainty",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R17",
+      "normativeExpected": "- Fuente: P09; AC-019/051/020; G5.\n- Fixture/precondición: Noches12/10 y4 nominales; Required Document Recibido; disponibilidad12.\n- Acción/guardas: Operar Hold de noche1 y liberar/prorrogar parte.\n- Expected/estado posterior: Noche2 intacta; siguen12/10;4 no suman; documento no revisado no satisfecho; disponibilidad no cubre16.\n- Efectos prohibidos: No contactos ficticios ni cumplimiento/confirmación por Hold.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R17 real nights12/10 four nominal and documentary/availability dimensions preserved",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R18",
+      "normativeExpected": "- Fuente: PLAN-B04/B07/B08; C02–06; T04/T08.\n- Fixture/precondición: Contratos/versiones vigentes.\n- Acción/guardas: Examinar persistencia, proyección mínima y Task existente.\n- Expected/estado posterior: Efecto/historia/resultado/Task juntos; reuse B07/Review/Task; versiones exactas.\n- Efectos prohibidos: Sin sistema paralelo ni integración H4-021 acreditada.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R18 minimal projected evaluation excludes private record/economy and reuses Task",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R19",
+      "normativeExpected": "- Fuente: G1; F1/F2; D037/038/039.\n- Fixture/precondición: Runtime ordinario no privilegiado.\n- Acción/guardas: Sin/falso contexto, sesión revocada, actor inhabilitado, replay tras revocar.\n- Expected/estado posterior: Denegación antes de leer/escribir/replay; sin resultado previo filtrado.\n- Efectos prohibidos: Owner/service_role/BYPASSRLS no actor.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R19 actor/session revocation reauthorizes replay and read",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R20",
+      "normativeExpected": "- Fuente: P10/P11; Architecture §§5/9/14.\n- Fixture/precondición: Dos scopes y dos cadenas comerciales sintéticas.\n- Acción/guardas: UUID/evidencia/Hold/pre-Booking ajenos, CRUD directo; errores/proyecciones.\n- Expected/estado posterior: RLS/FORCE/ACL/owners/helpers privados/search_path; no enumeración; mínima finalidad; originales privados.\n- Efectos prohibidos: Sin economía interna/datos terceros en salidas para destinatario.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R20 runtime ACL/RLS/owners, fake context, direct CRUD and private helpers",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        },
+        {
+          "test": "H4-008 R20 cross pre-Booking scope/evidence and replay existence not disclosed",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R21",
+      "normativeExpected": "- Fuente: DM-PENDING-005; D016/017.\n- Fixture/precondición: Fixtures sintéticos.\n- Acción/guardas: Inspección de tratamiento y originales/correcciones.\n- Expected/estado posterior: Linaje B07 preservado; sin audio/consentimiento/retención/borrado importante inventados.\n- Efectos prohibidos: No datos reales ni conectores.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R21 synthetics only no audio/retention/extra scope evidence; reliable private B07 original",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R22",
+      "normativeExpected": "- Fuente: G6; Architecture §12.1.\n- Fixture/precondición: Operación/facto fiables.\n- Acción/guardas: Misma clave/material; distinta clave mismo hecho; misma clave distinto material; dos hechos similares.\n- Expected/estado posterior: Replay durable sin doble raíz/porción/historia/Task; E2 diferente; dos distintos conservados.\n- Efectos prohibidos: No dedup por descripción/filename/importe.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R22 reliable fact same grant recovers original even with other technical id; changed key E2",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R23",
+      "normativeExpected": "- Fuente: T04/T08; V-AT.\n- Fixture/precondición: Dos sesiones PostgreSQL runtime independientes.\n- Acción/guardas: Altas equivalentes/distintas, liberaciones competidoras, liberación vs prórroga/verificación, prórrogas distintas; ambos órdenes y overlap observado.\n- Expected/estado posterior: Serialización raíz/recurso compartido, una base consumida; stale E2; no sobreliberación/historia parcial.\n- Efectos prohibidos: No bloquear solo hijos sin proteger raíz.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R23a first roots equivalent no children and different same key both orders",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        },
+        {
+          "test": "H4-008 R23b competing partial releases one revision wins, no overconsumption both orders",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        },
+        {
+          "test": "H4-008 R23c release vs extension/check, extensions competing both orders",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R24",
+      "normativeExpected": "- Fuente: T04; V-AT; H2 continuidad.\n- Fixture/precondición: Hold en propuesta y conversión H2.\n- Acción/guardas: Link/conversión vs cambio; alcances independientes concurrentes.\n- Expected/estado posterior: Versión cadena/porciones validada; link obsoleto no aplica; independientes continúan.\n- Efectos prohibidos: No modificar conversión futura ni otras noches.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R24a stale link vs Hold change both orders after real conversion",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        },
+        {
+          "test": "H4-008 R24b independent portions and opportunities can continue with distinct valid bases",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        },
+        {
+          "test": "H4-008 R24c real H2 conversion concurrent with material Hold change shares parent lock both orders",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R25",
+      "normativeExpected": "- Fuente: C03; V-AT.\n- Fixture/precondición: Antes/durante root/porciones/historia/resultado/Task.\n- Acción/guardas: Inyectar fallo escritura y deferred COMMIT; pérdida respuesta tras COMMIT real.\n- Expected/estado posterior: Rollback exacto todo o nada; durable replay posterior sin repetir efecto.\n- Efectos prohibidos: Sin raíz huérfana ni reserva fondos.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R25a fail root/revision/result/Task/deferred COMMIT rolls all back then replay",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        },
+        {
+          "test": "H4-008 R25b every material transition failure leaves previous portions/history exact",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        },
+        {
+          "test": "H4-008 R25c lost response AFTER real PostgreSQL COMMIT recovers without reducing twice",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R26",
+      "normativeExpected": "- Fuente: V-MIG; P13.\n- Fixture/precondición: Base vacía y40 poblada con Requirement revisado/original privado, Incident INC/historia, Availability.\n- Acción/guardas: CLI oficial forward; instalar41; comparar datos/catálogos; DDL fallo+rollback+retry.\n- Expected/estado posterior: 40 previas/fuentes/health intactos; IDs/referencias/objetos/cantidades/economía/historia/owners/ACL/functions/policies/triggers/roles preservados.\n- Efectos prohibidos: No editar/renumerar migraciones previas.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "H4-008 R26 fresh inventory41,40 unchanged, approved sources/health byte preservation",
+          "path": "tests/integration/postgres-h4-008.test.ts"
+        },
+        {
+          "test": "H4-008 R26a populated40 upgrade preserves original/Requirement/INC/Availability and permissions",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        },
+        {
+          "test": "H4-008 R26b DDL rollback no partial schema then retry from40",
+          "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    },
+    {
+      "id": "R27",
+      "normativeExpected": "- Fuente: V-EVI; Tasks §2.2/2.3.\n- Fixture/precondición: SHA congelado.\n- Acción/guardas: Regresión completa PG/unit/health, install/typecheck/lint/build/audit/diff-check.\n- Expected/estado posterior: Cero material FAIL/skipped/cancelled; recuentos sin doble cómputo; Fxx conservados/retest; SHA exacto y logs recuperables.\n- Efectos prohibidos: Sin atribuir capacidades futuras ni ensayo no hecho.\n- Evidencia necesaria: fixture y prueba por ID; observación SQL/historia/proyección; log completo, esperado/observado, SHA.",
+      "verification": [
+        {
+          "test": "final gates, full PostgreSQL/unit and independent health",
+          "path": "tests/fixtures/h4-008/regression-summary.json"
+        }
+      ],
+      "observed": "PASS: literal asserted results/state/SQL; exact expected preserved. Full runner log final-postgres.log.gz; all mandatory guard withdrawal loops in referenced verifier.",
+      "result": "PASS",
+      "evidence": "final-postgres.log.gz and regression-summary.json"
+    }
+  ],
+  "allTests": [
+    {
+      "test": "H4-008 R01 conceded pre-Booking Hold preserves real proposal and B07",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R02 each grant guard individually absent and unproved request cannot grant",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R03 exact explicit check without TTL and later action requires new check",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R04 check guards, exact coverage and offset expiry before/at/after",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R05 near needs real expiry, configured advance and current validity",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R06 expiry/uncertainty conserves confirmed fact and capacity",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R07 sent release request independent of validity and exact sent evidence",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R08 spontaneous release4 leaves8 and replay never repeats reduction",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R09 every release response/portion guard rejects without capacity effect",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R10 partial express extension splits only its portion with retained terms",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R11 replacement preserves original and two similar distinct commitments",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R12 real H2 conversion preserves Hold identity and links exact source line",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R13 AC-021 complete chronological capacity dimensions",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R14/R15 explicit forbidden attempts cannot create firm/economic/execution/release",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R16 late old and ambiguous response cannot overwrite verified terms; E8 uncertainty",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R18 minimal projected evaluation excludes private record/economy and reuses Task",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R20 runtime ACL/RLS/owners, fake context, direct CRUD and private helpers",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R21 synthetics only no audio/retention/extra scope evidence; reliable private B07 original",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R22 reliable fact same grant recovers original even with other technical id; changed key E2",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-008 R26 fresh inventory41,40 unchanged, approved sources/health byte preservation",
+      "path": "tests/integration/postgres-h4-008.test.ts"
+    },
+    {
+      "test": "H4-007 focal AC-021: pre-Booking identity, explicit action, sent request, partial4 leaves8, partial extension",
+      "path": "tests/integration/postgres-h4-007.test.ts"
+    },
+    {
+      "test": "H4-008 reproducer equivalent repeated check/request does not append material history",
+      "path": "tests/integration/postgres-h4-008-reproducer.test.ts"
+    },
+    {
+      "test": "H4-008 reproducer simultaneous incompatible response without precedence does not overwrite terms",
+      "path": "tests/integration/postgres-h4-008-reproducer.test.ts"
+    },
+    {
+      "test": "H4-008 reproducer link cannot reuse unknown expiry validity for a different action",
+      "path": "tests/integration/postgres-h4-008-reproducer.test.ts"
+    },
+    {
+      "test": "H4-008 reproducer partial splits must retain distinct portion identities",
+      "path": "tests/integration/postgres-h4-008-reproducer.test.ts"
+    },
+    {
+      "test": "H4-008 reproducer express external date change retained without rewriting accepted scope",
+      "path": "tests/integration/postgres-h4-008-reproducer.test.ts"
+    },
+    {
+      "test": "H4-008 R19 actor/session revocation reauthorizes replay and read",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R20 cross pre-Booking scope/evidence and replay existence not disclosed",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R23a first roots equivalent no children and different same key both orders",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R23b competing partial releases one revision wins, no overconsumption both orders",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R23c release vs extension/check, extensions competing both orders",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R24a stale link vs Hold change both orders after real conversion",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R24b independent portions and opportunities can continue with distinct valid bases",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R25a fail root/revision/result/Task/deferred COMMIT rolls all back then replay",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R25b every material transition failure leaves previous portions/history exact",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R25c lost response AFTER real PostgreSQL COMMIT recovers without reducing twice",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R26a populated40 upgrade preserves original/Requirement/INC/Availability and permissions",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R26b DDL rollback no partial schema then retry from40",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R17 real nights12/10 four nominal and documentary/availability dimensions preserved",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 R24c real H2 conversion concurrent with material Hold change shares parent lock both orders",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 SM-HO-05 all four origins retain capacity and last known validity",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 SM-FORB-12 completing unsupported Task cannot release Hold",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 B07 actual private pre-Booking original and correction lineage remain retrievable",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    },
+    {
+      "test": "H4-008 loopback security advisors for complete fresh41",
+      "path": "tests/integration/postgres-h4-008-supplement.test.ts"
+    }
+  ]
+}
