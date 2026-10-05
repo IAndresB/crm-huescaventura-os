@@ -1,0 +1,11 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {determineCancellation,pendingCancellationRight,type CancellationFacts} from '../src/domain/cancellation-right.ts';
+import {civilReference,localDate,zoneEvidence} from '../src/domain/civil-time.ts';
+import {fixedGroupPrice} from '../src/domain/exact-money.ts';
+const f=(at='2026-10-17T10:00:00+02:00'):CancellationFacts=>({cause:'voluntary',policy:{id:'D011',version:'1',rule:'D011',terms:{version:'accepted'}},base:{kind:'participation',amount:'100.01',count:1,start:0,modalityId:'B',components:[{source:'accepted-B'}]},reference:civilReference({scope:'modality',scopeId:'B'},localDate('2026-10-20'),zoneEvidence('Europe/Madrid','synthetic actual zone','1'),'accepted-B','1'),nonRefundable:null,at});
+for(const [count,right,retention] of [[1,'50.01','50.00'],[3,'150.03','150.00']] as const)test('C02 pure PM04/05 materialize each first count'+count,()=>{const x=f(),before=structuredClone(x),r=determineCancellation({...x,base:{...x.base,count}});assert.equal(r.right,right);assert.equal(r.retention,retention);assert.deepEqual(x,before);});
+for(const cause of ['provider','huescaventura','no_show','late','alcohol_drugs','safety'] as const)test('C02 D011 explicit cause '+cause,()=>{const x=f(),r=determineCancellation({...x,cause,nonRefundable:{clause:'accepted',evidenceId:'proof'}});assert.equal(r.right,['provider','huescaventura'].includes(cause)?'100.01':'0.00');});
+for(const [at,right] of [['2026-10-13T23:59:59+02:00','100.01'],['2026-10-17T23:59:59+02:00','50.01'],['2026-10-18T00:00:01+02:00','0.00']])test('C02 D020 civil '+at,()=>assert.equal(determineCancellation(f(at)).right,right));
+for(const missing of ['cause','base','reference'])test('C02 E3 '+missing+' unknown is not zero',()=>{const x=f(),r=determineCancellation({...x,...(missing==='cause'?{cause:null}:missing==='base'?{base:{...x.base,amount:null}}:{reference:null})});assert.equal(r.status,'pending');assert.equal(r.right,null);});
+test('C02 PM06 fixed right minus accredited20 then30.01 never repeats percentage',()=>{assert.equal(pendingCancellationRight('50.01',['20.00']),'30.01');assert.equal(pendingCancellationRight('50.01',['20.00','30.01']),'0.00');});
+test('C02 PM07 fixed900 quantity changes preserve commitment',()=>assert.equal(fixedGroupPrice('900.00',12,11),'900.00'));

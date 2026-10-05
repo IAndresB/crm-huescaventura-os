@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import {mkdirSync,writeFileSync} from "node:fs";
 import {randomBytes,randomUUID} from "node:crypto";
 import {spawnSync} from "node:child_process";
 import {mkdtemp,mkdir,readFile,readdir,rm} from "node:fs/promises";
@@ -21,7 +22,7 @@ const root=resolve(import.meta.dirname,"../.."),migrations=join(root,"supabase/m
 export async function isolatedH2(label:string,port:number,upgrade=false) {
  const bin=process.env.POSTGRES_H0_BIN;if(!bin) throw new Error("POSTGRES_H0_BIN_REQUIRED");
  const temporary=await mkdtemp(join(tmpdir(),`crm-${label}-`)),socket=join(temporary,"socket");await mkdir(socket);
- const command=(name:string,args:string[])=>{const p=spawnSync(join(bin,name),args,{encoding:"utf8",env:{...process.env,LC_ALL:"C"}});assert.equal(p.status,0,p.stderr);};
+ const command=(name:string,args:string[])=>{const p=spawnSync(join(bin,name),args,{encoding:"utf8",env:{...process.env,LC_ALL:"C"}});if(process.env.H4014_CAPTURE_DIR){const dir=join(process.env.H4014_CAPTURE_DIR,"native");mkdirSync(dir,{recursive:true});const prefix=join(dir,label+"-"+name+"-"+randomUUID());writeFileSync(prefix+".stdout.log",p.stdout??"");writeFileSync(prefix+".stderr.log",p.stderr??"");writeFileSync(prefix+".status.json",JSON.stringify({cmd:join(bin,name),args,status:p.status,signal:p.signal,error:p.error?.message??null},null,2)+"\n");}assert.equal(p.status,0,p.stderr);};
  command("initdb",["-D",join(temporary,"data"),"--username=h2_bootstrap","--auth-local=trust","--auth-host=trust","--no-locale","--encoding=UTF8"]);
  command("pg_ctl",["-D",join(temporary,"data"),"-l",join(temporary,"postgres.log"),"-o",`-k '${socket}' -h '127.0.0.1' -p ${port}`,"-w","start"]);
  const connections:postgres.Sql[]=[];
