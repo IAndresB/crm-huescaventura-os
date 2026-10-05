@@ -7,7 +7,7 @@ Approved: 2026-09-15
 Phase: 08 — Tasks SPEC 001
 Progress: COMPLETED
 Implementation: H0 COMPLETED en alcance técnico/local/aislado — TSK-H0-001–018 COMPLETED en sus respectivos alcances; H1 COMPLETED en alcance local/aislado; H1-001–019 COMPLETED localmente; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 COMPLETED local/aislado; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H4 IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003/004 COMPLETED local/aislado; H4-005+ y H5–H6 NOT STARTED; STOP tras H4-004; continuidad requiere nueva autorización humana
-H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 COMPLETED local/aislado; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H4 IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003+ y H5–H6 NOT STARTED; STOP tras H4-002; continuidad requiere nueva autorización humana
+H0: COMPLETED en alcance técnico/local/aislado por TSK-H0-018; D039 APPROVED / IMPLEMENTED LOCALLY; H0-012-F01/F02/F03/F04/F05 CLOSED localmente; PLAN-AUTH-001–006 PENDING globalmente; H1 COMPLETED local/aislado; H2 COMPLETED local/aislado, H2-001–012 COMPLETED local/aislado; H3 COMPLETED local/aislado; H3-001/002 COMPLETED local/aislado; H3-003/004 COMPLETED local/aislado; H3-005/006 COMPLETED local/aislado; H3-007/008 COMPLETED local/aislado; H3-009/010 COMPLETED local/aislado; H3-011/012 COMPLETED local/aislado; H3-013/014 COMPLETED local/aislado; H3-015 COMPLETED local/aislado; H3-001–015 COMPLETED local/aislado; H4 IN PROGRESS; H4-001–004 COMPLETED local/aislado; H4-005+ y H5–H6 NOT STARTED; STOP tras H4-004; continuidad requiere nueva autorización humana
 Pruebas técnicas: ver [cierre H0-018](evidence-TSK-H0-018.md) y regresión acumulada. Auth/recuperación reales NO EJECUTADAS; H0-M01/F1/M02 hosted validados separadamente; hosted M03/M04/M05/M06 NO ACREDITADOS; sin cambios hosted en H0-018
 Last updated: 2026-10-05
 
@@ -1213,7 +1213,7 @@ Secuencia conservada: **H0 → H1 → H2 → H3 → H4 → H5 → H6**. Al aprob
 
 ### 4.5. H4 — Operación, cambios y cancelación
 
-Estado vigente: **IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003+ NOT STARTED. STOP tras publicar H4-002.**
+Estado vigente: **IN PROGRESS; H4-001–004 COMPLETED local/aislado; H4-005+ y H5–H6 NOT STARTED. STOP anterior tras publicar H4-004.**
 
 <a id="tsk-h4-001"></a>
 

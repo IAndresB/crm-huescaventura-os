@@ -144,7 +144,7 @@ Last updated: 2026-10-05
 
 ## In Progress
 
-- Implementación: IN PROGRESS; H0 COMPLETED técnico/local/aislado y H1/H2/H3 COMPLETED local/aislado. H4 IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003/004 COMPLETED local/aislado; H4-005+ y H5–H6 NOT STARTED. STOP tras publicar H4-002; continuidad requiere nueva autorización humana.
+- Implementación: IN PROGRESS; H0 COMPLETED técnico/local/aislado y H1/H2/H3 COMPLETED local/aislado. H4 IN PROGRESS; H4-001/002 COMPLETED local/aislado; H4-003/004 COMPLETED local/aislado; H4-005+ y H5–H6 NOT STARTED. STOP anterior tras publicar H4-004; continuidad requiere nueva autorización humana.
 - PLAN-AUTH-001 queda acreditado solo documentalmente en compatibilidad, recursos y coste calculado; configuración, capacidad/entrega real, ensayos y aceptación de coste siguen PENDING.
 
 ## Pending
