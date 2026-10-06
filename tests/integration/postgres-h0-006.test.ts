@@ -1,3 +1,4 @@
+import {applyF06Tail} from '../support/h4-019-current-chain.ts';
 import assert from "node:assert/strict";
 import { createHash, createHmac, randomBytes, randomUUID } from "node:crypto";
 import { spawnSync } from "node:child_process";
@@ -60,6 +61,7 @@ test("H0-006 N11: revoked session cannot invoke global revocation through server
     await migrate(migration, "202609260001_h0_m03_actor_session_access.sql");
     await migrate(migration, "202609260002_h0_m03_revoke_all_authority_fix.sql");
     await migrate(migration, "202609260003_h0_m03_f2_expiry_revalidation_fix.sql");
+  await applyF06Tail(migration,admin,'202609260003_h0_m03_f2_expiry_revalidation_fix.sql');
     const f1 = { ...originalF1,
       allowedPurposes: [...originalF1.allowedPurposes, "h0-005-human-bridge"] };
     await migration`update crm_f1.keys set purposes=${f1.allowedPurposes} where key_id=${f1.keyId}`;

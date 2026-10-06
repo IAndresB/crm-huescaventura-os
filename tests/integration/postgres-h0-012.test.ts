@@ -1,3 +1,4 @@
+import {applyF06Tail} from '../support/h4-019-current-chain.ts';
 // Historical normative source, including F05 A/B, is preserved byte-for-byte in
 // ../fixtures/pre-d039/postgres-h0-012-original.txt. Only the current harness
 // targets the D039 role boundary; the temporal oracle is D039 section 8.
@@ -158,6 +159,7 @@ before(async () => {
   await admin.unsafe("drop event trigger fail_f05_ddl; drop function public.fail_f05_ddl()");
   await migration.unsafe(boundary);
   assert.deepEqual(await formalSnapshot(), beforeF05); f05UpgradeVerified = true;
+  await applyF06Tail(migration,admin,'20260928193111_h0_m04_tte_boundary.sql');
   m2 = runtime; runtime = connect("crm_h0_ha_tx");
   runtimePid = (await runtime`select pg_backend_pid() pid`)[0]!.pid as number;
 });
