@@ -1634,6 +1634,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 #### TSK-H4-020 — Evaluar preparación y confirmación completa de Booking
 
 - [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Hito: H4. Tipo: implementación.
+- **Correctivo F23:** OPEN/material reproducido; fix implementado, cierre de dirección PENDING gates exactSHA. Los2076/138/health1 anteriores se conservan como evidencia de sus casos; [revisión correctiva](evidence-TSK-H4-020-021-F23.md). STOP exclusivo F23.
 - **Objetivo y alcance:** SM-BK-02–05 integrado con servicios críticos, requisitos, economía H3, excepciones y cobertura actual.
 - **Fuentes exactas:** Plan §§7.3, 9; SPEC-FR-BOOK-004, AC-022, AC-023. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H4-020.
 - **Bloques, contratos y unidades:** B04/B05/B06/B07/B08; C02/C03/C06; T04/T08.
@@ -1653,6 +1654,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 #### TSK-H4-021 — Verificar: Evaluar preparación y confirmación completa de Booking
 
 - [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA local/aislado.** Hito: H4. Tipo: comprobación.
+- **Correctivo F23:** OPEN/material reproducido; fix implementado, cierre de dirección PENDING gates exactSHA. Los2076/138/health1 anteriores se conservan como evidencia de sus casos; [revisión correctiva](evidence-TSK-H4-020-021-F23.md). STOP exclusivo F23.
 - **Objetivo y alcance:** SM-BK-02–05 integrado con servicios críticos, requisitos, economía H3, excepciones y cobertura actual.
 - **Fuentes exactas:** Plan §§7.3, 9; SPEC-FR-BOOK-004, SPEC-FR-ECON-001, SPEC-FR-ECON-002, AC-016, AC-022, AC-023. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H4-021.
 - **Bloques, contratos y unidades:** B04/B05/B06/B07/B08; C02/C03/C06; T04/T08.
