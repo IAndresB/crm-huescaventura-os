@@ -1,6 +1,6 @@
 # Registro de defectos H4-021
 
-Originales completos conservados en `tests/fixtures/h4-021/development/`, gzip sin pérdida y manifest. Las ejecuciones de desarrollo llevan árbol propio sucio y captura SHA al finalizar; no acreditan SHA exacto final. Campos ausentes en logs iniciales CLI/bootstrap/typecheck (status/signal/tiempos/Git inicial) permanecen AUSENTES, sin reconstrucción. F19/F20 son observaciones estáticas identificadas, no ejecuciones FAIL. Expected normativo nunca modificado. Registro final se valida contra gates del SHA definitivo.
+Originales completos conservados en `tests/fixtures/h4-021/development/`, gzip sin pérdida y manifest. Las ejecuciones de desarrollo llevan árbol propio sucio y captura SHA al finalizar; no acreditan SHA exacto final. Campos ausentes en logs iniciales CLI/bootstrap/typecheck (status/signal/tiempos/Git inicial) permanecen AUSENTES, sin reconstrucción. F19/F20 son observaciones estáticas identificadas, no ejecuciones FAIL. Expected normativo nunca modificado. Registro validado contra gates del SHA definitivo; todos los defectos CLOSED.
 
 |ID|Clasificación|Original/reproducción|Causa|Corrección|Retest desarrollo|
 |---|---|---|---|---|---|
@@ -25,4 +25,8 @@ Originales completos conservados en `tests/fixtures/h4-021/development/`, gzip s
 |H4-021-F19|material - observación estática|checkpoint/revisión|faltaban IDs indirectos y raíz de revisión B06 en coordinación; no FAIL ejecutado atribuido|mapeo roots y triggers de padres/revisiones; actualidades y carreras reales posteriores|concrete-5|
 |H4-021-F20|material - observación estática|checkpoint/revisión|referencia global heredada no reflejaba fecha de servicio aplicada; sin FAIL ejecutado atribuido|usar fechas de scopes vigentes y exigir review de reference H3; no nuevo calculador|focal-final-dev-2|
 |H4-021-F21|técnico|focal-final-dev|snapshot de epochs asumía columna actor_id|tabla verificada, snapshot íntegro epochs; autoridad por API existente|focal-final-dev-2|
-|H4-021-F22|técnico|focal-final-dev-3|Asserter abreviaba Ganada; enum aprobado SM dice Aceptada / Ganada|usar texto exacto aprobado, expected Ganada semántico intacto|regresión definitiva pendiente|
+|H4-021-F22|técnico|focal-final-dev-3|Asserter abreviaba Ganada; enum aprobado SM dice Aceptada / Ganada|usar texto exacto aprobado, expected Ganada semántico intacto|regresión definitiva2076/2076 sobre bf4d707|
+
+## Estado definitivo y retest
+
+H4-021-F01–F22 **CLOSED** sobre SHA `bf4d707509e07f9caa30cfece26e5c418c5d42f7`:19 técnicos y3 materiales (F18 ejecutado, F19/F20 observaciones estáticas explícitas). Ningún defecto exclusivamente documental registrado. Retest final para todos: instalación50/upgrade49→50, suites focales incluidas en PostgreSQL2076/2076 y gates completos PASS. Cero material abierto; originales FAIL/desarrollo íntegros, sin borrado ni modificación del expected. Los retests de desarrollo de la tabla aportan el seguimiento por reproducción; su cierre se acredita por la regresión final, no por un árbol sucio. Ver [evidencia final](evidence-TSK-H4-021.md) y `tests/fixtures/h4-021/final/manifest.json`.
