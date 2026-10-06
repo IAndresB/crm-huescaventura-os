@@ -1,5 +1,9 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
+**H4-017/018 — checkpoint incompleto, sin cierre.** Expected publicado `7ec013b0d98ae593908255b56a3fdc7dfc8032b7`; H4-017 IN PROGRESS documental/producto pendiente; H4-018 NOT STARTED técnica. No producto deployable, migración aplicada, SHA probado ni nuevas pruebas/gates acreditados. H4 IN PROGRESS; H4-001–016 COMPLETED local/aislado conservados; H4-019+ y H5–H6 NOT STARTED. H4-019/H5-014/H6-005 NO ACREDITADAS; hosted H2/H3 no acreditados; Production no autorizada. Sin datos reales ni efectos externos reales.
+
+### Antecedente publicado F30 — cierre histórico conservado
+
 **H4-015/016 — cierre correctivo F23/F24/F30 COMPLETED local/aislado — 2026-10-06.** Expected F30 publicado `c73b882be11eb38b3283944280f0f73f9d946435`; parche y SHA exacto probado `0aab9022dd0cfcf9d8884bf16b1d4e6fc6a13f74`. source-map-js1.2.2 mediante actualización transitiva selectiva dentro de ^1.2.1, sin otra versión cambiada. Frozen install limpio/reproducible, auditoría producción cero vulnerabilidades, typecheck/lint/build PASS; PostgreSQL1831/1831 (1788 anteriores+43 correctivos incluidos), unitarias138/138 y health-check1/1 separado; V-MIG/advisors loopback/diff PASS. F23/F24/F30 CLOSED; F26/F28 materiales y FAIL originales conservados. Las47 migraciones, producto/expected históricos/health intactos. H4 IN PROGRESS; H4-001–016 COMPLETED local/aislado; H4-017+ y H5–H6 NOT STARTED. H4-019/H5-014/H6-004/H6-016 NO ACREDITADAS; pendientes globales conservados, hosted H2/H3 no acreditados; Production no autorizada. STOP tras cierre correctivo H4-016; sin efectos externos ni datos reales.
 
 ### Antecedente publicado 60ac2eb — checkpoint correctivo pendiente (histórico)
@@ -78,6 +82,10 @@ Actualización 2026-10-03: H0 COMPLETED técnico/local/aislado y H1 COMPLETED lo
 
 ## Current Step
 
+**H4-017/018 — checkpoint incompleto, sin cierre.** Expected publicado `7ec013b0d98ae593908255b56a3fdc7dfc8032b7`; H4-017 IN PROGRESS documental/producto pendiente; H4-018 NOT STARTED técnica. No producto deployable, migración aplicada, SHA probado ni nuevas pruebas/gates acreditados. H4 IN PROGRESS; H4-001–016 COMPLETED local/aislado conservados; H4-019+ y H5–H6 NOT STARTED. H4-019/H5-014/H6-005 NO ACREDITADAS; hosted H2/H3 no acreditados; Production no autorizada. Sin datos reales ni efectos externos reales.
+
+Antecedente anterior conservado:
+
 Estado vigente: **H4-015/016 — cierre correctivo F23/F24/F30 COMPLETED local/aislado — 2026-10-06.** Expected F30 publicado `c73b882be11eb38b3283944280f0f73f9d946435`; parche y SHA exacto probado `0aab9022dd0cfcf9d8884bf16b1d4e6fc6a13f74`. source-map-js1.2.2 mediante actualización transitiva selectiva dentro de ^1.2.1, sin otra versión cambiada. Frozen install limpio/reproducible, auditoría producción cero vulnerabilidades, typecheck/lint/build PASS; PostgreSQL1831/1831 (1788 anteriores+43 correctivos incluidos), unitarias138/138 y health-check1/1 separado; V-MIG/advisors loopback/diff PASS. F23/F24/F30 CLOSED; F26/F28 materiales y FAIL originales conservados. Las47 migraciones, producto/expected históricos/health intactos. H4 IN PROGRESS; H4-001–016 COMPLETED local/aislado; H4-017+ y H5–H6 NOT STARTED. H4-019/H5-014/H6-004/H6-016 NO ACREDITADAS; pendientes globales conservados, hosted H2/H3 no acreditados; Production no autorizada. STOP tras cierre correctivo H4-016; sin efectos externos ni datos reales.
 
 Antecedente del cierre anterior: **Estado vigente:** **TSK-H4-015/016 COMPLETED local/aislado — 2026-10-06.** H4 IN PROGRESS; H4-001–016 COMPLETED local/aislado; H4-017+ y H5–H6 NOT STARTED. SHA probado `c1eb4ae796b01ab7dd955365a22e392e4b4bf1be`: 1788/1788 PostgreSQL (1695 previos +93 nuevos incluidos), 138/138 unitarias (135 previas +3 nuevas), health-check independiente1/1 separado. Frozen/typecheck/lint-boundaries/build/auditoría/V-MIG/advisors loopback/diff-check PASS; cero FAIL/skipped/cancelled materiales. Expected congelado intacto; una migración forward46 y45 anteriores íntegras. F01–F21 CLOSED, originales recuperables; captura inicial CLI limitada declarada. H4-019/H5-014/H6-004/H6-016 NO ACREDITADAS. H0 técnico/local/aislado y H1/H2/H3 local/aislado COMPLETED conservados. DM-PENDING-005 y pendientes globales conservan sus bloqueos dependientes. Hosted H2/H3 no acreditados; Production no autorizada. STOP tras H4-016; continuidad al hilo de dirección H4. Sin efectos externos reales ni datos reales.
@@ -145,7 +153,7 @@ Antecedente histórico de la secuencia: 9. implementación — H0 COMPLETED téc
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-**Los párrafos siguientes de Working Rule son registros históricos de autorizaciones H0. La autorización vigente cubre exclusivamente el parche F30 y la reverificación/cierre correctivo H4-015/016; termina con STOP tras su publicación. H4-017+ y H5–H6 no autorizados.**
+**Los párrafos siguientes de Working Rule son registros históricos de autorizaciones H0. La autorización vigente cubre exclusivamente H4-017/018. Producto y verificación pendientes; no se ha completado este bloque. H4-019+ y H5–H6 no autorizados.**
 
 La aprobación documental D038 resolvió el modelo de confianza F2; H0-005, las etapas H0-006, H0-011 y H0-012 recibieron autorizaciones separadas. Se conservan las ejecuciones FAILED, fixes F01–F04, quinta ejecución F05 y puerta experimental PostgreSQL 17.11. La primera autorización de 2026-09-28 aprobó y publicó únicamente D039 y coordinación; una autorización posterior cerró F05/H0-012. La autorización actual cubrió exclusivamente H0-013/014, incluidas migración forward-only, correcciones localizadas, commits y push local/remoto. No alteró D037/D038/D039, no inició H0-015 y no autorizó Auth real, secretos, Supabase hosted, Vercel, dispositivos ni Production. Los bloques hosted anteriores conservan sus autorizaciones y evidencia históricas.
 
