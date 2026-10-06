@@ -1,0 +1,4723 @@
+{
+  "ordinary": {
+    "action": "record",
+    "operationId": "1f7f2dc5-b4a6-453f-a783-bcf3dab1510f",
+    "refundId": "72987dfe-0a87-474b-95b5-6156727953ca",
+    "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+    "expectedRevision": 3,
+    "sourceRef": "SYNTHETIC authorized statement",
+    "reason": "SYNTHETIC exact domain fact",
+    "at": "2026-10-06T16:43:09.861Z",
+    "evidenceId": "a43d72cd-a293-4b13-8ca3-4c7fe36687de",
+    "movement": {
+      "identity": {
+        "source": "SYNTHETIC verified bank statement",
+        "account": "SYNTHETIC bank account A",
+        "externalId": "294ccaba-c9ad-42b3-9b4d-8b28f272c3c8"
+      },
+      "amount": "20.00",
+      "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+      "method": "bank_transfer",
+      "occurredAt": "2026-10-06T16:43:09.852Z",
+      "reference": "SYNTHETIC movement ref",
+      "portions": [
+        {
+          "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+          "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e",
+          "start": "0.00",
+          "amount": "20.00",
+          "paymentRevision": 4,
+          "fundRevision": 5
+        }
+      ]
+    }
+  },
+  "q": {
+    "action": "resolve",
+    "operationId": "f2395e4a-8f3a-4423-9cda-f3fd31c0ebad",
+    "refundId": "72987dfe-0a87-474b-95b5-6156727953ca",
+    "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+    "expectedRevision": 3,
+    "sourceRef": "SYNTHETIC authorized statement",
+    "reason": "SYNTHETIC exact domain fact",
+    "at": "2026-10-06T16:43:09.871Z",
+    "evidenceId": "a447ba79-8fd2-4992-a530-2a846797a0b1",
+    "attemptId": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0",
+    "resolution": "occurred",
+    "movement": {
+      "identity": {
+        "source": "SYNTHETIC verified bank statement",
+        "account": "SYNTHETIC bank account A",
+        "externalId": "294ccaba-c9ad-42b3-9b4d-8b28f272c3c8"
+      },
+      "amount": "20.00",
+      "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+      "method": "bank_transfer",
+      "occurredAt": "2026-10-06T16:43:09.852Z",
+      "reference": "SYNTHETIC movement ref",
+      "portions": [
+        {
+          "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+          "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e",
+          "start": "0.00",
+          "amount": "20.00",
+          "paymentRevision": 4,
+          "fundRevision": 5
+        }
+      ]
+    }
+  },
+  "before": {
+    "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+    "right": "200.00",
+    "excess": "0.00",
+    "status": "Incidencia",
+    "history": [
+      {
+        "at": "2026-10-06T18:43:09.334+02:00",
+        "after": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Determinada",
+          "request": null,
+          "attempts": [],
+          "executed": "0.00",
+          "revision": 1,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "0.00",
+          "authorized": "0.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": null,
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "0.00"
+        },
+        "event": {
+          "at": "2026-10-06T16:43:09.334Z",
+          "action": "determine",
+          "reason": "SYNTHETIC exact domain fact",
+          "refundId": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "sourceRef": "SYNTHETIC authorized statement",
+          "evidenceId": "193c30f7-dfd8-46b6-9306-94d3678e9167",
+          "operationId": "21457063-00a5-4de6-afee-2ac95fc81be5",
+          "determinationId": "823ace48-228e-4793-9d7f-07932028af5e",
+          "expectedRevision": 0,
+          "determinationRevision": 1
+        },
+        "action": "determine",
+        "before": null,
+        "reason": "SYNTHETIC exact domain fact",
+        "actorId": "542ed7d4-6fe1-4204-9513-1aefac7ef742",
+        "revision": 1,
+        "sourceRef": "SYNTHETIC authorized statement",
+        "evidenceId": "193c30f7-dfd8-46b6-9306-94d3678e9167",
+        "recordedAt": "2026-10-06T18:43:09.400654+02:00"
+      },
+      {
+        "at": "2026-10-06T18:43:09.469+02:00",
+        "after": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Autorizada",
+          "request": null,
+          "attempts": [],
+          "executed": "0.00",
+          "revision": 2,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "0.00",
+          "authorized": "200.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": {
+            "at": "2026-10-06T16:43:09.469Z",
+            "cause": "provider",
+            "amount": "200.00",
+            "effect": "refund-contractual-right",
+            "method": "bank_transfer",
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "200.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "conditions": "SYNTHETIC exact scope and no bank execution",
+            "invalidated": false,
+            "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+            "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+            "determination": {
+              "id": "823ace48-228e-4793-9d7f-07932028af5e",
+              "cause": "provider",
+              "scope": {
+                "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                "kind": "modality"
+              },
+              "computed": {
+                "unit": "participation",
+                "right": "200.00",
+                "status": "determined",
+                "missing": [],
+                "percent": "100",
+                "version": "h4-d011-d019-d020-d023-v1",
+                "currency": "EUR",
+                "temporal": {
+                  "actDate": "2026-10-17",
+                  "interval": "at_least_3",
+                  "reference": {
+                    "date": "2026-10-20",
+                    "zone": {
+                      "zone": "Europe/Madrid",
+                      "version": "1",
+                      "sourceRef": "SYNTHETIC accepted zone"
+                    },
+                    "basis": "default",
+                    "scope": "modality",
+                    "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "version": "1",
+                    "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                  },
+                  "daysBefore": 3,
+                  "algorithmVersion": "h1-civil-d020-v1"
+                },
+                "baseTotal": "200.00",
+                "retention": "0.00",
+                "calculation": {
+                  "input": {
+                    "kind": "participations",
+                    "percent": "100",
+                    "baseEach": "200.00",
+                    "participations": 1
+                  },
+                  "trace": {
+                    "reason": "D019 contractual right before funds; D023 materialize per participation",
+                    "sourceRef": "D011",
+                    "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "configurationVersions": [
+                      {
+                        "id": "D011",
+                        "kind": "cancellation_policy",
+                        "version": "D011/D019/D020/D023"
+                      },
+                      {
+                        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "kind": "economic_basis",
+                        "version": "h4-d011-d019-d020-d023-v1"
+                      }
+                    ]
+                  },
+                  "output": {
+                    "each": {
+                      "base": "200.00",
+                      "applied": {
+                        "exact": {
+                          "decimal": "200",
+                          "numerator": "200",
+                          "denominator": "1"
+                        },
+                        "trace": {
+                          "reason": "D019 contractual right before funds; D023 materialize per participation",
+                          "sourceRef": "D011",
+                          "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                          "configurationVersions": [
+                            {
+                              "id": "D011",
+                              "kind": "cancellation_policy",
+                              "version": "D011/D019/D020/D023"
+                            },
+                            {
+                              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "kind": "economic_basis",
+                              "version": "h4-d011-d019-d020-d023-v1"
+                            }
+                          ]
+                        },
+                        "amount": "200.00",
+                        "difference": {
+                          "decimal": "0",
+                          "numerator": "0",
+                          "denominator": "1"
+                        },
+                        "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                      },
+                      "percent": "100",
+                      "internal": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "remainder": "0.00"
+                    },
+                    "bases": "200.00",
+                    "total": "200.00",
+                    "remainders": "0.00",
+                    "participations": 1
+                  },
+                  "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                },
+                "civilVersion": "h1-civil-d020-v1",
+                "moneyVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "revision": 1,
+              "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+            }
+          },
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "200.00"
+        },
+        "event": {
+          "at": "2026-10-06T16:43:09.469Z",
+          "action": "authorize",
+          "reason": "SYNTHETIC exact domain fact",
+          "refundId": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "sourceRef": "SYNTHETIC authorized statement",
+          "evidenceId": "f5bdd6b0-a3f4-49ae-9d8f-6d5cd6c2e62d",
+          "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+          "authorization": {
+            "cause": "provider",
+            "amount": "200.00",
+            "effect": "refund-contractual-right",
+            "method": "bank_transfer",
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "200.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "conditions": "SYNTHETIC exact scope and no bank execution",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa"
+          },
+          "expectedRevision": 1
+        },
+        "action": "authorize",
+        "before": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Determinada",
+          "request": null,
+          "attempts": [],
+          "executed": "0.00",
+          "revision": 1,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "0.00",
+          "authorized": "0.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": null,
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "0.00"
+        },
+        "reason": "SYNTHETIC exact domain fact",
+        "actorId": "542ed7d4-6fe1-4204-9513-1aefac7ef742",
+        "revision": 2,
+        "sourceRef": "SYNTHETIC authorized statement",
+        "evidenceId": "f5bdd6b0-a3f4-49ae-9d8f-6d5cd6c2e62d",
+        "recordedAt": "2026-10-06T18:43:09.625932+02:00"
+      },
+      {
+        "at": "2026-10-06T18:43:09.836+02:00",
+        "after": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Incidencia",
+          "request": null,
+          "attempts": [
+            {
+              "id": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0",
+              "result": "uncertain",
+              "portion": {
+                "start": "0.00",
+                "amount": "80.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              },
+              "resolved": false,
+              "authority": {
+                "at": "2026-10-06T16:43:09.469Z",
+                "cause": "provider",
+                "amount": "200.00",
+                "effect": "refund-contractual-right",
+                "method": "bank_transfer",
+                "portions": [
+                  {
+                    "start": "0.00",
+                    "amount": "200.00",
+                    "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                    "fundRevision": 4,
+                    "paymentRevision": 4,
+                    "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+                  }
+                ],
+                "conditions": "SYNTHETIC exact scope and no bank execution",
+                "invalidated": false,
+                "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+                "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+                "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+                "determination": {
+                  "id": "823ace48-228e-4793-9d7f-07932028af5e",
+                  "cause": "provider",
+                  "scope": {
+                    "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "kind": "modality"
+                  },
+                  "computed": {
+                    "unit": "participation",
+                    "right": "200.00",
+                    "status": "determined",
+                    "missing": [],
+                    "percent": "100",
+                    "version": "h4-d011-d019-d020-d023-v1",
+                    "currency": "EUR",
+                    "temporal": {
+                      "actDate": "2026-10-17",
+                      "interval": "at_least_3",
+                      "reference": {
+                        "date": "2026-10-20",
+                        "zone": {
+                          "zone": "Europe/Madrid",
+                          "version": "1",
+                          "sourceRef": "SYNTHETIC accepted zone"
+                        },
+                        "basis": "default",
+                        "scope": "modality",
+                        "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "version": "1",
+                        "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                      },
+                      "daysBefore": 3,
+                      "algorithmVersion": "h1-civil-d020-v1"
+                    },
+                    "baseTotal": "200.00",
+                    "retention": "0.00",
+                    "calculation": {
+                      "input": {
+                        "kind": "participations",
+                        "percent": "100",
+                        "baseEach": "200.00",
+                        "participations": 1
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "output": {
+                        "each": {
+                          "base": "200.00",
+                          "applied": {
+                            "exact": {
+                              "decimal": "200",
+                              "numerator": "200",
+                              "denominator": "1"
+                            },
+                            "trace": {
+                              "reason": "D019 contractual right before funds; D023 materialize per participation",
+                              "sourceRef": "D011",
+                              "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "configurationVersions": [
+                                {
+                                  "id": "D011",
+                                  "kind": "cancellation_policy",
+                                  "version": "D011/D019/D020/D023"
+                                },
+                                {
+                                  "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                                  "kind": "economic_basis",
+                                  "version": "h4-d011-d019-d020-d023-v1"
+                                }
+                              ]
+                            },
+                            "amount": "200.00",
+                            "difference": {
+                              "decimal": "0",
+                              "numerator": "0",
+                              "denominator": "1"
+                            },
+                            "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                          },
+                          "percent": "100",
+                          "internal": {
+                            "decimal": "200",
+                            "numerator": "200",
+                            "denominator": "1"
+                          },
+                          "remainder": "0.00"
+                        },
+                        "bases": "200.00",
+                        "total": "200.00",
+                        "remainders": "0.00",
+                        "participations": 1
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "civilVersion": "h1-civil-d020-v1",
+                    "moneyVersion": "h1-money-d023-d028-d029-v1"
+                  },
+                  "revision": 1,
+                  "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+                }
+              },
+              "sourceRef": "SYNTHETIC same attempted transfer outcome uncertain",
+              "evidenceId": "e6db5580-ff1a-4c23-b5b8-e8b12d2022c4",
+              "incidentId": "7c7df215-34c0-4779-8a45-30b49a9d7d25"
+            }
+          ],
+          "executed": "0.00",
+          "revision": 3,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "80.00",
+          "authorized": "200.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": {
+            "at": "2026-10-06T16:43:09.469Z",
+            "cause": "provider",
+            "amount": "200.00",
+            "effect": "refund-contractual-right",
+            "method": "bank_transfer",
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "200.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "conditions": "SYNTHETIC exact scope and no bank execution",
+            "invalidated": false,
+            "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+            "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+            "determination": {
+              "id": "823ace48-228e-4793-9d7f-07932028af5e",
+              "cause": "provider",
+              "scope": {
+                "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                "kind": "modality"
+              },
+              "computed": {
+                "unit": "participation",
+                "right": "200.00",
+                "status": "determined",
+                "missing": [],
+                "percent": "100",
+                "version": "h4-d011-d019-d020-d023-v1",
+                "currency": "EUR",
+                "temporal": {
+                  "actDate": "2026-10-17",
+                  "interval": "at_least_3",
+                  "reference": {
+                    "date": "2026-10-20",
+                    "zone": {
+                      "zone": "Europe/Madrid",
+                      "version": "1",
+                      "sourceRef": "SYNTHETIC accepted zone"
+                    },
+                    "basis": "default",
+                    "scope": "modality",
+                    "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "version": "1",
+                    "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                  },
+                  "daysBefore": 3,
+                  "algorithmVersion": "h1-civil-d020-v1"
+                },
+                "baseTotal": "200.00",
+                "retention": "0.00",
+                "calculation": {
+                  "input": {
+                    "kind": "participations",
+                    "percent": "100",
+                    "baseEach": "200.00",
+                    "participations": 1
+                  },
+                  "trace": {
+                    "reason": "D019 contractual right before funds; D023 materialize per participation",
+                    "sourceRef": "D011",
+                    "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "configurationVersions": [
+                      {
+                        "id": "D011",
+                        "kind": "cancellation_policy",
+                        "version": "D011/D019/D020/D023"
+                      },
+                      {
+                        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "kind": "economic_basis",
+                        "version": "h4-d011-d019-d020-d023-v1"
+                      }
+                    ]
+                  },
+                  "output": {
+                    "each": {
+                      "base": "200.00",
+                      "applied": {
+                        "exact": {
+                          "decimal": "200",
+                          "numerator": "200",
+                          "denominator": "1"
+                        },
+                        "trace": {
+                          "reason": "D019 contractual right before funds; D023 materialize per participation",
+                          "sourceRef": "D011",
+                          "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                          "configurationVersions": [
+                            {
+                              "id": "D011",
+                              "kind": "cancellation_policy",
+                              "version": "D011/D019/D020/D023"
+                            },
+                            {
+                              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "kind": "economic_basis",
+                              "version": "h4-d011-d019-d020-d023-v1"
+                            }
+                          ]
+                        },
+                        "amount": "200.00",
+                        "difference": {
+                          "decimal": "0",
+                          "numerator": "0",
+                          "denominator": "1"
+                        },
+                        "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                      },
+                      "percent": "100",
+                      "internal": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "remainder": "0.00"
+                    },
+                    "bases": "200.00",
+                    "total": "200.00",
+                    "remainders": "0.00",
+                    "participations": 1
+                  },
+                  "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                },
+                "civilVersion": "h1-civil-d020-v1",
+                "moneyVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "revision": 1,
+              "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+            }
+          },
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "200.00"
+        },
+        "event": {
+          "at": "2026-10-06T16:43:09.836Z",
+          "action": "uncertain",
+          "reason": "SYNTHETIC exact domain fact",
+          "attempt": {
+            "id": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0",
+            "portion": {
+              "start": "0.00",
+              "amount": "80.00",
+              "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+              "fundRevision": 4,
+              "paymentRevision": 4,
+              "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+            },
+            "sourceRef": "SYNTHETIC same attempted transfer outcome uncertain"
+          },
+          "refundId": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "sourceRef": "SYNTHETIC authorized statement",
+          "evidenceId": "e6db5580-ff1a-4c23-b5b8-e8b12d2022c4",
+          "incidentId": "7c7df215-34c0-4779-8a45-30b49a9d7d25",
+          "operationId": "bc727686-953e-4dd0-8da1-7b80c227aa88",
+          "expectedRevision": 2
+        },
+        "action": "uncertain",
+        "before": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Autorizada",
+          "request": null,
+          "attempts": [],
+          "executed": "0.00",
+          "revision": 2,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "0.00",
+          "authorized": "200.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": {
+            "at": "2026-10-06T16:43:09.469Z",
+            "cause": "provider",
+            "amount": "200.00",
+            "effect": "refund-contractual-right",
+            "method": "bank_transfer",
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "200.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "conditions": "SYNTHETIC exact scope and no bank execution",
+            "invalidated": false,
+            "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+            "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+            "determination": {
+              "id": "823ace48-228e-4793-9d7f-07932028af5e",
+              "cause": "provider",
+              "scope": {
+                "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                "kind": "modality"
+              },
+              "computed": {
+                "unit": "participation",
+                "right": "200.00",
+                "status": "determined",
+                "missing": [],
+                "percent": "100",
+                "version": "h4-d011-d019-d020-d023-v1",
+                "currency": "EUR",
+                "temporal": {
+                  "actDate": "2026-10-17",
+                  "interval": "at_least_3",
+                  "reference": {
+                    "date": "2026-10-20",
+                    "zone": {
+                      "zone": "Europe/Madrid",
+                      "version": "1",
+                      "sourceRef": "SYNTHETIC accepted zone"
+                    },
+                    "basis": "default",
+                    "scope": "modality",
+                    "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "version": "1",
+                    "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                  },
+                  "daysBefore": 3,
+                  "algorithmVersion": "h1-civil-d020-v1"
+                },
+                "baseTotal": "200.00",
+                "retention": "0.00",
+                "calculation": {
+                  "input": {
+                    "kind": "participations",
+                    "percent": "100",
+                    "baseEach": "200.00",
+                    "participations": 1
+                  },
+                  "trace": {
+                    "reason": "D019 contractual right before funds; D023 materialize per participation",
+                    "sourceRef": "D011",
+                    "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "configurationVersions": [
+                      {
+                        "id": "D011",
+                        "kind": "cancellation_policy",
+                        "version": "D011/D019/D020/D023"
+                      },
+                      {
+                        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "kind": "economic_basis",
+                        "version": "h4-d011-d019-d020-d023-v1"
+                      }
+                    ]
+                  },
+                  "output": {
+                    "each": {
+                      "base": "200.00",
+                      "applied": {
+                        "exact": {
+                          "decimal": "200",
+                          "numerator": "200",
+                          "denominator": "1"
+                        },
+                        "trace": {
+                          "reason": "D019 contractual right before funds; D023 materialize per participation",
+                          "sourceRef": "D011",
+                          "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                          "configurationVersions": [
+                            {
+                              "id": "D011",
+                              "kind": "cancellation_policy",
+                              "version": "D011/D019/D020/D023"
+                            },
+                            {
+                              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "kind": "economic_basis",
+                              "version": "h4-d011-d019-d020-d023-v1"
+                            }
+                          ]
+                        },
+                        "amount": "200.00",
+                        "difference": {
+                          "decimal": "0",
+                          "numerator": "0",
+                          "denominator": "1"
+                        },
+                        "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                      },
+                      "percent": "100",
+                      "internal": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "remainder": "0.00"
+                    },
+                    "bases": "200.00",
+                    "total": "200.00",
+                    "remainders": "0.00",
+                    "participations": 1
+                  },
+                  "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                },
+                "civilVersion": "h1-civil-d020-v1",
+                "moneyVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "revision": 1,
+              "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+            }
+          },
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "200.00"
+        },
+        "reason": "SYNTHETIC exact domain fact",
+        "actorId": "542ed7d4-6fe1-4204-9513-1aefac7ef742",
+        "revision": 3,
+        "sourceRef": "SYNTHETIC authorized statement",
+        "evidenceId": "e6db5580-ff1a-4c23-b5b8-e8b12d2022c4",
+        "recordedAt": "2026-10-06T18:43:09.848874+02:00"
+      }
+    ],
+    "request": null,
+    "attempts": [
+      {
+        "id": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0",
+        "result": "uncertain",
+        "portion": {
+          "start": "0.00",
+          "amount": "80.00",
+          "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+          "fundRevision": 4,
+          "paymentRevision": 4,
+          "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+        },
+        "resolved": false,
+        "authority": {
+          "at": "2026-10-06T16:43:09.469Z",
+          "cause": "provider",
+          "amount": "200.00",
+          "effect": "refund-contractual-right",
+          "method": "bank_transfer",
+          "portions": [
+            {
+              "start": "0.00",
+              "amount": "200.00",
+              "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+              "fundRevision": 4,
+              "paymentRevision": 4,
+              "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+            }
+          ],
+          "conditions": "SYNTHETIC exact scope and no bank execution",
+          "invalidated": false,
+          "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+          "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+          "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          }
+        },
+        "sourceRef": "SYNTHETIC same attempted transfer outcome uncertain",
+        "evidenceId": "e6db5580-ff1a-4c23-b5b8-e8b12d2022c4",
+        "incidentId": "7c7df215-34c0-4779-8a45-30b49a9d7d25"
+      }
+    ],
+    "executed": "0.00",
+    "revision": 3,
+    "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+    "incidents": [],
+    "movements": [],
+    "uncertain": "80.00",
+    "authorized": "200.00",
+    "corrections": [],
+    "pendingRight": "200.00",
+    "authorization": {
+      "at": "2026-10-06T16:43:09.469Z",
+      "cause": "provider",
+      "amount": "200.00",
+      "effect": "refund-contractual-right",
+      "method": "bank_transfer",
+      "portions": [
+        {
+          "start": "0.00",
+          "amount": "200.00",
+          "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+          "fundRevision": 4,
+          "paymentRevision": 4,
+          "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+        }
+      ],
+      "conditions": "SYNTHETIC exact scope and no bank execution",
+      "invalidated": false,
+      "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+      "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+      "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+      "determination": {
+        "id": "823ace48-228e-4793-9d7f-07932028af5e",
+        "cause": "provider",
+        "scope": {
+          "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+          "kind": "modality"
+        },
+        "computed": {
+          "unit": "participation",
+          "right": "200.00",
+          "status": "determined",
+          "missing": [],
+          "percent": "100",
+          "version": "h4-d011-d019-d020-d023-v1",
+          "currency": "EUR",
+          "temporal": {
+            "actDate": "2026-10-17",
+            "interval": "at_least_3",
+            "reference": {
+              "date": "2026-10-20",
+              "zone": {
+                "zone": "Europe/Madrid",
+                "version": "1",
+                "sourceRef": "SYNTHETIC accepted zone"
+              },
+              "basis": "default",
+              "scope": "modality",
+              "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "version": "1",
+              "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+            },
+            "daysBefore": 3,
+            "algorithmVersion": "h1-civil-d020-v1"
+          },
+          "baseTotal": "200.00",
+          "retention": "0.00",
+          "calculation": {
+            "input": {
+              "kind": "participations",
+              "percent": "100",
+              "baseEach": "200.00",
+              "participations": 1
+            },
+            "trace": {
+              "reason": "D019 contractual right before funds; D023 materialize per participation",
+              "sourceRef": "D011",
+              "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "configurationVersions": [
+                {
+                  "id": "D011",
+                  "kind": "cancellation_policy",
+                  "version": "D011/D019/D020/D023"
+                },
+                {
+                  "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "kind": "economic_basis",
+                  "version": "h4-d011-d019-d020-d023-v1"
+                }
+              ]
+            },
+            "output": {
+              "each": {
+                "base": "200.00",
+                "applied": {
+                  "exact": {
+                    "decimal": "200",
+                    "numerator": "200",
+                    "denominator": "1"
+                  },
+                  "trace": {
+                    "reason": "D019 contractual right before funds; D023 materialize per participation",
+                    "sourceRef": "D011",
+                    "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "configurationVersions": [
+                      {
+                        "id": "D011",
+                        "kind": "cancellation_policy",
+                        "version": "D011/D019/D020/D023"
+                      },
+                      {
+                        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "kind": "economic_basis",
+                        "version": "h4-d011-d019-d020-d023-v1"
+                      }
+                    ]
+                  },
+                  "amount": "200.00",
+                  "difference": {
+                    "decimal": "0",
+                    "numerator": "0",
+                    "denominator": "1"
+                  },
+                  "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                },
+                "percent": "100",
+                "internal": {
+                  "decimal": "200",
+                  "numerator": "200",
+                  "denominator": "1"
+                },
+                "remainder": "0.00"
+              },
+              "bases": "200.00",
+              "total": "200.00",
+              "remainders": "0.00",
+              "participations": 1
+            },
+            "algorithmVersion": "h1-money-d023-d028-d029-v1"
+          },
+          "civilVersion": "h1-civil-d020-v1",
+          "moneyVersion": "h1-money-d023-d028-d029-v1"
+        },
+        "revision": 1,
+        "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+      }
+    },
+    "determination": {
+      "id": "823ace48-228e-4793-9d7f-07932028af5e",
+      "cause": "provider",
+      "scope": {
+        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+        "kind": "modality"
+      },
+      "computed": {
+        "unit": "participation",
+        "right": "200.00",
+        "status": "determined",
+        "missing": [],
+        "percent": "100",
+        "version": "h4-d011-d019-d020-d023-v1",
+        "currency": "EUR",
+        "temporal": {
+          "actDate": "2026-10-17",
+          "interval": "at_least_3",
+          "reference": {
+            "date": "2026-10-20",
+            "zone": {
+              "zone": "Europe/Madrid",
+              "version": "1",
+              "sourceRef": "SYNTHETIC accepted zone"
+            },
+            "basis": "default",
+            "scope": "modality",
+            "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+            "version": "1",
+            "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+          },
+          "daysBefore": 3,
+          "algorithmVersion": "h1-civil-d020-v1"
+        },
+        "baseTotal": "200.00",
+        "retention": "0.00",
+        "calculation": {
+          "input": {
+            "kind": "participations",
+            "percent": "100",
+            "baseEach": "200.00",
+            "participations": 1
+          },
+          "trace": {
+            "reason": "D019 contractual right before funds; D023 materialize per participation",
+            "sourceRef": "D011",
+            "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+            "configurationVersions": [
+              {
+                "id": "D011",
+                "kind": "cancellation_policy",
+                "version": "D011/D019/D020/D023"
+              },
+              {
+                "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                "kind": "economic_basis",
+                "version": "h4-d011-d019-d020-d023-v1"
+              }
+            ]
+          },
+          "output": {
+            "each": {
+              "base": "200.00",
+              "applied": {
+                "exact": {
+                  "decimal": "200",
+                  "numerator": "200",
+                  "denominator": "1"
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "amount": "200.00",
+                "difference": {
+                  "decimal": "0",
+                  "numerator": "0",
+                  "denominator": "1"
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "percent": "100",
+              "internal": {
+                "decimal": "200",
+                "numerator": "200",
+                "denominator": "1"
+              },
+              "remainder": "0.00"
+            },
+            "bases": "200.00",
+            "total": "200.00",
+            "remainders": "0.00",
+            "participations": 1
+          },
+          "algorithmVersion": "h1-money-d023-d028-d029-v1"
+        },
+        "civilVersion": "h1-civil-d020-v1",
+        "moneyVersion": "h1-money-d023-d028-d029-v1"
+      },
+      "revision": 1,
+      "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+    },
+    "pendingAuthorized": "200.00"
+  },
+  "fundsBefore": {
+    "acts": [],
+    "history": [],
+    "summary": {
+      "planned": "0.00",
+      "assigned": "0.00",
+      "consumed": "0.00",
+      "received": "200.00",
+      "available": "120.00",
+      "byPurpose": {},
+      "suspended": "0.00",
+      "unassigned": "200.00",
+      "refundReserved": "80.00",
+      "usableAssigned": "0.00",
+      "usableConsumed": "0.00",
+      "algorithmVersion": "h1-money-d023-d028-d029-v1",
+      "externalReturned": "0.00",
+      "netAfterReturned": "200.00",
+      "suspendedAssigned": "0.00",
+      "suspendedConsumed": "0.00",
+      "representedReturned": "0.00",
+      "verifiedCorrespondence": "200.00"
+    },
+    "coverage": [
+      {
+        "slot": "initial",
+        "state": "pending",
+        "excess": "0.00",
+        "portions": [],
+        "remaining": "100.00",
+        "scheduleId": "d07ba95c-a6ed-481c-81c0-7ba56a633fc7",
+        "verifiedAmount": "0.00",
+        "algorithmVersion": "h1-money-d023-d028-d029-v1",
+        "obligationAmount": "100.00",
+        "scheduleRevision": 1
+      },
+      {
+        "slot": "balance",
+        "state": "pending",
+        "excess": "0.00",
+        "portions": [],
+        "remaining": "100.00",
+        "scheduleId": "d07ba95c-a6ed-481c-81c0-7ba56a633fc7",
+        "verifiedAmount": "0.00",
+        "algorithmVersion": "h1-money-d023-d028-d029-v1",
+        "obligationAmount": "100.00",
+        "scheduleRevision": 1
+      }
+    ],
+    "revision": 5,
+    "allocations": [],
+    "distributions": [],
+    "paymentRevision": 4
+  },
+  "ordinaryError": "Error: REFUND_PORTIONS_REQUIRED",
+  "error": "",
+  "after": {
+    "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+    "right": "200.00",
+    "excess": "0.00",
+    "status": "Incidencia",
+    "history": [
+      {
+        "at": "2026-10-06T18:43:09.334+02:00",
+        "after": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Determinada",
+          "request": null,
+          "attempts": [],
+          "executed": "0.00",
+          "revision": 1,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "0.00",
+          "authorized": "0.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": null,
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "0.00"
+        },
+        "event": {
+          "at": "2026-10-06T16:43:09.334Z",
+          "action": "determine",
+          "reason": "SYNTHETIC exact domain fact",
+          "refundId": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "sourceRef": "SYNTHETIC authorized statement",
+          "evidenceId": "193c30f7-dfd8-46b6-9306-94d3678e9167",
+          "operationId": "21457063-00a5-4de6-afee-2ac95fc81be5",
+          "determinationId": "823ace48-228e-4793-9d7f-07932028af5e",
+          "expectedRevision": 0,
+          "determinationRevision": 1
+        },
+        "action": "determine",
+        "before": null,
+        "reason": "SYNTHETIC exact domain fact",
+        "actorId": "542ed7d4-6fe1-4204-9513-1aefac7ef742",
+        "revision": 1,
+        "sourceRef": "SYNTHETIC authorized statement",
+        "evidenceId": "193c30f7-dfd8-46b6-9306-94d3678e9167",
+        "recordedAt": "2026-10-06T18:43:09.400654+02:00"
+      },
+      {
+        "at": "2026-10-06T18:43:09.469+02:00",
+        "after": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Autorizada",
+          "request": null,
+          "attempts": [],
+          "executed": "0.00",
+          "revision": 2,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "0.00",
+          "authorized": "200.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": {
+            "at": "2026-10-06T16:43:09.469Z",
+            "cause": "provider",
+            "amount": "200.00",
+            "effect": "refund-contractual-right",
+            "method": "bank_transfer",
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "200.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "conditions": "SYNTHETIC exact scope and no bank execution",
+            "invalidated": false,
+            "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+            "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+            "determination": {
+              "id": "823ace48-228e-4793-9d7f-07932028af5e",
+              "cause": "provider",
+              "scope": {
+                "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                "kind": "modality"
+              },
+              "computed": {
+                "unit": "participation",
+                "right": "200.00",
+                "status": "determined",
+                "missing": [],
+                "percent": "100",
+                "version": "h4-d011-d019-d020-d023-v1",
+                "currency": "EUR",
+                "temporal": {
+                  "actDate": "2026-10-17",
+                  "interval": "at_least_3",
+                  "reference": {
+                    "date": "2026-10-20",
+                    "zone": {
+                      "zone": "Europe/Madrid",
+                      "version": "1",
+                      "sourceRef": "SYNTHETIC accepted zone"
+                    },
+                    "basis": "default",
+                    "scope": "modality",
+                    "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "version": "1",
+                    "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                  },
+                  "daysBefore": 3,
+                  "algorithmVersion": "h1-civil-d020-v1"
+                },
+                "baseTotal": "200.00",
+                "retention": "0.00",
+                "calculation": {
+                  "input": {
+                    "kind": "participations",
+                    "percent": "100",
+                    "baseEach": "200.00",
+                    "participations": 1
+                  },
+                  "trace": {
+                    "reason": "D019 contractual right before funds; D023 materialize per participation",
+                    "sourceRef": "D011",
+                    "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "configurationVersions": [
+                      {
+                        "id": "D011",
+                        "kind": "cancellation_policy",
+                        "version": "D011/D019/D020/D023"
+                      },
+                      {
+                        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "kind": "economic_basis",
+                        "version": "h4-d011-d019-d020-d023-v1"
+                      }
+                    ]
+                  },
+                  "output": {
+                    "each": {
+                      "base": "200.00",
+                      "applied": {
+                        "exact": {
+                          "decimal": "200",
+                          "numerator": "200",
+                          "denominator": "1"
+                        },
+                        "trace": {
+                          "reason": "D019 contractual right before funds; D023 materialize per participation",
+                          "sourceRef": "D011",
+                          "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                          "configurationVersions": [
+                            {
+                              "id": "D011",
+                              "kind": "cancellation_policy",
+                              "version": "D011/D019/D020/D023"
+                            },
+                            {
+                              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "kind": "economic_basis",
+                              "version": "h4-d011-d019-d020-d023-v1"
+                            }
+                          ]
+                        },
+                        "amount": "200.00",
+                        "difference": {
+                          "decimal": "0",
+                          "numerator": "0",
+                          "denominator": "1"
+                        },
+                        "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                      },
+                      "percent": "100",
+                      "internal": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "remainder": "0.00"
+                    },
+                    "bases": "200.00",
+                    "total": "200.00",
+                    "remainders": "0.00",
+                    "participations": 1
+                  },
+                  "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                },
+                "civilVersion": "h1-civil-d020-v1",
+                "moneyVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "revision": 1,
+              "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+            }
+          },
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "200.00"
+        },
+        "event": {
+          "at": "2026-10-06T16:43:09.469Z",
+          "action": "authorize",
+          "reason": "SYNTHETIC exact domain fact",
+          "refundId": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "sourceRef": "SYNTHETIC authorized statement",
+          "evidenceId": "f5bdd6b0-a3f4-49ae-9d8f-6d5cd6c2e62d",
+          "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+          "authorization": {
+            "cause": "provider",
+            "amount": "200.00",
+            "effect": "refund-contractual-right",
+            "method": "bank_transfer",
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "200.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "conditions": "SYNTHETIC exact scope and no bank execution",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa"
+          },
+          "expectedRevision": 1
+        },
+        "action": "authorize",
+        "before": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Determinada",
+          "request": null,
+          "attempts": [],
+          "executed": "0.00",
+          "revision": 1,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "0.00",
+          "authorized": "0.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": null,
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "0.00"
+        },
+        "reason": "SYNTHETIC exact domain fact",
+        "actorId": "542ed7d4-6fe1-4204-9513-1aefac7ef742",
+        "revision": 2,
+        "sourceRef": "SYNTHETIC authorized statement",
+        "evidenceId": "f5bdd6b0-a3f4-49ae-9d8f-6d5cd6c2e62d",
+        "recordedAt": "2026-10-06T18:43:09.625932+02:00"
+      },
+      {
+        "at": "2026-10-06T18:43:09.836+02:00",
+        "after": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Incidencia",
+          "request": null,
+          "attempts": [
+            {
+              "id": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0",
+              "result": "uncertain",
+              "portion": {
+                "start": "0.00",
+                "amount": "80.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              },
+              "resolved": false,
+              "authority": {
+                "at": "2026-10-06T16:43:09.469Z",
+                "cause": "provider",
+                "amount": "200.00",
+                "effect": "refund-contractual-right",
+                "method": "bank_transfer",
+                "portions": [
+                  {
+                    "start": "0.00",
+                    "amount": "200.00",
+                    "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                    "fundRevision": 4,
+                    "paymentRevision": 4,
+                    "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+                  }
+                ],
+                "conditions": "SYNTHETIC exact scope and no bank execution",
+                "invalidated": false,
+                "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+                "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+                "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+                "determination": {
+                  "id": "823ace48-228e-4793-9d7f-07932028af5e",
+                  "cause": "provider",
+                  "scope": {
+                    "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "kind": "modality"
+                  },
+                  "computed": {
+                    "unit": "participation",
+                    "right": "200.00",
+                    "status": "determined",
+                    "missing": [],
+                    "percent": "100",
+                    "version": "h4-d011-d019-d020-d023-v1",
+                    "currency": "EUR",
+                    "temporal": {
+                      "actDate": "2026-10-17",
+                      "interval": "at_least_3",
+                      "reference": {
+                        "date": "2026-10-20",
+                        "zone": {
+                          "zone": "Europe/Madrid",
+                          "version": "1",
+                          "sourceRef": "SYNTHETIC accepted zone"
+                        },
+                        "basis": "default",
+                        "scope": "modality",
+                        "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "version": "1",
+                        "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                      },
+                      "daysBefore": 3,
+                      "algorithmVersion": "h1-civil-d020-v1"
+                    },
+                    "baseTotal": "200.00",
+                    "retention": "0.00",
+                    "calculation": {
+                      "input": {
+                        "kind": "participations",
+                        "percent": "100",
+                        "baseEach": "200.00",
+                        "participations": 1
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "output": {
+                        "each": {
+                          "base": "200.00",
+                          "applied": {
+                            "exact": {
+                              "decimal": "200",
+                              "numerator": "200",
+                              "denominator": "1"
+                            },
+                            "trace": {
+                              "reason": "D019 contractual right before funds; D023 materialize per participation",
+                              "sourceRef": "D011",
+                              "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "configurationVersions": [
+                                {
+                                  "id": "D011",
+                                  "kind": "cancellation_policy",
+                                  "version": "D011/D019/D020/D023"
+                                },
+                                {
+                                  "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                                  "kind": "economic_basis",
+                                  "version": "h4-d011-d019-d020-d023-v1"
+                                }
+                              ]
+                            },
+                            "amount": "200.00",
+                            "difference": {
+                              "decimal": "0",
+                              "numerator": "0",
+                              "denominator": "1"
+                            },
+                            "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                          },
+                          "percent": "100",
+                          "internal": {
+                            "decimal": "200",
+                            "numerator": "200",
+                            "denominator": "1"
+                          },
+                          "remainder": "0.00"
+                        },
+                        "bases": "200.00",
+                        "total": "200.00",
+                        "remainders": "0.00",
+                        "participations": 1
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "civilVersion": "h1-civil-d020-v1",
+                    "moneyVersion": "h1-money-d023-d028-d029-v1"
+                  },
+                  "revision": 1,
+                  "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+                }
+              },
+              "sourceRef": "SYNTHETIC same attempted transfer outcome uncertain",
+              "evidenceId": "e6db5580-ff1a-4c23-b5b8-e8b12d2022c4",
+              "incidentId": "7c7df215-34c0-4779-8a45-30b49a9d7d25"
+            }
+          ],
+          "executed": "0.00",
+          "revision": 3,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "80.00",
+          "authorized": "200.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": {
+            "at": "2026-10-06T16:43:09.469Z",
+            "cause": "provider",
+            "amount": "200.00",
+            "effect": "refund-contractual-right",
+            "method": "bank_transfer",
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "200.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "conditions": "SYNTHETIC exact scope and no bank execution",
+            "invalidated": false,
+            "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+            "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+            "determination": {
+              "id": "823ace48-228e-4793-9d7f-07932028af5e",
+              "cause": "provider",
+              "scope": {
+                "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                "kind": "modality"
+              },
+              "computed": {
+                "unit": "participation",
+                "right": "200.00",
+                "status": "determined",
+                "missing": [],
+                "percent": "100",
+                "version": "h4-d011-d019-d020-d023-v1",
+                "currency": "EUR",
+                "temporal": {
+                  "actDate": "2026-10-17",
+                  "interval": "at_least_3",
+                  "reference": {
+                    "date": "2026-10-20",
+                    "zone": {
+                      "zone": "Europe/Madrid",
+                      "version": "1",
+                      "sourceRef": "SYNTHETIC accepted zone"
+                    },
+                    "basis": "default",
+                    "scope": "modality",
+                    "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "version": "1",
+                    "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                  },
+                  "daysBefore": 3,
+                  "algorithmVersion": "h1-civil-d020-v1"
+                },
+                "baseTotal": "200.00",
+                "retention": "0.00",
+                "calculation": {
+                  "input": {
+                    "kind": "participations",
+                    "percent": "100",
+                    "baseEach": "200.00",
+                    "participations": 1
+                  },
+                  "trace": {
+                    "reason": "D019 contractual right before funds; D023 materialize per participation",
+                    "sourceRef": "D011",
+                    "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "configurationVersions": [
+                      {
+                        "id": "D011",
+                        "kind": "cancellation_policy",
+                        "version": "D011/D019/D020/D023"
+                      },
+                      {
+                        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "kind": "economic_basis",
+                        "version": "h4-d011-d019-d020-d023-v1"
+                      }
+                    ]
+                  },
+                  "output": {
+                    "each": {
+                      "base": "200.00",
+                      "applied": {
+                        "exact": {
+                          "decimal": "200",
+                          "numerator": "200",
+                          "denominator": "1"
+                        },
+                        "trace": {
+                          "reason": "D019 contractual right before funds; D023 materialize per participation",
+                          "sourceRef": "D011",
+                          "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                          "configurationVersions": [
+                            {
+                              "id": "D011",
+                              "kind": "cancellation_policy",
+                              "version": "D011/D019/D020/D023"
+                            },
+                            {
+                              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "kind": "economic_basis",
+                              "version": "h4-d011-d019-d020-d023-v1"
+                            }
+                          ]
+                        },
+                        "amount": "200.00",
+                        "difference": {
+                          "decimal": "0",
+                          "numerator": "0",
+                          "denominator": "1"
+                        },
+                        "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                      },
+                      "percent": "100",
+                      "internal": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "remainder": "0.00"
+                    },
+                    "bases": "200.00",
+                    "total": "200.00",
+                    "remainders": "0.00",
+                    "participations": 1
+                  },
+                  "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                },
+                "civilVersion": "h1-civil-d020-v1",
+                "moneyVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "revision": 1,
+              "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+            }
+          },
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "200.00"
+        },
+        "event": {
+          "at": "2026-10-06T16:43:09.836Z",
+          "action": "uncertain",
+          "reason": "SYNTHETIC exact domain fact",
+          "attempt": {
+            "id": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0",
+            "portion": {
+              "start": "0.00",
+              "amount": "80.00",
+              "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+              "fundRevision": 4,
+              "paymentRevision": 4,
+              "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+            },
+            "sourceRef": "SYNTHETIC same attempted transfer outcome uncertain"
+          },
+          "refundId": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "sourceRef": "SYNTHETIC authorized statement",
+          "evidenceId": "e6db5580-ff1a-4c23-b5b8-e8b12d2022c4",
+          "incidentId": "7c7df215-34c0-4779-8a45-30b49a9d7d25",
+          "operationId": "bc727686-953e-4dd0-8da1-7b80c227aa88",
+          "expectedRevision": 2
+        },
+        "action": "uncertain",
+        "before": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Autorizada",
+          "request": null,
+          "attempts": [],
+          "executed": "0.00",
+          "revision": 2,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "0.00",
+          "authorized": "200.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": {
+            "at": "2026-10-06T16:43:09.469Z",
+            "cause": "provider",
+            "amount": "200.00",
+            "effect": "refund-contractual-right",
+            "method": "bank_transfer",
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "200.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "conditions": "SYNTHETIC exact scope and no bank execution",
+            "invalidated": false,
+            "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+            "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+            "determination": {
+              "id": "823ace48-228e-4793-9d7f-07932028af5e",
+              "cause": "provider",
+              "scope": {
+                "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                "kind": "modality"
+              },
+              "computed": {
+                "unit": "participation",
+                "right": "200.00",
+                "status": "determined",
+                "missing": [],
+                "percent": "100",
+                "version": "h4-d011-d019-d020-d023-v1",
+                "currency": "EUR",
+                "temporal": {
+                  "actDate": "2026-10-17",
+                  "interval": "at_least_3",
+                  "reference": {
+                    "date": "2026-10-20",
+                    "zone": {
+                      "zone": "Europe/Madrid",
+                      "version": "1",
+                      "sourceRef": "SYNTHETIC accepted zone"
+                    },
+                    "basis": "default",
+                    "scope": "modality",
+                    "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "version": "1",
+                    "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                  },
+                  "daysBefore": 3,
+                  "algorithmVersion": "h1-civil-d020-v1"
+                },
+                "baseTotal": "200.00",
+                "retention": "0.00",
+                "calculation": {
+                  "input": {
+                    "kind": "participations",
+                    "percent": "100",
+                    "baseEach": "200.00",
+                    "participations": 1
+                  },
+                  "trace": {
+                    "reason": "D019 contractual right before funds; D023 materialize per participation",
+                    "sourceRef": "D011",
+                    "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "configurationVersions": [
+                      {
+                        "id": "D011",
+                        "kind": "cancellation_policy",
+                        "version": "D011/D019/D020/D023"
+                      },
+                      {
+                        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "kind": "economic_basis",
+                        "version": "h4-d011-d019-d020-d023-v1"
+                      }
+                    ]
+                  },
+                  "output": {
+                    "each": {
+                      "base": "200.00",
+                      "applied": {
+                        "exact": {
+                          "decimal": "200",
+                          "numerator": "200",
+                          "denominator": "1"
+                        },
+                        "trace": {
+                          "reason": "D019 contractual right before funds; D023 materialize per participation",
+                          "sourceRef": "D011",
+                          "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                          "configurationVersions": [
+                            {
+                              "id": "D011",
+                              "kind": "cancellation_policy",
+                              "version": "D011/D019/D020/D023"
+                            },
+                            {
+                              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "kind": "economic_basis",
+                              "version": "h4-d011-d019-d020-d023-v1"
+                            }
+                          ]
+                        },
+                        "amount": "200.00",
+                        "difference": {
+                          "decimal": "0",
+                          "numerator": "0",
+                          "denominator": "1"
+                        },
+                        "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                      },
+                      "percent": "100",
+                      "internal": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "remainder": "0.00"
+                    },
+                    "bases": "200.00",
+                    "total": "200.00",
+                    "remainders": "0.00",
+                    "participations": 1
+                  },
+                  "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                },
+                "civilVersion": "h1-civil-d020-v1",
+                "moneyVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "revision": 1,
+              "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+            }
+          },
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "200.00"
+        },
+        "reason": "SYNTHETIC exact domain fact",
+        "actorId": "542ed7d4-6fe1-4204-9513-1aefac7ef742",
+        "revision": 3,
+        "sourceRef": "SYNTHETIC authorized statement",
+        "evidenceId": "e6db5580-ff1a-4c23-b5b8-e8b12d2022c4",
+        "recordedAt": "2026-10-06T18:43:09.848874+02:00"
+      },
+      {
+        "at": "2026-10-06T18:43:09.871+02:00",
+        "after": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Incidencia",
+          "request": null,
+          "attempts": [
+            {
+              "id": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0",
+              "result": "uncertain",
+              "portion": {
+                "start": "0.00",
+                "amount": "80.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              },
+              "progress": [
+                {
+                  "movement": {
+                    "amount": "20.00",
+                    "method": "bank_transfer",
+                    "identity": {
+                      "source": "SYNTHETIC verified bank statement",
+                      "account": "SYNTHETIC bank account A",
+                      "externalId": "294ccaba-c9ad-42b3-9b4d-8b28f272c3c8"
+                    },
+                    "portions": [
+                      {
+                        "start": "0.00",
+                        "amount": "20.00",
+                        "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                        "fundRevision": 5,
+                        "paymentRevision": 4,
+                        "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+                      }
+                    ],
+                    "reference": "SYNTHETIC movement ref",
+                    "occurredAt": "2026-10-06T16:43:09.852Z",
+                    "recipientId": "6d29089c-712f-412a-be03-4be2725256fa"
+                  },
+                  "evidenceId": "a447ba79-8fd2-4992-a530-2a846797a0b1",
+                  "resolution": "occurred",
+                  "operationId": "f2395e4a-8f3a-4423-9cda-f3fd31c0ebad"
+                }
+              ],
+              "resolved": false,
+              "authority": {
+                "at": "2026-10-06T16:43:09.469Z",
+                "cause": "provider",
+                "amount": "200.00",
+                "effect": "refund-contractual-right",
+                "method": "bank_transfer",
+                "portions": [
+                  {
+                    "start": "0.00",
+                    "amount": "200.00",
+                    "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                    "fundRevision": 4,
+                    "paymentRevision": 4,
+                    "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+                  }
+                ],
+                "conditions": "SYNTHETIC exact scope and no bank execution",
+                "invalidated": false,
+                "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+                "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+                "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+                "determination": {
+                  "id": "823ace48-228e-4793-9d7f-07932028af5e",
+                  "cause": "provider",
+                  "scope": {
+                    "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "kind": "modality"
+                  },
+                  "computed": {
+                    "unit": "participation",
+                    "right": "200.00",
+                    "status": "determined",
+                    "missing": [],
+                    "percent": "100",
+                    "version": "h4-d011-d019-d020-d023-v1",
+                    "currency": "EUR",
+                    "temporal": {
+                      "actDate": "2026-10-17",
+                      "interval": "at_least_3",
+                      "reference": {
+                        "date": "2026-10-20",
+                        "zone": {
+                          "zone": "Europe/Madrid",
+                          "version": "1",
+                          "sourceRef": "SYNTHETIC accepted zone"
+                        },
+                        "basis": "default",
+                        "scope": "modality",
+                        "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "version": "1",
+                        "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                      },
+                      "daysBefore": 3,
+                      "algorithmVersion": "h1-civil-d020-v1"
+                    },
+                    "baseTotal": "200.00",
+                    "retention": "0.00",
+                    "calculation": {
+                      "input": {
+                        "kind": "participations",
+                        "percent": "100",
+                        "baseEach": "200.00",
+                        "participations": 1
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "output": {
+                        "each": {
+                          "base": "200.00",
+                          "applied": {
+                            "exact": {
+                              "decimal": "200",
+                              "numerator": "200",
+                              "denominator": "1"
+                            },
+                            "trace": {
+                              "reason": "D019 contractual right before funds; D023 materialize per participation",
+                              "sourceRef": "D011",
+                              "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "configurationVersions": [
+                                {
+                                  "id": "D011",
+                                  "kind": "cancellation_policy",
+                                  "version": "D011/D019/D020/D023"
+                                },
+                                {
+                                  "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                                  "kind": "economic_basis",
+                                  "version": "h4-d011-d019-d020-d023-v1"
+                                }
+                              ]
+                            },
+                            "amount": "200.00",
+                            "difference": {
+                              "decimal": "0",
+                              "numerator": "0",
+                              "denominator": "1"
+                            },
+                            "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                          },
+                          "percent": "100",
+                          "internal": {
+                            "decimal": "200",
+                            "numerator": "200",
+                            "denominator": "1"
+                          },
+                          "remainder": "0.00"
+                        },
+                        "bases": "200.00",
+                        "total": "200.00",
+                        "remainders": "0.00",
+                        "participations": 1
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "civilVersion": "h1-civil-d020-v1",
+                    "moneyVersion": "h1-money-d023-d028-d029-v1"
+                  },
+                  "revision": 1,
+                  "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+                }
+              },
+              "sourceRef": "SYNTHETIC same attempted transfer outcome uncertain",
+              "evidenceId": "e6db5580-ff1a-4c23-b5b8-e8b12d2022c4",
+              "incidentId": "7c7df215-34c0-4779-8a45-30b49a9d7d25",
+              "lastEvidenceId": "a447ba79-8fd2-4992-a530-2a846797a0b1",
+              "remainingPortions": [
+                {
+                  "start": "20.00",
+                  "amount": "60.00",
+                  "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                  "fundRevision": 4,
+                  "paymentRevision": 4,
+                  "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+                }
+              ]
+            }
+          ],
+          "executed": "20.00",
+          "revision": 4,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [
+            {
+              "id": "62c31e92-7dc0-40fb-852f-f4d8d6b9c45b",
+              "material": {
+                "amount": "20.00",
+                "method": "bank_transfer",
+                "identity": {
+                  "source": "SYNTHETIC verified bank statement",
+                  "account": "SYNTHETIC bank account A",
+                  "externalId": "294ccaba-c9ad-42b3-9b4d-8b28f272c3c8"
+                },
+                "portions": [
+                  {
+                    "start": "0.00",
+                    "amount": "20.00",
+                    "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                    "fundRevision": 5,
+                    "paymentRevision": 4,
+                    "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+                  }
+                ],
+                "reference": "SYNTHETIC movement ref",
+                "occurredAt": "2026-10-06T16:43:09.852Z",
+                "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+                "sourceAttemptId": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0"
+              },
+              "authorized": true,
+              "authorizationRef": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+              "externalExecutionByCRM": false
+            }
+          ],
+          "uncertain": "60.00",
+          "authorized": "200.00",
+          "corrections": [],
+          "pendingRight": "180.00",
+          "authorization": {
+            "at": "2026-10-06T16:43:09.469Z",
+            "cause": "provider",
+            "amount": "200.00",
+            "effect": "refund-contractual-right",
+            "method": "bank_transfer",
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "200.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "conditions": "SYNTHETIC exact scope and no bank execution",
+            "invalidated": false,
+            "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+            "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+            "determination": {
+              "id": "823ace48-228e-4793-9d7f-07932028af5e",
+              "cause": "provider",
+              "scope": {
+                "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                "kind": "modality"
+              },
+              "computed": {
+                "unit": "participation",
+                "right": "200.00",
+                "status": "determined",
+                "missing": [],
+                "percent": "100",
+                "version": "h4-d011-d019-d020-d023-v1",
+                "currency": "EUR",
+                "temporal": {
+                  "actDate": "2026-10-17",
+                  "interval": "at_least_3",
+                  "reference": {
+                    "date": "2026-10-20",
+                    "zone": {
+                      "zone": "Europe/Madrid",
+                      "version": "1",
+                      "sourceRef": "SYNTHETIC accepted zone"
+                    },
+                    "basis": "default",
+                    "scope": "modality",
+                    "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "version": "1",
+                    "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                  },
+                  "daysBefore": 3,
+                  "algorithmVersion": "h1-civil-d020-v1"
+                },
+                "baseTotal": "200.00",
+                "retention": "0.00",
+                "calculation": {
+                  "input": {
+                    "kind": "participations",
+                    "percent": "100",
+                    "baseEach": "200.00",
+                    "participations": 1
+                  },
+                  "trace": {
+                    "reason": "D019 contractual right before funds; D023 materialize per participation",
+                    "sourceRef": "D011",
+                    "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "configurationVersions": [
+                      {
+                        "id": "D011",
+                        "kind": "cancellation_policy",
+                        "version": "D011/D019/D020/D023"
+                      },
+                      {
+                        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "kind": "economic_basis",
+                        "version": "h4-d011-d019-d020-d023-v1"
+                      }
+                    ]
+                  },
+                  "output": {
+                    "each": {
+                      "base": "200.00",
+                      "applied": {
+                        "exact": {
+                          "decimal": "200",
+                          "numerator": "200",
+                          "denominator": "1"
+                        },
+                        "trace": {
+                          "reason": "D019 contractual right before funds; D023 materialize per participation",
+                          "sourceRef": "D011",
+                          "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                          "configurationVersions": [
+                            {
+                              "id": "D011",
+                              "kind": "cancellation_policy",
+                              "version": "D011/D019/D020/D023"
+                            },
+                            {
+                              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "kind": "economic_basis",
+                              "version": "h4-d011-d019-d020-d023-v1"
+                            }
+                          ]
+                        },
+                        "amount": "200.00",
+                        "difference": {
+                          "decimal": "0",
+                          "numerator": "0",
+                          "denominator": "1"
+                        },
+                        "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                      },
+                      "percent": "100",
+                      "internal": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "remainder": "0.00"
+                    },
+                    "bases": "200.00",
+                    "total": "200.00",
+                    "remainders": "0.00",
+                    "participations": 1
+                  },
+                  "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                },
+                "civilVersion": "h1-civil-d020-v1",
+                "moneyVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "revision": 1,
+              "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+            }
+          },
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "180.00"
+        },
+        "event": {
+          "at": "2026-10-06T16:43:09.871Z",
+          "action": "resolve",
+          "reason": "SYNTHETIC exact domain fact",
+          "movement": {
+            "amount": "20.00",
+            "method": "bank_transfer",
+            "identity": {
+              "source": "SYNTHETIC verified bank statement",
+              "account": "SYNTHETIC bank account A",
+              "externalId": "294ccaba-c9ad-42b3-9b4d-8b28f272c3c8"
+            },
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "20.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 5,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "reference": "SYNTHETIC movement ref",
+            "occurredAt": "2026-10-06T16:43:09.852Z",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa"
+          },
+          "refundId": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "attemptId": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0",
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "sourceRef": "SYNTHETIC authorized statement",
+          "evidenceId": "a447ba79-8fd2-4992-a530-2a846797a0b1",
+          "resolution": "occurred",
+          "operationId": "f2395e4a-8f3a-4423-9cda-f3fd31c0ebad",
+          "expectedRevision": 3
+        },
+        "action": "resolve",
+        "before": {
+          "id": "72987dfe-0a87-474b-95b5-6156727953ca",
+          "right": "200.00",
+          "excess": "0.00",
+          "status": "Incidencia",
+          "request": null,
+          "attempts": [
+            {
+              "id": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0",
+              "result": "uncertain",
+              "portion": {
+                "start": "0.00",
+                "amount": "80.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              },
+              "resolved": false,
+              "authority": {
+                "at": "2026-10-06T16:43:09.469Z",
+                "cause": "provider",
+                "amount": "200.00",
+                "effect": "refund-contractual-right",
+                "method": "bank_transfer",
+                "portions": [
+                  {
+                    "start": "0.00",
+                    "amount": "200.00",
+                    "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                    "fundRevision": 4,
+                    "paymentRevision": 4,
+                    "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+                  }
+                ],
+                "conditions": "SYNTHETIC exact scope and no bank execution",
+                "invalidated": false,
+                "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+                "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+                "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+                "determination": {
+                  "id": "823ace48-228e-4793-9d7f-07932028af5e",
+                  "cause": "provider",
+                  "scope": {
+                    "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "kind": "modality"
+                  },
+                  "computed": {
+                    "unit": "participation",
+                    "right": "200.00",
+                    "status": "determined",
+                    "missing": [],
+                    "percent": "100",
+                    "version": "h4-d011-d019-d020-d023-v1",
+                    "currency": "EUR",
+                    "temporal": {
+                      "actDate": "2026-10-17",
+                      "interval": "at_least_3",
+                      "reference": {
+                        "date": "2026-10-20",
+                        "zone": {
+                          "zone": "Europe/Madrid",
+                          "version": "1",
+                          "sourceRef": "SYNTHETIC accepted zone"
+                        },
+                        "basis": "default",
+                        "scope": "modality",
+                        "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "version": "1",
+                        "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                      },
+                      "daysBefore": 3,
+                      "algorithmVersion": "h1-civil-d020-v1"
+                    },
+                    "baseTotal": "200.00",
+                    "retention": "0.00",
+                    "calculation": {
+                      "input": {
+                        "kind": "participations",
+                        "percent": "100",
+                        "baseEach": "200.00",
+                        "participations": 1
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "output": {
+                        "each": {
+                          "base": "200.00",
+                          "applied": {
+                            "exact": {
+                              "decimal": "200",
+                              "numerator": "200",
+                              "denominator": "1"
+                            },
+                            "trace": {
+                              "reason": "D019 contractual right before funds; D023 materialize per participation",
+                              "sourceRef": "D011",
+                              "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "configurationVersions": [
+                                {
+                                  "id": "D011",
+                                  "kind": "cancellation_policy",
+                                  "version": "D011/D019/D020/D023"
+                                },
+                                {
+                                  "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                                  "kind": "economic_basis",
+                                  "version": "h4-d011-d019-d020-d023-v1"
+                                }
+                              ]
+                            },
+                            "amount": "200.00",
+                            "difference": {
+                              "decimal": "0",
+                              "numerator": "0",
+                              "denominator": "1"
+                            },
+                            "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                          },
+                          "percent": "100",
+                          "internal": {
+                            "decimal": "200",
+                            "numerator": "200",
+                            "denominator": "1"
+                          },
+                          "remainder": "0.00"
+                        },
+                        "bases": "200.00",
+                        "total": "200.00",
+                        "remainders": "0.00",
+                        "participations": 1
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "civilVersion": "h1-civil-d020-v1",
+                    "moneyVersion": "h1-money-d023-d028-d029-v1"
+                  },
+                  "revision": 1,
+                  "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+                }
+              },
+              "sourceRef": "SYNTHETIC same attempted transfer outcome uncertain",
+              "evidenceId": "e6db5580-ff1a-4c23-b5b8-e8b12d2022c4",
+              "incidentId": "7c7df215-34c0-4779-8a45-30b49a9d7d25"
+            }
+          ],
+          "executed": "0.00",
+          "revision": 3,
+          "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+          "incidents": [],
+          "movements": [],
+          "uncertain": "80.00",
+          "authorized": "200.00",
+          "corrections": [],
+          "pendingRight": "200.00",
+          "authorization": {
+            "at": "2026-10-06T16:43:09.469Z",
+            "cause": "provider",
+            "amount": "200.00",
+            "effect": "refund-contractual-right",
+            "method": "bank_transfer",
+            "portions": [
+              {
+                "start": "0.00",
+                "amount": "200.00",
+                "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                "fundRevision": 4,
+                "paymentRevision": 4,
+                "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+              }
+            ],
+            "conditions": "SYNTHETIC exact scope and no bank execution",
+            "invalidated": false,
+            "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+            "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+            "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+            "determination": {
+              "id": "823ace48-228e-4793-9d7f-07932028af5e",
+              "cause": "provider",
+              "scope": {
+                "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                "kind": "modality"
+              },
+              "computed": {
+                "unit": "participation",
+                "right": "200.00",
+                "status": "determined",
+                "missing": [],
+                "percent": "100",
+                "version": "h4-d011-d019-d020-d023-v1",
+                "currency": "EUR",
+                "temporal": {
+                  "actDate": "2026-10-17",
+                  "interval": "at_least_3",
+                  "reference": {
+                    "date": "2026-10-20",
+                    "zone": {
+                      "zone": "Europe/Madrid",
+                      "version": "1",
+                      "sourceRef": "SYNTHETIC accepted zone"
+                    },
+                    "basis": "default",
+                    "scope": "modality",
+                    "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "version": "1",
+                    "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                  },
+                  "daysBefore": 3,
+                  "algorithmVersion": "h1-civil-d020-v1"
+                },
+                "baseTotal": "200.00",
+                "retention": "0.00",
+                "calculation": {
+                  "input": {
+                    "kind": "participations",
+                    "percent": "100",
+                    "baseEach": "200.00",
+                    "participations": 1
+                  },
+                  "trace": {
+                    "reason": "D019 contractual right before funds; D023 materialize per participation",
+                    "sourceRef": "D011",
+                    "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "configurationVersions": [
+                      {
+                        "id": "D011",
+                        "kind": "cancellation_policy",
+                        "version": "D011/D019/D020/D023"
+                      },
+                      {
+                        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "kind": "economic_basis",
+                        "version": "h4-d011-d019-d020-d023-v1"
+                      }
+                    ]
+                  },
+                  "output": {
+                    "each": {
+                      "base": "200.00",
+                      "applied": {
+                        "exact": {
+                          "decimal": "200",
+                          "numerator": "200",
+                          "denominator": "1"
+                        },
+                        "trace": {
+                          "reason": "D019 contractual right before funds; D023 materialize per participation",
+                          "sourceRef": "D011",
+                          "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                          "configurationVersions": [
+                            {
+                              "id": "D011",
+                              "kind": "cancellation_policy",
+                              "version": "D011/D019/D020/D023"
+                            },
+                            {
+                              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                              "kind": "economic_basis",
+                              "version": "h4-d011-d019-d020-d023-v1"
+                            }
+                          ]
+                        },
+                        "amount": "200.00",
+                        "difference": {
+                          "decimal": "0",
+                          "numerator": "0",
+                          "denominator": "1"
+                        },
+                        "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                      },
+                      "percent": "100",
+                      "internal": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "remainder": "0.00"
+                    },
+                    "bases": "200.00",
+                    "total": "200.00",
+                    "remainders": "0.00",
+                    "participations": 1
+                  },
+                  "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                },
+                "civilVersion": "h1-civil-d020-v1",
+                "moneyVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "revision": 1,
+              "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+            }
+          },
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          },
+          "pendingAuthorized": "200.00"
+        },
+        "reason": "SYNTHETIC exact domain fact",
+        "actorId": "542ed7d4-6fe1-4204-9513-1aefac7ef742",
+        "revision": 4,
+        "sourceRef": "SYNTHETIC authorized statement",
+        "evidenceId": "a447ba79-8fd2-4992-a530-2a846797a0b1",
+        "recordedAt": "2026-10-06T18:43:09.89992+02:00"
+      }
+    ],
+    "request": null,
+    "attempts": [
+      {
+        "id": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0",
+        "result": "uncertain",
+        "portion": {
+          "start": "0.00",
+          "amount": "80.00",
+          "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+          "fundRevision": 4,
+          "paymentRevision": 4,
+          "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+        },
+        "progress": [
+          {
+            "movement": {
+              "amount": "20.00",
+              "method": "bank_transfer",
+              "identity": {
+                "source": "SYNTHETIC verified bank statement",
+                "account": "SYNTHETIC bank account A",
+                "externalId": "294ccaba-c9ad-42b3-9b4d-8b28f272c3c8"
+              },
+              "portions": [
+                {
+                  "start": "0.00",
+                  "amount": "20.00",
+                  "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+                  "fundRevision": 5,
+                  "paymentRevision": 4,
+                  "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+                }
+              ],
+              "reference": "SYNTHETIC movement ref",
+              "occurredAt": "2026-10-06T16:43:09.852Z",
+              "recipientId": "6d29089c-712f-412a-be03-4be2725256fa"
+            },
+            "evidenceId": "a447ba79-8fd2-4992-a530-2a846797a0b1",
+            "resolution": "occurred",
+            "operationId": "f2395e4a-8f3a-4423-9cda-f3fd31c0ebad"
+          }
+        ],
+        "resolved": false,
+        "authority": {
+          "at": "2026-10-06T16:43:09.469Z",
+          "cause": "provider",
+          "amount": "200.00",
+          "effect": "refund-contractual-right",
+          "method": "bank_transfer",
+          "portions": [
+            {
+              "start": "0.00",
+              "amount": "200.00",
+              "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+              "fundRevision": 4,
+              "paymentRevision": 4,
+              "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+            }
+          ],
+          "conditions": "SYNTHETIC exact scope and no bank execution",
+          "invalidated": false,
+          "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+          "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+          "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+          "determination": {
+            "id": "823ace48-228e-4793-9d7f-07932028af5e",
+            "cause": "provider",
+            "scope": {
+              "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "kind": "modality"
+            },
+            "computed": {
+              "unit": "participation",
+              "right": "200.00",
+              "status": "determined",
+              "missing": [],
+              "percent": "100",
+              "version": "h4-d011-d019-d020-d023-v1",
+              "currency": "EUR",
+              "temporal": {
+                "actDate": "2026-10-17",
+                "interval": "at_least_3",
+                "reference": {
+                  "date": "2026-10-20",
+                  "zone": {
+                    "zone": "Europe/Madrid",
+                    "version": "1",
+                    "sourceRef": "SYNTHETIC accepted zone"
+                  },
+                  "basis": "default",
+                  "scope": "modality",
+                  "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "version": "1",
+                  "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+                },
+                "daysBefore": 3,
+                "algorithmVersion": "h1-civil-d020-v1"
+              },
+              "baseTotal": "200.00",
+              "retention": "0.00",
+              "calculation": {
+                "input": {
+                  "kind": "participations",
+                  "percent": "100",
+                  "baseEach": "200.00",
+                  "participations": 1
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "output": {
+                  "each": {
+                    "base": "200.00",
+                    "applied": {
+                      "exact": {
+                        "decimal": "200",
+                        "numerator": "200",
+                        "denominator": "1"
+                      },
+                      "trace": {
+                        "reason": "D019 contractual right before funds; D023 materialize per participation",
+                        "sourceRef": "D011",
+                        "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "configurationVersions": [
+                          {
+                            "id": "D011",
+                            "kind": "cancellation_policy",
+                            "version": "D011/D019/D020/D023"
+                          },
+                          {
+                            "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                            "kind": "economic_basis",
+                            "version": "h4-d011-d019-d020-d023-v1"
+                          }
+                        ]
+                      },
+                      "amount": "200.00",
+                      "difference": {
+                        "decimal": "0",
+                        "numerator": "0",
+                        "denominator": "1"
+                      },
+                      "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                    },
+                    "percent": "100",
+                    "internal": {
+                      "decimal": "200",
+                      "numerator": "200",
+                      "denominator": "1"
+                    },
+                    "remainder": "0.00"
+                  },
+                  "bases": "200.00",
+                  "total": "200.00",
+                  "remainders": "0.00",
+                  "participations": 1
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "civilVersion": "h1-civil-d020-v1",
+              "moneyVersion": "h1-money-d023-d028-d029-v1"
+            },
+            "revision": 1,
+            "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+          }
+        },
+        "sourceRef": "SYNTHETIC same attempted transfer outcome uncertain",
+        "evidenceId": "e6db5580-ff1a-4c23-b5b8-e8b12d2022c4",
+        "incidentId": "7c7df215-34c0-4779-8a45-30b49a9d7d25",
+        "lastEvidenceId": "a447ba79-8fd2-4992-a530-2a846797a0b1",
+        "remainingPortions": [
+          {
+            "start": "20.00",
+            "amount": "60.00",
+            "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+            "fundRevision": 4,
+            "paymentRevision": 4,
+            "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+          }
+        ]
+      }
+    ],
+    "executed": "20.00",
+    "revision": 4,
+    "bookingId": "88f6083f-479a-472a-a371-aae721833428",
+    "incidents": [],
+    "movements": [
+      {
+        "id": "62c31e92-7dc0-40fb-852f-f4d8d6b9c45b",
+        "material": {
+          "amount": "20.00",
+          "method": "bank_transfer",
+          "identity": {
+            "source": "SYNTHETIC verified bank statement",
+            "account": "SYNTHETIC bank account A",
+            "externalId": "294ccaba-c9ad-42b3-9b4d-8b28f272c3c8"
+          },
+          "portions": [
+            {
+              "start": "0.00",
+              "amount": "20.00",
+              "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+              "fundRevision": 5,
+              "paymentRevision": 4,
+              "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+            }
+          ],
+          "reference": "SYNTHETIC movement ref",
+          "occurredAt": "2026-10-06T16:43:09.852Z",
+          "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+          "sourceAttemptId": "cb4c1b2d-4219-477f-a01f-5fa473ad0da0"
+        },
+        "authorized": true,
+        "authorizationRef": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+        "externalExecutionByCRM": false
+      }
+    ],
+    "uncertain": "60.00",
+    "authorized": "200.00",
+    "corrections": [],
+    "pendingRight": "180.00",
+    "authorization": {
+      "at": "2026-10-06T16:43:09.469Z",
+      "cause": "provider",
+      "amount": "200.00",
+      "effect": "refund-contractual-right",
+      "method": "bank_transfer",
+      "portions": [
+        {
+          "start": "0.00",
+          "amount": "200.00",
+          "paymentId": "a49c0f67-f3c8-488f-bcdc-e653044d1aaa",
+          "fundRevision": 4,
+          "paymentRevision": 4,
+          "reconciliationId": "8639eaf8-1ae4-4fcb-8707-64162f97c73e"
+        }
+      ],
+      "conditions": "SYNTHETIC exact scope and no bank execution",
+      "invalidated": false,
+      "operationId": "e99f8541-0848-481d-b806-fb73ec9c23de",
+      "recipientId": "6d29089c-712f-412a-be03-4be2725256fa",
+      "reservation": "refund-reserve-56f68848-9bd9-4ab8-be17-d3b1b21fe665",
+      "determination": {
+        "id": "823ace48-228e-4793-9d7f-07932028af5e",
+        "cause": "provider",
+        "scope": {
+          "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+          "kind": "modality"
+        },
+        "computed": {
+          "unit": "participation",
+          "right": "200.00",
+          "status": "determined",
+          "missing": [],
+          "percent": "100",
+          "version": "h4-d011-d019-d020-d023-v1",
+          "currency": "EUR",
+          "temporal": {
+            "actDate": "2026-10-17",
+            "interval": "at_least_3",
+            "reference": {
+              "date": "2026-10-20",
+              "zone": {
+                "zone": "Europe/Madrid",
+                "version": "1",
+                "sourceRef": "SYNTHETIC accepted zone"
+              },
+              "basis": "default",
+              "scope": "modality",
+              "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "version": "1",
+              "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+            },
+            "daysBefore": 3,
+            "algorithmVersion": "h1-civil-d020-v1"
+          },
+          "baseTotal": "200.00",
+          "retention": "0.00",
+          "calculation": {
+            "input": {
+              "kind": "participations",
+              "percent": "100",
+              "baseEach": "200.00",
+              "participations": 1
+            },
+            "trace": {
+              "reason": "D019 contractual right before funds; D023 materialize per participation",
+              "sourceRef": "D011",
+              "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+              "configurationVersions": [
+                {
+                  "id": "D011",
+                  "kind": "cancellation_policy",
+                  "version": "D011/D019/D020/D023"
+                },
+                {
+                  "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "kind": "economic_basis",
+                  "version": "h4-d011-d019-d020-d023-v1"
+                }
+              ]
+            },
+            "output": {
+              "each": {
+                "base": "200.00",
+                "applied": {
+                  "exact": {
+                    "decimal": "200",
+                    "numerator": "200",
+                    "denominator": "1"
+                  },
+                  "trace": {
+                    "reason": "D019 contractual right before funds; D023 materialize per participation",
+                    "sourceRef": "D011",
+                    "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                    "configurationVersions": [
+                      {
+                        "id": "D011",
+                        "kind": "cancellation_policy",
+                        "version": "D011/D019/D020/D023"
+                      },
+                      {
+                        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                        "kind": "economic_basis",
+                        "version": "h4-d011-d019-d020-d023-v1"
+                      }
+                    ]
+                  },
+                  "amount": "200.00",
+                  "difference": {
+                    "decimal": "0",
+                    "numerator": "0",
+                    "denominator": "1"
+                  },
+                  "algorithmVersion": "h1-money-d023-d028-d029-v1"
+                },
+                "percent": "100",
+                "internal": {
+                  "decimal": "200",
+                  "numerator": "200",
+                  "denominator": "1"
+                },
+                "remainder": "0.00"
+              },
+              "bases": "200.00",
+              "total": "200.00",
+              "remainders": "0.00",
+              "participations": 1
+            },
+            "algorithmVersion": "h1-money-d023-d028-d029-v1"
+          },
+          "civilVersion": "h1-civil-d020-v1",
+          "moneyVersion": "h1-money-d023-d028-d029-v1"
+        },
+        "revision": 1,
+        "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+      }
+    },
+    "determination": {
+      "id": "823ace48-228e-4793-9d7f-07932028af5e",
+      "cause": "provider",
+      "scope": {
+        "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+        "kind": "modality"
+      },
+      "computed": {
+        "unit": "participation",
+        "right": "200.00",
+        "status": "determined",
+        "missing": [],
+        "percent": "100",
+        "version": "h4-d011-d019-d020-d023-v1",
+        "currency": "EUR",
+        "temporal": {
+          "actDate": "2026-10-17",
+          "interval": "at_least_3",
+          "reference": {
+            "date": "2026-10-20",
+            "zone": {
+              "zone": "Europe/Madrid",
+              "version": "1",
+              "sourceRef": "SYNTHETIC accepted zone"
+            },
+            "basis": "default",
+            "scope": "modality",
+            "scopeId": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+            "version": "1",
+            "sourceRef": "907d734e-f2af-48b3-87d5-6dff7eb42bb8"
+          },
+          "daysBefore": 3,
+          "algorithmVersion": "h1-civil-d020-v1"
+        },
+        "baseTotal": "200.00",
+        "retention": "0.00",
+        "calculation": {
+          "input": {
+            "kind": "participations",
+            "percent": "100",
+            "baseEach": "200.00",
+            "participations": 1
+          },
+          "trace": {
+            "reason": "D019 contractual right before funds; D023 materialize per participation",
+            "sourceRef": "D011",
+            "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+            "configurationVersions": [
+              {
+                "id": "D011",
+                "kind": "cancellation_policy",
+                "version": "D011/D019/D020/D023"
+              },
+              {
+                "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                "kind": "economic_basis",
+                "version": "h4-d011-d019-d020-d023-v1"
+              }
+            ]
+          },
+          "output": {
+            "each": {
+              "base": "200.00",
+              "applied": {
+                "exact": {
+                  "decimal": "200",
+                  "numerator": "200",
+                  "denominator": "1"
+                },
+                "trace": {
+                  "reason": "D019 contractual right before funds; D023 materialize per participation",
+                  "sourceRef": "D011",
+                  "calculationRef": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                  "configurationVersions": [
+                    {
+                      "id": "D011",
+                      "kind": "cancellation_policy",
+                      "version": "D011/D019/D020/D023"
+                    },
+                    {
+                      "id": "ee9c57d9-4d36-4c91-bdad-b0c8a43df3f8",
+                      "kind": "economic_basis",
+                      "version": "h4-d011-d019-d020-d023-v1"
+                    }
+                  ]
+                },
+                "amount": "200.00",
+                "difference": {
+                  "decimal": "0",
+                  "numerator": "0",
+                  "denominator": "1"
+                },
+                "algorithmVersion": "h1-money-d023-d028-d029-v1"
+              },
+              "percent": "100",
+              "internal": {
+                "decimal": "200",
+                "numerator": "200",
+                "denominator": "1"
+              },
+              "remainder": "0.00"
+            },
+            "bases": "200.00",
+            "total": "200.00",
+            "remainders": "0.00",
+            "participations": 1
+          },
+          "algorithmVersion": "h1-money-d023-d028-d029-v1"
+        },
+        "civilVersion": "h1-civil-d020-v1",
+        "moneyVersion": "h1-money-d023-d028-d029-v1"
+      },
+      "revision": 1,
+      "scopeToken": "208e38678a8133273f9ebfcf03a75b5b9322a60685c4ebdf6298e76162e13ad1"
+    },
+    "pendingAuthorized": "180.00"
+  },
+  "fundsAfter": {
+    "acts": [],
+    "history": [],
+    "summary": {
+      "planned": "0.00",
+      "assigned": "0.00",
+      "consumed": "0.00",
+      "received": "200.00",
+      "available": "120.00",
+      "byPurpose": {},
+      "suspended": "0.00",
+      "unassigned": "200.00",
+      "refundReserved": "60.00",
+      "usableAssigned": "0.00",
+      "usableConsumed": "0.00",
+      "algorithmVersion": "h1-money-d023-d028-d029-v1",
+      "externalReturned": "20.00",
+      "netAfterReturned": "180.00",
+      "suspendedAssigned": "0.00",
+      "suspendedConsumed": "0.00",
+      "representedReturned": "20.00",
+      "verifiedCorrespondence": "200.00"
+    },
+    "coverage": [
+      {
+        "slot": "initial",
+        "state": "pending",
+        "excess": "0.00",
+        "portions": [],
+        "remaining": "100.00",
+        "scheduleId": "d07ba95c-a6ed-481c-81c0-7ba56a633fc7",
+        "verifiedAmount": "0.00",
+        "algorithmVersion": "h1-money-d023-d028-d029-v1",
+        "obligationAmount": "100.00",
+        "scheduleRevision": 1
+      },
+      {
+        "slot": "balance",
+        "state": "pending",
+        "excess": "0.00",
+        "portions": [],
+        "remaining": "100.00",
+        "scheduleId": "d07ba95c-a6ed-481c-81c0-7ba56a633fc7",
+        "verifiedAmount": "0.00",
+        "algorithmVersion": "h1-money-d023-d028-d029-v1",
+        "obligationAmount": "100.00",
+        "scheduleRevision": 1
+      }
+    ],
+    "revision": 6,
+    "allocations": [],
+    "distributions": [],
+    "paymentRevision": 4
+  }
+}
