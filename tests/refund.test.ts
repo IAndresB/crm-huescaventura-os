@@ -1,0 +1,4 @@
+import test from'node:test';import assert from'node:assert/strict';import{refundAmounts}from'../src/domain/refund.ts';
+test('H4-015 exact PM06 fixed50.01 minus20 then30.01 without applying percentage again',()=>{assert.deepEqual(refundAmounts('50.01','50.01',['20.00']),{right:'50.01',authorized:'50.01',executed:'20.00',pendingRight:'30.01',pendingAuthorized:'30.01',uncertain:'0.00'});assert.equal(refundAmounts('50.01','50.01',['20.00','30.01']).pendingRight,'0.00');});
+test('H4-015 uncertainty is separate from accredited executed and right',()=>{const r=refundAmounts('200.00','200.00',['80.00'],['20.00']);assert.equal(r.executed,'80.00');assert.equal(r.pendingRight,'120.00');assert.equal(r.uncertain,'20.00');});
+test('H4-015 real unapproved output retained despite authorization zero and unknown right',()=>{const r=refundAmounts(null,'0.00',['20.00']);assert.equal(r.executed,'20.00');assert.equal(r.pendingRight,null);assert.equal(r.pendingAuthorized,'0.00');});
