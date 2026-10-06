@@ -1,3 +1,4 @@
+import type {DepositCommand} from '../../domain/deposit.ts';
 import type {RefundCommand} from '../../domain/refund.ts';
 import type {ProviderPaymentCommand} from '../../domain/provider-payment.ts';
 import {canonicalCommercial} from '../../domain/commercial-progress.ts';
@@ -211,7 +212,7 @@ export class H0011PostgresAdapter {
     human?: { auth: VerifiedAuthEvidence; interaction: VerifiedServerInteraction };
     scope?: string; context?: TrustedExecutionContext; ledgerState: string;
     intent?: { effectId: string; recipientReference: string; contentVersion: string };
-    providerPayment?: ProviderPaymentCommand; refund?:RefundCommand; evidence?: EvidenceRevalidationRequest }): Promise<H0M04Receipt> {
+    providerPayment?: ProviderPaymentCommand; refund?:RefundCommand; deposit?:DepositCommand; evidence?: EvidenceRevalidationRequest }): Promise<H0M04Receipt> {
     assertId(input.commandId);
     if (input.human && !isVerifiedServerInteraction(input.human.interaction, "interactive_action")) throw new Error("H0_011_INTERACTION_REQUIRED");
     const q = encodeF1Fields(["CRM-H0-M04", input.action, input.commandId, ...input.data]);
@@ -254,6 +255,7 @@ export class H0011PostgresAdapter {
           [f2.payload,f2.mac,f1.payload,f1.mac,q,Buffer.from(canonicalCommercial(input.providerPayment),"utf8")]);
       }
       if(input.refund) await tx.unsafe("select crm_api.refund_sensitive_authorize($1,$2,$3,$4,$5,convert_from($6::bytea,'UTF8')::jsonb)",[f2.payload,f2.mac,f1.payload,f1.mac,q,Buffer.from(canonicalCommercial(input.refund),'utf8')]);
+      if(input.deposit) await tx.unsafe("select crm_api.deposit_sensitive_determine($1,$2,$3,$4,$5,convert_from($6::bytea,'UTF8')::jsonb)",[f2.payload,f2.mac,f1.payload,f1.mac,q,Buffer.from(canonicalCommercial(input.deposit),'utf8')]);
       await this.commitLedger(tx, context, input.commandId, input.ledgerState, input.intent,
         f2.payload && f2.mac ? { payload: f2.payload, mac: f2.mac, input: q } : undefined);
       const r = rows[0];
@@ -266,7 +268,7 @@ export class H0011PostgresAdapter {
         // D039: drain deferred work before the mandatory final check, then
         // initiate COMMIT in this same private server message. No caller hook.
         commitStarted = true;
-        await tx.unsafe(`set constraints all immediate; ${input.providerPayment ? `select crm_api.provider_payment_finalize('${input.commandId}'); ` : ''}${input.refund ? `select crm_api.refund_finalize('${input.commandId}'); ` : ''}select crm_api.h0_m04_finalize_evidence('${input.commandId}'); commit`);
+        await tx.unsafe(`set constraints all immediate; ${input.providerPayment ? `select crm_api.provider_payment_finalize('${input.commandId}'); ` : ''}${input.refund ? `select crm_api.refund_finalize('${input.commandId}'); ` : ''}${input.deposit ? `select crm_api.deposit_finalize('${input.commandId}'); ` : ''}select crm_api.h0_m04_finalize_evidence('${input.commandId}'); commit`);
       }
       return receipt;
     }); } catch (error) {
@@ -300,7 +302,7 @@ export class H0011PostgresAdapter {
 
   private reserveUnit(auth: VerifiedAuthEvidence, interaction: VerifiedServerInteraction, commandId: string,
     proposalId: string, decisionId: string, partId: string, proposalFingerprint: string,
-    partFingerprint: string, material: HumanApprovalMaterial, providerPayment?: ProviderPaymentCommand, refund?:RefundCommand) {
+    partFingerprint: string, material: HumanApprovalMaterial, providerPayment?: ProviderPaymentCommand, refund?:RefundCommand, deposit?:DepositCommand) {
     assertId(proposalId); assertId(decisionId); assertId(partId);
     if (fingerprintHumanApprovalMaterial(material) !== proposalFingerprint) throw new Error("H0_011_MATERIAL_CHANGED");
     const approvedPart = material.parts.find((part) => part.partId === partId);
@@ -316,7 +318,7 @@ export class H0011PostgresAdapter {
       ...(material.evidence ? { evidence: { reference: material.evidence.reference, fingerprint: material.evidence.fingerprint,
         approvedExpiresAt: material.evidence.expiresAt,
         proposalId, commandId, partId, materialFingerprint: proposalFingerprint, scope: material.scope } } : {}),
-      ...(providerPayment ? {providerPayment} : {}), ...(refund?{refund}:{}), ledgerState: "reserved", intent: { effectId, recipientReference: recipient[1], contentVersion: approvedPart.contentVersion } });
+      ...(providerPayment ? {providerPayment} : {}), ...(refund?{refund}:{}), ...(deposit?{deposit}:{}), ledgerState: "reserved", intent: { effectId, recipientReference: recipient[1], contentVersion: approvedPart.contentVersion } });
   }
 
   reserve(auth: VerifiedAuthEvidence, interaction: VerifiedServerInteraction, commandId: string,
@@ -336,6 +338,11 @@ export class H0011PostgresAdapter {
   authorizeRefund(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,commandId:string,proposalId:string,decisionId:string,partId:string,proposalFingerprint:string,partFingerprint:string,material:HumanApprovalMaterial,input:RefundCommand){
     if(input.action!=='authorize'||canonicalCommercial(input)!==material.parts.find(p=>p.partId===partId)?.content)throw new Error('H0_011_REFUND_MATERIAL_CHANGED');
     return this.reserveUnit(auth,interaction,commandId,proposalId,decisionId,partId,proposalFingerprint,partFingerprint,material,undefined,input);
+  }
+
+  determineDeposit(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,commandId:string,proposalId:string,decisionId:string,partId:string,proposalFingerprint:string,partFingerprint:string,material:HumanApprovalMaterial,input:DepositCommand){
+    if(input.action!=='determine'||canonicalCommercial(input)!==material.parts.find(p=>p.partId===partId)?.content)throw new Error('H0_011_DEPOSIT_MATERIAL_CHANGED');
+    return this.reserveUnit(auth,interaction,commandId,proposalId,decisionId,partId,proposalFingerprint,partFingerprint,material,undefined,undefined,input);
   }
 
   recordAttempt(context: TrustedExecutionContext, commandId: string, reservationId: string, attemptId: string) {

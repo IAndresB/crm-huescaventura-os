@@ -1,3 +1,4 @@
+import type {DepositCommand} from '../../domain/deposit.ts';
 import {randomUUID} from "node:crypto";
 import {issueTrustedContext} from "../../application/trusted-context.ts";
 import {isVerifiedAuth,type VerifiedAuthEvidence} from "../../application/verified-auth.ts";
@@ -19,8 +20,9 @@ export class H4015RefundAdapter {
    const context=issueTrustedContext({identityId:"h4-refund-server",identityKind:"technical",purpose:"h1-evidence",scope:row.admin_scope,requestId:randomUUID(),serverTime:new Date().toISOString()});
    const h=this.f2(auth,identity,binding,write?"evidence_write":"evidence_read",q,interaction),t=this.f1(context,binding,write?"C03":"C01",q,{resource:"evidence",action:write?"write_evidence":"read_evidence"});
    return (await tx.unsafe<{data:unknown}[]>(`select crm_api.${write?"refund_apply":"refund_read"}($1,$2,$3,$4,$5) data`,[h.payload,h.mac,t.payload,t.mac,q]))[0]?.data;
-  });}catch(e){const m=e instanceof Error?e.message:"";throw new Error(/^REFUND_[A-Z_]+(?::[A-Za-z0-9_,:./ -]+)?$/.test(m)?m:"REFUND_DENIED");}
+  });}catch(e){const m=e instanceof Error?e.message:"";throw new Error(/^(?:REFUND|DEPOSIT)_[A-Z_]+(?::[A-Za-z0-9_,:./ -]+)?$/.test(m)?m:"REFUND_DENIED");}
  }
  async apply(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,input:RefundCommand):Promise<any>{if(input.action==='authorize')throw new Error('REFUND_TTE_REQUIRED');return this.call(auth,interaction,true,Object.fromEntries(Object.entries(input).filter(([,v])=>v!==undefined)));}
+ async applyGuarantee(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,input:DepositCommand):Promise<any>{if(input.action==='determine')throw new Error('REFUND_TTE_REQUIRED');return this.call(auth,interaction,true,{action:'guarantee',deposit:input});}
  async read(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,bookingId:string,refundId:string,purpose:'history'|'summary'='history'):Promise<any>{return this.call(auth,interaction,false,{bookingId,refundId,purpose});}
 }
