@@ -77,7 +77,7 @@ begin
   insert into crm_private.b05_deposits values(id,bid,sid,nid,s,op,gen_random_uuid());select * into root from crm_private.b05_deposits where deposit_id=id;
   p:=jsonb_build_object('id',id,'bookingId',bid,'serviceId',sid,'nightId',nid,'refundId',root.refund_id,'revision',0,'applicability','unknown','conditions',null,'requirement',null,'evaluation',null,'resolution',null,'deliveries','[]'::jsonb,'retentions','[]'::jsonb,'returns','[]'::jsonb,'discrepancies','[]'::jsonb);
  else p:=old;end if;
- token:=crm_private.modification_scope(jsonb_build_object('kind',case when nid is null then 'service'else 'night'end,'id',coalesce(nid,sid)),bid,s);
+ token:=crm_private.modification_scope(jsonb_build_object('kind',case when nid is null then 'service'else 'night'end,'id',coalesce(nid,sid),'serviceId',sid),bid,s);
  if action='applicability'then
   v:=a->'conditions';
   if coalesce(a->>'applicability','')not in ('required','not_applicable')or v-array['catalogRevisionId','terms','condition']<>'{}'::jsonb or not(v?&array['catalogRevisionId','terms','condition'])or crm_private.invoice_text(v->'condition')is distinct from true or v->'terms'is distinct from(select terms from crm_private.b04_bookings where booking_id=bid and admin_scope=s)or v->>'catalogRevisionId'is distinct from(select service_revision_id::text from crm_private.b04_services where service_id=sid and admin_scope=s)then raise exception 'DEPOSIT_CONDITIONS_REQUIRED';end if;
@@ -199,7 +199,7 @@ declare p jsonb;s text;begin
  if session_user<>'crm_h0_ha_tx'then raise exception 'DEPOSIT_TTE_REQUIRED';end if;
  select after_data,admin_scope into p,s from crm_private.b05_deposit_revisions where action='determine'and after_data->'resolution'->>'reservation'=command_id;
  if p is null then raise exception 'DEPOSIT_FINAL_CHECK_REQUIRED';end if;
- if p->'scopeToken'is distinct from crm_private.modification_scope(jsonb_build_object('kind',case when p->>'nightId'is null then 'service'else 'night'end,'id',coalesce(p->>'nightId',p->>'serviceId')),(p->>'bookingId')::uuid,s)then raise exception 'DEPOSIT_FINAL_CHECK_FAILED';end if;
+ if p->'scopeToken'is distinct from crm_private.modification_scope(jsonb_build_object('kind',case when p->>'nightId'is null then 'service'else 'night'end,'id',coalesce(p->>'nightId',p->>'serviceId'),'serviceId',p->>'serviceId'),(p->>'bookingId')::uuid,s)then raise exception 'DEPOSIT_FINAL_CHECK_FAILED';end if;
 end$$;
 -- Preserve the contractual kernel, adding only a guard against guarantee-root bypass.
 do $$declare body text;begin
