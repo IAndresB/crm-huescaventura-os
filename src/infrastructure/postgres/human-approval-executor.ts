@@ -48,3 +48,10 @@ export function createRefundExecutor(input:{readonly databaseUrl:string;readonly
  const sql=postgres(input.databaseUrl,{max:1,prepare:false,ssl:input.ssl??'require'}),adapter=new H0011PostgresAdapter(sql,input.capability,input.humanAuthorization,input.evidenceProvider);
  return Object.freeze({authorizeRefund:adapter.authorizeRefund.bind(adapter),close:()=>sql.end({timeout:5})});
 }
+
+// Narrow Booking evaluator shares D039 connection ownership and finalization.
+export function createBookingPreparationExecutor(input:{readonly databaseUrl:string;readonly capability:F1SigningConfiguration;readonly humanAuthorization:F2SigningConfiguration;readonly evidenceProvider?:EvidenceRevalidationProvider;readonly ssl?:postgres.Options<never>["ssl"];}):{readonly evaluateBookingPreparation:H0011PostgresAdapter['evaluateBookingPreparation'];close():Promise<void>}{
+ if(!input.databaseUrl.trim())throw new Error('HA_DATABASE_URL_REQUIRED');
+ const sql=postgres(input.databaseUrl,{max:1,prepare:false,ssl:input.ssl??'require'}),adapter=new H0011PostgresAdapter(sql,input.capability,input.humanAuthorization,input.evidenceProvider);
+ return Object.freeze({evaluateBookingPreparation:adapter.evaluateBookingPreparation.bind(adapter),close:()=>sql.end({timeout:5})});
+}
