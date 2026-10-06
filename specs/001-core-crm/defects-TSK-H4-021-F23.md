@@ -1,19 +1,16 @@
 # Defectos del correctivo H4-020/021-F23
 
-F01–F22 anteriores conservados, numeración nueva desde F24.
+Estado vigente: **F23 y F24–F28 CLOSED local/aislado** sobre SHA exacto publicado `742b1e76c705519c467a77d18063248c12e02ff9`. Cero defectos materiales abiertos; regresión2105/2105,138unitarias,health1 separado ytodos gates PASS. F01–F22 anteriores conservados y numeración no reutilizada. Ningún F29+ registrado.
 
-|ID|Clasificación|Estado|Original|Causa/corrección|Retest|
+|ID|Clasificación|Original/reproducción|Causa|Corrección|Retest y cierre|
 |---|---|---|---|---|---|
-|F23|material; inicialmente observación estática de dirección|OPEN, fix implementado / gates exactSHA PENDING|repro-original|Booking cancelada por contratos ordinarios; read usa fase de preparación y core permite nueva evaluación; fix aún no aplicado|PENDING|
-|F24|técnico de fixture|corregido / retest desarrollo PASS|repro-original D/C08|snapshot anterior a generar pruebas del propio comando incluía creación legítima de evidencias como efecto de la operación; generar comando antes del snapshot|repro-fixture-corrected D/F/C08 PASS|
-|F25|técnico de fixture|corregido / retest desarrollo PASS|repro-original F|obligationFixture contiene un servicio, no S2; fixture parcial usa conversión ordinaria invoiceFixture de dos servicios|repro-fixture-corrected D/F/C08 PASS|
+|H4-021-F23|material; inicialmente observación estática de dirección|repro-original y repro-fixture-corrected;5FAIL A/B/C/E/G|read no priorizaba Cancelada vigente; core admitía nueva evaluación de origen Cancelada. Replay G no duplicaba efecto, pero su lectura actual era falsa.|migración51 core/read reutilizan cancelación Modification vigente; phase TS admite Cancelada existente; historia/replay inmutables|focal9/9; concurrencia/atomicidad17/17; V-MIG3/3; final2105/2105; CLOSED|
+|H4-021-F24|técnico de fixture|repro-original D/C08|snapshot se tomaba antes de crear pruebas ordinarias del propio comando y las contaba como efectos de la operación|crear comando/evidencia antes del snapshot|repro-fixture-corrected D/C08 PASS antes del fix; final2105 PASS; CLOSED|
+|H4-021-F25|técnico de fixture|repro-original F|obligationFixture tiene un servicio, no S2|fixture parcial de dos servicios por conversión ordinaria invoiceFixture|repro-fixture-corrected F PASS; night añadido sin cambiar expected; final2105 PASS; CLOSED|
+|H4-021-F26|técnico del inyector|races-atomic-1|faltaban separadores SQL antes THEN/FOR; cinco casos no llegaron a ejecutar la inyección|SQL del doble técnico con separadores; ningún cambio de producto|races-atomic-2 PASS17/17 con fallo23514/COMMIT reales; final2105 PASS; CLOSED|
+|H4-021-F27|técnico de fixture concurrente|races-atomic-1 eval/start/HA order0,1|comando capturaba material antes de request/evaluation/approval de Modification, que ya altera ese material|construir comando actual después de esas precondiciones; replay conserva comando original durable|races-atomic-2 PASS con dos sesiones/ambosórdenes y waits de negocio observados; final2105 PASS; CLOSED|
+|H4-021-F28|técnico de fixture de seguridad|races-atomic-1 C15|read final intentaba usar sesión revocada por disable después de reenable, correctamente denegada por el producto|conservar fase actual leída antes del mutador; no reactivar sesión ni permisos|races-atomic-2 recuperación y disabledenial PASS; final2105 PASS; CLOSED|
 
-Streams y snapshots originales íntegros en capturas /tmp/h4-f23; se incorporan gzip+manifest antes de publicar verificador. Dirección no ejecutó PostgreSQL. Ninguna acomodación del expected correctivo/original. Rechazos upstream D/C08 no refutan A/B/C/E/G. Campos de captura SHA/árbol/tiempos/status/signal presentes, sin reconstrucción.
+Cronología conservada: F23 OPEN/estático de dirección → reproducción ordinaria de50 → fix implementado/devPASS → cierre formal sobre742b1e76. Dirección no ejecutó PostgreSQL. Repro-original8FAIL contiene dos errores técnicos de fixture además de F23; repro-fixture-corrected8tests da3PASS(D/F/C08) y5FAIL materiales(A/B/C/E/G). Rechazos upstream no refutan las demás rutas. Expected original/correctivo inalterados, ninguna aserción debilitada para obtener PASS.
 
-|F26|técnico de inyector|corregido / retest desarrollo PASS|races-atomic-1|faltaban separadores SQL antes de THEN/FOR; no fallo de producto ni de COMMIT ejecutado en esos cinco casos|races-atomic-2 PASS17/17|
-|F27|técnico de fixture concurrente|corregido / retest desarrollo PASS|races-atomic-1|comando capturaba material antes de preparar Modification; request/approval cambia material antes de la carrera; construir comando tras precondiciones|races-atomic-2 PASS17/17|
-|F28|técnico de fixture seguridad|corregido / retest desarrollo PASS|races-atomic-1 C15|read después de reenable intentaba reutilizar sesión revocada por disable; conservar actual observado antes del mutador, no reactivar sesión|races-atomic-2 PASS17/17|
-
-Focal-fix-1:8/8 PASS. VMIG-1:3/3 PASS sobre árbol propio sucio; no acredita gates SHA definitivo. Nuevo core/read y runtime50→51 conservados según catálogo. Capturas originales permanecen íntegras.
-
-F24–F28 técnicos: retest desarrollo PASS; cierre definitivo PENDING gates exactSHA. F23 material:9/9focales y17/17concurrencia/atomicidad y3/3V-MIG PASS, estado formal todavía OPEN hasta cierre. Ningún F29+ registrado.
+Streams, snapshots, comandos, SHA/árbol, tiempos/status/signal íntegros en `tests/fixtures/h4-021-f23/development` y `final`, gzip sin pérdida y manifests de hashes. Campo error genérico ausente declarado, sin reconstrucción; excepciones originales en streams. [Evidencia definitiva](evidence-TSK-H4-020-021-F23.md) / [matriz20casos](matrix-TSK-H4-020-021-F23.md). STOP exclusivoF23; H4-022+/H5/H6/hosted/Production fuera de alcance.

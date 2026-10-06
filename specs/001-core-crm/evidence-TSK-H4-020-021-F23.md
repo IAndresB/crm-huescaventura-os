@@ -1,6 +1,6 @@
 # Revisión correctiva H4-020/021-F23
 
-Estado: FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION. F23 sigue OPEN hasta gates exactSHA y cierre. Base exacta autorizada `b99a09a6b9e14fc768d453ea327ccb8b1d9a9105`; preflight fetch/main/HEAD/origin y árbol limpio PASS, confirmado por usuario. Expected correctivo independiente publicado ANTES de reproducción/producto en `bea403745b836fdca909211a46bdb2f58602fd13`, SHA256 `ffc1441af9355121832aba56ed9237a513b46080e03f8ec4188967e9221cc511`. Expected original33c8666,23filas/69casos, PASS2076/138/health1 y cadena1964dd7/bf4d707/b99a09a intactos; no acreditan F23.
+Estado: CLOSED local/aislado; reproducción material y corrección acreditadas por gates definitivos. Base exacta autorizada `b99a09a6b9e14fc768d453ea327ccb8b1d9a9105`; preflight fetch/main/HEAD/origin y árbol limpio PASS, confirmado por usuario. Expected correctivo independiente publicado ANTES de reproducción/producto en `bea403745b836fdca909211a46bdb2f58602fd13`, SHA256 `ffc1441af9355121832aba56ed9237a513b46080e03f8ec4188967e9221cc511`. Expected original33c8666,23filas/69casos, PASS2076/138/health1 y cadena1964dd7/bf4d707/b99a09a intactos; no acreditan F23.
 
 ## Reproducción ordinaria antes del fix
 
@@ -26,4 +26,33 @@ V-MIG50poblado→51 incluye Confirmada histórica y Cancelada total con/sin hist
 
 [Expected correctivo](expected-TSK-H4-020-021-F23.md), [defectos](defects-TSK-H4-021-F23.md); captures completas gzip sin pérdida y manifests en `tests/fixtures/h4-021-f23/development`. Captura reproducible `python3 tests/fixtures/h4-021/capture.py /tmp/UNICO COMANDO ARGUMENTOS`; campos SHA/árbol/tiempos/status/signal presentes; error del status genérico ausente declarado, excepciones reales conservadas en stderr/stdout. Logs no se reconstruyen. CLI [documentada](https://supabase.com/docs/reference/cli/supabase-migration-new), changelog descargado y PG17.11 [revisado](https://supabase.com/changelog/postgres-15-19-17-11-breaking-changes); sin extensión/API nueva ni upgrade PG. Revisión de seguridad skill Supabase aplicada al contrato local; sin claves/secretos reales ni hosted.
 
-Pendiente: publicar verificador definitivo, ejecutar gates sobre SHA exacto clean, registrar observado20casos correctivos/29nuevosNode y total2105=2076+29 sin duplicación, cerrar F23/F24–F28, coord y publicación documental. H4 IN PROGRESS; H4-022+/H5/H6 NOT STARTED; DM-PENDING-005/pendientes globales abiertos, hosted no acreditado/Production NO autorizada. STOP exclusivo F23 y volver a dirección H4.
+Fase final: verificador publicado, gates exactSHAclean PASS; observado20casos correctivos/29nuevosNode ytotal2105 registrados sin duplicación; F23/F24–F28 CLOSED y coordinación actualizada. H4 IN PROGRESS; H4-022+/H5/H6 NOT STARTED; DM-PENDING-005/pendientes globales abiertos, hosted no acreditado/Production NO autorizada. STOP exclusivo F23 y volver a dirección H4.
+
+## Resultado definitivo — cierre local/aislado F23
+
+**F23 CLOSED** sobre SHA exacto publicado `742b1e76c705519c467a77d18063248c12e02ff9`. Cadena lineal: base `b99a09a6b9e14fc768d453ea327ccb8b1d9a9105` → expected previo `bea403745b836fdca909211a46bdb2f58602fd13` → producto `86755df55e0f70235e89d6a0ecb747f3c26422dc` → verificador/SHA probado `742b1e76c705519c467a77d18063248c12e02ff9` → cierre posterior exclusivamente documental (evidencia, logs, matriz, checkpoint y coordinación). Ningún cambio posterior de producto, SQL, lógica de verificador, dependencias o fuentes aprobadas.
+
+|Gate|Comando/verificación|Resultado|
+|---|---|---|
+|Frozen install|pnpm install --frozen-lockfile|PASS; status0|
+|Typecheck|pnpm typecheck|PASS; status0|
+|Lint/imports/boundaries|pnpm lint|PASS; status0|
+|Build|pnpm build|PASS; status0|
+|Auditoría dependencias producción|pnpm audit --prod|PASS; cero vulnerabilidades; status0|
+|PostgreSQL completo|node scripts/test-postgres.mjs|2105/2105; fail0/skipped0/cancelled0; status0|
+|Unitarias completas|pnpm test|138/138; status0|
+|Health independiente separado|node --test tests/operations/supabase-health.test.mjs|1/1 separado; status0|
+|V-MIG y advisors|incluidos PostgreSQL; CLI2.119.0 URL127.0.0.1 únicamente|PASS; resultados[]; status0|
+|Diff rango completo|git diff b99a09a6b9e14fc768d453ea327ccb8b1d9a9105 --check|PASS; status0; repetido tras cierre/publicación|
+
+2105=2076 anteriores+29 nuevosNode incluidos una vez:9focales+9concurrencia(incl.parent)+8atomicidad(incl.parent)+3V-MIG/seguridad/advisors/preservación. [Matriz correctiva](matrix-TSK-H4-020-021-F23.md):20casos lógicos independientes; no se suman a29ni se cuentan otra vez los focales.23filas y69casos originales conservados sin reinterpretar su PASS histórico como F23; funciones/carreras/atomicidad originales de preparación repetidas en cadena51. V-MIG histórico49→50 separado preservado; nuevo50→51 yfresh51 acreditados.
+
+V-MIG definitivo: instalaciónvacía51; upgrade50poblado con Cancelada vigente/Confirmada histórica y original privado real descargado antes/después, bytes iguales SHA256 `4995213cfd84d76886ad30e0cec91e828b4dfbddd92888b23ee69ba51855fd22`. Datos SHA256 `a40d1e0a94b066852ee5ee703e03fc04aea1c6f0145f7ccce4af3855da34316d`; catálogo previo `bf2d4f8db7c6ecdcf6507de552fe12d1e7ca1cd027f756a8fc3b7d015c5ccd05`, actual `875ea83e20be23a0f23ba0e42fbeb978bb8f5f144d7379883ad448c978334243` distinto solo por dos cuerpos declarados. FalloDDL22012 rollback y reintento íntegros; relaciones/fases/historia/originales/snapshots y50migraciones byte intactos. Adaptados únicamente booking_preparation_core/read; firmas/OID/owners/ACL/config preservados. Roles/members/triggers/policies/RLS/FORCE intactos; runtime CRUD/helper42501, readdisableddenied/epochs sinactividad y privacidad PASS.
+
+8ensayos concurrentes (4escenarios×2órdenes),2sesiones PostgreSQL independientes/mismo actor, ambas admisiones F2 compatibles antes del Booking-root. PID/xid/sesión/locks/granted/cadena de bloqueos y resultados íntegros en stdout.6fallos reales de escritura/COMMIT con snapshot10tablas igual y retry válido, y respuesta descartada después de COMMIT real/cancelación/replay autorizado único PASS. No cancelación por SQL privilegiado, falsa confirmación ante pendientes upstream, serialización global actor ni nuevas fases/prestación/cierres futuros. F1/F2/F06/HA/TTE/D039 y autoridad de replay preservados.
+
+F23 material confirmado por5FAIL(A/B/C/E/G) antes del fix; D/F/C08baselinePASS yrechazosupstream registrados por separado. G era defecto de lectura vigente después de replay; replay nunca se presentó como duplicación. F24–F28 técnicos del verificador CLOSED después de retest final; ningún F29+ registrado, ningún defecto material abierto. Originales de reproducción/development íntegros; expected original/correctivo jamás adaptados al producto.
+
+Capturas completas finales en `tests/fixtures/h4-021-f23/final/manifest.json`: comandos/argumentos, SHA/árbol inicial/final, tiempos,status/signal,hashes de stdout/stderr/native/catalogue/snapshots y gzip sin pérdida. Genérico error ausente declarado, sin reconstrucción; excepciones originales están en streams. Node24.21.0/pnpm11.19.0/PostgreSQL17.11/CLI2.119.0. PostgreSQL regeneró tres outputs históricos y aviso CLI: nuevas salidas preservadas en final/generated, históricos restituidos a bytes exactos HEAD según final/generated-preservation.json. Código/pruebas inmóviles durante gates; build empezó después de restitución con árbol limpio.
+
+Coordinación: H4-001–021 COMPLETED local/aislado en sus alcances; correctivoF23 CLOSED local/aislado. H4 IN PROGRESS; H4-022+ yH5–H6 NOT STARTED. H4-023/H6-001/H6-016 y E2Eintegral futuros; DM-PENDING-005/pendientes globales abiertos; hosted H2/H3 no acreditados, Production NO autorizada. STOP tras publicar correctivo F23; continuidad al hilo de dirección H4.

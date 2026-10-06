@@ -1,6 +1,6 @@
 # CRM HUESCAVENTURA OS — Project Status
 
-**Correctivo H4-020/021-F23 OPEN — cierre de dirección PENDING.** Base exacta autorizada b99a09a6b9e14fc768d453ea327ccb8b1d9a9105. Hallazgo material estático, pendiente de reproducción mediante cancelación total Modification aplicada y lectores ordinarios; no ejecución atribuida a dirección. Los2076/138/health1 anteriores conservan su cobertura histórica y no prueban F23. H4 IN PROGRESS; H4-022+ y H5–H6 NOT STARTED. STOP exclusivo F23; sin hosted/Production/datos reales/efectos externos.
+**Correctivo H4-020/021-F23 CLOSED local/aislado — 2026-10-07.** Base exacta `b99a09a6b9e14fc768d453ea327ccb8b1d9a9105`; expected previo `bea403745b836fdca909211a46bdb2f58602fd13` intacto; producto `86755df55e0f70235e89d6a0ecb747f3c26422dc`; verificador/SHA exacto probado/publicado `742b1e76c705519c467a77d18063248c12e02ff9`. Hallazgo inicialmente estático, reproducido por5FAIL materiales A/B/C/E/G tras cancelación total ordinaria aplicada; corrección mínima51 read/core preserva Cancelada vigente, historia y replay reautorizado, sin reactivación.50migraciones/fuentes/expectedoriginal/23filas/69casos intactos. Regresión2105/2105 PostgreSQL (2076previos+29nuevos incluidos una vez),138/138unitarias,health1/1 separado; frozen/type/lint/build/audit/diff/V-MIG/advisors loopback PASS.8ensayos concurrentes ambosórdenes/2sesiones reales F2compatibles;6fallos escritura/COMMIT y recuperación durable PASS. F23material/F24–F28técnicos CLOSED; originales conservados, cero material abierto. H4-001–021 COMPLETED local/aislado; H4 IN PROGRESS; H4-022+ yH5–H6 NOT STARTED; H4-023/H6-001/H6-016/E2Eintegral futuros. Hosted H2/H3 no acreditados, Production NO autorizada; DM-PENDING-005 ypendientes globales abiertos. STOP tras publicar exclusivamente F23; continuidad al hilo de dirección H4.
 
 Antecedentes publicados de H4-020/021, conservados con sus PASS históricos:
 
@@ -104,6 +104,8 @@ Status: ACTIVE
 Last updated: 2026-10-06
 
 ## Completed
+
+- Correctivo F23 CLOSED local/aislado: cancelación total ordinaria, Cancelada vigente/read/origin, historia/replay;2105/2105 PostgreSQL y todos gates PASS. [Evidencia correctiva](../specs/001-core-crm/evidence-TSK-H4-020-021-F23.md).
 
 - TSK-H4-020/021 COMPLETED local/aislado: SM-BK-02–05, guarda conjunta H3/operación/documentos y reevaluación actual con historia;2076/2076 PostgreSQL,138/138unitarias,health1 separado, todos gates PASS. [Evidencia definitiva](../specs/001-core-crm/evidence-TSK-H4-021.md). Integración futura H4-023/H6-001/H6-016 pendiente.
 
@@ -212,6 +214,10 @@ Last updated: 2026-10-06
 
 ## In Progress
 
+**Correctivo H4-020/021-F23 CLOSED local/aislado — 2026-10-07.** Base exacta `b99a09a6b9e14fc768d453ea327ccb8b1d9a9105`; expected previo `bea403745b836fdca909211a46bdb2f58602fd13` intacto; producto `86755df55e0f70235e89d6a0ecb747f3c26422dc`; verificador/SHA exacto probado/publicado `742b1e76c705519c467a77d18063248c12e02ff9`. Hallazgo inicialmente estático, reproducido por5FAIL materiales A/B/C/E/G tras cancelación total ordinaria aplicada; corrección mínima51 read/core preserva Cancelada vigente, historia y replay reautorizado, sin reactivación.50migraciones/fuentes/expectedoriginal/23filas/69casos intactos. Regresión2105/2105 PostgreSQL (2076previos+29nuevos incluidos una vez),138/138unitarias,health1/1 separado; frozen/type/lint/build/audit/diff/V-MIG/advisors loopback PASS.8ensayos concurrentes ambosórdenes/2sesiones reales F2compatibles;6fallos escritura/COMMIT y recuperación durable PASS. F23material/F24–F28técnicos CLOSED; originales conservados, cero material abierto. H4-001–021 COMPLETED local/aislado; H4 IN PROGRESS; H4-022+ yH5–H6 NOT STARTED; H4-023/H6-001/H6-016/E2Eintegral futuros. Hosted H2/H3 no acreditados, Production NO autorizada; DM-PENDING-005 ypendientes globales abiertos. STOP tras publicar exclusivamente F23; continuidad al hilo de dirección H4.
+
+Antecedente original H4-020/021, conservado con sus PASS:
+
 **TSK-H4-020/021 COMPLETED local/aislado — 2026-10-06.** Base autorizada `77e36157f174eee1f796f429b556217b71d996fa`; expected previo `33c8666f58f0af915a652e41260b4996bb60b928` y sus bytes intactos; producto `1964dd732b2832988bf97a4a36e8f143d681bcc4`; verificador/SHA exacto probado/publicado `bf4d707509e07f9caa30cfece26e5c418c5d42f7`. SM-BK-02–05 y guarda conjunta crítica/documental/económica H3 implementados, historia separada de cobertura actual. Matriz69 casos/23 filas; PostgreSQL2076/2076 (2010 anteriores+66 nuevos incluidos una vez), unitarias138/138, health-check1/1 separado. Frozen install/typecheck/lint/boundaries/build/auditoría producción/diff-check/V-MIG/advisors loopback PASS. Migración50 forward;49 anteriores byte intactas; único cuerpo previo adaptado b07_task_apply con atributos preservados.14pares ambosórdenes con2sesiones reales tras F2 compatible;8fallos escritura/COMMIT y recuperación durable PASS. F01–F22 CLOSED, originales y observaciones estáticas diferenciados, cero material abierto. H0 técnico/local/aislado y H1/H2/H3 local/aislado COMPLETED conservados; H4-001–021 COMPLETED local/aislado; H4 IN PROGRESS; H4-022+ y H5–H6 NOT STARTED. E2E-01 solo tramo local; H4-023/H6-001/H6-016 futuros. DM-PENDING-005 y pendientes globales conservados; hosted H2/H3 no acreditados; Production no autorizada. STOP inequívoco tras publicar H4-021; continuidad al hilo de dirección H4. Sin datos reales ni efectos externos de negocio. [Implementación H4-020](../specs/001-core-crm/evidence-TSK-H4-020.md), [verificación H4-021](../specs/001-core-crm/evidence-TSK-H4-021.md), [matriz69/23](../specs/001-core-crm/matrix-TSK-H4-021.md).
 
 Antecedente publicado H4-019/F06 — cierre histórico conservado:
@@ -257,6 +263,8 @@ Antecedente del cierre anterior: - **TSK-H4-015/016 COMPLETED local/aislado — 
 - D033: crm.huescaventura.com previsto, separado de la web pública; sin DNS, proyectos o despliegues configurados.
 
 ## Current Blockers
+
+- F23 CLOSED/material; F24–F28 CLOSED/técnicos. Sin bloqueo material del correctivo; pendientes globales conservados y STOP exclusivoF23.
 
 - H4-020/021 sin defectos materiales abiertos: F01–F22 CLOSED local/aislado. La ausencia de cobertura, referencia, zona o revisión en una Booking sigue bloqueando solo su efecto dependiente; no se declara resuelto ningún pendiente global. STOP tras H4-021; H4-022+ no autorizadas en este bloque.
 
