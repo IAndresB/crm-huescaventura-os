@@ -9,7 +9,7 @@ export interface BookingPreparationCommand {
 }
 export interface BookingPreparationView {
  readonly bookingId:string;readonly revision:number;readonly historicalPhase:BookingPreparationPhase;
- readonly phase:BookingPreparationPhase;readonly applicable:boolean;readonly material:string;
+ readonly phase:BookingPreparationPhase|'Cancelada';readonly applicable:boolean;readonly material:string;
  readonly coverage:readonly Record<string,unknown>[];readonly missing:readonly string[];
  readonly economics:readonly Record<string,unknown>[];readonly history:readonly Record<string,unknown>[];
 }
