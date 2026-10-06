@@ -80,7 +80,6 @@ begin
  -- Operational/contractual parent first, then H3 book/fund root, then payment roots in stable order.
  perform pg_advisory_xact_lock(hashtextextended((select opportunity_id::text from crm_private.b04_bookings where booking_id=bid),31));
  perform pg_advisory_xact_lock(hashtextextended('cancellation-booking:'||bid,0));
- perform pg_advisory_xact_lock(hashtextextended(bid::text,52));
  perform pg_advisory_xact_lock(hashtextextended('refund-root:'||id,0));
  select * into root from crm_private.b05_refunds where refund_id=id and booking_id=bid and admin_scope=s;
  if action not in ('request','determine') and root.refund_id is null then raise exception 'REFUND_DENIED';end if;
@@ -100,6 +99,7 @@ begin
   perform pg_advisory_xact_lock(hashtextextended('payment-root:'||pid,0));
   if not exists(select 1 from crm_private.b05_customer_payments where payment_id=pid and admin_scope=s) then raise exception 'REFUND_DENIED';end if;
  end loop;
+ perform pg_advisory_xact_lock(hashtextextended(bid::text,52));
  hash:=encode(crm_crypto.digest(convert_to((a-array['operationId','evidenceId'])::text,'UTF8'),'sha256'),'hex');
  if not crm_private.payment_evidence((a->>'evidenceId')::uuid,id,s,'refund:'||action||':'||hash,at_time,true) then raise exception 'REFUND_EVIDENCE_REQUIRED';end if;
  -- Fact identity dedup precedes stale state checks, but never authorization/admission.
@@ -113,7 +113,7 @@ begin
   perform pg_advisory_xact_lock(hashtextextended('refund-fact:'||s||':'||(m->'identity')::text||':'||(m->>'method'),0));
   select * into stored from crm_private.b05_refund_movements where admin_scope=s and identity_source=m->'identity'->>'source' and identity_account=m->'identity'->>'account' and identity_method=m->>'method' and external_id=m->'identity'->>'externalId';
   if found then
-   if stored.refund_id<>id or stored.material is distinct from m then raise exception 'REFUND_MOVEMENT_CONFLICT:E2';end if;
+   if stored.refund_id<>id or jsonb_set(stored.material,'{portions}',(select jsonb_agg(x-array['paymentRevision','fundRevision'])from jsonb_array_elements(stored.material->'portions')x)) is distinct from jsonb_set(m,'{portions}',(select jsonb_agg(x-array['paymentRevision','fundRevision'])from jsonb_array_elements(m->'portions')x)) then raise exception 'REFUND_MOVEMENT_CONFLICT:E2';end if;
    receipt:=jsonb_build_object('id',id,'replayed',true,'result',old);insert into crm_private.b05_refund_operations values(op,id,s,actor,fp,receipt,rev,clock_timestamp());return receipt;
   end if;
  end if;
@@ -134,7 +134,7 @@ begin
   if exists(select 1 from crm_private.refund_latest(s) r where r->>'id'<>id::text and r->'determination'->>'id'=d->>'id') then raise exception 'REFUND_RIGHT_ALREADY_LINKED:E2';end if;
   if state->'determination'<>'null'::jsonb and state->'determination'->>'id'<>d->>'id' then raise exception 'REFUND_RIGHT_CHANGED:E2';end if;
   state:=state||jsonb_build_object('determination',jsonb_build_object('id',d->'id','revision',d->'revision','scopeToken',d->'scopeToken','scope',d->'scope','cause',d->'facts'->'cause','computed',d->'computed'),'right',d->'computed'->'right');
-  if state->'authorization'<>'null'::jsonb then state:=jsonb_set(state,'{authorization,invalidated}',true);end if;
+  if state->'authorization'<>'null'::jsonb then state:=jsonb_set(state,'{authorization,invalidated}','true'::jsonb);end if;
  elsif action='authorize' then
   if reservation is null or session_user<>'crm_h0_ha_tx' then raise exception 'REFUND_TTE_REQUIRED';end if;
   d:=crm_private.refund_right((state->'determination'->>'id')::uuid,bid,s,(state->'determination'->>'revision')::bigint);
@@ -153,6 +153,7 @@ begin
    select value into attempt from jsonb_array_elements(state->'attempts') where value->>'id'=a->>'attemptId' and value->>'resolved'='false';
    if attempt is null or a->>'resolution' not in ('not_occurred','occurred') then raise exception 'REFUND_NEW_RESULT_REQUIRED';end if;
    if exists(select 1 from crm_private.b05_refund_revisions where refund_id=id and evidence_id=(a->>'evidenceId')::uuid)then raise exception 'REFUND_NEW_RESULT_REQUIRED';end if;
+   if a->>'resolution'='occurred' and (jsonb_array_length(m->'portions')<>1 or (m->>'amount')::numeric<>(attempt->'portion'->>'amount')::numeric or ((m->'portions'->0)-array['paymentRevision','fundRevision']) is distinct from ((attempt->'portion')-array['paymentRevision','fundRevision'])) then raise exception 'REFUND_UNCERTAIN_PORTION_MISMATCH';end if;
    state:=jsonb_set(state,'{attempts}',(select jsonb_agg(case when x->>'id'=a->>'attemptId' then x||jsonb_build_object('resolved',true,'result',a->>'resolution','evidenceId',a->'evidenceId')else x end)from jsonb_array_elements(state->'attempts')x));
   end if;
   if action='record' or a->>'resolution'='occurred' then
@@ -160,7 +161,7 @@ begin
    if not crm_private.refund_portions(m->'portions',bid,s,true,(a->>'attemptId')::uuid) or (select sum((mv->>'amount')::numeric) from jsonb_array_elements(m->'portions')mv)<>amount then raise exception 'REFUND_PORTIONS_REQUIRED';end if;
    au:=state->'authorization';authorized:=au<>'null'::jsonb and au->>'invalidated'='false' and (au->>'at')::timestamptz<=(m->>'occurredAt')::timestamptz and au->>'recipientId'=m->>'recipientId' and au->>'method'=m->>'method' and (state->>'executed')::numeric+amount<=(state->>'authorized')::numeric;
    if authorized then
-    d:=crm_private.refund_right((au->'determination'->>'id')::uuid,bid,s,(au->'determination'->>'revision')::bigint);
+    begin d:=crm_private.refund_right((au->'determination'->>'id')::uuid,bid,s,(au->'determination'->>'revision')::bigint);exception when raise_exception then if a->>'incidentId' is null then raise;end if;authorized:=false;end;
     for v in select value from jsonb_array_elements(m->'portions')loop
      if not exists(select 1 from jsonb_array_elements(au->'portions')x where x->>'paymentId'=v->>'paymentId' and x->>'reconciliationId'=v->>'reconciliationId' and x->>'allocationId' is not distinct from v->>'allocationId' and (x->>'start')::numeric<=(v->>'start')::numeric and (x->>'start')::numeric+(x->>'amount')::numeric>=(v->>'start')::numeric+(v->>'amount')::numeric)then authorized:=false;end if;
     end loop;
@@ -187,7 +188,7 @@ begin
   d:=crm_private.refund_right((state->'determination'->>'id')::uuid,bid,s,(state->'determination'->>'revision')::bigint);
   if (d->'computed'->>'right')::numeric<>0 or (state->>'executed')::numeric<>0 then raise exception 'REFUND_DUE_CANNOT_BE_HIDDEN';end if;state:=state||jsonb_build_object('notDue',jsonb_build_object('reason',a->'reason','evidenceId',a->'evidenceId','determination',state->'determination'));
  elsif action='revoke' then
-  if state->'authorization'='null'::jsonb then raise exception 'REFUND_APPROVAL_REQUIRED';end if;state:=jsonb_set(state,'{authorization,invalidated}',true);
+  if state->'authorization'='null'::jsonb then raise exception 'REFUND_APPROVAL_REQUIRED';end if;state:=jsonb_set(state,'{authorization,invalidated}','true'::jsonb);
  elsif action='correct' then
   select * into stored from crm_private.b05_refund_movements where movement_id=(a->>'originalMovementId')::uuid and refund_id=id and admin_scope=s;
   if not found or exists(select 1 from jsonb_array_elements(state->'corrections')x where x->>'originalMovementId'=a->>'originalMovementId')then raise exception 'REFUND_ORIGINAL_REQUIRED';end if;
@@ -213,7 +214,7 @@ declare hf text[];tf text[];fs text[];r jsonb;
 begin
  hf:=crm_f2.admit(f2p,f2s,q,'C03','write_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');if hf[17] collate "C" is distinct from tf[14] collate "C" then raise exception 'REFUND_DENIED';end if;
  fs:=crm_f1.fields(q);if cardinality(fs)<>2 or fs[1]<>'CRM-H4-REFUND1' then raise exception 'REFUND_INPUT_INVALID';end if;
- r:=crm_private.refund_core(fs[2]::jsonb,hf[17],hf[12]::uuid);perform crm_f2.verify(f2p,f2s,q,'C03','human_evidence','write_evidence');return r;
+ r:=crm_private.refund_core(fs[2]::jsonb,hf[17],hf[12]::uuid);perform crm_f2.verify(f2p,f2s,q,'C03','human_evidence','write_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');return r;
 end$$;
 create function crm_api.refund_sensitive_authorize(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea,a jsonb)returns jsonb language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
 declare hf text[];tf text[];fs text[];part text[];res crm_ha.reservations;r jsonb;
@@ -245,7 +246,7 @@ begin
  if r is not null then
   if a->>'purpose'='summary' then r:=jsonb_build_object('id',r->'id','revision',r->'revision','right',r->'right','authorized',r->'authorized','executed',r->'executed','pendingRight',r->'pendingRight','pendingAuthorized',r->'pendingAuthorized','uncertain',r->'uncertain','status',r->'status');
   else r:=r||jsonb_build_object('history',(select jsonb_agg(jsonb_build_object('revision',revision,'action',action,'event',event,'before',before_data,'after',after_data,'actorId',actor_id,'evidenceId',evidence_id,'sourceRef',source_ref,'reason',reason,'at',occurred_at,'recordedAt',recorded_at)order by revision)from crm_private.b05_refund_revisions where refund_id=(a->>'refundId')::uuid and admin_scope=hf[17]));end if;
- end if;return r;
+ end if;perform crm_f2.verify(f2p,f2s,q,'C01','human_evidence','read_evidence');perform crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');return r;
 end$$;
 -- Forward integration of existing consumers. Guarded exact anchors preserve signatures/OID/ACL/config.
 do $$declare body text;anchor text;replacement text;begin
@@ -271,4 +272,11 @@ do $$declare f text;begin foreach f in array array['refund_apply','refund_read']
 alter function crm_api.refund_sensitive_authorize(bytea,bytea,bytea,bytea,bytea,jsonb)owner to crm_h0_f2_executor;revoke all on function crm_api.refund_sensitive_authorize(bytea,bytea,bytea,bytea,bytea,jsonb)from public,crm_h0_runtime;grant execute on function crm_api.refund_sensitive_authorize(bytea,bytea,bytea,bytea,bytea,jsonb)to crm_h0_ha_tx;
 alter function crm_api.refund_finalize(text)owner to crm_h0_f2_executor;revoke all on function crm_api.refund_finalize(text)from public,crm_h0_runtime;grant execute on function crm_api.refund_finalize(text)to crm_h0_ha_tx;
 revoke create on schema crm_private from crm_h0_f2_owner;revoke create on schema crm_api from crm_h0_f2_executor;
+-- Preserve immutable Customer Payment facts; expose actual returned amounts alongside gross.
+do $$declare d text;needle text;replacement text;begin
+ d:=pg_get_functiondef('crm_api.payment_read(bytea,bytea,bytea,bytea,bytea)'::regprocedure);
+ needle:=$old$'summary',crm_private.payment_summary(p),$old$;
+ replacement:=$new$'summary',crm_private.payment_summary(p)||jsonb_build_object('representedReturned',trunc(crm_private.refund_sum(pid,s),2)::text,'externalReturned',trunc(crm_private.refund_sum(pid,s),2)::text),$new$;
+ if position(needle in d)=0 then raise exception 'REFUND_PAYMENT_READ_ANCHOR';end if;execute replace(d,needle,replacement);
+end$$;
 commit;
