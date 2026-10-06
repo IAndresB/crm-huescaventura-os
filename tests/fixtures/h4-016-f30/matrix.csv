@@ -1,0 +1,8 @@
+ID,source,expected,observed,result,evidence
+P01,GHSA / autorización,Preservar FAIL vulnerable y ruta,source-map-js1.2.1; PostCSS ^1.2.1; auditoría high1/status1,PASS,"before/{tree,why,consumer,audit}.*"
+P02,GHSA / pnpm11.19 help,1.2.2 sin vulnerable ni nueva dependencia directa,Única instancia resuelta1.2.2; manifiesto intacto,PASS,"final1/{tree,why}.*;dependency-preservation.json"
+P03,Autorización mínima,Sin versiones ajenas cambiadas,Cuatro líneas lockfile; única integridad de1.2.2,PASS,lockfile.diff.gz;preservation.json
+P04,Frozen / pnpm,Limpio congelado reproducible y audit0,Install/tree/why/audit status0; lock inmutable en temp eliminado,PASS,clean-install/results.json
+P05,Expected F30,Regresión completa SHA exacto y sin doble cómputo,1831PG;138unit;health1;gates audit VMIG advisors diff0,PASS,final1/results.json;final-verification.json
+P06,Expected original / F23,F13/F24 y porciones/seguridad/carreras/rollback preservados,Matrices anteriores y43correctivosPASS;47migraciones/380archivos íntegros,PASS,final1/postgres.stdout.log.gz;preservation.json;final1/f23-preservation.json
+P07,STOP / autorización,Cierre solo trasPASS; no tareas posteriores,F23/F24/F30CLOSED local;H4 IN PROGRESS;017+H5H6NOT STARTED,PASS,defects.md; coordination; evidence F30
