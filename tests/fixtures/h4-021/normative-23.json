@@ -1,0 +1,260 @@
+{
+  "base": "77e36157f174eee1f796f429b556217b71d996fa",
+  "rows": [
+    {
+      "id": "SPEC-FR-BOOK-004",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 205,
+          "text": "| SPEC-FR-BOOK-004 | Evaluar preparación/cobertura parcial/completa desde servicios críticos necesarios justificados y condiciones económicas aplicables, revisiones y requisitos imprescindibles; excepción económica autorizada conserva motivo. | Sin confirmación crítica no se confirma conjunto; excepción de cobro no dispensa seguridad/capacidad. | SM-BK-02–05; DM-INV-023/031. |"
+        }
+      ]
+    },
+    {
+      "id": "SPEC-FR-ECON-001",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 242,
+          "text": "| SPEC-FR-ECON-001 | Aplicar Payment Policy Version configurable por servicio, proveedor, tipo y caso a Payment Schedule y Expected Payments con base, importe, alcance y referencia: 50 % al confirmar y 50 % a 7 días; a menos de 7 días, 100 % antes de confirmar salvo excepción autorizada con actor/momento/motivo. | Previsión no crea movimiento; fecha/importe desconocidos bloquean solo obligación dependiente. | BR-PAY-002; SM-EP-01/04; D020. |"
+        }
+      ]
+    },
+    {
+      "id": "SPEC-FR-ECON-002",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 243,
+          "text": "| SPEC-FR-ECON-002 | Evaluar cobertura pendiente/parcial/completa desde porciones verificadas; saldo general y cifra final global usan primer servicio contratado; vencimiento tras concluir día límite completo. | No declarar vencido por hora del servicio ni cancelar/cobrar automáticamente por vencer. | SM-EP-02–03; SM §13.2; D020. |"
+        }
+      ]
+    },
+    {
+      "id": "AC-016",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 494,
+          "text": "| AC-016 | Acceptance válida sin pago ni Provider Confirmation habilita Ganada y conversión. | Ganada solo en alcance aceptado; Booking Pendiente de preparación, sin conciliación ni confirmación operativa implícitas. Anticipo como evidencia exige verificaciones separadas. | SPEC-FR-COM-003, SPEC-FR-BOOK-001/004, SPEC-FR-ACC-005. |"
+        }
+      ]
+    },
+    {
+      "id": "AC-022",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 505,
+          "text": "| AC-022 | Proveedor confirma S1 por llamada inequívoca registrada, no S2; S3 es propio. | Solo S1 confirmado, sin escrito adicional obligatorio; S2 pendiente; S3 exige evidencia interna separada, sin proveedor ficticio. | SPEC-FR-SVC-008–009, SPEC-FR-BOOK-004. |"
+        }
+      ]
+    },
+    {
+      "id": "AC-023",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 506,
+          "text": "| AC-023 | Reserva a 10 días con crítico confirmado y 50 % debido verificado/asignado; casos alternativos: crítico pendiente, justificante sin verificar o reserva a 6 días con solo 50 %. | Primer caso satisface guarda de cobro inicial; alternativos no confirman conjunto. A 6 días exige 100 % salvo excepción económica documentada, que nunca dispensa crítico/capacidad. | SPEC-FR-BOOK-004, SPEC-FR-ECON-001–002. |"
+        }
+      ]
+    },
+    {
+      "id": "DM-INV-006",
+      "sources": [
+        {
+          "file": "docs/domain-model.md",
+          "line": 484,
+          "text": "| DM-INV-006 | Opportunity puede existir sin Booking; Ganada no implica confirmación operativa ni pago. Las dimensiones no se sustituyen. | BR-CONV-001–004; BR-DIM-001–005; C P08. |"
+        }
+      ]
+    },
+    {
+      "id": "DM-INV-023",
+      "sources": [
+        {
+          "file": "docs/domain-model.md",
+          "line": 501,
+          "text": "| DM-INV-023 | Confirmar operativamente Booking exige servicios críticos necesarios confirmados y condiciones económicas aplicables o excepción autorizada. | BR-CONV-004; BR-DIM-002/005. |"
+        }
+      ]
+    },
+    {
+      "id": "DM-INV-031",
+      "sources": [
+        {
+          "file": "docs/domain-model.md",
+          "line": 509,
+          "text": "| DM-INV-031 | Política 50/50 y 100 % antes de confirmar a menos de 7 días conserva configuración, referencia temporal y excepciones autorizadas con motivo. | BR-PAY-002; BR-PENDING-036. |"
+        }
+      ]
+    },
+    {
+      "id": "SM-BK-02",
+      "sources": [
+        {
+          "file": "docs/state-machines.md",
+          "line": 195,
+          "text": "| SM-BK-02 · Pendiente de preparación | Iniciar coordinación | Servicios/dependencias identificados y actuaciones de preparación/confirmación registradas | En confirmación con proveedores | Abrir trabajo de confirmación; el nombre base también admite coordinación de servicios internos sin inventar proveedor externo. |"
+        }
+      ]
+    },
+    {
+      "id": "SM-BK-03",
+      "sources": [
+        {
+          "file": "docs/state-machines.md",
+          "line": 196,
+          "text": "| SM-BK-03 · Pendiente / En confirmación | Evaluar cobertura parcial | Algún alcance de servicio confirmado válidamente; aún no se cumple toda la guarda de confirmación de Booking | Parcialmente confirmada | Identificar lo cubierto y lo pendiente, incluidas condiciones económicas; no prometer confirmación completa. |"
+        }
+      ]
+    },
+    {
+      "id": "SM-BK-04",
+      "sources": [
+        {
+          "file": "docs/state-machines.md",
+          "line": 197,
+          "text": "| SM-BK-04 · Cualquier fase de preparación anterior a En curso | Evaluar confirmación completa | Guarda conjunta anterior; exigencia económica evaluada por días naturales conforme a SM-EP-01 y §2.4/D020, por defecto desde la fecha del primer servicio contratado; revisiones materiales resueltas y requisitos imprescindibles satisfechos; G3 | Confirmada operativamente | Registrar fecha de referencia, política, resultado y evidencia; no cambia Opportunity, no concilia movimientos ni confirma servicios por arrastre. Dentro de menos de 7 días exige 100 % antes de confirmar salvo excepción autorizada. |"
+        }
+      ]
+    },
+    {
+      "id": "SM-BK-05",
+      "sources": [
+        {
+          "file": "docs/state-machines.md",
+          "line": 198,
+          "text": "| SM-BK-05 · Confirmada operativamente / Parcialmente confirmada, antes de iniciar | Cambio/discrepancia invalida cobertura actual | Revisión material documentada de servicios/economía; conservar confirmación histórica | Parcialmente confirmada si queda cobertura válida; En confirmación si no | Reevaluar preparación actual y señalar alcance pendiente; no cancelar compromisos externos por esta reevaluación. |"
+        }
+      ]
+    },
+    {
+      "id": "SM-FORB-04",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 697,
+          "text": "| SM-FORB-04 | AC-016/023/025–026. |"
+        },
+        {
+          "file": "docs/state-machines.md",
+          "line": 719,
+          "text": "| SM-FORB-04 | Ganada → Booking Confirmada operativamente o pago Conciliado | BR-CONV-003–004; BR-DIM-001–005. |"
+        }
+      ]
+    },
+    {
+      "id": "SM-FORB-06",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 699,
+          "text": "| SM-FORB-06 | AC-023. |"
+        },
+        {
+          "file": "docs/state-machines.md",
+          "line": 721,
+          "text": "| SM-FORB-06 | Confirmar Booking con crítico necesario sin confirmar o usando una excepción económica como dispensa operacional | BR-CONV-004; BR-DIM-002; BR-PAY-002. |"
+        }
+      ]
+    },
+    {
+      "id": "P08",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 676,
+          "text": "| P08 | SPEC-FR-COM-003; SPEC-FR-BOOK-004–005; SPEC-FR-CLOSE-001–004. | AC-016/022–023/058–061. |"
+        },
+        {
+          "file": "docs/constitution.md",
+          "line": 45,
+          "text": "### P08. Separación de estados comerciales y operativos"
+        },
+        {
+          "file": "docs/business-rules.md",
+          "line": 422,
+          "text": "| P08 — Dimensiones | BR-DIM-001–005, BR-CLOSE-001–002: estados base y tres cierres separados, sin diseñar transiciones. |"
+        }
+      ]
+    },
+    {
+      "id": "PLAN-B04",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/plan.md",
+          "line": 101,
+          "text": "| PLAN-B04 — Operación | Booking Service, asignaciones/noches, horario/lugar, disponibilidad, opciones, confirmación interna/externa, preparación, ejecución y revalidación. | Evalúa confirmación de Booking con economía y requisitos actuales; no los crea por arrastre. |"
+        }
+      ]
+    },
+    {
+      "id": "PLAN-C02",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/plan.md",
+          "line": 292,
+          "text": "| PLAN-C02 — Decisión de dominio | Intención, estado actual, versiones, datos/evidencias y alcance; módulo propietario evalúa reglas. | Cambios permitidos o bloqueos específicos con IDs normativos; sin llamadas externas ni escritura oculta. |"
+        }
+      ]
+    },
+    {
+      "id": "PLAN-C06",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/plan.md",
+          "line": 296,
+          "text": "| PLAN-C06 — Evaluación y reevaluación | Hechos actuales y dependencias materiales de SM §16; B04/B05/B06/B07. | Evaluación por alcance, revisión y cambios permitidos; nunca confirmación o cierre por arrastre. |"
+        }
+      ]
+    },
+    {
+      "id": "PLAN-T04",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/plan.md",
+          "line": 311,
+          "text": "| PLAN-T04 — Cambiar alcance operativo | Efecto autorizado por servicio/noche, antes/después, evidencia, Review y reevaluaciones materialmente afectadas. | Proteger versión del alcance y evaluación padre pertinente; no modificar otras noches ni ratificar aspectos no cubiertos. |"
+        }
+      ]
+    },
+    {
+      "id": "PT-03",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/plan.md",
+          "line": 396,
+          "text": "| PT-03 | AC-017–AC-024, AC-085, AC-091–AC-092 | Modalidades/noches, catálogo, capacidad/confirmación, revisión y ejecución/agenda. H1/H2/H4. |"
+        }
+      ]
+    },
+    {
+      "id": "E2E-01",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 128,
+          "text": "| E2E-01 — Venta y prestación completa | Contact/Organization/Group según contexto → Lead con mínimos → Opportunity → versión con modalidades → Acceptance verificable → una Booking → servicios/cantidades/noches → confirmación y condiciones económicas → ejecución → obligaciones/documentos resueltos → tres cierres. Se reconstruye cada vínculo y todo pendiente. | AC-001–019, AC-023–028, AC-044–046, AC-058–063. |"
+        }
+      ]
+    },
+    {
+      "id": "G5",
+      "sources": [
+        {
+          "file": "specs/001-core-crm/spec.md",
+          "line": 278,
+          "text": "| G5 — Independencia | Solo dependencias aprobadas de SM §16; cada destino evalúa guardas propias y alcance. | Ninguna confirmación, conciliación o cierre por arrastre. |"
+        },
+        {
+          "file": "docs/state-machines.md",
+          "line": 32,
+          "text": "| G5 — Independencia | Solo los efectos enumerados y las dependencias de §16 permiten reevaluar otra dimensión. Habilitar una evaluación no significa satisfacer sus guardas. |"
+        }
+      ]
+    }
+  ]
+}
