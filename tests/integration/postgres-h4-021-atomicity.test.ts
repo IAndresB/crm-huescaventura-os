@@ -1,0 +1,20 @@
+import {test}from'node:test';import assert from'node:assert/strict';import {randomUUID as uid}from'node:crypto';
+import {isolatedPreparation,read,write}from'../support/h4-booking-preparation-isolated.ts';
+import {preparationFixture}from'../support/h4-booking-preparation-fixtures.ts';
+import {H4020BookingPreparationAdapter}from'../../src/infrastructure/postgres/h4-booking-preparation-adapter.ts';
+const tables=['b04_preparation_operations','b04_preparation_evaluations','b04_preparation_approvals','b07_pending_tasks','b07_operations','b07_history'];
+test('H4-021 B60/B61 complete unit rollback during writes and actual COMMIT',async t=>{const h=await isolatedPreparation('crm_h4021_atomic',58204);try{
+ const snapshot=async()=>Object.fromEntries(await Promise.all(tables.map(async name=>[name,(await h.observer.unsafe(`select to_jsonb(x)::text v from crm_private.${name} x order by to_jsonb(x)::text`)).map(x=>x.v)])));
+ for(const point of ['operations','evaluations','task','task-history','task-result','approval','commit','tte-commit'])await t.test(point,async()=>{const f=await preparationFixture(h);await f.confirm();await f.pay();const q=await f.command('evaluate',['tte-commit','approval'].includes(point)?{origin:'ai'}:{}),approval=['tte-commit','approval'].includes(point)?await f.approval(q):null,before=await snapshot();
+  const table=point==='evaluations'?'b04_preparation_evaluations':point==='approval'?'b04_preparation_approvals':point==='task'?'b07_pending_tasks':point==='task-history'?'b07_history':point==='task-result'?'b07_operations':'b04_preparation_operations',field=point==='task'?'task_id':point==='task-history'?'subject_id':point==='task-result'?'result_ref':'booking_id',deferred=point.includes('commit');
+  await h.migration.unsafe(`create function crm_private.h4021_fault()returns trigger language plpgsql set search_path=pg_catalog,pg_temp as $$begin if new.${field}='${f.bid}'::uuid then raise exception 'H4021_INJECTED_${point}' using errcode='23514';end if;return new;end$$;${!deferred?'create trigger h4021_fault before insert':'create constraint trigger h4021_fault after insert'} on crm_private.${table} ${!deferred?'':'deferrable initially deferred'} for each row execute function crm_private.h4021_fault()`);
+  try{await assert.rejects(approval?approval.execute():f.run(q));assert.deepEqual(await snapshot(),before);if(approval)assert.equal((await h.observer`select count(*) n from crm_ha.reservations where reservation_id=${approval.reserve}`)[0]!.n,'0');assert.equal((await f.see())!.revision,0);}finally{await h.migration.unsafe(`drop trigger h4021_fault on crm_private.${table};drop function crm_private.h4021_fault()`);}
+  if(approval)await approval.execute();else await f.run(q);assert.equal((await f.see())!.phase,'Confirmada operativamente');
+ });
+}finally{await h.close();}});
+test('H4-021 B62 actual committed result with lost response recovered by authorized replay',async()=>{const h=await isolatedPreparation('crm_h4021_lost',58205);try{
+ const f=await preparationFixture(h);await f.confirm();await f.pay();const q=await f.command();let committed=false;
+ const lost=new H4020BookingPreparationAdapter({begin:async(options:any,work:any)=>{await h.runtime.begin(options,work);committed=true;throw new Error('SYNTHETIC_RESPONSE_LOST_AFTER_ACTUAL_COMMIT');}}as unknown as typeof h.runtime,h.f1,h.f2);
+ await assert.rejects(lost.apply(await h.auth(),write,q));assert.equal(committed,true);const before=(await h.observer`select count(*) n from crm_private.b04_preparation_operations where operation_id=${q.operationId}::uuid`)[0]!.n;assert.equal(before,'1');const r=await f.run(q);assert.equal(r.replayed,true);assert.equal(r.result.phase,'Confirmada operativamente');assert.equal((await f.see())!.history.length,1);
+ const auth=await h.auth();await h.admin`update crm_private.crm_sessions set revoked_at=clock_timestamp()where session_id=${h.sessionId}::uuid`;await assert.rejects(h.preparation.apply(auth,write,q));assert.equal((await h.observer`select count(*) n from crm_private.b04_preparation_evaluations where booking_id=${f.bid}::uuid`)[0]!.n,'1');
+}finally{await h.close();}});
