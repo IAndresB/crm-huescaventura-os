@@ -1,0 +1,3 @@
+# Checkpoint correctivo H4-020/021-F23
+
+Base b99a09a6b9e14fc768d453ea327ccb8b1d9a9105 autorizada; preflight limpio/main/HEAD/origin PASS. Expected correctivo independiente listo para publicación separada; original33c8666 intacto. F23 OPEN/material/observación estática pendiente de reproducción. Fuentes exactas leídas; no reiniciar. Contrato total cancel servicios primero+Booking al final localizado. Falta reproducción A–G ordinaria, fix si confirmado, carreras/atomicidad/V-MIG/gates SHA publicado, cierre documental/push/fetch. No cambio producto. Captura: python3 tests/fixtures/h4-021/capture.py /tmp/h4-f23/UNICO node scripts/test-postgres.mjs postgres-h4-021-f23.test.ts. STOP F23; H4-022+/H5/H6/hosted/Production excluidos.
