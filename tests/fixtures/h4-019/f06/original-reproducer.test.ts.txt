@@ -1,0 +1,14 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {randomUUID}from'node:crypto';
+import {isolatedDeposit,write}from'../support/h4-deposit-isolated.ts';import{allocationFixture}from'../support/h3-allocation-fixtures.ts';import{observeFunds}from'../support/h4-019-observation.ts';import{H0005PostgresAdapter}from'../../src/infrastructure/postgres/h0-005-adapter.ts';import{verifyAuth}from'../../src/application/verified-auth.ts';
+test('A00 original48 reproduction: second F2 admission prevents economic overlap, not overconsumption',async()=>{
+ const h=await isolatedDeposit('crm_j19_original',57200);try{
+ const access=new H0005PostgresAdapter(h.connect('crm_h0_runtime'),h.f1,h.f2),subject=h.subject;
+ const s=(await access.establish(await verifyAuth({verify:async()=>({subject,passwordVerified:true,mfaVerified:true})},randomUUID()))).sessionId;
+ const b=await verifyAuth({verify:async()=>({subject,sessionId:s,passwordVerified:true,mfaVerified:true})},randomUUID());
+ const f=await allocationFixture(h,'100.00','100.00','verified','900.00'),a=await f.assign('80.00'),q=await f.assign('80.00');
+ const outcomes=await observeFunds(h,f.paymentId,[async()=>h.allocations.apply(await h.auth(),write,a),async()=>h.allocations.apply(b,write,q)],[0,1],[h.sessionId,s],true);
+ assert.equal(outcomes.filter(x=>x.ok).length,1);assert.equal((await f.see()).allocations.length,1);
+ // Executed accreditation FAIL preserved; the old implementation prevents the required business overlap.
+ assert.fail('F06_EXPECTED_BUSINESS_OVERLAP_NOT_REACHED_ON_ORIGINAL48');
+ }finally{await h.close();}
+});
