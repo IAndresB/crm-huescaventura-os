@@ -1,5 +1,9 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
+**TSK-H4-019 COMPLETED local/aislado; F06 CLOSED — 2026-10-06.** Base autorizada de continuación `f8318fad8bf8a7b6d8224330dc1b8840288dba60`; suplemento expected `6c1f060a560e28e513e87f186e16a54911a1a444` intacto; SHA exacto probado/publicado `9799de20fcd4f2100f6918d28ffcbec46df203b0`. PostgreSQL 2010/2010 (1995 anteriores + 15 nuevos incluidos una sola vez), unitarias 138/138 y health-check 1/1 separado. Frozen install, typecheck, lint/boundaries, build, auditoría de producción, V-MIG, advisors loopback y diff-check PASS. 28 carreras con ambas admisiones F2, ambos órdenes y locks/PID/xid/sesión observados; Opportunity padre y payment-root diferenciados. Migración 49: solo cuerpo admit cambia actor FOR UPDATE→FOR SHARE; las 48 anteriores, permisos/atributos, fuentes, expected, dependencias y health-check permanecen intactos. F06/F07 materiales, F08–F12/F14/F15 técnicos y F13 documental CLOSED; originales y ejecución interrumpida conservados. H0 técnico/local/aislado y H1/H2/H3 local/aislado COMPLETED; H4-001–019 COMPLETED local/aislado; H4 IN PROGRESS; H4-020+ y H5–H6 NOT STARTED. Integración H4-019 acreditada exclusivamente local; otras comprobaciones posteriores no se acreditan por inferencia. DM-PENDING-005 y pendientes globales conservados; hosted H2/H3 no acreditados; Production no autorizada. STOP tras H4-019. Sin datos reales ni efectos externos de negocio.
+
+### Antecedente publicado H4-019 — acreditación parcial anterior conservada
+
 **H4-019 IN PROGRESS local/aislado; acreditación conjunta PENDING por F06.** Base `ae1f3c360624bb0fb3714ec3983a13b888a444a7`; expected publicado `eb2dab9dcc7b7c0d09a8cec7677de5d745776f19`; verificador congelado/publicado `6dbd550647b4d5479914d5a8dae0d57d590ff56e`. Matriz64/64 incluida; regresión del SHA1995/1995 PostgreSQL,138/138 unitarias,health1/1 separado y gates/advisors/V-MIG aplicable PASS; no cierre integral atribuido. La espera F2 del actor singleton no se presenta como solapamiento económico suficiente. Falta criterio concreto de dirección para ese ensayo sin alterar D015/D038 ni ampliar actores/permisos. Producto,48 migraciones, fuentes, expected históricos, dependencias y health-check intactos. H0 técnico/local/aislado y H1/H2/H3 local/aislado COMPLETED; H4-001–018 COMPLETED local/aislado; H4 IN PROGRESS; H4-020+ y H5–H6 NOT STARTED. Integración H4-019 NO ACREDITADA integralmente; pendientes globales, DM-PENDING-005 y hosted H2/H3 no acreditados conservados; Production no autorizada. STOP para tareas posteriores. Sin datos ni efectos externos reales.
 
 ### Antecedente publicado H4-017/018 — cierre histórico conservado
@@ -90,7 +94,7 @@ Actualización 2026-10-03: H0 COMPLETED técnico/local/aislado y H1 COMPLETED lo
 
 ## Current Step
 
-**H4-019 IN PROGRESS local/aislado; acreditación conjunta PENDING por F06.** Base `ae1f3c360624bb0fb3714ec3983a13b888a444a7`; expected publicado `eb2dab9dcc7b7c0d09a8cec7677de5d745776f19`; verificador congelado/publicado `6dbd550647b4d5479914d5a8dae0d57d590ff56e`. Matriz64/64 incluida; regresión del SHA1995/1995 PostgreSQL,138/138 unitarias,health1/1 separado y gates/advisors/V-MIG aplicable PASS; no cierre integral atribuido. La espera F2 del actor singleton no se presenta como solapamiento económico suficiente. Falta criterio concreto de dirección para ese ensayo sin alterar D015/D038 ni ampliar actores/permisos. Producto,48 migraciones, fuentes, expected históricos, dependencias y health-check intactos. H0 técnico/local/aislado y H1/H2/H3 local/aislado COMPLETED; H4-001–018 COMPLETED local/aislado; H4 IN PROGRESS; H4-020+ y H5–H6 NOT STARTED. Integración H4-019 NO ACREDITADA integralmente; pendientes globales, DM-PENDING-005 y hosted H2/H3 no acreditados conservados; Production no autorizada. STOP para tareas posteriores. Sin datos ni efectos externos reales.
+**TSK-H4-019 COMPLETED local/aislado; F06 CLOSED — 2026-10-06.** Base autorizada de continuación `f8318fad8bf8a7b6d8224330dc1b8840288dba60`; suplemento expected `6c1f060a560e28e513e87f186e16a54911a1a444` intacto; SHA exacto probado/publicado `9799de20fcd4f2100f6918d28ffcbec46df203b0`. PostgreSQL 2010/2010 (1995 anteriores + 15 nuevos incluidos una sola vez), unitarias 138/138 y health-check 1/1 separado. Frozen install, typecheck, lint/boundaries, build, auditoría de producción, V-MIG, advisors loopback y diff-check PASS. 28 carreras con ambas admisiones F2, ambos órdenes y locks/PID/xid/sesión observados; Opportunity padre y payment-root diferenciados. Migración 49: solo cuerpo admit cambia actor FOR UPDATE→FOR SHARE; las 48 anteriores, permisos/atributos, fuentes, expected, dependencias y health-check permanecen intactos. F06/F07 materiales, F08–F12/F14/F15 técnicos y F13 documental CLOSED; originales y ejecución interrumpida conservados. H0 técnico/local/aislado y H1/H2/H3 local/aislado COMPLETED; H4-001–019 COMPLETED local/aislado; H4 IN PROGRESS; H4-020+ y H5–H6 NOT STARTED. Integración H4-019 acreditada exclusivamente local; otras comprobaciones posteriores no se acreditan por inferencia. DM-PENDING-005 y pendientes globales conservados; hosted H2/H3 no acreditados; Production no autorizada. STOP tras H4-019. Sin datos reales ni efectos externos de negocio.
 
 Antecedente publicado H4-017/018:
 
@@ -161,7 +165,7 @@ Precedido por Constitution v1.0 APPROVED.
 6. SPEC 001 Core CRM
 7. plan.md — COMPLETED, v0.3 APPROVED por D034.
 8. tasks.md — COMPLETED, v0.1 APPROVED por D036.
-9. implementación — H4-019 IN PROGRESS, cierre PENDING F06; H4-001–018 COMPLETED local/aislado; H4 IN PROGRESS; H4-020+ y H5–H6 NOT STARTED. STOP tareas posteriores.
+9. implementación — H4-019 COMPLETED local/aislado, F06 CLOSED; H4-001–019 COMPLETED local/aislado; H4 IN PROGRESS; H4-020+ y H5–H6 NOT STARTED. STOP tras H4-019.
 
 Antecedente histórico: 9. implementación — H0 técnico/local/aislado y H1/H2/H3 local/aislado COMPLETED; H4 IN PROGRESS; H4-001–018 COMPLETED local/aislado; H4-019+ y H5–H6 NOT STARTED. SHA probado `a26eec923854aada4c6ecb3af518576d473811b6`; STOP tras H4-018, sin preparar tareas posteriores.
 
@@ -173,7 +177,7 @@ Antecedente histórico de la secuencia: 9. implementación — H0 COMPLETED téc
 
 Work solo debe ejecutar el siguiente paso aprobado.
 
-**Bloque autorizado exclusivamente H4-019, IN PROGRESS con acreditación PENDING F06. STOP para H4-020+ y H5/H6. Los cierres y autorizaciones anteriores siguientes son históricos conservados.**
+**Bloque exclusivamente H4-019 cerrado local/aislado, F06 CLOSED. STOP tras H4-019 para H4-020+ y H5/H6. Los cierres y autorizaciones anteriores siguientes son históricos conservados.**
 
 La aprobación documental D038 resolvió el modelo de confianza F2; H0-005, las etapas H0-006, H0-011 y H0-012 recibieron autorizaciones separadas. Se conservan las ejecuciones FAILED, fixes F01–F04, quinta ejecución F05 y puerta experimental PostgreSQL 17.11. La primera autorización de 2026-09-28 aprobó y publicó únicamente D039 y coordinación; una autorización posterior cerró F05/H0-012. La autorización actual cubrió exclusivamente H0-013/014, incluidas migración forward-only, correcciones localizadas, commits y push local/remoto. No alteró D037/D038/D039, no inició H0-015 y no autorizó Auth real, secretos, Supabase hosted, Vercel, dispositivos ni Production. Los bloques hosted anteriores conservan sus autorizaciones y evidencia históricas.
 
