@@ -1,6 +1,6 @@
 # Cronología H4-018: antecedentes originales y retest
 
-Estado de esta cronología previa a la regresión definitiva: correcciones focales PASS; cierre depende del SHA final probado. Expected original intacto. No se reinterpretan los resultados de otros bloques.
+Estado final: H4-018-F01–F09 CLOSED local/aislado. Regresión completa PASS sobre `a26eec923854aada4c6ecb3af518576d473811b6`:1931/1931 PostgreSQL,138/138 unitarias,health1/1 separado y todos los gates. Cero materiales abiertos. Cronología previa y originales se conservan. Expected original intacto. No se reinterpretan los resultados de otros bloques.
 
 |ID|Clase|Primera evidencia ejecutada|Causa y corrección|Retest focal|
 |---|---|---|---|---|
@@ -18,3 +18,5 @@ F01: stdout/stderr se redirigieron completos; exit1 está en el resultado real d
 F08-original se ejecutó con HEAD76ec263 y verificador en elaboración. No se atribuye ese repro a un conjunto de verificadores ya congelado. La migración original de ese commit se recupera con git show76ec263:supabase/migrations/20261006133716_h4_deposit_guarantee_custody.sql.
 
 F09 — técnico del verificador: primer run final sobre92cdfe3 detenido en typecheck (TS2540). Fixture de noches modificaba propiedades readonly. Se reconstruye detalle/command inmutables antes de conversión; no cambia ninguna expectativa ni producto. FAIL completo en failed-final-92cdfe3/final-typecheck.*; el nuevo SHA exige regresión completa.
+
+Cierre2026-10-06: F09 corregido por a26eec923854aada4c6ecb3af518576d473811b6; final-typecheck PASS y regresión completa reejecutada sobre ese mismo SHA. F02/F03/F05/F06/F08 materiales CLOSED por instalación y recorridos incluidos en final-postgres1931/1931. F01/F04/F07/F09 técnicos CLOSED por runner/inyecciones/typecheck PASS. No se reclasifican defectos de bloques anteriores ni se sobrescriben FAIL.
