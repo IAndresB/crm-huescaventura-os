@@ -19,6 +19,14 @@ Tasks §6 no tiene filas exclusivas de H4-024. Se consolidan su ficha, Plan §9 
 
 [La matriz](matrix-TSK-H4-024.md) compara 32/32 casos PASS con fuente, contratos, alcance, expected congelado, valores comprobados, SHA, gate/línea/texto PASS auténtico y limitaciones. `final/case-results.json.gz` contiene el índice recuperable. Observado recoge aserciones literales ejecutadas; cuando no existe snapshot completo emitido por el harness no se fabrica. El inventario de las 23 evidencias originales conserva hashes y enlaces; los commits históricos se consultan en las fuentes originales, sin reconstruir identificadores ausentes.
 
+## Errata documental H4-024-F06 — referencia normativa de O01
+
+Corrección exclusivamente documental del 2026-10-07, sobre la base autorizada `228f476b3b42106325481b88c320582f88ff1aa7`. O01 del [expected congelado](expected-TSK-H4-024.md), publicado en `ba9b9f7f25a44b3999fa9f609e26d696a829f449`, cita `SPEC-FR-DOC`, identificador inexistente en la SPEC. La misma referencia se trasladó a la matriz.
+
+Las fuentes correctas, comprobadas en la [SPEC vigente](spec.md), son `SPEC-FR-COORD-005` (Required Document y revisión suficiente), `SPEC-FR-CAT-007` (reglas versionadas de documentación y bloqueo localizado) y `AC-051` (documento imprescindible S1 recibido sin revisar, independencia de S2 y reapertura solo del requisito afectado). Se conservan `SM-DO-01–05` y `SM-FORB-20` de [State Machines](../../docs/state-machines.md). La celda de fuentes de O01 en la matriz queda corregida; esta errata documenta la referencia incorrecta del expected sin editarlo.
+
+`H4-024-F06 CLOSED` exclusivamente documental, por cotejo de fuentes y revisión del diff, sin regresión nueva. El expected congelado y los artefactos históricos de ejecución permanecen intactos; no cambian casos, resultados, contadores, alcance ni SHA probado. Se mantienen H4 COMPLETED local/aislado, H5–H6 NOT STARTED y todos los pendientes y límites existentes. Causa, corrección y comprobación en el [registro de defectos](defects-TSK-H4-024.md).
+
 ## Resultado definitivo y contadores
 
 |Comprobación real|Resultado en a6e28cb|

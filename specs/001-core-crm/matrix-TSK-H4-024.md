@@ -8,7 +8,7 @@ No hay filas exclusivas de H4-024 en Tasks §6. Fuentes exactas de las 246 corre
 
 |Caso|Fuente e IDs|Contrato/recorrido y alcance|Expected congelado|Observado literal de aserciones/resultado|Estado / evidencia recuperable|
 |---|---|---|---|---|---|
-|O01|SM-DO-01–05; SPEC-FR-DOC; SM-FORB-20|Requisito imprescindible S1; documento recibido sin revisión|S1 pendiente; S2 independiente; solo revisión expresa satisface|Recibido: S1 usable=false; S2 usable=true; Revisado: S1 usable=true.|PASS; final/case-results O01; postgres|
+|O01|SM-DO-01–05; SPEC-FR-COORD-005; SPEC-FR-CAT-007; AC-051; SM-FORB-20|Requisito imprescindible S1; documento recibido sin revisión|S1 pendiente; S2 independiente; solo revisión expresa satisface|Recibido: S1 usable=false; S2 usable=true; Revisado: S1 usable=true.|PASS; final/case-results O01; postgres|
 |O02|SM-IN-01–06; SM-BK-10/11; SM-BS-11|Dos Incident y resolución localizada|Fase conservada; resolver una conserva otra; no restaura confirmación|En curso/Finalizada conservadas; dos impacts; resolver uno conserva otro; cobertura inválida no restaurada.|PASS; final/case-results O02; postgres|
 |O03|SM-AV-01–04; AC-020; DM-INV-018–023|Disponibilidad12 y petición16 u otro alcance|12 no cubre16; sin Hold/confirmación/preparación/ejecución inferidos|Quantity16 y otro alcance rechazados; availability.serviceConfirmed=false; servicio solo usable tras evaluación de confirmación.|PASS; final/case-results O03; postgres|
 |O04|SM-HO-01–07; AC-021; SM-FORB-12|Hold, liberación y conversión|Identidad conservada; porciones/localidad; Hold no confirma ni ejecuta|Hold identity preservada al convertir; disponibilidad/opción/confirmación no equivalentes; liberación4 conserva8.|PASS; final/case-results O04; postgres|

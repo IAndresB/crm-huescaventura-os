@@ -22,3 +22,14 @@ Técnico del auditor independiente, ejecutado: SyntaxError porque `pass` se usó
 Corrección mínima de una línea a diccionario literal, sin cambiar expected ni contadores: commit `a6e28cb099ce1ba0f13382b69d992adde25601e6`. Se valida sintaxis Python y se repite toda la regresión y auditoría sobre ese SHA. El auditor corregido ya comparó retrospectivamente los gates1de3623 con cambio local todavía sin commit; `regression-1de3623/audit-retrospective-limit.json` declara expresamente que ese resultado derivado no es el cierre definitivo ni prueba del auditor original. Los streams/status de aquellos gates son auténticos y PASS; no se arrastran al nuevo SHA.
 
 CLOSED únicamente tras auditor y regresión definitivos de a6e28cb PASS. Cero defecto material de producto y cero defecto técnico abierto. Después de a6e28cb no cambia producto ni lógica de verificadores; cierre posterior solo documentación/evidencia/coordinación.
+
+## H4-024-F06 — referencia normativa de O01
+
+**CLOSED exclusivamente documental — 2026-10-07.** Observación estática de trazabilidad, sin fallo ejecutado ni defecto de producto. Base autorizada de esta corrección: `228f476b3b42106325481b88c320582f88ff1aa7`.
+
+- **Original recuperable:** O01 de `expected-TSK-H4-024.md`, congelado en `ba9b9f7f25a44b3999fa9f609e26d696a829f449`, y O01 de `matrix-TSK-H4-024.md` en la base de esta corrección citan `SPEC-FR-DOC`. El expected conserva literalmente esa referencia; la matriz original sigue recuperable en Git.
+- **Causa:** referencia normativa inexistente en la SPEC usada en el expected y trasladada a la matriz; error de identificación documental, sin cambio de la expectativa literal de O01.
+- **Corrección:** sustituir únicamente la referencia errónea en la celda de fuentes de O01 por `SPEC-FR-COORD-005`, `SPEC-FR-CAT-007` y `AC-051`, conservando `SM-DO-01–05` y `SM-FORB-20`. Añadir errata explícita en `evidence-TSK-H4-024.md`; no editar el expected congelado ni los artefactos históricos de ejecución.
+- **Comprobación/cierre:** cotejo directo de las tres filas de la SPEC vigente y de las transiciones/prohibición de State Machines; búsqueda de `SPEC-FR-DOC` sin coincidencias en la SPEC. Diff limitado a matriz, evidencia y este registro, con las demás celdas de O01 intactas; `git diff --check` sin incidencias y comparación con la base para preservar el resto de archivos. No se repiten regresiones ni se atribuye una nueva ejecución al SHA documental.
+
+Casos, resultados, contadores y alcance conservados. Sin cambios de producto, tests, permisos, migraciones, dependencias o health. H4 COMPLETED local/aislado; H5–H6 NOT STARTED; todos los pendientes y límites existentes permanecen. STOP tras publicar esta corrección; continuidad al hilo de dirección H4.
