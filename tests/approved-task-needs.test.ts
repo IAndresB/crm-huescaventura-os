@@ -16,7 +16,8 @@ const causes:ApprovedTaskCause[]=['block','advance','balance','provider','invoic
 test('H5-T19 thirteen approved causes produce scoped needs with stable identities',()=>{
  const identities=new Set<string>();
  for(const cause of causes){
-  const b=base();const e={...b,cause,
+  const b=base();if(cause==='balance'||cause==='final_participants')b.scopeRef=b.contextId;
+  const e={...b,cause,contextKind:cause==='proposal'?'proposal':b.contextKind,
    ...(cause==='proposal'?{proposal:{createdDate:'2026-10-01'}}:{}),
    ...(cause==='final_participants'?{finalParticipants:{reference:reference('global','2026-10-20',b.contextId)}}:{}),
    ...(cause==='balance'?{balance:{reference:reference('global','2026-10-20',b.contextId),verifiedRemaining:'50.00'}}:{})} as ApprovedTaskEvent;
@@ -31,7 +32,7 @@ test('H5-T19 thirteen approved causes produce scoped needs with stable identitie
 });
 
 test('H5-T16/T17 proposal dates are 2–3 full days or a localized unknown',()=>{
- const e={...base(),cause:'proposal' as const,proposal:{createdDate:'2026-10-01',expiresDate:'2026-10-10'}};
+ const e={...base(),contextKind:'proposal',cause:'proposal' as const,proposal:{createdDate:'2026-10-01',expiresDate:'2026-10-10'}};
  const missing=approvedTaskNeeds(e);
  assert.deepEqual(missing.map(x=>x.material.deadline.kind),['unknown','unknown']);
  assert.match((missing[0]!.material.deadline as {reason:string}).reason,/2–3/);
@@ -43,7 +44,7 @@ test('H5-T16/T17 proposal dates are 2–3 full days or a localized unknown',()=>
 });
 
 test('H5-T12/T13/T15 balance and final participants keep D020 scope and full deadline day',()=>{
- const booking=base(),service=base();
+ const booking=base(),service=base();booking.scopeRef=booking.contextId;
  const global=reference('global','2026-10-20',booking.contextId),specific=reference('service','2026-10-22',service.scopeRef);
  const balance=approvedTaskNeeds({...booking,cause:'balance',balance:{reference:global,verifiedRemaining:'50.00'}})[0]!;
  assert.equal(evaluateTaskDeadline(balance.material.deadline,{date:'2026-10-13'}).overdue,false);
@@ -59,6 +60,9 @@ test('H5-T12/T13/T15 balance and final participants keep D020 scope and full dea
  assert.equal(unresolved.material.deadline.kind,'unknown');
  assert.throws(()=>approvedTaskNeeds({...base(),cause:'balance',balance:{reference:global,verifiedRemaining:'50.00'}}),/TASK_TRIGGER_INPUT_INVALID/);
  assert.throws(()=>approvedTaskNeeds({...base(),cause:'final_participants',finalParticipants:{reference:specific}}),/TASK_TRIGGER_INPUT_INVALID/);
+ assert.throws(()=>approvedTaskNeeds({...booking,contextKind:'proposal',cause:'balance',balance:{reference:global,verifiedRemaining:'50.00'}}),/TASK_TRIGGER_INPUT_INVALID/);
+ assert.throws(()=>approvedTaskNeeds({...booking,cause:'provider',deadline:{kind:'d020',reference:specific,daysBefore:7,
+  sourceRef:'wrong service',version:'1'}}),/TASK_TRIGGER_INPUT_INVALID/);
 });
 
 test('H5-T11/T18/T24 verified hour is distinct; missing automation parameter stays local',()=>{
@@ -67,12 +71,13 @@ test('H5-T11/T18/T24 verified hour is distinct; missing automation parameter sta
   sourceRef:'synthetic verified provider deadline',version:'1'}})[0]!;
  assert.equal(evaluateTaskDeadline(hourly.material.deadline,{instant:'2026-10-13T15:59:59+02:00'}).overdue,false);
  assert.equal(evaluateTaskDeadline(hourly.material.deadline,{instant:'2026-10-13T16:00:01+02:00'}).overdue,true);
- const pending=approvedTaskNeeds({...base(),cause:'proposal',proposal:{createdDate:'2026-10-01'}});
+ const pending=approvedTaskNeeds({...base(),contextKind:'proposal',cause:'proposal',proposal:{createdDate:'2026-10-01'}});
  assert.deepEqual(pending.map(x=>x.material.deadline.kind),['unknown','unknown']);
  const limited=approvedTaskNeeds({...base(),cause:'document',missingParameter:'Falta límite de reintentos aprobado'})[0]!;
  assert.equal(limited.material.deadline.kind,'unknown');
  assert.match((limited.material.deadline as {reason:string}).reason,/límite de reintentos/);
- const balance=base(),ref=reference('global','2026-10-20',balance.contextId);
+ const balance=base();balance.scopeRef=balance.contextId;
+ const ref=reference('global','2026-10-20',balance.contextId);
  const due=approvedTaskNeeds({...balance,cause:'balance',balance:{reference:ref,verifiedRemaining:'50.00'}})[0]!;
  for(const date of ['2026-10-13'])assert.equal(evaluateTaskDeadline(due.material.deadline,{date}).overdue,false);
  assert.equal(evaluateTaskDeadline(due.material.deadline,{date:'2026-10-14'}).overdue,true);

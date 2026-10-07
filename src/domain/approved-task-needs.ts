@@ -54,7 +54,7 @@ export function approvedTaskNeeds(e:ApprovedTaskEvent):readonly ApprovedTaskNeed
   validateTask(identity,material);return {identity,material,reason};
  };
  if(e.cause==='proposal') {
-  if(!e.proposal||e.deadline||e.finalParticipants||e.balance)invalid();
+  if(e.contextKind!=='proposal'||!e.proposal||e.deadline||e.finalParticipants||e.balance)invalid();
   const p=e.proposal;localDate(p.createdDate);
   if(p.followupDate){const interval=civilDaysBetween(localDate(p.createdDate),localDate(p.followupDate));if(interval<2||interval>3)invalid();}
   if(p.expiresDate&&civilDaysBetween(localDate(p.createdDate),localDate(p.expiresDate))<0)invalid();
@@ -69,17 +69,17 @@ export function approvedTaskNeeds(e:ApprovedTaskEvent):readonly ApprovedTaskNeed
    make('proposal-pre-expiry','Avisar antes de caducar propuesta',expiry,'Revisar caducidad de propuesta')];
  }
  if(e.cause==='final_participants') {
-  if(!e.finalParticipants||e.deadline||e.proposal||e.balance)invalid();
+  if(e.contextKind!=='booking'||!e.finalParticipants||e.deadline||e.proposal||e.balance)invalid();
   const p=e.finalParticipants;
-  if(p.reference.scope==='global'?(p.reference.scopeId!==e.contextId):
+  if(p.reference.scope==='global'?(p.reference.scopeId!==e.contextId||e.scopeRef!==e.contextId):
    p.reference.scopeId!==e.scopeRef)invalid();
   const deadline=p.daysBefore===null?deadlineUnknown('Plazo específico de cifra final pendiente de verificar'):
    d020(p.reference,p.daysBefore??7,e.sourceRef,e.sourceVersion);
   return [make(effect,title,deadline,'Confirmación de cifra final por alcance')];
  }
  if(e.cause==='balance') {
-  if(!e.balance||e.deadline||e.proposal||e.finalParticipants)invalid();
-  if(e.balance.reference.scope!=='global'||e.balance.reference.scopeId!==e.contextId||
+  if(e.contextKind!=='booking'||!e.balance||e.deadline||e.proposal||e.finalParticipants)invalid();
+  if(e.balance.reference.scope!=='global'||e.balance.reference.scopeId!==e.contextId||e.scopeRef!==e.contextId||
    !/^(?:0|[1-9]\d*)\.\d{2}$/.test(e.balance.verifiedRemaining))invalid();
   if(e.balance.verifiedRemaining==='0.00')return [];
   return [make(effect,title,d020(e.balance.reference,7,e.sourceRef,e.sourceVersion),
@@ -87,5 +87,8 @@ export function approvedTaskNeeds(e:ApprovedTaskEvent):readonly ApprovedTaskNeed
  }
  if(e.proposal||e.finalParticipants||e.balance)invalid();
  const deadline=e.deadline??deadlineUnknown(e.missingParameter??'Falta plazo verificado para esta necesidad');
+ if(deadline.kind==='d020'&&(deadline.reference.scope==='global'?
+  deadline.reference.scopeId!==e.contextId||e.scopeRef!==e.contextId:
+  deadline.reference.scopeId!==e.scopeRef))invalid();
  return [make(effect,title,deadline,'Disparador aprobado pendiente de revisión')];
 }

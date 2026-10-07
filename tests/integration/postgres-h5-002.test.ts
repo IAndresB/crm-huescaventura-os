@@ -9,6 +9,7 @@ import {approvedTaskNeeds,type ApprovedTaskCause,type ApprovedTaskEvent} from '.
 import {civilReference,dateAtInstant,instant,localDate,zoneEvidence} from '../../src/domain/civil-time.ts';
 import {invoiceFixture} from '../support/h3-invoice-fixtures.ts';
 import {obligationFixture} from '../support/h3-obligation-fixtures.ts';
+import {allocationFixture} from '../support/h3-allocation-fixtures.ts';
 import type {TaskCommand} from '../../src/infrastructure/postgres/h1-task-adapter.ts';
 
 let h:Awaited<ReturnType<typeof isolatedReality>>;
@@ -104,38 +105,40 @@ test('H5-T03/T22 two sessions race close, one revision and one closure',async()=
  assert.equal((await see(p))?.revision,2);assert.equal((await history(p)).length,2);
 });
 
-test('H5-T03 observed two PostgreSQL sessions overlap on one Task identity',async()=>{
- const p=task();await tasks.apply(await h.auth(),write,p);
- const key=7643201;
- await h.admin.unsafe("create function crm_private.h5_wait_overlap() returns trigger language plpgsql as $$begin perform pg_advisory_xact_lock(7643201);return new;end$$");
- await h.admin.unsafe(`create trigger h5_wait_overlap before update on crm_private.b07_pending_tasks for each row when (old.task_id='${p.taskId}'::uuid) execute function crm_private.h5_wait_overlap()`);
- let release!:()=>void,ready!:()=>void;
- const released=new Promise<void>(r=>release=r),held=new Promise<void>(r=>ready=r);
- const holder=h.admin.begin(async tx=>{await tx.unsafe('select pg_advisory_xact_lock($1)',[key]);ready();await released;});
- await held;
- const a=tasks.transition(await h.auth(),write,transition(p,'complete',1));
- const b=tasks.transition(await h.auth(),write,transition(p,'cancel',1));
- const watcher=h.connect('h2_bootstrap');
- let waiting:{pid:number;wait_event_type:string;wait_event:string}[]=[];
- let results:PromiseSettledResult<{id:string;replayed:boolean}>[]=[];
- try{
-  for(let i=0;i<80;i++){
-   waiting=await watcher.unsafe<{pid:number;wait_event_type:string;wait_event:string}[]>(
-    "select pid,wait_event_type,wait_event from pg_stat_activity where usename='crm_h0_runtime' and wait_event_type='Lock' and query like '%b07_task_apply%' order by pid");
-   if(waiting.length>=2)break;
-   await new Promise(r=>setTimeout(r,25));
-  }
-  assert.equal(waiting.length,2,'two different backend sessions waited on the same Task operation');
- }finally{release();await holder;results=await Promise.allSettled([a,b]);
-  await h.admin.unsafe('drop trigger h5_wait_overlap on crm_private.b07_pending_tasks');
-  await h.admin.unsafe('drop function crm_private.h5_wait_overlap()');}
- assert.equal(new Set(waiting.map(x=>x.pid)).size,2);
- assert.equal(results.filter(x=>x.status==='fulfilled').length,1);
- assert.equal(results.filter(x=>x.status==='rejected').length,1);
- assert.equal((await see(p))?.revision,2);
- assert.equal((await history(p)).length,2);
+test('H5-T03 observed two PostgreSQL sessions overlap in both close orders',async()=>{
+ const observations=[];
+ for(const first of ['complete','cancel'] as const){
+  const p=task();await tasks.apply(await h.auth(),write,p);
+  const second=first==='complete'?'cancel':'complete',key=7643201;
+  await h.admin.unsafe("create function crm_private.h5_wait_overlap() returns trigger language plpgsql as $$begin perform pg_advisory_xact_lock(7643201);return new;end$$");
+  await h.admin.unsafe(`create trigger h5_wait_overlap before update on crm_private.b07_pending_tasks for each row when (old.task_id='${p.taskId}'::uuid) execute function crm_private.h5_wait_overlap()`);
+  let release!:()=>void,ready!:()=>void;
+  const released=new Promise<void>(r=>release=r),held=new Promise<void>(r=>ready=r);
+  const holder=h.admin.begin(async tx=>{await tx.unsafe('select pg_advisory_xact_lock($1)',[key]);ready();await released;});
+  await held;
+  const a=tasks.transition(await h.auth(),write,transition(p,first,1));
+  const watcher=h.connect('h2_bootstrap');
+  const waiters=async()=>await watcher.unsafe<{pid:number;wait_event_type:string;wait_event:string}[]>(
+   "select pid,wait_event_type,wait_event from pg_stat_activity where usename='crm_h0_runtime' and wait_event_type='Lock' and query like '%b07_task_apply%' order by pid");
+  let firstWaiting=false,waiting:Awaited<ReturnType<typeof waiters>>=[];
+  for(let i=0;i<80;i++){waiting=await waiters();if(waiting.length>=1){firstWaiting=true;break;}await new Promise(r=>setTimeout(r,25));}
+  assert.equal(firstWaiting,true);
+  const b=tasks.transition(await h.auth(),write,transition(p,second,1));
+  let results:PromiseSettledResult<{id:string;replayed:boolean}>[]=[];
+  try{
+   for(let i=0;i<80;i++){waiting=await waiters();if(waiting.length>=2)break;await new Promise(r=>setTimeout(r,25));}
+   assert.equal(waiting.length,2,'two different backend sessions waited on the same Task operation');
+  }finally{release();await holder;results=await Promise.allSettled([a,b]);
+   await h.admin.unsafe('drop trigger h5_wait_overlap on crm_private.b07_pending_tasks');
+   await h.admin.unsafe('drop function crm_private.h5_wait_overlap()');}
+  assert.equal(new Set(waiting.map(x=>x.pid)).size,2);
+  assert.equal(results[0]?.status,'fulfilled');assert.equal(results[1]?.status,'rejected');
+  assert.equal((await see(p))?.state,first==='complete'?'completed':'cancelled');
+  assert.equal((await see(p))?.revision,2);assert.equal((await history(p)).length,2);
+  observations.push({taskId:p.taskId,first,second,waiting,fulfilled:1,rejected:1,finalRevision:2,historyRows:2});
+ }
  if(process.env.H5002_CAPTURE_DIR)await writeFile(`${process.env.H5002_CAPTURE_DIR}/concurrency.json`,
-  JSON.stringify({taskId:p.taskId,waiting,fulfilled:1,rejected:1,finalRevision:2,historyRows:2},null,2)+'\n');
+  JSON.stringify(observations,null,2)+'\n');
 });
 
 test('H5-T09/T10 deadline unknown, civil full last day and next day',async()=>{
@@ -156,7 +159,8 @@ test('H5-T19 all thirteen approved trigger needs persist without duplicate ident
  for(const cause of causes){
   const scopeId=uid(),contextId=uid(),reference=civilReference({scope:'global',scopeId:contextId},localDate('2026-10-20'),
    zoneEvidence('Europe/Madrid','synthetic zone','1'),'synthetic contracted date','1');
-  const event={cause,causeId:uid(),contextKind:cause==='proposal'?'proposal':'booking',contextId,scopeRef:scopeId,
+  const event={cause,causeId:uid(),contextKind:cause==='proposal'?'proposal':'booking',contextId,
+   scopeRef:cause==='balance'||cause==='final_participants'?contextId:scopeId,
    sourceRef:'synthetic-source-'+cause,sourceVersion:'1',
    ...(cause==='proposal'?{proposal:{createdDate:'2026-10-01'}}:{}),
    ...(cause==='balance'?{balance:{reference,verifiedRemaining:'50.00'}}:{}),
@@ -216,6 +220,26 @@ test('H5-T12 balance need derives remaining amount from signed H3 obligation rea
  await assert.rejects(tasks.balanceNeeds(await h.auth(),read,uid(),f.q.scheduleId!));
 });
 
+test('H5-T12 verified partial/full balance coverage changes only the derived need',async()=>{
+ const f=await allocationFixture(h,'500.00','500.00','received','1000.00');
+ const p=await f.paymentAttest({...await f.propose(2,'500.00'),slot:'balance'});
+ await h.payments.apply(await h.auth(),write,p);
+ await h.payments.apply(await h.auth(),write,await f.verify(p));
+ const destination={...f.destination,slot:'balance' as const,reference:'SYNTHETIC checked balance'};
+ const assign=async(amount:string,start:string)=>{
+  const q=await f.assign(amount,start,destination);
+  await h.allocations.apply(await h.auth(),write,await f.attest({...q,reconciliationId:p.reconciliationId}));
+ };
+ await assign('200.00','0.00');
+ const record=await h.obligations.read(await h.auth(),read,f.f.b.bookingId,f.f.q.scheduleId!);
+ assert.equal(record?.coverage?.find(x=>x.slot==='balance')?.verifiedAmount,'200.00');
+ assert.equal((await h.obligations.evaluate(await h.auth(),read,f.f.b.bookingId,f.f.q.scheduleId!,f.f.q.at))?.[1]?.state,'partial');
+ assert.equal((await tasks.balanceNeeds(await h.auth(),read,f.f.b.bookingId,f.f.q.scheduleId!)).length,1);
+ await assign('300.00','200.00');
+ assert.equal((await h.obligations.evaluate(await h.auth(),read,f.f.b.bookingId,f.f.q.scheduleId!,f.f.q.at))?.[1]?.state,'complete');
+ assert.equal((await tasks.balanceNeeds(await h.auth(),read,f.f.b.bookingId,f.f.q.scheduleId!)).length,0);
+});
+
 test('H5-T17/T18 AC083 missing proposal parameters stay localized while independent Task proceeds',async()=>{
  const base={cause:'proposal' as const,causeId:uid(),contextKind:'proposal',contextId:uid(),scopeRef:uid(),
   sourceRef:'synthetic-proposal',sourceVersion:'1',proposal:{createdDate:'2026-10-01',expiresDate:'2026-10-10'}};
@@ -260,8 +284,11 @@ test('H5-T21 missing or disabled actor, wrong scope and wrong context cannot tra
 
 test('H5-T06/T07 completed or cancelled work leaves real Booking and payment facts unchanged',async()=>{
  const b=await invoiceFixture(h);
+ await h.invoices.apply(await h.auth(),write,await b.need());
  const before=(await h.observer`select to_jsonb(x) body from crm_private.b04_bookings x where booking_id=${b.bookingId}::uuid`)[0]!.body;
  const payments=(await h.observer`select count(*)::int n from crm_private.b05_customer_payments`)[0]!.n;
+ const invoiceBefore=(await h.observer`select to_jsonb(x) body from crm_private.b05_provider_invoices x where invoice_id=${b.invoiceId}::uuid`)[0]!.body;
+ const acceptanceBefore=(await h.observer`select count(*)::int n from crm_private.b03_acceptances`)[0]!.n;
  for(const action of ['complete','cancel'] as const){
   const p=task({identity:{...task().identity,contextId:b.bookingId,causeId:uid()}});
   await tasks.apply(await h.auth(),write,p);
@@ -270,6 +297,8 @@ test('H5-T06/T07 completed or cancelled work leaves real Booking and payment fac
  }
  assert.deepEqual((await h.observer`select to_jsonb(x) body from crm_private.b04_bookings x where booking_id=${b.bookingId}::uuid`)[0]!.body,before);
  assert.equal((await h.observer`select count(*)::int n from crm_private.b05_customer_payments`)[0]!.n,payments);
+ assert.deepEqual((await h.observer`select to_jsonb(x) body from crm_private.b05_provider_invoices x where invoice_id=${b.invoiceId}::uuid`)[0]!.body,invoiceBefore);
+ assert.equal((await h.observer`select count(*)::int n from crm_private.b03_acceptances`)[0]!.n,acceptanceBefore);
 });
 
 test('H5-T22 T09 failed history write rolls back closure and operation, then retry succeeds',async()=>{
