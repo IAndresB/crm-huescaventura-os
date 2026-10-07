@@ -13,7 +13,7 @@ counts={}
 for gate,n in [('postgres',2321),('unit',138),('health',1)]:
  text=(out/gate/'stdout.log').read_text()
  summary={k:int(v)for k,v in re.findall(r'(?:ℹ |# )(tests|pass|fail|cancelled|skipped) (\d+)',text)}
- assert summary==dict(tests=n,pass=n,fail=0,cancelled=0,skipped=0),(gate,summary)
+ assert summary=={'tests':n,'pass':n,'fail':0,'cancelled':0,'skipped':0},(gate,summary)
  counts[gate]=summary
 protected=json.loads((root/'tests/fixtures/h4-024/protected-base.json').read_text())
 for path,sha in protected.items():assert hashlib.sha256((root/path).read_bytes()).hexdigest()==sha,path
