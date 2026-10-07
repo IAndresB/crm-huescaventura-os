@@ -143,6 +143,11 @@ test('H5-CAH/CR original Storage object absence and missing metadata never becom
  await h.objects.prepare(await h.auth(),write,{...f.context,operationId:uid(),versionId,rootId,expectedVersion:0,documentId:f.originalId,digest:createHash('sha256').update(bytes).digest('hex'),size:bytes.length,media:'text/plain',sourceRef:'synthetic-PLAUD',reason:'Conservación autorizada sintética'});
  await f.run(p);let s=await f.see();assert.equal(s.work[0].objectConservation[0].state,'prepared');
  await assert.rejects(h.objects.download(await h.auth(),read,versionId,f.context));
+ await h.admin.unsafe("create function crm_private.h5006_object_fail() returns trigger language plpgsql as $$begin raise exception 'H5006_OBJECT_METADATA';end$$");
+ await h.admin.unsafe("create trigger h5006_object_fail before update on crm_private.b07_object_versions for each row when (new.state='present_unverified') execute function crm_private.h5006_object_fail()");
+ try{await assert.rejects(h.objects.upload(await h.auth(),read,write,versionId,f.context,bytes,uid()));}finally{await h.admin.unsafe('drop trigger h5006_object_fail on crm_private.b07_object_versions');await h.admin.unsafe('drop function crm_private.h5006_object_fail()');}
+ const incomplete=await h.objects.metadata(await h.auth(),read,versionId,f.context);assert.equal(incomplete!.state,'prepared');assert.ok(await h.storage.get(incomplete!.private_ref));assert.equal((await f.see()).work[0].objectConservation[0].state,'prepared');
+ await capture('object-metadata-failure',{binaryPresent:true,metadataState:incomplete!.state,derived:await f.see()});
  await h.objects.upload(await h.auth(),read,write,versionId,f.context,bytes,uid());await h.objects.reconcile(await h.auth(),read,write,versionId,f.context,uid());await h.objects.link(await h.auth(),read,write,versionId,f.context,uid());
  assert.deepEqual(Buffer.from(await h.objects.download(await h.auth(),read,versionId,f.context)),bytes);s=await f.see();assert.equal(s.work[0].objectConservation[0].state,'stored');await capture('storage-conservation',s);
 });

@@ -38,7 +38,9 @@ begin
  if f[3]='communication-content' and f[4]=w.work_id::text and f[5]::jsonb=expected
  and f[6]='value' and f[7]=w.material->'material'->>'recipient' and f[8]='not-applicable'
  and f[10]='not-applicable' and f[12]=w.admin_scope and f[13]='authorize-content'
- and f[14]='not-applicable' and f[16]='none' then
+ and f[14]='not-applicable' and f[16]='none'
+ and exists(select 1 from crm_ha.parts hp where hp.proposal_id=p.proposal_id
+ and hp.material_payload=crm_f1.pack_fields(array['CRM-H0-HA-PART1',hp.part_id,f[3],f[4],f[5],f[6],f[7],f[8],f[9],f[10],f[11],f[12],f[13]])) then
  return jsonb_build_object('proposalId',p.proposal_id,'decisionId',p.decision_id,'actor',p.actor_id,'at',p.decided_at,'versionId',w.work_id);
  end if;
  end loop;
