@@ -91,7 +91,7 @@ test('H5-AN/AO synthetic delivery never modifies origin or accredits external de
  const inc=await incidentFixture(h,b);await h.incidents.apply(await h.auth(),write,await inc.detect());
  const req=await requirementFixture(h,b);await h.requirements.apply(await h.auth(),write,await req.need());
  const pay=await paymentFixture(h);await h.payments.apply(await h.auth(),write,pay.detect);
- const p=alert();p.identity.contextId=b.bookingId;
+ const draft=alert(),p={...draft,identity:{...draft.identity,contextId:b.bookingId}};
  await h.tasks.apply(await h.auth(),write,{action:'receive',operationId:uid(),taskId:uid(),expectedRevision:0,
  identity:{causeKind:'document',causeId:req.requirementId,contextKind:'booking',contextId:b.bookingId,scopeRef:b.bookingId,relatedKind:null,relatedId:null,effect:'review'},
  material:{title:'Revisar documentación',deadline:{kind:'unknown',reason:'Pendiente'},priority:{kind:'pending',reason:'Sin configurar'},sourceRef:'synthetic-task',sourceVersion:'1',triggerRef:'manual',triggerVersion:'1'},reason:'Seguimiento independiente'});
