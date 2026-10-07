@@ -5,7 +5,7 @@ import {readFile,writeFile} from 'node:fs/promises';
 import {isolatedReality,read,write} from '../support/h4-reality-isolated.ts';
 import {H5001TaskAdapter,type TaskTransition} from '../../src/infrastructure/postgres/h5-task-adapter.ts';
 import {evaluateTaskDeadline} from '../../src/domain/pending-task.ts';
-import {approvedTaskNeeds,type ApprovedTaskCause,type ApprovedTaskEvent} from '../../src/domain/approved-task-needs.ts';
+import {approvedTaskNeeds,evaluateApprovedTaskCondition,type ApprovedTaskCause,type ApprovedTaskEvent} from '../../src/domain/approved-task-needs.ts';
 import {civilReference,dateAtInstant,instant,localDate,zoneEvidence} from '../../src/domain/civil-time.ts';
 import {invoiceFixture} from '../support/h3-invoice-fixtures.ts';
 import {obligationFixture} from '../support/h3-obligation-fixtures.ts';
@@ -150,6 +150,9 @@ test('H5-T09/T10 deadline unknown, civil full last day and next day',async()=>{
  const s=await see(p);assert.equal(evaluateTaskDeadline(s!.material.deadline,{date:'2026-10-13'}).overdue,false);
  assert.equal(evaluateTaskDeadline(s!.material.deadline,{date:'2026-10-14'}).overdue,true);
  assert.equal(s?.state,'pending');
+ assert.equal(evaluateApprovedTaskCondition(s!,{date:'2026-10-14'}).overdue,true);
+ await tasks.transition(await h.auth(),write,transition(p,'complete',2));
+ assert.equal(evaluateApprovedTaskCondition((await see(p))!,{date:'2026-10-14'}).overdue,false);
 });
 
 test('H5-T19 all thirteen approved trigger needs persist without duplicate identity',async()=>{

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {randomUUID as uid} from 'node:crypto';
-import {approvedTaskNeeds,type ApprovedTaskCause,type ApprovedTaskEvent} from '../src/domain/approved-task-needs.ts';
+import {approvedTaskNeeds,evaluateApprovedTaskCondition,type ApprovedTaskCause,type ApprovedTaskEvent} from '../src/domain/approved-task-needs.ts';
 import {civilReference,localDate,zoneEvidence} from '../src/domain/civil-time.ts';
 import {evaluateTaskDeadline} from '../src/domain/pending-task.ts';
 
@@ -90,4 +90,6 @@ test('H5-T11/T18/T24 verified hour is distinct; missing automation parameter sta
  assert.throws(()=>approvedTaskNeeds({...service,cause:'final_participants',finalParticipants:{reference:serviceRef,daysBefore:3},
   deadline:{kind:'instant',at:'2026-10-17T00:00:00+02:00',sourceRef:'fabricated 72h cut',version:'1'}}),/TASK_TRIGGER_INPUT_INVALID/);
  assert.throws(()=>approvedTaskNeeds({...base(),cause:'final_participants',finalParticipants:{reference:ref}}),/TASK_TRIGGER_INPUT_INVALID/);
+ assert.equal(evaluateApprovedTaskCondition({state:'cancelled',material:due.material},{date:'2026-10-14'}).overdue,false);
+ assert.equal(evaluateApprovedTaskCondition({state:'pending',material:limited.material},{}).known,false);
 });

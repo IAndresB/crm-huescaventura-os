@@ -1,5 +1,5 @@
 import {civilDaysBetween,civilReference,localDate,shiftCivilDate,type CivilReference} from './civil-time.ts';
-import {validateTask,type TaskDeadline,type TaskIdentity,type TaskMaterial} from './pending-task.ts';
+import {evaluateTaskDeadline,validateTask,type TaskDeadline,type TaskIdentity,type TaskMaterial} from './pending-task.ts';
 
 const effects={
  block:['block','hold-expiry-review','Revisar bloqueo de alojamiento'],
@@ -28,6 +28,13 @@ export type ApprovedTaskEvent=Base & Readonly<{
  balance?:Readonly<{reference:CivilReference;verifiedRemaining:string}>;
 }>;
 export type ApprovedTaskNeed=Readonly<{identity:TaskIdentity;material:TaskMaterial;reason:string}>;
+/** Overdue is a separate condition of pending work, never a lifecycle state. */
+export function evaluateApprovedTaskCondition(task:Readonly<{state:'pending'|'completed'|'cancelled';
+ material:Pick<TaskMaterial,'deadline'>}>,at:Readonly<{date?:string;instant?:string}>) {
+ if(!['pending','completed','cancelled'].includes(task?.state))invalid();
+ const result=evaluateTaskDeadline(task.material.deadline,at);
+ return {...result,overdue:task.state==='pending'&&result.overdue};
+}
 function invalid():never{throw new Error('TASK_TRIGGER_INPUT_INVALID');}
 function filled(x:unknown):x is string{return typeof x==='string'&&x.trim().length>0;}
 function deadlineUnknown(reason:string):TaskDeadline {if(!filled(reason))invalid();return {kind:'unknown',reason};}
