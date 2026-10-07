@@ -1,5 +1,10 @@
 # Tasks — SPEC 001 Core CRM
 
+**TSK-H5-001/002 COMPLETED local/aislado — 2026-10-07.** Base autorizada `98ac77fda7ccf769ef3f05633b5bf8a4a59cec95`; expected independiente `9c0afccd73b9ac209bdcff9ddcbfd93a31f76230` intacto; SHA exacto probado `6478d0f835fc89f38a17042ba2342105034e6883`. Matriz 26/26 casos y 20 filas de Tasks §6; 2340/2340 PostgreSQL = 2321 previos + 19 H5, 142/142 unitarias = 138 + 4, health independiente 1/1. Frozen install, typecheck, lint/boundaries, build, audit producción, V-MIG fresh/upgrade 52→53/rollback y advisors loopback PASS. Dos órdenes reales de carrera, RLS/FORCE RLS, T09 y cierre sin acreditar hechos originarios comprobados. F01–F08 conservados con retests: F07 material corregido antes del SHA probado; F08 entorno por memoria compartida, repetido íntegramente PASS. H0 técnico/local/aislado y H1–H4 COMPLETED anteriores conservados; H5-003 en adelante y H6 NOT STARTED. H5-004/H6-006, AC-058 integral y E2E-01 integral no acreditados; Hosted H2/H3 no acreditados, Hosted H4/Production no autorizados; DM-PENDING-005 y demás pendientes vigentes permanecen. STOP tras H5-001/002; continuidad exclusivamente al hilo de dirección CRM.
+
+[Evidencia H5-001/002](evidence-TSK-H5-001-002.md), [matriz](matrix-TSK-H5-002.md), [defectos](defects-TSK-H5-002.md).
+
+
 **TSK-H4-024 y H4 COMPLETED local/aislado — 2026-10-07.** Base exacta `cfa635f87354bea7fd090a6890995b05130ad671`; expected independiente publicado `ba9b9f7f25a44b3999fa9f609e26d696a829f449` intacto; SHA exacto probado/publicado `a6e28cb099ce1ba0f13382b69d992adde25601e6`. Matriz de salida 32/32 PASS, sin filas normativas nuevas; 246 correspondencias de dependencias congeladas. PostgreSQL 2321/2321 = 2240 previos + 81 nuevos incluidos una vez; 138/138 unitarias y health 1/1 independiente separado. Frozen install/typecheck/lint-imports-boundaries/build/auditoría producción/V-MIG/advisors loopback/diff/preservación/auditor PASS. Las 52 migraciones y 464 archivos protegidos intactos; tres salidas históricas generadas archivadas/restauradas byte a byte. Cero cambios de producto, permisos, migraciones, dependencias o health. 28 intercalaciones económicas nuevas sobre 52 con dos sesiones del mismo administrador y raíces/cadena observadas; 32 operacionales H4-023 reejecutadas, sin doble conteo. F01–F05 exclusivamente técnicos CLOSED, originales y retests conservados, sin material abierto. Primera regresión 1de3623 preservada; corrección sintáctica del auditor exigió nueva regresión completa en a6e28cb, sin cierre por arrastre. H0 técnico/local/aislado y H1–H3 local/aislado COMPLETED conservados; H4-001–024 COMPLETED local/aislado; H5–H6 NOT STARTED. AC-058 integral en H5-014 y E2E-01 integral en H6-001; DM-PENDING-005 y pendientes globales abiertos. Hosted H2/H3 no acreditados; Hosted H4/Production no autorizados. Solo sintéticos y hechos externos simulados. STOP inequívoco tras publicar exclusivamente H4-024; continuidad vuelve al hilo de dirección H4.
 
 [Evidencia H4-024](evidence-TSK-H4-024.md), [matriz de salida](matrix-TSK-H4-024.md), [defectos técnicos](defects-TSK-H4-024.md).
@@ -1748,35 +1753,35 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-001 — Completar ciclo y disparadores de Task del negocio
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA en `6478d0f835fc89f38a17042ba2342105034e6883`.** Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Task mínimo ampliado con resultado/cancelación/reapertura, plazos y todos los disparadores aprobados.
 - **Fuentes exactas:** Plan §§8–10; SPEC-FR-ECON-002, SPEC-FR-COORD-001, SPEC-FR-COORD-002, SPEC-FR-COORD-003, AC-041, AC-043, AC-050, AC-083. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-001.
 - **Bloques, contratos y unidades:** B07/B08; C01/C02/C03/C06; T09.
 - **Entregable previsto:** Áreas propuestas de coordinación/seguimiento y migraciones. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H4-024], [TSK-H1-018], [TSK-H1-012]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H4 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Adelanto, fecha dentro2–3días o parámetros ausentes bloquean programación concreta; ninguna regla nueva. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Aplicar causas de BR-TASK-005, deduplicación por necesidad, cierre motivado y reapertura explícita; conservar origen/versionado.
+- **Bloqueo localizado / condición para levantarlo:** Adelanto, fecha dentro2–3días o parámetros ausentes bloquean programación concreta; ninguna regla nueva. El detalle de evidencia/decisión y puerta está en §7; no cambia la acreditación local ni autoriza el efecto dependiente.
+- **Acción ejecutada:** Se aplicaron las causas de BR-TASK-005, deduplicación por necesidad, cierre motivado y reapertura explícita; conservar origen/versionado.
 - **Salida observable:** Ciclo aprobado sin estado En curso añadido; necesidades y tiempos explicables con parámetros versionados.
 - **Verificación y esperado:** Disparadores de bloqueo, anticipo/saldo, proveedor/factura/suplido/documento/lista, revisión/cambio/cancelación/propuesta/cifra final generan su necesidad sin duplicación; Task cerrada no acredita hecho; deadline desconocido no vencido; día límite completo; cifra específica no se propaga. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H5-002].
 - **Integración adicional obligatoria:** [TSK-H5-004], [TSK-H6-006]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA**: [matriz de 26 casos](matrix-TSK-H5-002.md) y [evidencia](evidence-TSK-H5-001-002.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-002"></a>
 
 #### TSK-H5-002 — Verificar: Completar ciclo y disparadores de Task del negocio
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: EJECUTADA en `6478d0f835fc89f38a17042ba2342105034e6883`.** Hito: H5. Tipo: comprobación.
 - **Objetivo y alcance:** Task mínimo ampliado con resultado/cancelación/reapertura, plazos y todos los disparadores aprobados.
 - **Fuentes exactas:** Plan §§8–10; SPEC-FR-ECON-002, SPEC-FR-COORD-001, SPEC-FR-COORD-002, SPEC-FR-COORD-003, AC-041, AC-043, AC-050, AC-083. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-002.
 - **Bloques, contratos y unidades:** B07/B08; C01/C02/C03/C06; T09.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H4-024], [TSK-H5-001]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H4 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Adelanto, fecha dentro2–3días o parámetros ausentes bloquean programación concreta; ninguna regla nueva. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-001; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** Adelanto, fecha dentro2–3días o parámetros ausentes bloquean programación concreta; ninguna regla nueva. El detalle de evidencia/decisión y puerta está en §7; no cambia la acreditación local ni autoriza el efecto dependiente.
+- **Acción ejecutada:** Se ejecutaron V-DOM + V-DAT + V-MIG sobre TSK-H5-001; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Ciclo aprobado sin estado En curso añadido; necesidades y tiempos explicables con parámetros versionados. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Disparadores de bloqueo, anticipo/saldo, proveedor/factura/suplido/documento/lista, revisión/cambio/cancelación/propuesta/cifra final generan su necesidad sin duplicación; Task cerrada no acredita hecho; deadline desconocido no vencido; día límite completo; cifra específica no se propaga. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA**: [matriz de 26 casos](matrix-TSK-H5-002.md) y [evidencia](evidence-TSK-H5-001-002.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-003"></a>
