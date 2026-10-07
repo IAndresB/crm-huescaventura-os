@@ -59,6 +59,8 @@ export function approvedTaskNeeds(e:ApprovedTaskEvent):readonly ApprovedTaskNeed
   if(p.followupDate){const interval=civilDaysBetween(localDate(p.createdDate),localDate(p.followupDate));if(interval<2||interval>3)invalid();}
   if(p.expiresDate&&civilDaysBetween(localDate(p.createdDate),localDate(p.expiresDate))<0)invalid();
   if(p.preExpiryDays!==undefined&&(!Number.isSafeInteger(p.preExpiryDays)||p.preExpiryDays<1))invalid();
+  if(p.expiresDate&&p.preExpiryDays!==undefined&&
+   civilDaysBetween(localDate(p.createdDate),shiftCivilDate(localDate(p.expiresDate),-p.preExpiryDays))<0)invalid();
   const follow=p.followupDate?civil(p.followupDate,e.sourceRef,e.sourceVersion):deadlineUnknown('Falta fecha concreta verificada dentro de 2–3 días');
   const expiry=p.expiresDate&&p.preExpiryDays!==undefined?
    civil(shiftCivilDate(localDate(p.expiresDate),-p.preExpiryDays),e.sourceRef,e.sourceVersion):
@@ -69,13 +71,16 @@ export function approvedTaskNeeds(e:ApprovedTaskEvent):readonly ApprovedTaskNeed
  if(e.cause==='final_participants') {
   if(!e.finalParticipants||e.deadline||e.proposal||e.balance)invalid();
   const p=e.finalParticipants;
+  if(p.reference.scope==='global'?(p.reference.scopeId!==e.contextId):
+   p.reference.scopeId!==e.scopeRef)invalid();
   const deadline=p.daysBefore===null?deadlineUnknown('Plazo específico de cifra final pendiente de verificar'):
    d020(p.reference,p.daysBefore??7,e.sourceRef,e.sourceVersion);
   return [make(effect,title,deadline,'Confirmación de cifra final por alcance')];
  }
  if(e.cause==='balance') {
   if(!e.balance||e.deadline||e.proposal||e.finalParticipants)invalid();
-  if(e.balance.reference.scope!=='global'||!/^(?:0|[1-9]\d*)\.\d{2}$/.test(e.balance.verifiedRemaining))invalid();
+  if(e.balance.reference.scope!=='global'||e.balance.reference.scopeId!==e.contextId||
+   !/^(?:0|[1-9]\d*)\.\d{2}$/.test(e.balance.verifiedRemaining))invalid();
   if(e.balance.verifiedRemaining==='0.00')return [];
   return [make(effect,title,d020(e.balance.reference,7,e.sourceRef,e.sourceVersion),
    'Saldo general verificado pendiente')];

@@ -8,6 +8,7 @@ import {evaluateTaskDeadline} from '../../src/domain/pending-task.ts';
 import {approvedTaskNeeds,type ApprovedTaskCause,type ApprovedTaskEvent} from '../../src/domain/approved-task-needs.ts';
 import {civilReference,dateAtInstant,instant,localDate,zoneEvidence} from '../../src/domain/civil-time.ts';
 import {invoiceFixture} from '../support/h3-invoice-fixtures.ts';
+import {obligationFixture} from '../support/h3-obligation-fixtures.ts';
 import type {TaskCommand} from '../../src/infrastructure/postgres/h1-task-adapter.ts';
 
 let h:Awaited<ReturnType<typeof isolatedReality>>;
@@ -61,6 +62,28 @@ test('H5-T05/T07/T08 missing guards and closed reception reject without side eff
  await assert.rejects(tasks.apply(await h.auth(),write,{...p,action:'update',expectedRevision:2,operationId:uid(),
   material:{...p.material,title:'Cambio silencioso prohibido'}}));
  assert.equal((await see(p))?.state,'cancelled');assert.equal((await history(p)).length,2);
+});
+
+test('H5-T23 missing creation guards and transition authority leave no Task or history',async()=>{
+ const p=task(),bad=[
+  {...p,reason:''},
+  {...p,identity:{...p.identity,causeId:''}},
+  {...p,identity:{...p.identity,scopeRef:''}},
+  {...p,material:{...p.material,title:''}},
+  {...p,material:{...p.material,sourceRef:''}},
+  {...p,material:{...p.material,priority:{kind:'pending' as const,reason:''}}},
+  {...p,material:{...p.material,deadline:{kind:'unknown' as const,reason:''}}},
+ ];
+ for(const input of bad)await assert.rejects(tasks.apply(await h.auth(),write,input));
+ assert.equal((await h.observer`select count(*)::int n from crm_private.b07_pending_tasks where task_id=${p.taskId}::uuid`)[0]!.n,0);
+ assert.equal((await h.observer`select count(*)::int n from crm_private.b07_history where subject_id=${p.taskId}::uuid`)[0]!.n,0);
+ await tasks.apply(await h.auth(),write,p);
+ const old=await history(p),state=await see(p);
+ for(const action of ['complete','cancel','reopen'] as const){
+  await assert.rejects(tasks.transition({} as never,write,transition(p,action,1)));
+  await assert.rejects(tasks.transition(await h.auth(),read,transition(p,action,1)));
+ }
+ assert.deepEqual(await history(p),old);assert.deepEqual(await see(p),state);
 });
 
 test('H5-T02/T04 stable identity converges and related distinct need survives',async()=>{
@@ -131,9 +154,9 @@ test('H5-T19 all thirteen approved trigger needs persist without duplicate ident
   'participants_list','availability','modification','cancellation','proposal','final_participants'];
  let count=0;
  for(const cause of causes){
-  const scopeId=uid(),reference=civilReference({scope:'global',scopeId},localDate('2026-10-20'),
+  const scopeId=uid(),contextId=uid(),reference=civilReference({scope:'global',scopeId:contextId},localDate('2026-10-20'),
    zoneEvidence('Europe/Madrid','synthetic zone','1'),'synthetic contracted date','1');
-  const event={cause,causeId:uid(),contextKind:'booking',contextId:uid(),scopeRef:scopeId,
+  const event={cause,causeId:uid(),contextKind:cause==='proposal'?'proposal':'booking',contextId,scopeRef:scopeId,
    sourceRef:'synthetic-source-'+cause,sourceVersion:'1',
    ...(cause==='proposal'?{proposal:{createdDate:'2026-10-01'}}:{}),
    ...(cause==='balance'?{balance:{reference,verifiedRemaining:'50.00'}}:{}),
@@ -177,6 +200,22 @@ test('H5-T13/T14/T15/T20 hour change retains interval; date change revises only 
  assert.equal((changed!.after_state.material.deadline.reference as {date:string}).date,'2026-10-22');
 });
 
+test('H5-T12 balance need derives remaining amount from signed H3 obligation read',async()=>{
+ const f=await obligationFixture(h);
+ await h.obligations.apply(await h.auth(),write,f.q);
+ const record=await h.obligations.read(await h.auth(),read,f.q.bookingId,f.q.scheduleId!);
+ assert.equal(record?.current.snapshot.parts.find(p=>p.slot==='balance')?.amount,'500.00');
+ const needs=await tasks.balanceNeeds(await h.auth(),read,f.q.bookingId,f.q.scheduleId!);
+ assert.equal(needs.length,1);
+ assert.equal(needs[0]!.identity.contextId,f.q.bookingId);
+ assert.equal(needs[0]!.material.deadline.kind,'d020');
+ const p=task({identity:needs[0]!.identity,material:needs[0]!.material,reason:needs[0]!.reason});
+ await tasks.apply(await h.auth(),write,p);
+ assert.equal(evaluateTaskDeadline((await see(p))!.material.deadline,{date:'2026-10-13'}).overdue,false);
+ assert.equal(evaluateTaskDeadline((await see(p))!.material.deadline,{date:'2026-10-14'}).overdue,true);
+ await assert.rejects(tasks.balanceNeeds(await h.auth(),read,uid(),f.q.scheduleId!));
+});
+
 test('H5-T17/T18 AC083 missing proposal parameters stay localized while independent Task proceeds',async()=>{
  const base={cause:'proposal' as const,causeId:uid(),contextKind:'proposal',contextId:uid(),scopeRef:uid(),
   sourceRef:'synthetic-proposal',sourceVersion:'1',proposal:{createdDate:'2026-10-01',expiresDate:'2026-10-10'}};
@@ -188,6 +227,14 @@ test('H5-T17/T18 AC083 missing proposal parameters stay localized while independ
  await tasks.apply(await h.auth(),write,independent);
  assert.equal((await see(independent))?.material.deadline.kind,'civil');
  assert.equal(evaluateTaskDeadline((await see(independent))!.material.deadline,{date:'2026-10-14'}).overdue,true);
+ for(const missingParameter of ['Falta límite aprobado de reintentos','Falta pausa aprobada de automatismo']){
+  const need=approvedTaskNeeds({cause:'document',causeId:uid(),contextKind:'booking',contextId:uid(),
+   scopeRef:uid(),sourceRef:'synthetic-automation-parameter',sourceVersion:'1',missingParameter})[0]!;
+  const pending=task({...need,reason:need.reason});
+  await tasks.apply(await h.auth(),write,pending);
+  assert.equal((await see(pending))?.material.deadline.kind,'unknown');
+  assert.equal(((await see(pending))?.material.deadline as {reason:string}).reason,missingParameter);
+ }
 });
 
 test('H5-T21 RLS/FORCE RLS and direct runtime/anon denied',async()=>{

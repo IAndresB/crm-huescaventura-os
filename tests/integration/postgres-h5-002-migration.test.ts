@@ -1,7 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID as uid} from 'node:crypto';
-import {readFile} from 'node:fs/promises';
+import {spawnSync} from 'node:child_process';
+import {readFile,writeFile} from 'node:fs/promises';
 import {isolatedReality,read,write} from '../support/h4-reality-isolated.ts';
 import {H5001TaskAdapter} from '../../src/infrastructure/postgres/h5-task-adapter.ts';
 import type {TaskCommand} from '../../src/infrastructure/postgres/h1-task-adapter.ts';
@@ -49,5 +50,24 @@ test('H5-R02 populated 52→53 upgrade, failed DDL rollback and retry preserve p
   await adapter.transition(await h.auth(),write,{action:'complete',operationId:uid(),taskId:p.taskId,
    expectedRevision:1,reason:'Terminación sintética',result:'Revisado',references:['synthetic-prior-record']});
   assert.equal((await adapter.read(await h.auth(),read,p.taskId,'other',p.identity.contextId))?.state,'completed');
+ }finally{await h.close();}
+});
+
+test('H5-R02 official Supabase advisors on fresh 53 isolated migrations',async()=>{
+ const label='crm_h5002_advisors',port=58704,h=await isolatedReality(label,port);
+ try{
+  await h.migration.unsafe(await readFile(file,'utf8'));
+  const args=['--yes','supabase@2.119.0','db','advisors','--db-url',
+   `postgresql://crm_h0_migration@127.0.0.1:${port}/${label}?sslmode=disable`,
+   '--type','all','--fail-on','error'];
+  const result=spawnSync('npx',args,{encoding:'utf8',timeout:45000});
+  if(process.env.H5002_CAPTURE_DIR){
+   await writeFile(`${process.env.H5002_CAPTURE_DIR}/advisors.stdout.log`,result.stdout??'');
+   await writeFile(`${process.env.H5002_CAPTURE_DIR}/advisors.stderr.log`,result.stderr??'');
+   await writeFile(`${process.env.H5002_CAPTURE_DIR}/advisors.status.json`,JSON.stringify({status:result.status,
+    signal:result.signal,error:result.error?.message??null},null,2)+'\n');
+  }
+  assert.equal(result.status,0,(result.stdout??'')+(result.stderr??''));
+  assert.deepEqual(JSON.parse(result.stdout).results,[]);
  }finally{await h.close();}
 });

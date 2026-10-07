@@ -3,6 +3,9 @@ import {issueTrustedContext} from "../../application/trusted-context.ts";
 import {isVerifiedAuth,type VerifiedAuthEvidence} from "../../application/verified-auth.ts";
 import {isVerifiedServerInteraction,type VerifiedServerInteraction} from "../../application/verified-interaction.ts";
 import {canonicalTask} from "../../domain/pending-task.ts";
+import {approvedTaskNeeds,type ApprovedTaskNeed} from "../../domain/approved-task-needs.ts";
+import {remainingRight} from "../../domain/exact-money.ts";
+import {H3001ObligationAdapter} from "./h3-obligation-adapter.ts";
 import {H1017TaskAdapter,type TaskCommand,type PendingTask} from "./h1-task-adapter.ts";
 import {createF1Issuer,encodeF1Fields,type F1SigningConfiguration} from "./f1-codec.ts";
 import {createF2Issuer,type F2SigningConfiguration} from "./f2-codec.ts";
@@ -22,15 +25,32 @@ type Result={id:string;replayed:boolean};
 export class H5001TaskAdapter {
  private readonly sql:PostgresSql;
  private readonly earlier:H1017TaskAdapter;
+ private readonly obligations:H3001ObligationAdapter;
  private readonly f1:ReturnType<typeof createF1Issuer>;
  private readonly f2:ReturnType<typeof createF2Issuer>;
  constructor(sql:PostgresSql,f1:F1SigningConfiguration,f2:F2SigningConfiguration) {
   this.sql=sql;
   this.earlier=new H1017TaskAdapter(sql,f1,f2);
+  this.obligations=new H3001ObligationAdapter(sql,f1,f2);
   this.f1=createF1Issuer(f1);this.f2=createF2Issuer(f2);
  }
  apply(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,input:TaskCommand):Promise<Result> {
   return this.earlier.apply(auth,interaction,input);
+ }
+ /** Build a balance need only from the authorized H3 obligation and its admitted coverage. */
+ async balanceNeeds(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,bookingId:string,
+  scheduleId:string):Promise<readonly ApprovedTaskNeed[]> {
+  const record=await this.obligations.read(auth,interaction,bookingId,scheduleId);
+  if(!record)throw new Error("TASK_SOURCE_NOT_FOUND");
+  const snapshot=record.current.snapshot,reference=snapshot.reference;
+  if(reference.scope!=="global"||reference.scopeId!==bookingId)throw new Error("TASK_SOURCE_SCOPE_INVALID");
+  const part=snapshot.parts.find(p=>p.slot==="balance");
+  if(!part)return [];
+  const coverage=record.coverage?.find(c=>c.slot==="balance")?.verifiedAmount??"0.00";
+  const verifiedRemaining=remainingRight(part.amount,[coverage]);
+  return approvedTaskNeeds({cause:"balance",causeId:scheduleId,contextKind:"booking",contextId:bookingId,
+   scopeRef:bookingId,sourceRef:`H3-OBLIGATION:${scheduleId}`,sourceVersion:reference.version,
+   balance:{reference,verifiedRemaining}});
  }
  async read(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,taskId:string,
   contextKind:string,contextId:string):Promise<BusinessTask|null> {
