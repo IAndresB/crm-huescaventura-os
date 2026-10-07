@@ -45,7 +45,7 @@ test('H5-AQ/AZ/AAD expected base inventory old product D027 health and 53 migrat
  const expected='specs/001-core-crm/expected-TSK-H5-003-004.md';assert.equal(await readFile(expected,'utf8'),git(['show','7cfa0ee:'+expected]));
  const tasks=git(['show',base+':specs/001-core-crm/tasks.md']);const rows=tasks.split('## 6. Matrices de trazabilidad')[1]!.split('## 7.')[0]!.split('\n').filter(x=>x.startsWith('|')&&/\[TSK-H5-00[34]\]/.test(x));
  assert.equal(rows.length,10);for(const row of rows)assert.ok((await readFile(expected,'utf8')).includes(row));
- const files=(await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql'));assert.equal(files.length,54);assert.equal(prior.filter(x=>x.startsWith('supabase/migrations/')).length,53);
+ const files=(await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')&&x<=migration.split('/').at(-1)!);assert.equal(files.length,54);assert.equal(prior.filter(x=>x.startsWith('supabase/migrations/')).length,53);
  const newProduct=['src/domain/internal-alert.ts','src/infrastructure/postgres/h5-alert-adapter.ts',migration];
  for(const file of newProduct){const s=await readFile(file,'utf8');assert.doesNotMatch(s,/\b(fetch\(|setInterval\(|cron\.schedule|https:\/\/|twilio|evolution-api|n8n)/i);}
  await capture('preservation',{base,expected:'7cfa0ee6e03662e3be645c0da3168a6bfd9c79ed',priorFiles:prior,rows,migrations:{before:53,added:1,after:54}});

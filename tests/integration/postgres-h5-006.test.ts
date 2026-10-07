@@ -177,3 +177,22 @@ test('H5-CAA/CAB exact HA rejects other content recipient conditions amount acti
  const m={...exact,...change}as typeof exact,p='p-'+uid();await h.tte.propose(await h.auth(),write,p,'ai',m);await h.tte.decide(await h.auth(),write,'d-'+uid(),p,'d-'+uid(),'approved','Otro contenido sintético',fingerprintHumanApprovalMaterial(m));assert.equal((await f.see()).work[0].approval,null);
  }await f.approve(d);assert.ok((await f.see()).work[0].approval);
 });
+test('H5-CAD/CAV H1 fact path cannot bypass exact approval of composed content',async()=>{
+ const f=await communicationFixture(h),d=f.draft();await f.run(d);await f.prepare(d);const p=await f.fact('sent',d.workId);
+ const command={action:'create' as const,operationId:uid(),targetId:uid(),kind:'communication_fact' as const,material:{fact_kind:'sent',evidence_id:p.evidenceId,party_ref:p.party,coverage:p.coverage},originalId:f.recordId,sourceRef:'synthetic-proof',...f.context,occurredAt:p.at,coverage:p.coverage,reason:'Intento por superficie H1'};
+ await assert.rejects(h.evidence.apply(await h.auth(),write,command));await f.approve(d);await f.run(p);
+ const s=await f.see();assert.equal(s.registeredFacts.length,1);assert.equal(s.registeredFacts[0].record_kind,'communication_fact');assert.equal(s.registeredFacts[0].material.fact_kind,'sent');
+});
+test('H5-CB/CD/CAT HA before preparation is historical and does not retroactively approve',async()=>{
+ const f=await communicationFixture(h),d=f.draft();await f.run(d);await f.approve(d);await f.prepare(d);assert.equal((await f.see()).work[0].approval,null);await assert.rejects(f.run(await f.fact('sent',d.workId)));await f.approve(d);assert.ok((await f.see()).work[0].approval);
+});
+test('H5-CAV informative human preparation accepts explicit synthetic proof without inventing universal HA',async()=>{
+ const f=await communicationFixture(h),original=f.draft(),d={...original,material:{...original.material,nature:'informative' as const,origin:'human' as const}};
+ await f.run(d);await f.prepare(d);await f.run(await f.fact('sent',d.workId));const s=await f.see();assert.equal(s.work[0].approval,null);assert.equal(s.work.filter((x:any)=>x.kind==='sent').length,1);assert.equal(s.externalSendEnabled,false);
+});
+test('H5-CU/CV/CZ normative18 is a real Core Provider Confirmation preserved against candidate16',async()=>{
+ const {confirmationFixture}=await import('../support/h4-confirmation-fixtures.ts');const c=await confirmationFixture(h);await c.apply(await c.register({coverage:{...c.coverage,quantity:'18'},content:'SYNTHETIC manual confirmation exactly18'}));
+ const before=await c.state();assert.equal(before!.fact.coverage.quantity,'18');const f=await communicationFixture(h,'incoming',c.bookingId);await f.run(f.derive());assert.deepEqual(await c.state(),before);
+ const s=await f.see();assert.equal(s.work[0].material.content,'quizá 16');assert.ok(s.work[0].task_id);assert.equal(s.work[0].material.reviewState,'pending');assert.equal((await h.observer`select material->>'certainty' certainty from crm_private.b07_records where record_id=${s.work[0].work_id}::uuid`)[0]!.certainty,'candidate');
+ await capture('normative-18',{confirmationBefore:before,confirmationAfter:await c.state(),candidate:s});
+});
