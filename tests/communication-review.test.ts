@@ -1,0 +1,11 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {randomUUID as uid} from 'node:crypto';
+import {validateCommunication,canonicalCommunication,type CommunicationCommand} from '../src/domain/communication-review.ts';
+import {communicationApproval} from '../src/infrastructure/postgres/h5-communication-adapter.ts';
+import {fingerprintHumanApprovalMaterial} from '../src/infrastructure/postgres/h0-011-adapter.ts';
+const draft=():CommunicationCommand=>({action:'draft',operationId:uid(),workId:uid(),recordId:uid(),contextKind:'booking',contextId:uid(),purpose:'synthetic',sourceRef:'synthetic',reason:'synthetic',at:'2026-10-07T12:00:00Z',previousId:null,material:{content:'synthetic',coverage:'scope',recipient:'recipient',sourceRef:'source',nature:'sensitive',origin:'synthetic_automatic',pending:[]}});
+test('H5-CB deterministic preparation material is valid',()=>{assert.doesNotThrow(()=>validateCommunication(draft()));});
+test('H5-CG canonical identical material is stable without classifying changed text nonmaterial',()=>{const p=draft();assert.equal(canonicalCommunication(p),canonicalCommunication(Object.fromEntries(Object.entries(p).reverse())));});
+test('H5-CAA sensitive template never adds permission through unknown fields',()=>{assert.throws(()=>validateCommunication({...draft(),templateApproved:true}as never),/COMM_INPUT_INVALID/);});
+test('H5-CAB Human Approval fingerprint changes content version recipient and scope',()=>{const p=draft(),a=communicationApproval('admin',p.recordId,p.workId,{content:'A'},'recipient');const first=fingerprintHumanApprovalMaterial(a);for(const b of [communicationApproval('admin',p.recordId,p.workId,{content:'B'},'recipient'),communicationApproval('admin',p.recordId,uid(),{content:'A'},'recipient'),communicationApproval('admin',p.recordId,p.workId,{content:'A'},'other'),communicationApproval('other',p.recordId,p.workId,{content:'A'},'recipient')])assert.notEqual(fingerprintHumanApprovalMaterial(b),first);});

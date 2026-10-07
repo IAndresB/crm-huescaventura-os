@@ -49,6 +49,7 @@ grant execute on function crm_private.communication_approval(crm_private.b07_com
 
 create function crm_api.b07_communication_apply(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea)
 returns jsonb language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
+#variable_conflict use_column
 declare hf text[];tf text[];v text[];m jsonb;a text;scope text;actor uuid;opid uuid;id uuid;rid uuid;
  rec crm_private.b07_records%rowtype;orig crm_private.b07_records%rowtype;confirmed crm_private.b07_records%rowtype;
  old crm_private.b07_operations%rowtype;prior crm_private.b07_communication_work%rowtype;existing crm_private.b07_communication_work%rowtype;
@@ -174,6 +175,7 @@ end $$;
 
 create function crm_api.b07_communication_read(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea)
 returns jsonb language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
+#variable_conflict use_column
 declare hf text[];tf text[];v text[];m jsonb;rec crm_private.b07_records%rowtype;result jsonb;
 begin
  hf:=crm_f2.admit(f2p,f2s,q,'C01','read_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');

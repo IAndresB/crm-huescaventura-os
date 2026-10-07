@@ -94,3 +94,61 @@ test('H5-CAD FORCE RLS owners runtime anon authenticated direct SQL deny',async(
  await h.admin.begin(async tx=>{await tx.unsafe('set local role crm_h0_f2_owner');assert.equal((await tx.unsafe(`select count(*)::int n from crm_private.${t}`))[0]!.n,0);});
  await assert.rejects(h.runtime.unsafe('select crm_api.b07_communication_apply(null,null,null,null,null)'));
 });
+for(const table of ['b07_records','b07_pending_tasks','b07_communication_work','b07_history'])test(`H5-CAG internal candidate Review Task rollback at ${table}`,async()=>{
+ const f=await communicationFixture(h),p=f.derive();const counts=async()=>{const out:Record<string,number>={};for(const t of ['b07_records','b07_pending_tasks','b07_communication_work','b07_history','b07_operations'])out[t]=(await h.observer.unsafe(`select count(*)::int n from crm_private.${t}`))[0]!.n;return out;};const before=await counts();
+ await h.admin.unsafe("create function crm_private.h5006_fail() returns trigger language plpgsql as $$begin raise exception 'H5006_INJECTED';end$$");await h.admin.unsafe(`create trigger h5006_fail before insert on crm_private.${table} for each row execute function crm_private.h5006_fail()`);
+ try{await assert.rejects(f.run(p));}finally{await h.admin.unsafe(`drop trigger h5006_fail on crm_private.${table}`);await h.admin.unsafe('drop function crm_private.h5006_fail()');}
+ assert.deepEqual(await counts(),before);await f.run(p);assert.equal((await f.see()).work.length,1);
+});
+test('H5-CAG deferred commit failure leaves no candidate or Task and retry succeeds',async()=>{
+ const f=await communicationFixture(h),p=f.derive();await h.admin.unsafe("create function crm_private.h5006_fail() returns trigger language plpgsql as $$begin raise exception 'H5006_COMMIT';end$$");
+ await h.admin.unsafe('create constraint trigger h5006_fail after insert on crm_private.b07_communication_work deferrable initially deferred for each row execute function crm_private.h5006_fail()');
+ try{await assert.rejects(f.run(p));}finally{await h.admin.unsafe('drop trigger h5006_fail on crm_private.b07_communication_work');await h.admin.unsafe('drop function crm_private.h5006_fail()');}
+ assert.deepEqual((await f.see()).work,[]);assert.equal((await h.observer`select count(*)::int n from crm_private.b07_pending_tasks where identity->>'causeId'=${f.confirmedId}`)[0]!.n,0);await f.run(p);
+});
+test('H5-CAG T08 existing D039 approval rollback preserves prepared content and no reservation',async()=>{
+ const f=await communicationFixture(h),d=f.draft();await f.run(d);await f.prepare(d);
+ await h.admin.unsafe("create function crm_ha.h5006_fail() returns trigger language plpgsql as $$begin raise exception 'H5006_HA_COMMIT';end$$");
+ await h.admin.unsafe('create constraint trigger h5006_fail after insert on crm_ha.decisions deferrable initially deferred for each row execute function crm_ha.h5006_fail()');
+ try{await assert.rejects(f.approve(d));}finally{await h.admin.unsafe('drop trigger h5006_fail on crm_ha.decisions');await h.admin.unsafe('drop function crm_ha.h5006_fail()');}
+ assert.equal((await f.see()).work[0].approval,null);assert.equal((await f.see()).work[0].prepared,true);await f.approve(d);assert.ok((await f.see()).work[0].approval);
+ await assert.rejects(h.runtime.unsafe('select * from crm_api.h0_m04_command(null,null,null,null,null)'));
+});
+test('H5-CAY real two PostgreSQL sessions overlap both orders equivalent and distinct candidates',async()=>{
+ const observations=[];
+ for(const distinct of [false,true])for(const order of [0,1]){
+ const f=await communicationFixture(h),one=f.derive(),two={...one,operationId:uid(),workId:uid(),...(distinct?{content:'quizá 17'}:{})};const commands=order?[two,one]:[one,two];
+ await h.admin.unsafe("create function crm_private.h5006_wait() returns trigger language plpgsql as $$begin perform pg_advisory_xact_lock(7643506);return new;end$$");await h.admin.unsafe('create trigger h5006_wait before insert on crm_private.b07_communication_work for each row execute function crm_private.h5006_wait()');
+ let release!:()=>void,ready!:()=>void;const done=new Promise<void>(r=>release=r),held=new Promise<void>(r=>ready=r);
+ const holder=h.admin.begin(async tx=>{await tx.unsafe('select pg_advisory_xact_lock(7643506)');ready();await done;});await held;
+ const watcher=h.connect('h2_bootstrap');const wait=async(n:number)=>{for(let i=0;i<120;i++){
+ const rows=await watcher.unsafe("select pid,backend_xid,wait_event_type,wait_event,pg_blocking_pids(pid) blockers from pg_stat_activity where usename='crm_h0_runtime' and wait_event_type='Lock' and query like '%b07_communication_apply%' order by pid");if(rows.length>=n)return Array.from(rows);await new Promise(r=>setTimeout(r,20));}throw new Error('H5006_OVERLAP_MISSING');};
+ const first=f.run(commands[0]!);let second:ReturnType<typeof f.run>|undefined,waiting:unknown[]=[];let results:PromiseSettledResult<unknown>[]=[];
+ try{await wait(1);second=f.run(commands[1]!);waiting=await wait(2);}finally{release();await holder;results=await Promise.allSettled(second?[first,second]:[first]);await h.admin.unsafe('drop trigger h5006_wait on crm_private.b07_communication_work');await h.admin.unsafe('drop function crm_private.h5006_wait()');}
+ assert.equal(waiting.length,2);assert.equal(results.filter(x=>x.status==='fulfilled').length,2);const s=await f.see();assert.equal(s.work.length,distinct?2:1);assert.equal(new Set(s.work.map((x:any)=>x.task_id)).size,1);
+ assert.equal((await h.observer`select count(*)::int n from crm_private.b07_pending_tasks where identity->>'causeId'=${f.confirmedId}`)[0]!.n,1);observations.push({distinct,order,waiting,results,state:s});
+ }await capture('concurrency',observations);
+});
+test('H5-CAC F1 F2 corruption and wrong interaction cannot write or replay',async()=>{
+ const f=await communicationFixture(h),p=f.derive();for(const authority of ['f1','f2']){const bad=new H5005CommunicationAdapter(h.runtime,authority==='f1'?{...h.f1,key:new Uint8Array(32)}:h.f1,authority==='f2'?{...h.f2,key:new Uint8Array(32)}:h.f2);await assert.rejects(bad.apply(await h.auth(),write,p));await assert.rejects(bad.read(await h.auth(),read,f.recordId,f.context));}
+ await assert.rejects(h.communications.apply(await h.auth(),read,p));await assert.rejects(h.communications.read(await h.auth(),write,f.recordId,f.context));assert.deepEqual((await f.see()).work,[]);
+});
+test('H5-CAN/CAM/CAI/CAJ/CAK/CAL/CAO/CAP/CAU forbidden inferred effects and unsupported privacy fields reject',async()=>{
+ const f=await communicationFixture(h),p=f.derive();for(const extra of [{audio:'bytes'},{retentionDays:30},{consent:true},{deleteOriginal:true},{provider:'PLAUD'},{send:true},{confirmed:true},{acceptance:true},{providerConfirmation:true},{automaticOverwrite:true}])await assert.rejects(f.run({...p,...extra}as never));
+ for(const action of ['send','accept','confirm','delete','anonymize','run_ai','record_audio'])await assert.rejects(f.run({...p,action}as never));assert.deepEqual((await f.see()).work,[]);
+});
+test('H5-CAH/CR original Storage object absence and missing metadata never become conserved evidence',async()=>{
+ const f=await communicationFixture(h),p=f.derive('summary'),bytes=Buffer.from('Transcripción original PLAUD exclusivamente sintética.');
+ const {createHash}=await import('node:crypto');const versionId=uid(),rootId=uid();
+ await h.objects.prepare(await h.auth(),write,{...f.context,operationId:uid(),versionId,rootId,expectedVersion:0,documentId:f.originalId,digest:createHash('sha256').update(bytes).digest('hex'),size:bytes.length,media:'text/plain',sourceRef:'synthetic-PLAUD',reason:'Conservación autorizada sintética'});
+ await f.run(p);let s=await f.see();assert.equal(s.work[0].objectConservation[0].state,'prepared');
+ await assert.rejects(h.objects.download(await h.auth(),read,versionId,f.context));
+ await h.objects.upload(await h.auth(),read,write,versionId,f.context,bytes,uid());await h.objects.reconcile(await h.auth(),read,write,versionId,f.context,uid());await h.objects.link(await h.auth(),read,write,versionId,f.context,uid());
+ assert.deepEqual(Buffer.from(await h.objects.download(await h.auth(),read,versionId,f.context)),bytes);s=await f.see();assert.equal(s.work[0].objectConservation[0].state,'stored');await capture('storage-conservation',s);
+});
+test('H5-CV new discrepancy after Task closure reopens same need with closure history intact',async()=>{
+ const {H5001TaskAdapter}=await import('../../src/infrastructure/postgres/h5-task-adapter.ts');const tasks=new H5001TaskAdapter(h.runtime,h.f1,h.f2);
+ const f=await communicationFixture(h),p=f.derive();await f.run(p);const id=(await f.see()).work[0].task_id;
+ await tasks.transition(await h.auth(),write,{action:'complete',operationId:uid(),taskId:id,expectedRevision:1,reason:'Revisión previa sintética',result:'Candidato revisado',references:[p.workId]});
+ await f.run({...p,operationId:uid(),workId:uid(),content:'quizá 15'});const row=await tasks.read(await h.auth(),read,id,'booking',f.context.contextId);assert.equal(row!.state,'pending');assert.ok(row!.last_closure);assert.equal((await f.see()).work.length,2);
+});
