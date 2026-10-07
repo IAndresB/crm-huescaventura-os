@@ -8,7 +8,7 @@ const report=JSON.parse(readFileSync(root+'verification.json','utf8'));
 const expected=readFileSync('specs/001-core-crm/expected-TSK-H5-005-006.md');
 assert.equal(expected.length,22889);assert.equal(createHash('sha256').update(expected).digest('hex'),'ff777aa0a490e0293f9a12a462fcbab389253edbd2925c1a1e2bdf2ac5f092a4');
 assert.equal(report.base,'7eac0d27b6b74331868a14bbc4ca967f8d2f6bb9');assert.equal(report.expected,'b14396627cbadfc4a99dd3b158b47c3562d3f08f');
-for(const name of ['focal','postgres','unit','health','frozen','typecheck','lint','build','audit','diff']){
+for(const name of ['focal','postgres','unit','health','frozen','typecheck','lint','build','audit','diff','historical','historical-negative']){
  const status=JSON.parse(readFileSync(root+name+'-final.status.json','utf8'));assert.equal(status.sha,report.testedSha);assert.equal(status.exit,0,name);
 }
 for(const [name,n]of [['focal',report.newPostgres],['postgres',2370+report.newPostgres],['unit',150],['health',1]]){

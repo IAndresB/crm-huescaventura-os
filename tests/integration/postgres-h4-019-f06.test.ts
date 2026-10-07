@@ -1,3 +1,4 @@
+import {assertHistoricalBytes} from '../support/h5-006-dependency-preservation.ts';
 import {test,beforeEach,afterEach}from'node:test';import assert from'node:assert/strict';import{randomUUID as uid,createHash}from'node:crypto';import{readFile,writeFile}from'node:fs/promises';
 import{isolatedDeposit,write}from'../support/h4-deposit-isolated.ts';import{allocationFixture}from'../support/h3-allocation-fixtures.ts';import{refundFixture}from'../support/h4-refund-fixtures.ts';import{depositFixture}from'../support/h4-deposit-fixtures.ts';import{f06Migration}from'../support/h4-019-current-chain.ts';import{H0005PostgresAdapter}from'../../src/infrastructure/postgres/h0-005-adapter.ts';import{verifyAuth}from'../../src/application/verified-auth.ts';
 let h:Awaited<ReturnType<typeof isolatedDeposit>>;beforeEach(async()=>{h=await isolatedDeposit('crm_f06_authority',57210);await h.migration.unsafe(await readFile('supabase/migrations/'+f06Migration,'utf8'));});afterEach(async()=>{await h?.close();});
@@ -52,10 +53,10 @@ test('A10 V-MIG upgrade48 populated, injected DDL rollback retry, exact data/cat
  }finally{await g.close();}
 });
 import {spawnSync}from'node:child_process';
-test('A11 base48 migrations all expected approved sources dependencies health byte exact',async()=>{
+test('A11 base48 migrations expected sources health; exact F10 dependency exception',async()=>{
  const base='f8318fad8bf8a7b6d8224330dc1b8840288dba60';const list=spawnSync('git',['ls-tree','-r','--name-only',base],{encoding:'utf8',maxBuffer:32*1024*1024});assert.equal(list.status,0);
  const paths=list.stdout.split('\n').filter(p=>p.startsWith('supabase/migrations/')||/\/expected-.*\.md$/.test(p)||['package.json','pnpm-lock.yaml','docs/constitution.md','docs/product.md','docs/business-rules.md','docs/domain-model.md','docs/state-machines.md','docs/architecture.md','docs/DECISIONS.md','specs/001-core-crm/spec.md','specs/001-core-crm/plan.md','supabase/operations/20261002225221_crm_supabase_daily_health.sql','tests/operations/supabase-health.test.mjs','docs/SUPABASE-KEEPALIVE.md'].includes(p));assert.equal(paths.filter(p=>p.startsWith('supabase/migrations/')).length,48);
- const manifest:Record<string,string>={};for(const p of paths){const old=spawnSync('git',['show',base+':'+p]);assert.equal(old.status,0);const bytes=await readFile(p);assert.deepEqual(bytes,old.stdout,p);manifest[p]=createHash('sha256').update(bytes).digest('hex');}
+ const manifest:Record<string,string>={};for(const p of paths){const old=spawnSync('git',['show',base+':'+p]);assert.equal(old.status,0);const bytes=await readFile(p);assertHistoricalBytes(p,bytes,old.stdout);manifest[p]=createHash('sha256').update(bytes).digest('hex');}
  const expected='specs/001-core-crm/expected-TSK-H4-019-F06.md';assert.deepEqual(await readFile(expected),spawnSync('git',['show','6c1f060a560e28e513e87f186e16a54911a1a444:'+expected]).stdout);manifest[expected]=hash(await readFile(expected,'utf8'));console.log('F06 exact immutable manifest',JSON.stringify(manifest));if(process.env.H4014_CAPTURE_DIR)await writeFile(process.env.H4014_CAPTURE_DIR+'/f06-immutable.json',JSON.stringify(manifest,null,2)+'\n');
 });
 test('A12 official advisors on current49 loopback full stdout/stderr/status',async()=>{
