@@ -1,5 +1,11 @@
 # Tasks — SPEC 001 Core CRM
 
+**TSK-H5-005/006 IN PROGRESS — checkpoint local incompleto, 2026-10-08.** Base autorizada `7eac0d27b6b74331868a14bbc4ca967f8d2f6bb9`; expected independiente publicado `b14396627cbadfc4a99dd3b158b47c3562d3f08f`, bytes intactos. Último SHA ejecutado `86f90461adcfe606fb4a525b12ee1e9fd8456768`: PostgreSQL2370+38=2408/2408, unitarias146+4=150/150, health1/1 separado, focales38/38 y frozen/typecheck/lint/build/V-MIG55/advisors/diff/preservación PASS. **Audit producción FAIL: Next16.3.6,seis vulnerabilidades (F10 OPEN). No COMPLETED ni publicación del producto.** F01–F09 corregidos/reprobados; originales conservados. Matriz57 casos/33 filas más pendiente transversal; H5-CBE FAIL bloquea cierre. Propuesta de parche16.3.8 NO aplicada; excepción a preservación de bytes de dependencias solicitada expresamente. H0 técnico/local/aislado y H1–H4 COMPLETED conservados; H5-001–004 COMPLETED conservados; H5 IN PROGRESS; H5-007+ y H6 NOT STARTED. DM-PENDING-005 abierto, solo sintéticos,sin IA/PLAUD/audio/envío/conector real,Hosted/Production no acreditados. **STOP antes de tareas posteriores; continuidad exclusivamente al hilo de dirección CRM HUESCAVENTURA OS.**
+
+[Evidencia H5-005/006](evidence-TSK-H5-005-006.md), [matriz](matrix-TSK-H5-006.md), [defectos](defects-TSK-H5-006.md).
+
+### Antecedente publicado H5-003/004 conservado
+
 **TSK-H5-003/004 COMPLETED local/aislado — 2026-10-07.** Base `e54331e41d5da154379542d0a08578288a57f01a`; expected independiente `7cfa0ee6e03662e3be645c0da3168a6bfd9c79ed` intacto; SHA exacto probado `4ac610910c43bb80e8ead4a6fbdba10f9cf647cb`. Matriz32/32, 10 filas Tasks §6 + pendiente §7. PostgreSQL2370/2370 =2340+30; unitarias146/146 =142+4; health1/1 independiente. Frozen/typecheck/lint-imports/build/audit/V-MIG fresh54/upgrade53→54/rollback/advisors loopback PASS. F01 material, F02–F04 técnicos y F05 documental CLOSED, originales conservados. Idempotencia, cuatro intercalaciones reales, RLS/FORCE RLS, T09 y no recursión comprobados. Alert/intención/resultado separados; WhatsApp unavailable, dobles sintéticos sin entrega externa, sin email interno ni scheduler/conector real. H0 técnico/local/aislado y H1–H4 COMPLETED conservados; H5-001/002 conservan COMPLETED; H5 IN PROGRESS; H5-005+ y H6 NOT STARTED. Hosted/Production no acreditados; DM-PENDING-005 permanece. STOP tras H5-004; continuidad exclusivamente al hilo de dirección CRM.
 
 [Evidencia H5-003/004](evidence-TSK-H5-003-004.md), [matriz](matrix-TSK-H5-004.md), [defectos](defects-TSK-H5-004.md).
@@ -1829,35 +1835,35 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-005 — Preparar comunicaciones y registrar derivados con Review
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: implementación.
+- [ ] **Ejecución: IN PROGRESS local/aislado. Evidencia: funcional PASS; cierre FAIL por F10/audit.** Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Ciclo Borrador/Preparada/aprobación, original/transcripción/resumen/nota y extracción candidata sin motor IA real.
 - **Fuentes exactas:** Plan §§6.5, 8; SPEC-FR-PROP-006, SPEC-FR-HIST-003, SPEC-FR-HIST-005, SPEC-FR-COORD-007, SPEC-FR-SEC-006, SPEC-FR-INT-004, AC-024, AC-087, AC-088. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-005.
 - **Bloques, contratos y unidades:** B07/B08/B09; C01/C02/C03/C04/C05; T08.
 - **Entregable previsto:** Áreas propuestas de comunicaciones/revisión y migraciones. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H4-024], [TSK-H1-014], [TSK-H1-016], [TSK-H5-002]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H4 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-005: tratamiento real autorizado; no audio por defecto ni conector PLAUD/IA. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-005: tratamiento real autorizado; no audio por defecto ni conector PLAUD/IA. El detalle de evidencia/decisión y puerta está en §7; no autoriza tratamiento real; el ensayo sintético local no levanta DM-PENDING-005.
 - **Acción futura:** Completar preparación/versiones y vínculo a Approval; incorporar transcripción original autorizada y derivados con fuente; conservar dato confirmado ante candidato discrepante.
 - **Salida observable:** Ciclo y derivados con procedencia/permisos; evidencia temprana mantiene identidad y hechos sin migración destructiva.
 - **Verificación y esperado:** Aprobada sin envío sigue sin envío; entrante no necesita borrador. Original PLAUD y resumen coexisten; quizá16 no sobrescribe18 confirmados, genera revisión/Task. Plantilla sensible exige aprobación y cambio material invalida la previa. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H5-006].
 - **Integración adicional obligatoria:** [TSK-H5-010], [TSK-H6-006], [TSK-H6-017]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. [Ejecutada sobre86f90461](evidence-TSK-H5-005-006.md); [matriz57/33](matrix-TSK-H5-006.md), H5-CBE FAIL y F10 OPEN. No COMPLETED.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-006"></a>
 
 #### TSK-H5-006 — Verificar: Preparar comunicaciones y registrar derivados con Review
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: comprobación.
+- [ ] **Ejecución: IN PROGRESS local/aislado. Evidencia: funcional PASS; cierre FAIL por F10/audit.** Hito: H5. Tipo: comprobación.
 - **Objetivo y alcance:** Ciclo Borrador/Preparada/aprobación, original/transcripción/resumen/nota y extracción candidata sin motor IA real.
 - **Fuentes exactas:** Plan §§6.5, 8; SPEC-FR-PROP-006, SPEC-FR-HIST-003, SPEC-FR-HIST-005, SPEC-FR-COORD-007, SPEC-FR-SEC-006, SPEC-FR-INT-004, AC-024, AC-087, AC-088. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-006.
 - **Bloques, contratos y unidades:** B07/B08/B09; C01/C02/C03/C04/C05; T08.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H4-024], [TSK-H5-005]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H4 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-005: tratamiento real autorizado; no audio por defecto ni conector PLAUD/IA. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-005: tratamiento real autorizado; no audio por defecto ni conector PLAUD/IA. El detalle de evidencia/decisión y puerta está en §7; no autoriza tratamiento real; el ensayo sintético local no levanta DM-PENDING-005.
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-005; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Ciclo y derivados con procedencia/permisos; evidencia temprana mantiene identidad y hechos sin migración destructiva. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Aprobada sin envío sigue sin envío; entrante no necesita borrador. Original PLAUD y resumen coexisten; quizá16 no sobrescribe18 confirmados, genera revisión/Task. Plantilla sensible exige aprobación y cambio material invalida la previa. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. [Ejecutada sobre86f90461](evidence-TSK-H5-005-006.md); [matriz57/33](matrix-TSK-H5-006.md), H5-CBE FAIL y F10 OPEN. No COMPLETED.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-007"></a>
