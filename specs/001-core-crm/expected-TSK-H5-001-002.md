@@ -1,0 +1,40 @@
+# Expected independiente — TSK-H5-001/002
+
+Estado: **FROZEN antes de producto, migraciones y verificador H5**. Base autorizada `98ac77fda7ccf769ef3f05633b5bf8a4a59cec95`. Entorno objetivo: Mac Local, PostgreSQL aislado, datos sintéticos. Este documento fija resultados desde fuentes APPROVED; ninguna salida de implementación es oráculo. Los casos H5 son nuevos salvo los marcados **R**, que comprueban preservación de capacidades H0–H4.
+
+## Inventario exacto de Tasks §6
+
+La lectura exhaustiva de las filas de §6 asignadas literalmente a H5-001 o H5-002 da **20 filas**: `SPEC-FR-ECON-002`, `SPEC-FR-COORD-001`, `SPEC-FR-COORD-002`, `SPEC-FR-COORD-003`, `AC-041`, `AC-043`, `AC-050`, `AC-083`, `DM-INV-044`, `SM-EP-03`, `SM-TA-01`, `SM-TA-02`, `SM-TA-03`, `SM-TA-04`, `SM-TA-05`, `SM-FORB-20`, `SM-FORB-33`, `ARCH-DEC-011`, `PLAN-B07`, `PT-08`. No hay otra fila de §6 asignada a este par en la base. La ficha conserva además Plan §§8–10, Tasks §§2.2–2.3/5/7, BR-TASK-001–005, BR-PROP-007, BR-PAX-008 y D020. PT-08 se comprueba aquí solo en su tramo Task/parámetros; AC-058 integral, H5-004, H6-006 y E2E-01 integral no quedan acreditados.
+
+## Casos y resultado esperado congelado
+
+| Caso | Tipo | Fuente principal | Expected independiente |
+|---|---|---|---|
+| H5-T01 | N | SM-TA-01; SPEC-FR-COORD-001 | Una necesidad manual fundada crea Task Pendiente con causa, contexto, alcance, responsable Administrador, prioridad, deadline conocido o necesidad expresa de concretarlo, origen y versión. |
+| H5-T02 | N | SM-TA-01; AC-050 | Dos recepciones equivalentes de la misma causa/alcance/efecto conservan una sola identidad Task y su historia; reintento de operación idéntica devuelve el resultado previo, mientras misma clave con contenido diferente se rechaza. |
+| H5-T03 | N | SM-TA-01; PLAN-B07; T09 | Dos sesiones PostgreSQL solapadas sobre la misma necesidad convergen en una sola Task y no dejan doble efecto o estado parcial, incluidos ambos órdenes de carrera. |
+| H5-T04 | N | SM-TA-05; AC-050 | Otra necesidad real relacionada conserva una Task distinta vinculada; no se colapsa por compartir Booking, proveedor o categoría. |
+| H5-T05 | N | SM-TA-02; BR-TASK-003 | Pendiente pasa a Completada solo con resultado no vacío, actor, momento y referencias a lo realizado; cada ausencia material rechaza sin mutación ni historia de cierre. |
+| H5-T06 | N | DM-INV-044; SM-FORB-20 | Completar conserva el cierre histórico y no acredita aceptación, pago, confirmación de proveedor, documento revisado, ejecución ni otro hecho originario. |
+| H5-T07 | N | SM-TA-03; AC-050 | Cancelar/sin efecto exige motivo y actor; ausencia de cualquiera rechaza; Booking, proveedor y hecho originario conservan su estado. |
+| H5-T08 | N | SM-TA-05; AC-050 | Reapertura de cierre completado o cancelado exige acción explícita, motivo y evidencia de revisión; vuelve a Pendiente con el mismo Task ID y conserva íntegro el cierre/resultado anterior. |
+| H5-T09 | N | SM-TA-04; SPEC-FR-COORD-001 | Deadline desconocido permanece Pendiente y no Vencida; se conserva la necesidad localizada de concretarlo, sin fecha/hora fabricada. |
+| H5-T10 | N | SM-TA-04; D020 | Deadline civil o D020 derivado permanece no vencido durante todo el día límite local, aunque cambie la hora de consulta o del servicio; desde el día natural siguiente, si sigue Pendiente, Vencida es condición separada. |
+| H5-T11 | N | SM-TA-04 | Un vencimiento horario explícito y verificado conserva su semántica propia; no se convierte un límite civil en horario por defecto. Cierre acreditado impide la condición Vencida. |
+| H5-T12 | N | SM-EP-03; SPEC-FR-ECON-002 | Cobertura se obtiene de porciones verificadas; para saldo general del Booking cuyo primer servicio es el día 20, el día 13 completo no vence y desde el 14 puede existir Task pertinente si queda saldo. Ningún cargo, cancelación, conciliación ni pago se infiere. |
+| H5-T13 | N | AC-041; D020 | Saldo general y cifra final global del Booking usan primer servicio día 20; un servicio individual día 22 y una noche afectada día 23 conservan sus referencias propias. Referencia contractual expresa válida prevalece solo en su alcance. |
+| H5-T14 | N | AC-043; SM-FORB-33 | Cambio solo de hora del servicio dentro del mismo día no altera intervalo ni vencimiento; cambio de fecha del día 20 al 22 reevalúa solo plazos afectados y conserva evaluaciones históricas ejecutadas. |
+| H5-T15 | N | BR-PAX-008; SPEC-FR-COORD-003 | Cifra final global estándar a 7 días usa primer servicio; plazo configurado por servicio/proveedor/reserva y cifra específica usan su alcance. La cifra de un servicio no se propaga ni confirma participantes estimados. |
+| H5-T16 | N | BR-PROP-007; SPEC-FR-COORD-003 | Propuesta con fecha concreta verificada en intervalo 2–3 días y adelanto verificado genera necesidades de recordatorio interno y aviso previo en sus fechas/alcances; puede preparar seguimiento, sin envío al cliente. |
+| H5-T17 | N | AC-083; BR-PROP-007 | Sin fecha concreta del intervalo 2–3 días o sin adelanto previo, solo esa programación queda pendiente y localizada; otras Task/revisiones independientes continúan. No se inventa fecha, hora, frecuencia, número ni reintento. |
+| H5-T18 | N | AC-083; Plan §8 | Límite, pausa u otro parámetro de automatismo ausente bloquea solo su efecto dependiente; la necesidad persistida explica el faltante. No se instala scheduler ni conector. |
+| H5-T19 | N | BR-TASK-005; SPEC-FR-COORD-002 | Cada una de las trece causas aprobadas, cuando corresponde y se conoce su ámbito, crea/actualiza su propia necesidad sin duplicar efecto: bloqueo, anticipo, saldo, proveedor, factura, suplido, documento, lista necesaria, disponibilidad, modificación, cancelación, propuesta y cifra final. Ninguna causa adicional se acepta como disparador BR-TASK-005. |
+| H5-T20 | N | SM-TA-01; BR-TASK-004 | Cambio material de origen, versión, alcance o fecha reevalúa solo Task afectada, preserva origen, cálculo/historia anteriores y no reabre automáticamente un cierre acreditado. |
+| H5-T21 | N | Tasks §2.2 V-DAT; C01/C03 | Actor/rol ordinario, contexto falsificado, sin contexto, actor inhabilitado y acceso directo carecen de permiso para crear, cerrar, cancelar, reabrir o manipular Task/historia. Executor mantiene RLS y FORCE RLS; F1/F2 y proyección autorizada se conservan. |
+| H5-T22 | N | T09; Tasks §2.2 V-AT | Fallo antes o durante escritura de Task, operación, historia o resultado revierte toda la unidad; retry tras respuesta perdida reautoriza replay y no duplica efecto. |
+| H5-T23 | N | SM-TA-01–05; Tasks §2.2 V-SM | Para cada transición se retira individualmente cada guarda material aplicable y G1–G6 pertinentes: rechazo/pendiente localizado sin efecto indebido ni historia perdida. |
+| H5-T24 | N | SM-FORB-20; SM-FORB-33; Tasks §2.2 V-NEG | Se intentan expresamente inferencias de hecho por cierre y cortes de 168/72 horas, 00:00 u hora de servicio; se rechazan y se preservan hechos e historia. |
+| H5-R01 | R | PLAN-B07; H1–H4 | Contratos previos de Task, Requirement, Booking, proveedor, Expected Payment, fianza, economía y preparación H4 siguen operando sin cambios indebidos; migraciones anteriores conservan bytes y fixtures. |
+| H5-R02 | R | Tasks §2.2 V-MIG | Fresh con todas las migraciones y upgrade desde 52 con datos anteriores conservan identidades, snapshots, historia, permisos y RLS/FORCE RLS; error DDL revierte la migración. |
+
+Para H5-T19, cada causa es un subcaso único con identificador `H5-T19/<causa>`; no se contará dos veces al reejecutarlo. T03 requiere dos sesiones reales, observación del solapamiento y del estado final. T21/T22 requieren PostgreSQL aislado: mocks no acreditan permisos, concurrencia ni rollback. Cada caso llevará fuente, entrada sintética, observado real, PASS/FAIL, SHA probado y ruta recuperable en la matriz final. Los rechazos no cuentan como PASS si el estado/historia no se vuelven a leer. Ante contradicción normativa material de este expected, STOP y devolución al hilo de dirección; no se editará para adaptarlo al producto.
