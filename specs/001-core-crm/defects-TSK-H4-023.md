@@ -1,0 +1,40 @@
+# Defectos TSK-H4-023
+
+Registro del desarrollo; cierre definitivo condicionado a gates en SHA congelado. Expected previo408a7f7 intacto. No aserción normativa debilitada: ajustes del verificador se explican por contratos actuales y resultados literales de fuentes. Originales íntegros, stdout/stderr/status/comando/SHA/árbol/tiempo disponibles en `tests/fixtures/h4-023/development`, gzip sin pérdida y manifest SHA256. Los FAIL originales conservan su conteo; suites/subtests fallidos no se cuentan como defectos distintos ni se suman a regresión. Reproducción: nueva ejecución focal explícita, no observación estática equiparada a ejecución.
+
+|ID H4-023|Clase|Original/reproducción observada|Causa y fix mínimo|Retest desarrollo|
+|---|---|---|---|---|
+|F01|Técnico producto|focal1/2: alias `f` ambiguo|Alias SQL de jsonb independiente de variable PL|focal3 alcanza guarda siguiente; final21 PASS|
+|F02|Técnico fixture|focal1: auth inválida|Usar `await h.auth()` contrato F2 existente|focal2 alcanza negocio; final21 PASS|
+|F03|Técnico producto|focal3: JSON `moment` inválido por precedencia|Paréntesis antes de operador `-` en moment/source|focal4:3PASS; final21 PASS|
+|F04|Técnico verificador|focal4: null vs false cuando no hay Confirmation|No Confirmation devuelve null; assertion separa ausencia de confirmación|focal5; final21 C PASS|
+|F05|Técnico observación|focal5: columna booking_id inexistente en tabla elegida|Observar b04_confirmations ordinarias|focal7/final21 PASS|
+|F06|Técnico verificador|focal5: snapshot capturado antes de crear prueba B07 legítima|Generar prueba fuera de unidad fallida y antes del snapshot|focal7/final21 E PASS|
+|F07|Técnico producto|focal6: record `c` colisiona con aliasSQL en extensión contribuciones|Quitar record PL no usado|focal7:66/66; final21 PASS|
+|F08|Técnico fixture|focal8: Refund sobre derecho con versión obsoleta tras Modification|Nueva determinación ordinaria con token/versión actuales, originales preservados|focal12/final21 J PASS|
+|F09|Técnico producto|races1: suma1.0 vs contrato textual1|trim_scale de cantidades numéricas, sin redondeo ni cambio valor|focal12/final21 RACES PASS|
+|F10|Técnico verificador|races1: expectativa fasePartial sin ninguna cobertura vigente|SM-BK/lector: En confirmación; faseEncurso si hecho ocurrió primero|focal12/final21 ambasórdenes PASS|
+|F11|Técnico instalación|focal-races9: referencia función futura en SQL validado|Crear reality_phase después de reality_scopes|focal10 instala; final21 MIG PASS|
+|F12|Técnico producto|focal10: `optrim_scale(p)` por sustitución textual demasiado amplia|Restituir `opp::text` en raíz31|focal12/final21 RACES PASS|
+|F13|Técnico fixture|focal10: servicio índice1 inexistente en fixtureRefund|Prestación real parcial del servicio existente y cancelación de su resto, sin servicio ficticio|focal12/final21 J PASS|
+|F14|Técnico comando|focal11: ISOLATED_STORAGE_REQUIRED; no negocio alcanzado|Runner aislado oficial documentado, nunca hosted|focal12/final21 PASS|
+|F15|Técnico inyección|focal12: SQL `deferredfor` en tres puntos de fallo|Espacio SQL de trigger técnico|focal13/final21 ATOMIC PASS|
+|F16|Técnico fixture|migration1: Modification schedule inválido|Fixture por dos servicios/fecha y partes aprobadas/aplicadas según contrato; estadoAprobada con partependiente|focal13/final21 MIG PASS|
+|F17|Técnico verificador civil|focal13: comparación UTC vs díaMadrid|Comparar fecha fixture con futureCivil(0) Europe/Madrid|focal14/final21 B PASS|
+|F18|Técnico verificador|focal13: confirmed inexistente en AvailabilityAssessment|Usar usable, conservar serviceConfirmed/firmReservation/executed=false|focal14/final21 H PASS|
+|F19|Técnico verificador|focal17: petición nueva sobre Cancelado exige proceso correctivo|Rechazo ya en request conforme contrato; no efecto; Executado se comprueba al apply|focal18/final21 K PASS|
+|F20|Técnico fixture|focal18/19: retiradas guardas mutaban objeto compartido antes de positivo|structuredClone en cada negativo de Incident|focal20/final21 M PASS|
+|F21|Técnico observación|focal20: final-cambio rechazado antes de escritura/trigger, no llega barreraPreparación|BarreraOpportunity31 anterior a guarda de negocio; ambos F2/PID/xid observables|focal21 ambosórdenes PASS|
+|F22|Técnico observación|focal20: SQL `$1and`|Espacio después de parámetro en consulta técnica independiente|focal21 alcance independiente PASS|
+|F23|Técnico typecheck|Desarrollo: cast Sql parcial y propiedadd.see; salida puntual no archivada|Cast unknown explícito para faultadapter y contrato d.view; typecheck siguiente|typecheck desarrollo PASS; definitivo pendiente|
+|F24|Material estático|Inspección: dimensiónnight/personas no debe inferir habitaciones ni fracciónpersona; no FAIL previo ejecutado|Dimensión actual por noche, límites según unidad; attendees enteros|G/casosfuente y guards; final21 PASS|
+|F25|Material estático|Inspección: recepción tardía de ejecución incompatible con cancelación; no FAIL previo ejecutado|Rectificación humana enlazada al original apply de Modification, scope exacto, original conservado|L cancelación/late correction final21 PASS|
+|F26|Material estático|Inspección: finish histórico no debe confirmar una base corregida/nueva; no FAIL previo ejecutado|finalizedBasis sobre scopes/facts actuales; reconstatar finalización con prueba nueva|L freshcompletion final21 PASS|
+|F27|Material estático|Inspección: prestación S1 no retira guardahistórica S2; no FAIL previo ejecutado|Guarda factual por alcance; legacy sigue donde falta representación factual pertinente|E/F/G y regresión contratos pendientes definitiva|
+|F28|Material estático|Inspección: aumentarqty puede reactivarEjecutado; no FAIL previo ejecutado|Bloquear apply material sobre servicio terminal prestado; Cancelado conserva rechazo correctivo existente|K/finish-change ambosórdenes final21 PASS|
+|F29|Material estático integración|Inspección: evento propio no sustituye B07 history factual; no FAIL previo ejecutado|B07 Operation/History antes/después más seguimiento con operación propia en misma unidad|HIST/ATOMIC/finalcheck/lostresponse final21 PASS|
+|F30|Material estático alcance|Inspección: Incident enlazada debe ser pertinente al scope; no FAIL previo ejecutado|Validar servicio/noche del impacto vigente en enlaces de revisión|I/C/M y referenciasprivadas; final21 PASS|
+
+## Límites de captura históricos
+
+Las capturas de desarrollo identifican SHA/árbol sucio y no acreditan SHA definitivo. Algunas ejecuciones se solaparon con cambios siguientes y focal21 comenzó antes de commit producto; status conserva SHA inicial/final reales. Solo los snapshots `product.sql.txt.gz` y fixture disponibles acreditan su contenido capturado; donde no existe snapshot contemporáneo no se reconstruye ni se atribuye retrospectivamente un cuerpo exacto. Los tiempos/versiones de Node/pnpm/PostgreSQL no se recogieron en todos los originales; versión ejecutable de esos originales AUSENTE, no inventada. Error/status/signals conservados en stdout/stderr/status; ausencia explícita de otros campos. F23 salida puntual typecheck no archivada: AUSENTE; no se presenta como log íntegro recuperable. Los registros estáticos F24–30 son observaciones del desarrollo, sin afirmar reproducción FAIL antes del fix; su verificación positiva/negativa posterior es una ejecución distinta. Definitivo recogerá versiones/capturas completas sobre SHA exacto publicado.

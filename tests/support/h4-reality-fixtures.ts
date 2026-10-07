@@ -1,0 +1,26 @@
+import {randomUUID as uid}from'node:crypto';
+import {read,write,type isolatedReality}from'./h4-reality-isolated.ts';
+import {preparationFixture}from'./h4-booking-preparation-fixtures.ts';
+import type {RealityCommand}from'../../src/domain/operational-reality.ts';
+import {canonicalCommercial}from'../../src/domain/commercial-progress.ts';
+import{fingerprintHumanApprovalMaterial as mf,fingerprintHumanApprovalPart as pf,type HumanApprovalMaterial}from'../../src/infrastructure/postgres/h0-011-adapter.ts';
+export type H=Awaited<ReturnType<typeof isolatedReality>>;
+export async function realityFixture(h:H,prepared=true,days=10){const f=await preparationFixture(h,days);if(prepared){await f.confirm();await f.pay();await f.run(await f.command());}
+ const see=async()=>h.reality.read(await h.auth(),read,f.bid);
+ const at=f.at,source=f.conf.source,scopes=[{serviceId:f.o.detail.services[0]!.id,nightId:null,contributionId:null,dimension:'quantity' as const,start:'0',amount:'1'}];
+ const original=await f.conf.record();
+ const attest=async(q:RealityCommand)=>({...q,evidenceId:await f.proof('reality:'+q.action+':'+await f.hash(Object.fromEntries(Object.entries(q).filter(([k,v])=>!['operationId','evidenceId'].includes(k)&&v!==undefined))),f.bid,q.at)});
+ const command=async(action:RealityCommand['action'],changes:Partial<RealityCommand>={})=>{const v=await see();return attest({action,operationId:uid(),factId:uid(),bookingId:f.bid,expectedRevision:v!.revision,expectedMaterial:v!.material,sourceRef:'SYNTHETIC responsible actual source',reason:'SYNTHETIC verified event',at,evidenceId:uid(),data:{scopes:action==='finish'?[]:scopes,moment:{kind:'civil',value:'2026-10-01'},source:action==='finish'?{kind:'internal',id:h.actorId}:source,responsibleId:h.actorId,originalId:original,certainty:'verified',exceptional:false,review:null,correctsFactId:null,correctsRevision:null},...changes});};
+ const run=async(q:RealityCommand)=>h.reality.apply(await h.auth(),write,q);
+ const review=async(incidentIds:string[]=[])=>{const r={responsibleId:h.actorId,basis:'SYNTHETIC exact human review of missing confirmation',pending:['confirmation'],incidentRequired:incidentIds.length>0,incidentIds};return{...r,evidenceId:await f.proof('reality:review:'+await f.hash(r))};};
+ const exceptional=async(action:RealityCommand['action']='perform',changes:Partial<RealityCommand['data']>={})=>{const q=await command(action);return attest({...q,data:{...q.data,exceptional:true,review:await review(),...changes}});};
+ const approval=async(q:RealityCommand)=>{const proposal='reality-proposal-'+uid(),decision='reality-decision-'+uid(),part='reality-part-'+uid(),reserve='reality-reserve-'+uid();const p={partId:part,action:'operational-reality',contentVersion:'h4-022-v1',content:canonicalCommercial(q),recipient:{state:'value' as const,value:f.bid},amount:{state:'unknown' as const},conditions:{state:'value' as const,value:'Actual fact only; no retrospective authorization'},scope:h.scope,effect:'record-operational-reality'};const{partId:ignored,...parent}=p;void ignored;const material:HumanApprovalMaterial={...parent,destination:{state:'value',value:f.bid},parts:[p]};await h.tte.propose(await h.auth(),write,proposal,'ai',material);await h.tte.decide(await h.auth(),write,'reality-decide-'+uid(),proposal,decision,'approved','SYNTHETIC exact approval',mf(material));return{reserve,material,execute:async(input=q)=>h.tte.recordReality(await h.auth(),write,reserve,proposal,decision,part,mf(material),pf(p),material,input)};};
+ return{f,see,scopes,source,original,command,run,attest,review,exceptional,approval};}
+export async function scopedReality(h:H,conf:Awaited<ReturnType<typeof import('./h4-confirmation-fixtures.ts').confirmationFixture>>,scopes:RealityCommand['data']['scopes']){
+ const bid=conf.bookingId,at=conf.at,original=await conf.record(),proof=(claim:string)=>conf.proof(claim,bid),see=()=>h.reality.read as never;
+ const readView=async()=>h.reality.read(await h.auth(),read,bid);
+ const attest=async(q:RealityCommand)=>({...q,evidenceId:await proof('reality:'+q.action+':'+await conf.hash(Object.fromEntries(Object.entries(q).filter(([k,v])=>!['operationId','evidenceId'].includes(k)&&v!==undefined))))});
+ const review=async()=>{const x={responsibleId:h.actorId,basis:'SYNTHETIC exact human review of uncovered contracted scope',pending:['confirmation'],incidentRequired:false,incidentIds:[]};return{...x,evidenceId:await proof('reality:review:'+await conf.hash(x))};};
+ const command=async(action:RealityCommand['action'],data:Partial<RealityCommand['data']>={})=>{const v=(await readView())!;return attest({action,operationId:uid(),factId:uid(),bookingId:bid,expectedRevision:v.revision,expectedMaterial:v.material,sourceRef:'SYNTHETIC actual scoped source',reason:'SYNTHETIC evidenced fact',at,evidenceId:uid(),data:{scopes:action==='finish'?[]:scopes,moment:{kind:'civil',value:'2026-10-01'},source:action==='finish'?{kind:'internal',id:h.actorId}:conf.source,responsibleId:h.actorId,originalId:original,certainty:'verified',exceptional:action!=='finish',review:action==='finish'?null:await review(),correctsFactId:null,correctsRevision:null,...data}});};void see;
+ return{bid,read:readView,attest,command,run:async(q:RealityCommand)=>h.reality.apply(await h.auth(),write,q)};
+}
