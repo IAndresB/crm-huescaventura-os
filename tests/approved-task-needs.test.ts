@@ -7,7 +7,7 @@ import {evaluateTaskDeadline} from '../src/domain/pending-task.ts';
 
 const base=()=>({causeId:uid(),contextKind:'booking',contextId:uid(),scopeRef:uid(),
  sourceRef:'synthetic approved source',sourceVersion:'1'});
-const reference=(scope:'global'|'service'='global',date='2026-10-20',scopeId=uid())=>
+const reference=(scope:'global'|'service'|'night'='global',date='2026-10-20',scopeId=uid())=>
  civilReference({scope,scopeId},localDate(date),zoneEvidence('Europe/Madrid','synthetic zone','1'),
   'synthetic contracted date','1');
 const causes:ApprovedTaskCause[]=['block','advance','balance','provider','invoice','suplido','document',
@@ -56,6 +56,11 @@ test('H5-T12/T13/T15 balance and final participants keep D020 scope and full dea
  assert.equal((final.material.deadline as {daysBefore:number}).daysBefore,7);
  assert.equal(evaluateTaskDeadline(final.material.deadline,{date:'2026-10-15'}).overdue,false);
  assert.equal(evaluateTaskDeadline(final.material.deadline,{date:'2026-10-16'}).overdue,true);
+ const night=base(),nightRef=reference('night','2026-10-23',night.scopeRef);
+ const nightNeed=approvedTaskNeeds({...night,cause:'final_participants',finalParticipants:{reference:nightRef}})[0]!;
+ assert.equal((nightNeed.material.deadline as {reference:{scope:string;date:string}}).reference.scope,'night');
+ assert.equal(evaluateTaskDeadline(nightNeed.material.deadline,{date:'2026-10-16'}).overdue,false);
+ assert.equal(evaluateTaskDeadline(nightNeed.material.deadline,{date:'2026-10-17'}).overdue,true);
  const unresolved=approvedTaskNeeds({...service,cause:'final_participants',finalParticipants:{reference:specific,daysBefore:null}})[0]!;
  assert.equal(unresolved.material.deadline.kind,'unknown');
  assert.throws(()=>approvedTaskNeeds({...base(),cause:'balance',balance:{reference:global,verifiedRemaining:'50.00'}}),/TASK_TRIGGER_INPUT_INVALID/);

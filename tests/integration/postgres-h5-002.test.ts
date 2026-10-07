@@ -39,9 +39,12 @@ async function history(p:TaskCommand){return await h.observer`select action_kind
 test('H5-T01/T05/T06/T08 completes and explicitly reopens without losing prior closure',async()=>{
  const p=task();await tasks.apply(await h.auth(),write,p);
  let s=await see(p);assert.equal(s?.state,'pending');assert.equal(s?.last_closure,null);
+ assert.equal(s?.responsible_actor,h.actorId);
  const q=transition(p,'complete',1);await tasks.transition(await h.auth(),write,q);
  s=await see(p);assert.equal(s?.state,'completed');assert.equal(s?.last_closure?.result,'Seguimiento realizado');
  assert.equal((s?.last_closure?.references as string[])[0],'synthetic-record-1');
+ assert.equal(s?.last_closure?.actorId,h.actorId);
+ assert.equal(Number.isFinite(Date.parse(String(s?.last_closure?.at))),true);
  assert.equal((await tasks.transition(await h.auth(),write,q)).replayed,true);
  const reopen=transition(p,'reopen',2);await tasks.transition(await h.auth(),write,reopen);
  s=await see(p);assert.equal(s?.state,'pending');assert.equal(s?.task_id,p.taskId);
@@ -59,6 +62,8 @@ test('H5-T05/T07/T08 missing guards and closed reception reject without side eff
  assert.deepEqual(await history(p),old);assert.equal((await see(p))?.state,'pending');
  await tasks.transition(await h.auth(),write,transition(p,'cancel',1));
  assert.equal((await see(p))?.state,'cancelled');
+ assert.equal((await see(p))?.last_closure?.reason,'Revisión sintética fundada');
+ assert.equal((await see(p))?.last_closure?.actorId,h.actorId);
  await assert.rejects(tasks.transition(await h.auth(),write,transition(p,'reopen',2,{reviewEvidenceRef:''})));
  await assert.rejects(tasks.apply(await h.auth(),write,{...p,action:'update',expectedRevision:2,operationId:uid(),
   material:{...p.material,title:'Cambio silencioso prohibido'}}));
