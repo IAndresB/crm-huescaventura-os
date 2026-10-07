@@ -55,3 +55,10 @@ export function createBookingPreparationExecutor(input:{readonly databaseUrl:str
  const sql=postgres(input.databaseUrl,{max:1,prepare:false,ssl:input.ssl??'require'}),adapter=new H0011PostgresAdapter(sql,input.capability,input.humanAuthorization,input.evidenceProvider);
  return Object.freeze({evaluateBookingPreparation:adapter.evaluateBookingPreparation.bind(adapter),close:()=>sql.end({timeout:5})});
 }
+
+// D039 narrow operational fact recorder; no SQL/callback/handle supplied by caller.
+export function createRealityExecutor(input:{readonly databaseUrl:string;readonly capability:F1SigningConfiguration;readonly humanAuthorization:F2SigningConfiguration;readonly evidenceProvider?:EvidenceRevalidationProvider;readonly ssl?:postgres.Options<never>["ssl"];}):{readonly recordReality:H0011PostgresAdapter['recordReality'];close():Promise<void>}{
+ if(!input.databaseUrl.trim())throw new Error('HA_DATABASE_URL_REQUIRED');
+ const sql=postgres(input.databaseUrl,{max:1,prepare:false,ssl:input.ssl??'require'}),adapter=new H0011PostgresAdapter(sql,input.capability,input.humanAuthorization,input.evidenceProvider);
+ return Object.freeze({recordReality:adapter.recordReality.bind(adapter),close:()=>sql.end({timeout:5})});
+}
