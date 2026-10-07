@@ -32,7 +32,8 @@ begin
  if w.kind<>'draft' or not exists(select 1 from crm_private.b07_communication_work where kind='prepare' and previous_id=w.work_id)then return null;end if;
  expected:=jsonb_build_object('communicationId',w.record_id,'versionId',w.work_id,'material',w.material->'material');
  for p in select x.*,d.decision_id,d.actor_id,d.decided_at from crm_ha.proposals x join crm_ha.decisions d using(proposal_id)
- where x.scope=w.admin_scope and d.decision='approved' and d.material_fingerprint=x.material_fingerprint loop
+ where x.scope=w.admin_scope and d.decision='approved' and d.material_fingerprint=x.material_fingerprint
+ and exists(select 1 from crm_private.b07_communication_work prep where prep.kind='prepare' and prep.previous_id=w.work_id and prep.recorded_at<=d.decided_at) loop
  f:=crm_f1.fields(p.material_payload);
  if f[3]='communication-content' and f[4]=w.work_id::text and f[5]::jsonb=expected
  and f[6]='value' and f[7]=w.material->'material'->>'recipient' and f[8]='not-applicable'
@@ -46,6 +47,34 @@ end $$;
 alter function crm_private.communication_approval(crm_private.b07_communication_work) owner to crm_h0_f2_owner;
 revoke all on function crm_private.communication_approval(crm_private.b07_communication_work) from public;
 grant execute on function crm_private.communication_approval(crm_private.b07_communication_work) to crm_h0_f2_executor;
+
+-- Existing H1 fact storage remains canonical. Only roots extended by H5 receive the new exact-content guard.
+create function crm_private.communication_fact_guard() returns trigger
+language plpgsql set search_path=pg_catalog,pg_temp as $$
+declare w crm_private.b07_communication_work%rowtype;e crm_private.b07_records%rowtype;version_ref text;
+begin
+ if new.record_kind<>'communication_fact' then return new;end if;
+ if not exists(select 1 from crm_private.b07_communication_work where record_id=new.original_id and kind='draft')then return new;end if;
+ select * into e from crm_private.b07_records where record_id=(new.material->>'evidence_id')::uuid and admin_scope=new.admin_scope;
+ if e.record_id is null or e.record_kind<>'evidence' or e.purpose<>new.purpose or e.material->>'certainty'<>'reviewed'
+ or e.material->>'source_kind'<>'manual' or e.occurred_at is distinct from new.occurred_at or e.material->>'coverage' is distinct from new.material->>'coverage'
+ then raise exception 'COMM_PROOF_REQUIRED';end if;
+ if new.material->>'fact_kind'='sent'then
+ select * into w from crm_private.b07_communication_work x where x.record_id=new.original_id and x.kind='draft'
+ and not exists(select 1 from crm_private.b07_communication_work y where y.kind='draft' and y.previous_id=x.work_id);
+ if w.work_id is null or w.material->'material'->>'recipient' is distinct from new.material->>'party_ref'
+ or w.material->'material'->>'coverage' is distinct from new.material->>'coverage' or not exists(select 1 from crm_private.b07_communication_work where kind='prepare' and previous_id=w.work_id)
+ or (w.material->'material'->>'nature'='sensitive' and w.material->'material'->>'origin'='synthetic_automatic' and crm_private.communication_approval(w)is null) then raise exception 'COMM_APPROVAL_REQUIRED';end if;
+ version_ref:=w.work_id::text;
+ else version_ref:=split_part(e.material->>'claim',':',4);
+ if version_ref<>'' and not exists(select 1 from crm_private.b07_communication_work where work_id::text=version_ref and record_id=new.original_id and kind='draft')then raise exception 'COMM_VERSION_CONFLICT';end if;end if;
+ if e.material->>'claim' is distinct from concat('synthetic:',new.material->>'fact_kind',':',new.original_id,':',version_ref,':',new.material->>'party_ref')then raise exception 'COMM_PROOF_REQUIRED';end if;
+ return new;
+end $$;
+alter function crm_private.communication_fact_guard() owner to crm_h0_f2_owner;
+revoke all on function crm_private.communication_fact_guard() from public;
+create trigger h5_communication_fact_guard before insert on crm_private.b07_records
+ for each row execute function crm_private.communication_fact_guard();
 
 create function crm_api.b07_communication_apply(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea)
 returns jsonb language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
@@ -161,12 +190,20 @@ begin
  if not found then raise exception 'COMM_PROOF_REQUIRED';end if;
  original:=proof.record_id;
  if kind='sent'then
+ if m->>'contextKind'='proposal' and (nullif(rec.material->>'proposal_version_ref','')is null or nullif(rec.material->>'authorization_ref','')is null)then raise exception 'COMM_PROPOSAL_VERSION_REQUIRED';end if;
  select * into prior from crm_private.b07_communication_work where work_id=previous and record_id=rid and kind='draft' and admin_scope=scope;
  if not found or rec.material->>'direction'<>'outgoing' or prior.material->'material'->>'recipient'<>m->>'party' or prior.material->'material'->>'coverage'<>m->>'coverage'
  or exists(select 1 from crm_private.b07_communication_work where kind='draft' and previous_id=previous)
- or crm_private.communication_approval(prior)is null then raise exception 'COMM_APPROVAL_REQUIRED';end if;
+ or not exists(select 1 from crm_private.b07_communication_work where kind='prepare' and previous_id=prior.work_id)
+ or (prior.material->'material'->>'nature'='sensitive' and prior.material->'material'->>'origin'='synthetic_automatic' and crm_private.communication_approval(prior)is null) then raise exception 'COMM_APPROVAL_REQUIRED';end if;
  end if;
  body:=body||jsonb_build_object('reviewState',case when kind='response'then 'pending'else null end,'businessConfirmation',false);
+ if kind in ('sent','received','response')then
+ insert into crm_private.b07_records(record_id,record_kind,admin_scope,material,source_ref,purpose,occurred_at,recorded_by,original_id)
+ values(id,'communication_fact',scope,jsonb_build_object('fact_kind',kind,'evidence_id',proof.record_id,'party_ref',m->>'party','coverage',m->>'coverage'),m->>'sourceRef',m->>'purpose',(m->>'at')::timestamptz,actor,rid);
+ insert into crm_private.b07_links(link_id,record_id,admin_scope,context_kind,context_id,coverage,source_ref,linked_by)
+ values(id,id,scope,m->>'contextKind',(m->>'contextId')::uuid,m->>'coverage',m->>'sourceRef',actor);
+ end if;
  end if;
  insert into crm_private.b07_communication_work(work_id,record_id,admin_scope,kind,identity_key,material,original_id,previous_id,task_id,recorded_by)
  values(id,rid,scope,kind,identitykey,body,original,previous,taskid,actor);
@@ -195,7 +232,8 @@ begin
  'approval',case when w.kind='draft'then crm_private.communication_approval(w)else null end,
  'prepared',exists(select 1 from crm_private.b07_communication_work p where p.kind='prepare'and p.previous_id=w.work_id),
  'objectConservation',case when w.original_id is null then null else coalesce((select jsonb_agg(jsonb_build_object('versionId',o.version_id,'state',o.state))from crm_private.b07_object_versions o where o.document_id=w.original_id and o.admin_scope=hf[17]),'[]'::jsonb)end
- )order by w.recorded_at,w.work_id)filter(where w.work_id is not null),'[]'::jsonb),'externalSendEnabled',false)
+ )order by w.recorded_at,w.work_id)filter(where w.work_id is not null),'[]'::jsonb),'externalSendEnabled',false,
+ 'registeredFacts',coalesce((select jsonb_agg(to_jsonb(r) order by r.recorded_at,r.record_id)from crm_private.b07_records r where r.original_id=rec.record_id and r.record_kind='communication_fact'and r.admin_scope=hf[17] and r.purpose=m->>'purpose' and exists(select 1 from crm_private.b07_links l where l.record_id=r.record_id and l.admin_scope=hf[17] and l.context_kind=m->>'contextKind' and l.context_id=(m->>'contextId')::uuid)),'[]'::jsonb))
  into result from crm_private.b07_communication_work w where w.record_id=rec.record_id and w.admin_scope=hf[17]
  and w.material->>'purpose'=m->>'purpose' and w.material->>'contextKind'=m->>'contextKind' and w.material->>'contextId'=m->>'contextId';
  end if;

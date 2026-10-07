@@ -173,7 +173,7 @@ test('H5-CW/CAE identical derived summary replay does not duplicate Document or 
 test('H5-CAA/CAB exact HA rejects other content recipient conditions amount action effect and destination',async()=>{
  const {communicationApproval}=await import('../../src/infrastructure/postgres/h5-communication-adapter.ts');const {fingerprintHumanApprovalMaterial}=await import('../../src/infrastructure/postgres/h0-011-adapter.ts');
  const f=await communicationFixture(h),d=f.draft();await f.run(d);await f.prepare(d);const exact=communicationApproval(h.scope,f.recordId,d.workId,d.material,d.material.recipient);
- for(const change of [{action:'other'},{contentVersion:uid()},{content:'{}'},{recipient:{state:'value',value:'other'}},{conditions:{state:'value',value:'other'}},{amount:{state:'value',value:'1'}},{effect:'send'},{destination:{state:'value',value:'external'}}]){
+ for(const change of [{action:'other'},{contentVersion:uid()},{content:'{}'},{recipient:{state:'value',value:'other'}},{conditions:{state:'value',value:'other'}},{amount:{state:'value',value:'1'}},{effect:'send'},{destination:{state:'value',value:'external'}},{parts:[{...exact.parts[0]!,recipient:{state:'value',value:'other'}}]}]){
  const m={...exact,...change}as typeof exact,p='p-'+uid();await h.tte.propose(await h.auth(),write,p,'ai',m);await h.tte.decide(await h.auth(),write,'d-'+uid(),p,'d-'+uid(),'approved','Otro contenido sintético',fingerprintHumanApprovalMaterial(m));assert.equal((await f.see()).work[0].approval,null);
  }await f.approve(d);assert.ok((await f.see()).work[0].approval);
 });
@@ -192,7 +192,18 @@ test('H5-CAV informative human preparation accepts explicit synthetic proof with
 });
 test('H5-CU/CV/CZ normative18 is a real Core Provider Confirmation preserved against candidate16',async()=>{
  const {confirmationFixture}=await import('../support/h4-confirmation-fixtures.ts');const c=await confirmationFixture(h);await c.apply(await c.register({coverage:{...c.coverage,quantity:'18'},content:'SYNTHETIC manual confirmation exactly18'}));
- const before=await c.state();assert.equal(before!.fact.coverage.quantity,'18');const f=await communicationFixture(h,'incoming',c.bookingId);await f.run(f.derive());assert.deepEqual(await c.state(),before);
+ const before=await c.state();assert.equal((before!.fact.coverage as {quantity:string}).quantity,'18');const f=await communicationFixture(h,'incoming',c.bookingId);await f.run(f.derive());assert.deepEqual(await c.state(),before);
  const s=await f.see();assert.equal(s.work[0].material.content,'quizá 16');assert.ok(s.work[0].task_id);assert.equal(s.work[0].material.reviewState,'pending');assert.equal((await h.observer`select material->>'certainty' certainty from crm_private.b07_records where record_id=${s.work[0].work_id}::uuid`)[0]!.certainty,'candidate');
  await capture('normative-18',{confirmationBefore:before,confirmationAfter:await c.state(),candidate:s});
+});
+test('H5-CAG T08 communication part reserve once exact replay never creates sent fact',async()=>{
+ const {fingerprintHumanApprovalMaterial,fingerprintHumanApprovalPart}=await import('../../src/infrastructure/postgres/h0-011-adapter.ts');const f=await communicationFixture(h),d=f.draft();await f.run(d);await f.prepare(d);const a=await f.approve(d),command='reserve-'+uid(),fp=fingerprintHumanApprovalMaterial(a.material),part=fingerprintHumanApprovalPart(a.material.parts[0]!);
+ const reserve=(id:string)=>h.tte.reserve(hAuth,write,id,a.proposal,a.decision,'content',fp,part,a.material);const hAuth=await h.auth();
+ const result=await reserve(command);assert.equal((await reserve(command)).reservationId,result.reservationId);await assert.rejects(reserve('reserve-'+uid()));assert.equal((await f.see()).work.some((x:any)=>x.kind==='sent'),false);await capture('tte-reservation',{result,state:await f.see()});
+});
+test('H5-CAV SPEC PROP006 proposal context requires proposal version and applicable authorization',async()=>{
+ const f=await communicationFixture(h),proposalId=uid();await h.evidence.apply(await h.auth(),write,{action:'link',operationId:uid(),targetId:uid(),originalId:f.recordId,sourceRef:'synthetic-proposal',purpose:f.context.purpose,contextKind:'proposal',contextId:proposalId,coverage:'synthetic scope',reason:'Vínculo de propuesta'});
+ const context={...f.context,contextKind:'proposal' as const,contextId:proposalId};const d={...f.draft(),...context};await f.run(d);await f.run({...f.base(),...context,action:'prepare',versionId:d.workId});await f.approve(d);
+ const fact=await f.fact('sent',d.workId);await h.evidence.apply(await h.auth(),write,{action:'link',operationId:uid(),targetId:uid(),originalId:fact.evidenceId,sourceRef:'synthetic-proposal',purpose:f.context.purpose,contextKind:'proposal',contextId:proposalId,coverage:fact.coverage,reason:'Prueba relacionada'});
+ await assert.rejects(f.run({...fact,...context}),/COMM_PROPOSAL_VERSION_REQUIRED/);
 });

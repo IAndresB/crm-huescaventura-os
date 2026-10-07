@@ -13,11 +13,13 @@ test('H5-CAS fresh55 populated54 upgrade DDL rollback retry preserve all old cat
  const h=await isolatedCommunications('crm_h5006_upgrade',58902,true);
  try{
  const f=await communicationFixture(h,'incoming');const old=await h.evidence.read(await h.auth(),read,f.recordId,'booking',f.context.contextId);
+ const oldTables=(await h.observer`select schemaname,tablename from pg_tables where schemaname in ('crm_private','crm_ha')`).map(x=>x.schemaname+'.'+x.tablename);
+ const hashes=async()=>{const result:Record<string,unknown>={};for(const t of oldTables)result[t]=await h.admin.unsafe(`select md5(coalesce(string_agg(x::text,',' order by x::text),'')) hash from ${t} x`);return result;};const oldData=await hashes();
  const before=await catalog(h),rows=await h.observer`select to_jsonb(r) data from crm_private.b07_records r order by record_id`,sql=await readFile(migration,'utf8');
  await assert.rejects(h.migration.unsafe(sql.replace(/commit;\s*$/,'select 1/0; commit;')));await h.migration.unsafe('rollback');assert.deepEqual(await catalog(h),before);
- await h.migration.unsafe(sql);const after=await catalog(h);for(const key of ['tables','functions','policies']as const){const ids=new Set(before[key].map(x=>x.oid));assert.deepEqual(after[key].filter(x=>ids.has(x.oid)),before[key]);}assert.deepEqual(after.roles,before.roles);
+ await h.migration.unsafe(sql);assert.deepEqual(await hashes(),oldData);const after=await catalog(h);for(const key of ['tables','functions','policies']as const){const ids=new Set(before[key].map(x=>x.oid));assert.deepEqual(after[key].filter(x=>ids.has(x.oid)),before[key]);}assert.deepEqual(after.roles,before.roles);
  assert.deepEqual(await h.observer`select to_jsonb(r) data from crm_private.b07_records r order by record_id`,rows);assert.deepEqual(await h.evidence.read(await h.auth(),read,f.recordId,'booking',f.context.contextId),old);
- await f.run(f.derive());assert.equal((await f.see()).work.length,1);await capture('vmig',{before,after,old,rows});
+ await f.run(f.derive());assert.equal((await f.see()).work.length,1);await capture('vmig',{before,after,old,rows,oldData});
  }finally{await h.close();}
 });
 test('H5-CAS official advisors55 exclusively loopback',async()=>{
