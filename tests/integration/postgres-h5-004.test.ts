@@ -5,6 +5,10 @@ import {writeFile,readFile} from 'node:fs/promises';
 import {isolatedAlerts,read,write,alert,attempt,automation} from '../support/h5-alert-isolated.ts';
 import {H5003AlertAdapter} from '../../src/infrastructure/postgres/h5-alert-adapter.ts';
 import {verifyAuth} from '../../src/application/verified-auth.ts';
+import {invoiceFixture} from '../support/h3-invoice-fixtures.ts';
+import {incidentFixture} from '../support/h4-incident-fixtures.ts';
+import {requirementFixture} from '../support/h4-requirement-fixtures.ts';
+import {paymentFixture} from '../support/h3-payment-fixtures.ts';
 let h:Awaited<ReturnType<typeof isolatedAlerts>>;
 before(async()=>{h=await isolatedAlerts('crm_h5004',58801);});
 after(async()=>{await h?.close();});
@@ -83,12 +87,20 @@ test('H5-AE configured pause is respected without scheduler',async()=>{
  assert.equal((await see(p))!.attempts.length,1);
 });
 test('H5-AN/AO synthetic delivery never modifies origin or accredits external delivery',async()=>{
- const p=alert();
+ const b=await invoiceFixture(h);await h.invoices.apply(await h.auth(),write,await b.need());
+ const inc=await incidentFixture(h,b);await h.incidents.apply(await h.auth(),write,await inc.detect());
+ const req=await requirementFixture(h,b);await h.requirements.apply(await h.auth(),write,await req.need());
+ const pay=await paymentFixture(h);await h.payments.apply(await h.auth(),write,pay.detect);
+ const p=alert();p.identity.contextId=b.bookingId;
+ await h.tasks.apply(await h.auth(),write,{action:'receive',operationId:uid(),taskId:uid(),expectedRevision:0,
+ identity:{causeKind:'document',causeId:req.requirementId,contextKind:'booking',contextId:b.bookingId,scopeRef:b.bookingId,relatedKind:null,relatedId:null,effect:'review'},
+ material:{title:'Revisar documentación',deadline:{kind:'unknown',reason:'Pendiente'},priority:{kind:'pending',reason:'Sin configurar'},sourceRef:'synthetic-task',sourceVersion:'1',triggerRef:'manual',triggerVersion:'1'},reason:'Seguimiento independiente'});
  const tables=(await h.observer`select tablename from pg_tables where schemaname='crm_private' and tablename not in ('b07_alerts','b07_notifications','b07_notification_attempts','b07_operations','b07_history') and tablename not like 'f2_%'`).map(x=>x.tablename as string);
  const snap=async()=>{const out:Record<string,unknown>={};for(const t of tables)out[t]=await h.observer.unsafe(`select md5(coalesce(string_agg(x::text,',' order by x::text),'')) hash from crm_private."${t}" x`);return out;};
  const before=await snap();await apply(p);await apply(attempt(p,1,'simulated_delivered'));const after=await snap();
  // F2 tracks legitimate interactive use; all business tables must remain identical.
- for(const t of tables.filter(t=>!['human_sessions','human_access_epochs'].includes(t)))assert.deepEqual(after[t],before[t],t);
+ for(const t of tables.filter(t=>!['crm_sessions','identification_epochs'].includes(t)))assert.deepEqual(after[t],before[t],t);
+ await capture('origin-preservation',{tables:tables.filter(t=>!['crm_sessions','identification_epochs'].includes(t)),before,after,bookingId:b.bookingId,incidentId:inc.incidentId,requirementId:req.requirementId,paymentId:pay.paymentId});
  const s=(await see(p))!;assert.equal(s.notifications[1]!.delivery_state,'unavailable');assert.equal(s.attempts[0]!.simulated,true);await capture('non-origin',s);
 });
 test('H5-AU invalid and cross-subject authority cannot read write or replay',async()=>{
@@ -110,8 +122,10 @@ test('H5-AV direct roles denied and FORCE RLS includes owner',async()=>{
   assert.equal(row.relrowsecurity,true);assert.equal(row.relforcerowsecurity,true);assert.equal(row.owner,'crm_h0_f2_owner');
   for(const r of ['crm_h0_runtime','anon','authenticated']){const conn=h.connect(r);
    await assert.rejects(conn.unsafe(`select * from crm_private.${t}`));
-   await assert.rejects(conn.unsafe(`delete from crm_private.${t}`));}
-  const owner=h.connect('crm_h0_f2_owner');assert.equal((await owner.unsafe(`select count(*)::int n from crm_private.${t}`))[0]!.n,0);
+   await assert.rejects(conn.unsafe(`delete from crm_private.${t}`));
+   await assert.rejects(conn.unsafe(`update crm_private.${t} set admin_scope='unauthorized'`));
+   await assert.rejects(conn.unsafe(`insert into crm_private.${t}(admin_scope) values('unauthorized')`));}
+  await h.admin.begin(async tx=>{await tx.unsafe('set local role crm_h0_f2_owner');assert.equal((await tx.unsafe(`select count(*)::int n from crm_private.${t}`))[0]!.n,0);});
  }
  await assert.rejects(h.runtime.unsafe('select * from crm_api.b07_alert_apply(null,null,null,null,null)'));
 });
@@ -165,4 +179,16 @@ test('H5-AL/AAF real overlap both orders absent identity and competing results',
   observations.push({mode,order,waiting,results,observed:s});
  }
  await capture('concurrency',observations);
+});
+test('H5-AU signed technical capability mismatch rejects without business writes',async()=>{
+ const p=alert(),bad=new H5003AlertAdapter(h.runtime,{...h.f1,key:new Uint8Array(32)},h.f2);
+ await assert.rejects(bad.apply(await h.auth(),write,p));assert.equal(await see(p),null);
+ await apply(p);await assert.rejects(bad.apply(await h.auth(),write,p));await assert.rejects(bad.read(await h.auth(),read,p.alertId));
+});
+test('H5-AW failure between CRM and WhatsApp intent rolls back both',async()=>{
+ const p=alert();await h.admin.unsafe("create function crm_private.h5004_fail() returns trigger language plpgsql as $$begin raise exception 'H5004_SECOND_INTENT';end$$");
+ await h.admin.unsafe("create trigger h5004_fail before insert on crm_private.b07_notifications for each row when (new.channel='whatsapp') execute function crm_private.h5004_fail()");
+ try{await assert.rejects(apply(p));}finally{await h.admin.unsafe('drop trigger h5004_fail on crm_private.b07_notifications');await h.admin.unsafe('drop function crm_private.h5004_fail()');}
+ assert.equal(await see(p),null);assert.equal((await h.observer`select count(*)::int n from crm_private.b07_notifications where alert_id=${p.alertId}::uuid`)[0]!.n,0);
+ await apply(p);assert.equal((await see(p))!.notifications.length,2);
 });

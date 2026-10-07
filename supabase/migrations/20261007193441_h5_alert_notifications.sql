@@ -171,7 +171,7 @@ begin
   end if;
   insert into crm_private.b07_operations(operation_id,admin_scope,actor_id,fingerprint,result_ref) values(opid,scope,actor,fingerprint,target);
   if changed then
-   select to_jsonb(t)||jsonb_build_object('notifications',(select jsonb_agg(to_jsonb(n) order by n.channel) from crm_private.b07_notifications n where n.alert_id=target)) into after_data from crm_private.b07_alerts t where t.alert_id=target;
+   select to_jsonb(t)||jsonb_build_object('notifications',(select jsonb_agg(to_jsonb(notice) order by notice.channel) from crm_private.b07_notifications notice where notice.alert_id=target)) into after_data from crm_private.b07_alerts t where t.alert_id=target;
    insert into crm_private.b07_history(history_id,operation_id,subject_id,admin_scope,action_kind,before_state,after_state,reason,source_ref,actor_id)
     values(opid,opid,target,scope,'alert_'||action,before_data,after_data,m->>'reason',coalesce(m->>'resultRef',m->>'reviewRef',i->>'sourceRef'),actor);
   end if;
@@ -193,7 +193,7 @@ begin
  if m->>'purpose' is distinct from 'internal-alert' or m-array['alertId','purpose']<>'{}'::jsonb then raise exception 'ALERT_DENIED'; end if;
  target:=(m->>'alertId')::uuid;
  select to_jsonb(t)||jsonb_build_object(
-  'notifications',coalesce((select jsonb_agg(to_jsonb(n) order by n.channel) from crm_private.b07_notifications n where n.alert_id=target),'[]'::jsonb),
+  'notifications',coalesce((select jsonb_agg(to_jsonb(notice) order by notice.channel) from crm_private.b07_notifications notice where notice.alert_id=target),'[]'::jsonb),
   'attempts',coalesce((select jsonb_agg(to_jsonb(a) order by a.attempt_number) from crm_private.b07_notification_attempts a join crm_private.b07_notifications n using(notification_id) where n.alert_id=target),'[]'::jsonb),
   'history',coalesce((select jsonb_agg(to_jsonb(h) order by h.recorded_at,h.history_id) from crm_private.b07_history h where h.subject_id=target and h.admin_scope=hf[17]),'[]'::jsonb)) into result
  from crm_private.b07_alerts t where t.alert_id=target and t.admin_scope=hf[17];
