@@ -54,7 +54,7 @@ declare hf text[];tf text[];v text[];m jsonb;a text;scope text;actor uuid;opid u
  rec crm_private.b07_records%rowtype;orig crm_private.b07_records%rowtype;confirmed crm_private.b07_records%rowtype;
  old crm_private.b07_operations%rowtype;prior crm_private.b07_communication_work%rowtype;existing crm_private.b07_communication_work%rowtype;
  fingerprint text;identitykey text;kind text;original uuid;previous uuid;taskid uuid;body jsonb;allowed text[];
- proof crm_private.b07_records%rowtype;taskop uuid;taskmaterial jsonb;result jsonb;replayed boolean:=false;
+ proof crm_private.b07_records%rowtype;taskrow crm_private.b07_pending_tasks%rowtype;taskop uuid;taskmaterial jsonb;result jsonb;replayed boolean:=false;
 begin
  hf:=crm_f2.admit(f2p,f2s,q,'C03','write_evidence');tf:=crm_f1.verify_envelope(f1p,f1s,q,'C03','evidence','write_evidence');
  if hf[17] collate "C"<>tf[14] collate "C" then raise exception 'COMM_DENIED';end if;
@@ -131,6 +131,12 @@ begin
  'material',jsonb_build_object('title','Revisar extracción frente a dato confirmado','deadline',jsonb_build_object('kind','unknown','reason','Sin plazo aprobado'),'priority',jsonb_build_object('kind','pending','reason','Sin prioridad configurada'),'sourceRef',confirmed.record_id::text,'sourceVersion','1','triggerRef','manual','triggerVersion','1'),
  'reason','BR-AI-005: revisión de candidato sintético; no altera dato confirmado');
  select x.result_ref into taskid from crm_private.booking_preparation_task_core(taskmaterial,actor,scope)x;
+ select * into taskrow from crm_private.b07_pending_tasks where task_id=taskid for update;
+ if taskrow.state<>'pending' then
+ perform crm_private.h5_task_lifecycle_core(jsonb_build_object('action','reopen','operationId',gen_random_uuid(),'taskId',taskid,
+ 'expectedRevision',taskrow.revision,'purpose','pending-followup','reason','Nuevo candidato material exige revisión explícita',
+ 'reviewEvidenceRef',id::text),actor,scope);
+ end if;
  end if;
  end if;
  -- Reuse H1 Document/Evidence. The derived record is distinct from its source; no binary is fabricated.

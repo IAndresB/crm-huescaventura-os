@@ -152,3 +152,28 @@ test('H5-CV new discrepancy after Task closure reopens same need with closure hi
  await tasks.transition(await h.auth(),write,{action:'complete',operationId:uid(),taskId:id,expectedRevision:1,reason:'Revisión previa sintética',result:'Candidato revisado',references:[p.workId]});
  await f.run({...p,operationId:uid(),workId:uid(),content:'quizá 15'});const row=await tasks.read(await h.auth(),read,id,'booking',f.context.contextId);assert.equal(row!.state,'pending');assert.ok(row!.last_closure);assert.equal((await f.see()).work.length,2);
 });
+test('H5-CT/CAQ AC088 actual synthetic Contact Booking links preserve all canonical business facts',async()=>{
+ const {invoiceFixture}=await import('../support/h3-invoice-fixtures.ts');const b=await invoiceFixture(h),f=await communicationFixture(h,'incoming',b.bookingId);
+ await h.evidence.apply(await h.auth(),write,{action:'link',operationId:uid(),targetId:uid(),originalId:f.originalId,sourceRef:'synthetic-PLAUD',purpose:f.context.purpose,contextKind:'contact',contextId:b.b.f.accepterId,coverage:'synthetic caller',reason:'Original autorizado en dos contextos'});
+ const tables=(await h.observer`select tablename from pg_tables where schemaname='crm_private' and tablename not in ('b07_communication_work','b07_records','b07_links','b07_pending_tasks','b07_operations','b07_history','crm_sessions','identification_epochs') and tablename not like 'f2_%'`).map(x=>x.tablename as string);
+ const snapshot=async()=>{const out:Record<string,unknown>={};for(const t of tables)out[t]=await h.observer.unsafe(`select md5(coalesce(string_agg(x::text,',' order by x::text),'')) hash from crm_private."${t}" x`);return out;};
+ const before=await snapshot();await f.run(f.derive('summary'));await f.run(f.derive());await f.run(await f.fact('response'));assert.deepEqual(await snapshot(),before);
+ const s=await f.see();await capture('actual-contexts-preservation',{bookingId:b.bookingId,contactId:b.b.f.accepterId,tables,before,after:await snapshot(),state:s});
+});
+test('H5-CAF revoked session cannot replay candidate read derivative or approve content',async()=>{
+ const f=await communicationFixture(h),p=f.derive(),d=f.draft();await f.run(p);await f.run(d);await f.prepare(d);const auth=await h.auth();
+ await h.admin`update crm_private.crm_sessions set revoked_at=clock_timestamp() where session_id=${h.sessionId}::uuid`;
+ try{await assert.rejects(h.communications.apply(auth,write,p));await assert.rejects(h.communications.read(auth,read,f.recordId,f.context));await assert.rejects(f.approve(d));await assert.rejects(h.evidence.read(auth,read,p.workId,'booking',f.context.contextId));}
+ finally{await h.admin`update crm_private.crm_sessions set revoked_at=null where session_id=${h.sessionId}::uuid`;}
+});
+test('H5-CW/CAE identical derived summary replay does not duplicate Document or Review',async()=>{
+ const f=await communicationFixture(h),p=f.derive('summary');const first=await f.run(p);assert.equal((await f.run({...p,operationId:uid(),workId:uid()})).id,first.id);assert.equal((await f.see()).work.length,1);
+ assert.equal((await h.observer`select count(*)::int n from crm_private.b07_records where original_id=${f.originalId}::uuid`)[0]!.n,1);
+});
+test('H5-CAA/CAB exact HA rejects other content recipient conditions amount action effect and destination',async()=>{
+ const {communicationApproval}=await import('../../src/infrastructure/postgres/h5-communication-adapter.ts');const {fingerprintHumanApprovalMaterial}=await import('../../src/infrastructure/postgres/h0-011-adapter.ts');
+ const f=await communicationFixture(h),d=f.draft();await f.run(d);await f.prepare(d);const exact=communicationApproval(h.scope,f.recordId,d.workId,d.material,d.material.recipient);
+ for(const change of [{action:'other'},{contentVersion:uid()},{content:'{}'},{recipient:{state:'value',value:'other'}},{conditions:{state:'value',value:'other'}},{amount:{state:'value',value:'1'}},{effect:'send'},{destination:{state:'value',value:'external'}}]){
+ const m={...exact,...change}as typeof exact,p='p-'+uid();await h.tte.propose(await h.auth(),write,p,'ai',m);await h.tte.decide(await h.auth(),write,'d-'+uid(),p,'d-'+uid(),'approved','Otro contenido sintético',fingerprintHumanApprovalMaterial(m));assert.equal((await f.see()).work[0].approval,null);
+ }await f.approve(d);assert.ok((await f.see()).work[0].approval);
+});
