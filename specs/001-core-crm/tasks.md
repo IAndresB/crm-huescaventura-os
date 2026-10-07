@@ -1,5 +1,11 @@
 # Tasks — SPEC 001 Core CRM
 
+**TSK-H5-003/004 COMPLETED local/aislado — 2026-10-07.** Base `e54331e41d5da154379542d0a08578288a57f01a`; expected independiente `7cfa0ee6e03662e3be645c0da3168a6bfd9c79ed` intacto; SHA exacto probado `4ac610910c43bb80e8ead4a6fbdba10f9cf647cb`. Matriz32/32, 10 filas Tasks §6 + pendiente §7. PostgreSQL2370/2370 =2340+30; unitarias146/146 =142+4; health1/1 independiente. Frozen/typecheck/lint-imports/build/audit/V-MIG fresh54/upgrade53→54/rollback/advisors loopback PASS. F01 material, F02–F04 técnicos y F05 documental CLOSED, originales conservados. Idempotencia, cuatro intercalaciones reales, RLS/FORCE RLS, T09 y no recursión comprobados. Alert/intención/resultado separados; WhatsApp unavailable, dobles sintéticos sin entrega externa, sin email interno ni scheduler/conector real. H0 técnico/local/aislado y H1–H4 COMPLETED conservados; H5-001/002 conservan COMPLETED; H5 IN PROGRESS; H5-005+ y H6 NOT STARTED. Hosted/Production no acreditados; DM-PENDING-005 permanece. STOP tras H5-004; continuidad exclusivamente al hilo de dirección CRM.
+
+[Evidencia H5-003/004](evidence-TSK-H5-003-004.md), [matriz](matrix-TSK-H5-004.md), [defectos](defects-TSK-H5-004.md).
+
+### Antecedente H5-001/002 conservado
+
 **TSK-H5-001/002 COMPLETED local/aislado — 2026-10-07.** Base autorizada `98ac77fda7ccf769ef3f05633b5bf8a4a59cec95`; expected independiente `9c0afccd73b9ac209bdcff9ddcbfd93a31f76230` intacto; SHA exacto probado `6478d0f835fc89f38a17042ba2342105034e6883`. Matriz 26/26 casos y 20 filas de Tasks §6; 2340/2340 PostgreSQL = 2321 previos + 19 H5, 142/142 unitarias = 138 + 4, health independiente 1/1. Frozen install, typecheck, lint/boundaries, build, audit producción, V-MIG fresh/upgrade 52→53/rollback y advisors loopback PASS. Dos órdenes reales de carrera, RLS/FORCE RLS, T09 y cierre sin acreditar hechos originarios comprobados. F01–F08 conservados con retests: F07 material corregido antes del SHA probado; F08 entorno por memoria compartida, repetido íntegramente PASS. H0 técnico/local/aislado y H1–H4 COMPLETED anteriores conservados; H5-003 en adelante y H6 NOT STARTED. H5-004/H6-006, AC-058 integral y E2E-01 integral no acreditados; Hosted H2/H3 no acreditados, Hosted H4/Production no autorizados; DM-PENDING-005 y demás pendientes vigentes permanecen. STOP tras H5-001/002; continuidad exclusivamente al hilo de dirección CRM.
 
 [Evidencia H5-001/002](evidence-TSK-H5-001-002.md), [matriz](matrix-TSK-H5-002.md), [defectos](defects-TSK-H5-002.md).
@@ -1788,35 +1794,35 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-003 — Registrar alertas y notificaciones según D016
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: PASS en `4ac610910c43bb80e8ead4a6fbdba10f9cf647cb`; [registro](evidence-TSK-H5-003-004.md).** Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Causa/riesgo, destinatario único, CRM para todas y WhatsApp Crítica/Importante como intención; fallo sin bucle.
 - **Fuentes exactas:** Plan §§8, 11.2; SPEC-FR-COORD-004, SPEC-FR-IDEMP-002, SPEC-FR-CONC-006, AC-070, AC-083. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-003.
 - **Bloques, contratos y unidades:** B07/B08; C01/C03/C05/C06; T09.
 - **Entregable previsto:** Áreas propuestas de avisos/intenciones y migraciones. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H4-024], [TSK-H5-002]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H4 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Sin conector WhatsApp entrega pendiente; parámetros no verificados mantienen acción dependiente inactiva. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** Sin conector WhatsApp entrega pendiente; parámetros no verificados mantienen acción dependiente inactiva. El detalle de evidencia/decisión y puerta está en §7; el límite operativo permanece sin impedir el contrato local verificado.
 - **Acción futura:** Registrar alerta por causa y Notification por canal/resultado, manteniendo visibilidad interna y deduplicación ante fallo del aviso.
 - **Salida observable:** Intenciones y entregas distinguidas; D027 email de seguridad permanece separado de notificaciones internas.
 - **Verificación y esperado:** Crítica/Importante generan intención WhatsApp, Informativa solo CRM; ninguna por email. Fallo persistente y fallo de WhatsApp visibles en CRM sin recursión; aviso no resuelve causa ni reintenta ilimitadamente. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H5-004].
 - **Integración adicional obligatoria:** [TSK-H5-008], [TSK-H5-010]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PASS local/aislado**, observaciones por caso en [matriz H5-004](matrix-TSK-H5-004.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-004"></a>
 
 #### TSK-H5-004 — Verificar: Registrar alertas y notificaciones según D016
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: PASS en `4ac610910c43bb80e8ead4a6fbdba10f9cf647cb`; [registro](evidence-TSK-H5-003-004.md).** Hito: H5. Tipo: comprobación.
 - **Objetivo y alcance:** Causa/riesgo, destinatario único, CRM para todas y WhatsApp Crítica/Importante como intención; fallo sin bucle.
 - **Fuentes exactas:** Plan §§8, 11.2; SPEC-FR-COORD-004, SPEC-FR-IDEMP-002, SPEC-FR-CONC-006, AC-070, AC-083. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-004.
 - **Bloques, contratos y unidades:** B07/B08; C01/C03/C05/C06; T09.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H4-024], [TSK-H5-003]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H4 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Sin conector WhatsApp entrega pendiente; parámetros no verificados mantienen acción dependiente inactiva. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** Sin conector WhatsApp entrega pendiente; parámetros no verificados mantienen acción dependiente inactiva. El detalle de evidencia/decisión y puerta está en §7; el límite operativo permanece sin impedir el contrato local verificado.
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-003; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Intenciones y entregas distinguidas; D027 email de seguridad permanece separado de notificaciones internas. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Crítica/Importante generan intención WhatsApp, Informativa solo CRM; ninguna por email. Fallo persistente y fallo de WhatsApp visibles en CRM sin recursión; aviso no resuelve causa ni reintenta ilimitadamente. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PASS local/aislado**, observaciones por caso en [matriz H5-004](matrix-TSK-H5-004.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-005"></a>
