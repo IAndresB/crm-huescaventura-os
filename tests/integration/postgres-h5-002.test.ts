@@ -118,7 +118,7 @@ test('H5-T03 observed two PostgreSQL sessions overlap in both close orders',asyn
   await held;
   const a=tasks.transition(await h.auth(),write,transition(p,first,1));
   const watcher=h.connect('h2_bootstrap');
-  const waiters=async()=>await watcher.unsafe<{pid:number;wait_event_type:string;wait_event:string}[]>(
+  const waiters=async():Promise<{pid:number;wait_event_type:string;wait_event:string}[]>=>await watcher.unsafe<{pid:number;wait_event_type:string;wait_event:string}[]>(
    "select pid,wait_event_type,wait_event from pg_stat_activity where usename='crm_h0_runtime' and wait_event_type='Lock' and query like '%b07_task_apply%' order by pid");
   let firstWaiting=false,waiting:Awaited<ReturnType<typeof waiters>>=[];
   for(let i=0;i<80;i++){waiting=await waiters();if(waiting.length>=1){firstWaiting=true;break;}await new Promise(r=>setTimeout(r,25));}
