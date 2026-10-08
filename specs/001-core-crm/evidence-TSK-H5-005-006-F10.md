@@ -55,3 +55,7 @@ La regresión completa falla por cuatro guardas adicionales de preservación. F1
 ## F12 — cuatro guardas adicionales, sin corrección
 
 La identificación inicial fue incompleta. Fallan postgres-h4-021-f23-migration.test.ts C19,postgres-h4-021-migration.test.ts B68,postgres-h4-023-migration.test.ts ypostgres-h4-024.test.ts por hashes congelados de manifiesto/lockfile. No se tocaron esos verificadores ni sus manifiestos. H4-024 además protege los tres verificadores adaptados; no se supone que exceptuar dependencias resuelva todas las comprobaciones restantes. [Logoriginal](../../tests/fixtures/h5-006/f10/f12/postgres-original.log), [diagnóstico](../../tests/fixtures/h5-006/f10/f12/diagnosis.json). STOP solicitado; continuidad a dirección sin ampliar este correctivo.
+
+## Retest posterior autorizado F12
+
+El checkpoint anterior9be76f01 y sus cuatro FAIL permanecen recuperables. F12 aplica la autorización específica a cuatro verificadores adicionales y helper sin modificar dependencias/producto. Nuevo SHA `201dada023c6dc878928a28f296e00781cd3876d`: auditoría producción0 avisos, PostgreSQL2408/2408,unit150/150,health1/1,focal38/38 y siete archivos históricos47/47 PASS, además de todos los gates técnicos/contrapruebas. F10/F12 CLOSED local/aislado tras esta nueva ejecución; confirmado por auditor final documental PASS. [Detalle/hashes F12](evidence-TSK-H5-005-006-F12.md).

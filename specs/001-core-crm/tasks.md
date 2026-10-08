@@ -1,5 +1,11 @@
 # Tasks — SPEC 001 Core CRM
 
+**H5-005/006 COMPLETED exclusivamente local/aislado — cierre F10/F12, 2026-10-08.** Preflight F12: HEAD daa3a7fa, origin/main b143966, main limpio9/0; expected independiente b143966,22.889 bytes/hash intactos. SHA definitivamente probado `201dada023c6dc878928a28f296e00781cd3876d`. F12 modifica solo cuatro verificadores autorizados y helper; snapshots históricos inmutables, hashes originales/actuales exactos y protección de siete verificadores. PostgreSQL2370+38=2408/2408, unitarias146+4=150/150, health1/1 separado, focal38/38, históricos47/47,800 entradas y contrapruebas PASS. Frozen install/typecheck/lint-import boundaries/build/audit producción0 avisos/V-MIG fresh55-upgrade54 poblado-rollback-retry/advisors loopback/RLS-FORCE RLS/concurrencia real/idempotencia/T08/preservación/diff/auditor final PASS. F10/F12 CLOSED, originales y checkpoints fallidos conservados; no reutilizar pruebas de86f90461/9be76f01. H0–H4 yH5-001–004 COMPLETED históricos conservados; H5 IN PROGRESS, H5-007+ yH6 NOT STARTED. DM-PENDING-005 abierto, solo sintéticos, sin IA/PLAUD/audio/envíos/conectores reales ni Hosted/Production. Publicación normal del cierre autorizada; estado remoto final se comprueba tras push. **STOP tras H5-005/006; continuidad exclusivamente al hilo de dirección CRM HUESCAVENTURA OS.**
+
+[Cierre](evidence-TSK-H5-005-006.md), [F12/hashes](evidence-TSK-H5-005-006-F12.md).
+
+### Antecedente local incompleto daa3a7fa — conservado
+
 **H5-005/006-F10 aplicado; bloque IN PROGRESS por F12 — 2026-10-08.** Preflight32888ceb/main/originb143966,7/0 limpio,expected22889bytes/hash intactos. Correctivo ySHA ejecutado `9be76f010f27f35e20dd806aafbd6f57f69b9a17`: Next16.3.6→16.3.8,solo manifiesto/lockfile yfamilia @next; audit producción0 avisos,frozen/typecheck/lint/build,unit150/150,focal38/38,históricos adaptados20/20 ycontrapruebas PASS. **Regresión2370+38=2408:2404PASS/4FAIL** por cuatro guardas adicionales de manifiestos históricos,F12 OPEN. Identificación inicial incompleta; no adaptación adicional ni publicación. Health actual/auditor final no reejecutados porSTOP; anteriores86f90461 no acreditan9be76f01. F10 permanece sin cierre formal condicionado al bloque. H0–H4 yH5-001–004 conservan suCOMPLETED histórico; H5-005/006 IN PROGRESS,H5 IN PROGRESS,H5-007+ yH6 NOT STARTED. DM-PENDING-005 abierto,sintéticos,sinIA/PLAUD/audio/envíos/conectores reales/Hosted/Production. **STOP conforme a instrucciónhumana; continuidad exclusivamente al hilo de dirección CRM.**
 
 [CheckpointF10/F12](evidence-TSK-H5-005-006-F10.md), [matriz](matrix-TSK-H5-006.md), [defectos](defects-TSK-H5-006.md).
@@ -1841,7 +1847,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-005 — Preparar comunicaciones y registrar derivados con Review
 
-- [ ] **Ejecución: IN PROGRESS local/aislado. Evidencia: focal PASS; cierre FAIL por F12/preservación.** Hito: H5. Tipo: implementación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: PASS sobre `201dada023c6dc878928a28f296e00781cd3876d`; [cierre](evidence-TSK-H5-005-006.md).** Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Ciclo Borrador/Preparada/aprobación, original/transcripción/resumen/nota y extracción candidata sin motor IA real.
 - **Fuentes exactas:** Plan §§6.5, 8; SPEC-FR-PROP-006, SPEC-FR-HIST-003, SPEC-FR-HIST-005, SPEC-FR-COORD-007, SPEC-FR-SEC-006, SPEC-FR-INT-004, AC-024, AC-087, AC-088. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-005.
 - **Bloques, contratos y unidades:** B07/B08/B09; C01/C02/C03/C04/C05; T08.
@@ -1852,14 +1858,14 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 - **Salida observable:** Ciclo y derivados con procedencia/permisos; evidencia temprana mantiene identidad y hechos sin migración destructiva.
 - **Verificación y esperado:** Aprobada sin envío sigue sin envío; entrante no necesita borrador. Original PLAUD y resumen coexisten; quizá16 no sobrescribe18 confirmados, genera revisión/Task. Plantilla sensible exige aprobación y cambio material invalida la previa. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H5-006].
 - **Integración adicional obligatoria:** [TSK-H5-010], [TSK-H6-006], [TSK-H6-017]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. [Correctivo ejecutado sobre9be76f01](evidence-TSK-H5-005-006.md); [matriz57/33](matrix-TSK-H5-006.md), H5-CAR/CBE FAIL,F10 condicionado yF12 OPEN. No COMPLETED.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PASS local/aislado** sobre `201dada023c6dc878928a28f296e00781cd3876d`; [cierre](evidence-TSK-H5-005-006.md), [matriz57/33](matrix-TSK-H5-006.md); F10/F12 CLOSED tras regresión completa y auditor final PASS.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-006"></a>
 
 #### TSK-H5-006 — Verificar: Preparar comunicaciones y registrar derivados con Review
 
-- [ ] **Ejecución: IN PROGRESS local/aislado. Evidencia: focal PASS; cierre FAIL por F12/preservación.** Hito: H5. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED local/aislado. Evidencia: PASS sobre `201dada023c6dc878928a28f296e00781cd3876d`; [cierre](evidence-TSK-H5-005-006.md).** Hito: H5. Tipo: comprobación.
 - **Objetivo y alcance:** Ciclo Borrador/Preparada/aprobación, original/transcripción/resumen/nota y extracción candidata sin motor IA real.
 - **Fuentes exactas:** Plan §§6.5, 8; SPEC-FR-PROP-006, SPEC-FR-HIST-003, SPEC-FR-HIST-005, SPEC-FR-COORD-007, SPEC-FR-SEC-006, SPEC-FR-INT-004, AC-024, AC-087, AC-088. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-006.
 - **Bloques, contratos y unidades:** B07/B08/B09; C01/C02/C03/C04/C05; T08.
@@ -1869,7 +1875,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-005; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Ciclo y derivados con procedencia/permisos; evidencia temprana mantiene identidad y hechos sin migración destructiva. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Aprobada sin envío sigue sin envío; entrante no necesita borrador. Original PLAUD y resumen coexisten; quizá16 no sobrescribe18 confirmados, genera revisión/Task. Plantilla sensible exige aprobación y cambio material invalida la previa. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. [Correctivo ejecutado sobre9be76f01](evidence-TSK-H5-005-006.md); [matriz57/33](matrix-TSK-H5-006.md), H5-CAR/CBE FAIL,F10 condicionado yF12 OPEN. No COMPLETED.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PASS local/aislado** sobre `201dada023c6dc878928a28f296e00781cd3876d`; [cierre](evidence-TSK-H5-005-006.md), [matriz57/33](matrix-TSK-H5-006.md); F10/F12 CLOSED tras regresión completa y auditor final PASS.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-007"></a>
