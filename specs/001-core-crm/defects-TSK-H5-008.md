@@ -18,7 +18,7 @@ El verificador histórico original se ejecuta sobre una vista temporal del files
 | Misma copia + alteración sintética de primera migración histórica | FAIL esperado, exit 1 | La preservación byte a byte sigue rechazando alteraciones. |
 | Contrapruebas F10/F12 originales | PASS | Siete verificadores, cuatro snapshots y sus 800 entradas efectivos intactos; sin ampliar excepciones. |
 
-[FAIL original recuperable](../../tests/fixtures/h5-008/f01/additional56-original-fail.log), [comandos/exit/SHA](../../tests/fixtures/h5-008/f01/runs.json), [reproductor](../../tests/fixtures/h5-008/f01/reproduce.mjs), [F12](../../tests/fixtures/h5-008/f01/f12-historical-negatives.json).
+[FAIL original recuperable](../../tests/fixtures/h5-008/f01/additional56-original-fail.log.gz), [comandos/exit/SHA](../../tests/fixtures/h5-008/f01/runs.json), [reproductor](../../tests/fixtures/h5-008/f01/reproduce.mjs), [F12](../../tests/fixtures/h5-008/f01/f12-historical-negatives.json).
 
 ### Correctivo propuesto, NO APLICADO
 
@@ -29,3 +29,7 @@ No se aplica por la instrucción humana de este turno: «No amplíes excepciones
 ### Estado y condición de continuidad
 
 F01 OPEN. H5-007/008 IN PROGRESS, implementación aún no iniciada. STOP sin publicación de producto ni modificación de verificadores históricos. Se necesita autorización concreta para aplicar exclusivamente la corrección mostrada, conservar estos FAIL y continuar H5-007/008 con todas las pruebas solicitadas. No se solicita ni presupone permiso para modificar otras guardas: cualquier hallazgo posterior conserva su propia obligación de diagnóstico.
+
+## F02 — CLOSED / presentación de evidencia
+
+El primer `git diff --cached --check` detectó espacios finales producidos por Node en los logs originales de FAIL. No es fallo de producto ni altera F01. Se archivaron los logs en gzip comprobando igualdad byte a byte tras descompresión y hashes originales en `tests/fixtures/h5-008/f01/raw-log-preservation.json`; también permanecen en el commit local inicial 419492b. No se limpiaron ni reescribieron los FAIL. El reproductor guarda sus salidas comprimidas. Diff-check repetido sobre el cambio completo y comprobación sintáctica PASS; no requiere regresión funcional al no existir producto.

@@ -5,6 +5,7 @@ import {tmpdir} from 'node:os';
 import {resolve,join} from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
+import {gzipSync} from 'node:zlib';
 import assert from 'node:assert/strict';
 const root=resolve(import.meta.dirname,'../../../..');
 const output=import.meta.dirname;
@@ -49,7 +50,7 @@ try {
  for(const name of files)assert.deepEqual(await readFile(join(temp,'supabase/migrations',name)),await readFile(join(root,'supabase/migrations',name)));
  assert.deepEqual(await readFile(join(root,verifier)),original);
 }finally{
- for(const r of runs)await writeFile(join(output,r.name+'.log'),r.stdout+r.stderr);
+ for(const r of runs)await writeFile(join(output,r.name+'.log.gz'),gzipSync(r.stdout+r.stderr));
  await writeFile(join(output,'runs.json'),JSON.stringify({testedSha:spawnSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).stdout.trim(),node:process.version,verifier,verifierSha256:sha(original),historicalMigrations:files.length,scope:'Filesystem historical guard only, no PostgreSQL or product implementation',runs:runs.map(({stdout,stderr,...r})=>r)},null,2)+'\n');
  await rm(temp,{recursive:true,force:true});
 }
