@@ -1,0 +1,67 @@
+{
+  "id": "F12",
+  "classification": "technical verifier preservation; incomplete scope identification",
+  "status": "OPEN",
+  "sha": "9be76f010f27f35e20dd806aafbd6f57f69b9a17",
+  "tests": 2408,
+  "pass": 2404,
+  "fail": 4,
+  "skipped": 0,
+  "cancelled": 0,
+  "cause": "Four additional frozen-manifest guards not adapted; current dependency hashes intentionally differ after authorized Next patch",
+  "correctiveCommit": null,
+  "retest": null,
+  "stop": true,
+  "published": false,
+  "records": [
+    {
+      "verifier": "tests/integration/postgres-h4-021-f23-migration.test.ts",
+      "originalSha256": "48e155536451ace443c07584fe054091894f0c7c7388cbad86042a3b91ed62b2",
+      "manifest": "tests/fixtures/h4-021-f23/base-preservation.json",
+      "protectedEntries": 67,
+      "failingDependencyHashes": {
+        "package.json": "28b6223e2a3e8e414eaacc54c2f21cc73f3ceeb041dce1d3b3ebfe10201a1258",
+        "pnpm-lock.yaml": "1380c6afde70f15ca12514a9989dd314b462de9cd4e87cfb92274e943083fcdf"
+      },
+      "alsoProtectsAdaptedVerifierFiles": []
+    },
+    {
+      "verifier": "tests/integration/postgres-h4-021-migration.test.ts",
+      "originalSha256": "7e3fbea13c51af0d386eab36ff2aef4496e41edf95f57e7caa9352d02cc915b1",
+      "manifest": "tests/fixtures/h4-021/base-preservation.json",
+      "protectedEntries": 183,
+      "failingDependencyHashes": {
+        "package.json": "28b6223e2a3e8e414eaacc54c2f21cc73f3ceeb041dce1d3b3ebfe10201a1258",
+        "pnpm-lock.yaml": "1380c6afde70f15ca12514a9989dd314b462de9cd4e87cfb92274e943083fcdf"
+      },
+      "alsoProtectsAdaptedVerifierFiles": []
+    },
+    {
+      "verifier": "tests/integration/postgres-h4-023-migration.test.ts",
+      "originalSha256": "0cfff1dacc0875ba7cbb552acb39f887e7fecfaaf928c46d6fc104fd6307cfd5",
+      "manifest": "tests/fixtures/h4-023/protected-base.json",
+      "protectedEntries": 89,
+      "failingDependencyHashes": {
+        "package.json": "28b6223e2a3e8e414eaacc54c2f21cc73f3ceeb041dce1d3b3ebfe10201a1258",
+        "pnpm-lock.yaml": "1380c6afde70f15ca12514a9989dd314b462de9cd4e87cfb92274e943083fcdf"
+      },
+      "alsoProtectsAdaptedVerifierFiles": []
+    },
+    {
+      "verifier": "tests/integration/postgres-h4-024.test.ts",
+      "originalSha256": "ada14fe8628b5c0e9edf7854acac96cb2640aaa862a00981efb075200e672f70",
+      "manifest": "tests/fixtures/h4-024/protected-base.json",
+      "protectedEntries": 464,
+      "failingDependencyHashes": {
+        "package.json": "28b6223e2a3e8e414eaacc54c2f21cc73f3ceeb041dce1d3b3ebfe10201a1258",
+        "pnpm-lock.yaml": "1380c6afde70f15ca12514a9989dd314b462de9cd4e87cfb92274e943083fcdf"
+      },
+      "alsoProtectsAdaptedVerifierFiles": [
+        "tests/integration/postgres-h4-018-migration.test.ts",
+        "tests/integration/postgres-h4-019-preservation.test.ts",
+        "tests/integration/postgres-h4-019-f06.test.ts"
+      ]
+    }
+  ],
+  "warning": "The first failed hash can conceal later assertions; no claim that this is the complete set of incompatibilities"
+}

@@ -1,0 +1,105 @@
+{
+  "status": "DIAGNOSIS_CONFIRMED",
+  "authorization": "Human user message H5-005/006-F10 2026-10-08",
+  "before": "16.3.6",
+  "after": "16.3.8",
+  "testedCandidateSha": "9be76f010f27f35e20dd806aafbd6f57f69b9a17",
+  "advisories": [
+    {
+      "id": "GHSA-cjq9-62q9-8jv4",
+      "package": "next",
+      "severity": "high",
+      "affected": ">=16.0.0 <16.3.8",
+      "patched": ">=16.3.8",
+      "title": "SSRF en optimización de imagen",
+      "conditionFromOfficialAdvisory": "images.remotePatterns con URL remota permitida no fiable",
+      "observedRepository": "No hay next.config ni imágenes/rutas de UI en src/app; no se observa precondición",
+      "link": "https://github.com/advisories/GHSA-cjq9-62q9-8jv4"
+    },
+    {
+      "id": "GHSA-3w37-wq28-93x7",
+      "package": "next",
+      "severity": "moderate",
+      "affected": ">=16.3.0 <16.3.8",
+      "patched": ">=16.3.8",
+      "title": "Fuga de Draft Mode mediante use cache",
+      "conditionFromOfficialAdvisory": "Cache Components/useCache y contenido draft dependiente",
+      "observedRepository": "No hay cacheComponents/useCache/use cache/draftMode en el código",
+      "link": "https://github.com/advisories/GHSA-3w37-wq28-93x7"
+    },
+    {
+      "id": "GHSA-4jqv-mc3x-m676",
+      "package": "next",
+      "severity": "moderate",
+      "affected": ">=16.0.0 <16.3.8",
+      "patched": ">=16.3.8",
+      "title": "Cache poisoning SSG/ISR Pages Router",
+      "conditionFromOfficialAdvisory": "Pages Router con SSG/ISR self-hosted",
+      "observedRepository": "No hay src/pages ni pages; app solo tiene health",
+      "link": "https://github.com/advisories/GHSA-4jqv-mc3x-m676"
+    },
+    {
+      "id": "GHSA-f87g-xv8r-7p7x",
+      "package": "next",
+      "severity": "moderate",
+      "affected": ">=16.0.0 <16.3.8",
+      "patched": ">=16.3.8",
+      "title": "Metadata images ignoran dynamicParams",
+      "conditionFromOfficialAdvisory": "App Router webpack con metadata image y segmentos excluidos",
+      "observedRepository": "No hay opengraph-image/twitter-image ni generateImageMetadata/dynamicParams",
+      "link": "https://github.com/advisories/GHSA-f87g-xv8r-7p7x"
+    },
+    {
+      "id": "GHSA-mcj8-r9mp-w47p",
+      "package": "next",
+      "severity": "moderate",
+      "affected": ">=16.0.0 <16.3.8",
+      "patched": ">=16.3.8",
+      "title": "Cache poisoning con catch-all raíz",
+      "conditionFromOfficialAdvisory": "Catch-all raíz y rutas SSG/ISR",
+      "observedRepository": "No hay catch-all raíz ni rutas SSG/ISR de negocio",
+      "link": "https://github.com/advisories/GHSA-mcj8-r9mp-w47p"
+    },
+    {
+      "id": "GHSA-39w2-rjm5-chcv",
+      "package": "next",
+      "severity": "low",
+      "affected": ">=16.0.0 <16.3.8",
+      "patched": ">=16.3.8",
+      "title": "Endpoint MCP de servidor next dev expone datos",
+      "conditionFromOfficialAdvisory": "Servidor next dev; no afecta endpoint en producción",
+      "observedRepository": "No se ejecutó next dev; build/typegen no prueban explotación. Pin vulnerable también contempla dev futuro",
+      "link": "https://github.com/advisories/GHSA-39w2-rjm5-chcv"
+    }
+  ],
+  "otherDependencyAdvisoriesBefore": [],
+  "afterPatchKnownVulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0
+  },
+  "exploitationNotAccredited": true,
+  "compatibility": {
+    "Node": "24.21.0 satisfies >=20.9.0",
+    "React": "19.3.0 satisfies ^19.0.0",
+    "ReactDOM": "19.3.0 satisfies ^19.0.0",
+    "TypeScript": "7.0.2 unchanged; typecheck/build current SHA PASS",
+    "postgres": "3.4.9 unchanged",
+    "packageManager": "pnpm11.19.0 unchanged",
+    "noMassUpdate": true,
+    "noForce": true
+  },
+  "dependencyFiles": {
+    "package.json": {
+      "historical": "28b6223e2a3e8e414eaacc54c2f21cc73f3ceeb041dce1d3b3ebfe10201a1258",
+      "current": "135c5c52046f92d70fa6c77c9e5fc9014a7e24fa2d6d20867b0e325de490cb3c"
+    },
+    "pnpm-lock.yaml": {
+      "historical": "1380c6afde70f15ca12514a9989dd314b462de9cd4e87cfb92274e943083fcdf",
+      "current": "a97d77d529c30b46f5f6cd100d0ab8e2b8e2393e1365cdd0caad563e29044a15"
+    }
+  },
+  "originalHistoryPreserved": true
+}

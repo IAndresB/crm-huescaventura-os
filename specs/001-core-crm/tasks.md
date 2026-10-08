@@ -1,5 +1,11 @@
 # Tasks — SPEC 001 Core CRM
 
+**H5-005/006-F10 aplicado; bloque IN PROGRESS por F12 — 2026-10-08.** Preflight32888ceb/main/originb143966,7/0 limpio,expected22889bytes/hash intactos. Correctivo ySHA ejecutado `9be76f010f27f35e20dd806aafbd6f57f69b9a17`: Next16.3.6→16.3.8,solo manifiesto/lockfile yfamilia @next; audit producción0 avisos,frozen/typecheck/lint/build,unit150/150,focal38/38,históricos adaptados20/20 ycontrapruebas PASS. **Regresión2370+38=2408:2404PASS/4FAIL** por cuatro guardas adicionales de manifiestos históricos,F12 OPEN. Identificación inicial incompleta; no adaptación adicional ni publicación. Health actual/auditor final no reejecutados porSTOP; anteriores86f90461 no acreditan9be76f01. F10 permanece sin cierre formal condicionado al bloque. H0–H4 yH5-001–004 conservan suCOMPLETED histórico; H5-005/006 IN PROGRESS,H5 IN PROGRESS,H5-007+ yH6 NOT STARTED. DM-PENDING-005 abierto,sintéticos,sinIA/PLAUD/audio/envíos/conectores reales/Hosted/Production. **STOP conforme a instrucciónhumana; continuidad exclusivamente al hilo de dirección CRM.**
+
+[CheckpointF10/F12](evidence-TSK-H5-005-006-F10.md), [matriz](matrix-TSK-H5-006.md), [defectos](defects-TSK-H5-006.md).
+
+### Antecedente incompleto32888ceb conservado
+
 **TSK-H5-005/006 IN PROGRESS — checkpoint local incompleto, 2026-10-08.** Base autorizada `7eac0d27b6b74331868a14bbc4ca967f8d2f6bb9`; expected independiente publicado `b14396627cbadfc4a99dd3b158b47c3562d3f08f`, bytes intactos. Último SHA ejecutado `86f90461adcfe606fb4a525b12ee1e9fd8456768`: PostgreSQL2370+38=2408/2408, unitarias146+4=150/150, health1/1 separado, focales38/38 y frozen/typecheck/lint/build/V-MIG55/advisors/diff/preservación PASS. **Audit producción FAIL: Next16.3.6,seis vulnerabilidades (F10 OPEN). No COMPLETED ni publicación del producto.** F01–F09 corregidos/reprobados; originales conservados. Matriz57 casos/33 filas más pendiente transversal; H5-CBE FAIL bloquea cierre. Propuesta de parche16.3.8 NO aplicada; excepción a preservación de bytes de dependencias solicitada expresamente. H0 técnico/local/aislado y H1–H4 COMPLETED conservados; H5-001–004 COMPLETED conservados; H5 IN PROGRESS; H5-007+ y H6 NOT STARTED. DM-PENDING-005 abierto, solo sintéticos,sin IA/PLAUD/audio/envío/conector real,Hosted/Production no acreditados. **STOP antes de tareas posteriores; continuidad exclusivamente al hilo de dirección CRM HUESCAVENTURA OS.**
 
 [Evidencia H5-005/006](evidence-TSK-H5-005-006.md), [matriz](matrix-TSK-H5-006.md), [defectos](defects-TSK-H5-006.md).
@@ -1835,7 +1841,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-005 — Preparar comunicaciones y registrar derivados con Review
 
-- [ ] **Ejecución: IN PROGRESS local/aislado. Evidencia: funcional PASS; cierre FAIL por F10/audit.** Hito: H5. Tipo: implementación.
+- [ ] **Ejecución: IN PROGRESS local/aislado. Evidencia: focal PASS; cierre FAIL por F12/preservación.** Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Ciclo Borrador/Preparada/aprobación, original/transcripción/resumen/nota y extracción candidata sin motor IA real.
 - **Fuentes exactas:** Plan §§6.5, 8; SPEC-FR-PROP-006, SPEC-FR-HIST-003, SPEC-FR-HIST-005, SPEC-FR-COORD-007, SPEC-FR-SEC-006, SPEC-FR-INT-004, AC-024, AC-087, AC-088. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-005.
 - **Bloques, contratos y unidades:** B07/B08/B09; C01/C02/C03/C04/C05; T08.
@@ -1846,14 +1852,14 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 - **Salida observable:** Ciclo y derivados con procedencia/permisos; evidencia temprana mantiene identidad y hechos sin migración destructiva.
 - **Verificación y esperado:** Aprobada sin envío sigue sin envío; entrante no necesita borrador. Original PLAUD y resumen coexisten; quizá16 no sobrescribe18 confirmados, genera revisión/Task. Plantilla sensible exige aprobación y cambio material invalida la previa. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H5-006].
 - **Integración adicional obligatoria:** [TSK-H5-010], [TSK-H6-006], [TSK-H6-017]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. [Ejecutada sobre86f90461](evidence-TSK-H5-005-006.md); [matriz57/33](matrix-TSK-H5-006.md), H5-CBE FAIL y F10 OPEN. No COMPLETED.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. [Correctivo ejecutado sobre9be76f01](evidence-TSK-H5-005-006.md); [matriz57/33](matrix-TSK-H5-006.md), H5-CAR/CBE FAIL,F10 condicionado yF12 OPEN. No COMPLETED.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-006"></a>
 
 #### TSK-H5-006 — Verificar: Preparar comunicaciones y registrar derivados con Review
 
-- [ ] **Ejecución: IN PROGRESS local/aislado. Evidencia: funcional PASS; cierre FAIL por F10/audit.** Hito: H5. Tipo: comprobación.
+- [ ] **Ejecución: IN PROGRESS local/aislado. Evidencia: focal PASS; cierre FAIL por F12/preservación.** Hito: H5. Tipo: comprobación.
 - **Objetivo y alcance:** Ciclo Borrador/Preparada/aprobación, original/transcripción/resumen/nota y extracción candidata sin motor IA real.
 - **Fuentes exactas:** Plan §§6.5, 8; SPEC-FR-PROP-006, SPEC-FR-HIST-003, SPEC-FR-HIST-005, SPEC-FR-COORD-007, SPEC-FR-SEC-006, SPEC-FR-INT-004, AC-024, AC-087, AC-088. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-006.
 - **Bloques, contratos y unidades:** B07/B08/B09; C01/C02/C03/C04/C05; T08.
@@ -1863,7 +1869,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-005; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Ciclo y derivados con procedencia/permisos; evidencia temprana mantiene identidad y hechos sin migración destructiva. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Aprobada sin envío sigue sin envío; entrante no necesita borrador. Original PLAUD y resumen coexisten; quizá16 no sobrescribe18 confirmados, genera revisión/Task. Plantilla sensible exige aprobación y cambio material invalida la previa. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. [Ejecutada sobre86f90461](evidence-TSK-H5-005-006.md); [matriz57/33](matrix-TSK-H5-006.md), H5-CBE FAIL y F10 OPEN. No COMPLETED.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. [Correctivo ejecutado sobre9be76f01](evidence-TSK-H5-005-006.md); [matriz57/33](matrix-TSK-H5-006.md), H5-CAR/CBE FAIL,F10 condicionado yF12 OPEN. No COMPLETED.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-007"></a>
