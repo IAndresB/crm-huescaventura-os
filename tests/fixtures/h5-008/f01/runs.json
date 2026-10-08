@@ -1,0 +1,54 @@
+{
+  "testedSha": "ae7f3b02745f3011bf3b324f2a5b3420f22a0a79",
+  "node": "v24.21.0",
+  "verifier": "tests/integration/postgres-h5-006-migration.test.ts",
+  "verifierSha256": "0c9198bd0622574527185a6ebd56cab77f770fcee1755575a28e6b5f840bf8fa",
+  "historicalMigrations": 55,
+  "scope": "Filesystem historical guard only, no PostgreSQL or product implementation",
+  "runs": [
+    {
+      "name": "baseline55",
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE",
+        "--experimental-strip-types",
+        "/Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h5-006-migration.test.ts"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "additional56-original-fail",
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE",
+        "--experimental-strip-types",
+        "/Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h5-006-migration.test.ts"
+      ],
+      "exit": 1
+    },
+    {
+      "name": "proposed-cutoff56-pass",
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE",
+        "--experimental-strip-types",
+        "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5008-f01-9p9Ete/review/integration/postgres-h5-006-migration.test.ts"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "proposed-cutoff-historical-tamper-rejected",
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE",
+        "--experimental-strip-types",
+        "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5008-f01-9p9Ete/review/integration/postgres-h5-006-migration.test.ts"
+      ],
+      "exit": 1
+    }
+  ]
+}

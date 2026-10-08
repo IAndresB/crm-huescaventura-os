@@ -1,5 +1,11 @@
 # Tasks — SPEC 001 Core CRM
 
+**TSK-H5-007/008 IN PROGRESS — STOP por F01, 2026-10-08.** Preflight exacto `ff109036e3bb08a1d61e948693bc622bb10f240e`, main/origin/main, limpio y 0/0. Expected independiente publicado antes de producto en `ae7f3b02745f3011bf3b324f2a5b3420f22a0a79`: 45 filas literales, 56 casos, 26.621 bytes, SHA256 `39eb753f8a2fc57a33d827a7980640256fd16d96ec7f2b70a27bf49a6841c40d`. Implementación aún no iniciada: guarda histórica H5-006 exige total global55 y falla con archivo56 inerte en copia (`56 !== 55`). Correctivo de una línea preparado/probado solo en copia, NO APLICADO; requiere autorización expresa para adaptar esa guarda. Cadena F10/F12 reejecutada PASS, siete verificadores/cuatro snapshots/800 entradas intactos. No migración nueva ni producto, sin regresión funcional nueva, sin publicación de producto/checkpoint. H0–H4 y H5-001–006 conservan cierres locales/aislados; H5 IN PROGRESS, H5-009+ y H6 NOT STARTED. DM-PENDING-005 y parámetros operativos pendientes; sin efectos externos ni Hosted/Production. **STOP tras diagnóstico H5-007/008; no preparar tareas posteriores.**
+
+[Evidencia parcial](evidence-TSK-H5-007-008.md), [F01 y correctivo propuesto](defects-TSK-H5-008.md), [matriz](matrix-TSK-H5-008.md).
+
+### Antecedente publicado H5-005/006 conservado
+
 **H5-005/006 COMPLETED exclusivamente local/aislado — cierre F10/F12, 2026-10-08.** Preflight F12: HEAD daa3a7fa, origin/main b143966, main limpio9/0; expected independiente b143966,22.889 bytes/hash intactos. SHA definitivamente probado `201dada023c6dc878928a28f296e00781cd3876d`. F12 modifica solo cuatro verificadores autorizados y helper; snapshots históricos inmutables, hashes originales/actuales exactos y protección de siete verificadores. PostgreSQL2370+38=2408/2408, unitarias146+4=150/150, health1/1 separado, focal38/38, históricos47/47,800 entradas y contrapruebas PASS. Frozen install/typecheck/lint-import boundaries/build/audit producción0 avisos/V-MIG fresh55-upgrade54 poblado-rollback-retry/advisors loopback/RLS-FORCE RLS/concurrencia real/idempotencia/T08/preservación/diff/auditor final PASS. F10/F12 CLOSED, originales y checkpoints fallidos conservados; no reutilizar pruebas de86f90461/9be76f01. H0–H4 yH5-001–004 COMPLETED históricos conservados; H5 IN PROGRESS, H5-007+ yH6 NOT STARTED. DM-PENDING-005 abierto, solo sintéticos, sin IA/PLAUD/audio/envíos/conectores reales ni Hosted/Production. Cierre documental 187bb1bb1de81c2bd4884f56de930d35acb93d26 publicado por push normal; fetch confirma HEAD=main=origin/main,0/0 limpio antes del recibo documental posterior. **STOP tras H5-005/006; continuidad exclusivamente al hilo de dirección CRM HUESCAVENTURA OS.**
 
 [Cierre](evidence-TSK-H5-005-006.md), [F12/hashes](evidence-TSK-H5-005-006-F12.md).
@@ -1882,7 +1888,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-007 — Reclamar y recuperar trabajo persistido
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: implementación.
+- [ ] **Ejecución: IN PROGRESS. Evidencia: PARCIAL; STOP F01.** Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Definition/version, Execution Record, generaciones de intento, reclamación exclusiva, pausa/detención y resultados tardíos.
 - **Fuentes exactas:** Plan §§7.2, 8, 11.2; SPEC-FR-HA-002, SPEC-FR-HA-003, SPEC-FR-HA-004, SPEC-FR-IDEMP-002, SPEC-FR-IDEMP-004, SPEC-FR-CONC-005, SPEC-FR-CONC-006, SPEC-FR-ERR-002, SPEC-FR-INT-003, AC-054, AC-055, AC-057, AC-069, AC-070, AC-073, AC-083. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-007.
 - **Bloques, contratos y unidades:** B08; C02/C03/C05/C06; T08/T09.
@@ -1893,14 +1899,14 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 - **Salida observable:** Trabajo recuperable tras caída de proceso, sin exactly once externo prometido ni permiso nuevo por cada intento.
 - **Verificación y esperado:** Dos ejecutores reclaman: una reserva/efecto; caída antes/contacto/después distingue abortado e incierto. Concesión vencida no autoriza reenviar; ejecutor viejo no sobrescribe resultado nuevo; parcial consume solo acreditado; detener/revisar conserva historia. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H5-008].
 - **Integración adicional obligatoria:** [TSK-H5-010], [TSK-H6-006], [TSK-H6-015], [TSK-H6-016]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PARCIAL**: expected publicado y diagnóstico de guarda histórica; producto y verificación funcional aún NO EJECUTADOS. [Evidencia/STOP F01](evidence-TSK-H5-007-008.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08/T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-008"></a>
 
 #### TSK-H5-008 — Verificar: Reclamar y recuperar trabajo persistido
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: comprobación.
+- [ ] **Ejecución: IN PROGRESS. Evidencia: PARCIAL; STOP F01.** Hito: H5. Tipo: comprobación.
 - **Objetivo y alcance:** Definition/version, Execution Record, generaciones de intento, reclamación exclusiva, pausa/detención y resultados tardíos.
 - **Fuentes exactas:** Plan §§7.2, 8, 11.2; SPEC-FR-HA-002, SPEC-FR-HA-003, SPEC-FR-HA-004, SPEC-FR-IDEMP-002, SPEC-FR-IDEMP-004, SPEC-FR-CONC-005, SPEC-FR-CONC-006, SPEC-FR-ERR-002, SPEC-FR-INT-003, AC-054, AC-055, AC-057, AC-069, AC-070, AC-083. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-008.
 - **Bloques, contratos y unidades:** B08; C02/C03/C05/C06; T08/T09.
@@ -1910,7 +1916,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-007; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Trabajo recuperable tras caída de proceso, sin exactly once externo prometido ni permiso nuevo por cada intento. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Dos ejecutores reclaman: una reserva/efecto; caída antes/contacto/después distingue abortado e incierto. Concesión vencida no autoriza reenviar; ejecutor viejo no sobrescribe resultado nuevo; parcial consume solo acreditado; detener/revisar conserva historia. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PARCIAL**: expected publicado y diagnóstico de guarda histórica; producto y verificación funcional aún NO EJECUTADOS. [Evidencia/STOP F01](evidence-TSK-H5-007-008.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08/T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-009"></a>
