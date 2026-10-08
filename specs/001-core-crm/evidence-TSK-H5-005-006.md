@@ -23,8 +23,9 @@ Preflight F10: HEAD32888ceb/originb143966/main,7/0 limpio. Preflight F12 tras fe
 | `9be76f010f27f35e20dd806aafbd6f57f69b9a17` | fix(h5): patch Next security and constrain historical dependency exception |
 | `daa3a7faf9dbe6668a934ffee2550749c0a357a7` | docs(h5): preserve F12 regression failure and stop unpublished |
 | `201dada023c6dc878928a28f296e00781cd3876d` | fix(h5): authorize exact historical verifier transitions for F12 |
+| `187bb1bb1de81c2bd4884f56de930d35acb93d26` | docs(h5): close H5-005/006 with F10 F12 definitive local evidence |
 
-**SHA definitivamente probado: `201dada023c6dc878928a28f296e00781cd3876d`.** F10 y F12 originales sobre86f90461/9be76f01 no se convierten en PASS retrospectivo. Se ejecuta nueva regresión completa tras cada cambio de verificador. El posterior commit de cierre solo admite documentación/evidencia/fixtures: nada de producto, tests ejecutables, migración, permisos, dependencias o verificador. El hash final documental y el estado remoto se comprobarán tras el commit y push normal, sin force.
+**SHA definitivamente probado: `201dada023c6dc878928a28f296e00781cd3876d`.** F10 y F12 originales sobre86f90461/9be76f01 no se convierten en PASS retrospectivo. Se ejecuta nueva regresión completa tras cada cambio de verificador. El posterior commit de cierre solo admite documentación/evidencia/fixtures: nada de producto, tests ejecutables, migración, permisos, dependencias o verificador. Cierre documental publicado `187bb1bb1de81c2bd4884f56de930d35acb93d26` mediante push normal, sin force; tras fetch se comprobó HEAD=main=origin/main,0/0 y árbol limpio. [Recibo remoto](../../tests/fixtures/h5-006/f12/publication.json). El commit posterior de este recibo sigue siendo exclusivamente documental/evidencial; su SHA final se identifica en el informe de entrega.
 
 ## Inventario y cambio mínimo
 
