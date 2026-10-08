@@ -1,5 +1,23 @@
 # Evidencia parcial — TSK-H5-007/008
 
+**Continuación F01: IN PROGRESS / STOP por F03.** La línea autorizada está aplicada localmente; F01 no se cierra al fallar una contraprueba requerida. Preflight `bd683059…`/origin`ae7f3b0…`, main limpio2/0. Expected congelado intacto. Diagnóstico y salidas en [defectos](defects-TSK-H5-008.md) y [F03](../../tests/fixtures/h5-008/f03/result.json).
+
+| Contraprueba de continuación | Observado | Resultado respecto a instrucción humana |
+|---|---|---|
+| 55 originales, guarda aplicada | PASS | Satisfactorio para recuento |
+| Archivo56 inerte posterior | PASS | Satisfactorio para adición |
+| Alterar original1 | FAIL esperado | Satisfactorio |
+| Eliminar original intermedia | FAIL esperado | Satisfactorio |
+| Sustituir original55 por comentario | PASS indebido | **FAIL material; F03** |
+| Añadir comentario a original55 | PASS indebido | **FAIL material; F03** |
+| F10/F12 sin cambios | PASS | Alcance original conservado; no cubre55 |
+
+El caso histórico de comparación de bytes protege54 migraciones del baseline anterior y no incluye la55 propia. En copias temporales, su alteración por comentario pasa también F10/F12. No se ejecutó SQL ni PostgreSQL; las55 reales siguen intactas. No se ha cambiado otra guarda ni ampliado excepción. Implementación y toda verificación funcional H5-007/008 siguen NO EJECUTADAS. Reutilización HA/TTE/D039 pendiente de implementación. Sin SHA de producto definitivamente probado ni publicado.
+
+Se conserva el patch autorizado y este diagnóstico en un checkpoint local posterior; no push. F01 OPEN por cierre condicionado a contrapruebas completas; F03 OPEN/MATERIAL. No se puede acreditar «ninguna otra incompatibilidad histórica» ante el bypass observado. STOP conforme al mandato humano de continuación, sin correctivo adicional ni tareas posteriores.
+
+### Antecedente local bd683059 conservado
+
 **IN PROGRESS / STOP por F01. No implementado ni acreditado localmente.** Fecha: 2026-10-08. Solo expected independiente publicado; diagnóstico y checkpoint posteriores locales. Sin producto, migración nueva, conector ni cambio de permisos.
 
 ## Preflight

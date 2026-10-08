@@ -32,7 +32,7 @@ test('H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE exact expected33 rows57 cases and histo
  const protectedFiles=git('ls-tree','-r','--name-only',base,'src','supabase','scripts','tests/operations').trim().split('\n');for(const f of protectedFiles)assert.equal(await readFile(f,'utf8'),git('show',base+':'+f),f);
  const expectedFile='specs/001-core-crm/expected-TSK-H5-005-006.md',expected=await readFile(expectedFile,'utf8');assert.equal(expected,git('show',expectedSha+':'+expectedFile));
  const tasks=git('show',base+':specs/001-core-crm/tasks.md'),rows=tasks.split('\n## 6.')[1]!.split('\n## 7.')[0]!.split('\n').filter(x=>x.startsWith('|')&&/\[TSK-H5-00[56]\]/.test(x));assert.equal(rows.length,33);for(const row of rows)assert.ok(expected.includes(row));assert.equal(expected.split('\n').filter(x=>x.startsWith('| H5-C')).length,57);
- assert.equal((await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')).length,55);
+ assert.equal((await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')&&x<=migration.split('/').at(-1)!).length,55);
  for(const file of ['src/domain/communication-review.ts','src/infrastructure/postgres/h5-communication-adapter.ts',migration])assert.doesNotMatch(await readFile(file,'utf8'),/\b(fetch\(|setInterval\(|cron\.schedule|https:\/\/|openai\.com|anthropic|gemini|whisper|twilio|evolution-api|n8n)/i);
  await capture('preservation',{base,expectedSha,protectedFiles,rows,before:54,added:1,after:55});
 });

@@ -1,0 +1,31 @@
+import {mkdtemp,symlink,mkdir,copyFile,readdir,readFile,writeFile,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {resolve,join} from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {gzipSync} from 'node:zlib';
+import assert from 'node:assert/strict';
+const root=resolve(import.meta.dirname,'../../../..'),output=import.meta.dirname;
+const verifier='tests/integration/postgres-h5-006-migration.test.ts';
+const current=await readFile(join(root,verifier),'utf8');
+const original=spawnSync('git',['show','bd683059:'+verifier],{cwd:root,encoding:'utf8'}).stdout;
+assert.equal(current,original.replace(".filter(x=>x.endsWith('.sql')).length,55)",".filter(x=>x.endsWith('.sql')&&x<=migration.split('/').at(-1)!).length,55)"));
+const files=(await readdir(join(root,'supabase/migrations'))).filter(x=>x.endsWith('.sql')).sort();assert.equal(files.length,55);
+const temp=await mkdtemp(join(tmpdir(),'crm-h5008-f01-applied-')),runs=[];
+try{
+ for(const name of ['.git','src','scripts','specs','tests','node_modules','docs'])await symlink(join(root,name),join(temp,name));
+ await mkdir(join(temp,'supabase/migrations'),{recursive:true});
+ for(const name of (await readdir(join(root,'supabase'))).filter(x=>x!=='migrations'))await symlink(join(root,'supabase',name),join(temp,'supabase',name));
+ for(const file of files)await copyFile(join(root,'supabase/migrations',file),join(temp,'supabase/migrations',file));
+ const run=(name,expected)=>{const args=['--test','--test-name-pattern=H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE','--experimental-strip-types',join(root,verifier)],r=spawnSync(process.execPath,args,{cwd:temp,encoding:'utf8',env:{...process.env,H5006_CAPTURE_DIR:''}});runs.push({name,command:['node',...args],exit:r.status,expectedExit:expected});writeFile(join(output,name+'.log.gz'),gzipSync(r.stdout+r.stderr));assert.equal(r.status,expected,r.stdout+r.stderr);};
+ run('baseline55',0);
+ await writeFile(join(temp,'supabase/migrations/20990101000000_synthetic_inventory_probe.sql'),'-- INERT synthetic inventory only; never applied.\n');run('additional56',0);
+ const first=files[0],last=files.at(-1),middle=files[Math.floor(files.length/2)];
+ await writeFile(join(temp,'supabase/migrations',first),(await readFile(join(root,'supabase/migrations',first)))+'\n-- synthetic altered historical migration\n');run('alter-original',1);await copyFile(join(root,'supabase/migrations',first),join(temp,'supabase/migrations',first));
+ await rm(join(temp,'supabase/migrations',middle));run('delete-original',1);await copyFile(join(root,'supabase/migrations',middle),join(temp,'supabase/migrations',middle));
+ await writeFile(join(temp,'supabase/migrations',last),'-- synthetic replacement\n');run('replace-original',1);await copyFile(join(root,'supabase/migrations',last),join(temp,'supabase/migrations',last));
+ run('restored55-plus56',0);
+ for(const f of files)assert.deepEqual(await readFile(join(temp,'supabase/migrations',f)),await readFile(join(root,'supabase/migrations',f)));
+ await writeFile(join(output,'result.json'),JSON.stringify({status:'PASS',preflightSha:'bd6830595ef3fed94fb1a91a4e7250861eb768e2',appliedOnlyAuthorizedLine:true,verifier,verifierSha256:createHash('sha256').update(current).digest('hex'),protectedMigrations:files,checkedAll55Bytes:true,runs,scope:'filesystem only; no SQL'},null,2)+'\n');
+}finally{await rm(temp,{recursive:true,force:true});}
+console.log('F01 applied counterexamples PASS: 55 preserved; inert56 accepted; alter/delete/replace rejected.');
