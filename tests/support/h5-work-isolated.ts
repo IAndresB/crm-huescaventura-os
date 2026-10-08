@@ -28,7 +28,7 @@ export async function workFixture(h:Awaited<ReturnType<typeof isolatedWork>>,par
  const definition:WorkCommand={...base(),action:'define',definitionId,version:1,context,...approval,material,triggerRef:'manual-synthetic-trigger',inputsRef:'synthetic-inputs',permissionsRef:'synthetic-review',affectedRefs:[comm.recordId]};
  const run=(c:WorkCommand,w=worker)=>h.auth().then(a=>w.apply(a,write,c));
  const see=(w=worker)=>h.auth().then(a=>w.read(a,read,executionId,context));
- const claim=(seconds=30):WorkCommand=>({...base(),action:'claim',attemptId:uid(),leaseUntil:new Date(Date.now()+seconds*1000).toISOString()});
+ const claim=(seconds=30):Extract<WorkCommand,{action:'claim'}>=>({...base(),action:'claim',attemptId:uid(),leaseUntil:new Date(Date.now()+seconds*1000).toISOString()});
  const start=(c:Extract<WorkCommand,{action:'claim'}>,generation:number):WorkCommand=>({...base(),action:'start',attemptId:c.attemptId,generation,material});
  const prove=(attemptId:string,outcome:'succeeded'|'failed'='succeeded',resultRef='simulated-proof-'+uid())=>{h.observations.set(attemptId,{executionId,attemptId,outcome,resultRef,sourceKind:'simulated',verifierIdentity:'synthetic-durable-provider'});return {...base(),action:'result' as const,attemptId,outcome,resultRef};};
  return {comm,executionId,definitionId,context,material,approve,approval,definition,worker,base,run,see,claim,start,prove};
