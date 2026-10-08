@@ -1894,7 +1894,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-007 — Reclamar y recuperar trabajo persistido
 
-- [ ] **Ejecución: IN PROGRESS. Evidencia: PARCIAL; STOP F03, F01 OPEN.** Hito: H5. Tipo: implementación.
+- [ ] **Ejecución: IN PROGRESS. Evidencia: PARCIAL; F03/F01 CLOSED, gates completos pendientes.** Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Definition/version, Execution Record, generaciones de intento, reclamación exclusiva, pausa/detención y resultados tardíos.
 - **Fuentes exactas:** Plan §§7.2, 8, 11.2; SPEC-FR-HA-002, SPEC-FR-HA-003, SPEC-FR-HA-004, SPEC-FR-IDEMP-002, SPEC-FR-IDEMP-004, SPEC-FR-CONC-005, SPEC-FR-CONC-006, SPEC-FR-ERR-002, SPEC-FR-INT-003, AC-054, AC-055, AC-057, AC-069, AC-070, AC-073, AC-083. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-007.
 - **Bloques, contratos y unidades:** B08; C02/C03/C05/C06; T08/T09.
@@ -1905,14 +1905,14 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 - **Salida observable:** Trabajo recuperable tras caída de proceso, sin exactly once externo prometido ni permiso nuevo por cada intento.
 - **Verificación y esperado:** Dos ejecutores reclaman: una reserva/efecto; caída antes/contacto/después distingue abortado e incierto. Concesión vencida no autoriza reenviar; ejecutor viejo no sobrescribe resultado nuevo; parcial consume solo acreditado; detener/revisar conserva historia. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H5-008].
 - **Integración adicional obligatoria:** [TSK-H5-010], [TSK-H6-006], [TSK-H6-015], [TSK-H6-016]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PARCIAL**: expected publicado y diagnóstico de guarda histórica; producto y verificación funcional aún NO EJECUTADOS. [Evidencia/STOP F03](evidence-TSK-H5-007-008.md).
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PARCIAL**: expected publicado y diagnóstico de guarda histórica; producto aditivo y focales preliminares PASS; gates completos todavía pendientes. [Evidencia de continuación](evidence-TSK-H5-007-008.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08/T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-008"></a>
 
 #### TSK-H5-008 — Verificar: Reclamar y recuperar trabajo persistido
 
-- [ ] **Ejecución: IN PROGRESS. Evidencia: PARCIAL; STOP F03, F01 OPEN.** Hito: H5. Tipo: comprobación.
+- [ ] **Ejecución: IN PROGRESS. Evidencia: PARCIAL; F03/F01 CLOSED, gates completos pendientes.** Hito: H5. Tipo: comprobación.
 - **Objetivo y alcance:** Definition/version, Execution Record, generaciones de intento, reclamación exclusiva, pausa/detención y resultados tardíos.
 - **Fuentes exactas:** Plan §§7.2, 8, 11.2; SPEC-FR-HA-002, SPEC-FR-HA-003, SPEC-FR-HA-004, SPEC-FR-IDEMP-002, SPEC-FR-IDEMP-004, SPEC-FR-CONC-005, SPEC-FR-CONC-006, SPEC-FR-ERR-002, SPEC-FR-INT-003, AC-054, AC-055, AC-057, AC-069, AC-070, AC-083. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-008.
 - **Bloques, contratos y unidades:** B08; C02/C03/C05/C06; T08/T09.
@@ -1922,7 +1922,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-007; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Trabajo recuperable tras caída de proceso, sin exactly once externo prometido ni permiso nuevo por cada intento. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Dos ejecutores reclaman: una reserva/efecto; caída antes/contacto/después distingue abortado e incierto. Concesión vencida no autoriza reenviar; ejecutor viejo no sobrescribe resultado nuevo; parcial consume solo acreditado; detener/revisar conserva historia. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PARCIAL**: expected publicado y diagnóstico de guarda histórica; producto y verificación funcional aún NO EJECUTADOS. [Evidencia/STOP F03](evidence-TSK-H5-007-008.md).
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **PARCIAL**: expected publicado y diagnóstico de guarda histórica; producto aditivo y focales preliminares PASS; gates completos todavía pendientes. [Evidencia de continuación](evidence-TSK-H5-007-008.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08/T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-009"></a>

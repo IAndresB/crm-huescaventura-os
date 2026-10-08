@@ -1,4 +1,10 @@
-# Evidencia parcial — TSK-H5-007/008
+# Evidencia — TSK-H5-007/008
+
+**TSK-H5-007/008 IN PROGRESS — continuación autorizada tras F03/F01 CLOSED.** Correctivo registrado en `4da05b0f2e25ea13094e1ef06153a7aaed1d0aab`; contrapruebas11/11 PASS, 55 migraciones históricas intactas, expected26.621bytes/SHA256 intacto. Implementación B08 aditiva en curso: migración56, TTE privado con HA/M02 y B07/Task reutilizados. Focal54/54 PASS tras F05, incluida revalidación final de reserva original; pendientes gates completos sobre SHA probado, auditor y publicación condicionada. No publicación de producto ni COMPLETED. H0–H5-006 conservados; H5-009/010 y H6 NOT STARTED. DM-PENDING-005, BR-PENDING-035 y parámetros operativos del scheduler pendientes. Solo datos sintéticos y efectos simulados. STOP tras007/008.
+
+El correctivo autorizado añade bytes exactos de la55 publicada en `187bb1bb…`, SHA256 `f6b47fbfa260318b2af2fc48b9aab7b4ba2a431e6f44837d48f027d45fd00ab0`; conserva la comparación de54 contra7eac0d27 y la cadena F10/F12. [Contrapruebas](../../tests/fixtures/h5-008/f03-applied/result.json).
+
+### Antecedente local eb739b15 conservado
 
 **Continuación F01: IN PROGRESS / STOP por F03.** La línea autorizada está aplicada localmente; F01 no se cierra al fallar una contraprueba requerida. Preflight `bd683059…`/origin`ae7f3b0…`, main limpio2/0. Expected congelado intacto. Diagnóstico y salidas en [defectos](defects-TSK-H5-008.md) y [F03](../../tests/fixtures/h5-008/f03/result.json).
 

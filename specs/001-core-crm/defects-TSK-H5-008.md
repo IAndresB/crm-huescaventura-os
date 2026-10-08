@@ -57,3 +57,28 @@ Preflight exacto `eb739b15bdd8a5cd2a6803cbdf4a041bc7a86013`, origin/main `ae7f3b
 Fuente histórica publicada: cierre H5-006 `187bb1bb1de81c2bd4884f56de930d35acb93d26`, ancestro de origin/main. Migración55:23.869bytes, SHA256 `f6b47fbfa260318b2af2fc48b9aab7b4ba2a431e6f44837d48f027d45fd00ab0`, extraído mediante `git show` del cierre publicado, no del árbol de trabajo. El verificador conserva el bucle anterior54 contra7eac0d27 y añade hash explícito del blob histórico más comparación Buffer exacta de la55 vigente contra ese blob fijado. Cualquier diferencia de comentario/whitespace o sustitución se rechaza. No se modifican migraciones, manifiestos F10/F12, otras guardas ni permisos.
 
 [Fuente y preflight](../../tests/fixtures/h5-008/f03-applied/historical-source.json), [retests completos](../../tests/fixtures/h5-008/f03-applied/result.json), [reproductor](../../tests/fixtures/h5-008/f03-applied/verify.mjs).55 intactas/adición56/restauración:PASS; alterar primera/eliminar intermedia/sustituir55/comentario55/whitespace55/eliminar55/adicional dentro del conjunto:FAIL esperados, todas las contrapruebas PASS; F10/F12 PASS sin cambios. Los resultados originales F03 siguen intactos. Pruebas de filesystem, excluidas de contadores PostgreSQL/unitarios. F03 y F01 CLOSED exclusivamente en este correctivo local; H5-007/008 sigue IN PROGRESS y continúa dentro de autorización anterior. No cierre funcional por estas contrapruebas.
+
+## F04 — Defectos de desarrollo y fixtures locales; correctivos dentro de H5-007/008
+
+Estado: IN PROGRESS hasta los gates definitivos. Se conserva cada FAIL original comprimido en `tests/fixtures/h5-008/implementation/`. No se modifica el expected, una guarda histórica, dependencias ni permisos anteriores.
+
+- Typecheck inicial: estrechar outcome antes de solicitar evidencia de resultado.
+- Arranque focal directo: usar runner oficial con Storage aislado requerido por la cadena existente.
+- Helpers nuevos: separar owner privado invoker de owner API executor; no grants anteriores persistentes.
+- M02: respetar overload humano solo para reserve exacto; ledger técnico para trabajo e intentos. HA/M02 siguen atómicos y el F2 original de reserve se revalida al final.
+- Aux JSON: transmitir bytes UTF8 para impedir doble codificación por el driver.
+- Fixture: generación JSON numérica; segunda sesión del único actor V1, sin crear otro administrador.
+- Snapshot: usar external_effect_records y unit_attempts reales; no tabla de intenciones inventada.
+- Cadena F12: invocar chain-counterexamples.mjs existente, sin editarlo.
+- Fallo de transporte: la desconexión inmediata provocó un TypeError asíncrono del driver; FAIL conservado. El doble de wire actual retiene el acuse real de COMMIT e introduce un error08 simulado después del COMMIT real, verificando WorkCommitUncertainError y recuperación por identidad. No se cambia el driver ni se acredita una desconexión TCP limpia. Las caídas reales de procesos hijo permanecen verificadas separadamente.
+- Conexiones de fixture: cerrar pools/observadores entre casos; conservar límite PostgreSQL original.
+
+Retest tras correctivos: focal54/54 PASS, unit154/154 y lint/import boundaries PASS preliminares. Tras confirmación global se registra SHA exacto y cierre.
+
+## F05 — Omisión de revalidación original de reserva en el cierre del nuevo adaptador
+
+Estado: IN PROGRESS hasta retest y gates definitivos. La revisión de composición detectó que el helper nuevo `b08_ha_finalize` existía pero no era llamado por el batch final del adaptador. El batch revalidaba el trabajo y evidencia, pero no el F2 original de `reserve` después de todas las escrituras/esperas. No afecta a una guarda histórica ni implica decisión normativa nueva.
+
+Contraprueba de W11/W29/W47: sustituir temporalmente solo el helper nuevo en PostgreSQL por un rechazo obligatorio. Antes del correctivo el inicio no se rechazó: `Missing expected rejection`, focal53PASS/1FAIL, exit1. Original íntegro: `tests/fixtures/h5-008/implementation/focal-15-f05-original-fail.log.gz`. Correctivo mínimo: invocar `b08_ha_finalize` con el payload/MAC/input originales de reserva en el mismo batch que drena constraints, finaliza el trabajo y ejecuta COMMIT. La contraprueba compara rollback completo de20 tablas, restaura el helper original y repite la misma identidad. Expected independiente intacto. Retest y cierre global pendientes.
+
+Retest material F05: focal54/54 PASS, exit0; `tests/fixtures/h5-008/implementation/focal-16-f05-retest-pass.log.gz`. Se alcanzó el rechazo obligatorio del finalizador original, se conservó el rollback íntegro y se pudo repetir la identidad tras restaurarlo. F05 corregido, cierre condicionado a gates definitivos.
