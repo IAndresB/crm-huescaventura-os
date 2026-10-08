@@ -1,6 +1,6 @@
 // Read-only H5-007/008 evidence and published closure preservation audit.
 import assert from 'node:assert/strict';
-import {readFileSync,existsSync} from 'node:fs';
+import {readFileSync,existsSync,lstatSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
@@ -21,9 +21,9 @@ function verifyPublishedClosure(){
  const evidenceNames=['audit-production.json','build.log','channel-boundary-original-fail.log','channel-boundary-original-fail.status.json','f01-preservation.mjs',
   'focal-final.log','h5-008-preservation-gate-f01.log','health-independent-missing-postgres-env.fail.log','health-independent-ret-test.log','lint.log',
   'postgres-full-final.log','typecheck-final.log','typecheck-retest.log','typecheck.log','unit-final.log','verify-h5-008-evidence.log',
-  'f05-counterexamples.mjs','f05-precommit.tar.gz','f05-preflight.json','f05-diagnosis.md','f05-development-fails.json','f05-development-copy.log.gz','f05-development-buffer.log.gz','f05-development-scope.log.gz','verification.json'];
+  'f05-counterexamples.mjs','f05-initial-revalidation.tar.gz','f05-development-deletion.log.gz','f05-precommit.tar.gz','f05-preflight.json','f05-diagnosis.md','f05-development-fails.json','f05-development-copy.log.gz','f05-development-buffer.log.gz','f05-development-scope.log.gz','verification.json'];
  const f01Names=['01-intact-56','02-valid-57','03-alter-first','04-alter-middle','05-alter-55','06-alter-56','07-delete-historical','08-comment-replacement','09-whitespace-56','10-unauthorized-within-protected-prefix','11-F10-F12-chain','12-prior-preservation-verifier'];
- const f05Names=['01-intact-closure','02-authorized-delta','03-historical-code','04-historical-migration','05-historical-expected','06-historical-evidence','07-unlisted-change','08-premature-h5011','09-premature-h5012','10-premature-h6','11-hosted','12-production','13-F10-F12','14-H5006-preservation','15-H5008-preservation'];
+ const f05Names=['01-intact-closure','02-authorized-delta','03-historical-code','04-historical-migration','05-historical-expected','06-historical-evidence','07-unlisted-change','08-premature-h5011','09-premature-h5012','10-premature-h6','11-hosted','12-production','13-F10-F12','14-H5006-preservation','15-H5008-preservation','16-intact-historical-deletion','17-historical-symlink','18-historical-mode'];
  const gates=['frozen','typecheck','lint','unit','build','audit','focal','postgres','health','historical','historical-negative','f01','f05','diff','final'];
  const allowed=new Set([...productPaths,expectedPath,...documents,'docs/NEXT-STEPS.md','docs/PROJECT-STATUS.md','specs/001-core-crm/tasks.md',
   'scripts/verify-h5-008-evidence.mjs',...evidenceNames.map(p=>fixture+p),fixture+'f01/result.json',...f01Names.map(p=>fixture+'f01/'+p+'.log.gz'),
@@ -32,8 +32,12 @@ function verifyPublishedClosure(){
  const entries=git('ls-tree','-r','-z',closure).split('\0').filter(Boolean).map(e=>{const [meta,path]=e.split('\t');return {path,hash:meta.split(' ')[2]};});
  const historical=new Set(entries.map(e=>e.path));
  const current=git('ls-files','--cached','--others','--exclude-standard','-z').split('\0').filter(Boolean);
- for(const path of current)assert.ok(historical.has(path)||allowed.has(path),'unlisted posterior path: '+path);
+ for(const path of current){
+  assert.ok(historical.has(path)||allowed.has(path),'unlisted posterior path: '+path);
+  if(!historical.has(path)&&existsSync(path)){const metadata=lstatSync(path);assert.ok(metadata.isFile(),'posterior file type: '+path);assert.equal(metadata.mode&0o111,0,'posterior file mode: '+path);}
+ }
  for(const {path,hash}of entries){
+  const metadata=lstatSync(path);assert.ok(metadata.isFile(),'historical file type: '+path);assert.equal(metadata.mode&0o111,0,'historical file mode: '+path);
   if(allowed.has(path))continue;
   const raw=readFileSync(path);
   assert.equal(createHash('sha1').update('blob '+raw.length+'\0').update(raw).digest('hex'),hash,'published closure bytes: '+path);
@@ -79,6 +83,8 @@ function verifyPublishedClosure(){
  }
  if(['009','010'].some(id=>block(actualTasks,id).includes('Ejecución: COMPLETED'))){
   const proof=JSON.parse(readFileSync(fixture+'verification.json','utf8'));assert.equal(proof.status,'PASS');assert.equal(proof.scope,'local/isolated');
+  assert.equal(git('merge-base',proof.testedSha,'HEAD'),proof.testedSha,'tested correction is an ancestor');
+  for(const path of ['scripts/verify-h5-008-evidence.mjs',fixture+'f05-counterexamples.mjs'])assert.deepEqual(readFileSync(path),bytes(proof.testedSha,path),'tested F05 executable bytes: '+path);
   assert.deepEqual(proof.cases,['P01','P02','P03','P04','P05','P06','P07','P08','N01','N02','N03','N04','N05','N06','N07','N08','N09','N10','N11','N12','N13','N14','N15','N16','N17','N18']);assert.equal(proof.normativeRows,51);
   for(const gate of gates.filter(p=>p!=='final')){
    const status=JSON.parse(readFileSync(fixture+'revalidation/'+gate+'.status.json','utf8'));assert.equal(status.sha,proof.testedSha);assert.equal(status.exit,0,gate);

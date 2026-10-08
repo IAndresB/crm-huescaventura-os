@@ -1,6 +1,6 @@
 // F05 counterproofs mutate disposable copies; published bytes always come from Git.
 import assert from 'node:assert/strict';
-import {mkdtemp,mkdir,readFile,writeFile,rm,symlink,copyFile,readdir} from 'node:fs/promises';
+import {mkdtemp,mkdir,readFile,writeFile,rm,symlink,copyFile,readdir,chmod} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join,dirname,resolve} from 'node:path';
 import {spawnSync} from 'node:child_process';
@@ -29,12 +29,20 @@ try{
  await symlink(join(root,'.git'),join(temp,'.git'));await mkdir(join(temp,'node_modules'));for(const name of await readdir(join(root,'node_modules')))await symlink(join(root,'node_modules',name),join(temp,'node_modules',name));
  await copyFile(join(root,auditor),join(temp,auditor));
  await run('01-intact-closure');
+ const historicalGuard='tests/integration/postgres-h5-008-migration.test.ts',guardBytes=await readFile(join(temp,historicalGuard));
+ await rm(join(temp,historicalGuard));
+ try{await run('16-intact-historical-deletion',1,{path:historicalGuard,originalSha256:digest(guardBytes),alteredSha256:null});}finally{await writeFile(join(temp,historicalGuard),guardBytes);}
  const delta=git('diff','--name-only',closure,'HEAD').toString().trim().split('\n');
  const local=git('ls-files','--modified','--others','--exclude-standard','-z').toString().split('\0').filter(Boolean);
  for(const path of new Set([...delta,...local])){
   const target=join(temp,path);await mkdir(dirname(target),{recursive:true});await copyFile(join(root,path),target);
  }
  await run('02-authorized-delta');
+ const codePath='src/domain/persisted-work.ts',codeBytes=await readFile(join(temp,codePath));
+ await rm(join(temp,codePath));await symlink(join(root,codePath),join(temp,codePath));
+ try{await run('17-historical-symlink',1,{path:codePath,originalSha256:digest(codeBytes),sameContent:true,changedType:'symlink'});}finally{await rm(join(temp,codePath));await writeFile(join(temp,codePath),codeBytes);}
+ await chmod(join(temp,codePath),0o755);
+ try{await run('18-historical-mode',1,{path:codePath,originalMode:'100644',alteredMode:'100755'});}finally{await chmod(join(temp,codePath),0o644);}
  const append=b=>Buffer.concat([b,Buffer.from('\n-- synthetic F05 tampering probe\n')]);
  await alter('03-historical-code','src/domain/persisted-work.ts',append);
  await alter('04-historical-migration','supabase/migrations/20261008143617_h5_persisted_work_recovery.sql',append);
