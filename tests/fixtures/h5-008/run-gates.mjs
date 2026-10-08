@@ -27,7 +27,7 @@ for(const[name,cmd,args]of gates){
   // No guard, manifest, source or other historical file is rewritten.
   const records=[],digest=v=>createHash('sha256').update(v).digest('hex');
   for(const file of ['tests/fixtures/h2-011/reproducer-F01-corrected.log','tests/fixtures/h2-011/reproducer-F02-corrected.log','tests/fixtures/h4-012-f16/preservation.json']){
-   const baseline=spawnSync('git',['show',sha+':'+file],{cwd:root});if(baseline.status!==0)throw new Error('GENERATED_BASELINE_MISSING');
+   const baseline=spawnSync('git',['show',sha+':'+file],{cwd:root,maxBuffer:128*1024*1024});if(baseline.status!==0)throw new Error('GENERATED_BASELINE_MISSING');
    const raw=await readFile(resolve(root,file)),destination=resolve(out,'generated-historical',file+'.gz');
    await mkdir(dirname(destination),{recursive:true});await writeFile(destination,gzipSync(raw));
    records.push({file,generatedBytes:raw.length,generatedSha256:digest(raw),baselineSha256:digest(baseline.stdout),restored:true});

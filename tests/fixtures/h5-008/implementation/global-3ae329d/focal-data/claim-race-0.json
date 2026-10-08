@@ -1,0 +1,493 @@
+{
+  "locks": [
+    {
+      "pid": 56701,
+      "backend_xid": "940",
+      "wait_event_type": "Lock",
+      "wait_event": "advisory",
+      "blockers": [
+        56684
+      ]
+    },
+    {
+      "pid": 56705,
+      "backend_xid": "950",
+      "wait_event_type": "Lock",
+      "wait_event": "advisory",
+      "blockers": [
+        56701
+      ]
+    }
+  ],
+  "results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "state": "claimed",
+        "partId": "part-1",
+        "replayed": false,
+        "attemptId": "d9c80ee5-5e04-4516-b9c3-882d0e092794",
+        "simulated": true,
+        "generation": 1,
+        "executionId": "61448fcc-66d5-484c-bf03-a964f2abfda5"
+      }
+    },
+    {
+      "status": "rejected",
+      "reason": {
+        "name": "PostgresError",
+        "severity_local": "ERROR",
+        "severity": "ERROR",
+        "code": "P0001",
+        "where": "PL/pgSQL function crm_api.b08_work_apply(bytea,bytea,bytea,bytea,bytea,jsonb) line 54 at RAISE",
+        "file": "pl_exec.c",
+        "line": "3911",
+        "routine": "exec_stmt_raise"
+      }
+    }
+  ],
+  "snapshot": {
+    "parts": [
+      {
+        "state": "claimed",
+        "part_id": "part-1",
+        "attempt_id": "d9c80ee5-5e04-4516-b9c3-882d0e092794",
+        "result_ref": null,
+        "admin_scope": "crm_h5008-synthetic",
+        "execution_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+        "reservation_id": null
+      }
+    ],
+    "history": [
+      {
+        "reason": "Prueba sintética autorizada",
+        "actor_id": "9a021966-b444-47ba-a04f-bc62cfe5d862",
+        "history_id": "158a572d-086c-4c0f-9e53-fda1e63fab21",
+        "source_ref": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+        "subject_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+        "action_kind": "work_define",
+        "admin_scope": "crm_h5008-synthetic",
+        "after_state": {
+          "parts": [
+            {
+              "state": "pending",
+              "part_id": "part-1",
+              "attempt_id": null,
+              "result_ref": null,
+              "admin_scope": "crm_h5008-synthetic",
+              "execution_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+              "reservation_id": null
+            }
+          ],
+          "receipt": {
+            "state": "pending",
+            "replayed": false,
+            "simulated": true,
+            "executionId": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+            "haTransition": null
+          },
+          "attempts": [],
+          "execution": {
+            "task_id": "f02984d3-09fd-4ce3-8ffd-87d536bf9526",
+            "version": 1,
+            "created_at": "2026-10-08T17:52:05.492468+02:00",
+            "generation": 0,
+            "admin_scope": "crm_h5008-synthetic",
+            "execution_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+            "control_state": "active",
+            "definition_id": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+            "approval_withdrawn_at": null
+          },
+          "definition": {
+            "context": {
+              "purpose": "synthetic-communication-review",
+              "recordId": "9fae3924-b732-4d91-a577-6dddb8f1b96c",
+              "contextId": "c3e4a3ba-1727-464d-8274-157f5b776f62",
+              "contextKind": "booking"
+            },
+            "version": 1,
+            "material": {
+              "parts": [
+                {
+                  "scope": "crm_h5008-synthetic",
+                  "action": "simulated-contact",
+                  "amount": {
+                    "state": "not-applicable"
+                  },
+                  "effect": "simulated-effect",
+                  "partId": "part-1",
+                  "content": "Contenido sintético aprobado",
+                  "recipient": {
+                    "state": "value",
+                    "value": "synthetic-recipient"
+                  },
+                  "conditions": {
+                    "state": "not-applicable"
+                  },
+                  "contentVersion": "synthetic-version-1"
+                }
+              ],
+              "scope": "crm_h5008-synthetic",
+              "action": "simulated-contact",
+              "amount": {
+                "state": "not-applicable"
+              },
+              "effect": "simulated-effect",
+              "content": "Contenido sintético aprobado",
+              "recipient": {
+                "state": "value",
+                "value": "synthetic-recipient"
+              },
+              "conditions": {
+                "state": "not-applicable"
+              },
+              "destination": {
+                "state": "not-applicable"
+              },
+              "contentVersion": "synthetic-version-1"
+            },
+            "metadata": {
+              "version": 1,
+              "inputsRef": "synthetic-inputs",
+              "triggerRef": "manual-synthetic-trigger",
+              "affectedRefs": [
+                "9fae3924-b732-4d91-a577-6dddb8f1b96c"
+              ],
+              "definitionId": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+              "permissionsRef": "synthetic-review"
+            },
+            "created_at": "2026-10-08T17:52:05.491349+02:00",
+            "admin_scope": "crm_h5008-synthetic",
+            "decision_id": "d-9acb6b75-f302-412b-8585-d59ef7ee35c1",
+            "proposal_id": "p-d0ebe941-ac2a-408e-892e-2ec0497f895b",
+            "definition_id": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+            "responsible_actor": "9a021966-b444-47ba-a04f-bc62cfe5d862",
+            "material_fingerprint": "2e1d8b36e7bdef1487e1f6c1e06ae2a1e40a5646c1f6163f845153992a2eb567"
+          },
+          "executorId": "synthetic-executor-a"
+        },
+        "occurred_at": null,
+        "recorded_at": "2026-10-08T17:52:05.494379+02:00",
+        "before_state": null,
+        "operation_id": "158a572d-086c-4c0f-9e53-fda1e63fab21"
+      },
+      {
+        "reason": "Prueba sintética autorizada",
+        "actor_id": "9a021966-b444-47ba-a04f-bc62cfe5d862",
+        "history_id": "0da8ce42-84d1-4bd1-9117-a2a186549b9a",
+        "source_ref": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+        "subject_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+        "action_kind": "work_claim",
+        "admin_scope": "crm_h5008-synthetic",
+        "after_state": {
+          "parts": [
+            {
+              "state": "claimed",
+              "part_id": "part-1",
+              "attempt_id": "d9c80ee5-5e04-4516-b9c3-882d0e092794",
+              "result_ref": null,
+              "admin_scope": "crm_h5008-synthetic",
+              "execution_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+              "reservation_id": null
+            }
+          ],
+          "receipt": {
+            "state": "claimed",
+            "partId": "part-1",
+            "replayed": false,
+            "attemptId": "d9c80ee5-5e04-4516-b9c3-882d0e092794",
+            "simulated": true,
+            "generation": 1,
+            "executionId": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+            "haTransition": null
+          },
+          "attempts": [
+            {
+              "state": "claimed",
+              "part_id": "part-1",
+              "result_at": null,
+              "attempt_id": "d9c80ee5-5e04-4516-b9c3-882d0e092794",
+              "claimed_at": "2026-10-08T17:52:05.52573+02:00",
+              "generation": 1,
+              "result_ref": null,
+              "admin_scope": "crm_h5008-synthetic",
+              "executor_id": "synthetic-executor-a",
+              "lease_until": "2026-10-08T17:52:35.502+02:00",
+              "contacted_at": null,
+              "execution_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+              "reservation_id": null,
+              "definition_version": 1
+            }
+          ],
+          "execution": {
+            "task_id": "f02984d3-09fd-4ce3-8ffd-87d536bf9526",
+            "version": 1,
+            "created_at": "2026-10-08T17:52:05.492468+02:00",
+            "generation": 1,
+            "admin_scope": "crm_h5008-synthetic",
+            "execution_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+            "control_state": "active",
+            "definition_id": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+            "approval_withdrawn_at": null
+          },
+          "definition": {
+            "context": {
+              "purpose": "synthetic-communication-review",
+              "recordId": "9fae3924-b732-4d91-a577-6dddb8f1b96c",
+              "contextId": "c3e4a3ba-1727-464d-8274-157f5b776f62",
+              "contextKind": "booking"
+            },
+            "version": 1,
+            "material": {
+              "parts": [
+                {
+                  "scope": "crm_h5008-synthetic",
+                  "action": "simulated-contact",
+                  "amount": {
+                    "state": "not-applicable"
+                  },
+                  "effect": "simulated-effect",
+                  "partId": "part-1",
+                  "content": "Contenido sintético aprobado",
+                  "recipient": {
+                    "state": "value",
+                    "value": "synthetic-recipient"
+                  },
+                  "conditions": {
+                    "state": "not-applicable"
+                  },
+                  "contentVersion": "synthetic-version-1"
+                }
+              ],
+              "scope": "crm_h5008-synthetic",
+              "action": "simulated-contact",
+              "amount": {
+                "state": "not-applicable"
+              },
+              "effect": "simulated-effect",
+              "content": "Contenido sintético aprobado",
+              "recipient": {
+                "state": "value",
+                "value": "synthetic-recipient"
+              },
+              "conditions": {
+                "state": "not-applicable"
+              },
+              "destination": {
+                "state": "not-applicable"
+              },
+              "contentVersion": "synthetic-version-1"
+            },
+            "metadata": {
+              "version": 1,
+              "inputsRef": "synthetic-inputs",
+              "triggerRef": "manual-synthetic-trigger",
+              "affectedRefs": [
+                "9fae3924-b732-4d91-a577-6dddb8f1b96c"
+              ],
+              "definitionId": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+              "permissionsRef": "synthetic-review"
+            },
+            "created_at": "2026-10-08T17:52:05.491349+02:00",
+            "admin_scope": "crm_h5008-synthetic",
+            "decision_id": "d-9acb6b75-f302-412b-8585-d59ef7ee35c1",
+            "proposal_id": "p-d0ebe941-ac2a-408e-892e-2ec0497f895b",
+            "definition_id": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+            "responsible_actor": "9a021966-b444-47ba-a04f-bc62cfe5d862",
+            "material_fingerprint": "2e1d8b36e7bdef1487e1f6c1e06ae2a1e40a5646c1f6163f845153992a2eb567"
+          },
+          "executorId": "synthetic-executor-a"
+        },
+        "occurred_at": null,
+        "recorded_at": "2026-10-08T17:52:05.570462+02:00",
+        "before_state": {
+          "parts": [
+            {
+              "state": "pending",
+              "part_id": "part-1",
+              "attempt_id": null,
+              "result_ref": null,
+              "admin_scope": "crm_h5008-synthetic",
+              "execution_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+              "reservation_id": null
+            }
+          ],
+          "attempts": [],
+          "execution": {
+            "task_id": "f02984d3-09fd-4ce3-8ffd-87d536bf9526",
+            "version": 1,
+            "created_at": "2026-10-08T17:52:05.492468+02:00",
+            "generation": 0,
+            "admin_scope": "crm_h5008-synthetic",
+            "execution_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+            "control_state": "active",
+            "definition_id": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+            "approval_withdrawn_at": null
+          },
+          "definition": {
+            "context": {
+              "purpose": "synthetic-communication-review",
+              "recordId": "9fae3924-b732-4d91-a577-6dddb8f1b96c",
+              "contextId": "c3e4a3ba-1727-464d-8274-157f5b776f62",
+              "contextKind": "booking"
+            },
+            "version": 1,
+            "material": {
+              "parts": [
+                {
+                  "scope": "crm_h5008-synthetic",
+                  "action": "simulated-contact",
+                  "amount": {
+                    "state": "not-applicable"
+                  },
+                  "effect": "simulated-effect",
+                  "partId": "part-1",
+                  "content": "Contenido sintético aprobado",
+                  "recipient": {
+                    "state": "value",
+                    "value": "synthetic-recipient"
+                  },
+                  "conditions": {
+                    "state": "not-applicable"
+                  },
+                  "contentVersion": "synthetic-version-1"
+                }
+              ],
+              "scope": "crm_h5008-synthetic",
+              "action": "simulated-contact",
+              "amount": {
+                "state": "not-applicable"
+              },
+              "effect": "simulated-effect",
+              "content": "Contenido sintético aprobado",
+              "recipient": {
+                "state": "value",
+                "value": "synthetic-recipient"
+              },
+              "conditions": {
+                "state": "not-applicable"
+              },
+              "destination": {
+                "state": "not-applicable"
+              },
+              "contentVersion": "synthetic-version-1"
+            },
+            "metadata": {
+              "version": 1,
+              "inputsRef": "synthetic-inputs",
+              "triggerRef": "manual-synthetic-trigger",
+              "affectedRefs": [
+                "9fae3924-b732-4d91-a577-6dddb8f1b96c"
+              ],
+              "definitionId": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+              "permissionsRef": "synthetic-review"
+            },
+            "created_at": "2026-10-08T17:52:05.491349+02:00",
+            "admin_scope": "crm_h5008-synthetic",
+            "decision_id": "d-9acb6b75-f302-412b-8585-d59ef7ee35c1",
+            "proposal_id": "p-d0ebe941-ac2a-408e-892e-2ec0497f895b",
+            "definition_id": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+            "responsible_actor": "9a021966-b444-47ba-a04f-bc62cfe5d862",
+            "material_fingerprint": "2e1d8b36e7bdef1487e1f6c1e06ae2a1e40a5646c1f6163f845153992a2eb567"
+          }
+        },
+        "operation_id": "0da8ce42-84d1-4bd1-9117-a2a186549b9a"
+      }
+    ],
+    "attempts": [
+      {
+        "state": "claimed",
+        "part_id": "part-1",
+        "result_at": null,
+        "attempt_id": "d9c80ee5-5e04-4516-b9c3-882d0e092794",
+        "claimed_at": "2026-10-08T17:52:05.52573+02:00",
+        "generation": 1,
+        "result_ref": null,
+        "admin_scope": "crm_h5008-synthetic",
+        "executor_id": "synthetic-executor-a",
+        "lease_until": "2026-10-08T17:52:35.502+02:00",
+        "contacted_at": null,
+        "execution_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+        "reservation_id": null,
+        "definition_version": 1
+      }
+    ],
+    "execution": {
+      "task_id": "f02984d3-09fd-4ce3-8ffd-87d536bf9526",
+      "version": 1,
+      "created_at": "2026-10-08T17:52:05.492468+02:00",
+      "generation": 1,
+      "admin_scope": "crm_h5008-synthetic",
+      "execution_id": "61448fcc-66d5-484c-bf03-a964f2abfda5",
+      "control_state": "active",
+      "definition_id": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+      "approval_withdrawn_at": null
+    },
+    "definition": {
+      "context": {
+        "purpose": "synthetic-communication-review",
+        "recordId": "9fae3924-b732-4d91-a577-6dddb8f1b96c",
+        "contextId": "c3e4a3ba-1727-464d-8274-157f5b776f62",
+        "contextKind": "booking"
+      },
+      "version": 1,
+      "material": {
+        "parts": [
+          {
+            "scope": "crm_h5008-synthetic",
+            "action": "simulated-contact",
+            "amount": {
+              "state": "not-applicable"
+            },
+            "effect": "simulated-effect",
+            "partId": "part-1",
+            "content": "Contenido sintético aprobado",
+            "recipient": {
+              "state": "value",
+              "value": "synthetic-recipient"
+            },
+            "conditions": {
+              "state": "not-applicable"
+            },
+            "contentVersion": "synthetic-version-1"
+          }
+        ],
+        "scope": "crm_h5008-synthetic",
+        "action": "simulated-contact",
+        "amount": {
+          "state": "not-applicable"
+        },
+        "effect": "simulated-effect",
+        "content": "Contenido sintético aprobado",
+        "recipient": {
+          "state": "value",
+          "value": "synthetic-recipient"
+        },
+        "conditions": {
+          "state": "not-applicable"
+        },
+        "destination": {
+          "state": "not-applicable"
+        },
+        "contentVersion": "synthetic-version-1"
+      },
+      "metadata": {
+        "version": 1,
+        "inputsRef": "synthetic-inputs",
+        "triggerRef": "manual-synthetic-trigger",
+        "affectedRefs": [
+          "9fae3924-b732-4d91-a577-6dddb8f1b96c"
+        ],
+        "definitionId": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+        "permissionsRef": "synthetic-review"
+      },
+      "created_at": "2026-10-08T17:52:05.491349+02:00",
+      "admin_scope": "crm_h5008-synthetic",
+      "decision_id": "d-9acb6b75-f302-412b-8585-d59ef7ee35c1",
+      "proposal_id": "p-d0ebe941-ac2a-408e-892e-2ec0497f895b",
+      "definition_id": "cba132bf-c995-4ab3-ab58-75ea43dd652c",
+      "responsible_actor": "9a021966-b444-47ba-a04f-bc62cfe5d862",
+      "material_fingerprint": "2e1d8b36e7bdef1487e1f6c1e06ae2a1e40a5646c1f6163f845153992a2eb567"
+    }
+  }
+}
