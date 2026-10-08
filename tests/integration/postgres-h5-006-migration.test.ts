@@ -1,5 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 import {readFile,writeFile,readdir} from 'node:fs/promises';
 import {spawnSync} from 'node:child_process';
 import {isolatedCommunications,communicationFixture,migration,read} from '../support/h5-communication-isolated.ts';
@@ -33,6 +34,10 @@ test('H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE exact expected33 rows57 cases and histo
  const expectedFile='specs/001-core-crm/expected-TSK-H5-005-006.md',expected=await readFile(expectedFile,'utf8');assert.equal(expected,git('show',expectedSha+':'+expectedFile));
  const tasks=git('show',base+':specs/001-core-crm/tasks.md'),rows=tasks.split('\n## 6.')[1]!.split('\n## 7.')[0]!.split('\n').filter(x=>x.startsWith('|')&&/\[TSK-H5-00[56]\]/.test(x));assert.equal(rows.length,33);for(const row of rows)assert.ok(expected.includes(row));assert.equal(expected.split('\n').filter(x=>x.startsWith('| H5-C')).length,57);
  assert.equal((await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')&&x<=migration.split('/').at(-1)!).length,55);
+ // F03: migration55 is outside the preceding54 baseline; pin published H5-006 bytes.
+ const published55=spawnSync('git',['show','187bb1bb1de81c2bd4884f56de930d35acb93d26:'+migration]);assert.equal(published55.status,0);
+ assert.equal(createHash('sha256').update(published55.stdout).digest('hex'),'f6b47fbfa260318b2af2fc48b9aab7b4ba2a431e6f44837d48f027d45fd00ab0');
+ assert.deepEqual(await readFile(migration),published55.stdout,'migration55 must preserve exact published bytes');
  for(const file of ['src/domain/communication-review.ts','src/infrastructure/postgres/h5-communication-adapter.ts',migration])assert.doesNotMatch(await readFile(file,'utf8'),/\b(fetch\(|setInterval\(|cron\.schedule|https:\/\/|openai\.com|anthropic|gemini|whisper|twilio|evolution-api|n8n)/i);
  await capture('preservation',{base,expectedSha,protectedFiles,rows,before:54,added:1,after:55});
 });
