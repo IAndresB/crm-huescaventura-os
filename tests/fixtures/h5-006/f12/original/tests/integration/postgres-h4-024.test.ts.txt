@@ -1,4 +1,3 @@
-import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-006-dependency-preservation.ts';
 // H4-024 exit routes on current52. Expected literal: O01–O32 frozen ba9b9f7.
 // Reuses accredited ordinary-contract routes; assertions never call product calculation helpers.
 import {test,before,after} from 'node:test';
@@ -38,9 +37,9 @@ test('H4-02452 F23 C01/C02 original ordinary route denied, linked partial progre
 test('H4-02452 F23 C02 ordinary record cannot bypass uncertain reserve by supplying attemptId',async()=>{const{f,attempt}=await setup(),q=await f.movement('20.00','0.00',{attemptId:attempt.id}),before=await f.view();let error='';try{await f.run(q);}catch(e){error=String(e);}const after=await f.view();if(process.env.H4014_CAPTURE_DIR)await writeFile(resolve(process.env.H4014_CAPTURE_DIR,'F24-original-state.json'),JSON.stringify({q,before,error,after,funds:await f.a.see()},null,2)+'\n');assert.notEqual(error,'');assert.deepEqual(after,before);});
 for(const result of ['not_occurred','occurred']as const)test('H4-02452 F23 C03/C04 partial20 then rest60 '+result,async()=>{const{f,attempt}=await setup(),original=await f.view();await f.run(await partial(f,attempt));const q=result==='occurred'?await partial(f,attempt,'60.00','20.00'):await f.command('resolve',{attemptId:attempt.id,resolution:result});await f.run(q);const v=await f.view();assert.equal(v.executed,result==='occurred'?'80.00':'20.00');assert.equal(v.pendingRight,result==='occurred'?'120.00':'180.00');assert.equal(v.pendingAuthorized,v.pendingRight);assert.equal(v.uncertain,'0.00');assert.equal(v.attempts[0].resolved,true);assert.deepEqual(v.attempts[0].portion,original.attempts[0].portion);assert.equal(v.movements.length,result==='occurred'?2:1);assert.equal(v.movements[0].material.sourceAttemptId,attempt.id);assert.equal(v.attempts[0].progress.length,2);assert.equal((await f.a.see()).summary.refundReserved,'0.00');});
 test('H4-02452 F23 C06 Incident resolved never releases remaining60 or permits dangerous retry',async()=>{const{f,attempt,inc}=await setup();await f.run(await partial(f,attempt));await h.incidents.apply(await h.auth(),write,await inc.resolve());await assert.rejects(f.run(await f.movement('60.00','20.00')));await assert.rejects(h.allocations.apply(await h.auth(),write,await f.a.assign('80.00')));assert.equal((await f.view()).uncertain,'60.00');assert.equal((await f.view()).executed,'20.00');});
-test('H4-024 preserved product migrations historical verifiers sources expected and health',async()=>{await assertAuthorizedPreservationChain();
+test('H4-024 preserved product migrations historical verifiers sources expected and health',async()=>{
  const protectedFiles=JSON.parse(await readFile('tests/fixtures/h4-024/protected-base.json','utf8')) as Record<string,string>;
- for(const[path,sha]of Object.entries(protectedFiles))assertHistoricalHash(path,await readFile(path),sha);
+ for(const[path,sha]of Object.entries(protectedFiles))assert.equal(createHash('sha256').update(await readFile(path)).digest('hex'),sha,path);
  const rows=JSON.parse(await readFile('tests/fixtures/h4-024/normative-dependency-rows.json','utf8'));
  assert.equal(rows.exclusiveH4024Rows,0);assert.equal(rows.rows.length,246);
 });
