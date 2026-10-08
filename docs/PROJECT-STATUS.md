@@ -1,5 +1,11 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+**TSK-H5-007/008 COMPLETED exclusivamente local/aislado — 2026-10-08.** SHA definitivamente probado `5e3add4b2c82fc5b0e459b43ea0685393c495840`. Expected independiente publicado antes de producto en `ae7f3b02745f3011bf3b324f2a5b3420f22a0a79`,26.621 bytes/SHA256 `39eb753f8a2fc57a33d827a7980640256fd16d96ec7f2b70a27bf49a6841c40d` intactos;45 filas literales y56 casos PASS. PostgreSQL2408+54=2462/2462, unit150+4=154/154, health1/1 independiente y focal54/54. Frozen/typecheck/lint-import boundaries/build/audit producción0 vulnerabilidades/V-MIG fresh56-upgrade55 poblado-rollback-retry/advisors loopback/RLS-FORCE RLS/12 carreras reales/reinicio de procesos/idempotencia/T08-T09/finalizador HA/preservación/diff/auditor PASS. F01–F08 CLOSED con originales conservados; solo guarda histórica F01/F03 autorizada. HA/TTE/D039, M02, B07/Task/reservas/operaciones/historia reutilizados. H0–H5-006 conservados; H5 global IN PROGRESS, H5-009/010 yH6 NOT STARTED. DM-PENDING-005, BR-PENDING-035 y parámetros scheduler/retry/pause/resume/capacidad pendientes. Solo sintéticos/contactos simulados; sin exactly-once externo, conectores, scheduler real, IA/PLAUD/audio/envíos/Hosted/Production. Cierre documental posterior al SHA probado; publicación mediante push normal condicionada a revalidación final. **STOP definitivo tras007/008; no preparar tareas posteriores.**
+
+[Cierre verificable](../specs/001-core-crm/evidence-TSK-H5-007-008.md), [matriz45/56](../specs/001-core-crm/matrix-TSK-H5-008.md).
+
+### Antecedentes y checkpoints conservados
+
 **TSK-H5-007/008 IN PROGRESS — continuación autorizada tras F03/F01 CLOSED.** Correctivo registrado en `4da05b0f2e25ea13094e1ef06153a7aaed1d0aab`; contrapruebas11/11 PASS, 55 migraciones históricas intactas, expected26.621bytes/SHA256 intacto. Implementación B08 aditiva en curso: migración56, TTE privado con HA/M02 y B07/Task reutilizados. Focal54/54 PASS tras F05, incluida revalidación final de reserva original; pendientes gates completos sobre SHA probado, auditor y publicación condicionada. No publicación de producto ni COMPLETED. H0–H5-006 conservados; H5-009/010 y H6 NOT STARTED. DM-PENDING-005, BR-PENDING-035 y parámetros operativos del scheduler pendientes. Solo datos sintéticos y efectos simulados. STOP tras007/008.
 
 ### Antecedente local eb739b15 conservado

@@ -100,3 +100,20 @@ Estado: IN PROGRESS hasta gates definitivos. Ejecución global anterior sobre `0
 Estado: IN PROGRESS hasta retest definitivo. Sobre `3ae329df6c6f682d49dd474b576b66fac6ecf85f`, focal54/54, PostgreSQL2462/2462 y restantes gates previos PASS; el wrapper se interrumpió antes de health/diff con `GENERATED_BASELINE_MISSING`. Diagnóstico: `git show` del snapshot F16 existe, pero supera el maxBuffer por defecto de spawnSync; status null y ENOBUFS. El error no indica baseline ausente, incompatibilidad de preservación ni fallo de la migración. Diagnóstico original recuperable en `implementation/f08-archive-original-fail.log.gz`; corrida conservada en `implementation/global-3ae329d` sin cierre.
 
 Correctivo único: maxBuffer explícito de128MiB para capturar bytes del snapshot histórico en el archivador de evidencia nuevo. No modifica producto de dominio, test funcional, oracle, guarda, snapshot, dependencia, permiso ni parámetro operativo; no amplía excepciones de preservación. Originales generados archivados con hash y restaurados byte a byte. Se repiten todos los gates sobre nuevo SHA para evitar arrastre de verificación.
+
+## Cierre vigente F01–F08 — PASS en 5e3add4b2c82fc5b0e459b43ea0685393c495840
+
+El registro anterior es cronológico y conserva estados/FAIL de cada detección. Estado actual:
+
+| Defecto | Estado vigente | Correctivo y contraprueba definitiva |
+|---|---|---|
+| F01 | CLOSED | Recuento histórico acotado55;56 posterior admitida y mutaciones históricas rechazadas. |
+| F02 | CLOSED | Logs originales gzip, igualdad byte a byte, sin limpiar stdout. |
+| F03 | CLOSED | Bytes55 publicados en187bb1bb;11 contrapruebas PASS, con7 rechazos negativos esperados; F10/F12 intactos. |
+| F04 | CLOSED | Tipado/owners/helpers/M02/JSON/fixture/transporte/conexiones:54 focales y regresión íntegra PASS. |
+| F05 | CLOSED | F2 original reserve revalidado inmediatamente antes de COMMIT; inyectar rechazo final revierte20 tablas y retry pasa. |
+| F06 | CLOSED | Estados before/after sin historia anidada; ocho eventos71.394bytes en retest; historia y conciliación tras stop preservadas. |
+| F07 | CLOSED | Tres outputs históricos generados archivados con hash y restaurados exactamente; diff-check definitivo PASS. |
+| F08 | CLOSED | Captura completa del snapshot1.858.702bytes sin ENOBUFS; repeat global y health/diff PASS. |
+
+Corridas0b88063 y3ae329d son antecedentes, no SHA de cierre. Todos los gates definitivos y el auditor corresponden a `5e3add4b2c82fc5b0e459b43ea0685393c495840`. Ningún material abierto; originales y retests recuperables en fixtures. No otras guardas, manifiestos F10/F12, dependencias, permisos anteriores ni migraciones1–55 cambiados.
