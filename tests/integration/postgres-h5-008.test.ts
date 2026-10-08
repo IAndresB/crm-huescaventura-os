@@ -5,7 +5,8 @@ let h:Awaited<ReturnType<typeof isolatedWork>>;
 before(async()=>{h=await isolatedWork('crm_h5008',59008);});after(async()=>{await h?.close();});afterEach(async()=>{await h?.closeExecutors();});
 test('W01 W02 W11 W43 definition claim exact HA start result',async()=>{
  const f=await workFixture(h);await f.run(f.definition);const c=f.claim() as any,r=await f.run(c);assert.equal(r.state,'claimed');assert.equal((await f.see())!.parts[0].state,'claimed');
- await f.run(f.start(c,r.generation!));assert.equal((await f.see())!.parts[0].state,'contacted');await f.run(f.prove(c.attemptId));assert.equal((await f.see())!.parts[0].state,'succeeded');
+ await f.run(f.start(c,r.generation!));assert.equal((await f.see())!.parts[0].state,'contacted');await f.run(f.prove(c.attemptId));const snapshot=(await f.see())!;assert.equal(snapshot.parts[0].state,'succeeded');
+ for(const event of snapshot.history){assert.ok(!event.before_state||!('history'in event.before_state));assert.ok(!('history'in event.after_state));}
 });
 const capture=async(name:string,value:unknown)=>{if(process.env.H5008_CAPTURE_DIR){const{writeFile}=await import('node:fs/promises');await writeFile(`${process.env.H5008_CAPTURE_DIR}/${name}.json`,JSON.stringify(value,null,2)+'\n');}};
 const expire=async(attemptId:string)=>h.admin`update crm_private.b08_attempts set lease_until=clock_timestamp()-interval '1 second' where attempt_id=${attemptId}::uuid`;
@@ -58,7 +59,17 @@ for(const action of ['pause','stop','review']as const)test(`W12 W20 W21 W22 W23 
  const f=await workFixture(h);await f.run(f.definition);const c=f.claim()as any,r=await f.run(c);await f.run({...f.base(),action});
  await assert.rejects(f.run(f.start(c,r.generation!)));await assert.rejects(f.run(f.claim()));
  const before=(await f.see())!;assert.equal(before.attempts.length,1);assert.ok(before.definition.proposal_id);assert.ok(before.execution.task_id);
- if(action==='stop')await assert.rejects(f.run({...f.base(),action:'resume'}));else{
+ if(action==='stop'){
+ await assert.rejects(f.run({...f.base(),action:'resume'}));
+ // A distinct contacted job is then stopped: uncertainty and late evidence
+ // remain attached to its original attempt, while control remains stopped.
+ const late=await workFixture(h);await late.run(late.definition);const claimed=late.claim()as any,receipt=await late.run(claimed);await late.run(late.start(claimed,receipt.generation!));const contacted=(await late.see())!;
+ await late.run({...late.base(),action:'stop'});assert.deepEqual((await late.see())!.attempts,contacted.attempts);
+ await late.run({...late.base(),action:'result',attemptId:claimed.attemptId,outcome:'uncertain',resultRef:'simulated-stopped-timeout'});await assert.rejects(late.run(late.claim()));
+ const proof=late.prove(claimed.attemptId);await late.run(proof);assert.equal((await late.run(proof)).replayed,true);const reconciled=(await late.see())!;
+ assert.equal(reconciled.execution.control_state,'stopped');assert.equal(reconciled.parts[0].state,'succeeded');assert.equal(reconciled.attempts.length,1);await assert.rejects(late.run({...late.base(),action:'resume'}));await assert.rejects(late.run(late.claim()));
+ const events=await h.admin`select event_kind,attempt_id from crm_ha.events where reservation_id=${reconciled.parts[0].reservation_id}`;assert.equal(events.filter(x=>x.event_kind==='reconciled-succeeded').length,1);await capture('stop-after-contact',{contacted,reconciled,events,simulated:true});
+ }else{
  await f.run({...f.base(),action:'resume'});await f.run(f.start(c,r.generation!));await f.run({...f.base(),action});await f.run({...f.base(),action:'result',attemptId:c.attemptId,outcome:'uncertain',resultRef:'simulated-timeout'});
  await f.run(f.prove(c.attemptId));assert.equal((await f.see())!.parts[0].state,'succeeded');}
  await capture('control-'+action,await f.see());

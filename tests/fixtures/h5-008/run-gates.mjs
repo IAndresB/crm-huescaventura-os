@@ -3,7 +3,8 @@ import {spawnSync,spawn} from 'node:child_process';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {createWriteStream} from 'node:fs';
 import {gzipSync} from 'node:zlib';
-import {resolve} from 'node:path';
+import {resolve,dirname} from 'node:path';
+import {createHash} from 'node:crypto';
 const root=resolve(import.meta.dirname,'../../..'),out=resolve(import.meta.dirname,'definitive');
 const git=(...args)=>{const r=spawnSync('git',args,{cwd:root,encoding:'utf8'});if(r.status!==0)throw new Error(r.stderr);return r.stdout.trim();};
 const sha=git('rev-parse','HEAD');
@@ -20,5 +21,19 @@ for(const[name,cmd,args]of gates){
  const {unlink}=await import('node:fs/promises');await unlink(path);
  await writeFile(out+'/'+name+'-final.status.json',JSON.stringify({sha,command:[cmd,...args],exit:code,error:error??null,seconds:(Date.now()-started)/1000},null,2)+'\n');
  console.log(name+' '+(code===0?'PASS':'FAIL')+' '+((Date.now()-started)/1000).toFixed(1)+'s');
+ if(name==='postgres'){
+  // These three existing tests regenerate outputs unconditionally. Preserve
+  // the new raw bytes separately, then restore their exact Git input bytes.
+  // No guard, manifest, source or other historical file is rewritten.
+  const records=[],digest=v=>createHash('sha256').update(v).digest('hex');
+  for(const file of ['tests/fixtures/h2-011/reproducer-F01-corrected.log','tests/fixtures/h2-011/reproducer-F02-corrected.log','tests/fixtures/h4-012-f16/preservation.json']){
+   const baseline=spawnSync('git',['show',sha+':'+file],{cwd:root});if(baseline.status!==0)throw new Error('GENERATED_BASELINE_MISSING');
+   const raw=await readFile(resolve(root,file)),destination=resolve(out,'generated-historical',file+'.gz');
+   await mkdir(dirname(destination),{recursive:true});await writeFile(destination,gzipSync(raw));
+   records.push({file,generatedBytes:raw.length,generatedSha256:digest(raw),baselineSha256:digest(baseline.stdout),restored:true});
+   await writeFile(resolve(root,file),baseline.stdout);
+  }
+  await writeFile(out+'/generated-historical/archive.json',JSON.stringify(records,null,2)+'\n');
+ }
  if(code!==0){process.exitCode=1;break;}
 }

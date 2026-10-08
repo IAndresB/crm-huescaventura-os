@@ -140,7 +140,7 @@ begin
  elsif action not in ('recover','pause','stop','review','resume')then raise exception 'WORK_INPUT_INVALID';end if;
  if m-allowed<>'{}'::jsonb or not(m ?& allowed) or nullif(btrim(m->>'reason'),'') is null then raise exception 'WORK_INPUT_INVALID';end if;
  insert into crm_f1.consumption values(t[5],t[6]::oid,t[8]::xid8,t[21],t[20]::bigint);
- select * into e from crm_private.b08_executions where execution_id=id for update;before_data:=crm_private.b08_snapshot(id);
+ select * into e from crm_private.b08_executions where execution_id=id for update;before_data:=crm_private.b08_snapshot(id)-'history';
  if action in ('define','revise')then
  if action='define' and e.execution_id is not null then raise exception 'WORK_IDENTITY_CONFLICT';end if;
  if action='revise' and (e.definition_id<>(m->>'definitionId')::uuid or (m->>'version')::bigint<>e.version+1
@@ -250,7 +250,7 @@ begin
  insert into crm_private.b07_operations(operation_id,admin_scope,actor_id,fingerprint,result_ref)values(op,h[17],h[12]::uuid,encode(crm_crypto.digest(q,'sha256'),'hex'),id);
  insert into crm_private.b08_command_results values(op,h[17],result);
  insert into crm_private.b07_history(history_id,operation_id,subject_id,admin_scope,action_kind,before_state,after_state,reason,source_ref,actor_id)
- values(op,op,id,h[17],'work_'||action,before_data,crm_private.b08_snapshot(id)||jsonb_build_object('receipt',result,'executorId',t[11]),m->>'reason',id::text,h[12]::uuid);
+ values(op,op,id,h[17],'work_'||action,before_data,(crm_private.b08_snapshot(id)-'history')||jsonb_build_object('receipt',result,'executorId',t[11]),m->>'reason',id::text,h[12]::uuid);
  return result;
 end $$;
 
