@@ -1,0 +1,50 @@
+$ node scripts/test-postgres.mjs postgres-h5-008-migration.test.ts postgres-h5-009.test.ts postgres-h5-009-migration.test.ts
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-xqbLHI/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-xqbLHI/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ W48 W49 fresh56 populated55 upgrade rollback retry preserve old catalog and data (3776.696042ms)
+✔ W50 official advisors56 loopback only (4883.22ms)
+✔ W53 W54 W56 expected45 rows56 cases, all56 published migration bytes, F10/F12 unchanged and scoped synthetic product (2210.756416ms)
+✔ H5-009 V-MIG fresh delta, populated 56-to-57 upgrade, DDL rollback and retry (3746.332041ms)
+✔ H5-009 B07 event receipt, duplicate and E2 conflict preserve canonical event (1669.012417ms)
+✔ H5-009 unreliable event identity persists as review and does not fuzzy-deduplicate (8.322541ms)
+✔ H5-009 corrected external reference preserves the prior reference and history (7.772875ms)
+✔ H5-009 own B08 effect echo correlates to its original attempt without a second effect (132.247667ms)
+✔ H5-009 operation key material mismatch is rejected before any receipt side effect (6.419291ms)
+✔ H5-009 actor, purpose and linked context are revalidated with no rejection effects (3.949417ms)
+✔ H5-009 B09 receipt trigger rollback is atomic across B07 original and key; retry succeeds (11.220125ms)
+✔ H5-009 RLS/FORCE RLS and grants keep B09 receipts private (72.460958ms)
+✔ H5-009 concurrent independent PostgreSQL sessions apply one event once (449.053083ms)
+✔ H5-009 Avaibook, calendar and web stay review-only and cannot execute external action requests (41.185459ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11086.255584
+waiting for server to shut down.... done
+server stopped

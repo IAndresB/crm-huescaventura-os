@@ -1,0 +1,117 @@
+{
+  "status": "STOP",
+  "authorization": {
+    "path": "tests/fixtures/h5-009/f09/documentary-exception-20261012T204228Z-e1f88cb4/authorization.json",
+    "type": "regular",
+    "mode": "0644",
+    "bytes": 1437,
+    "sha256": "c1781fa765e7a38737973d534cc78e36a02e3d9ec691e619e746da2ac5794abf"
+  },
+  "losses": [
+    {
+      "path": "tests/fixtures/h5-009/f09/build.log",
+      "originalState": "ORIGINAL NO RECUPERADO",
+      "originalBytes": 545,
+      "originalSha256": "063f7ffad5445d9b2a45a17aceb16a01a6dfbbe70032787c0fdd02ea690fd0fa",
+      "historicalReferenceSource": {
+        "path": "tests/fixtures/h5-009/f09/f02-diagnosis/pending-inventory.json",
+        "type": "regular",
+        "mode": "0644",
+        "bytes": 44572,
+        "sha256": "ac51403bdfd981258853ad5a66886257d8d3f8cd2379ca55a92e5b838f4d4d9d"
+      },
+      "availableOriginalExecutionEvidence": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/original-command-trace.jsonl",
+      "originalExecutionEvidenceLimit": "Exact command/completion excerpts exited zero; no original stdout/stderr bytes available",
+      "lossCause": "Later execution used tee on the same untracked evidence path, overwriting the original raw stream",
+      "overwriteTrace": {
+        "session": "/Users/andres/.codex/sessions/2026/10/12/rollout-2026-10-12T20-12-01-01a13150-80a3-7533-99ea-dbb26097172f.jsonl",
+        "line": 3442,
+        "utc": "2026-10-12T20:02:03.404Z",
+        "exactCall": "const r = await tools.exec_command({\n  cmd: \"set -o pipefail; pnpm run build 2>&1 | tee tests/fixtures/h5-009/f09/build.log\",\n  workdir: \"/Users/andres/Developer/crm-huescaventura-os\",\n  yield_time_ms: 1000,\n  max_output_tokens: 1000\n});\ntext(JSON.stringify(r));\n"
+      },
+      "overwrittenOutputCopy": {
+        "path": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/build-overwritten.log",
+        "type": "regular",
+        "mode": "0644",
+        "bytes": 545,
+        "sha256": "171ec560c336b2fb502bfe7b5481cbdef116da875eed2929026714fa4157d0a6"
+      },
+      "currentHistoricalNamedPath": {
+        "path": "tests/fixtures/h5-009/f09/build.log",
+        "type": "regular",
+        "mode": "0644",
+        "bytes": 545,
+        "sha256": "171ec560c336b2fb502bfe7b5481cbdef116da875eed2929026714fa4157d0a6"
+      },
+      "recoverySearch": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/search-report.json",
+      "searchOutcome": "No exact copy found in accessible searched sources; external backup access remained limited",
+      "exceptionAuthorization": {
+        "path": "tests/fixtures/h5-009/f09/documentary-exception-20261012T204228Z-e1f88cb4/authorization.json",
+        "type": "regular",
+        "mode": "0644",
+        "bytes": 1437,
+        "sha256": "c1781fa765e7a38737973d534cc78e36a02e3d9ec691e619e746da2ac5794abf"
+      },
+      "substitutes": [],
+      "substitutionStatus": "AUTHORIZED BUT NOT EXECUTED: STOP at independent auditor preflight",
+      "limitations": [
+        "Historical original raw stream integrity cannot be proved",
+        "New PASS would apply only to a new execution, never to the lost original"
+      ]
+    },
+    {
+      "path": "tests/fixtures/h5-009/f09/health-independent.log",
+      "originalState": "ORIGINAL NO RECUPERADO",
+      "originalBytes": 202,
+      "originalSha256": "2794076bee6b763f2a15c62a692735addf3e6b08e4fa296266b92953489f6f30",
+      "historicalReferenceSource": {
+        "path": "tests/fixtures/h5-009/f09/f02-diagnosis/pending-inventory.json",
+        "type": "regular",
+        "mode": "0644",
+        "bytes": 44572,
+        "sha256": "ac51403bdfd981258853ad5a66886257d8d3f8cd2379ca55a92e5b838f4d4d9d"
+      },
+      "availableOriginalExecutionEvidence": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/original-command-trace.jsonl",
+      "originalExecutionEvidenceLimit": "Exact command/completion excerpts exited zero; no original stdout/stderr bytes available",
+      "lossCause": "Later execution used tee on the same untracked evidence path, overwriting the original raw stream",
+      "overwriteTrace": {
+        "session": "/Users/andres/.codex/sessions/2026/10/12/rollout-2026-10-12T20-12-01-01a13150-80a3-7533-99ea-dbb26097172f.jsonl",
+        "line": 3412,
+        "utc": "2026-10-12T20:01:51.720Z",
+        "exactCall": "const r = await tools.exec_command({\n  cmd: \"set -o pipefail; POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin node --test tests/operations/supabase-health.test.mjs 2>&1 | tee tests/fixtures/h5-009/f09/health-independent.log\",\n  workdir: \"/Users/andres/Developer/crm-huescaventura-os\",\n  yield_time_ms: 1000,\n  max_output_tokens: 1000\n});\ntext(JSON.stringify(r));\n"
+      },
+      "overwrittenOutputCopy": {
+        "path": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/health-independent-overwritten.log",
+        "type": "regular",
+        "mode": "0644",
+        "bytes": 203,
+        "sha256": "9add108ccc3b1d5618be5dbdfdc67231b379e62392fcc30315af74e35baf122a"
+      },
+      "currentHistoricalNamedPath": {
+        "path": "tests/fixtures/h5-009/f09/health-independent.log",
+        "type": "regular",
+        "mode": "0644",
+        "bytes": 203,
+        "sha256": "9add108ccc3b1d5618be5dbdfdc67231b379e62392fcc30315af74e35baf122a"
+      },
+      "recoverySearch": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/search-report.json",
+      "searchOutcome": "No exact copy found in accessible searched sources; external backup access remained limited",
+      "exceptionAuthorization": {
+        "path": "tests/fixtures/h5-009/f09/documentary-exception-20261012T204228Z-e1f88cb4/authorization.json",
+        "type": "regular",
+        "mode": "0644",
+        "bytes": 1437,
+        "sha256": "c1781fa765e7a38737973d534cc78e36a02e3d9ec691e619e746da2ac5794abf"
+      },
+      "substitutes": [],
+      "substitutionStatus": "AUTHORIZED BUT NOT EXECUTED: STOP at independent auditor preflight",
+      "limitations": [
+        "Historical original raw stream integrity cannot be proved",
+        "New PASS would apply only to a new execution, never to the lost original"
+      ]
+    }
+  ],
+  "historicalHashesAreImmutable": true,
+  "originalRecoveryClaimed": false,
+  "observedHashesAcceptedAsHistorical": false
+}

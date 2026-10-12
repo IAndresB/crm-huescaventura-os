@@ -1,0 +1,88 @@
+{
+  "status": "STOP; exact originals not recovered",
+  "scope": "Recovery of F09 evidence and read-only preparation of exact supplemental route registration; H5-009/010 local/isolated",
+  "preflight": {
+    "branch": "main",
+    "head": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
+    "originMain": "fdbd08bafdc6651d1ad6867242cd71791a25deb6",
+    "divergence": "7/0",
+    "pendingEntriesBeforeActing": 223,
+    "expectedF01F02F16": "Exact historical bytes, regular files, modes 0644 verified",
+    "manifests": "H2-011 raw-log manifest and F16 manifest equal HEAD; no historical manifest changed by this task",
+    "F09": "OPEN"
+  },
+  "logs": [
+    {
+      "path": "tests/fixtures/h5-009/f09/build.log",
+      "originalBytes": 545,
+      "originalSha256": "063f7ffad5445d9b2a45a17aceb16a01a6dfbbe70032787c0fdd02ea690fd0fa",
+      "observedCopy": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/build-overwritten.log",
+      "observedBytes": 545,
+      "observedSha256": "171ec560c336b2fb502bfe7b5481cbdef116da875eed2929026714fa4157d0a6",
+      "restored": false,
+      "type": "regular file",
+      "mode": "0644"
+    },
+    {
+      "path": "tests/fixtures/h5-009/f09/health-independent.log",
+      "originalBytes": 202,
+      "originalSha256": "2794076bee6b763f2a15c62a692735addf3e6b08e4fa296266b92953489f6f30",
+      "observedCopy": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/health-independent-overwritten.log",
+      "observedBytes": 203,
+      "observedSha256": "9add108ccc3b1d5618be5dbdfdc67231b379e62392fcc30315af74e35baf122a",
+      "restored": false,
+      "type": "regular file",
+      "mode": "0644"
+    }
+  ],
+  "healthHashReference": {
+    "userProvided": "2794076bee6b763f2a692735addf3e6b08e4fa296266b92953489f6f30",
+    "userProvidedCharacters": 58,
+    "verifiedOriginal": "2794076bee6b763f2a15c62a692735addf3e6b08e4fa296266b92953489f6f30",
+    "source": "Original 175-entry inventory and previous complete reference in this conversation; no original hash was replaced."
+  },
+  "originalExecutionTrace": {
+    "file": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/original-command-trace.jsonl",
+    "bothOriginalCommandsExitedZero": true,
+    "containsOriginalLogBytes": false
+  },
+  "auditorInvestigation": {
+    "rejectedPath": "tests/fixtures/h5-009/f09/audit-production.json",
+    "creationUtc": "2026-10-12T20:02:09.079Z",
+    "creator": "pnpm audit --prod --json captured by tee during the last protected revalidation",
+    "validJson": true,
+    "sha256": "11124a8c8cd76328bb93c913c49494fd2f63d7a4193871141c812f5b1cffc655",
+    "scope": "Production-dependency audit in local/isolated H5-009/010; zero listed vulnerabilities; no Hosted/Production execution claim",
+    "supplementalRoutesInventoried": 94,
+    "alreadyAdmittedLiteralRoutes": 8,
+    "routesRequiringIncorporation": 86,
+    "newRoutesSince175Inventory": 50,
+    "unknownOrigins": [],
+    "inventory": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/supplemental-inventory.json"
+  },
+  "auditorAdaptation": "NOT APPLIED: recovery prerequisite failed and user sections 2/6 require STOP before deciding a transition. The exact supplemental-route authorization is sufficient; no broader authorization is being requested.",
+  "counterproofsAndGates": "NOT RUN in this recovery turn because originals were not recovered. Previous gate results are retained as previous executions, not a new global PASS.",
+  "proposedResolution": {
+    "preferred": "Recover exact originals from an independently accessible backup, then register only literal supplemental paths with exact size/type/mode/hash checks and execute the authorized counterproofs.",
+    "fallbackRequiringSpecificAuthorization": "Documentary substitution acknowledging loss of original raw streams: retain original paths/hashes/sizes and exact command completion traces in a loss record; retain the overwritten bytes only under the new observed-copy paths; execute new build and independent-health gates in exclusively created unique paths on an identified candidate. Explicitly authorize how the auditor treats the unavailable original paths. No current observed hash is accepted as the historical original.",
+    "eligibleNewObservedCopies": [
+      {
+        "path": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/build-overwritten.log",
+        "sha256": "171ec560c336b2fb502bfe7b5481cbdef116da875eed2929026714fa4157d0a6",
+        "bytes": 545
+      },
+      {
+        "path": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/health-independent-overwritten.log",
+        "sha256": "9add108ccc3b1d5618be5dbdfdc67231b379e62392fcc30315af74e35baf122a",
+        "bytes": 203
+      }
+    ]
+  },
+  "closure": {
+    "F09": "OPEN",
+    "H5-009/010": "NOT CLOSED",
+    "commit": "NOT CREATED",
+    "push": "NOT PERFORMED",
+    "laterTasks": "NOT STARTED"
+  }
+}

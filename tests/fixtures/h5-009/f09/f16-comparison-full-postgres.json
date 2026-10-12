@@ -1,0 +1,127 @@
+{
+  "scope": "F09; PostgreSQL full regression on working candidate HEAD 8c1109426a8e85effeda6c2bb59c08ac0693c032; H5-009/010 local/isolated",
+  "historical": {
+    "path": "tests/fixtures/h4-012-f16/preservation.json",
+    "bytes": 1858702,
+    "sha256": "8b6c0298b17b7ede0fabb58a264953f0ccfa5e880e89a8d472b3644e870003d7",
+    "mode": "0644"
+  },
+  "generated": {
+    "evidencePath": "generated/tests/fixtures/h4-012-f16/preservation.json.gz",
+    "bytes": 1858702,
+    "sha256": "cca17c455280779aa9bcfd13a9f250799f8912e5efbf0ee9cad52e612c18d514",
+    "gzipSha256": "f9e6ad9c31c3df4451514cb835647734039b435a960743bd9e07a00559848d6c"
+  },
+  "comparison": {
+    "tableCount": 131,
+    "historicalTableDigestDifferences": 69,
+    "changedTableNames": [
+      "b03_acceptance_history",
+      "b03_acceptance_operations",
+      "b03_acceptance_verifications",
+      "b03_acceptances",
+      "b03_history",
+      "b03_offer_history",
+      "b03_offer_issuances",
+      "b03_offer_operations",
+      "b03_operations",
+      "b03_opportunities",
+      "b03_preparations",
+      "b03_proposal_history",
+      "b03_proposal_lines",
+      "b03_proposal_modalities",
+      "b03_proposal_operations",
+      "b03_proposal_versions",
+      "b03_proposals",
+      "b04_availability",
+      "b04_availability_operations",
+      "b04_availability_revisions",
+      "b04_bookings",
+      "b04_confirmation_facts",
+      "b04_confirmation_operations",
+      "b04_confirmation_revisions",
+      "b04_confirmations",
+      "b04_contributions",
+      "b04_history",
+      "b04_hold_operations",
+      "b04_hold_revisions",
+      "b04_holds",
+      "b04_modalities",
+      "b04_operational_versions",
+      "b04_operations",
+      "b04_services",
+      "b06_modification_operations",
+      "b06_modification_revisions",
+      "b06_modifications",
+      "b07_document_rules",
+      "b07_history",
+      "b07_incident_operations",
+      "b07_incident_revisions",
+      "b07_incidents",
+      "b07_links",
+      "b07_object_versions",
+      "b07_operations",
+      "b07_pending_tasks",
+      "b07_records",
+      "b07_requirement_documents",
+      "b07_requirement_operations",
+      "b07_requirement_revisions",
+      "b07_requirements",
+      "catalog_applications",
+      "catalog_history",
+      "catalog_items",
+      "catalog_operations",
+      "catalog_revisions",
+      "commercial_history",
+      "commercial_items",
+      "commercial_operations",
+      "commercial_revisions",
+      "crm_actors",
+      "crm_sessions",
+      "identification_epochs",
+      "identity_codes",
+      "identity_contexts",
+      "identity_designations",
+      "identity_entities",
+      "identity_history",
+      "identity_operations"
+    ],
+    "priorGeneratedRunDigestDifferencesFromHistorical": 69,
+    "priorAndCurrentGeneratedRunsDifferingTableDigests": 69,
+    "catalogBeforeExactlyEqual": true,
+    "catalogAfterChangedFields": [
+      {
+        "section": "functions",
+        "index": 153,
+        "name": "modification_source_material",
+        "fields": {
+          "oid": {
+            "historical": 20452,
+            "generated": 20453
+          }
+        }
+      },
+      {
+        "section": "functions",
+        "index": 154,
+        "name": "modification_counterparty",
+        "fields": {
+          "oid": {
+            "historical": 20453,
+            "generated": 20454
+          }
+        }
+      }
+    ],
+    "changedBodiesExactlyEqual": true
+  },
+  "preservationEvidence": {
+    "test": "H4-012-F16 C16 populated43 upgrade DDL rollback retry all data and prior catalogue preserved except named bodies",
+    "source": "tests/integration/postgres-h4-012-f16.test.ts:30",
+    "assertions": "Within this execution the test snapshots all 131 crm_private tables, deep-compares after injected DDL rollback, then deep-compares again after applying the migration; test passed in full PostgreSQL run. Catalogue assertions also passed: relations, policies, triggers, roles and pre-existing functions were compared; named migration body changes remain explicit.",
+    "fullRegressionExitCode": 0,
+    "wrapperRestorationComplete": true
+  },
+  "interpretation": "The 69 table digest changes are between separate generated runs, and the two generated runs also differ in those 69 table digests. The preservation.json stores row digests rather than underlying rows. The test fixtures generate fresh UUIDs (randomUUID), so the per-run snapshots are not byte-reproducible; these differences do not indicate migration data loss because in-run before/after deep equality assertions passed. In the after catalogue, only two OID fields differed, on modification_source_material and modification_counterparty; catalog object names and all other compared fields match. OIDs are execution-scoped identifiers, not business data. No material discrepancy in the in-run preservation guarantee was observed.",
+  "limits": "A cross-run row-by-row comparison cannot be reconstructed from digest-only historical evidence; no row values were added or normalized."
+}

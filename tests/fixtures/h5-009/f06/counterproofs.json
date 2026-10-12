@@ -1,0 +1,144 @@
+{
+  "status": "PASS",
+  "testedSha": "d15b5ba93e4c0b0a2d97339a02280738297db26d",
+  "originalVerificationSha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+  "f05RetestSha256": "916315749125b82ec68788f0e3df47cf4f1efc6032ad8b77d4d7682b8fcb6f69",
+  "source": "import assert from 'node:assert/strict';\nimport {mkdtemp,mkdir,readFile,writeFile,rm,symlink,copyFile,readdir} from 'node:fs/promises';\nimport {tmpdir} from 'node:os';\nimport {join,dirname} from 'node:path';\nimport {spawnSync} from 'node:child_process';\nimport {createHash} from 'node:crypto';\nimport {gzipSync,gunzipSync} from 'node:zlib';\nconst root=process.cwd(),out=join(root,'tests/fixtures/h5-009/f06'),script='scripts/verify-h5-008-evidence.mjs',hash=b=>createHash('sha256').update(b).digest('hex');\nconst git=(...args)=>{const r=spawnSync('git',args,{cwd:root,maxBuffer:256*1024*1024});assert.equal(r.status,0);return r.stdout;};\nconst sha=git('rev-parse','HEAD').toString().trim(),temp=await mkdtemp(join(tmpdir(),'crm-h5009-f06-')),runs=[];\nconst capture=async(name,cmd,args,expected)=>{const r=spawnSync(cmd,args,{cwd:temp,encoding:'utf8',maxBuffer:16*1024*1024,timeout:240000});const raw=Buffer.from(r.stdout+r.stderr);runs.push({name,sha,command:[cmd,...args],exit:r.status,expectedExit:expected,bytes:raw.length,sha256:hash(raw),logGzipBase64:gzipSync(raw).toString('base64')});assert.equal(r.status,expected,name+': '+raw.toString().slice(0,1800));console.log(name+(expected?' FAIL expected':' PASS'));};\ntry{\n const archive=git('archive','HEAD');assert.equal(spawnSync('tar',['-x','-C',temp],{input:archive}).status,0);\n await symlink(join(root,'.git'),join(temp,'.git'));await mkdir(join(temp,'node_modules'));for(const n of await readdir(join(root,'node_modules')))await symlink(join(root,'node_modules',n),join(temp,'node_modules',n));\n const local=git('ls-files','--modified','--others','--exclude-standard','-z').toString().split('\\0').filter(Boolean);\n for(const p of local){await mkdir(dirname(join(temp,p)),{recursive:true});await copyFile(join(root,p),join(temp,p));}\n await capture('lossless-four-originals',process.execPath,[script],0);\n const manifest='tests/fixtures/h5-009/f06/compression.json',original=await readFile(join(temp,manifest)),data=JSON.parse(original),path=data.items[0].compressedPath,packed=await readFile(join(temp,path));\n const modify=async(name,p,b)=>{const before=await readFile(join(temp,p));await writeFile(join(temp,p),b);try{await capture(name,process.execPath,[script],1);}finally{await writeFile(join(temp,p),before);}};\n await modify('corrupt-gzip-rejected',path,Buffer.from('not a gzip stream'));\n const falseHash=structuredClone(data);falseHash.items[0].sha256='0'.repeat(64);await modify('changed-original-hash-rejected',manifest,Buffer.from(JSON.stringify(falseHash)));\n const changed=gzipSync(Buffer.concat([gunzipSync(packed),Buffer.from(' ')]));const forged=structuredClone(data);forged.items[0].compressedBytes=changed.length;forged.items[0].compressedSha256=hash(changed);\n await writeFile(join(temp,path),changed);try{await modify('valid-gzip-with-altered-original-rejected',manifest,Buffer.from(JSON.stringify(forged)));}finally{await writeFile(join(temp,path),packed);}\n await rm(join(temp,path));try{await capture('missing-gzip-rejected',process.execPath,[script],1);}finally{await writeFile(join(temp,path),packed);}\n const dropped=structuredClone(data);dropped.items.pop();await modify('missing-evidence-entry-rejected',manifest,Buffer.from(JSON.stringify(dropped)));\n await capture('F05-18-counterproofs',process.execPath,['tests/fixtures/h5-009/f05-counterexamples.mjs'],0);\n const t=spawnSync('tar',['-czf',join(out,'f05-retest.tar.gz'),'-C',temp,'tests/fixtures/h5-009/f05']);assert.equal(t.status,0);\n await capture('F10-F12-preservation',process.execPath,['--experimental-strip-types','tests/fixtures/h5-006/f12/chain-counterexamples.mjs'],0);\n await writeFile(join(out,'counterproofs.json'),JSON.stringify({status:'PASS',testedSha:sha,originalVerificationSha:'0dae8a4a0b5ce92845b13fd82c60c1ed931184dc',f05RetestSha256:hash(await readFile(join(out,'f05-retest.tar.gz'))),source:await readFile(import.meta.filename,'utf8'),runs},null,2)+'\\n');\n}finally{await rm(temp,{recursive:true,force:true});}\n",
+  "runs": [
+    {
+      "name": "lossless-four-originals",
+      "sha": "d15b5ba93e4c0b0a2d97339a02280738297db26d",
+      "command": [
+        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
+        "scripts/verify-h5-008-evidence.mjs"
+      ],
+      "exit": 0,
+      "expectedExit": 0,
+      "bytes": 6762,
+      "sha256": "3aaaaef2d6cd022adaaec1b41ca43b9407b8ab33ba04d66f35815b84324736af",
+      "logGzipBase64": "H4sIAAAAAAAAE7WYS2/jNhCA7/kVRs6lRcmSH3tbtAkWLdAGTQoUKIqAJkcWNxSpkpST7KL/vSBlO3LiJCMFvdnUfDN8zYPz/WwyOWetkP780+T86vP19fkPYag2AsJIKTVT3ZAH50FcVyyMFzBjQuTrjC+zkhdrCnmxWuczYHS+LGarGc9XxTKnHVoBE4ESabEu1mw1g5zTNWWZWC1msxWjWbaki9kyWy3EOpuLjrLm3p1/muRF/MeZg/C3mMe/jXF+Y+NIls+zONbquIy0yPdWla/CQLckubHMS6N7WoThbQ3aM/v4EygflvbX2WQymZy7BrhLKE0JNxYIt3UioATuHbm5/oV8KQilq2ndTfW0PGylAM2hBxCa0rehmnkrH15Hwim4pJQPvrXgkirKJPEESWONaHlY4vSrM/pthFdMa1BkbVotmH0kxspNOG1SMqmmzjPfOoSekqakseDAbuPuTuuv7l0ioSmR2jPuSTGfKrOZbr4hoIxsmZKCFAs8MyNMebCklNZ5PJbvsFoKoQDPFTuuKPDMfM8M2IoFEaDAA6mk88ZKzhQeXhJu6nDviYVGMQ7hNx5fkftKenAN4zBk0iklrWatr4yV30CQe+krqcO19cA9iHCPSvmA15eSy5SSyzQjvGJS48GMNFYae3RxyRasLCVYtBoLrlUe5SMFEbAFZZq46+u2LNF2jlFumsdRYLwuwT/HwCEk4ILBMee4abDOUxAh2UYbJ9278S5ISy29ZIpYiEGhCz6eWZSpxkJwAemxRC9icWVca9HLCmGrd+lFyDN4dtZzcMKNGGA276OH7Ifniz4PD030UTw+P8J3uRCPL0irlQwlR3BuvRmALsPx1ix8IFVB0xSPrp6hGRpNaR/FBsUiBLHKuCE7G6PXIdOjqdk+WOKRnHwpKJ0f53c0XUR6OZKe792td4uGxrAkXfRx91grqe/w9PLIg4Y4Hz41mKA7ltlB+dvCXUVLpBbQgBYhwtbSOak3ZF8PE9Dbaazgxmiz4EkQfh9WUiOk+rG5K1JRO3gCQ9ejR+y6lQrnWCewcSaFLMvhFiM1zmBJcfHtBTTWHK6yfQGNNLf3jIEGIzbSpMEW0yewkSat+Qa4sHaKG2d0Axos8yASZnkltzBewXPhjNA01MddngJLLrs3rsXXEOMtZf+PpZzQNCNlOk+OElrYs2Emurg7fGo7btxh9xKZhg3z4biHz+CEko9O5yOzGGl8n7uGmY3UOIP75Dzc6IEcZ9g/NsAr4Lia5xV0nOnQjBtuNVJog4c5YguoJ8ACrs452sG3RcPcsRPpeg38KYQgxB9J/Lc8ekztOWG4S369+POGXN9cXF33XtDxy9Xvv/188WP4+Pnmj/5Xx61svHvNQq+Zd6rDuXsUDupweubu+i98Z3kiTM2kTuDBgw0tyH1TcupdX0zq0jLnbcvD7hycI+zSAYVtKGSZYI0H2+fbhq2Zg+SpD5xkNJunlC7TVUYpva2K272a26jm1gKHsD1T9496+4TwleY7jVdss4SbVnuw8MDqRoHDtF1j26NUclPhmlbzhJs6JDuHu6WBOCwGXQe/pAb0nmMyRi9pd7uPun4b5oFga+jDK6tsVe/V9oLrxKcxxPhn5yK1h90NfNK3m9lTl2YguvoAehpwbdMY68NSDjdVOqNCbfSW8L2xd0eCZ5PJ32f/nv0HNZy/C2oaAAA="
+    },
+    {
+      "name": "corrupt-gzip-rejected",
+      "sha": "d15b5ba93e4c0b0a2d97339a02280738297db26d",
+      "command": [
+        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
+        "scripts/verify-h5-008-evidence.mjs"
+      ],
+      "exit": 1,
+      "expectedExit": 1,
+      "bytes": 857,
+      "sha256": "b2e294ce86340d82e3c0e690b49fcd6c149e13daeea07d70e4cd895c930fc21a",
+      "logGzipBase64": "H4sIAAAAAAAAE8WSX2/TMBTF3/Mp/LYikdjOvyZ+G6MgIcGgG0Iagip1bhK3rp1dJ4GC9t1R0rUU0J55s+79HZ9j+RhbglCmAzSFpjtb9hocxd6sdoUygrO5RwghHaq6BvxoZNHXTbf4LqHtlDWzafvV8xaIFgVRRlpEkB1poCgBiWxAbieo6EgNBlDJd7aEiScz84c9jEMn8iwVPHl2VH3Dom2hfGWewJOYCR6f8Dut1sEPrdbX5mDyuXDEmgn+8njFuBY8jwSfn3QtWgnOXTW92d7sjTxH4ygTPDyh4+xFX1WAf4M8C89BtzfyAH6aHoHnbMb5ee4BUFX79/1aK9dAeaWt6xHIrFIaBKW0RTUUHdChQFpZXQI6ute03krMWOei+3mm884MSR5HlZaMMVYbeksl7vwmYSz3K5b6Cdt/uH9NnUTVdo4eTP0m8RnLfBhUCUZCsNs4keYiZad0/ysFj0LBo2OKt1M/39h1gP0/dTiWF9zu8bza2LVIUi7C320qxj8hTyu1HXsr0nguwpT89AgBRGMF8aPnHiFyFJKLu9XLy9vL1WK5vF5eeA+eN3Y62DgyhHEQ8oB5vwCesGNtWQMAAA=="
+    },
+    {
+      "name": "changed-original-hash-rejected",
+      "sha": "d15b5ba93e4c0b0a2d97339a02280738297db26d",
+      "command": [
+        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
+        "scripts/verify-h5-008-evidence.mjs"
+      ],
+      "exit": 1,
+      "expectedExit": 1,
+      "bytes": 1073,
+      "sha256": "f685c7e273646a51d57681ebb4fab55e2b9d1435f513d9caffdf7921439b4da0",
+      "logGzipBase64": "H4sIAAAAAAAAE8WTT2sbMRDF7/oUc9uEdC3tf1u3UJbS0qSpk9JDaYMsza7lypIjaZeY0u9e1k5KA82pgeogxAxv9B78xjqFXNuI3gpDt04NBgP1g73dCm15xhoCABC97nv0n6wUQ7+O7b3EXdTOnhy63wg5DwH9VGm9dx6+tMvl7fn1dbu8efvh8iuH9n6HMqKCUZgBA0QHK4QQvZbR7AHvBmE4OQMh4yAMpIAPAkLOIGH/eBKSQqKwYEwWBWb1al4v6q5u1KoocFF2NZaqYlWZdTIXHapSFnklFKvLTDQL2VRSNlVCDmFFhBG97vZXw8rosEb12rgweISTThvklNKd16OISEfhaeeMQh/o3tD+u/RzFkNx18zNItqxWpRFZ+TksLf0hkq/TdcVY4u0Y3Vasf3Huzc0SK93MdDjp+m6ShmbpzhqhVbibLsJvMl5mZ0+uvtfLrIi51nx6OLigNI7t5r5wcKJ/StnGLYP79uNW/Gqznhe/Q4iwt5KeF5pnFDoeV02PK+fig73crCtjX5/5bSNn3Vct9cX7w+a5/z8wX3Gq1P4QQB6tOhFRHWBIYgeOUQ/4CsCIKcZkDxBPZkaR4j5C3A7TXvcBP4CCE/z3G7K4zyH5Lh/7bR8h5bSXTeV9XZnMCE/Cbl0CmebAGNezvJsxsgvsMLuETEEAAA="
+    },
+    {
+      "name": "valid-gzip-with-altered-original-rejected",
+      "sha": "d15b5ba93e4c0b0a2d97339a02280738297db26d",
+      "command": [
+        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
+        "scripts/verify-h5-008-evidence.mjs"
+      ],
+      "exit": 1,
+      "expectedExit": 1,
+      "bytes": 801,
+      "sha256": "dbfb4c6a74ef60b82969965b3015859eba54329d1e726849de516d95f03a1318",
+      "logGzipBase64": "H4sIAAAAAAAAE8WSUW/TMBSF3/0rLk/tJFI7bZ22lvYwoQiB2BjtEA8IKte5SV0cO7WdaBHiv6NkG2ISe+bFss/VufdY97OuQKFtRG+lobUrWoOB+tbua6mtSNmKAABEr6sK/WerZFsdY36vsIna2elY/U7IVQjoByX33nn4mm+3+6vdLt/evft4801Aft+gilhAJ02LAaKDA0KIXqtoesBzK40ghC8zeHV5CXzJydhaRujQ67K/bQ9GhyMWb4wLrUeYltqgoJQ2XncyIu2kp6UzBfpAe0OrH8qvWQyL82ptNtF2fLNclEYxxlhl6R1Vvk6OnLFNUrIs4az/dH5Lg/K6iYE+DE2OPGFsnWCnC7QKZ/UpiFUq0vTiKd3/SpEu5iJdPKW4Hhf33h1mvrUwtf/cKob68b4/uYPgWSrm/M9HZOitgpedxskCvciWKzHPnpvGc9va3Ebf3zpt4xcdj/nu+sPoeSnPX5Slgl/ATwJQoUUvIxbXGIKsUED0Lb4mAGroAZNnYE2GglRxgAf4Mhue+EjaIPBBcM3Q0XkBkwfe8gG20VroshxkXTcGJ+QXITeuwNkpQDdfzubpjJHflW0PwSEDAAA="
+    },
+    {
+      "name": "missing-gzip-rejected",
+      "sha": "d15b5ba93e4c0b0a2d97339a02280738297db26d",
+      "command": [
+        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
+        "scripts/verify-h5-008-evidence.mjs"
+      ],
+      "exit": 1,
+      "expectedExit": 1,
+      "bytes": 829,
+      "sha256": "d6113fa456884f6e2c09daaec5288386a39fcd6b37d6a035fcae6878dc61bd40",
+      "logGzipBase64": "H4sIAAAAAAAAE8VSy27bMBC86yv2ZgeIREq2ZJnXQi1QNE7aBOitgUSuLLo06SwpoWrRfy+kvJACAXILDwSxnNkZLsc6haL1osjSCIAw9GSh0VZpu0/cCe0ygv/XjyiqiBwJqHaX1e5GgHXge9lBqw2CI1CaUAZH4zlMPWAR0AfPWv0r9ISedXnM+ZY1vTYqMW6f7H8vZp06wGVzQBlm7evRSljaZ4siLc8ecYS1+qgNvgSty41Y5U+gAUm341XfGO07VB+M8z0hLCejgjF2Ij3UAdlQE2udUUiejYbtf0oqefCru01ptsEO+Xa9ao3knPO9ZTdM0jHucs63ccuLOOfj17tPzEvSp+DZvWg8P7KMcdAKrcTkePCi2Ip08+TuvVykq0ykq0cXF071Bj+7JqHePkxS24Bka8OO86Vn6I8P59uDa0RepCJ7HnPtp094nWlcrZBEsd6IrHhJmvdvva1soPHKaRu+69BV1xdfZs5rfqi3t8daW5HyVORn8CcCQCLrBMTZeQQgJxos7hO6mCp+9LI2RsBiytZcOtWhE29L598o2jmFycHDkK2TLE149A/HCaAvPQMAAA=="
+    },
+    {
+      "name": "missing-evidence-entry-rejected",
+      "sha": "d15b5ba93e4c0b0a2d97339a02280738297db26d",
+      "command": [
+        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
+        "scripts/verify-h5-008-evidence.mjs"
+      ],
+      "exit": 1,
+      "expectedExit": 1,
+      "bytes": 793,
+      "sha256": "a1bf3b561e21399cf8dc568896d274b19726a886772626e0b55981676d7aa30b",
+      "logGzipBase64": "H4sIAAAAAAAAE8WST2/UMBDF7/4Uw2m3Elk7m83+sdRDhSIEoqXsFnFAsPImk6wXx86OnagR4rujpC2iEj1zsTwzes/Pmp91BUptA5JVhteuaA16Tq3d10pbGYsVAwAIpKsK6bPNVVsdQ3afYxO0s9Nx+p2xK++Rhk5G5Ai+Ztvt/mq3y7Z37z7efJOQ3TeYByygU6ZFD8HBAcEH0nkwPeC5VUYylsCry0tYsNFWBeiQdNnftgej/RGLN8b5lhCmpTYoOecN6U4F5J0iXjpTIHneG179yGktgk/Oq7XZBNulm0VSmlwIISrL73hOdXRMhdhEpVhGqeg/nd9yn5NugucPj0bHNBJiHWGnC7Q5zuqTl8tUbsTFU7r/lSJO5jJOnlJcj0t77w4zai1M7T83ir5+vO9P7iDTZSzn6Z+PKN/bHF5WGqcKJLlcrOR8+Vw0ntvWZjZQf+u0DV90OGa76w+j5qU8fxEWy/QCfjKACi2SClhco/eqQgmBWnzNAPLBAybPoJoMA5WHARxIhgIfGZOwGErXDG6OJEweOMsGyEZZoctyaOu6MThhvxi7cQXOTh66+WI2j2eC/QZvhmzXGQMAAA=="
+    },
+    {
+      "name": "F05-18-counterproofs",
+      "sha": "d15b5ba93e4c0b0a2d97339a02280738297db26d",
+      "command": [
+        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
+        "tests/fixtures/h5-009/f05-counterexamples.mjs"
+      ],
+      "exit": 0,
+      "expectedExit": 0,
+      "bytes": 557,
+      "sha256": "0a19c977e330ff0d642ae1043af94bb9f1b83408ffa3a0a41cf90f6ad67f421f",
+      "logGzipBase64": "H4sIAAAAAAAAE22RTW7CMBCF95wiFxjJE0hIl2wiKnWBxAkse4RHdezIP4j29BUFJONkO+97b/4EArskVQJlfcyBmtPhfN5g/yobjskHVtKCJkuJvWvGw+dXQ7eZVCK9ES3InIwP/Ev6DiX5DNmX7vgzWXbflRmHkpm8pjp9WwJqBdi9JfAlyLUhu5J6lWuof4OurMmpRb89ZGc5JtKgjHSXBTDAHGiSKQcC0wnEGviogLY+iiiBvlYRjI/L6bGFOXid1cr6uIURBYzYPl+zg2MnRH/vEylcHyd7SN2/NKxIf3IHbcstAgAA"
+    },
+    {
+      "name": "F10-F12-preservation",
+      "sha": "d15b5ba93e4c0b0a2d97339a02280738297db26d",
+      "command": [
+        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
+        "--experimental-strip-types",
+        "tests/fixtures/h5-006/f12/chain-counterexamples.mjs"
+      ],
+      "exit": 0,
+      "expectedExit": 0,
+      "bytes": 10675,
+      "sha256": "724d2105ef38a3fff0ec2c47a1e588962185d2916bae4eff904fc8bc9266d5d7",
+      "logGzipBase64": "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"
+    }
+  ],
+  "regressionFailure": {
+    "status": {
+      "sha": "d15b5ba93e4c0b0a2d97339a02280738297db26d",
+      "command": [
+        "pnpm",
+        "test:postgres"
+      ],
+      "started": "2026-10-12T15:22:05.636Z",
+      "finished": "2026-10-12T15:28:50.492Z",
+      "exit": 1,
+      "bytes": 6923817,
+      "sha256": "96582185eae44756169650bd7257d0940dd5b0d04bbf48347cac244f0ce31e43"
+    },
+    "tests": 2473,
+    "pass": 2470,
+    "fail": 3,
+    "failedCases": [
+      "H4-006 R11 explicit expiration inclusive boundary/crossing: expected EXPIRED; observed AVAILABILITY_CHRONOLOGY_REQUIRED:E3",
+      "H4-021 B20/B21/B30/B31 scope date change: missing reference-review"
+    ],
+    "cause": "Not established; no product, dependency, permission or historical test change applied",
+    "oldAnomaly": "H3-010 R67 / H3-012 R030 failures at0dae8a4 retained; these were not the failures in this run"
+  },
+  "referenceUpdateVerification": {
+    "status": "PASS",
+    "originalSha256": "9549c4411615ac5ba5a289f4ff9a9430d4af23fdbe371c6830795d29ba0ec011",
+    "bytes": 15266,
+    "gzipSha256": "77ac23898500813a4702e00d11b28f85ff72f5bf1c4afb6764fd601241cc06f6",
+    "source": "Decode compression.json affectedReferenceUpdates[0].gzipBase64 with gzip; compare bytes and SHA256 recorded before editing only the Markdown diagnostic reference."
+  }
+}

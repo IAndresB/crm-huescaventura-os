@@ -1,0 +1,204 @@
+{
+  "status": "PASS",
+  "closure": "fdbd08bafdc6651d1ad6867242cd71791a25deb6",
+  "testedHead": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+  "auditorSha256": "6b7194b3b65b31188d5f10c8b320c14413a04f5ba2ec3304014effa82d85fe1a",
+  "runs": [
+    {
+      "name": "01-intact-closure",
+      "exit": 0,
+      "expectedExit": 0,
+      "sha256": "d90abb9d07b1af92d8f7909e01e637e81d281bf66a5f6bed189c300913a2b683",
+      "bytes": 977,
+      "probe": null
+    },
+    {
+      "name": "16-intact-historical-deletion",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "6463fdb73d51a8ecbd5eeb6ebbc8e3c151410d6a423649b2066fb9cbf55b681d",
+      "bytes": 839,
+      "probe": {
+        "path": "tests/integration/postgres-h5-008-migration.test.ts",
+        "originalSha256": "fddeee6e318f2aeadd1ecb114aeb36251d6f7b478d0dae7c95a0c567501036ed",
+        "alteredSha256": null
+      }
+    },
+    {
+      "name": "02-authorized-delta",
+      "exit": 0,
+      "expectedExit": 0,
+      "sha256": "c50fdcda21f9963cab25ae9cdda4162c8f9efc64679162f47a6f4c8f2712c6c4",
+      "bytes": 6377,
+      "probe": null
+    },
+    {
+      "name": "17-historical-symlink",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "d19ee2377fc7ee96d9aa611b8429bedf99f836a74c176fc4e026126235be8155",
+      "bytes": 795,
+      "probe": {
+        "path": "src/domain/persisted-work.ts",
+        "originalSha256": "de8b85735b5b155bc07935ab24af6c4cd65cb3fe241c89155d57c59d049f0986",
+        "sameContent": true,
+        "changedType": "symlink"
+      }
+    },
+    {
+      "name": "18-historical-mode",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "d4a2952921a3ade85b8598f9bbc832503725a6dfeddb9d973f26dd840cb34ef6",
+      "bytes": 810,
+      "probe": {
+        "path": "src/domain/persisted-work.ts",
+        "originalMode": "100644",
+        "alteredMode": "100755"
+      }
+    },
+    {
+      "name": "03-historical-code",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "75f782faa40bf8f3a7a392e126107e5f1d79c53804d317afda51ce6c8640752d",
+      "bytes": 994,
+      "probe": {
+        "path": "src/domain/persisted-work.ts",
+        "originalSha256": "de8b85735b5b155bc07935ab24af6c4cd65cb3fe241c89155d57c59d049f0986",
+        "alteredSha256": "b5df82fc9e7e4dfba1d902af6168cec2d74b3c0afc78ec218a9e116ac985c893"
+      }
+    },
+    {
+      "name": "04-historical-migration",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "3b7e3437f23787f5d4b63c42be8ba01d073bee4cff7c2eb044d7bc143b1a241e",
+      "bytes": 1031,
+      "probe": {
+        "path": "supabase/migrations/20261008143617_h5_persisted_work_recovery.sql",
+        "originalSha256": "53cc3c66bc5f6ea6488caefcb86da574f5fa2affb2cb451367a1665205b635a9",
+        "alteredSha256": "6703f3dc32a4aa418b8381524824294188d5a02640dd12127e26c9634cddbcf3"
+      }
+    },
+    {
+      "name": "05-historical-expected",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "ea4f28988b6f7ad299e69272ccf7edbb23155c754262e9a7bc1dc4af0c69d216",
+      "bytes": 649,
+      "probe": {
+        "path": "specs/001-core-crm/expected-TSK-H5-007-008.md",
+        "originalSha256": "39eb753f8a2fc57a33d827a7980640256fd16d96ec7f2b70a27bf49a6841c40d",
+        "alteredSha256": "71293909adcf8bc101fffe1e76a80476b5bdf1a5ace377310d1e2a51f2bf32fc"
+      }
+    },
+    {
+      "name": "06-historical-evidence",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "d5bb301f2f1a701bc847e1c4e5de3d10aa06be44fff0cf313cb95c84f4e71f54",
+      "bytes": 545,
+      "probe": {
+        "path": "tests/fixtures/h5-008/definitive/verification.json",
+        "originalSha256": "dfe759f31f8b7244faae3889a52416811d66eada5600dcf49724060c4ec5fb13",
+        "alteredSha256": "f46056e40edea3709cee12620c4318c775316074d39c88cbf436b1e4e8c741a2"
+      }
+    },
+    {
+      "name": "07-unlisted-change",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "089a0020932f07ad9dc9d9772a42d1162be77c260e209aa3fef330acbb2b6a6b",
+      "bytes": 805,
+      "probe": {
+        "path": "src/domain/h5-unauthorized-probe.ts"
+      }
+    },
+    {
+      "name": "08-premature-h5011",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "ffb49325f47b5f49076614e38b16cfff00e99b5f4d13e80b8d43a8756c26ae88",
+      "bytes": 25208,
+      "probe": {
+        "path": "specs/001-core-crm/tasks.md",
+        "originalSha256": "db8ea899cb0dc9325dfaa86da0373301480d51d732c74042c08646174b5d65ea",
+        "alteredSha256": "7bc61d5c91e7d4b48e71e2f6cee9dcb5b10477b5311824f2d4356caef883929c"
+      }
+    },
+    {
+      "name": "09-premature-h5012",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "ffb49325f47b5f49076614e38b16cfff00e99b5f4d13e80b8d43a8756c26ae88",
+      "bytes": 25208,
+      "probe": {
+        "path": "specs/001-core-crm/tasks.md",
+        "originalSha256": "db8ea899cb0dc9325dfaa86da0373301480d51d732c74042c08646174b5d65ea",
+        "alteredSha256": "feb933297d3711def2cf89ed319ec23d0f626be48ecb4cb0c239d3df69d10ecb"
+      }
+    },
+    {
+      "name": "10-premature-h6",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "ffb49325f47b5f49076614e38b16cfff00e99b5f4d13e80b8d43a8756c26ae88",
+      "bytes": 25208,
+      "probe": {
+        "path": "specs/001-core-crm/tasks.md",
+        "originalSha256": "db8ea899cb0dc9325dfaa86da0373301480d51d732c74042c08646174b5d65ea",
+        "alteredSha256": "594e026af0fff59242f76e87d0a814a301d5eae0ad9a10ff0149b31ce3529e58"
+      }
+    },
+    {
+      "name": "11-hosted",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "c946429e96c0fa9a48d24b11e8ca539d9ce604852b5e078e02a7569067aeab6f",
+      "bytes": 11520,
+      "probe": {
+        "path": "specs/001-core-crm/evidence-TSK-H5-009-010.md",
+        "originalSha256": "eb559dbd995d1d508dd1f9c3edfcfb8dfc83411ca592565619176ce2987eb4f5",
+        "alteredSha256": "6e8f477fc3ae09d211c2113e8916d40aefb042b2787afb5dc46119f86c11be91"
+      }
+    },
+    {
+      "name": "12-production",
+      "exit": 1,
+      "expectedExit": 1,
+      "sha256": "5941ddf138b861a7402fdce5a9309a7e3ddaa6ec02f6354eb0fddd4d3552bdf2",
+      "bytes": 11520,
+      "probe": {
+        "path": "specs/001-core-crm/evidence-TSK-H5-009-010.md",
+        "originalSha256": "eb559dbd995d1d508dd1f9c3edfcfb8dfc83411ca592565619176ce2987eb4f5",
+        "alteredSha256": "70c324f244219e15aba4512bd442fb9d849ace20a2d1c4b5b68a1d03e6c95523"
+      }
+    },
+    {
+      "name": "13-F10-F12",
+      "exit": 0,
+      "expectedExit": 0,
+      "sha256": "c7d915b5d2936052691b3782a79449e7f6b7ade6079bae90d8426b182834051a",
+      "bytes": 10675,
+      "probe": null
+    },
+    {
+      "name": "14-H5006-preservation",
+      "exit": 0,
+      "expectedExit": 0,
+      "sha256": "2fd69701f44dbadc2336126706c84cd99e9fbf6e89c3e79fa44d2529d3ae612b",
+      "bytes": 3800,
+      "probe": null
+    },
+    {
+      "name": "15-H5008-preservation",
+      "exit": 0,
+      "expectedExit": 0,
+      "sha256": "c50fdcda21f9963cab25ae9cdda4162c8f9efc64679162f47a6f4c8f2712c6c4",
+      "bytes": 6377,
+      "probe": null
+    }
+  ],
+  "scope": "Disposable copies; historical archive from published Git closure; no external integrations."
+}

@@ -1,0 +1,77 @@
+{
+  "status": "STOP",
+  "scope": "F09; H5-009/010 local/isolated",
+  "baseHead": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
+  "originMain": "fdbd08bafdc6651d1ad6867242cd71791a25deb6",
+  "divergence": "7/0",
+  "expected": {
+    "path": "specs/001-core-crm/expected-TSK-H5-009-010.md",
+    "bytes": 24417,
+    "sha256": "b9f5beaa45c3d4a08f101694115724a6569a43fd590e965f28f9a1ab79c5e639",
+    "status": "PASS unchanged"
+  },
+  "restoration": {
+    "path": "tests/fixtures/h2-011/reproducer-F01-corrected.log",
+    "historicalBytes": 904,
+    "historicalSha256": "3d123ac41cf6a9da845dd89518fff92c4012db3ede9da6b90f44e69839821ccc",
+    "type": "regular file",
+    "mode": "0644",
+    "status": "PASS restored from origin/main protected blob"
+  },
+  "preservedRegeneratedOutput": {
+    "path": "tests/fixtures/h5-009/f09/h2-011-regenerated/reproducer-F01-corrected.observed-61702280.log",
+    "bytes": 906,
+    "sha256": "61702280d96f95388e432ef0e3f60259778593ed06a661a59e8bd7d672640464"
+  },
+  "pending125": {
+    "status": "PASS unchanged from preflight snapshot after authorized F01 restoration"
+  },
+  "checks": [
+    {
+      "name": "H3-006 full group",
+      "status": "PASS",
+      "passed": 75,
+      "failed": 0,
+      "log": "tests/fixtures/h5-009/f09/postgres-h3-006-full.log",
+      "logSha256": "360920eb17cb27f3f54ad9d78612121cc28e13bb3fc4623f68a89cdaeb95d5f0"
+    },
+    {
+      "name": "R52 A-first, B-first, simultaneous, inverted, injected-failure cleanup; distinct blocked PIDs; one success and one rejection; final coverage 300.00",
+      "status": "PASS via H3-006 R52 test"
+    },
+    {
+      "name": "F01 migration preservation and F10/F12 chain",
+      "status": "PASS",
+      "log": "tests/fixtures/h5-009/f09/f01-preservation-rerun-2.log"
+    },
+    {
+      "name": "R52 exact transition and F07 controls before final delta probe",
+      "status": "PASS reached final delta probe without assertion failure"
+    },
+    {
+      "name": "R52 rejection of additional unauthorized historical delta",
+      "status": "BLOCKED",
+      "log": "tests/fixtures/h5-009/f09/r52-counterexamples-rerun.log",
+      "logSha256": "037f260585fbe9e4093087eb1f7afb1b30238e84e249a1e58267366d37054a42",
+      "reason": "The H5-008 preservation auditor stopped first on the pre-existing H2-011 F02 artifact mismatch."
+    },
+    {
+      "name": "F05 authorized delta and remaining counterexamples",
+      "status": "FAIL",
+      "log": "tests/fixtures/h5-009/f09/f05-counterexamples-rerun-2.log",
+      "logSha256": "42d787725d5740cdaa1072a6029228b60678a9d881a270a74875733323c2bb59",
+      "reason": "The H5-008 preservation auditor rejected the pre-existing H2-011 F02 artifact before the authorized delta checks."
+    }
+  ],
+  "independentBlockingIntegrityMismatch": {
+    "path": "tests/fixtures/h2-011/reproducer-F02-corrected.log",
+    "historicalSha256": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+    "observedSha256": "16680617899b936e05941ac27230ebabb2def80d3d1e5f5af088df86b6de0d69",
+    "observedBytes": 1917,
+    "authorization": "No restoration or new historical hash transition is authorized for this path; preserved unchanged."
+  },
+  "globalRegression": "NOT RUN after preservation gate failure",
+  "F09": "OPEN",
+  "commit": "NOT CREATED",
+  "push": "NOT PERFORMED"
+}

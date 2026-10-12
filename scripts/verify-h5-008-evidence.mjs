@@ -7,11 +7,217 @@ import {gunzipSync} from 'node:zlib';
 const git=(...args)=>execFileSync('git',args,{encoding:'utf8',maxBuffer:64*1024*1024}).trim(),root='tests/fixtures/h5-008/definitive/';
 const report=JSON.parse(readFileSync(root+'verification.json','utf8'));
 const preservationPath='tests/support/h5-006-dependency-preservation.ts';
-const preservationHashes=['cd4d34c38fd3260858e9016d5bbc6370f2e7bc2b2aeefb0eec72cbac72be8612','29618809731de46f1958328cb062e1e0cb407da139a77fdbe401a51c94d0b824'];
+const preservationHashes=['cd4d34c38fd3260858e9016d5bbc6370f2e7bc2b2aeefb0eec72cbac72be8612','29618809731de46f1958328cb062e1e0cb407da139a77fdbe401a51c94d0b824','d8f1fdacb3508dfe40a924e14ecda98cc01345de5bb3540fc9a24277704a292c'];
 assert.ok(preservationHashes.includes(createHash('sha256').update(readFileSync(preservationPath)).digest('hex')),'exact authorized F08 guard bytes');
 const {assertHistoricalHash}=await import('../tests/support/h5-006-dependency-preservation.ts');
 const f07Paths=["tests/support/h4-availability-fixtures.ts", "tests/integration/postgres-h4-006.test.ts", "tests/integration/postgres-h4-021.test.ts"];
+const r52Path='tests/integration/postgres-h3-006.test.ts',r52Evidence='tests/fixtures/h5-009/f09/r52-transition.json';
 const preclosure=process.argv.includes('--preclosure');
+const pendingSnapshotPath='tests/fixtures/h5-009/f09/recovery-20261012T202326Z/preflight-inventory.json';
+// Exactly five human-authorized lossless representations. These hashes describe
+// observed evidence, never the two unavailable historical original streams.
+const losslessRepresentations=[
+  {
+    "path": "tests/fixtures/h5-009/f09/build.log",
+    "bytes": 545,
+    "sha256": "171ec560c336b2fb502bfe7b5481cbdef116da875eed2929026714fa4157d0a6",
+    "compressedBytes": 347,
+    "compressedSha256": "f5f5c23f2b64c42325060b910a15ff57bd5e47b28cde70bb32681d13caa42f67",
+    "compressedPath": "tests/fixtures/h5-009/f09/build.log.gz"
+  },
+  {
+    "path": "tests/fixtures/h5-009/f09/f02-diagnosis/byte-preserving-unified-diff.txt",
+    "bytes": 746,
+    "sha256": "f95ad637650cf4059684a34c520bc2db6ecec82e7e2473a4eb06bd1de6cf5fbf",
+    "compressedBytes": 408,
+    "compressedSha256": "071f12ebb5855d92d72dc4cd8263ee36cee2a9a41ba4d927fd85bba929a3a897",
+    "compressedPath": "tests/fixtures/h5-009/f09/f02-diagnosis/byte-preserving-unified-diff.txt.gz"
+  },
+  {
+    "path": "tests/fixtures/h5-009/f09/h2-011-regenerated/reproducer-F01-corrected.observed-61702280.log",
+    "bytes": 906,
+    "sha256": "61702280d96f95388e432ef0e3f60259778593ed06a661a59e8bd7d672640464",
+    "compressedBytes": 519,
+    "compressedSha256": "c9cc7fdac8b521ab716a8dd2e5b19447caa1119205a8173f56c185714411d03b",
+    "compressedPath": "tests/fixtures/h5-009/f09/h2-011-regenerated/reproducer-F01-corrected.observed-61702280.log.gz"
+  },
+  {
+    "path": "tests/fixtures/h5-009/f09/postgres-preservation/2026-10-12T194821-119Z-2e27d7aa-36a4-432d-a124-62340df3144b/postgres.stdout.log",
+    "bytes": 6920640,
+    "sha256": "b9af667e69ffaaa4fd89154ba49f07c4d252df973636a4efbebe7b9a44a6f19e",
+    "compressedBytes": 440705,
+    "compressedSha256": "d923aba759417a50ccd3fbcfd56e6168a2c72f0bb5653195c45f677c1d15fff1",
+    "compressedPath": "tests/fixtures/h5-009/f09/postgres-preservation/2026-10-12T194821-119Z-2e27d7aa-36a4-432d-a124-62340df3144b/postgres.stdout.log.gz"
+  },
+  {
+    "path": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/build-overwritten.log",
+    "bytes": 545,
+    "sha256": "171ec560c336b2fb502bfe7b5481cbdef116da875eed2929026714fa4157d0a6",
+    "compressedBytes": 347,
+    "compressedSha256": "f5f5c23f2b64c42325060b910a15ff57bd5e47b28cde70bb32681d13caa42f67",
+    "compressedPath": "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/build-overwritten.log.gz"
+  }
+];
+const representationFor=path=>losslessRepresentations.find(item=>item.path===path);
+const physicalPath=path=>representationFor(path)?.compressedPath??path;
+function preservedBytes(path){
+ const item=representationFor(path);
+ if(!item)return readFileSync(path);
+ assert.equal(lstatSync(path,{throwIfNoEntry:false}),undefined,'original representation must not coexist: '+path);
+ const stat=lstatSync(item.compressedPath);assert.ok(stat.isFile()&&!stat.isSymbolicLink(),'gzip regular file: '+path);assert.equal(stat.mode&0o777,0o644,'gzip permissions: '+path);
+ const packed=readFileSync(item.compressedPath);assert.equal(packed.length,item.compressedBytes,'gzip byte count: '+path);assert.equal(createHash('sha256').update(packed).digest('hex'),item.compressedSha256,'exact gzip hash: '+path);
+ const raw=gunzipSync(packed);assert.equal(raw.length,item.bytes,'decompressed bytes: '+path);assert.equal(createHash('sha256').update(raw).digest('hex'),item.sha256,'decompressed original hash: '+path);return raw;
+}
+
+const closurePaths=new Set(["docs/NEXT-STEPS.md", "docs/PROJECT-STATUS.md", "specs/001-core-crm/tasks.md", "specs/001-core-crm/evidence-TSK-H5-009-010.md", "specs/001-core-crm/matrix-TSK-H5-009-010.md", "specs/001-core-crm/defects-TSK-H5-009.md", "tests/fixtures/h5-009/verification.json"]);
+let checkedClosure=null;
+function verifyClosureCertificate(){
+ if(checkedClosure)return checkedClosure;
+ const path=recoveryRoot+'closure.json';if(!existsSync(path))return null;
+ const inventoryPath=process.env.F09_INVENTORY_PATH;
+ assert.equal(inventoryPath,recoveryRoot+'final-inventory.json','closure requires final sealed inventory');
+ const inventoryRaw=readFileSync(inventoryPath);assert.equal(createHash('sha256').update(inventoryRaw).digest('hex'),process.env.F09_INVENTORY_SHA256,'closure inventory independent seal');
+ const inventory=JSON.parse(inventoryRaw),row=inventory.entries.find(x=>x.path===path);assert.ok(row,'registered closure certificate');
+ const raw=readFileSync(path),metadata=lstatSync(path);assert.ok(metadata.isFile()&&!metadata.isSymbolicLink());assert.equal(metadata.mode&0o777,0o644);
+ assert.equal(raw.length,row.bytes);assert.equal(createHash('sha256').update(raw).digest('hex'),row.sha256,'closure certificate hash');
+ const proof=JSON.parse(raw);assert.equal(proof.status,'PASS');assert.equal(proof.scope,'H5-009/010 local/isolated');
+ assert.equal(git('merge-base',proof.testedSha,'HEAD'),proof.testedSha,'closure tested candidate is an ancestor');
+ assert.deepEqual(readFileSync('scripts/verify-h5-008-evidence.mjs'),execFileSync('git',['show',proof.testedSha+':scripts/verify-h5-008-evidence.mjs']),'closure exact tested auditor');
+ assert.deepEqual(proof.transitions.map(x=>x.path).sort(),[...closurePaths].sort(),'only seven existing documentary closure paths');
+ const snapshot=JSON.parse(readFileSync(pendingSnapshotPath));
+ for(const entry of proof.transitions){
+  const before=snapshot.pendingEntries.find(x=>x.path===entry.path);assert.ok(before);assert.equal(entry.beforeSha256,before.sha256,'closure original snapshot');
+  const original=execFileSync('tar',['-xOf',recoveryRoot+'closure-originals.tar.gz',entry.path],{maxBuffer:16*1024*1024});assert.equal(original.length,before.bytes);assert.equal(createHash('sha256').update(original).digest('hex'),before.sha256,'closure original bytes preserved');
+  const current=lstatSync(entry.path);assert.ok(current.isFile()&&!current.isSymbolicLink());assert.equal(current.mode&0o777,0o644);
+  const bytes=readFileSync(entry.path);assert.equal(bytes.length,entry.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),entry.sha256,'exact documentary closure version');assert.notEqual(entry.sha256,entry.beforeSha256);
+ }
+ for(const gate of ["frozen", "typecheck", "lint", "unit", "build", "audit", "focal", "postgres", "health", "historical", "historical-negative", "f01", "f05", "diff"]){
+  const status=JSON.parse(readFileSync(recoveryRoot+'gates/'+gate+'.status.json'));assert.equal(status.sha,proof.testedSha);assert.equal(status.exit,0,'closure gate: '+gate);
+  assert.equal(status.candidateInputSha256,proof.candidateInputSha256,'closure gate candidate: '+gate);
+  const log=gunzipSync(readFileSync(recoveryRoot+'gates/'+gate+'.log.gz'));assert.equal(createHash('sha256').update(log).digest('hex'),status.sha256,'closure gate stream: '+gate);
+ }
+ const tasks=readFileSync('specs/001-core-crm/tasks.md','utf8');for(const id of ['009','010'])assert.ok(tasks.split('<a id="tsk-h5-'+id+'"></a>')[1].split('<a id=')[0].includes('Ejecución: COMPLETED'),'closure task state');
+ checkedClosure=proof;return proof;
+}
+
+let pendingSnapshotStatus=null;
+function verifyPendingSnapshot(){
+ if(!existsSync(pendingSnapshotPath))return new Set();
+ const metadata=lstatSync(pendingSnapshotPath),raw=readFileSync(pendingSnapshotPath);
+ assert.ok(metadata.isFile()&&!metadata.isSymbolicLink(),'preexisting snapshot regular file');
+ assert.equal(metadata.mode&0o777,0o644,'preexisting snapshot permissions');
+ assert.equal(raw.length,78537,'preexisting snapshot bytes');
+ assert.equal(createHash('sha256').update(raw).digest('hex'),'88eb5525fd94a586ad6aee2b0793be2ac3c9094cf13aba6daeca82c867e4873f','immutable preexisting snapshot');
+ const snapshot=JSON.parse(raw),paths=new Set();
+ assert.equal(snapshot.head,'8c1109426a8e85effeda6c2bb59c08ac0693c032');
+ assert.equal(snapshot.originMain,'fdbd08bafdc6651d1ad6867242cd71791a25deb6');
+ assert.equal(snapshot.pendingEntries.length,223);
+ for(const entry of snapshot.pendingEntries){
+  assert.ok(!paths.has(entry.path),'duplicate preexisting path');paths.add(physicalPath(entry.path));
+  const current=lstatSync(physicalPath(entry.path));
+  assert.equal(entry.type,'regular');assert.ok(current.isFile()&&!current.isSymbolicLink(),'preexisting file type: '+entry.path);
+  assert.equal((current.mode&0o777).toString(8).padStart(4,'0'),entry.mode,'preexisting file permissions: '+entry.path);
+  // Only this executable's bytes change under the current human-authorized corrective.
+  if(entry.path==='scripts/verify-h5-008-evidence.mjs')continue;
+  const bytes=preservedBytes(entry.path);if(closurePaths.has(entry.path)&&createHash('sha256').update(bytes).digest('hex')!==entry.sha256){assert.ok(verifyClosureCertificate(),'documentary change requires verified closure: '+entry.path);continue;}assert.equal(bytes.length,entry.bytes,'preexisting file bytes: '+entry.path);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'),entry.sha256,'preexisting snapshot hash: '+entry.path);
+ }
+ pendingSnapshotStatus={inventoried:223,exactlyPreserved:checkedClosure?211:218,documentaryClosureTransitions:checkedClosure?7:0,losslessRepresentations:4,authorizedAuditorChange:'scripts/verify-h5-008-evidence.mjs',scope:'Working snapshot integrity; no historical hashes replaced'};
+ paths.add(pendingSnapshotPath);return paths;
+}
+// The inventory digest is supplied by the reviewing invocation, never trusted from
+// the inventory itself. This keeps evidence sealing separate from tested code.
+const priorRecoveryRoot="tests/fixtures/h5-009/f09/recovery-validated-20261012/";
+const recoveryRoot="tests/fixtures/h5-009/f09/completion-20261013/";
+const recoveryPaths=new Set([
+  "tests/fixtures/h5-009/f09/documentary-exception-20261012T204228Z-e1f88cb4/authorization.json",
+  "tests/fixtures/h5-009/f09/documentary-exception-20261012T204228Z-e1f88cb4/created-routes.json",
+  "tests/fixtures/h5-009/f09/documentary-exception-20261012T204228Z-e1f88cb4/loss-record.json",
+  "tests/fixtures/h5-009/f09/documentary-exception-20261012T204228Z-e1f88cb4/report.md",
+  "tests/fixtures/h5-009/f09/documentary-exception-20261012T204228Z-e1f88cb4/verification.json",
+  "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/build-overwritten.log",
+  "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/diagnosis.json",
+  "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/health-independent-overwritten.log",
+  "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/original-command-trace-metadata.json",
+  "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/original-command-trace.jsonl",
+  "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/postflight.json",
+  "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/recovery-created-routes.json",
+  "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/search-report.json",
+  "tests/fixtures/h5-009/f09/recovery-20261012T202326Z/supplemental-inventory.json",
+  "tests/fixtures/h5-009/f09/recovery-validated-20261012/authorization.json",
+  "tests/fixtures/h5-009/f09/recovery-validated-20261012/substitution.json",
+  "tests/fixtures/h5-009/f09/recovery-validated-20261012/candidate.json",
+  "tests/fixtures/h5-009/f09/recovery-validated-20261012/build.log.gz",
+  "tests/fixtures/h5-009/f09/recovery-validated-20261012/health-independent.log.gz",
+  "tests/fixtures/h5-009/f09/recovery-validated-20261012/executions.json",
+  "tests/fixtures/h5-009/f09/recovery-validated-20261012/supplemental-inventory.json",
+  "tests/fixtures/h5-009/f09/recovery-validated-20261012/final-inventory.json",
+  "tests/fixtures/h5-009/f09/recovery-validated-20261012/verification-evidence.tar.gz",
+  "tests/fixtures/h5-009/f09/recovery-validated-20261012/report.md"
+]);
+for(const path of ["tests/fixtures/h5-009/f09/completion-20261012/authorization.json", "tests/fixtures/h5-009/f09/completion-20261012/substitution.json", "tests/fixtures/h5-009/f09/completion-20261012/candidate.json", "tests/fixtures/h5-009/f09/completion-20261012/build.log.gz", "tests/fixtures/h5-009/f09/completion-20261012/health-independent.log.gz", "tests/fixtures/h5-009/f09/completion-20261012/executions.json", "tests/fixtures/h5-009/f09/completion-20261012/supplemental-inventory.json", "tests/fixtures/h5-009/f09/completion-20261012/final-inventory.json", "tests/fixtures/h5-009/f09/completion-20261012/verification-evidence.tar.gz", "tests/fixtures/h5-009/f09/completion-20261012/report.md", "tests/fixtures/h5-009/f09/completion-20261012/representation.json"])recoveryPaths.add(path);
+for(const path of ["tests/fixtures/h5-009/f09/completion-20261013/authorization.json", "tests/fixtures/h5-009/f09/completion-20261013/substitution.json", "tests/fixtures/h5-009/f09/completion-20261013/candidate.json", "tests/fixtures/h5-009/f09/completion-20261013/build.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/health-independent.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/executions.json", "tests/fixtures/h5-009/f09/completion-20261013/supplemental-inventory.json", "tests/fixtures/h5-009/f09/completion-20261013/final-inventory.json", "tests/fixtures/h5-009/f09/completion-20261013/verification-evidence.tar.gz", "tests/fixtures/h5-009/f09/completion-20261013/report.md", "tests/fixtures/h5-009/f09/completion-20261013/representation.json", "tests/fixtures/h5-009/f09/completion-20261013/closure.json", "tests/fixtures/h5-009/f09/completion-20261013/closure-originals.tar.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/frozen.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/frozen.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/typecheck.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/typecheck.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/lint.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/lint.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/unit.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/unit.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/build.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/build.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/audit.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/audit.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/focal.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/focal.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/postgres.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/postgres.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/health.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/health.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/historical.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/historical.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/historical-negative.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/historical-negative.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/f01.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/f01.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/f05.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/f05.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/diff.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/diff.status.json", "tests/fixtures/h5-009/f09/completion-20261013/gates/final.log.gz", "tests/fixtures/h5-009/f09/completion-20261013/gates/final.status.json"])recoveryPaths.add(path);
+let recoveryStatus=null;
+function verifyDocumentaryRecovery(){
+ if(!pendingSnapshotStatus)return new Set(); // Intact published historical baseline.
+ const inventoryPath=process.env.F09_INVENTORY_PATH??recoveryRoot+'supplemental-inventory.json';
+ assert.ok([recoveryRoot+'supplemental-inventory.json',recoveryRoot+'final-inventory.json'].includes(inventoryPath),'literal recovery inventory path');
+ const anchor=process.env.F09_INVENTORY_SHA256;
+ assert.match(anchor??'',/^[a-f0-9]{64}$/,'independent recovery inventory digest required');
+ const check=(path,expected)=>{
+  const stat=lstatSync(physicalPath(path));assert.ok(stat.isFile()&&!stat.isSymbolicLink(),'supplement regular file: '+path);
+  assert.equal(stat.mode&0o777,0o644,'supplement permissions: '+path);
+  const raw=preservedBytes(path);
+  if(expected){assert.equal(expected.type,'regular');assert.equal(expected.mode,'0644');assert.equal(raw.length,expected.bytes,'supplement bytes: '+path);assert.equal(createHash('sha256').update(raw).digest('hex'),expected.sha256,'supplement hash: '+path);}
+  return raw;
+ };
+ const raw=check(inventoryPath);
+ assert.equal(createHash('sha256').update(raw).digest('hex'),anchor,'sealed recovery inventory');
+ const inventory=JSON.parse(raw);assert.equal(inventory.scope,'H5-009/010 local/isolated');
+ const admitted=new Set([inventoryPath]);
+ for(const item of inventory.entries){
+  assert.ok(recoveryPaths.has(item.path)&&!admitted.has(item.path),'literal unique supplemental path: '+item.path);
+  assert.ok(item.provenance?.length&&item.purpose?.length,'supplement provenance and purpose');
+  check(item.path,item);admitted.add(physicalPath(item.path));
+ }
+ // Previous package remains immutable, with its original candidate/results kept
+ // as previous executions rather than reattributed to the current auditor.
+ const priorInventory=priorRecoveryRoot+'final-inventory.json';
+ assert.ok(admitted.has(priorInventory),'previous recovery inventory preserved');
+ const priorRaw=check(priorInventory);assert.equal(createHash('sha256').update(priorRaw).digest('hex'),'91e87bc9fd4b316dce8d14764291fc48eb9edd0c43a275e6fde91529ab53be5f','previous sealed recovery inventory');
+ for(const entry of JSON.parse(priorRaw).entries){check(entry.path,entry);assert.ok(admitted.has(physicalPath(entry.path)),'previous evidence remains registered: '+entry.path);}
+ for(const item of losslessRepresentations){preservedBytes(item.path);admitted.add(item.compressedPath);}
+ const priorCompletion='tests/fixtures/h5-009/f09/completion-20261012/final-inventory.json';
+ assert.ok(admitted.has(priorCompletion),'previous full validation inventory preserved');const priorCompletionRaw=check(priorCompletion);
+ assert.equal(createHash('sha256').update(priorCompletionRaw).digest('hex'),'f35f7bd98bab4cc9958e8e2c15a125dcd2e85da4a58f2afd06598494cf104069','previous full validation seal');
+ for(const entry of JSON.parse(priorCompletionRaw).entries){check(entry.path,entry);assert.ok(admitted.has(physicalPath(entry.path)),'previous validation remains registered: '+entry.path);}
+ const load=name=>{const path=recoveryRoot+name;assert.ok(admitted.has(path),'required recovery evidence: '+path);return JSON.parse(check(path));};
+ const authorization=load('authorization.json'),loss=load('substitution.json'),candidate=load('candidate.json'),executions=load('executions.json'),representation=load('representation.json');
+ assert.equal(representation.authorized,true);assert.equal(representation.scope,'Five exact lossless gzip substitutions approved by the human');assert.deepEqual(representation.items,losslessRepresentations);
+ const historical=[{path:'tests/fixtures/h5-009/f09/build.log',bytes:545,sha256:'063f7ffad5445d9b2a45a17aceb16a01a6dfbbe70032787c0fdd02ea690fd0fa'},
+ {path:'tests/fixtures/h5-009/f09/health-independent.log',bytes:202,sha256:'2794076bee6b763f2a15c62a692735addf3e6b08e4fa296266b92953489f6f30'}];
+ assert.equal(authorization.decision,'AUTHORIZED DOCUMENTARY SUBSTITUTION');assert.equal(authorization.scope,inventory.scope);
+ assert.deepEqual(authorization.historicalReferences,historical);assert.equal(authorization.originalRecoveryClaimed,false);
+ assert.equal(loss.originalState,'ORIGINAL NO RECUPERADO');assert.deepEqual(loss.historicalReferences,historical);
+ assert.equal(loss.authorization,recoveryRoot+'authorization.json');assert.equal(loss.originalRecoveryClaimed,false);
+ assert.equal(loss.observedHashesAcceptedAsHistorical,false);
+ assert.deepEqual(loss.substitutes,[recoveryRoot+'build.log.gz',recoveryRoot+'health-independent.log.gz']);
+ assert.equal(candidate.baseCommit,'8c1109426a8e85effeda6c2bb59c08ac0693c032');assert.equal(candidate.scope,inventory.scope);
+ const canonical=JSON.stringify(candidate.inputs);assert.equal(createHash('sha256').update(canonical).digest('hex'),candidate.inputSha256,'candidate input fingerprint');
+ const inputs=new Set();for(const item of candidate.inputs){assert.ok(!inputs.has(item.path),'duplicate candidate input');inputs.add(item.path);check(item.path,item);}
+ for(const path of ['scripts/verify-h5-008-evidence.mjs','package.json','pnpm-lock.yaml','tests/operations/supabase-health.test.mjs'])assert.ok(inputs.has(path),'required candidate input: '+path);
+ assert.deepEqual(executions.map(x=>x.name),['build','health-independent']);
+ for(let i=0;i<executions.length;i++){
+  const run=executions[i];assert.equal(run.candidateInputSha256,candidate.inputSha256);assert.equal(run.exitCode,0,'substitute execution failed');assert.equal(run.result,'PASS');
+  assert.deepEqual(run.command,i===0?['pnpm','run','build']:['node','--test','--experimental-strip-types','tests/operations/supabase-health.test.mjs']);
+  assert.ok(Number.isFinite(Date.parse(run.startedAtUtc))&&Date.parse(run.endedAtUtc)>=Date.parse(run.startedAtUtc),'execution dates');
+  assert.equal(run.output.path,loss.substitutes[i]);assert.ok(admitted.has(run.output.path),'registered substitute');
+  const bytes=gunzipSync(check(run.output.path));assert.equal(bytes.length,run.output.rawBytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),run.output.rawSha256,'substitute stream hash');
+ }
+ recoveryStatus={historicalOriginalIntegrity:'ORIGINAL NO RECUPERADO (2 logs)',preservedPaths:'VERIFIED',supplementalIntegrity:'VERIFIED',documentarySubstitution:'AUTHORIZED AND VERIFIED',newExecutions:executions.map(x=>({name:x.name,result:x.result,candidateInputSha256:x.candidateInputSha256})),inventoryPath,inventorySha256:anchor,F09:verifyClosureCertificate()?'CLOSED':'OPEN',globalClosure:checkedClosure?'PASS local/isolated':'NOT VALIDATED'};
+ return admitted;
+}
+
 function verifyPublishedClosure(){
  const closure='fdbd08bafdc6651d1ad6867242cd71791a25deb6',product='1c86e695144509fff0254c4d7a076dbb3921f777';
  const bytes=(ref,path)=>execFileSync('git',['show',ref+':'+path],{maxBuffer:32*1024*1024});
@@ -30,7 +236,8 @@ function verifyPublishedClosure(){
  const f01Names=['01-intact-56','02-valid-57','03-alter-first','04-alter-middle','05-alter-55','06-alter-56','07-delete-historical','08-comment-replacement','09-whitespace-56','10-unauthorized-within-protected-prefix','11-F10-F12-chain','12-prior-preservation-verifier'];
  const f05Names=['01-intact-closure','02-authorized-delta','03-historical-code','04-historical-migration','05-historical-expected','06-historical-evidence','07-unlisted-change','08-premature-h5011','09-premature-h5012','10-premature-h6','11-hosted','12-production','13-F10-F12','14-H5006-preservation','15-H5008-preservation','16-intact-historical-deletion','17-historical-symlink','18-historical-mode'];
  const gates=['frozen','typecheck','lint','unit','build','audit','focal','postgres','health','historical','historical-negative','f01','f05','diff','final'];
- const allowed=new Set([...productPaths,...f07Paths,preservationPath,expectedPath,...documents,'docs/NEXT-STEPS.md','docs/PROJECT-STATUS.md','specs/001-core-crm/tasks.md',
+ const allowed=new Set([...productPaths,...f07Paths,preservationPath,r52Path,r52Evidence,expectedPath,...documents,'docs/NEXT-STEPS.md','docs/PROJECT-STATUS.md','specs/001-core-crm/tasks.md',
+  ...['f09/r52-counterexamples.mjs','f09/r52-counterexamples.json','f09/r52-development-fail.log','f09/r52-interrupted-focal.log','f09/r52-focal.log','f09/r52-debug-2.log','f09/r52-focal-2.log'].map(p=>fixture+p),
   'scripts/verify-h5-008-evidence.mjs',...evidenceNames.map(p=>fixture+p),fixture+'f01/result.json',...f01Names.map(p=>fixture+'f01/'+p+'.log.gz'),
   fixture+'revalidation/generated/archive.json',fixture+'f05/result.json',...f05Names.map(p=>fixture+'f05/'+p+'.log.gz'),...gates.flatMap(p=>[fixture+'revalidation/'+p+'.log.gz',fixture+'revalidation/'+p+'.status.json',fixture+'f06/gates/'+p+'.log.gz',fixture+'f06/gates/'+p+'.status.json']),
   ...['compression.json','preflight.json','original-diff.log.gz','original-diff.status.json','counterproofs.json','f05-retest.tar.gz','final-source.txt','generated/archive.json'].map(p=>fixture+'f06/'+p),
@@ -38,9 +245,11 @@ function verifyPublishedClosure(){
   ...['tests/fixtures/h2-011/reproducer-F01-corrected.log','tests/fixtures/h2-011/reproducer-F02-corrected.log','tests/fixtures/h4-012-f16/preservation.json'].map(p=>fixture+'revalidation/generated/'+p+'.gz')]);
  const entries=git('ls-tree','-r','-z',closure).split('\0').filter(Boolean).map(e=>{const [meta,path]=e.split('\t');return {path,hash:meta.split(' ')[2]};});
  const historical=new Set(entries.map(e=>e.path));
+ const preexisting=verifyPendingSnapshot();
+ const supplements=verifyDocumentaryRecovery();
  const current=git('ls-files','--cached','--others','--exclude-standard','-z').split('\0').filter(Boolean);
  for(const path of current){
-  assert.ok(historical.has(path)||allowed.has(path),'unlisted posterior path: '+path);
+  assert.ok(historical.has(path)||allowed.has(path)||preexisting.has(path)||supplements.has(path),'unlisted posterior path: '+path);
   if(!historical.has(path)&&existsSync(path)){const metadata=lstatSync(path);assert.ok(metadata.isFile(),'posterior file type: '+path);assert.equal(metadata.mode&0o111,0,'posterior file mode: '+path);}
  }
  for(const {path,hash}of entries){
@@ -51,6 +260,16 @@ function verifyPublishedClosure(){
  }
  for(const path of f07Paths){const metadata=lstatSync(path);assert.ok(metadata.isFile()&&!metadata.isSymbolicLink(),'F07 regular file: '+path);assert.equal(metadata.mode&0o777,0o644,'F07 exact permissions: '+path);assertHistoricalHash(path,readFileSync(path),createHash('sha256').update(bytes(closure,path)).digest('hex'));}
  const posterior=existsSync(expectedPath)||productPaths.some(p=>!historical.has(p)&&existsSync(p));
+ const r52Original=bytes(closure,r52Path),r52OriginalHash=createHash('sha256').update(r52Original).digest('hex');
+ assert.equal(r52OriginalHash,'49b382e6781bfed7a8685d74d34ccd5b5b4ca48c95726dcc217e795e6b7ff128','F09 original R52 hash');
+ const r52Metadata=lstatSync(r52Path);assert.ok(r52Metadata.isFile()&&!r52Metadata.isSymbolicLink(),'F09 R52 regular file');assert.equal(r52Metadata.mode&0o777,0o644,'F09 R52 exact permissions');
+ if(posterior){
+  assertHistoricalHash(r52Path,readFileSync(r52Path),r52OriginalHash);
+  assert.deepEqual(JSON.parse(readFileSync(r52Evidence,'utf8')),{path:r52Path,historicalSha256:r52OriginalHash,correctedSha256:'4719b89eb0d38d951ca9380b79b330fbb758dfc4a6ce794e72a2c66f1e66584e',reason:'F09 R52 two-root concurrency barrier correction',scope:'H5-009/010 local/isolated'});
+  const r52Cases=JSON.parse(readFileSync(fixture+'f09/r52-counterexamples.json','utf8'));
+  assert.equal(r52Cases.status,'PASS');assert.equal(r52Cases.testedSha,'4719b89eb0d38d951ca9380b79b330fbb758dfc4a6ce794e72a2c66f1e66584e');assert.equal(r52Cases.historicalSha256,r52OriginalHash);assert.equal(r52Cases.caseCount,14);
+  assert.deepEqual(r52Cases.cases.map(x=>x.status),['PASS','PASS','FAIL','FAIL','FAIL','FAIL','FAIL','PASS','PASS','PASS','PASS','PASS','PASS','FAIL']);
+ }else assert.deepEqual(readFileSync(r52Path),r52Original,'historical R52 test bytes');
  for(const path of productPaths)if(posterior){
   assert.deepEqual(readFileSync(path),bytes(product,path),'authorized product bytes: '+path);
  }else if(existsSync(path)){
@@ -110,7 +329,7 @@ function verifyPublishedClosure(){
   assert.equal(git('merge-base',proof.testedSha,'HEAD'),proof.testedSha,'tested correction is an ancestor');
   for(const path of ['scripts/verify-h5-008-evidence.mjs',fixture+'f05-counterexamples.mjs'])assert.deepEqual(readFileSync(path),bytes(proof.testedSha,path),'tested F05 executable bytes: '+path);
   assert.deepEqual(proof.cases,['P01','P02','P03','P04','P05','P06','P07','P08','N01','N02','N03','N04','N05','N06','N07','N08','N09','N10','N11','N12','N13','N14','N15','N16','N17','N18']);assert.equal(proof.normativeRows,51);
-  const gateDirectory=proof.gateDirectory??'revalidation';assert.ok(['revalidation','f06/gates'].includes(gateDirectory));
+  const gateDirectory=proof.gateDirectory??'revalidation';assert.ok(['revalidation','f06/gates','f09/completion-20261013/gates'].includes(gateDirectory));
   for(const gate of gates.filter(p=>p!=='final')){
    const status=JSON.parse(readFileSync(fixture+gateDirectory+'/'+gate+'.status.json','utf8'));assert.equal(status.sha,proof.testedSha);assert.equal(status.exit,0,gate);
    const raw=gunzipSync(readFileSync(fixture+gateDirectory+'/'+gate+'.log.gz'));assert.equal(createHash('sha256').update(raw).digest('hex'),status.sha256,gate);
@@ -139,11 +358,15 @@ const delta=verifyPublishedClosure();
 const base='ff109036e3bb08a1d61e948693bc622bb10f240e';
 for(const file of git('ls-tree','-r','--name-only',base,'src','scripts','tests/integration','tests/support','tests/operations','package.json','pnpm-lock.yaml').split('\n')){
  if(file==='tests/integration/postgres-h5-006-migration.test.ts'||file===preservationPath)continue;
- if(f07Paths.includes(file)){assertHistoricalHash(file,readFileSync(file),createHash('sha256').update(execFileSync('git',['show',base+':'+file])).digest('hex'));continue;}
+ if(f07Paths.includes(file)||file===r52Path){assertHistoricalHash(file,readFileSync(file),createHash('sha256').update(execFileSync('git',['show',base+':'+file])).digest('hex'));continue;}
  assert.deepEqual(readFileSync(file),execFileSync('git',['show',base+':'+file]),file);
 }
 const guard='tests/integration/postgres-h5-006-migration.test.ts';assert.deepEqual(readFileSync(guard),execFileSync('git',['show','4da05b0f2e25ea13094e1ef06153a7aaed1d0aab:'+guard]));
 execFileSync(process.execPath,['--experimental-strip-types','tests/fixtures/h5-006/f12/chain-counterexamples.mjs'],{stdio:'pipe'});
 const tasks=readFileSync('specs/001-core-crm/tasks.md','utf8');for(const id of ['007','008']){const block=tasks.split('<a id="tsk-h5-'+id+'"></a>')[1].split('<a id=')[0];assert.ok(block.includes('Ejecución: '+(preclosure?'IN PROGRESS':'COMPLETED')));}
 const baseTasks=execFileSync('git',['show','fdbd08bafdc6651d1ad6867242cd71791a25deb6:specs/001-core-crm/tasks.md'],{encoding:'utf8'});assert.equal(tasks.slice(tasks.indexOf('<a id="tsk-h5-011">')),baseTasks.slice(baseTasks.indexOf('<a id="tsk-h5-011">')));
-console.log(JSON.stringify({audit:'PASS',mode:preclosure?'preclosure':'final',testedSha:report.testedSha,head:git('rev-parse','HEAD'),rows:45,cases:56,postgres:2462,unit:154,health:1,migrations:56,documentaryDelta:delta},null,2));
+console.log(JSON.stringify({audit:recoveryStatus?'PRESERVATION VERIFIED WITH AUTHORIZED DOCUMENTARY LOSS':'PASS',documentaryRecovery:recoveryStatus,mode:preclosure?'preclosure':'final',testedSha:report.testedSha,head:git('rev-parse','HEAD'),rows:45,cases:56,postgres:2462,unit:154,health:1,migrations:56,documentaryDelta:delta,
+ preexistingSnapshot:pendingSnapshotStatus,
+ f09OriginalLogs:pendingSnapshotStatus?{status:'ORIGINAL NO RECUPERADO',logs:[
+  {path:'tests/fixtures/h5-009/f09/build.log',bytes:545,sha256:'063f7ffad5445d9b2a45a17aceb16a01a6dfbbe70032787c0fdd02ea690fd0fa'},
+  {path:'tests/fixtures/h5-009/f09/health-independent.log',bytes:202,sha256:'2794076bee6b763f2a15c62a692735addf3e6b08e4fa296266b92953489f6f30'}],documentaryException:recoveryStatus?.documentarySubstitution??'OPEN',F09:checkedClosure?'CLOSED':'OPEN',globalClosure:checkedClosure?'PASS local/isolated':'NOT VALIDATED'}:null},null,2));

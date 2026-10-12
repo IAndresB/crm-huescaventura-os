@@ -1,0 +1,185 @@
+{
+  "status": "DIAGNOSIS COMPLETE; NO F02 MUTATION AUTHORIZED OR PERFORMED",
+  "scope": "Only the F02 historical integrity discrepancy blocking F05/F09 was investigated.",
+  "preflight": {
+    "branch": "main",
+    "head": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
+    "originMain": "fdbd08bafdc6651d1ad6867242cd71791a25deb6",
+    "divergence": "7/0",
+    "expected": {
+      "path": "specs/001-core-crm/expected-TSK-H5-009-010.md",
+      "bytes": 24417,
+      "sha256": "b9f5beaa45c3d4a08f101694115724a6569a43fd590e965f28f9a1ab79c5e639",
+      "status": "intact"
+    },
+    "F01": {
+      "path": "tests/fixtures/h2-011/reproducer-F01-corrected.log",
+      "bytes": 904,
+      "sha256": "3d123ac41cf6a9da845dd89518fff92c4012db3ede9da6b90f44e69839821ccc",
+      "status": "restored exact"
+    },
+    "pendingInventory": {
+      "gitStatusEntryCount": 175,
+      "path": "tests/fixtures/h5-009/f09/f02-diagnosis/pending-inventory.json",
+      "capturedBeforeAddingThisDiagnosisEvidence": true
+    },
+    "milestones": {
+      "F09": "OPEN",
+      "F06": "OPEN; global close pending",
+      "F07": "OPEN; global close pending",
+      "F08": "corrective controls pass; global close pending"
+    }
+  },
+  "artifact": {
+    "path": "tests/fixtures/h2-011/reproducer-F02-corrected.log",
+    "gitTracked": true,
+    "type": "regular file",
+    "mode": "0644",
+    "currentBytes": 1917,
+    "currentSha256": "16680617899b936e05941ac27230ebabb2def80d3d1e5f5af088df86b6de0d69",
+    "historicalBytes": 1917,
+    "historicalSha256": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+    "historicalBlobOid": "ab51dc4c95c412410c26015f9bcfc340fb91f76b",
+    "historicalBlobMode": "100644",
+    "historicalSource": "origin/main",
+    "protectingCommit": "b60031e04ddaa6f2a442979edeb0d3a8dd6568a9",
+    "manifest": "tests/fixtures/h2-011/raw-log-manifest.json",
+    "manifestCommit": "b60031e04ddaa6f2a442979edeb0d3a8dd6568a9",
+    "manifestLines": "64-67",
+    "manifestRecordedRunCommit": "226b53559dc0786dd14dead0039eed394144fade",
+    "manifestEarlierGeneratedEntry": {
+      "manifestLines": "33-35",
+      "historicalSha256": "63105766f0d0cccee503fcc29d2da87eec017704445cb3f77f07957ed7a141be",
+      "archive": "tests/fixtures/h2-011/reproducer-F02-corrected.log.63105766f0d0.gz",
+      "bytes": 1911,
+      "recordedTiming": "R13 1034.846ms; total 1306.091917ms"
+    }
+  },
+  "binaryComparison": {
+    "firstDifferentByteOffsetZeroBased": 47,
+    "lastDifferentByteOffsetZeroBased": 307,
+    "differentBytePositions": 27,
+    "lengthDelta": 0,
+    "changedLines": [
+      1,
+      9,
+      14
+    ],
+    "onlyDifferences": [
+      "R13 per-test elapsed milliseconds (printed twice)",
+      "Node test-run total duration_ms"
+    ],
+    "unchangedSemanticFailure": "column l.snapshot does not exist",
+    "normalizedAllNon-timingBytesEqual": true,
+    "diffPath": "tests/fixtures/h5-009/f09/f02-diagnosis/byte-preserving-unified-diff.txt",
+    "historicalCopy": "tests/fixtures/h5-009/f09/f02-diagnosis/historical-origin-main.log",
+    "observedCopy": "tests/fixtures/h5-009/f09/f02-diagnosis/current-observed.log"
+  },
+  "generator": {
+    "path": "tests/integration/postgres-h2-011-defects.test.ts",
+    "lines": "6-10",
+    "behavior": "Spawns the temporary historical verifier with --test-name-pattern=R13 separate, then unconditionally writes stdout+stderr to ../fixtures/h2-011/reproducer-F02-corrected.log. It asserts the original expected failing status and error text.",
+    "classification": "tracked generated diagnostic output; not the independent H5-009/010 expected file",
+    "nondeterminism": "Node test durations vary between executions and are embedded in TAP output. Four historical/current samples have distinct hashes but identical non-timing content.",
+    "mostRecentObservedWrite": "2026-10-12T20:45:55+0200 filesystem mtime",
+    "attribution": {
+      "recordedCommand": "POSTGRES_H0_BIN=/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin node scripts/test-postgres.mjs > tests/fixtures/h5-009/f09/postgres-h3-006-full.log 2>&1",
+      "recordedStartUtc": "2026-10-12T18:45:13.882Z",
+      "observedF02MtimeUtc": "2026-10-12T18:45:55Z",
+      "result": "The previous unwrapped full PostgreSQL regression includes every integration test and ran the direct writer. Its run start and F02 mtime align; the exact writer is verified in the test source.",
+      "limitations": "Filesystem mtime does not record the writing PID. Attribution to the suite is supported by the recorded invocation, exact source writer, matching mtime, and timing-only content; no separate OS audit log exists.",
+      "recordPath": "/Users/andres/.codex/sessions/2026/10/12/rollout-2026-10-12T20-12-01-01a13150-80a3-7533-99ea-dbb26097172f.jsonl"
+    },
+    "otherGeneratedSamples": [
+      {
+        "evidence": "tests/fixtures/h2-011/reproducer-F02-corrected.log.e5edcf607bde.gz",
+        "sha256": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+        "bytes": 1917,
+        "recordedTiming": "R13 1160.080958ms; total 1478.175834ms",
+        "significance": "This protected archived version is itself the historical origin hash."
+      },
+      {
+        "evidence": "tests/fixtures/h5-008/definitive/generated-historical/tests/fixtures/h2-011/reproducer-F02-corrected.log.gz",
+        "sha256": "510cbf988e0405faaf7fe9b41de4115092a038bebe0e45574be82bc022c60247"
+      },
+      {
+        "evidence": "tests/fixtures/h5-009/revalidation/generated/tests/fixtures/h2-011/reproducer-F02-corrected.log.gz",
+        "sha256": "b7728b46a889825f274e40eb6601440a8b61b2f5345f30fa4fc479d1f62c066a"
+      },
+      {
+        "evidence": "tests/fixtures/h5-009/f06/generated/tests/fixtures/h2-011/reproducer-F02-corrected.log.gz",
+        "sha256": "2a70710f9b44b3140deff313e6bf4bb6eafceba060432fd196c2e99e7b7535fa"
+      },
+      {
+        "evidence": "current worktree",
+        "sha256": "16680617899b936e05941ac27230ebabb2def80d3d1e5f5af088df86b6de0d69"
+      }
+    ],
+    "historicalNonDeterminismProof": "The raw manifest preserves both pre-F09 F02 run hashes 631057... (older entry) and e5edcf... (runCommit 226b535 entry); commit b60031 changed only embedded durations and added the latter exact hash. Thus timing nondeterminism predates F09."
+  },
+  "relationToF09": {
+    "authorizedF09Changes": [
+      "tests/integration/postgres-h3-006.test.ts",
+      "tests/support/h5-006-dependency-preservation.ts",
+      "scripts/verify-h5-008-evidence.mjs"
+    ],
+    "F02GeneratorOrManifestChanged": false,
+    "cause": "Running the full PostgreSQL suite unwrapped regenerated a tracked historical log as a test side effect; the R52 source/guard transition does not write or authorize F02 content."
+  },
+  "classification": {
+    "selected": "C \u2014 nondeterministic generated artefact",
+    "alsoOperationally": "A \u2014 it must return to the byte-exact historical artifact after separate authorization",
+    "not": [
+      "not a legitimate F09 transition",
+      "not a product or functional change",
+      "not an H5-009/010 expected-file change",
+      "not an H5-008 auditor defect"
+    ]
+  },
+  "knownOtherPendingArtifact": {
+    "path": "tests/fixtures/h4-012-f16/preservation.json",
+    "currentSha256": "94a0cd4d28016518ac2374434c91c590ff82b6455505b63ff3f179f9ba785b96",
+    "historicalSha256": "8b6c0298b17b7ede0fabb58a264953f0ccfa5e880e89a8d472b3644e870003d7",
+    "knownGenerator": "tests/integration/postgres-h4-012-f16.test.ts:30",
+    "status": "separate previously inventoried generated-artifact mismatch; not modified or investigated under this F02-only authorization"
+  },
+  "preservationImpact": {
+    "F05": "Correctly blocked: existing F02 bytes are not the protected historical hash.",
+    "F09": "R52 exact-transition controls were blocked at the global unauthorized-delta audit because F02 was already mismatched; no F02 transition is authorized.",
+    "guardAssessment": "No auditor defect demonstrated. Accepting 166806... would weaken historical preservation by converting run-duration output into a new expected hash."
+  },
+  "minimumRecommendedResolution": {
+    "requiresNewSpecificAuthorization": true,
+    "action": "Restore only tests/fixtures/h2-011/reproducer-F02-corrected.log from its protected Git blob, preserving the current 166806... output as separate supplementary evidence; leave raw-log-manifest.json and all guards unchanged.",
+    "futureRegression": "Use a controlled wrapper that snapshots F02's exact historical bytes/mode/type, runs PostgreSQL, stores generated output outside the protected path, restores in finally including controlled interruption, and verifies the exact historical hash."
+  },
+  "counterproofsAfterAuthorization": [
+    "Historical exact blob accepted in baseline; byte-exact restored blob accepted in authorized candidate.",
+    "One-byte mutation, deletion, symlink, permission change, wrong-path hash, and third hash rejected.",
+    "Repeat F05 authorized-delta and final unauthorized-delta controls without other protected-file mismatches.",
+    "Run F09 R52 and full PostgreSQL through the preserving wrapper; verify F01/F02/F16 bytes, modes, regular-file types, and no residual connections/locks.",
+    "Verify manifests and all F10/F12/H5-008 preservation controls remain byte-exact."
+  ],
+  "actionsThisInvestigation": {
+    "F02Changed": false,
+    "manifestsChanged": false,
+    "guardsChanged": false,
+    "testsOrGeneratorsExecuted": false,
+    "regressionGlobalExecuted": false,
+    "F09Closed": false,
+    "commitCreated": false,
+    "pushPerformed": false
+  },
+  "supplementaryEvidence": [
+    "tests/fixtures/h5-009/f09/f02-diagnosis/current-observed.log",
+    "tests/fixtures/h5-009/f09/f02-diagnosis/historical-origin-main.log",
+    "tests/fixtures/h5-009/f09/f02-diagnosis/byte-preserving-unified-diff.txt",
+    "tests/fixtures/h5-009/f09/f02-diagnosis/pending-inventory.json"
+  ],
+  "supplementaryEvidenceHashes": {
+    "historical-origin-main.log": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+    "current-observed.log": "16680617899b936e05941ac27230ebabb2def80d3d1e5f5af088df86b6de0d69",
+    "byte-preserving-unified-diff.txt": "f95ad637650cf4059684a34c520bc2db6ecec82e7e2473a4eb06bd1de6cf5fbf",
+    "pending-inventory.json": "ac51403bdfd981258853ad5a66886257d8d3f8cd2379ca55a92e5b838f4d4d9d"
+  }
+}

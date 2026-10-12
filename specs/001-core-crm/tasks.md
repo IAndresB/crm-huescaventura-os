@@ -1933,7 +1933,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-009 — Normalizar eventos y resultados de fronteras con dobles
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: implementación.
+- [ ] **Ejecución: IN PROGRESS local/aislado — STOP por F09; sin PASS global ni publicación.**
 - **Objetivo y alcance:** Source/Reference/Event, origen/alcance, deduplicación, intención/resultado, sustitución y límites por canal.
 - **Fuentes exactas:** Plan §§7.1–7.2, 8, 10.1; SPEC-FR-COORD-008, SPEC-FR-IDEMP-003, SPEC-FR-IDEMP-004, SPEC-FR-CONC-004, SPEC-FR-ERR-002, SPEC-FR-INT-001, SPEC-FR-INT-002, SPEC-FR-INT-003, SPEC-FR-INT-004, SPEC-FR-INT-005, SPEC-FR-INT-006, AC-057, AC-066, AC-071, AC-076, AC-077, AC-082. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-009.
 - **Bloques, contratos y unidades:** B09/B07/B08; C01/C03/C04/C05/C06; T09.
@@ -1944,14 +1944,14 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 - **Salida observable:** Contratos Core verificados con límites visibles; ningún resultado se presenta como conector, webhook, pago o envío real.
 - **Verificación y esperado:** Evento equivalente repetido/antiguo/eco no duplica ni retrocede; clave con importe distinto E2; sin ID fiable revisar. Fuente caída S1 no bloquea S2. Dobles de envío que ya ejecutaron antes de timeout impiden repetir. Avaibook rechaza crear/modificar/cancelar; calendario externo solo revisión; web separada. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H5-010].
 - **Integración adicional obligatoria:** [TSK-H6-006], [TSK-H6-015]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** Expected intacto26 casos/51 filas. Correctivo F07/F08 candidato8c11094: unitarias171/171 y focal ampliada113/113 PASS, PostgreSQL2472/2473 FAIL H3-R52; solapamiento no acreditado, causa pendiente de diagnóstico. F01–F05 CLOSED; F06/F07/F08 cierre global pendiente; F09 OPEN. [Evidencia](evidence-TSK-H5-009-010.md), [matriz](matrix-TSK-H5-009-010.md), [defectos](defects-TSK-H5-009.md). Exclusivamente local/aislado, sin publicación ni integraciones reales.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-010"></a>
 
 #### TSK-H5-010 — Verificar: Normalizar eventos y resultados de fronteras con dobles
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: comprobación.
+- [ ] **Ejecución: IN PROGRESS local/aislado — STOP por F09; sin PASS global ni publicación.**
 - **Objetivo y alcance:** Source/Reference/Event, origen/alcance, deduplicación, intención/resultado, sustitución y límites por canal.
 - **Fuentes exactas:** Plan §§7.1–7.2, 8, 10.1; SPEC-FR-COORD-008, SPEC-FR-IDEMP-001, SPEC-FR-IDEMP-003, SPEC-FR-IDEMP-004, SPEC-FR-CONC-004, SPEC-FR-ERR-002, SPEC-FR-INT-001, SPEC-FR-INT-002, SPEC-FR-INT-003, SPEC-FR-INT-004, SPEC-FR-INT-005, SPEC-FR-INT-006, AC-057, AC-066, AC-071, AC-076, AC-077, AC-082. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-010.
 - **Bloques, contratos y unidades:** B09/B07/B08; C01/C03/C04/C05/C06; T09.
@@ -1961,7 +1961,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-009; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Contratos Core verificados con límites visibles; ningún resultado se presenta como conector, webhook, pago o envío real. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Evento equivalente repetido/antiguo/eco no duplica ni retrocede; clave con importe distinto E2; sin ID fiable revisar. Fuente caída S1 no bloquea S2. Dobles de envío que ya ejecutaron antes de timeout impiden repetir. Avaibook rechaza crear/modificar/cancelar; calendario externo solo revisión; web separada. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** Expected intacto26 casos/51 filas. Correctivo F07/F08 candidato8c11094: unitarias171/171 y focal ampliada113/113 PASS, PostgreSQL2472/2473 FAIL H3-R52; solapamiento no acreditado, causa pendiente de diagnóstico. F01–F05 CLOSED; F06/F07/F08 cierre global pendiente; F09 OPEN. [Evidencia](evidence-TSK-H5-009-010.md), [matriz](matrix-TSK-H5-009-010.md), [defectos](defects-TSK-H5-009.md). Exclusivamente local/aislado, sin publicación ni integraciones reales.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T09 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-011"></a>

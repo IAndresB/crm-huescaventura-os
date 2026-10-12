@@ -85,6 +85,67 @@ async function concurrent(q1:AllocationCommand,q2:AllocationCommand|PaymentComma
  const results=Promise.allSettled([apply(q1),mixed?other.pay(q2 as PaymentCommand):other.apply(q2 as AllocationCommand)]);
  try{let waiting=false;for(let i=0;i<250;i++){const r=(await stats`select count(*)::int n from pg_stat_activity where wait_event_type='Lock' and (query like '%crm_api.allocation_apply%' or query like '%crm_api.payment_apply%')`)[0]!;if(r.n>=2){waiting=true;break;}await new Promise(r=>setTimeout(r,10));}assert.ok(waiting,'independent sessions overlap under existing F2 and shared payment-root locks');}finally{release();await blocker;}return results;
 }
+async function concurrentR52(qa:AllocationCommand,qb:AllocationCommand,order:'A-first'|'B-first'|'simultaneous'|'inverted',injectFailure=false){
+ assert.notEqual(qa.paymentId,qb.paymentId,'R52 workers must retain independent payment roots');
+ assert.equal(qa.destination?.bookingId,qb.destination?.bookingId,'R52 roots share the existing booking business lock');
+ const other=await session(),stats=h.connect('h2_bootstrap');
+ const holdRoot=async(paymentId:string)=>{
+  const lockSession=h.connect('h2_bootstrap');
+  let release!:()=>void,held!:()=>void,failed!:(error:unknown)=>void;
+  const ready=new Promise<void>((resolve,reject)=>{held=resolve;failed=reject;}),unlock=new Promise<void>(resolve=>release=resolve);
+  const done=lockSession.begin(async tx=>{try{await tx`select pg_advisory_xact_lock(hashtextextended(${'payment-root:'+paymentId},0))`;held();}catch(error){failed(error);throw error;}await unlock;});
+  try{await ready;}catch(error){try{await done;}finally{release();}throw error;}
+  return {release,done};
+ };
+ const barriers=new Map<string,Awaited<ReturnType<typeof holdRoot>>>();
+ try{for(const paymentId of [qa.paymentId,qb.paymentId].sort())barriers.set(paymentId,await holdRoot(paymentId));}
+ catch(error){for(const barrier of barriers.values())barrier.release();await Promise.allSettled([...barriers.values()].map(barrier=>barrier.done));throw error;}
+ const waitFor=async(paymentIds:string[],business:boolean)=>{
+  let last:unknown;
+  for(let i=0;i<250;i++){
+   const rows=await stats.unsafe<{pid:number;payment_id:string|null;locktype:string}[]>(`
+    with roots as (select x as payment_id,pg_catalog.hashtextextended('payment-root:'||x,0) as key from unnest($1::text[]) x)
+    select distinct a.pid::int as pid,r.payment_id,l.locktype
+    from pg_catalog.pg_stat_activity a
+    join pg_catalog.pg_locks l on l.pid=a.pid and not l.granted
+    left join roots r on l.locktype='advisory' and l.objsubid=1 and l.classid=((r.key >> 32)&4294967295)::oid and l.objid=(r.key&4294967295)::oid
+    where a.wait_event_type='Lock' and a.query like '%crm_api.allocation_apply%'
+   `,[paymentIds]);
+   last=rows;
+   const pidCount=new Set(rows.map(row=>row.pid)).size,rootWaits=rows.filter(row=>row.payment_id!==null&&row.locktype==='advisory'),otherWaits=rows.filter(row=>row.payment_id===null&&row.locktype==='transactionid');
+   if(paymentIds.length===1&&pidCount===1&&rootWaits.length===1)return {ok:true,rows,last};
+   if(business&&pidCount===2&&rows.length===2&&rootWaits.length===1&&otherWaits.length===1)return {ok:true,rows,last};
+   await new Promise(resolve=>setTimeout(resolve,10));
+  }
+  const diagnostics=await stats`select pid,usename,state,wait_event_type,wait_event,query from pg_catalog.pg_stat_activity where datname=current_database() and usename='crm_h0_runtime' order by pid`;
+  return {ok:false,rows:[],last,diagnostics};
+ };
+ const tasks:Promise<unknown>[]=[],released=new Set<string>();let settled:PromiseSettledResult<unknown>[];
+ const releaseRoot=async(paymentId:string)=>{const barrier=barriers.get(paymentId)!;if(!released.has(paymentId)){released.add(paymentId);barrier.release();await barrier.done;}};
+ try{
+  if(order==='A-first'){
+   tasks.push(apply(qa));assert.ok((await waitFor([qa.paymentId],false)).ok,'A reached its retained payment-root wait first');tasks.push(other.apply(qb));
+  }else if(order==='B-first'){
+   tasks.push(other.apply(qb));assert.ok((await waitFor([qb.paymentId],false)).ok,'B reached its retained payment-root wait first');tasks.push(apply(qa));
+  }else if(order==='simultaneous')tasks.push(apply(qa),other.apply(qb));
+  else{
+   tasks.push(apply(qb));assert.ok((await waitFor([qb.paymentId],false)).ok,'inverted B worker reached its retained payment-root wait first');tasks.push(other.apply(qa));
+  }
+  const overlap=await waitFor([qa.paymentId,qb.paymentId],true);
+  assert.ok(overlap.ok,'R52 observes two independent blocked sessions, one on a retained payment root and one on the existing transaction lock: '+JSON.stringify(overlap.last)+'; '+JSON.stringify(overlap.diagnostics));
+  if(injectFailure)assert.fail('H3_R52_INJECTED_ASSERTION');
+  const firstRoot=(overlap.rows.find(row=>row.payment_id!==null))!.payment_id!;
+  await releaseRoot(firstRoot);
+  const secondRoot=firstRoot===qa.paymentId?qb.paymentId:qa.paymentId;
+  const secondWait=await waitFor([secondRoot],false);
+  assert.ok(secondWait.ok,'second R52 worker reached its retained payment-root wait after the first completed: '+JSON.stringify(secondWait.last));
+  await releaseRoot(secondRoot);
+ }finally{
+  for(const paymentId of barriers.keys())await releaseRoot(paymentId);
+  settled=await Promise.allSettled(tasks);
+ }
+ return settled;
+}
 function one(r:PromiseSettledResult<unknown>[]){assert.equal(r.filter(x=>x.status==='fulfilled').length,1);assert.equal(r.filter(x=>x.status==='rejected').length,1);}
 test('R46 stale funds payment schedule revisions never overwrite',async()=>{const {f,q}=await assigned('80.00','100.00');await neg(await f.attest({...q,operationId:uid(),allocationId:uid()}),false,/E2/);const current=await f.assign('20.00','80.00');await neg(await f.attest({...current,expectedPaymentRevision:3}),false,/E2/);await neg(await f.attest({...current,expectedScheduleRevision:0}));for(const expectedScheduleRevision of [null,'1',1.5])await neg(await f.attest({...current,expectedScheduleRevision} as AllocationCommand),true);assert.equal((await f.see()).summary.assigned,'80.00');});
 for(const [id,order] of [['R47','A→B'],['R48','B→A']] as const)test(`${id} ${order}80 then80 shared100 with no initial child`,async()=>{const f=await allocationFixture(h,'100.00','100.00');assert.equal((await f.see()).allocations.length,0);const a=await f.assign('80.00','0.00',{...f.destination,reference:order[0]!}),b=await f.assign('80.00','0.00',{...f.destination,reference:order[2]!});await apply(a);await neg(b);assert.equal((await f.see()).summary.assigned,'80.00');assert.equal((await f.see()).summary.unassigned,'20.00');assert.equal((await f.see()).acts.length,1);});
@@ -92,7 +153,10 @@ test('R49 real concurrent80/80 same and different destinations no existing child
 test('R50 same key concurrent one effect plus replay',async()=>{const f=await allocationFixture(h,'100.00','100.00'),q=await f.assign('80.00'),r=await concurrent(q,q);assert.ok(r.every(x=>x.status==='fulfilled'));assert.equal(r.filter(x=>x.status==='fulfilled'&&x.value.replayed).length,1);assert.equal((await f.see()).acts.length,1);const c=await f.consume(q,'80.00'),cr=await concurrent(c,c);assert.ok(cr.every(x=>x.status==='fulfilled'));assert.equal((await f.see()).summary.consumed,'80.00');});
 test('R51 competing different obligations cannot move shared portion arbitrarily',async()=>{const f=await allocationFixture(h,'100.00','100.00'),a=await f.assign('80.00'),b=await f.assign('80.00','0.00',{...f.destination,slot:'balance',reference:'SYNTHETIC other obligation'});one(await concurrent(a,b));assert.equal((await f.see()).summary.assigned,'80.00');assert.equal((await f.see()).coverage[1]!.verifiedAmount,'0.00');});
 async function pair(){const a=await allocationFixture(h,'300.00','300.00'),b=await allocationFixture(h,'300.00','300.00','none');await pay(await b.paymentAttest({...b.detect,detection:{...b.detect.detection!,bookingId:a.f.b.bookingId}}));await pay(await b.receive());const p=await b.paymentAttest({...await b.propose(2,'300.00'),bookingId:a.f.b.bookingId,scheduleId:a.f.q.scheduleId!});await pay(p);await pay(await b.verify(p));return {a,b,qa:await a.assign(),qb:await b.attest({...await b.assign('300.00','0.00',a.destination),reconciliationId:p.reconciliationId})};}
-test('R52 two movement roots concurrent same obligation do not overcover500',async()=>{const {a,qa,qb}=await pair();one(await concurrent(qa,qb));assert.equal((await a.see()).coverage[0]!.verifiedAmount,'300.00');});
+test('R52 two movement roots concurrent same obligation do not overcover500',async()=>{for(const order of ['A-first','B-first','simultaneous','inverted'] as const){const {a,qa,qb}=await pair();one(await concurrentR52(qa,qb,order));assert.equal((await a.see()).coverage[0]!.verifiedAmount,'300.00');}
+ const {a,qa,qb}=await pair();await assert.rejects(concurrentR52(qa,qb,'simultaneous',true),/H3_R52_INJECTED_ASSERTION/);assert.equal((await a.see()).coverage[0]!.verifiedAmount,'300.00');
+ const residues=await h.observer`select count(*)::int n from pg_catalog.pg_locks where locktype='advisory' and not granted and objsubid=1`;assert.equal(residues[0]!.n,0,'R52 releases every waiting advisory lock after injected assertion');
+});
 test('R53 competing linked modifications both orders one revision wins',async()=>{for(const reverse of [false,true]){const {f,q}=await assigned(),a=await f.attest({...await f.assign('90.00'),action:'rectify',originalAllocationId:q.allocationId,cause:'correction'}),b=await f.attest({...await f.assign('80.00'),action:'rectify',originalAllocationId:q.allocationId,cause:'correction'});one(await concurrent(reverse?b:a,reverse?a:b));const r=await f.see();assert.equal(r.allocations.filter(x=>x.status==='verified').length,1);assert.equal(r.allocations.filter(x=>x.status==='reversed').length,1);assert.equal(r.acts.length,3);}});
 test('R54 concurrent reversal once preserves original exact opposite',async()=>{const {f,act}=await consumed(),a=await f.reverse(act.act_id as string),b={...a,operationId:uid()};one(await concurrent(a,b));assert.equal((await f.see()).summary.consumed,'0.00');assert.equal((await f.see()).acts.filter(x=>x.original_act_id===act.act_id).length,1);});
 test('R55 Allocation vs Customer Payment discrepancy and rectification serialized same root',async()=>{for(const rectifying of [false,true]){const f=await allocationFixture(h,'100.00','100.00');let p:PaymentCommand;if(rectifying){const i=await f.discrepancy(4,'0.00','40.00',f.p.reconciliationId);await pay(i);p=await f.rectify(f.p,i,5,'100.00');}else p=await f.discrepancy(4,'0.00','40.00',f.p.reconciliationId);const q=await f.assign('60.00','40.00'),r=await concurrent(q,p,true);assert.ok(r.some(x=>x.status==='fulfilled'));const current=await f.see();assert.ok(['0.00','60.00'].includes(current.coverage[0]!.verifiedAmount as string));assert.equal(current.summary.received,'100.00');assert.ok(Number(current.summary.usableAssigned)<=60);}});

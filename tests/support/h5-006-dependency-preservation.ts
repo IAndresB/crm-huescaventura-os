@@ -12,6 +12,29 @@ export const f10DependencyHashes:Readonly<Record<string,Readonly<{historical:str
  'pnpm-lock.yaml':{historical:'1380c6afde70f15ca12514a9989dd314b462de9cd4e87cfb92274e943083fcdf',current:'a97d77d529c30b46f5f6cd100d0ab8e2b8e2393e1365cdd0caad563e29044a15'}
 };
 const digest=(bytes:Uint8Array)=>createHash('sha256').update(bytes).digest('hex');
+// F09: one exact R52 verifier transition, scoped to H5-009/010 local/isolated.
+export const f09R52Transition=Object.freeze({
+ path:'tests/integration/postgres-h3-006.test.ts',
+ historical:'49b382e6781bfed7a8685d74d34ccd5b5b4ca48c95726dcc217e795e6b7ff128',
+ current:'4719b89eb0d38d951ca9380b79b330fbb758dfc4a6ce794e72a2c66f1e66584e',
+ reason:'F09 R52 two-root concurrency barrier correction',
+ scope:'H5-009/010 local/isolated'
+});
+function assertF09R52Transition(path:string,current:Uint8Array,historicalHash:string,root:string):boolean {
+ if(path!==f09R52Transition.path)return false;
+ assert.equal(historicalHash,f09R52Transition.historical,path+': frozen F09 historical hash');
+ const metadata=lstatSync(resolve(root,path));assert.ok(metadata.isFile()&&!metadata.isSymbolicLink(),path+': F09 regular file');
+ assert.equal(metadata.mode&0o777,0o644,path+': F09 exact permissions');
+ const original=execFileSync('git',['show','fdbd08bafdc6651d1ad6867242cd71791a25deb6:'+path],{cwd:root});
+ assert.equal(digest(original),f09R52Transition.historical,path+': published F09 original');
+ const hash=digest(current);
+ assert.ok(hash===f09R52Transition.historical||hash===f09R52Transition.current,path+': unauthorized F09 third version');
+ if(hash===f09R52Transition.current){
+  const expected=readFileSync(resolve(root,'specs/001-core-crm/expected-TSK-H5-009-010.md'));
+  assert.equal(expected.length,24417);assert.equal(digest(expected),'b9f5beaa45c3d4a08f101694115724a6569a43fd590e965f28f9a1ab79c5e639',path+': F09 authorized isolated context');
+ }
+ return true;
+}
 // F08: three exact human-authorized F07 transitions; original manifests stay frozen.
 export const f07Transitions:Readonly<Record<string,Readonly<{historical:string;current:string;reason:string;scope:string}>>>={
  "tests/support/h4-availability-fixtures.ts": {
@@ -51,6 +74,7 @@ function assertF07Transition(path:string,current:Uint8Array,historicalHash:strin
 }
 
 export function assertHistoricalBytes(path:string,current:Uint8Array,historical:Uint8Array):void {
+ if(assertF09R52Transition(path,current,digest(historical),'.'))return;
  if(assertF07Transition(path,current,digest(historical),'.'))return;
  const exception=Object.hasOwn(f10DependencyHashes,path)?f10DependencyHashes[path]:undefined;
  if(!exception){assert.deepEqual(Buffer.from(current),Buffer.from(historical),path);return;}
@@ -99,6 +123,7 @@ export const f12ManifestHashes:Readonly<Record<string,string>>={
 };
 
 export function assertHistoricalHash(path:string,current:Uint8Array,historicalHash:string,root:string='.'):void {
+ if(assertF09R52Transition(path,current,historicalHash,root))return;
  if(assertF07Transition(path,current,historicalHash,root))return;
  const transition=Object.hasOwn(f10DependencyHashes,path)?f10DependencyHashes[path]:
   Object.hasOwn(f12VerifierHashes,path)?f12VerifierHashes[path]:undefined;

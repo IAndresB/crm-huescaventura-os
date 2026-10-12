@@ -1,0 +1,26 @@
+✖ R52 two movement roots concurrent same obligation do not overcover500 (5030.353125ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5392.940625
+
+✖ failing tests:
+
+test at tests/integration/postgres-h3-006.test.ts:157:1
+✖ R52 two movement roots concurrent same obligation do not overcover500 (5030.353125ms)
+  AssertionError [ERR_ASSERTION]: R52 observes two independent blocked sessions, one on a retained payment root and one on the existing booking lock: [{"pid":34769,"payment_id":"2256804f-b167-44e7-890d-c6941da651a3","business":false}]
+      at concurrentR52 (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-006.test.ts:136:10)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h3-006.test.ts:157:198)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
