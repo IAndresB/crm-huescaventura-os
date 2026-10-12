@@ -49,7 +49,7 @@ function verifyPublishedClosure(){
   const raw=readFileSync(path);
   assert.equal(createHash('sha1').update('blob '+raw.length+'\0').update(raw).digest('hex'),hash,'published closure bytes: '+path);
  }
- for(const path of f07Paths)assertHistoricalHash(path,readFileSync(path),createHash('sha256').update(bytes(closure,path)).digest('hex'));
+ for(const path of f07Paths){const metadata=lstatSync(path);assert.ok(metadata.isFile()&&!metadata.isSymbolicLink(),'F07 regular file: '+path);assert.equal(metadata.mode&0o777,0o644,'F07 exact permissions: '+path);assertHistoricalHash(path,readFileSync(path),createHash('sha256').update(bytes(closure,path)).digest('hex'));}
  const posterior=existsSync(expectedPath)||productPaths.some(p=>!historical.has(p)&&existsSync(p));
  for(const path of productPaths)if(posterior){
   assert.deepEqual(readFileSync(path),bytes(product,path),'authorized product bytes: '+path);
