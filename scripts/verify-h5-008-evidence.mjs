@@ -6,6 +6,11 @@ import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 const git=(...args)=>execFileSync('git',args,{encoding:'utf8',maxBuffer:64*1024*1024}).trim(),root='tests/fixtures/h5-008/definitive/';
 const report=JSON.parse(readFileSync(root+'verification.json','utf8'));
+const preservationPath='tests/support/h5-006-dependency-preservation.ts';
+const preservationHashes=['cd4d34c38fd3260858e9016d5bbc6370f2e7bc2b2aeefb0eec72cbac72be8612','29618809731de46f1958328cb062e1e0cb407da139a77fdbe401a51c94d0b824'];
+assert.ok(preservationHashes.includes(createHash('sha256').update(readFileSync(preservationPath)).digest('hex')),'exact authorized F08 guard bytes');
+const {assertHistoricalHash}=await import('../tests/support/h5-006-dependency-preservation.ts');
+const f07Paths=["tests/support/h4-availability-fixtures.ts", "tests/integration/postgres-h4-006.test.ts", "tests/integration/postgres-h4-021.test.ts"];
 const preclosure=process.argv.includes('--preclosure');
 function verifyPublishedClosure(){
  const closure='fdbd08bafdc6651d1ad6867242cd71791a25deb6',product='1c86e695144509fff0254c4d7a076dbb3921f777';
@@ -25,7 +30,7 @@ function verifyPublishedClosure(){
  const f01Names=['01-intact-56','02-valid-57','03-alter-first','04-alter-middle','05-alter-55','06-alter-56','07-delete-historical','08-comment-replacement','09-whitespace-56','10-unauthorized-within-protected-prefix','11-F10-F12-chain','12-prior-preservation-verifier'];
  const f05Names=['01-intact-closure','02-authorized-delta','03-historical-code','04-historical-migration','05-historical-expected','06-historical-evidence','07-unlisted-change','08-premature-h5011','09-premature-h5012','10-premature-h6','11-hosted','12-production','13-F10-F12','14-H5006-preservation','15-H5008-preservation','16-intact-historical-deletion','17-historical-symlink','18-historical-mode'];
  const gates=['frozen','typecheck','lint','unit','build','audit','focal','postgres','health','historical','historical-negative','f01','f05','diff','final'];
- const allowed=new Set([...productPaths,expectedPath,...documents,'docs/NEXT-STEPS.md','docs/PROJECT-STATUS.md','specs/001-core-crm/tasks.md',
+ const allowed=new Set([...productPaths,...f07Paths,preservationPath,expectedPath,...documents,'docs/NEXT-STEPS.md','docs/PROJECT-STATUS.md','specs/001-core-crm/tasks.md',
   'scripts/verify-h5-008-evidence.mjs',...evidenceNames.map(p=>fixture+p),fixture+'f01/result.json',...f01Names.map(p=>fixture+'f01/'+p+'.log.gz'),
   fixture+'revalidation/generated/archive.json',fixture+'f05/result.json',...f05Names.map(p=>fixture+'f05/'+p+'.log.gz'),...gates.flatMap(p=>[fixture+'revalidation/'+p+'.log.gz',fixture+'revalidation/'+p+'.status.json',fixture+'f06/gates/'+p+'.log.gz',fixture+'f06/gates/'+p+'.status.json']),
   ...['compression.json','preflight.json','original-diff.log.gz','original-diff.status.json','counterproofs.json','f05-retest.tar.gz','final-source.txt','generated/archive.json'].map(p=>fixture+'f06/'+p),
@@ -44,6 +49,7 @@ function verifyPublishedClosure(){
   const raw=readFileSync(path);
   assert.equal(createHash('sha1').update('blob '+raw.length+'\0').update(raw).digest('hex'),hash,'published closure bytes: '+path);
  }
+ for(const path of f07Paths)assertHistoricalHash(path,readFileSync(path),createHash('sha256').update(bytes(closure,path)).digest('hex'));
  const posterior=existsSync(expectedPath)||productPaths.some(p=>!historical.has(p)&&existsSync(p));
  for(const path of productPaths)if(posterior){
   assert.deepEqual(readFileSync(path),bytes(product,path),'authorized product bytes: '+path);
@@ -132,7 +138,8 @@ for(const item of JSON.parse(readFileSync(root+'generated-historical/archive.jso
 const delta=verifyPublishedClosure();
 const base='ff109036e3bb08a1d61e948693bc622bb10f240e';
 for(const file of git('ls-tree','-r','--name-only',base,'src','scripts','tests/integration','tests/support','tests/operations','package.json','pnpm-lock.yaml').split('\n')){
- if(file==='tests/integration/postgres-h5-006-migration.test.ts')continue;
+ if(file==='tests/integration/postgres-h5-006-migration.test.ts'||file===preservationPath)continue;
+ if(f07Paths.includes(file)){assertHistoricalHash(file,readFileSync(file),createHash('sha256').update(execFileSync('git',['show',base+':'+file])).digest('hex'));continue;}
  assert.deepEqual(readFileSync(file),execFileSync('git',['show',base+':'+file]),file);
 }
 const guard='tests/integration/postgres-h5-006-migration.test.ts';assert.deepEqual(readFileSync(guard),execFileSync('git',['show','4da05b0f2e25ea13094e1ef06153a7aaed1d0aab:'+guard]));

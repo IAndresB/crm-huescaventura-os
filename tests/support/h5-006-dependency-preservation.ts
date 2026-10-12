@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
+import {lstatSync,readFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
 
 // Human-authorized H5-005/006-F10 exception, limited to these two exact files.
 // Historical dependency bytes remain frozen; current security is audited separately.
@@ -10,7 +12,46 @@ export const f10DependencyHashes:Readonly<Record<string,Readonly<{historical:str
  'pnpm-lock.yaml':{historical:'1380c6afde70f15ca12514a9989dd314b462de9cd4e87cfb92274e943083fcdf',current:'a97d77d529c30b46f5f6cd100d0ab8e2b8e2393e1365cdd0caad563e29044a15'}
 };
 const digest=(bytes:Uint8Array)=>createHash('sha256').update(bytes).digest('hex');
+// F08: three exact human-authorized F07 transitions; original manifests stay frozen.
+export const f07Transitions:Readonly<Record<string,Readonly<{historical:string;current:string;reason:string;scope:string}>>>={
+ "tests/support/h4-availability-fixtures.ts": {
+  "historical": "3bc66099ac069065a827ea7506b4ca5e3773555b39e1747c3c00ac17c89ed631",
+  "current": "88b2a6aa8a8dbc93c5a7930a9888d1cae1a1a787572c18f7b435346de09adf0d",
+  "reason": "F07 temporal fixture correction",
+  "scope": "H5-009/010 local/isolated"
+ },
+ "tests/integration/postgres-h4-006.test.ts": {
+  "historical": "c6978e27155788cfac3b85f2e69a2ca4322f4e6dc9066e6904c94fbe47316a95",
+  "current": "3d26edaebaf5cd2523d22cf63f9513231c599022ba8959dc410b4bc808bdb1e1",
+  "reason": "F07 temporal fixture correction",
+  "scope": "H5-009/010 local/isolated"
+ },
+ "tests/integration/postgres-h4-021.test.ts": {
+  "historical": "d6c0ac87ac38668cd4a7b7c25a06a3744e7825cab91c8d93bd95c33a93364a93",
+  "current": "c4605714ee8195fad8bf3bb5cd5b219e82058dc391e136c1d4bfc71a68305e2d",
+  "reason": "F07 temporal fixture correction",
+  "scope": "H5-009/010 local/isolated"
+ }
+};
+function assertF07Transition(path:string,current:Uint8Array,historicalHash:string,root:string):boolean {
+ const transition=Object.hasOwn(f07Transitions,path)?f07Transitions[path]:undefined;
+ if(!transition)return false;
+ assert.equal(historicalHash,transition.historical,path+': frozen F07 historical hash');
+ const metadata=lstatSync(resolve(root,path));assert.ok(metadata.isFile()&&!metadata.isSymbolicLink(),path+': F07 regular file');
+ assert.equal(metadata.mode&0o777,0o644,path+': F07 exact permissions');
+ const original=execFileSync('git',['show','fdbd08bafdc6651d1ad6867242cd71791a25deb6:'+path],{cwd:root});
+ assert.equal(digest(original),transition.historical,path+': published F07 original');
+ const hash=digest(current);
+ assert.ok(hash===transition.historical||hash===transition.current,path+': unauthorized F07 third version');
+ if(hash===transition.current){
+  const expected=readFileSync(resolve(root,'specs/001-core-crm/expected-TSK-H5-009-010.md'));
+  assert.equal(expected.length,24417);assert.equal(digest(expected),'b9f5beaa45c3d4a08f101694115724a6569a43fd590e965f28f9a1ab79c5e639',path+': F07 authorized isolated context');
+ }
+ return true;
+}
+
 export function assertHistoricalBytes(path:string,current:Uint8Array,historical:Uint8Array):void {
+ if(assertF07Transition(path,current,digest(historical),'.'))return;
  const exception=Object.hasOwn(f10DependencyHashes,path)?f10DependencyHashes[path]:undefined;
  if(!exception){assert.deepEqual(Buffer.from(current),Buffer.from(historical),path);return;}
  assert.equal(digest(historical),exception.historical,path+': historical dependencies changed');
@@ -57,7 +98,8 @@ export const f12ManifestHashes:Readonly<Record<string,string>>={
  "tests/fixtures/h4-024/protected-base.json": "59f2d6566a953ffc599a02d5fce41443af5d2f1db50cd109da97a2b51dfb7363"
 };
 
-export function assertHistoricalHash(path:string,current:Uint8Array,historicalHash:string):void {
+export function assertHistoricalHash(path:string,current:Uint8Array,historicalHash:string,root:string='.'):void {
+ if(assertF07Transition(path,current,historicalHash,root))return;
  const transition=Object.hasOwn(f10DependencyHashes,path)?f10DependencyHashes[path]:
   Object.hasOwn(f12VerifierHashes,path)?f12VerifierHashes[path]:undefined;
  if(!transition){assert.equal(digest(current),historicalHash,path);return;}
@@ -69,7 +111,7 @@ export function assertHistoricalHash(path:string,current:Uint8Array,historicalHa
 // This also prevents editing a protected snapshot to bless an unauthorized file.
 export async function assertAuthorizedPreservationChain(root:string='.'):Promise<void> {
  for(const [path,transition]of Object.entries({...f10DependencyHashes,...f12VerifierHashes})){
-  assertHistoricalHash(path,await readFile(resolve(root,path)),transition.historical);
+  assertHistoricalHash(path,await readFile(resolve(root,path)),transition.historical,root);
  }
  for(const [path,hash]of Object.entries(f12ManifestHashes)){
   assert.equal(digest(await readFile(resolve(root,path))),hash,path+': historical manifest changed');

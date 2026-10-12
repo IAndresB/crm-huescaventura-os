@@ -3,8 +3,8 @@ import {invoiceFixture} from './h3-invoice-fixtures.ts';
 import {isolatedAvailability,read,write} from './h4-availability-isolated.ts';
 import type {AvailabilityCommand,AvailabilityCoverage,AvailabilitySource} from '../../src/domain/availability.ts';
 export type H=Awaited<ReturnType<typeof isolatedAvailability>>;
-export async function availabilityFixture(h:H,shared?:Awaited<ReturnType<typeof invoiceFixture>>,index=0){
- const b=shared??await invoiceFixture(h),availabilityId=uid(),bookingId=b.bookingId,service=b.b.detail.services[index]!,at=new Date().toISOString();
+export async function availabilityFixture(h:H,shared?:Awaited<ReturnType<typeof invoiceFixture>>,index=0,options:{at?:string}={}){
+ const b=shared??await invoiceFixture(h),availabilityId=uid(),bookingId=b.bookingId,service=b.b.detail.services[index]!,at=options.at??new Date().toISOString();
  const unit=(await h.cat('unit',{name:'SYNTHETIC person capacity',definition:'SYNTHETIC individual attendee capacity, independently of charging unit'})).revision;
  const coverage:AvailabilityCoverage={serviceId:service.id,nightId:null,serviceRevisionId:service.serviceRevisionId,serviceRevision:1,bookingRevision:1,variant:null,dates:['2026-10-20'],quantity:'12',unitRevisionId:unit,purpose:'availability-for-action'};
  const source:AvailabilitySource=b.b.detail.services[0]!.nature==='internal'?{kind:'internal',id:h.actorId}:{kind:'provider',id:b.provider.revision};
