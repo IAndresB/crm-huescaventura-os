@@ -18,16 +18,18 @@ function verifyPublishedClosure(){
  const expectedPath='specs/001-core-crm/expected-TSK-H5-009-010.md';
  const documents=['specs/001-core-crm/evidence-TSK-H5-009-010.md','specs/001-core-crm/matrix-TSK-H5-009-010.md','specs/001-core-crm/defects-TSK-H5-009.md'];
  const fixture='tests/fixtures/h5-009/';
- const evidenceNames=['audit-production.json','build.log','channel-boundary-original-fail.log','channel-boundary-original-fail.status.json','f01-preservation.mjs',
-  'focal-final.log','h5-008-preservation-gate-f01.log','health-independent-missing-postgres-env.fail.log','health-independent-ret-test.log','lint.log',
-  'postgres-full-final.log','typecheck-final.log','typecheck-retest.log','typecheck.log','unit-final.log','verify-h5-008-evidence.log',
+ const evidenceNames=['audit-production.json','build.log.gz','channel-boundary-original-fail.log.gz','channel-boundary-original-fail.status.json','f01-preservation.mjs',
+  'focal-final.log','h5-008-preservation-gate-f01.log.gz','health-independent-missing-postgres-env.fail.log','health-independent-ret-test.log','lint.log',
+  'postgres-full-final.log.gz','typecheck-final.log','typecheck-retest.log','typecheck.log','unit-final.log','verify-h5-008-evidence.log',
   'f05-counterexamples.mjs','f05-initial-revalidation.tar.gz','f05-development-deletion.log.gz','f05-precommit.tar.gz','f05-preflight.json','f05-diagnosis.md','f05-development-fails.json','f05-development-copy.log.gz','f05-development-buffer.log.gz','f05-development-scope.log.gz','verification.json'];
  const f01Names=['01-intact-56','02-valid-57','03-alter-first','04-alter-middle','05-alter-55','06-alter-56','07-delete-historical','08-comment-replacement','09-whitespace-56','10-unauthorized-within-protected-prefix','11-F10-F12-chain','12-prior-preservation-verifier'];
  const f05Names=['01-intact-closure','02-authorized-delta','03-historical-code','04-historical-migration','05-historical-expected','06-historical-evidence','07-unlisted-change','08-premature-h5011','09-premature-h5012','10-premature-h6','11-hosted','12-production','13-F10-F12','14-H5006-preservation','15-H5008-preservation','16-intact-historical-deletion','17-historical-symlink','18-historical-mode'];
  const gates=['frozen','typecheck','lint','unit','build','audit','focal','postgres','health','historical','historical-negative','f01','f05','diff','final'];
  const allowed=new Set([...productPaths,expectedPath,...documents,'docs/NEXT-STEPS.md','docs/PROJECT-STATUS.md','specs/001-core-crm/tasks.md',
   'scripts/verify-h5-008-evidence.mjs',...evidenceNames.map(p=>fixture+p),fixture+'f01/result.json',...f01Names.map(p=>fixture+'f01/'+p+'.log.gz'),
-  fixture+'revalidation/generated/archive.json',fixture+'f05/result.json',...f05Names.map(p=>fixture+'f05/'+p+'.log.gz'),...gates.flatMap(p=>[fixture+'revalidation/'+p+'.log.gz',fixture+'revalidation/'+p+'.status.json']),
+  fixture+'revalidation/generated/archive.json',fixture+'f05/result.json',...f05Names.map(p=>fixture+'f05/'+p+'.log.gz'),...gates.flatMap(p=>[fixture+'revalidation/'+p+'.log.gz',fixture+'revalidation/'+p+'.status.json',fixture+'f06/gates/'+p+'.log.gz',fixture+'f06/gates/'+p+'.status.json']),
+  ...['compression.json','preflight.json','original-diff.log.gz','original-diff.status.json','counterproofs.json','f05-retest.tar.gz','final-source.txt','generated/archive.json'].map(p=>fixture+'f06/'+p),
+  ...['tests/fixtures/h2-011/reproducer-F01-corrected.log','tests/fixtures/h2-011/reproducer-F02-corrected.log','tests/fixtures/h4-012-f16/preservation.json'].map(p=>fixture+'f06/generated/'+p+'.gz'),
   ...['tests/fixtures/h2-011/reproducer-F01-corrected.log','tests/fixtures/h2-011/reproducer-F02-corrected.log','tests/fixtures/h4-012-f16/preservation.json'].map(p=>fixture+'revalidation/generated/'+p+'.gz')]);
  const entries=git('ls-tree','-r','-z',closure).split('\0').filter(Boolean).map(e=>{const [meta,path]=e.split('\t');return {path,hash:meta.split(' ')[2]};});
  const historical=new Set(entries.map(e=>e.path));
@@ -53,6 +55,22 @@ function verifyPublishedClosure(){
  if(posterior){
   const raw=readFileSync(expectedPath);assert.equal(raw.length,24417);assert.equal(createHash('sha256').update(raw).digest('hex'),'b9f5beaa45c3d4a08f101694115724a6569a43fd590e965f28f9a1ab79c5e639');
   assert.deepEqual(raw,bytes('e8b38fa45b0170689784dd3af6ef6cba93e46ae1',expectedPath));
+  // F06 changes representation only. Original byte hashes remain independent of the gzip manifest.
+  const originals=[
+   ['build.log',545,'de300c33e16b8696f67db33e94f6e4d50541fc2afed4c325ad0641a79c75cc75'],
+   ['channel-boundary-original-fail.log',3182,'c61fff4777eeebd01f87e700855847f8b14beeecaeebe76f457c56fa2f5cf690'],
+   ['h5-008-preservation-gate-f01.log',2235,'e0fc40862757cdb6cc821cc8efd6c0f4449e7aa8882d8d33eefe4f4d850d8ac4'],
+   ['postgres-full-final.log',6920965,'89c8ca9a0af2ff8ea02e37c2d9fdd0308c53ef5890f2f647e9e2c9e7e8584a2d']];
+  const compression=JSON.parse(readFileSync(fixture+'f06/compression.json','utf8'));
+  assert.equal(compression.format,'gzip');assert.equal(compression.lossless,true);assert.equal(compression.items.length,4);
+  assert.deepEqual(compression.items.map(x=>x.path),originals.map(([name])=>fixture+name));
+  for(const [name,size,hash]of originals){
+   const item=compression.items.find(x=>x.path===fixture+name);assert.equal(item.compressedPath,fixture+name+'.gz');
+   const packed=readFileSync(item.compressedPath),unpacked=gunzipSync(packed),digest=b=>createHash('sha256').update(b).digest('hex');
+   assert.equal(packed.length,item.compressedBytes);assert.equal(digest(packed),item.compressedSha256);
+   assert.equal(unpacked.length,size);assert.equal(digest(unpacked),hash);
+   assert.equal(item.bytes,size);assert.equal(item.sha256,hash);assert.equal(item.decompressedBytes,size);assert.equal(item.decompressedSha256,hash);
+  }
  }
  const taskPath='specs/001-core-crm/tasks.md',originalTasks=bytes(closure,taskPath).toString(),actualTasks=readFileSync(taskPath,'utf8');
  const block=(text,id)=>text.split('<a id="tsk-h5-'+id+'"></a>')[1].split('<a id=')[0];
@@ -86,9 +104,10 @@ function verifyPublishedClosure(){
   assert.equal(git('merge-base',proof.testedSha,'HEAD'),proof.testedSha,'tested correction is an ancestor');
   for(const path of ['scripts/verify-h5-008-evidence.mjs',fixture+'f05-counterexamples.mjs'])assert.deepEqual(readFileSync(path),bytes(proof.testedSha,path),'tested F05 executable bytes: '+path);
   assert.deepEqual(proof.cases,['P01','P02','P03','P04','P05','P06','P07','P08','N01','N02','N03','N04','N05','N06','N07','N08','N09','N10','N11','N12','N13','N14','N15','N16','N17','N18']);assert.equal(proof.normativeRows,51);
+  const gateDirectory=proof.gateDirectory??'revalidation';assert.ok(['revalidation','f06/gates'].includes(gateDirectory));
   for(const gate of gates.filter(p=>p!=='final')){
-   const status=JSON.parse(readFileSync(fixture+'revalidation/'+gate+'.status.json','utf8'));assert.equal(status.sha,proof.testedSha);assert.equal(status.exit,0,gate);
-   const raw=gunzipSync(readFileSync(fixture+'revalidation/'+gate+'.log.gz'));assert.equal(createHash('sha256').update(raw).digest('hex'),status.sha256,gate);
+   const status=JSON.parse(readFileSync(fixture+gateDirectory+'/'+gate+'.status.json','utf8'));assert.equal(status.sha,proof.testedSha);assert.equal(status.exit,0,gate);
+   const raw=gunzipSync(readFileSync(fixture+gateDirectory+'/'+gate+'.log.gz'));assert.equal(createHash('sha256').update(raw).digest('hex'),status.sha256,gate);
   }
  }
  return current.filter(p=>!historical.has(p)||allowed.has(p));
