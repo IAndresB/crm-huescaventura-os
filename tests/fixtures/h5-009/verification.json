@@ -1,11 +1,9 @@
 {
-  "status": "BLOCKED",
   "scope": "local/isolated",
   "base": "fdbd08bafdc6651d1ad6867242cd71791a25deb6",
   "expectedPublication": "e8b38fa45b0170689784dd3af6ef6cba93e46ae1",
   "originalProductSha": "1c86e695144509fff0254c4d7a076dbb3921f777",
   "firstCorrectionSha": "3158161b37271d060a0cc9c53788dba0d119f7e1",
-  "testedSha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
   "expectedBytes": 24417,
   "expectedSha256": "b9f5beaa45c3d4a08f101694115724a6569a43fd590e965f28f9a1ab79c5e639",
   "cases": [
@@ -90,361 +88,629 @@
     "D014",
     "D021"
   ],
-  "postgres": 2473,
-  "unit": 171,
-  "health": 1,
-  "focal": 14,
-  "migrations": {
-    "historical": 56,
-    "current": 57
+  "status": "PASS",
+  "testedSha": "0d969541e119374561a6cd7d38e97faaed25add4",
+  "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+  "gateDirectory": "f09/c12-20261013/gates",
+  "results": {
+    "postgres": 2473,
+    "focal": 332,
+    "c12Temporal": 110,
+    "unit": 171,
+    "health": 1,
+    "failures": 0
   },
-  "f05Counterproofs": 18,
-  "advisors57": {
-    "exit": 0,
-    "results": [],
-    "sha256": "756c3e8fe51a44534c76aa8a5130626aa3290424a83960804f419deaa3e6f695",
-    "loopback": true
-  },
-  "regressionRetest": {
-    "originalFail": "postgres-global-0dae8a4-original-fail",
-    "focusedPass": "unchanged-h3-010-012-focal-retest",
-    "cause": "unconfirmed; unchanged historical sources and guards"
-  },
-  "defects": {
-    "F01": "CLOSED",
-    "F02": "CLOSED",
-    "F03": "CLOSED",
-    "F04": "CLOSED",
-    "F05": "CLOSED",
-    "F06": "OPEN \u2014 packaging/retest PASS; global close blocked by F09",
-    "F07": "OPEN \u2014 correction/focal PASS; global close blocked by F09",
-    "F08": "OPEN \u2014 counterproofs PASS; global close blocked by F09",
-    "F09": "OPEN"
-  },
+  "F01F09": "CLOSED local/isolated",
+  "F06F08Global": "CLOSED local/isolated",
+  "documentaryState": "Local closure prepared and verified; separate inventory seal review and documentary commit pending",
+  "published": false,
+  "originals": "tests/fixtures/h5-009/f09/c12-20261013/closure-originals.tar.gz",
+  "candidateEvidenceMember": "candidate-validation/",
+  "candidateEvidenceInventorySha256": "79f7669c638bc01a07fa2b5928b5c4a121d1f7f5e00896077999131a01b37dfe",
+  "originalLogs": "ORIGINAL NO RECUPERADO (2); authorized documentary substitution retained",
+  "R67R030": "Independent historical anomaly; cause not demonstrated; did not recur",
+  "historicalTableHashDifferences": 69,
   "gates": {
     "frozen": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "frozen",
       "command": [
         "pnpm",
         "install",
-        "--frozen-lockfile"
+        "--frozen-lockfile",
+        "--offline",
+        "--ignore-scripts"
       ],
-      "started": "2026-10-08T22:30:32.331Z",
-      "finished": "2026-10-08T22:30:32.673Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T01:58:55.327525+00:00",
+      "endedAtUtc": "2026-10-13T01:58:57.542562+00:00",
       "exit": 0,
-      "bytes": 53,
-      "sha256": "fc43ce1dd23171696002c6f6966f7679b1560379b3e1ba19f6978e2441ebcab4"
+      "childExit": 0,
+      "bytes": 754,
+      "sha256": "77b2ebc8e04e07d9df08f306359f51271a40768c98dbfa70057eeb6524bcd869",
+      "compressedSha256": "9e6ca44f24221f2cd08d0fc5269aa45f34250361b714c4b6a333aa428249c88c",
+      "scope": "local/isolated",
+      "preservation": null
     },
     "typecheck": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "typecheck",
       "command": [
         "pnpm",
+        "run",
         "typecheck"
       ],
-      "started": "2026-10-08T22:30:32.684Z",
-      "finished": "2026-10-08T22:30:33.812Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:05:27.169563+00:00",
+      "endedAtUtc": "2026-10-13T02:05:32.616476+00:00",
       "exit": 0,
+      "childExit": 0,
       "bytes": 90,
-      "sha256": "99d7c2179cdd316467c51f37901025a0753453664d741214ba56fc631fa6c0bc"
+      "sha256": "99d7c2179cdd316467c51f37901025a0753453664d741214ba56fc631fa6c0bc",
+      "compressedSha256": "6277f1cfea26c7fb850c0fd14dab7913de5542e1f9f727773fd7a872f3512c19",
+      "scope": "local/isolated",
+      "preservation": null
     },
     "lint": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "lint",
       "command": [
         "pnpm",
+        "run",
         "lint"
       ],
-      "started": "2026-10-08T22:30:33.823Z",
-      "finished": "2026-10-08T22:30:34.385Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:05:32.694385+00:00",
+      "endedAtUtc": "2026-10-13T02:05:33.290221+00:00",
       "exit": 0,
+      "childExit": 0,
       "bytes": 88,
-      "sha256": "6eaeae66537f6e78eccf8bc1538038163c02589c1f4bcef2e62b3cc4e58dcc54"
+      "sha256": "6eaeae66537f6e78eccf8bc1538038163c02589c1f4bcef2e62b3cc4e58dcc54",
+      "compressedSha256": "63843e63fd7c6a686c2c3d56582480c271d2a3e86a5ea9a78c45c5f8dda91e8b",
+      "scope": "local/isolated",
+      "preservation": null
     },
     "unit": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "unit",
       "command": [
         "pnpm",
         "test"
       ],
-      "started": "2026-10-08T22:30:34.395Z",
-      "finished": "2026-10-08T22:30:35.533Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:05:33.358164+00:00",
+      "endedAtUtc": "2026-10-13T02:05:34.426060+00:00",
       "exit": 0,
+      "childExit": 0,
       "bytes": 13811,
-      "sha256": "469a583ec34c9e6d0add983516ef2278173344254c1a60090483fbf7bf439bb5"
+      "sha256": "53461ceb56c7c777d7d7d8f1f4dbcf8e71deb75895dd78d9e2b40ee3d666ee60",
+      "compressedSha256": "3f09a4c2978f9f2efa71d6d0245d35914bcdf8b626e1ec9a0730fab683feb907",
+      "scope": "local/isolated",
+      "preservation": null
     },
     "build": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "build",
       "command": [
         "pnpm",
+        "run",
         "build"
       ],
-      "started": "2026-10-08T22:30:35.546Z",
-      "finished": "2026-10-08T22:30:38.747Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:05:34.494689+00:00",
+      "endedAtUtc": "2026-10-13T02:05:38.209632+00:00",
       "exit": 0,
+      "childExit": 0,
       "bytes": 546,
-      "sha256": "53832cfaa0eeae4b276f77a225b5ec11e88e1efd528ca93c99838f08789edeaa"
+      "sha256": "300b91639bd7a57788892a623684842ea0ebbf8f308a48113cf69e262e2a9dd0",
+      "compressedSha256": "fea02e7a68b37001c5553288e374ab8f34d6023ceefabd24c8927d26bab28615",
+      "scope": "local/isolated",
+      "preservation": null
     },
     "audit": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "audit",
       "command": [
         "pnpm",
         "audit",
         "--prod",
         "--json"
       ],
-      "started": "2026-10-08T22:30:38.772Z",
-      "finished": "2026-10-08T22:30:39.947Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:05:38.279635+00:00",
+      "endedAtUtc": "2026-10-13T02:05:39.306552+00:00",
       "exit": 0,
+      "childExit": 0,
       "bytes": 277,
-      "sha256": "11124a8c8cd76328bb93c913c49494fd2f63d7a4193871141c812f5b1cffc655"
-    },
-    "historical": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
-      "command": [
-        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
-        "--experimental-strip-types",
-        "tests/fixtures/h5-006/f12/chain-counterexamples.mjs"
-      ],
-      "started": "2026-10-08T22:30:40.008Z",
-      "finished": "2026-10-08T22:30:40.462Z",
-      "exit": 0,
-      "bytes": 10675,
-      "sha256": "c7d915b5d2936052691b3782a79449e7f6b7ade6079bae90d8426b182834051a"
-    },
-    "historical-negative": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
-      "command": [
-        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
-        "--experimental-strip-types",
-        "scripts/verify-h5-006-f10-preservation.mjs"
-      ],
-      "started": "2026-10-08T22:30:40.472Z",
-      "finished": "2026-10-08T22:30:40.673Z",
-      "exit": 0,
-      "bytes": 3800,
-      "sha256": "2fd69701f44dbadc2336126706c84cd99e9fbf6e89c3e79fa44d2529d3ae612b"
-    },
-    "f01": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
-      "command": [
-        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
-        "tests/fixtures/h5-009/f01-preservation.mjs"
-      ],
-      "started": "2026-10-08T22:30:40.683Z",
-      "finished": "2026-10-08T22:30:53.375Z",
-      "exit": 0,
-      "bytes": 41985,
-      "sha256": "40768c154be44721078886510fdb3d6d5a078567d8c5dbfdb7fbb23f504db87e"
-    },
-    "f05": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
-      "command": [
-        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
-        "tests/fixtures/h5-009/f05-counterexamples.mjs"
-      ],
-      "started": "2026-10-08T22:30:53.387Z",
-      "finished": "2026-10-08T22:31:39.557Z",
-      "exit": 0,
-      "bytes": 557,
-      "sha256": "0a19c977e330ff0d642ae1043af94bb9f1b83408ffa3a0a41cf90f6ad67f421f"
+      "sha256": "11124a8c8cd76328bb93c913c49494fd2f63d7a4193871141c812f5b1cffc655",
+      "compressedSha256": "c8d7d7a0259b127ba5290bc4cdda68a4f605e4384aed9f911a8142d4a047801a",
+      "scope": "local/isolated",
+      "preservation": null
     },
     "focal": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "focal",
       "command": [
-        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
+        "node",
+        "tests/fixtures/h5-009/f09/run-postgres-preserving-artifacts.mjs",
+        "--",
+        "node",
         "scripts/test-postgres.mjs",
+        "postgres-h3-006.test.ts",
+        "postgres-h4-006.test.ts",
+        "postgres-h4-012-f16.test.ts",
+        "postgres-h4-013.test.ts",
+        "postgres-h4-014-defects.test.ts",
+        "postgres-h4-016-f23-migration.test.ts",
+        "postgres-h4-016-migration.test.ts",
+        "postgres-h4-018-migration.test.ts",
+        "postgres-h4-019.test.ts",
+        "postgres-h4-021.test.ts",
+        "postgres-h4-024-concurrency.test.ts",
+        "postgres-h4-024.test.ts",
         "postgres-h5-008-migration.test.ts",
-        "postgres-h5-009.test.ts",
-        "postgres-h5-009-migration.test.ts"
+        "postgres-h5-009-migration.test.ts",
+        "postgres-h5-009.test.ts"
       ],
-      "started": "2026-10-08T22:31:39.571Z",
-      "finished": "2026-10-08T22:31:57.442Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:04:24.089865+00:00",
+      "endedAtUtc": "2026-10-13T02:05:27.038034+00:00",
       "exit": 0,
-      "bytes": 2598,
-      "sha256": "ff80be6fad50c80a10132a941d2915f43ce4886b3a2ef79800f61a94ba28d039"
+      "childExit": 0,
+      "bytes": 4218858,
+      "sha256": "30913eae4669d0417cea1ca517b7c190dfd27489a0a900ea5eea3fae1fe45df6",
+      "compressedSha256": "b38498e49fdd08b0c7ba09929ec74a627081806d04743974dd6e965fb4e1aeda",
+      "scope": "local/isolated",
+      "preservation": {
+        "scope": "F09 H5-009/010 local/isolated",
+        "runId": "2026-10-13T020424-128Z-663776af-0067-4bd3-a0fc-351511c1c265",
+        "testedHead": "0d969541e119374561a6cd7d38e97faaed25add4",
+        "command": [
+          "node",
+          "scripts/test-postgres.mjs",
+          "postgres-h3-006.test.ts",
+          "postgres-h4-006.test.ts",
+          "postgres-h4-012-f16.test.ts",
+          "postgres-h4-013.test.ts",
+          "postgres-h4-014-defects.test.ts",
+          "postgres-h4-016-f23-migration.test.ts",
+          "postgres-h4-016-migration.test.ts",
+          "postgres-h4-018-migration.test.ts",
+          "postgres-h4-019.test.ts",
+          "postgres-h4-021.test.ts",
+          "postgres-h4-024-concurrency.test.ts",
+          "postgres-h4-024.test.ts",
+          "postgres-h5-008-migration.test.ts",
+          "postgres-h5-009-migration.test.ts",
+          "postgres-h5-009.test.ts"
+        ],
+        "result": {
+          "exitCode": 0,
+          "signal": null,
+          "error": null
+        },
+        "interruptedBy": null,
+        "artifacts": [
+          {
+            "path": "tests/fixtures/h2-011/reproducer-F01-corrected.log",
+            "expectedBytes": 904,
+            "expectedSha256": "3d123ac41cf6a9da845dd89518fff92c4012db3ede9da6b90f44e69839821ccc",
+            "expectedMode": "0644",
+            "initial": {
+              "type": "regular file",
+              "bytes": 904,
+              "sha256": "3d123ac41cf6a9da845dd89518fff92c4012db3ede9da6b90f44e69839821ccc",
+              "mode": "0644"
+            },
+            "generated": null,
+            "restored": {
+              "type": "regular file",
+              "bytes": 904,
+              "sha256": "3d123ac41cf6a9da845dd89518fff92c4012db3ede9da6b90f44e69839821ccc",
+              "mode": "0644"
+            },
+            "restoredExact": true
+          },
+          {
+            "path": "tests/fixtures/h2-011/reproducer-F02-corrected.log",
+            "expectedBytes": 1917,
+            "expectedSha256": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+            "expectedMode": "0644",
+            "initial": {
+              "type": "regular file",
+              "bytes": 1917,
+              "sha256": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+              "mode": "0644"
+            },
+            "generated": null,
+            "restored": {
+              "type": "regular file",
+              "bytes": 1917,
+              "sha256": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+              "mode": "0644"
+            },
+            "restoredExact": true
+          },
+          {
+            "path": "tests/fixtures/h2-011/preservation.log",
+            "expectedBytes": 312,
+            "expectedSha256": "3bc0004daa86ad07d66a3081190b23dfd89049397f12dab34418a9caa15eb9d9",
+            "expectedMode": "0644",
+            "initial": {
+              "type": "regular file",
+              "bytes": 312,
+              "sha256": "3bc0004daa86ad07d66a3081190b23dfd89049397f12dab34418a9caa15eb9d9",
+              "mode": "0644"
+            },
+            "generated": null,
+            "restored": {
+              "type": "regular file",
+              "bytes": 312,
+              "sha256": "3bc0004daa86ad07d66a3081190b23dfd89049397f12dab34418a9caa15eb9d9",
+              "mode": "0644"
+            },
+            "restoredExact": true
+          },
+          {
+            "path": "tests/fixtures/h4-012-f16/preservation.json",
+            "expectedBytes": 1858702,
+            "expectedSha256": "8b6c0298b17b7ede0fabb58a264953f0ccfa5e880e89a8d472b3644e870003d7",
+            "expectedMode": "0644",
+            "initial": {
+              "type": "regular file",
+              "bytes": 1858702,
+              "sha256": "8b6c0298b17b7ede0fabb58a264953f0ccfa5e880e89a8d472b3644e870003d7",
+              "mode": "0644"
+            },
+            "generated": {
+              "type": "regular file",
+              "bytes": 1858702,
+              "sha256": "121f3250e34256ae6052c559aec89bab0fb2bd3a208252b5bba692ed64188a24",
+              "mode": "0644",
+              "evidencePath": "generated/tests/fixtures/h4-012-f16/preservation.json.gz",
+              "gzipSha256": "81b5a023b7ea8b0e231c01cd809e5562c6529170f1b3ac995f13ff4b161de9e5"
+            },
+            "restored": {
+              "type": "regular file",
+              "bytes": 1858702,
+              "sha256": "8b6c0298b17b7ede0fabb58a264953f0ccfa5e880e89a8d472b3644e870003d7",
+              "mode": "0644"
+            },
+            "restoredExact": true
+          }
+        ],
+        "unexpectedTrackedChanges": [],
+        "restorationComplete": true,
+        "preflightPassed": true,
+        "executionStarted": true,
+        "restoreErrors": [],
+        "remainingTrackedDifferences": [],
+        "outputHashes": {
+          "postgres.stdout.log": {
+            "bytes": 4218858,
+            "sha256": "30913eae4669d0417cea1ca517b7c190dfd27489a0a900ea5eea3fae1fe45df6"
+          },
+          "postgres.stderr.log": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        }
+      }
     },
     "postgres": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "postgres",
       "command": [
+        "node",
+        "tests/fixtures/h5-009/f09/run-postgres-preserving-artifacts.mjs",
+        "--",
         "pnpm",
         "test:postgres"
       ],
-      "started": "2026-10-08T22:31:57.471Z",
-      "finished": "2026-10-08T22:38:43.297Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:05:40.488974+00:00",
+      "endedAtUtc": "2026-10-13T02:12:35.698659+00:00",
       "exit": 0,
-      "bytes": 6920880,
-      "sha256": "0c5f61a6b06be67c73f3a8c324781d25939583a5fb7283b6af41c77eb1d2ebfd"
+      "childExit": 0,
+      "bytes": 7032596,
+      "sha256": "8c6b546c675fc8569a0c992102fd70a513e61c238f0c50eea2342f7fa64aff77",
+      "compressedSha256": "cce1964c309b5ae7c6c548910ee502191123d65a3ae8ce32e7c8d7031ed12332",
+      "scope": "local/isolated",
+      "preservation": {
+        "scope": "F09 H5-009/010 local/isolated",
+        "runId": "2026-10-13T020540-521Z-aba9fd22-747f-4239-b98d-17fe6a8574c7",
+        "testedHead": "0d969541e119374561a6cd7d38e97faaed25add4",
+        "command": [
+          "pnpm",
+          "test:postgres"
+        ],
+        "result": {
+          "exitCode": 0,
+          "signal": null,
+          "error": null
+        },
+        "interruptedBy": null,
+        "artifacts": [
+          {
+            "path": "tests/fixtures/h2-011/reproducer-F01-corrected.log",
+            "expectedBytes": 904,
+            "expectedSha256": "3d123ac41cf6a9da845dd89518fff92c4012db3ede9da6b90f44e69839821ccc",
+            "expectedMode": "0644",
+            "initial": {
+              "type": "regular file",
+              "bytes": 904,
+              "sha256": "3d123ac41cf6a9da845dd89518fff92c4012db3ede9da6b90f44e69839821ccc",
+              "mode": "0644"
+            },
+            "generated": {
+              "type": "regular file",
+              "bytes": 961,
+              "sha256": "6ee62888ff76dae2fefeb33e24e6f092f20aaefdaa5d3e60b71ca5c6162bef8f",
+              "mode": "0644",
+              "evidencePath": "generated/tests/fixtures/h2-011/reproducer-F01-corrected.log.gz",
+              "gzipSha256": "f4d2e6fc575c38b90f33d222e7ea43622e0b2a04a4ef861cbb29c68488102e34"
+            },
+            "restored": {
+              "type": "regular file",
+              "bytes": 904,
+              "sha256": "3d123ac41cf6a9da845dd89518fff92c4012db3ede9da6b90f44e69839821ccc",
+              "mode": "0644"
+            },
+            "restoredExact": true
+          },
+          {
+            "path": "tests/fixtures/h2-011/reproducer-F02-corrected.log",
+            "expectedBytes": 1917,
+            "expectedSha256": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+            "expectedMode": "0644",
+            "initial": {
+              "type": "regular file",
+              "bytes": 1917,
+              "sha256": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+              "mode": "0644"
+            },
+            "generated": {
+              "type": "regular file",
+              "bytes": 2288,
+              "sha256": "8e0a3ed60537b828603f565a69c9a00620b1520b6d779ba3d891d877318ebf67",
+              "mode": "0644",
+              "evidencePath": "generated/tests/fixtures/h2-011/reproducer-F02-corrected.log.gz",
+              "gzipSha256": "dc447c9a9effdbf2a4d2e38bc4d467509ace3a78460bfab2dfbd77d44544a95d"
+            },
+            "restored": {
+              "type": "regular file",
+              "bytes": 1917,
+              "sha256": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+              "mode": "0644"
+            },
+            "restoredExact": true
+          },
+          {
+            "path": "tests/fixtures/h2-011/preservation.log",
+            "expectedBytes": 312,
+            "expectedSha256": "3bc0004daa86ad07d66a3081190b23dfd89049397f12dab34418a9caa15eb9d9",
+            "expectedMode": "0644",
+            "initial": {
+              "type": "regular file",
+              "bytes": 312,
+              "sha256": "3bc0004daa86ad07d66a3081190b23dfd89049397f12dab34418a9caa15eb9d9",
+              "mode": "0644"
+            },
+            "generated": null,
+            "restored": {
+              "type": "regular file",
+              "bytes": 312,
+              "sha256": "3bc0004daa86ad07d66a3081190b23dfd89049397f12dab34418a9caa15eb9d9",
+              "mode": "0644"
+            },
+            "restoredExact": true
+          },
+          {
+            "path": "tests/fixtures/h4-012-f16/preservation.json",
+            "expectedBytes": 1858702,
+            "expectedSha256": "8b6c0298b17b7ede0fabb58a264953f0ccfa5e880e89a8d472b3644e870003d7",
+            "expectedMode": "0644",
+            "initial": {
+              "type": "regular file",
+              "bytes": 1858702,
+              "sha256": "8b6c0298b17b7ede0fabb58a264953f0ccfa5e880e89a8d472b3644e870003d7",
+              "mode": "0644"
+            },
+            "generated": {
+              "type": "regular file",
+              "bytes": 1858702,
+              "sha256": "a804ffbcfd1035edeb44d886b880ab0565b71d90a9c6badaad5d8101918a190e",
+              "mode": "0644",
+              "evidencePath": "generated/tests/fixtures/h4-012-f16/preservation.json.gz",
+              "gzipSha256": "d3d5661612e5f6f4df35a6216e862e7d3d70f00e74d0af7e1ca97bcca0adb1a2"
+            },
+            "restored": {
+              "type": "regular file",
+              "bytes": 1858702,
+              "sha256": "8b6c0298b17b7ede0fabb58a264953f0ccfa5e880e89a8d472b3644e870003d7",
+              "mode": "0644"
+            },
+            "restoredExact": true
+          }
+        ],
+        "unexpectedTrackedChanges": [],
+        "restorationComplete": true,
+        "preflightPassed": true,
+        "executionStarted": true,
+        "restoreErrors": [],
+        "remainingTrackedDifferences": [],
+        "outputHashes": {
+          "postgres.stdout.log": {
+            "bytes": 7032563,
+            "sha256": "20c801ce27b566d25358f8a60de0821aff8fdd1874c7805e1c177794cce1151b"
+          },
+          "postgres.stderr.log": {
+            "bytes": 33,
+            "sha256": "a16eac04911ccdc33cc87a46df4bb5d9d9f1d72d3da4e0c00b582bf1cbc6477e"
+          }
+        }
+      }
     },
     "health": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "health",
       "command": [
-        "/Users/andres/.local/share/crm-huescaventura-os/node-v24.21.0-darwin-arm64/bin/node",
+        "node",
         "--test",
+        "--experimental-strip-types",
         "tests/operations/supabase-health.test.mjs"
       ],
-      "started": "2026-10-08T22:38:43.429Z",
-      "finished": "2026-10-08T22:38:44.545Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:05:39.377145+00:00",
+      "endedAtUtc": "2026-10-13T02:05:40.420765+00:00",
       "exit": 0,
-      "bytes": 200,
-      "sha256": "2e8412f5bf29811c0bb3b346fc36fb87912bdefffe0e2f94f0e72d5c94a25dc2"
+      "childExit": 0,
+      "bytes": 202,
+      "sha256": "dd91054fd25a3018162a3724790661d6b7a7e58642fa763a873de62f586c5b5c",
+      "compressedSha256": "c7157f0ded0e0f4a6051d8be5e2df3a5302d80e33492cc806adc43dcf905f8a1",
+      "scope": "local/isolated",
+      "preservation": null
     },
-    "diff": {
-      "sha": "0dae8a4a0b5ce92845b13fd82c60c1ed931184dc",
+    "historical": {
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "historical",
       "command": [
-        "git",
-        "diff",
-        "--check"
+        "python3",
+        "-B",
+        "tests/fixtures/h5-009/f09/closure-protocol-20261013/verify.py",
+        "--seal",
+        "52f278503dc5fc49b964c596742221c249657f63040a1a767e67004ba2c648d0",
+        "--historical-f16"
       ],
-      "started": "2026-10-08T22:38:44.555Z",
-      "finished": "2026-10-08T22:38:44.666Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T01:59:30.766926+00:00",
+      "endedAtUtc": "2026-10-13T01:59:44.463429+00:00",
       "exit": 0,
-      "bytes": 0,
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    }
-  },
-  "hosted": false,
-  "production": false,
-  "realIntegrations": false,
-  "stopAfter": "TSK-H5-010",
-  "preStagingStatus": "PASS",
-  "blockingGate": "postgres",
-  "publication": "NOT PUSHED",
-  "latestVerificationSha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
-  "latestGateDirectory": "/Users/andres/Documents/Codex/F08-revalidacion-2026-10-12-STOP-F09/gates",
-  "latestGates": {
-    "focal": {
-      "sha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
-      "command": [
-        "node",
-        "scripts/test-postgres.mjs",
-        "postgres-h4-006.test.ts",
-        "postgres-h4-021.test.ts",
-        "postgres-h4-008.test.ts",
-        "postgres-h4-008-reproducer.test.ts",
-        "postgres-h4-008-supplement.test.ts",
-        "postgres-h5-008-migration.test.ts",
-        "postgres-h5-009.test.ts",
-        "postgres-h5-009-migration.test.ts"
-      ],
-      "started": "2026-10-12T17:36:40Z",
-      "finished": "2026-10-12T17:37:06Z",
-      "exit": 0,
-      "bytes": 23317,
-      "sha256": "de78316de7a168530004e3a47e0834f62d498e4fa71b0ea941f75f252cb71a4d"
+      "childExit": 0,
+      "bytes": 45331,
+      "sha256": "93000c3cd0b8048cc6a62d391c27ffecf32991d684c47dc91dd6180ab7c4185d",
+      "compressedSha256": "ba51663109be04c971ca402df5cedf44cc595405929058f9f1a3dd45e3154bae",
+      "scope": "local/isolated",
+      "preservation": null
     },
-    "f05": {
-      "sha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
+    "historical-negative": {
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "historical-negative",
       "command": [
-        "node",
-        "tests/fixtures/h5-009/f05-counterexamples.mjs"
+        "python3",
+        "-B",
+        "/Users/andres/Developer/crm-huescaventura-os/.git/protocol-candidate-validation/20261013T015651Z/run-counterproofs.py"
       ],
-      "started": "2026-10-12T17:38:44Z",
-      "finished": "2026-10-12T17:40:23Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:00:31.477821+00:00",
+      "endedAtUtc": "2026-10-13T02:01:38.084588+00:00",
       "exit": 0,
-      "bytes": 557,
-      "sha256": "0a19c977e330ff0d642ae1043af94bb9f1b83408ffa3a0a41cf90f6ad67f421f",
-      "scope": "isolated snapshot of exact current source"
-    },
-    "lint": {
-      "sha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
-      "command": [
-        "pnpm",
-        "lint"
-      ],
-      "started": "2026-10-12T17:36:34Z",
-      "finished": "2026-10-12T17:36:35Z",
-      "exit": 0,
-      "bytes": 88,
-      "sha256": "6eaeae66537f6e78eccf8bc1538038163c02589c1f4bcef2e62b3cc4e58dcc54"
-    },
-    "postgres": {
-      "sha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
-      "command": [
-        "pnpm",
-        "test:postgres"
-      ],
-      "started": "2026-10-12T17:37:06Z",
-      "finished": "2026-10-12T17:43:51Z",
-      "exit": 1,
-      "bytes": 6921870,
-      "sha256": "97270556dce812153051ba3396512c69417edaeedc6bf37f4c3b9d8c1c888042"
-    },
-    "audit": {
-      "sha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
-      "command": [
-        "pnpm",
-        "audit",
-        "--prod",
-        "--json"
-      ],
-      "started": "2026-10-12T17:36:39Z",
-      "finished": "2026-10-12T17:36:40Z",
-      "exit": 0,
-      "bytes": 277,
-      "sha256": "11124a8c8cd76328bb93c913c49494fd2f63d7a4193871141c812f5b1cffc655"
-    },
-    "typecheck": {
-      "sha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
-      "command": [
-        "pnpm",
-        "typecheck"
-      ],
-      "started": "2026-10-12T17:36:34Z",
-      "finished": "2026-10-12T17:36:34Z",
-      "exit": 0,
-      "bytes": 90,
-      "sha256": "99d7c2179cdd316467c51f37901025a0753453664d741214ba56fc631fa6c0bc"
-    },
-    "frozen": {
-      "sha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
-      "command": [
-        "pnpm",
-        "install",
-        "--frozen-lockfile"
-      ],
-      "started": "2026-10-12T17:36:33Z",
-      "finished": "2026-10-12T17:36:34Z",
-      "exit": 0,
-      "bytes": 53,
-      "sha256": "d80c1302bc48ca8c357cae4dd12d1c09270625785f9f81fa912857b0043087d4"
+      "childExit": 0,
+      "bytes": 1009,
+      "sha256": "6ba62afee33d95d693c848d2b868816db23196335e3b01289f3d793a10b108db",
+      "compressedSha256": "eb01d63861cb748cfd30e0ed09dd0c206e20f29a0410cf08f6cb3943ce94fd27",
+      "scope": "local/isolated",
+      "preservation": null
     },
     "f01": {
-      "sha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "f01",
       "command": [
         "node",
-        "tests/fixtures/h5-009/f01-preservation.mjs"
+        "--experimental-strip-types",
+        "/Users/andres/Developer/crm-huescaventura-os/.git/protocol-candidate-validation/20261013T015651Z/f01-regular-fixture-retest.mjs"
       ],
-      "started": "2026-10-12T17:38:27Z",
-      "finished": "2026-10-12T17:38:44Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:01:39.124752+00:00",
+      "endedAtUtc": "2026-10-13T02:01:50.894739+00:00",
       "exit": 0,
+      "childExit": 0,
       "bytes": 46,
       "sha256": "4f178ad74a40254c88ac3c5042515426214f935232a99ae6e530b2fafddac8b4",
-      "scope": "isolated snapshot of exact current source"
+      "compressedSha256": "04a444bd6095ecdc8e751c9f1e1e3dec9447b12f9e94e4e3645cdf523c1c96da",
+      "scope": "local/isolated",
+      "preservation": null
     },
-    "build": {
-      "sha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
+    "f05": {
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "f05",
       "command": [
-        "pnpm",
-        "build"
+        "node",
+        "--experimental-strip-types",
+        "/Users/andres/Developer/crm-huescaventura-os/.git/protocol-candidate-validation/20261013T015651Z/f05-index-isolated-retest.mjs"
       ],
-      "started": "2026-10-12T17:36:36Z",
-      "finished": "2026-10-12T17:36:39Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:00:57.585522+00:00",
+      "endedAtUtc": "2026-10-13T02:01:31.584148+00:00",
       "exit": 0,
-      "bytes": 545,
-      "sha256": "b220deae0e84650944b5894c842be9d8c3a54a4c15ee4f020ddaa71e8cb8a38e"
+      "childExit": 0,
+      "bytes": 7079,
+      "sha256": "6688bec17bfd775a715e758afd8711b498b1448e64684e4643443a3b3bee170c",
+      "compressedSha256": "7b2793a8d7f4de05bf9d6b3f1b4c1b2bd22fc7192a42e84742ebc71dbc487f2c",
+      "scope": "local/isolated",
+      "preservation": null,
+      "derivedReceipt": true,
+      "newExecution": false,
+      "sourceGate": "historical-negative",
+      "sourceResult": "/Users/andres/Developer/crm-huescaventura-os/.git/protocol-candidate-validation/20261013T015651Z/f05-index-isolated/result.json",
+      "stdout": {
+        "path": "/Users/andres/Developer/crm-huescaventura-os/.git/protocol-candidate-validation/20261013T015651Z/28-F05-retest.stdout.log",
+        "bytes": 557,
+        "sha256": "0a19c977e330ff0d642ae1043af94bb9f1b83408ffa3a0a41cf90f6ad67f421f"
+      },
+      "stderr": {
+        "path": "/Users/andres/Developer/crm-huescaventura-os/.git/protocol-candidate-validation/20261013T015651Z/28-F05-retest.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "representation": "Derived JSON result summary; original nested execution streams remain separate"
     },
-    "unit": {
-      "sha": "8c1109426a8e85effeda6c2bb59c08ac0693c032",
+    "diff": {
+      "sha": "0d969541e119374561a6cd7d38e97faaed25add4",
+      "tree": "6b139d4e7cffe8f01371292047d86af82cfa86cb",
+      "name": "diff",
       "command": [
-        "pnpm",
-        "test"
+        "python3",
+        "-B",
+        "/Users/andres/Developer/crm-huescaventura-os/.git/protocol-candidate-validation/20261013T015651Z/verify-prepared-diff.py"
       ],
-      "started": "2026-10-12T17:36:35Z",
-      "finished": "2026-10-12T17:36:36Z",
+      "cwd": "/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-protocol-candidate-2l3d2lcr/checkout",
+      "candidateInputSha256": "584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a",
+      "startedAtUtc": "2026-10-13T02:12:48.455601+00:00",
+      "endedAtUtc": "2026-10-13T02:12:48.697576+00:00",
       "exit": 0,
-      "bytes": 13815,
-      "sha256": "8fc7be7ab79087079392c1c395f4679ce2f91c7f8644d4d3236747c627a653ba"
+      "childExit": 0,
+      "bytes": 660,
+      "sha256": "07f13022cd2469e342d453fe220d779fed83f1037ff2ef1ab445de601855b782",
+      "compressedSha256": "62107974459c2226d7d6aa913f0f76faa9eb6bedf6cf111d329251393678cf4e",
+      "scope": "local/isolated",
+      "preservation": null
     }
-  },
-  "blockingDefect": "H5-009-F09",
-  "F06CompressionAndStagedDiff": "PASS; global close blocked by F07"
+  }
 }

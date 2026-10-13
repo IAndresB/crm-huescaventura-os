@@ -1,5 +1,15 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+**TSK-H5-009/010 COMPLETED exclusivamente local/aislado — cierre documental local, 2026-10-13.** SHA realmente probado `0d969541e119374561a6cd7d38e97faaed25add4`. PostgreSQL 2473/2473, focal ampliada 332/332, temporal C12/H4-014 110/110, unitarias 171/171 y health 1/1 PASS. F01–F09 CLOSED local/aislado, incluidos los cierres globales pendientes F06–F08. Expected intacto: 24.417 bytes, 26 casos y 51 filas normativas. Sin publicación. Hosted/Production no acreditados.
+
+H5 global continúa IN PROGRESS. STOP tras H5-009/010. H5-011/012 y H6 permanecen NOT STARTED; no se preparan conectores reales.
+
+Los dos logs originales siguen ORIGINAL NO RECUPERADO, con sustitución documental autorizada; las 69 diferencias históricas de hashes de tablas y R67/R030 permanecen como antecedentes independientes. Los resultados anteriores conservan su SHA y sus FAIL.
+
+[Evidencia](../specs/001-core-crm/evidence-TSK-H5-009-010.md), [matriz](../specs/001-core-crm/matrix-TSK-H5-009-010.md) y [defectos](../specs/001-core-crm/defects-TSK-H5-009.md). El cierre local está pendiente de revisión del sello del inventario, commit documental y autorización separada de publicación.
+
+## Antecedentes conservados — estados y resultados de sus respectivas fechas
+
 **TSK-H5-009/010 IN PROGRESS — STOP por F09,2026-10-12, exclusivamente local/aislado.** Candidato8c1109426a8e85effeda6c2bb59c08ac0693c032: PostgreSQL2472/2473 FAIL H3-R52, solapamiento no acreditado; unitarias171/171 y focal ampliada113/113 PASS. F01–F05 CLOSED; F06/F07/F08 cierre global pendiente; F09 OPEN. Expected intacto. Sin publicación. Hosted/Production no acreditados.
 
 **TSK-H5-007/008 COMPLETED exclusivamente local/aislado — 2026-10-08.** SHA definitivamente probado `5e3add4b2c82fc5b0e459b43ea0685393c495840`. Expected independiente publicado antes de producto en `ae7f3b02745f3011bf3b324f2a5b3420f22a0a79`,26.621 bytes/SHA256 `39eb753f8a2fc57a33d827a7980640256fd16d96ec7f2b70a27bf49a6841c40d` intactos;45 filas literales y56 casos PASS. PostgreSQL2408+54=2462/2462, unit150+4=154/154, health1/1 independiente y focal54/54. Frozen/typecheck/lint-import boundaries/build/audit producción0 vulnerabilidades/V-MIG fresh56-upgrade55 poblado-rollback-retry/advisors loopback/RLS-FORCE RLS/12 carreras reales/reinicio de procesos/idempotencia/T08-T09/finalizador HA/preservación/diff/auditor PASS. F01–F08 CLOSED con originales conservados; solo guarda histórica F01/F03 autorizada. HA/TTE/D039, M02, B07/Task/reservas/operaciones/historia reutilizados. H0–H5-006 conservados; H5 global IN PROGRESS, H5-009/010 yH6 NOT STARTED. DM-PENDING-005, BR-PENDING-035 y parámetros scheduler/retry/pause/resume/capacidad pendientes. Solo sintéticos/contactos simulados; sin exactly-once externo, conectores, scheduler real, IA/PLAUD/audio/envíos/Hosted/Production. Cierre documental posterior al SHA probado; publicación mediante push normal condicionada a revalidación final. **STOP definitivo tras007/008; no preparar tareas posteriores.**

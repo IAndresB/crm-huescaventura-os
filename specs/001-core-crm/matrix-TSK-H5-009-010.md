@@ -1,5 +1,45 @@
 # Matriz H5-009/010 — inventario y ejecución local
 
+## Cierre local vigente y atribución
+
+**TSK-H5-009/010 COMPLETED exclusivamente local/aislado — cierre documental local, 2026-10-13.** SHA realmente probado `0d969541e119374561a6cd7d38e97faaed25add4`. PostgreSQL 2473/2473, focal ampliada 332/332, temporal C12/H4-014 110/110, unitarias 171/171 y health 1/1 PASS. F01–F09 CLOSED local/aislado, incluidos los cierres globales pendientes F06–F08. Expected intacto: 24.417 bytes, 26 casos y 51 filas normativas. Sin publicación. Hosted/Production no acreditados.
+
+H5 global continúa IN PROGRESS. STOP tras H5-009/010. H5-011/012 y H6 permanecen NOT STARTED; no se preparan conectores reales.
+
+Los dos logs originales siguen ORIGINAL NO RECUPERADO, con sustitución documental autorizada; las 69 diferencias históricas de hashes de tablas y R67/R030 permanecen como antecedentes independientes. Los resultados anteriores conservan su SHA y sus FAIL.
+
+
+Huella de las 438 entradas del candidato: `584a276c5e0e261fe2118403c78a4a46d20c20c931613a919f5805d3ecae940a`. Los 21 recibos se verificaron contra ese SHA. Una sola regresión PostgreSQL completa; no se trasladan resultados de otros commits. El archivo [closure-originals.tar.gz](../../tests/fixtures/h5-009/f09/c12-20261013/closure-originals.tar.gz) conserva los siete documentos previos byte a byte y el expediente `candidate-validation/` completo, con su inventario independiente SHA-256 `79f7669c638bc01a07fa2b5928b5c4a121d1f7f5e00896077999131a01b37dfe`. El [certificado](../../tests/fixtures/h5-009/f09/c12-20261013/closure.json) vincula las siete transiciones exactas; el [inventario separado](../../tests/fixtures/h5-009/f09/c12-20261013/closure-inventory.json) sella las nuevas rutas sin modificar el inventario C12 congelado.
+
+| Control sobre el candidato probado | Resultado | Evidencia |
+|---|---|---|
+| PostgreSQL completa | 2473/2473 PASS | [Recibo](../../tests/fixtures/h5-009/f09/c12-20261013/gates/postgres.status.json), [log](../../tests/fixtures/h5-009/f09/c12-20261013/gates/postgres.log.gz) |
+| Focales H4/H5, H3-006/R52 y consumidores C12 | 332/332 PASS | [Recibo](../../tests/fixtures/h5-009/f09/c12-20261013/gates/focal.status.json) |
+| Temporal C12 y H4-014 | 110/110 PASS | Archivo: candidate-validation/gates/c12-temporal/ |
+| Unitarias / health | 171/171 y 1/1 PASS | [Unit](../../tests/fixtures/h5-009/f09/c12-20261013/gates/unit.status.json), [health](../../tests/fixtures/h5-009/f09/c12-20261013/gates/health.status.json) |
+| Protocolo / preservación / F05 | 36/29/18 resultados esperados | Archivo: protocol-counterproofs/, classification-counterproofs.json, f05-index-isolated/ |
+| Transiciones F07/F09 / C12 / F01 / wrapper | 40/15/12/14 resultados esperados | Archivo: recibos y contrapruebas de candidate-validation/ |
+| Frozen, typecheck, lint, build, auditoría de dependencias | PASS; cero vulnerabilidades conocidas | [Gates](../../tests/fixtures/h5-009/f09/c12-20261013/closure-inventory.json) |
+| V-MIG fresh, upgrade poblado, rollback/retry; advisors loopback | PASS | Focal y archivo: candidate-validation/gates/advisors/ |
+| F10/F12, preservación H5-008 y auditor final | PASS | Archivo: candidate-validation/gates/final/ |
+
+Las 26 filas de casos y 51 referencias normativas conservan el expected original. Las matrices y observaciones previas que siguen más abajo son antecedentes; esta sección aporta la ejecución vigente de la implementación y de todas sus verificaciones aplicables.
+
+## Preservación y límites que permanecen
+
+- Expected: 24.417 bytes, SHA-256 `b9f5beaa45c3d4a08f101694115724a6569a43fd590e965f28f9a1ab79c5e639`, intacto.
+- F01, F02, F16, los manifiestos y los snapshots originales permanecen intactos. Los cuatro artefactos regenerados fueron capturados y restaurados; cero diferencias residuales.
+- El inventario C12 conserva `847ef52f945eb5eedf66f3ee58a07ccaf43967a40267b1d0097d58532e3c2ce9`. El expediente F16 y sus sellos no cambian.
+- Comparador F16 intacto: `fd85642e0df6fd387781d813d0b0e2469efc5adb6ac95881b87430a82f80baf0`. Focal y regresión nueva pasan; solo los dos OID autorizados pueden variar. Las 69 diferencias de tablas permanecen identificadas separadamente, con C16 de preservación dentro de cada ejecución; no se afirma igualdad fila a fila entre bases históricas independientes.
+- `build.log`: ORIGINAL NO RECUPERADO, 545 bytes, SHA-256 histórico `063f7ffad5445d9b2a45a17aceb16a01a6dfbbe70032787c0fdd02ea690fd0fa`.
+- `health-independent.log`: ORIGINAL NO RECUPERADO, 202 bytes, SHA-256 histórico `2794076bee6b763f2a15c62a692735addf3e6b08e4fa296266b92953489f6f30`.
+- Se mantiene la sustitución documental autorizada y las salidas sobrescritas conservadas. Los nuevos PASS no recuperan los originales.
+- R67/R030 permanece como anomalía histórica independiente, de causa no demostrada, sin reaparición en esta regresión. No se atribuye su resolución al correctivo R52.
+- F05 conserva stdout/stderr y 18 salidas individuales en el archivo; su recibo de cierre identifica el resumen JSON como derivado de la ejecución anidada, sin presentarlo como stdout nuevo.
+- Este cierre es local y está pendiente de revisión del sello, commit documental y autorización separada de publicación.
+
+## Antecedentes íntegros — resultados atribuidos a sus SHAs originales
+
 **Estado vigente: IN PROGRESS / STOP por F09; sin PASS global ni publicación.** Candidato `8c1109426a8e85effeda6c2bb59c08ac0693c032`: unitarias171/171 y focal ampliada113/113 PASS; PostgreSQL2472/2473 FAIL en H3-R52 por solapamiento no acreditado. F01–F05 CLOSED; F06/F07/F08 controles locales PASS, cierre global pendiente; F09 OPEN. Expected intacto,26 casos/51 normas. Hosted/Production no acreditados.
 
 ## Expected congelado y recuentos
