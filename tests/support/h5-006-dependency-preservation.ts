@@ -12,6 +12,26 @@ export const f10DependencyHashes:Readonly<Record<string,Readonly<{historical:str
  'pnpm-lock.yaml':{historical:'1380c6afde70f15ca12514a9989dd314b462de9cd4e87cfb92274e943083fcdf',current:'a97d77d529c30b46f5f6cd100d0ab8e2b8e2393e1365cdd0caad563e29044a15'}
 };
 const digest=(bytes:Uint8Array)=>createHash('sha256').update(bytes).digest('hex');
+// C12: one authorized fixture transition; the shared guard itself is verified
+// independently by the auditor against an externally supplied trust-record seal.
+export const c12Transition=Object.freeze({"path":"tests/support/h4-cancellation-fixtures.ts","historicalSha256":"1c3e91375632a520893f4a92d2ffd969ff17a2012776a9e7a1abdc3e51c6ec03","correctedSha256":"dd2b851e5d2888f60f249af0bc3f9000edc160d88da58ffcd200bc2deb6ee15a","reason":"H4-014 C12 explicit synthetic evidence chronology","scope":"H5-009/010 local/isolated"});
+function assertC12Transition(path:string,current:Uint8Array,historicalHash:string,root:string):boolean {
+ if(path!==c12Transition.path)return false;
+ assert.equal(historicalHash,c12Transition.historicalSha256,path+': frozen C12 historical hash');
+ const metadata=lstatSync(resolve(root,path));assert.ok(metadata.isFile()&&!metadata.isSymbolicLink(),path+': C12 regular file');
+ assert.equal(metadata.mode&0o777,0o644,path+': C12 exact permissions');
+ assert.equal(digest(execFileSync('git',['show','eda8b0becb3daa2dff1baa02be53cec914750f13:'+path],{cwd:root})),c12Transition.historicalSha256,path+': Git C12 baseline');
+ const hash=digest(current);assert.equal(digest(readFileSync(resolve(root,path))),hash,path+': C12 on-disk bytes');
+ assert.ok(hash===c12Transition.historicalSha256||hash===c12Transition.correctedSha256,path+': unauthorized C12 third version');
+ if(hash===c12Transition.correctedSha256){
+  const expected=readFileSync(resolve(root,'specs/001-core-crm/expected-TSK-H5-009-010.md'));
+  assert.equal(expected.length,24417);assert.equal(digest(expected),'b9f5beaa45c3d4a08f101694115724a6569a43fd590e965f28f9a1ab79c5e639',path+': C12 isolated context');
+  const record=resolve(root,'tests/fixtures/h5-009/f09/c12-20261013/c12-transition.json'),stat=lstatSync(record);
+  assert.ok(stat.isFile()&&!stat.isSymbolicLink());assert.equal(stat.mode&0o777,0o644);
+  assert.deepEqual(JSON.parse(readFileSync(record,'utf8')),c12Transition,path+': exact C12 authorization record');
+ }
+ return true;
+}
 // F09: one exact R52 verifier transition, scoped to H5-009/010 local/isolated.
 export const f09R52Transition=Object.freeze({
  path:'tests/integration/postgres-h3-006.test.ts',
@@ -74,6 +94,7 @@ function assertF07Transition(path:string,current:Uint8Array,historicalHash:strin
 }
 
 export function assertHistoricalBytes(path:string,current:Uint8Array,historical:Uint8Array):void {
+ if(assertC12Transition(path,current,digest(historical),'.'))return;
  if(assertF09R52Transition(path,current,digest(historical),'.'))return;
  if(assertF07Transition(path,current,digest(historical),'.'))return;
  const exception=Object.hasOwn(f10DependencyHashes,path)?f10DependencyHashes[path]:undefined;
@@ -123,6 +144,7 @@ export const f12ManifestHashes:Readonly<Record<string,string>>={
 };
 
 export function assertHistoricalHash(path:string,current:Uint8Array,historicalHash:string,root:string='.'):void {
+ if(assertC12Transition(path,current,historicalHash,root))return;
  if(assertF09R52Transition(path,current,historicalHash,root))return;
  if(assertF07Transition(path,current,historicalHash,root))return;
  const transition=Object.hasOwn(f10DependencyHashes,path)?f10DependencyHashes[path]:
