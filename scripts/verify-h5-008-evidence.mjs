@@ -15,6 +15,26 @@ const c12Before={"tests/support/h4-cancellation-fixtures.ts":"1c3e91375632a52089
 const sha256=b=>createHash('sha256').update(b).digest('hex');
 // F16 publication preparation: exact supplemental files and one independently
 // sealed auditor transition. C12 records and their original executions stay frozen.
+// Closure protocol successor: the historical C12 inventory and F16 package stay
+// immutable. This transition is checked by an independent launcher and external seal.
+const closureProtocolRoot='tests/fixtures/h5-009/f09/closure-protocol-20261013/';
+const closureProtocolBase='a39c6062f9738441f8627f4ae88005846ac9ab9a';
+const closureProtocolNames=['authorization.json','verify.py','counterproofs.py','README.md'];
+let closureProtocol=null;
+if(existsSync(closureProtocolRoot)){
+ const regular=path=>{const s=lstatSync(path);assert.ok(s.isFile()&&!s.isSymbolicLink(),'closure protocol regular file: '+path);assert.equal(s.mode&0o777,0o644,'closure protocol permissions: '+path);return readFileSync(path);};
+ const raw=regular(closureProtocolRoot+'trust.json');assert.match(process.env.F09_PROTOCOL_SHA256??'',/^[a-f0-9]{64}$/,'closure protocol external seal required');assert.equal(sha256(raw),process.env.F09_PROTOCOL_SHA256,'closure protocol external seal');
+ const proof=JSON.parse(raw);assert.equal(proof.scope,'H5-009/010 local/isolated');assert.equal(proof.decision,'AUTHORIZED SEPARATE CLOSURE INVENTORY');assert.equal(proof.baseCommit,closureProtocolBase);
+ assert.equal(proof.auditor.path,'scripts/verify-h5-008-evidence.mjs');assert.equal(proof.auditor.beforeSha256,'15278ae39c423e47645c5fd312b03580632254c433801e23ad4c8e1b04704387');
+ const original=execFileSync('git',['show',closureProtocolBase+':'+proof.auditor.path]);assert.equal(sha256(original),proof.auditor.beforeSha256,'closure protocol Git predecessor');
+ const actual=regular(proof.auditor.path);assert.equal(actual.length,proof.auditor.bytes);assert.equal(sha256(actual),proof.auditor.sha256,'externally sealed closure auditor');
+ assert.deepEqual(proof.entries.map(e=>e.path).sort(),closureProtocolNames.map(n=>closureProtocolRoot+n).sort(),'closure protocol literal paths');
+ for(const entry of proof.entries){assert.equal(entry.type,'regular');assert.equal(entry.mode,'0644');assert.ok(entry.provenance?.length&&entry.purpose?.length);const bytes=regular(entry.path);assert.equal(bytes.length,entry.bytes);assert.equal(sha256(bytes),entry.sha256,'closure protocol sealed file: '+entry.path);}
+ const authorization=JSON.parse(regular(closureProtocolRoot+'authorization.json'));assert.equal(authorization.decision,proof.decision);assert.equal(authorization.scope,proof.scope);assert.equal(authorization.baseCommit,closureProtocolBase);
+ // Keep every byte of the two existing dossiers, including their original seals.
+ for(const path of git('ls-tree','-r','--name-only',closureProtocolBase,'--',c12Root,'tests/fixtures/h5-009/f09/f16-20261013/').split('\n').filter(Boolean))assert.deepEqual(regular(path),execFileSync('git',['show',closureProtocolBase+':'+path],{maxBuffer:32*1024*1024}),'frozen predecessor dossier: '+path);
+ closureProtocol={proof,original,paths:new Set([...proof.entries.map(e=>e.path),closureProtocolRoot+'trust.json'])};
+}
 const f16Root='tests/fixtures/h5-009/f09/f16-20261013/';
 const f16Names=['authorization.json','auditor-before.mjs.gz','verification-evidence.tar.gz','package-receipt.json','verify.py','README.md'];
 const f16OptionalNames=['portability-evidence.tar.gz'];
@@ -26,7 +46,7 @@ if(existsSync(f16Root)){
  assert.equal(proof.baseCommit,'eda8b0becb3daa2dff1baa02be53cec914750f13');assert.equal(proof.priorCandidateInputSha256,'e55e6b06fefcf3591eee71b02f96e5d2cafebbae8579fcbac93fce75908ed2c9');
  assert.equal(proof.c12TrustSha256,'eff6a0afc814707138913bdd3a2270e7458f5029d9569ce42d2b46bbe45f80f0');assert.equal(sha256(regular(c12Root+'trust.json')),proof.c12TrustSha256);
  assert.equal(proof.auditor.path,'scripts/verify-h5-008-evidence.mjs');assert.equal(proof.auditor.beforeSha256,'6a744a03d5aa8598c4a3c5f7fdd90e5fa6c634012513f225341ca86f350b3afa');
- const actual=regular(proof.auditor.path);assert.equal(actual.length,proof.auditor.bytes);assert.equal(sha256(actual),proof.auditor.sha256,'F16 externally sealed auditor');
+ const actual=closureProtocol?closureProtocol.original:regular(proof.auditor.path);assert.equal(actual.length,proof.auditor.bytes);assert.equal(sha256(actual),proof.auditor.sha256,'F16 externally sealed auditor');
  const paths=new Set();
  for(const e of proof.entries){
   assert.ok([...f16Names,...f16OptionalNames].some(n=>e.path===f16Root+n)&&!paths.has(e.path),'F16 literal unique path: '+e.path);paths.add(e.path);
@@ -115,14 +135,26 @@ function preservedBytes(path){
 }
 
 const closurePaths=new Set(["docs/NEXT-STEPS.md", "docs/PROJECT-STATUS.md", "specs/001-core-crm/tasks.md", "specs/001-core-crm/evidence-TSK-H5-009-010.md", "specs/001-core-crm/matrix-TSK-H5-009-010.md", "specs/001-core-crm/defects-TSK-H5-009.md", "tests/fixtures/h5-009/verification.json"]);
+const closureInventoryPath=c12Root+'closure-inventory.json';
+const closureGateNames=['frozen','typecheck','lint','unit','build','audit','focal','postgres','health','historical','historical-negative','f01','f05','diff'];
+const closureEvidencePaths=[c12Root+'closure.json',c12Root+'closure-originals.tar.gz',...closureGateNames.flatMap(n=>[c12Root+'gates/'+n+'.status.json',c12Root+'gates/'+n+'.log.gz'])];
+let checkedClosureInventory=null;
+function verifyClosureInventory(){
+ if(checkedClosureInventory)return checkedClosureInventory;
+ if(!existsSync(closureInventoryPath)){assert.ok(!existsSync(c12Root+'closure.json'),'closure requires separate inventory');return null;}
+ assert.ok(closureProtocol,'closure requires independently trusted successor');
+ const regular=path=>{const s=lstatSync(path);assert.ok(s.isFile()&&!s.isSymbolicLink(),'closure evidence regular file: '+path);assert.equal(s.mode&0o777,0o644,'closure evidence permissions: '+path);return readFileSync(path);};
+ const raw=regular(closureInventoryPath);assert.match(process.env.F09_CLOSURE_INVENTORY_SHA256??'',/^[a-f0-9]{64}$/,'closure inventory external seal required');assert.equal(sha256(raw),process.env.F09_CLOSURE_INVENTORY_SHA256,'closure inventory independent seal');
+ const inventory=JSON.parse(raw);assert.equal(inventory.scope,'H5-009/010 local/isolated');assert.deepEqual(inventory.entries.map(e=>e.path).sort(),[...closureEvidencePaths].sort(),'closure exact literal evidence set');
+ for(const e of inventory.entries){assert.equal(e.type,'regular');assert.equal(e.mode,'0644');assert.ok(e.provenance?.length&&e.purpose?.length,'closure evidence provenance');const b=regular(e.path);assert.equal(b.length,e.bytes);assert.equal(sha256(b),e.sha256,'closure evidence hash: '+e.path);}
+ checkedClosureInventory=inventory;return inventory;
+}
 let checkedClosure=null;
 function verifyClosureCertificate(){
  if(checkedClosure)return checkedClosure;
  const path=recoveryRoot+'closure.json';if(!existsSync(path))return null;
- const inventoryPath=process.env.F09_INVENTORY_PATH;
- assert.equal(inventoryPath,recoveryRoot+'final-inventory.json','closure requires final sealed inventory');
- const inventoryRaw=readFileSync(inventoryPath);assert.equal(createHash('sha256').update(inventoryRaw).digest('hex'),process.env.F09_INVENTORY_SHA256,'closure inventory independent seal');
- const inventory=JSON.parse(inventoryRaw),row=inventory.entries.find(x=>x.path===path);assert.ok(row,'registered closure certificate');
+ const inventory=verifyClosureInventory();assert.ok(inventory,'closure requires separate sealed inventory');
+ const row=inventory.entries.find(x=>x.path===path);assert.ok(row,'registered closure certificate');
  const raw=readFileSync(path),metadata=lstatSync(path);assert.ok(metadata.isFile()&&!metadata.isSymbolicLink());assert.equal(metadata.mode&0o777,0o644);
  assert.equal(raw.length,row.bytes);assert.equal(createHash('sha256').update(raw).digest('hex'),row.sha256,'closure certificate hash');
  const proof=JSON.parse(raw);assert.equal(proof.status,'PASS');assert.equal(proof.scope,'H5-009/010 local/isolated');
@@ -299,6 +331,8 @@ function verifyPublishedClosure(){
  const preexisting=verifyPendingSnapshot();
  const supplements=verifyDocumentaryRecovery();
  if(f16Trust)for(const path of f16Trust.paths)supplements.add(path);
+ if(closureProtocol)for(const path of closureProtocol.paths)supplements.add(path);
+ if(verifyClosureInventory()){assert.ok(verifyClosureCertificate(),'no orphan closure evidence');for(const path of [closureInventoryPath,...closureEvidencePaths])supplements.add(path);}
  const current=git('ls-files','--cached','--others','--exclude-standard','-z').split('\0').filter(Boolean);
  for(const path of current){
   assert.ok(historical.has(path)||allowed.has(path)||preexisting.has(path)||supplements.has(path),'unlisted posterior path: '+path);
