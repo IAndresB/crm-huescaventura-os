@@ -1,5 +1,28 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
+**Prepublicación H5-013/H5-014 — READY TO PUBLISH, 2026-10-16; exclusivamente local/aislado.** Aceptación técnica humana del candidato corregido, condicionada a esta verificación final: 434 inputs idénticos al candidato auditado, preservación y formato PASS. La aceptación no equivale a publicación: no se ha ejecutado commit, push ni despliegue. H5-014 COMPLETED local/aislado; H5-013 mantiene pendiente su publicación controlada. H5 global IN PROGRESS; H5-015+ no iniciadas.
+
+[Informe de prepublicación e inventario exacto](../specs/001-core-crm/prepublication-TSK-H5-013-014.md). STOP tras entregar el dictamen; cualquier publicación requiere instrucción posterior.
+
+## Antecedente de auditoría H5-014 — conservado
+
+**TSK-H5-014 — auditoría independiente COMPLETED local/aislado, 2026-10-16.** Candidato original FAIL por F01 (suficiencia ante datos incompletos) y F02 (inventario autorreferente); correctivo mínimo y evidencias sucesoras PASS. 50/50 contrapruebas nuevas, PostgreSQL2678 casos consolidados PASS (completo2675/2678 +retest de los dos archivos con tres fallos de entorno; 2600 previos +28 H5-013 +50 H5-014), unitarias197/197 y health1/1 separado. V-DOM/V-DAT/V-MIG/V-EVI, typecheck/lint/build, permisos, concurrencia, rollback y preservación PASS. Originales y expected conservados.
+
+H5-013 sigue pendiente de aceptación humana/publicación; se recomienda aceptar exclusivamente el candidato corregido. H5 global IN PROGRESS. H5-015+ no iniciadas; DM-PENDING-005 y pendientes globales conservados. Sin commit/push/despliegue, Hosted/Production ni datos reales. STOP tras dictamen y evidencias.
+
+[Informe independiente](../specs/001-core-crm/evidence-TSK-H5-014.md), [matriz por caso/fila](../specs/001-core-crm/matrix-TSK-H5-014.md), [defectos y originales](../specs/001-core-crm/defects-TSK-H5-014.md).
+
+## Antecedente de implementación H5-013 — conservado
+
+**TSK-H5-013 — candidato técnico local/aislado, pendiente de aceptación y publicación — 2026-10-15.** Tres evaluaciones dentro de Booking, con fundamentos actuales, criterios/justificaciones, actor/momento e historia. PostgreSQL2628/2628 y focal final28/28; unitarias197/197 y health1/1 separado. V-MIG62, permisos/concurrencia/atomicidad, typecheck/lint/build/audit PASS. Sin cambio de producto entre regresión y refuerzo final de los dos verificadores nuevos; hashes y recibos diferenciados en la evidencia. No se atribuye la ejecución al SHA base solo.
+
+H5-013 permanece IN PROGRESS; no aceptada ni publicada. H5 global IN PROGRESS; H5-014 NOT RUN y H5-015+ no iniciadas. Sin commit/push/despliegue, Hosted/Production ni datos reales. DM-PENDING-005 y pendientes globales conservados. No se reutiliza ninguna excepción de formato anterior. STOP tras entregar el candidato; se recomienda comprobación independiente H5-014 bajo la autorización correspondiente.
+
+[Evidencia y candidato exacto](../specs/001-core-crm/evidence-TSK-H5-013.md), [matriz](../specs/001-core-crm/matrix-TSK-H5-013.md), [defectos](../specs/001-core-crm/defects-TSK-H5-013.md).
+
+## Antecedentes anteriores a la entrega H5-013 — conservados
+
+
 **TSK-H5-012 COMPLETED exclusivamente local/aislado — 2026-10-15.** Cierre autorizado tras verificación independiente del candidato61: 41/41 casos, 34 filas (28 propias y seis límites locales), focales 57/57, PostgreSQL 2600/2600, unitarias 197/197 y health 1/1. F01/F02/F03 CLOSED local/aislado; C03/C05/C06 acreditados. Los 428 archivos fuente coinciden con el producto probado; el cierre solo añade documentación. Expected congelado y evidencias originales intactos.
 
 El control completo `git diff --cached --check` devuelve **exit 2; NO PASS**. Se aplica únicamente la excepción humana expresa para los 27 avisos inventariados en 17 evidencias originales, sin cambiar sus bytes ni debilitar el control. Se exige cero avisos adicionales.

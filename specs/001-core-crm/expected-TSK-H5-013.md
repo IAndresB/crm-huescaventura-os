@@ -1,0 +1,53 @@
+# TSK-H5-013 — Oráculo local previo a implementación
+
+Estado: criterios derivados de fuentes APPROVED; no constituye aceptación ni H5-014. Base b8f4fc9db033de54bcdc01c5f7554647d02f11aa. Sin commit por instrucción humana.
+
+Fuentes: SPEC CLOSE001/002, AC058/059/060, DM11.6, SM15, BR-CLOSE001/002, Plan7.1–7.3/9 y filas literales Tasks6 siguientes. Cierre conjunto y transiciones SM-CL03/04/05 reservados a H5-015.
+
+Cada evaluación solicita una dimensión con manifiesto explícito de criterios y evidencia humana vinculada al comando. Los hechos vigentes canónicos determinan bloqueos; ninguna afirmación del solicitante puede ignorar una obligación existente. Condiciones finales y dependencias documentales por expediente requieren clasificación explícita con evidencia, conforme a P05/G5/C06. No se infieren dependencias de palabras en texto libre. Una ausencia material impide resolver lo dependiente. No aplica es por criterio, con justificación, nunca un tercer estado de dimensión. Lecturas distinguen evaluación histórica y aplicabilidad vigente sin persistir reaperturas H5-015.
+
+## Filas normativas literales
+
+| **SPEC-FR-CLOSE-001** — [spec.md](spec.md), § 10.10. Cierres | [TSK-H5-013] | [TSK-H5-014] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |
+| **SPEC-FR-CLOSE-002** — [spec.md](spec.md), § 10.10. Cierres | [TSK-H5-013] | [TSK-H5-014], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |
+| **AC-058** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-013], [TSK-H4-022] | [TSK-H5-014] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA.  **Evidencia local H4-023 EJECUTADA:** [matriz28](matrix-TSK-H4-023.md), SHA `f99de8bad495c86021e91730bb69af81f69e44ec`; alcance asignado local, AC-058/H5-014 y E2E-01/H6-001 integrales futuros conservados. |
+| **AC-059** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-013], [TSK-H5-015] | [TSK-H5-014], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |
+| **AC-060** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H4-003], [TSK-H5-013], [TSK-H5-015] | [TSK-H4-004], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |
+| **DM-INV-041** — [domain-model.md](../../docs/domain-model.md), § 14. Invariants — Invariantes del dominio | [TSK-H5-013], [TSK-H5-015] | [TSK-H5-014], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |
+| **SM-CL-01** — [state-machines.md](../../docs/state-machines.md), § 15. Closures — Tres evaluaciones independientes | [TSK-H5-013] | [TSK-H5-014] | V-SM positivo: SM-CL-01 · Sin evaluación; evento «Abrir evaluación de una dimensión» → Pendiente en esa dimensión. Efectos exigidos: Registrar qué falta; no convertir otra dimensión en pendiente/resuelta sin evaluación.. Negativo: retirar/incumplir cada guarda material «Expediente y criterios aplicables identificados», además de G1–G6 pertinentes; aplicar rechazo/pendiente y conservación según §2.2. |
+| **SM-CL-02** — [state-machines.md](../../docs/state-machines.md), § 15. Closures — Tres evaluaciones independientes | [TSK-H5-013] | [TSK-H5-014] | V-SM positivo: SM-CL-02 · Pendiente; evento «Revisar suficiencia» → Resuelto en esa dimensión. Efectos exigidos: Conservar fundamento, actor y momento; otras dimensiones siguen independientes.. Negativo: retirar/incumplir cada guarda material «Todas las guardas de esa dimensión satisfechas con evidencia actual y excepciones solo donde aprobadas», además de G1–G6 pertinentes; aplicar rechazo/pendiente y conservación según §2.2. |
+| **SM-FORB-23** — [state-machines.md](../../docs/state-machines.md), § 17. Forbidden transitions — Transiciones prohibidas | [TSK-H5-013], [TSK-H5-015], [TSK-H1-003] | [TSK-H5-014], [TSK-H5-016], [TSK-H1-004] | V-NEG: intentar «Finalizada → Cerrada / Histórico sin tres cierres; archivar → cierre completo»; impedir la transición/inferencia y conservar hechos/historia. V-NEG: AC-058, AC-059, AC-062. Intentar inferencia/transición prohibida de SM §17; debe rechazarse sin efecto indebido. |
+| **P08** — [constitution.md](../../docs/constitution.md), § P08. Separación de estados comerciales y operativos | [TSK-H2-001], [TSK-H2-009], [TSK-H4-020], [TSK-H4-022], [TSK-H5-013] | [TSK-H2-002], [TSK-H2-010], [TSK-H4-021], [TSK-H4-023], [TSK-H5-014] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI; observado local H4-021 registrado a continuación, restantes tareas conservan su estado. Evidencia local H4-021 EJECUTADA: [matriz69/23](matrix-TSK-H4-021.md); solo el tramo asignado y probado, restantes tareas/recorridos futuros conservados.  **Evidencia local H4-023 EJECUTADA:** [matriz28](matrix-TSK-H4-023.md), SHA `f99de8bad495c86021e91730bb69af81f69e44ec`; alcance asignado local, AC-058/H5-014 y E2E-01/H6-001 integrales futuros conservados. |
+| **PLAN-B06** — [plan.md](plan.md), § 4. Bloques, componentes y responsabilidades | [TSK-H4-011], [TSK-H4-013], [TSK-H5-013], [TSK-H5-015] | [TSK-H4-012], [TSK-H4-014], [TSK-H5-014], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |
+| **PLAN-C06** — [plan.md](plan.md), § 7.1. Contrato común de aplicación | [TSK-H1-017], [TSK-H4-001], [TSK-H4-011], [TSK-H3-005], [TSK-H4-020], [TSK-H5-013], [TSK-H5-015] | [TSK-H1-018], [TSK-H4-002], [TSK-H4-012], [TSK-H3-006], [TSK-H4-021], [TSK-H5-014], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI; observado local H4-021 registrado a continuación, restantes tareas conservan su estado. Evidencia local H4-021 EJECUTADA: [matriz69/23](matrix-TSK-H4-021.md); solo el tramo asignado y probado, restantes tareas/recorridos futuros conservados. |
+| **PLAN-T10** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H5-013], [TSK-H5-015] | [TSK-H5-014], [TSK-H5-016], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |
+| **PT-10** — [plan.md](plan.md), § 10.2. Familias de pruebas y los 92 criterios | [TSK-H5-013], [TSK-H5-015] | [TSK-H5-014], [TSK-H5-016], [TSK-H6-007] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |
+| **E2E-01** — [spec.md](spec.md), § 9. Core End-to-End Scenarios | [TSK-H1-001], [TSK-H2-001], [TSK-H2-003], [TSK-H2-007], [TSK-H2-009], [TSK-H4-020], [TSK-H4-022], [TSK-H5-013], [TSK-H5-015] | [TSK-H6-001] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA.  **Evidencia local H4-023 EJECUTADA:** [matriz28](matrix-TSK-H4-023.md), SHA `f99de8bad495c86021e91730bb69af81f69e44ec`; alcance asignado local, AC-058/H5-014 y E2E-01/H6-001 integrales futuros conservados. |
+| **E2E-07** — [spec.md](spec.md), § 9. Core End-to-End Scenarios | [TSK-H1-013], [TSK-H4-003], [TSK-H5-013], [TSK-H5-015] | [TSK-H6-007] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |
+| **G5** — [state-machines.md](../../docs/state-machines.md), § 2.1. Semántica de la transición | [TSK-H4-020], [TSK-H5-013], [TSK-H5-015] | [TSK-H4-021], [TSK-H5-014], [TSK-H5-016], [TSK-H6-007] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI; observado local H4-021 registrado a continuación, restantes tareas conservan su estado. Evidencia local H4-021 EJECUTADA: [matriz69/23](matrix-TSK-H4-021.md); solo el tramo asignado y probado, restantes tareas/recorridos futuros conservados. |
+| **D012** — [DECISIONS.md](../../docs/DECISIONS.md), § D012 — Operación por servicio y cierres independientes | [TSK-H4-009], [TSK-H4-022], [TSK-H5-013], [TSK-H5-015] | [TSK-H4-010], [TSK-H4-023], [TSK-H5-014], [TSK-H5-016] | Operación por servicio y cierres independientes.  **Evidencia local H4-023 EJECUTADA:** [matriz28](matrix-TSK-H4-023.md), SHA `f99de8bad495c86021e91730bb69af81f69e44ec`; alcance asignado local, AC-058/H5-014 y E2E-01/H6-001 integrales futuros conservados. |
+
+## Casos esperados
+
+P01 Abrir solo comercial registra Pendiente; otras dimensiones sin evaluar.
+P02 Revisar comercial con acuerdo final acreditado resuelve sin resolver operación.
+P03 Prestación completa o cancelación aplicada por alcance permite resolver operación tras evaluación explícita.
+P04 Economía resuelta exige cobertura total vigente, documentación, honorarios, Refund y fianzas aplicables.
+P05 Cada criterio opcional sin hechos exige justificación explícita No aplica; ausencia de evaluación nunca resuelve.
+N01 Ganada y Finalizada no crean evaluaciones.
+N02 Pago proveedor sin factura mantiene economía Pendiente.
+N03 Refund debido/autorizado/no ejecutado o resultado incierto mantiene economía Pendiente.
+N04 Fianza entregada/retenida parcialmente con resto pendiente mantiene economía Pendiente.
+N05 Incidencia económica abierta bloquea economía aunque exista justificación crítica.
+N06 Task/Incident cerrados no crean ni resuelven evaluaciones; obligaciones originales subsisten.
+N07 Factura corregida, movimiento/obligación/servicio/requisito cambiado exige nueva lectura y versión material; historial previo se conserva.
+N08 Raíz distinta y actor/sesión inválidos: denegación sin datos/efectos.
+N09 Replay exacto devuelve resultado histórico identificado; payload distinto E2; no añade evaluación duplicada.
+N10 Concurrencia real, ambos órdenes, raíz Booking compartida por escritores y evaluación; espera observada y lectura tras espera.
+N11 Fallos en escrituras y COMMIT revierten evaluación/historia/resultado; reintento seguro.
+N12 Migración61 a62 poblada y fresh; rollback/retry; permisos, RLS/FORCE RLS y catálogo previo preservado.
+N13 Tararí interno no exige ni genera Provider/Suplido/factura externa; coste desconocido no se oculta.
+N14 Requisitos documentales conservan alcance y dependencia material explícita por dimensión, sin bloquear dimensiones ajenas.
+N15 Crítica operativa requiere justificación canónica auditada admisible; no suple prestación ni obligaciones económicas.
+N16 H5-015 no implementada: ningún comando permite cierre conjunto o reapertura automática.
+N17 Regresiones anteriores y expected/evidencias protegidas permanecen intactos.
