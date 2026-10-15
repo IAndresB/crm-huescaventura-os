@@ -1,0 +1,28 @@
+--- candidate59
++++ candidate60
+@@ -1,4 +1,4 @@
+--- H5-012-F01: calendar nights use the existing operational view; history retains accepted nights.
++-- H5-012-F02: project existing hold/documentary revisions, retaining current state and history.
+ begin;
+ do $$begin if current_user<>'crm_h0_migration' then raise exception 'PROJECTION_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501';end if;end$$;
+ 
+@@ -107,6 +107,19 @@
+   select coalesce(jsonb_agg(jsonb_build_object('kind','b03_acceptance_history','data',to_jsonb(x)) order by x.recorded_at,x.history_id),'[]') into rows
+    from crm_private.b03_acceptance_history x join crm_private.b03_acceptance_operations o on o.operation_id=x.history_id
+    where x.admin_scope=s and o.admin_scope=s and o.proposal_id=any(props);facts:=facts||rows;
++  -- F02: identity rows do not contain the operational state. Read the existing
++  -- canonical revisions within the same authorized roots; calendar uses only
++  -- the latest revision, while timeline retains every historical revision.
++  select coalesce(jsonb_agg(jsonb_build_object('kind','b04_hold_revisions','data',to_jsonb(x)) order by x.hold_id,x.revision),'[]') into rows
++   from crm_private.b04_hold_revisions x join crm_private.b04_holds h on h.hold_id=x.hold_id
++   where x.admin_scope=s and h.admin_scope=s and h.opportunity_id=any(opps)
++    and (a->>'surface'<>'calendar' or x.revision=(select max(y.revision) from crm_private.b04_hold_revisions y where y.hold_id=x.hold_id and y.admin_scope=s));
++  facts:=facts||rows;
++  select coalesce(jsonb_agg(jsonb_build_object('kind','b07_requirement_revisions','data',to_jsonb(x)) order by x.requirement_id,x.revision),'[]') into rows
++   from crm_private.b07_requirement_revisions x join crm_private.b07_requirements h on h.requirement_id=x.requirement_id
++   where x.admin_scope=s and h.admin_scope=s and h.booking_id=any(bids)
++    and (a->>'surface'<>'calendar' or x.revision=(select max(y.revision) from crm_private.b07_requirement_revisions y where y.requirement_id=x.requirement_id and y.admin_scope=s));
++  facts:=facts||rows;
+   -- Links returned only for the explicit scope, never all contexts of a shared original.
+   select coalesce(jsonb_agg(jsonb_build_object('kind','b07_records','data',to_jsonb(x),'links',
+    (select jsonb_agg(to_jsonb(l)) from crm_private.b07_links l where l.record_id=x.record_id and l.admin_scope=s and l.context_id=any(ctx)))order by x.recorded_at,x.record_id),'[]') into originals

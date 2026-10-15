@@ -1,0 +1,45 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-OrwC7Q/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-OrwC7Q/data -l logfile start
+
+waiting for server to start.... done
+server started
+H512 F01 corrective {"accepted":"2026-10-20","current":"2026-10-23","sibling":"2026-10-21","timelineOriginalRetained":true,"historyPreserved":true,"externalMinimization":true,"directRuntimeViewDenied":true}
+✔ H5-012-F01 A-D/E: changed night23, sibling21, accepted20, unchanged history and independent Booking (2021.3575ms)
+H512 F01 V-MIG {"previousMigration":58,"correctiveMigration":59,"tablesPreserved":170,"functionsPreservedExceptTargetBody":284,"rollback":true,"retry":true,"reapplicationIdempotent":true,"dataDigest":"c31a0bb14a14cc14eb63b028812f67da10e6a094483931b7ddc03c1b6bdd7c79"}
+✔ H5-012-F01 V-MIG: populated58, transactional rollback/retry, function-only change and unchanged ACL/RLS (2090.735833ms)
+H512 authority: authorized read succeeds; unverified identity, polling, direct SELECT/DML and unsigned SQL denied
+✔ H5-012 independent A01/A07/A08/A09: ordinary runtime, invalid authority and polling (1631.543542ms)
+H512 external: 18 purpose/surface combinations; five reserved/foreign markers each; Booking unchanged
+✔ H5-012 independent S02-S07/A05: external selection precedes search and preserves independent roots (324.392458ms)
+H512 night observation {"bookingId":"485d6b3c-9701-405e-8eb8-1e8fc3502372","serviceId":"d8109671-dc23-4181-a765-a16f5d4d886f","nightId":"3e41bdfa-6dea-4822-b51b-709963fade68","acceptedDate":"2026-10-20","expectedCurrentDate":"2026-10-23","canonicalCurrent":{"date":"2026-10-23"},"operationalVersions":[{"revision":"2","date":"2026-10-23"}],"calendarNightEntries":[{"reference":"b04_current_nights:ea08de2bbe24a040111b007db37163f6841fcb59c1400fd8bad2486891d6e509","source":"crm_private.b04_current_nights","occurredAt":null,"recordedAt":null,"certainty":"verified","data":{"night_id":"3e41bdfa-6dea-4822-b51b-709963fade68","night_date":"2026-10-23","service_id":"d8109671-dc23-4181-a765-a16f5d4d886f","admin_scope":"h512-synthetic"}}],"mutationAuthority":false}
+✔ H5-012 independent C01/C02/C05/C07: calendar reconstructs a night after an approved date change (316.118125ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4632.677166
+waiting for server to shut down.... done
+server stopped

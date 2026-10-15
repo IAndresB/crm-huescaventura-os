@@ -1,5 +1,15 @@
 # Tasks — SPEC 001 Core CRM
 
+**TSK-H5-012 COMPLETED exclusivamente local/aislado — 2026-10-15.** Cierre autorizado tras verificación independiente del candidato61: 41/41 casos, 34 filas (28 propias y seis límites locales), focales 57/57, PostgreSQL 2600/2600, unitarias 197/197 y health 1/1. F01/F02/F03 CLOSED local/aislado; C03/C05/C06 acreditados. Los 428 archivos fuente coinciden con el producto probado; el cierre solo añade documentación. Expected congelado y evidencias originales intactos.
+
+El control completo `git diff --cached --check` devuelve **exit 2; NO PASS**. Se aplica únicamente la excepción humana expresa para los 27 avisos inventariados en 17 evidencias originales, sin cambiar sus bytes ni debilitar el control. Se exige cero avisos adicionales.
+
+H5 global permanece IN PROGRESS. Hosted/Production no acreditados; DM-PENDING-005 abierto. No se extiende la aceptación a tareas posteriores ni a conectores, datos reales o despliegues. H5-013 NOT STARTED. STOP tras publicar y verificar H5-012; cualquier continuación requiere autorización humana.
+
+[Cierre y límites de aceptación](closure-TSK-H5-012.md). Los estados anteriores se conservan como antecedentes de sus fechas; no sustituyen este cierre vigente.
+
+## Antecedentes documentales conservados antes del cierre H5-012
+
 **TSK-H5-007/008 COMPLETED exclusivamente local/aislado — 2026-10-08.** SHA definitivamente probado `5e3add4b2c82fc5b0e459b43ea0685393c495840`. Expected independiente publicado antes de producto en `ae7f3b02745f3011bf3b324f2a5b3420f22a0a79`,26.621 bytes/SHA256 `39eb753f8a2fc57a33d827a7980640256fd16d96ec7f2b70a27bf49a6841c40d` intactos;45 filas literales y56 casos PASS. PostgreSQL2408+54=2462/2462, unit150+4=154/154, health1/1 independiente y focal54/54. Frozen/typecheck/lint-import boundaries/build/audit producción0 vulnerabilidades/V-MIG fresh56-upgrade55 poblado-rollback-retry/advisors loopback/RLS-FORCE RLS/12 carreras reales/reinicio de procesos/idempotencia/T08-T09/finalizador HA/preservación/diff/auditor PASS. F01–F08 CLOSED con originales conservados; solo guarda histórica F01/F03 autorizada. HA/TTE/D039, M02, B07/Task/reservas/operaciones/historia reutilizados. H0–H5-006 conservados; H5 global IN PROGRESS, H5-009/010 yH6 NOT STARTED. DM-PENDING-005, BR-PENDING-035 y parámetros scheduler/retry/pause/resume/capacidad pendientes. Solo sintéticos/contactos simulados; sin exactly-once externo, conectores, scheduler real, IA/PLAUD/audio/envíos/Hosted/Production. Cierre documental posterior al SHA probado; publicación mediante push normal condicionada a revalidación final. **STOP definitivo tras007/008; no preparar tareas posteriores.**
 
 ### Antecedentes y checkpoints conservados
@@ -1986,17 +1996,17 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-012 — Verificar: Consultar timeline, calendario y salidas por finalidad
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED exclusivamente local/aislado. Evidencia: verificada; 41/41 casos y 34 filas (28 propias, seis límites locales).** Hito: H5. Tipo: comprobación.
 - **Objetivo y alcance:** Proyecciones reconstruibles con permisos de originales y alcance, sin caché compartida de expedientes/sesiones.
 - **Fuentes exactas:** Plan §§6.5, 8, 11.2; SPEC-FR-HIST-006, SPEC-FR-COORD-008, SPEC-FR-SEC-003, SPEC-FR-SEC-006, SPEC-FR-INT-005, AC-062, AC-065, AC-075, AC-076, D020. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-012.
 - **Bloques, contratos y unidades:** B01/B07/B09; C01/C06; —.
 - **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H4-024], [TSK-H5-011]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H4 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-005: ninguna retención/plazo o divulgación no autorizados. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-011; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
+- **Bloqueo localizado / condición para levantarlo:** DM-PENDING-005: ninguna retención/plazo o divulgación no autorizados. El detalle de evidencia/decisión y puerta está en §7; permanece fuera de la aceptación local/aislada.
+- **Acción verificada localmente:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-011; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Consultas reproducibles y aisladas por finalidad; archivos/objetos/historia no filtran por vínculos compartidos. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Tercero no recibe costes/márgenes/beneficios/comisiones/honorarios ni personales innecesarios; pack comercial respeta BR-PACK-003. Timeline conserva referencias y permisos; proyección atrasada no autoriza mutación; evento Google no cambia Booking por sí. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: observado y resultado por caso en [matriz del candidato61](matrix-TSK-H5-012-candidate61.md); aceptación y excepción de formato en [cierre H5-012](closure-TSK-H5-012.md).
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h5-013"></a>

@@ -1,0 +1,47 @@
+// F03: original audit assertion retained, strengthened against the corrected candidate.
+// C01/C02/H08: current calendar must distinguish an approved night cancellation.
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {isolatedBoundaries,read,write} from '../support/h5-boundary-isolated.ts';
+import {quantityFixture} from '../support/h2-quantities-fixtures.ts';
+import {invoiceFixture} from '../support/h3-invoice-fixtures.ts';
+import {confirmationFixture} from '../support/h4-confirmation-fixtures.ts';
+import {modificationFixture} from '../support/h4-modification-fixtures.ts';
+import {H5011ProjectionAdapter} from '../../src/infrastructure/postgres/h5-projection-adapter.ts';
+
+test('H5-012 independent audit: approved night cancellation remains distinguishable in current calendar',async()=>{
+ const h=await isolatedBoundaries('h512f03',59455);
+ try{
+  for(const name of ['20261014003559_h5_authorized_projections.sql','20261015172843_h5_calendar_current_nights.sql','20261015180420_h5_projection_canonical_revisions.sql','20261015190418_h5_calendar_night_operational_state.sql'])await h.migration.unsafe(await readFile('supabase/migrations/'+name,'utf8'));
+  const fallback=await invoiceFixture(h),n=await quantityFixture(h);await h.booking.apply(await h.auth(),write,n.q);
+  const shared={...fallback,bookingId:n.q.bookingId,b:{...fallback.b,q:n.q,detail:n.detail}},f=await confirmationFixture(h,shared,2),m=await modificationFixture(h,f);
+  const service=n.detail.services[2]!,night=service.nights[0]!,sibling=service.nights[1]!;
+  const reader=new H5011ProjectionAdapter(h.runtime,h.f1,h.f2);
+  const query={contextKind:'booking' as const,contextId:n.q.bookingId,surface:'calendar' as const,destination:'administrator' as const};
+  const before=await reader.read(await h.auth(),read,query);
+  await m.run(await m.request([{id:m.partId,scope:{kind:'night',id:night.id,serviceId:service.id},expectedScopeRevision:1,desired:{cancelled:true},aspects:['cancellation'],dependencies:[]}]));
+  await m.run(await m.evaluate());await m.run(await m.approve());
+  const approved=await reader.read(await h.auth(),read,query);
+  assert.deepEqual(approved!.entries.filter((v:any)=>v.data?.night_id===night.id),before!.entries.filter((v:any)=>v.data?.night_id===night.id));
+  await m.run(await m.apply());
+  const versions=await h.observer`select scope_kind,scope_id,revision,material,before_data from crm_private.b04_operational_versions where scope_id=${night.id}::uuid order by revision`;
+  assert.equal(versions.length,1);assert.equal(versions[0]!.material.cancelled,true);assert.equal(versions[0]!.revision,'2');
+  const after=await reader.read(await h.auth(),read,query);
+  const history=await reader.read(await h.auth(),read,{...query,surface:'timeline'});
+  const rows=(x:any,id:string)=>x.entries.filter((v:any)=>v.data?.night_id===id||v.scope?.id===id);
+  assert.equal(rows(history,night.id)[0].data.night_date,'2026-10-20');
+  assert.ok((history!.entries as any[]).some(v=>v.source==='crm_private.b04_operational_versions'&&v.data.scope_id===night.id&&v.data.material.cancelled===true));
+  assert.deepEqual(rows(after,sibling.id),rows(before,sibling.id));
+  assert.equal(rows(after,night.id)[0].data.operational.cancelled,true);
+  assert.equal(rows(after,night.id)[0].data.operational.revision,2);
+  assert.equal(rows(after,night.id)[0].data.operational_source,'crm_private.modification_scope');
+  assert.equal(rows(after,sibling.id)[0].data.operational.cancelled,false);
+  for(const destination of ['customer','provider','ai'] as const)assert.equal(JSON.stringify(await reader.read(await h.auth(),read,{...query,destination})).includes(night.id),false);
+  await assert.rejects(reader.read({} as never,read,query));
+  console.log('CANDIDATE NIGHT CANCELLATION',JSON.stringify({nightId:night.id,siblingId:sibling.id,canonical:versions,before,after,timelineRetainsCancelled:true}));
+  // No prescribed rendering: omission or explicit cancelled state are both acceptable.
+  // Identical verified active-looking output before/after is not a current operational projection.
+  assert.notDeepEqual(rows(after,night.id),rows(before,night.id),'C01/C02: the affected night remains identical after approved cancellation; a generic review Task cannot identify its current cancelled state');
+ }finally{await h.close();}
+});

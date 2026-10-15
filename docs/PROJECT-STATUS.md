@@ -1,5 +1,15 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+**TSK-H5-012 COMPLETED exclusivamente local/aislado — 2026-10-15.** Cierre autorizado tras verificación independiente del candidato61: 41/41 casos, 34 filas (28 propias y seis límites locales), focales 57/57, PostgreSQL 2600/2600, unitarias 197/197 y health 1/1. F01/F02/F03 CLOSED local/aislado; C03/C05/C06 acreditados. Los 428 archivos fuente coinciden con el producto probado; el cierre solo añade documentación. Expected congelado y evidencias originales intactos.
+
+El control completo `git diff --cached --check` devuelve **exit 2; NO PASS**. Se aplica únicamente la excepción humana expresa para los 27 avisos inventariados en 17 evidencias originales, sin cambiar sus bytes ni debilitar el control. Se exige cero avisos adicionales.
+
+H5 global permanece IN PROGRESS. Hosted/Production no acreditados; DM-PENDING-005 abierto. No se extiende la aceptación a tareas posteriores ni a conectores, datos reales o despliegues. H5-013 NOT STARTED. STOP tras publicar y verificar H5-012; cualquier continuación requiere autorización humana.
+
+[Cierre y límites de aceptación](../specs/001-core-crm/closure-TSK-H5-012.md). Los estados anteriores se conservan como antecedentes de sus fechas; no sustituyen este cierre vigente.
+
+## Antecedentes documentales conservados antes del cierre H5-012
+
 **TSK-H5-009/010 COMPLETED exclusivamente local/aislado — cierre documental local, 2026-10-13.** SHA realmente probado `0d969541e119374561a6cd7d38e97faaed25add4`. PostgreSQL 2473/2473, focal ampliada 332/332, temporal C12/H4-014 110/110, unitarias 171/171 y health 1/1 PASS. F01–F09 CLOSED local/aislado, incluidos los cierres globales pendientes F06–F08. Expected intacto: 24.417 bytes, 26 casos y 51 filas normativas. Sin publicación. Hosted/Production no acreditados.
 
 H5 global continúa IN PROGRESS. STOP tras H5-009/010. H5-011/012 y H6 permanecen NOT STARTED; no se preparan conectores reales.

@@ -1,0 +1,666 @@
+{
+  "task": "TSK-H5-012",
+  "status": "FAILED_INDEPENDENT_VERIFICATION_STOP",
+  "defect": "H5-012-F01",
+  "product_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+  "product_tree": "104b4ecba9dd72aa166410470b362a956ed866e2",
+  "physical_tests": {
+    "postgres_independent": {
+      "total": 3,
+      "pass": 2,
+      "fail": 1,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "exit_code": 1
+    },
+    "full_postgres_regression": "NOT EXECUTED due to material STOP",
+    "unit_suite": "NOT EXECUTED due to material STOP",
+    "health_independent": "NOT EXECUTED due to material STOP",
+    "build_typecheck_lint_audit": "NOT EXECUTED due to material STOP",
+    "V_MIG_complete": "NOT EXECUTED; chain migrated for focal setup only"
+  },
+  "conceptual_cases": [
+    {
+      "id": "H01",
+      "frozen_row": "| H01 Reconstrucción canónica | SPEC §14 SPEC-FR-HIST-006; §25 SPEC-NFR-001; ARCH §13.2/§17 ARCH-DEC-016; Plan §4 PLAN-B07 | ADMIN, consulta interna de historia de A, destinatario ADMIN, alcance Booking y hechos relacionados autorizados. | HECHOS con versiones, Acceptance exacta, operación/economía y referencias a decisiones/evidencias. | Consultar timeline y seguir referencias pertinentes. | Reconstruye necesidad, versiones, aceptación y hechos relacionados sin sustituirlos por resúmenes ni por la proyección. Preservar IDs, versiones, vínculos y significado de cada hecho; ninguna escritura de negocio por consultar. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "H02",
+      "frozen_row": "| H02 Registro tardío y momento desconocido | SPEC §14 SPEC-FR-HIST-006; BR §21 BR-HIST-001/002; DM §14 DM-INV-047 | ADMIN, reconstrucción temporal interna de A, destinatario ADMIN. | Hecho ocurrido el 10 y registrado el 12, otro ocurrido/registrado el 11 y un hecho sin momento conocido. | Consultar su secuencia y procedencia. | Distingue fecha conocida del hecho y fecha de registro; no presenta el primero como ocurrido el 12 ni inventa hora/fecha para el desconocido. Preservar cronología conocida y relaciones; no fija orden visual ni desempate nuevo. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "H03",
+      "frozen_row": "| H03 Rectificación de llamada atribuida | SPEC §24.4 AC-075; §14 SPEC-FR-HIST-006; BR §21 BR-HIST-003 | ADMIN, consulta de cadena comercial interna de A, destinatario ADMIN. | Llamada manual aceptada registrada con aceptante, registrador, momentos, versión/términos; rectificación posterior de atribución acreditada. | Consultar original, rectificación y reevaluaciones ya registradas. | Ambos hechos y su enlace son recuperables; diferencia atribución original/corregida y dependientes actuales. No fabrica llamada/aceptación ni revierte banco/proveedor por la lectura. Preservar original, términos históricos y corrección. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "H04",
+      "frozen_row": "| H04 Actores y procedencia distintos | DM §14 DM-INV-047; BR §21 BR-HIST-001/005; ARCH §13.2 | ADMIN, auditoría interna de A, destinatario ADMIN. | Solicitante externo sintético, registrador humano, aprobador y ejecutor automático diferenciados en registros originales. | Consultar el cambio material y sus referencias. | Conserva quién/cuándo/motivo, origen humano/automático, antes/después y ausencia de previo en una creación. No confunde solicitante con CRM Actor, ejecutor con aprobador ni responsable con autor del hecho. Preservar identidades y evidencias. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "H05",
+      "frozen_row": "| H05 Original, derivado y conservación incompleta | SPEC §14 SPEC-FR-HIST-006 y HIST-003/004 como fuentes de originales; §20 SPEC-FR-SEC-006; D016/D017 | ADMIN, lectura interna autorizada de evidencia de A, destinatario ADMIN. | Transcripción original sintética autorizada, resumen derivado y otro registro con objeto ausente/conservación incompleta, cada uno con estado/procedencia. | Consultar timeline y referencias al original y derivado. | Diferencia original/resumen, revisión y qué está conservado. No presenta objeto ausente como íntegro, resumen como original ni audio/consentimiento inferidos. Preservar enlaces/permisos y estados reales; ninguna reparación se ejecuta por consultar. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "H06",
+      "frozen_row": "| H06 Archivado recuperable | SPEC §24.3 AC-062; §14 SPEC-FR-HIST-006; DM §14 DM-INV-051; BR §22 BR-SEC-005 | ADMIN, recuperación autorizada de contexto de A archivado, destinatario ADMIN. | A con historial relevante y archivado previo legítimo; su estado comercial/operativo/económico no resuelto por el archivo. | Buscar en vistas normales y recuperar por el recorrido de archivo autorizado; intentar inferir cierre o borrado. | Archivado sale de vistas normales, permanece recuperable y no acredita cierre. Se rechaza inferencia de borrado/cierre; preserva códigos, vínculos, estados e historia, sin activar política de retención. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "H07",
+      "frozen_row": "| H07 Fusión humana de identidades | SPEC §24.3 AC-062; DM §14 DM-INV-051; BR §3 BR-CON-005; D017/D018 | ADMIN, consulta interna de identidad/contexto de A/B, destinatario ADMIN. | Contact u Organization fusionados por acto humano ya acreditado; dos historias y procedencias. | Recuperar ambos historiales y seguir vínculos; intentar inferir fusión automática de Opportunities/Bookings. | Conserva las dos historias, IDs de origen y relaciones; compartir identidad no fusiona expedientes ni amplía permisos. Inferencia de fusión de Opportunity/Booking rechazada; no se ejecuta nueva fusión en H5-011. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "H08",
+      "frozen_row": "| H08 Anulación e IDs no reutilizables | SM §17 SM-FORB-32; SPEC §24.3 AC-062; BR §29 BR-ID-001/002; D040 | ADMIN, consulta histórica interna, destinatario ADMIN, A anulado y expediente sintético posterior distinto. | Identificadores previamente asignados y conservados en sus años/versiones; anulación de A sin destrucción. | Consultar ambos; intentar inferir borrado/reutilización o regeneración del código por cambio de fecha de servicio. | Identidades/códigos anteriores permanecen rastreables; nuevo expediente no reutiliza los anteriores. Año/código fijados no cambian por fecha futura del servicio. Preservar historia y enlaces; no se implementa asignador de códigos nuevo. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C01",
+      "frozen_row": "| C01 Calendario canónico completo en su alcance | SPEC §15 SPEC-FR-COORD-008; BR §17 BR-TASK-007; ARCH §17 ARCH-DEC-007; Plan §4 PLAN-B07 | ADMIN, consulta operacional interna de A, destinatario ADMIN. | Servicios/reserva, horarios, opciones/bloqueos, pagos, Task, documentación y vencimientos canónicos pertinentes; confirmado/pendiente diferenciados. | Consultar calendario por alcance y seguir cada referencia. | Deriva cada categoría aplicable de su hecho canónico, con procedencia/alcance/certeza; pago previsto no es recibido, Task no acredita prestación y fecha visual no confirma servicio. Preservar hechos/estados; ninguna segunda autoridad de agenda. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "FAIL_IN_NIGHT_DATE_SCENARIO",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C02",
+      "frozen_row": "| C02 Proyección reconstruible y filtros | Plan §3.2 PLAN-DEC-009; §7.1 PLAN-C01; SPEC §15 SPEC-FR-COORD-008 | ADMIN, lectura interna de A mediante filtros autorizados, destinatario ADMIN. | Hechos canónicos identificados de A/B, referencias autorizadas y cambio canónico ya acreditado entre consultas. | Repetir lectura del mismo estado y reconstruir tras el cambio; recorrer paginación cuando proceda por los datos y el contrato. | Misma información permitida para iguales estado/finalidad/alcance; cambio nuevo puede reconstruirse sin caché compartida. Filtros/páginas no amplían alcance ni pierden referencias aplicables. Preservar canónicos; no impone formato/tamaño de página ni SLA de actualización. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "FAIL_IN_NIGHT_DATE_SCENARIO",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C03",
+      "frozen_row": "| C03 Día completo a siete días | D020; SPEC §11.2; Tasks ficha H1-011; Plan §10.2 PT-05 | ADMIN, consulta interna de saldo/cifra final y referencia civil de A, destinatario ADMIN. | FECHAS con primer servicio 20, configuración final siete días y saldo canónico no cubierto; evaluaciones 13 y 14 de noviembre. | Proyectar evaluación al principio y final del día 13, y el día 14; contrastar referencia original. | El día 13 completo pertenece a ≥7; saldo general no vencido hasta terminar ese día y vencido desde el 14 si sigue sin cobertura. Cifra final no transforma estimación en confirmación ni ejecuta cobro/aviso por consultar. Preservar importe y fuente canónica. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C04",
+      "frozen_row": "| C04 Límites civiles de cancelación a siete y tres días | D020; SPEC §11.2; Plan §10.2 PT-05 | ADMIN, lectura interna de referencia/resultado de cancelación ya determinado del Booking Service de A, destinatario ADMIN. | FECHAS y cancelación por cliente con derecho/base/política sintéticos acreditados; referencia civil del servicio 2026-11-20, sin referencia contractual expresa y válida distinta; evaluaciones 13, 14, 17 y 18 de noviembre. | Contrastar la proyección de resultados existentes al principio y final de los días límite completos 13 y 17, y en los días 14 y 18; intentar sustituir días civiles por cortes de 168/72 horas. | Día 13 completo: ≥7 días, devolución correspondiente según base y política acreditadas; día 14: ≥3 y <7 días, retención/cobro del 50 %; día 17 completo: ≥3 y <7 días, retención/cobro del 50 %; día 18: <3 días, retención/cobro del 100 %. No inventa cuantía de devolución si la base o política concreta no está acreditada. Solo proyecta resultados existentes: no autoriza nuevos cálculos económicos, Refund, cobros ni cambios de estado; rechaza cortes intradía inventados. Preservar referencia civil, alcance de servicio, base/derecho/política y hechos existentes. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C05",
+      "frozen_row": "| C05 Referencias por Booking/modalidad/servicio/noche | D020; SPEC §11.2; Tasks ficha H1-011; Plan §10.2 PT-05 | ADMIN, consulta interna de A multifecha, destinatario ADMIN. | FECHAS: Booking primer servicio20, modalidad22, noche23; servicios y cifra final específica identificados. | Consultar anclas y plazos de cada alcance. | Global/saldo/cancelación total Booking usan primer servicio contratado20; modalidad completa usa su primero22; servicio su fecha; noche inicio23. Cifra final específica usa su alcance y no se propaga. Preservar cantidades/versiones/modalidades; no divide precio fijo ni replica confirmación. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "FAIL_IN_NIGHT_DATE_SCENARIO",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C06",
+      "frozen_row": "| C06 Referencia contractual expresa | D020; SPEC §11.2; Plan §5.2 | ADMIN, consulta interna de referencia contractual de A, destinatario ADMIN. | Referencia contractual distinta expresa, válida y conservada; otro registro meramente sugerido/no verificado. | Consultar ambos alcances y el fundamento de la referencia. | La referencia contractual válida prevalece con trazabilidad. La sugerencia no sustituye la canónica; si su validez material está sin verificar, queda pendiente solo esa determinación. Preservar contrato, fecha de origen y decisiones; no inventa acuerdo. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C07",
+      "frozen_row": "| C07 Hora, fecha y vencimiento externo | D020; SPEC §11.2; ARCH §8.3; Plan §10.2 PT-05 | ADMIN, calendario interno de A, destinatario ADMIN. | Servicio20 que cambia de hora dentro de la fecha y luego a22 mediante cambios ya autorizados; opción con vencimiento horario externo explícito. | Reconstruir plazos antes/después y compararlos. | Hora dentro del20 no cambia intervalos civiles; fecha22 reevalúa solo dependientes y conserva historia previa. Vencimiento horario externo mantiene su evidencia propia, sin forzarlo a D020. Preservar decisiones/alcances no afectados; no aplicar cambio por la lectura. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "FAIL_IN_NIGHT_DATE_SCENARIO",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C08",
+      "frozen_row": "| C08 Datos temporales o parámetros desconocidos | D020; Tasks §7.2 zona/fecha; Plan §8; §10.2 PT-08 | ADMIN, consulta operacional interna de A y trabajo independiente B, destinatario ADMIN. | Una zona/referencia legítima necesaria desconocida, deadline desconocido y parámetros de programación ausentes; B con datos suficientes. | Consultar vencimientos/cifra final/avisos y solicitar completar supuestos con zona local del servidor o hora ficticia. | Pendiente únicamente el cálculo/programación dependientes. No fecha/hora/zona/adelanto inventados, deadline desconocido no es vencido y cifra no se confirma por defecto. B y lecturas independientes continúan. Preservar valores conocidos, desconocidos y D038 (no aplica D020 a sesión). | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C09",
+      "frozen_row": "| C09 Cambio Calendar crítico y vista atrasada | SPEC §24.4 AC-076; §15 SPEC-FR-COORD-008; §22 SPEC-FR-INT-005; SM §17 SM-FORB-28; DM §14 DM-INV-049 | ADMIN, revisión/consulta interna de A; origen externo auxiliar sin autoridad de escritura. | Señal crítica normalizada del bloque previo, estado canónico actual y proyección anterior de A. | Consultar señal/revisión; intentar usar fecha externa o vista vieja como autorización de cambio de Booking. | Señal crítica queda en revisión; solo proceso autorizado con guardas actuales permite modificación. Proyección no otorga escritura ni cambia cálculo D020. Preservar evento original, estado actual, versión anterior y revisión; ningún efecto silencioso. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C10",
+      "frozen_row": "| C10 Eco y evento fuera de orden | SPEC §24.4 AC-076; §15 SPEC-FR-COORD-008; Plan §8; ARCH §8.3 | ADMIN, consulta de calendario/referencias de A, destinatario ADMIN. | Eco correlacionado y recepción antigua con estado canónico posterior, procedencia y resultado conservados. | Consultar repetidamente y contrastar intentos/resultados/eventos. | Conserva eco/antigüedad/referencias y los distingue del hecho vigente. No duplica efecto/intención ni retrocede estado por evento viejo o repetición de lectura. Preservar evidencia/deduplicación del bloque anterior; no crea sincronizador nuevo. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C11",
+      "frozen_row": "| C11 Frontera indisponible o sustituida | SPEC §25 SPEC-NFR-011; §22 SPEC-FR-INT-005; ARCH §17 ARCH-DEC-008; Plan §8 | ADMIN, consulta interna canónica A/B; fuente externa solo auxiliar. | Referencias/originales sintéticos existentes, adaptador doble indisponible o sustituido y dato externo pendiente. | Consultar proyecciones canónicas y el límite dependiente del proveedor. | Identidad, evidencia y reglas centrales siguen accesibles según permisos; dato dependiente permanece pendiente, partes independientes disponibles. No afirma entrega/capacidad de proveedor ni acceso público al Core. Preservar significado de fuente/referencia y historia sin integración física. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "C12",
+      "frozen_row": "| C12 Avaibook sin escritura V1 | SM §17 SM-FORB-28; DM §14 DM-INV-049; Plan §8; ARCH §8.3 | ADMIN, consulta/revisión interna de referencia externa de A, destinatario ADMIN; proveedor sin autoridad CRM. | Referencia sintética de consulta y discrepancia conservadas; capacidad real no acreditada. | Intentar derivar de la consulta intención de crear/modificar/cancelar en Avaibook o cambio silencioso en CRM. | Escritura/intención V1 prohibida rechazada; discrepancia queda visible para revisión. No afirma consulta real ni resuelve escribiendo en proveedor. Preservar autoridad externa y hechos CRM; no se implementa conector. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S01",
+      "frozen_row": "| S01 Consulta interna del Administrador | SPEC §20 SPEC-FR-SEC-003; P11; DM §14 DM-INV-050; Plan §7.1 PLAN-C01 | ADMIN, función interna económica autorizada de A, destinatario ADMIN. | Contexto/finalidad vigentes; economía interna y personales pertinentes sintéticos separados. | Consultar el alcance económico legítimo y compararlo con salida para tercero. | ADMIN accede a economía que requiere su función/alcance; no se elimina de canónicos ni se reutiliza esa respuesta para contexto externo. Personales ajenos a la función no se agregan. Preservar componentes/importes/unidades y permisos del original. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S02",
+      "frozen_row": "| S02 Consulta para tercero | SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; Plan §6.5; P10/P11 | ADMIN, preparar consulta mínima de A, destinatario tercero sintético con finalidad explícita. | MARCADORES económicos/personales innecesarios, datos comerciales permitidos conocidos. | Solicitar consulta para tercero, incluyendo intento de ampliar con acceso del propietario. | Respuesta autorizada excluye costes/márgenes/beneficios/comisiones/honorarios y personales innecesarios. Propiedad no concede divulgación. Preservar canónicos y referencias permitidas; rechazo sin filtrar valores en diagnóstico. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S03",
+      "frozen_row": "| S03 Búsqueda para tercero | SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; BR §22 BR-SEC-002/004 | ADMIN, preparar búsqueda de A por finalidad externa explícita, destinatario tercero sintético. | MARCADORES también en texto económico/derivados y datos ajenos de B. | Buscar y recorrer resultados/referencias, intentando incluir texto reservado o alcance B. | Búsqueda no elude restricciones mediante resultados, fragmentos o vínculos; no devuelve contenido económico/personal no autorizado. Preservar búsqueda interna legítima, objetos y originales; sin nuevos derechos por conocer ID. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S04",
+      "frozen_row": "| S04 Exportación para tercero | SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; Plan §6.5 | ADMIN, preparar exportación local de A para finalidad/destinatario tercero sintéticos. | Desglose reservado y personales innecesarios en fuente; selección de información permitida por finalidad. | Solicitar exportación, intentando copiar la respuesta interna completa. | Contenido exportado excluye toda economía interna y personales innecesarios; copiar/exportar no amplía permiso. Preservar fuente/desglose interno y atribución; no fija formato físico ni envía el artefacto. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S05",
+      "frozen_row": "| S05 Documento para tercero | SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; BR §22 BR-SEC-002/004 | ADMIN, preparar documento local autorizado de A, destinatario tercero sintético. | Fuente y adjuntos/derivados sintéticos contienen MARCADORES; información comercial permitida separada. | Componer salida documental e intentar añadir adjunto o cuerpo completo reservado. | Documento/referencias no revelan economía ni personales no necesarios, tampoco por adjunto o derivado. Preservar originales y permisos; no inventa obligación fiscal o autorización de entrega. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S06",
+      "frozen_row": "| S06 Timeline para tercero | SPEC §14 SPEC-FR-HIST-006; §20 SPEC-FR-SEC-003/006; §24.4 AC-065; SM §17 SM-FORB-29 como límite | ADMIN, preparar timeline mínimo de A por finalidad externa explícita, destinatario tercero sintético. | Hechos autorizados y reservados comparten historia; vínculos múltiples a originales. | Solicitar salida y seguir vínculos intentando lectura universal. | Vista unificada no amplía permisos de hechos/objetos; excluye economía/personales indebidos y solo ofrece referencias autorizadas. Preservar historia íntegra interna; ninguna descarga por mero vínculo. No declara cierre global de SM-FORB-29. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S07",
+      "frozen_row": "| S07 Contexto IA permitido | SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; BR §22 BR-SEC-004; Plan §8 | ADMIN, preparar contexto IA local de función y destinatarios sintéticos autorizados para A. | Datos comerciales necesarios y MARCADORES económicos/personales ajenos, originales/derivados diferenciados. | Preparar contexto e intentar incluir objeto interno completo o reutilizar contexto de otra finalidad. | IA recibe únicamente información permitida para la función/destinatario; acceso ADMIN no justifica contexto externo completo. Preservar provenance/review y hechos confirmados; no llama modelo externo ni extrae conclusiones autónomas. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S08",
+      "frozen_row": "| S08 Pack comercial multimodal | BR §25 BR-PACK-003; DM §14 DM-INV-025; SPEC §20 SPEC-FR-SEC-003; Plan §6.5 | ADMIN, presentación comercial local de PACK, destinatario cliente sintético. | Modalidades/precios/participantes/incluidos y unidades/descomposición interna ya fijados en PACK. | Preparar propuesta comercial por modalidad, intentando exponer coste fijo, suplido interno, comisión/honorario/margen. | Solo precio final/persona, participantes e incluidos por modalidad; 120,00/10 y 180,00/8 conservados como datos del caso. Componente fijo900 y todo desglose reservado permanecen internos; no convierte unidad fija en tarifa por persona ni calcula media/prorrateo. Preservar versión/composición. Verificación global DM-INV-025 mantiene asignaciones originales. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S09",
+      "frozen_row": "| S09 Finalidad y conservación no presumidas | SPEC §20 SPEC-FR-SEC-006; §25 SPEC-NFR-003; DM §15 DM-PENDING-005; P10 | ADMIN, salida mínima para servicio/alcance concreto de A, destinatario tercero sintético definido. | Personales necesarios para esa función sintéticamente justificados y otros datos nominales ajenos; autorización de transcripción/original diferenciada. | Pedir todos los datos por compartir Contact o solicitar retención indefinida/audio/borrado automático sin política. | Solo datos necesarios autorizados; tratamiento/divulgación dependientes no acreditados quedan pendientes o denegados. Sin consentimiento, audio, plazo, anonimización/borrado inventados. Preservar originales/derivados/historia de acuerdo con permiso; no equipara archivado con política legal resuelta. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S10",
+      "frozen_row": "| S10 Naturaleza fiscal de las salidas | SPEC §20 SPEC-FR-SEC-007; BR §23 BR-BILL-001–005; P16; D008/D013 | ADMIN, consulta/documento local de A, destinatario permitido por finalidad sintética; límite de H5-011. | Factura externa sintética con emisor, borrador autorizado no fiscal y pago conciliado existente. | Consultar/exportar; intentar convertirlos en factura CRM/numeración fiscal por pago o aprobación humana. | Documento externo conserva naturaleza/emisor; borrador inequívocamente no fiscal. Emisión/numeración/motor fiscal no habilitados, sin nuevo mandato ni conclusión suplidos/Tararí. Preservar documentos/importes. Verificación asignada a H3-014/H3-010/H6-017 no se declara realizada ni se prepara. | V-DOM, V-DAT, V-NEG, V-EVI de límite local |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S11",
+      "frozen_row": "| S11 Referencias de diagnóstico autorizadas | SPEC §24.4 AC-081; DM §14 DM-INV-047; ARCH §13.2/13.3; Plan §11.2 | ADMIN/revisor autorizado V1, localizar fallo de A por petición/ejecución/evento, destinatario interno autorizado. | Referencias sintéticas a alcance, intento, aprobación, historia y resultado; log técnico distinto de evidencia de negocio. | Consultar referencias autorizadas desde timeline y buscar la cadena pertinente. | Localiza registros permitidos sin tomar log como aceptación/pago/entrega o prueba sustitutiva. No copia secretos, URLs temporales, cuerpos completos ni economía innecesaria a diagnóstico. Preservar registros originales; solo límite de consulta H5-011, AC-081 sigue asignado a H5-018. | V-DOM, V-DAT, V-EVI de límite local |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "S12",
+      "frozen_row": "| S12 Diagnóstico o rechazo no autorizados | AC-081 como límite H5-011; P10; Plan §6.5/§7.1/§11.2; BR §22 BR-SEC-004 | Solicitante sin autoridad del alcance A, finalidad/actor autodeclarados, destinatario no autorizado. | Referencias conocidas de A y MARCADORES reservados en registros originales. | Intentar leer detalle/cuerpo/resultado por referencia de log o forzar mensaje de error con esos valores. | Rechazo sin revelar economía/personales ni entregar original/URL temporal; referencia conocida no concede permiso. Preservar registros/historia. No implementa observabilidad H5-017/018 ni acredita la verificación posterior AC-081. | V-DAT, V-NEG, V-EVI de límite local |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "A01",
+      "frozen_row": "| A01 Sin contexto válido | Tasks §2.2 V-DAT; P10; SM §2.1 G1; Plan §6.5/§7.1 PLAN-C01 | Solicitante sin contexto confiable, consulta declarada de A, destinatario no autorizado. | IDs conocidos, sin autoridad emitida/admitida por servidor. | Intentar consulta/timeline/calendario y referencia de original fuera de UI. | Denegación por defecto en servidor/base según superficie; no devuelve registros/personales/economía ni produce efecto de negocio. Preservar canónicos, objetos, historia y ausencia de autoridad humana. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "A02",
+      "frozen_row": "| A02 Contexto falsificado o ampliado | P10; G1; Plan §6.5/§7.1; D037/D038 | Solicitante/M2 con contexto declarado o alterado para actor/finalidad/alcance/recurso de A/B, destinatario no autorizado. | Identificadores y SQL permitido conocidos; ninguna clave real en evidencia. | Alterar campos/binding o autodeclarar rol/humanidad/alcance y acceder directamente. | Contexto del cliente no selecciona identidad/efecto; falsificación/ampliación rechazada sin datos ni efecto. Preservar separación F1/F2, permisos, generation y binding transaccional; no modifica criptografía/ventanas. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "A03",
+      "frozen_row": "| A03 Actor/sesión ya inhabilitados o revocados | Tasks §2.2 V-DAT; P10; Plan §6.5/§7.1; D038 | Mismo ADMIN anterior sin autoridad actual, intento de lectura A desde sesión/epoch/generación viejos. | Inhabilitación/revocación ya confirmada o identificación vencida según contrato vigente. | Repetir lectura o intentar recuperar una respuesta previa con autoridad antigua. | Reautoriza cada acceso/resultado; deniega y no reactiva sesión ni activity por admitir primero actualización. Preservar revocación/generación/historia, sin cancelar retroactivamente operación que ya estuvo autorizada. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "A04",
+      "frozen_row": "| A04 Relación o rol futuro sin acceso | DM §14 DM-INV-050; SM §17 SM-FORB-29; G1; D015; BR §22 BR-SEC-001 | Cliente/proveedor/colaborador o rol previsto autodeclarado, destinatario mismo tercero; sin nuevo actor operativo. | Relación real solo dentro del escenario sintético y IDs conocidos. | Pedir consulta interna, economía/timeline/objeto alegando esa relación. | Relación/rol previsto no son permisos activos; rechazo sin contenido restringido. Preservar único Administrador y mínimos privilegios. Los casos locales no cierran comprobaciones globales SM-FORB-29/DM-INV-050 asignadas fuera de H5-012. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "A05",
+      "frozen_row": "| A05 Vínculo compartido y scope concreto | G1; P10; SPEC §14 SPEC-FR-HIST-006; §20 SPEC-FR-SEC-006; Plan §7.1 PLAN-C01 | Contexto autorizado solo para lectura concreta de A, destinatario según finalidad; intento adicional sobre B. | A/B comparten Contact/Organization, documento u original con vínculos múltiples. | Cambiar ID/filtro a B o seguir objeto compartido hacia contenido no permitido; repetir con ADMIN y autoridad legítima para B como control positivo. | Vínculo no extiende scope ni permiso de original; intento no autorizado rechazado, control legítimo admitido según finalidad. Preservar ambos vínculos/objetos e historia sin duplicar original ni inventar propietarios distintos. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "A06",
+      "frozen_row": "| A06 Sesiones y respuestas personales aisladas | Plan §3.2 PLAN-DEC-009; P10; fichas H5-011/012; D038 | ADMIN, dos sesiones independientes y finalidades distintas A/B, destinatarios diferenciados. | Una lectura interna previa, otra salida externa y una sesión que posteriormente pierde autoridad. | Alternar consultas y repetirlas usando conexión reutilizada, resultado/caché anterior si existe. | Sin caché compartida ni herencia de contexto entre transacciones/conexiones/sesiones/finalidades; respuesta interna no pasa a externa y sesión revocada no recibe respuesta por caché. Preservar límites independientes y permisos; no exige implantar caché. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "NOT_EXECUTED_STOP_AFTER_PRODUCT_DEFECT",
+      "evidence": null,
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "A07",
+      "frozen_row": "| A07 Frontera pública y origen externo | ARCH §17 ARCH-DEC-008; SPEC §22 SPEC-FR-INT-005; G1; P10 | Origen público/externo sin autoridad Core, destinatario tercero; intento de alcance A. | Evento/referencia auxiliar conocida sin sesión interna válida. | Usar ID aportado por formulario/doble/evento para leer expediente/economía o cambiar estado. | Web/app separadas y referencia externa no otorgan acceso interno ni escritura arbitraria. Rechazo sin datos/efecto; preserva evento/canónicos. No crea formulario, endpoint público, webhook ni conector real. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "A08",
+      "frozen_row": "| A08 Acceso directo y privilegios mínimos | Tasks §2.2 V-DAT; Plan §6.5; P10; D037–D039 | Rol ordinario de ensayo aislado, actor/contexto autorizado e intentos sin autoridad, destino propio para comparación. | Grants/RLS/objetos reales del entorno de ensayo futuro; owner/migration separados, sin service_role/BYPASSRLS como identidad ordinaria. | Invocar superficies realmente existentes fuera de UI y probar lectura/DML directo que el rol no tiene autorizado. | Permisos mínimos y RLS/controles pertinentes resisten vías directas; no se concede CRUD/helper/ownership global para conseguir PASS. Originales/versiones/historia permanecen protegidos; consultas autorizadas sí funcionan. Preservar ACL, roles y cadena histórica. | V-DAT, V-NEG; V-MIG si cambia persistencia/permisos |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    },
+    {
+      "id": "A09",
+      "frozen_row": "| A09 Lectura no autoriza mutación ni actividad ficticia | Plan §7.1 PLAN-C01/C06; SPEC §15 SPEC-FR-COORD-008; D038/D039 | ADMIN con permiso de consulta concreto A; origen técnico/polling sin interacción humana para control negativo. | Evaluación previa/actual de A, estados canónicos y sesión admitida conforme a contratos existentes. | Intentar convertir salida en aprobación/cierre/confirmación o usar lectura técnica para renovar autoridad humana. | Proyección no permite mutación ni confirma/cierra por arrastre. Polling/background no cuenta como actividad humana; interacción real autorizada mantiene contrato D038 y no extiende límites absolutos. Preservar estados/HA/versiones y autoridad TTE cuando corresponda, sin crear nuevas unidades sensibles. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED",
+      "result": "PARTIAL_POSITIVE_CHECKS",
+      "evidence": "independent-postgres.log",
+      "limitation": "No complete conceptual-case PASS inferred from partial checks."
+    }
+  ],
+  "conceptual_status_counts": {
+    "affected_by_one_failed_scenario": 4,
+    "partial_positive_checks_only": 11,
+    "not_executed_after_stop": 26
+  },
+  "normative_assignments": [
+    {
+      "id": "SPEC-FR-HIST-006",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "H01–H08, S06, A05",
+      "other_verifications_preserved": "[TSK-H1-004], [TSK-H5-016]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SPEC-FR-COORD-008",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C01–C10, A09",
+      "other_verifications_preserved": "[TSK-H5-010]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SPEC-FR-SEC-003",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "S01–S08",
+      "other_verifications_preserved": "[TSK-H2-004], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SPEC-FR-SEC-006",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "H05, S02–S09, A05",
+      "other_verifications_preserved": "[TSK-H1-002], [TSK-H4-002], [TSK-H5-006], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SPEC-FR-SEC-007",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "No",
+      "frozen_case_mapping": "S10 (límite local)",
+      "other_verifications_preserved": "[TSK-H3-014], [TSK-H3-010], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SPEC-FR-INT-005",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C09–C11, A07",
+      "other_verifications_preserved": "[TSK-H5-010]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "AC-062",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "H06–H08",
+      "other_verifications_preserved": "[TSK-H1-004], [TSK-H5-016]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "AC-065",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "S02–S08",
+      "other_verifications_preserved": "[TSK-H2-004], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "AC-075",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "H03",
+      "other_verifications_preserved": "[TSK-H2-008], [TSK-H6-002]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "AC-076",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C03–C10",
+      "other_verifications_preserved": "[TSK-H5-010]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "AC-081",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "No",
+      "frozen_case_mapping": "S11–S12 (límite local)",
+      "other_verifications_preserved": "[TSK-H5-018]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SPEC-NFR-001",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "H01–H04",
+      "other_verifications_preserved": "[TSK-H2-008], [TSK-H6-001], [TSK-H6-018]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SPEC-NFR-003",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "No",
+      "frozen_case_mapping": "H05, S02–S09 (límite local)",
+      "other_verifications_preserved": "[TSK-H2-011], [TSK-H4-002], [TSK-H5-006], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SPEC-NFR-011",
+      "development_H5_011": "No",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C11",
+      "other_verifications_preserved": "[TSK-H5-010]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "DM-INV-025",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "No",
+      "frozen_case_mapping": "S08 (límite local)",
+      "other_verifications_preserved": "[TSK-H2-004], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "DM-INV-047",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "H02–H04, S11",
+      "other_verifications_preserved": "[TSK-H0-010], [TSK-H1-014], [TSK-H5-018]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "DM-INV-049",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C09–C12",
+      "other_verifications_preserved": "[TSK-H5-010]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "DM-INV-050",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "No",
+      "frozen_case_mapping": "S01, A04 (límite local)",
+      "other_verifications_preserved": "[TSK-H6-008], [TSK-H0-008], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "DM-INV-051",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "H06–H08",
+      "other_verifications_preserved": "[TSK-H1-004], [TSK-H6-013]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SM-FORB-28",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C09–C12",
+      "other_verifications_preserved": "[TSK-H5-010]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SM-FORB-29",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "No",
+      "frozen_case_mapping": "S06, A04–A07 (límite local)",
+      "other_verifications_preserved": "[TSK-H0-008], [TSK-H6-008], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "SM-FORB-32",
+      "development_H5_011": "No",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "H06–H08",
+      "other_verifications_preserved": "[TSK-H1-004], [TSK-H2-008]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "ARCH-DEC-007",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C01, C09–C10",
+      "other_verifications_preserved": "—",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "ARCH-DEC-008",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C11, A07",
+      "other_verifications_preserved": "[TSK-H5-010], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "ARCH-DEC-016",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "H01–H04",
+      "other_verifications_preserved": "[TSK-H0-010], [TSK-H1-014], [TSK-H1-004]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "P10",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "S02–S09, S12, A01–A09",
+      "other_verifications_preserved": "[TSK-H6-008], [TSK-H0-008], [TSK-H1-016], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "P11",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "S01–S08",
+      "other_verifications_preserved": "[TSK-H3-014], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "PLAN-DEC-009",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C02, A06",
+      "other_verifications_preserved": "[TSK-H1-018], [TSK-H5-008], [TSK-H5-010]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "PLAN-B07",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "H01–H05, C01",
+      "other_verifications_preserved": "[TSK-H1-014], [TSK-H1-016], [TSK-H1-018], [TSK-H5-002], [TSK-H5-004], [TSK-H5-006]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "PLAN-C01",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C02, S01, A01–A09",
+      "other_verifications_preserved": "[TSK-H0-006], [TSK-H0-008], [TSK-H1-016], [TSK-H6-008]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "PT-05",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C03–C07 (consumo D020, sin ampliar H4)",
+      "other_verifications_preserved": "[TSK-H4-012], [TSK-H4-014], [TSK-H1-012]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "PT-08",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C01, C08–C10 (consulta, sin ampliar otros bloques)",
+      "other_verifications_preserved": "[TSK-H1-018], [TSK-H5-002], [TSK-H4-002], [TSK-H4-004], [TSK-H5-004], [TSK-H5-006], [TSK-H5-008]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "G1",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "A01–A09",
+      "other_verifications_preserved": "[TSK-H0-006], [TSK-H0-008], [TSK-H6-017]",
+      "acceptance": "NOT_CLOSED"
+    },
+    {
+      "id": "D020",
+      "development_H5_011": "Sí",
+      "verification_H5_012": "Sí",
+      "frozen_case_mapping": "C03–C09",
+      "other_verifications_preserved": "[TSK-H1-012], [TSK-H4-014], [TSK-H3-002]",
+      "acceptance": "NOT_CLOSED"
+    }
+  ],
+  "observed_night": {
+    "bookingId": "0a1eb6d7-d91e-41a0-a949-eb79a365a48f",
+    "serviceId": "c6eeab41-c9f1-46a6-b32e-d376d600b8ab",
+    "nightId": "49b1007f-ab1a-4e6a-8c12-9e61961fa633",
+    "acceptedDate": "2026-10-20",
+    "expectedCurrentDate": "2026-10-23",
+    "canonicalCurrent": {
+      "date": "2026-10-23"
+    },
+    "operationalVersions": [
+      {
+        "revision": "2",
+        "date": "2026-10-23"
+      }
+    ],
+    "calendarNightEntries": [
+      {
+        "reference": "b04_nights:3dc8313f988db345b3c43d5cd32170a5c3b41d4a1db9cf85fb912040acfdd8b9",
+        "source": "crm_private.b04_nights",
+        "occurredAt": null,
+        "recordedAt": null,
+        "certainty": "verified",
+        "data": {
+          "night_id": "49b1007f-ab1a-4e6a-8c12-9e61961fa633",
+          "night_date": "2026-10-20",
+          "service_id": "c6eeab41-c9f1-46a6-b32e-d376d600b8ab",
+          "admin_scope": "h512-synthetic"
+        }
+      }
+    ],
+    "mutationAuthority": false
+  },
+  "previous_H5_011_results": "Historical results preserved, not adopted as independent H5-012 results",
+  "expected_sha256": "669dcfa74aff6a95e01e93c5a3f72718c33e04c41ab5bab6ff67a9bef8dedb4b"
+}

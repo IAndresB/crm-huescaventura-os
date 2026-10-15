@@ -1,0 +1,318 @@
+{
+  "task": "TSK-H5-012",
+  "product_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+  "product_tree": "104b4ecba9dd72aa166410470b362a956ed866e2",
+  "phase": "resumed source-first coverage before new verifier",
+  "expected_sha256": "669dcfa74aff6a95e01e93c5a3f72718c33e04c41ab5bab6ff67a9bef8dedb4b",
+  "sources": [
+    {
+      "path": "docs/constitution.md",
+      "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "sha256": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe"
+    },
+    {
+      "path": "docs/business-rules.md",
+      "sha256": "ab2504153a32ef9abfaec45efa5ee6846fc9ebcd8b5c244877d0d633ebfcbc07"
+    },
+    {
+      "path": "docs/domain-model.md",
+      "sha256": "f9fafbb715ca57ef843d673af3a475847b4bcae6c37c0469552430c2a8558ddf"
+    },
+    {
+      "path": "docs/state-machines.md",
+      "sha256": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117"
+    },
+    {
+      "path": "specs/001-core-crm/spec.md",
+      "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+    },
+    {
+      "path": "specs/001-core-crm/plan.md",
+      "sha256": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e"
+    },
+    {
+      "path": "specs/001-core-crm/tasks.md",
+      "sha256": "9986c3c768d5279a07542995fb768b301e9e236937e5734ea19d2de02f9d0964"
+    },
+    {
+      "path": "specs/001-core-crm/expected-TSK-H5-011-012.md",
+      "sha256": "669dcfa74aff6a95e01e93c5a3f72718c33e04c41ab5bab6ff67a9bef8dedb4b"
+    }
+  ],
+  "protocols": [
+    "V-DOM",
+    "V-DAT",
+    "V-MIG",
+    "V-NEG",
+    "V-EVI"
+  ],
+  "principles": [
+    "Expected outcomes derive from frozen rows and approved sources, never observed output.",
+    "Native positive/negative tests through ordinary runtime with genuine F1/F2, direct SQL attempts and business-state preservation.",
+    "Exercise 41 conceptual cases and distinguish 34 source assignments from tests; no global or H6 acceptance inferred.",
+    "Target high-risk scope/original access, external minimization, uncertain/unknown calendar, chronology and D020 full-day thresholds first.",
+    "V-MIG fresh/previous populated recovery and ACL preservation if no product defect blocks earlier.",
+    "Stop at first demonstrated product defect, preserve FAIL, do not repair product or expected.",
+    "Existing author tests can provide regression only, not sole independent acceptance.",
+    "All executions in disposable clone with official runner; do not modify authenticated historical context."
+  ],
+  "cases": [
+    {
+      "id": "H01",
+      "frozen_row": "| H01 Reconstrucci\u00f3n can\u00f3nica | SPEC \u00a714 SPEC-FR-HIST-006; \u00a725 SPEC-NFR-001; ARCH \u00a713.2/\u00a717 ARCH-DEC-016; Plan \u00a74 PLAN-B07 | ADMIN, consulta interna de historia de A, destinatario ADMIN, alcance Booking y hechos relacionados autorizados. | HECHOS con versiones, Acceptance exacta, operaci\u00f3n/econom\u00eda y referencias a decisiones/evidencias. | Consultar timeline y seguir referencias pertinentes. | Reconstruye necesidad, versiones, aceptaci\u00f3n y hechos relacionados sin sustituirlos por res\u00famenes ni por la proyecci\u00f3n. Preservar IDs, versiones, v\u00ednculos y significado de cada hecho; ninguna escritura de negocio por consultar. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "H02",
+      "frozen_row": "| H02 Registro tard\u00edo y momento desconocido | SPEC \u00a714 SPEC-FR-HIST-006; BR \u00a721 BR-HIST-001/002; DM \u00a714 DM-INV-047 | ADMIN, reconstrucci\u00f3n temporal interna de A, destinatario ADMIN. | Hecho ocurrido el 10 y registrado el 12, otro ocurrido/registrado el 11 y un hecho sin momento conocido. | Consultar su secuencia y procedencia. | Distingue fecha conocida del hecho y fecha de registro; no presenta el primero como ocurrido el 12 ni inventa hora/fecha para el desconocido. Preservar cronolog\u00eda conocida y relaciones; no fija orden visual ni desempate nuevo. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "H03",
+      "frozen_row": "| H03 Rectificaci\u00f3n de llamada atribuida | SPEC \u00a724.4 AC-075; \u00a714 SPEC-FR-HIST-006; BR \u00a721 BR-HIST-003 | ADMIN, consulta de cadena comercial interna de A, destinatario ADMIN. | Llamada manual aceptada registrada con aceptante, registrador, momentos, versi\u00f3n/t\u00e9rminos; rectificaci\u00f3n posterior de atribuci\u00f3n acreditada. | Consultar original, rectificaci\u00f3n y reevaluaciones ya registradas. | Ambos hechos y su enlace son recuperables; diferencia atribuci\u00f3n original/corregida y dependientes actuales. No fabrica llamada/aceptaci\u00f3n ni revierte banco/proveedor por la lectura. Preservar original, t\u00e9rminos hist\u00f3ricos y correcci\u00f3n. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "H04",
+      "frozen_row": "| H04 Actores y procedencia distintos | DM \u00a714 DM-INV-047; BR \u00a721 BR-HIST-001/005; ARCH \u00a713.2 | ADMIN, auditor\u00eda interna de A, destinatario ADMIN. | Solicitante externo sint\u00e9tico, registrador humano, aprobador y ejecutor autom\u00e1tico diferenciados en registros originales. | Consultar el cambio material y sus referencias. | Conserva qui\u00e9n/cu\u00e1ndo/motivo, origen humano/autom\u00e1tico, antes/despu\u00e9s y ausencia de previo en una creaci\u00f3n. No confunde solicitante con CRM Actor, ejecutor con aprobador ni responsable con autor del hecho. Preservar identidades y evidencias. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "H05",
+      "frozen_row": "| H05 Original, derivado y conservaci\u00f3n incompleta | SPEC \u00a714 SPEC-FR-HIST-006 y HIST-003/004 como fuentes de originales; \u00a720 SPEC-FR-SEC-006; D016/D017 | ADMIN, lectura interna autorizada de evidencia de A, destinatario ADMIN. | Transcripci\u00f3n original sint\u00e9tica autorizada, resumen derivado y otro registro con objeto ausente/conservaci\u00f3n incompleta, cada uno con estado/procedencia. | Consultar timeline y referencias al original y derivado. | Diferencia original/resumen, revisi\u00f3n y qu\u00e9 est\u00e1 conservado. No presenta objeto ausente como \u00edntegro, resumen como original ni audio/consentimiento inferidos. Preservar enlaces/permisos y estados reales; ninguna reparaci\u00f3n se ejecuta por consultar. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "H06",
+      "frozen_row": "| H06 Archivado recuperable | SPEC \u00a724.3 AC-062; \u00a714 SPEC-FR-HIST-006; DM \u00a714 DM-INV-051; BR \u00a722 BR-SEC-005 | ADMIN, recuperaci\u00f3n autorizada de contexto de A archivado, destinatario ADMIN. | A con historial relevante y archivado previo leg\u00edtimo; su estado comercial/operativo/econ\u00f3mico no resuelto por el archivo. | Buscar en vistas normales y recuperar por el recorrido de archivo autorizado; intentar inferir cierre o borrado. | Archivado sale de vistas normales, permanece recuperable y no acredita cierre. Se rechaza inferencia de borrado/cierre; preserva c\u00f3digos, v\u00ednculos, estados e historia, sin activar pol\u00edtica de retenci\u00f3n. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "H07",
+      "frozen_row": "| H07 Fusi\u00f3n humana de identidades | SPEC \u00a724.3 AC-062; DM \u00a714 DM-INV-051; BR \u00a73 BR-CON-005; D017/D018 | ADMIN, consulta interna de identidad/contexto de A/B, destinatario ADMIN. | Contact u Organization fusionados por acto humano ya acreditado; dos historias y procedencias. | Recuperar ambos historiales y seguir v\u00ednculos; intentar inferir fusi\u00f3n autom\u00e1tica de Opportunities/Bookings. | Conserva las dos historias, IDs de origen y relaciones; compartir identidad no fusiona expedientes ni ampl\u00eda permisos. Inferencia de fusi\u00f3n de Opportunity/Booking rechazada; no se ejecuta nueva fusi\u00f3n en H5-011. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "H08",
+      "frozen_row": "| H08 Anulaci\u00f3n e IDs no reutilizables | SM \u00a717 SM-FORB-32; SPEC \u00a724.3 AC-062; BR \u00a729 BR-ID-001/002; D040 | ADMIN, consulta hist\u00f3rica interna, destinatario ADMIN, A anulado y expediente sint\u00e9tico posterior distinto. | Identificadores previamente asignados y conservados en sus a\u00f1os/versiones; anulaci\u00f3n de A sin destrucci\u00f3n. | Consultar ambos; intentar inferir borrado/reutilizaci\u00f3n o regeneraci\u00f3n del c\u00f3digo por cambio de fecha de servicio. | Identidades/c\u00f3digos anteriores permanecen rastreables; nuevo expediente no reutiliza los anteriores. A\u00f1o/c\u00f3digo fijados no cambian por fecha futura del servicio. Preservar historia y enlaces; no se implementa asignador de c\u00f3digos nuevo. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C01",
+      "frozen_row": "| C01 Calendario can\u00f3nico completo en su alcance | SPEC \u00a715 SPEC-FR-COORD-008; BR \u00a717 BR-TASK-007; ARCH \u00a717 ARCH-DEC-007; Plan \u00a74 PLAN-B07 | ADMIN, consulta operacional interna de A, destinatario ADMIN. | Servicios/reserva, horarios, opciones/bloqueos, pagos, Task, documentaci\u00f3n y vencimientos can\u00f3nicos pertinentes; confirmado/pendiente diferenciados. | Consultar calendario por alcance y seguir cada referencia. | Deriva cada categor\u00eda aplicable de su hecho can\u00f3nico, con procedencia/alcance/certeza; pago previsto no es recibido, Task no acredita prestaci\u00f3n y fecha visual no confirma servicio. Preservar hechos/estados; ninguna segunda autoridad de agenda. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C02",
+      "frozen_row": "| C02 Proyecci\u00f3n reconstruible y filtros | Plan \u00a73.2 PLAN-DEC-009; \u00a77.1 PLAN-C01; SPEC \u00a715 SPEC-FR-COORD-008 | ADMIN, lectura interna de A mediante filtros autorizados, destinatario ADMIN. | Hechos can\u00f3nicos identificados de A/B, referencias autorizadas y cambio can\u00f3nico ya acreditado entre consultas. | Repetir lectura del mismo estado y reconstruir tras el cambio; recorrer paginaci\u00f3n cuando proceda por los datos y el contrato. | Misma informaci\u00f3n permitida para iguales estado/finalidad/alcance; cambio nuevo puede reconstruirse sin cach\u00e9 compartida. Filtros/p\u00e1ginas no ampl\u00edan alcance ni pierden referencias aplicables. Preservar can\u00f3nicos; no impone formato/tama\u00f1o de p\u00e1gina ni SLA de actualizaci\u00f3n. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C03",
+      "frozen_row": "| C03 D\u00eda completo a siete d\u00edas | D020; SPEC \u00a711.2; Tasks ficha H1-011; Plan \u00a710.2 PT-05 | ADMIN, consulta interna de saldo/cifra final y referencia civil de A, destinatario ADMIN. | FECHAS con primer servicio 20, configuraci\u00f3n final siete d\u00edas y saldo can\u00f3nico no cubierto; evaluaciones 13 y 14 de noviembre. | Proyectar evaluaci\u00f3n al principio y final del d\u00eda 13, y el d\u00eda 14; contrastar referencia original. | El d\u00eda 13 completo pertenece a \u22657; saldo general no vencido hasta terminar ese d\u00eda y vencido desde el 14 si sigue sin cobertura. Cifra final no transforma estimaci\u00f3n en confirmaci\u00f3n ni ejecuta cobro/aviso por consultar. Preservar importe y fuente can\u00f3nica. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C04",
+      "frozen_row": "| C04 L\u00edmites civiles de cancelaci\u00f3n a siete y tres d\u00edas | D020; SPEC \u00a711.2; Plan \u00a710.2 PT-05 | ADMIN, lectura interna de referencia/resultado de cancelaci\u00f3n ya determinado del Booking Service de A, destinatario ADMIN. | FECHAS y cancelaci\u00f3n por cliente con derecho/base/pol\u00edtica sint\u00e9ticos acreditados; referencia civil del servicio 2026-11-20, sin referencia contractual expresa y v\u00e1lida distinta; evaluaciones 13, 14, 17 y 18 de noviembre. | Contrastar la proyecci\u00f3n de resultados existentes al principio y final de los d\u00edas l\u00edmite completos 13 y 17, y en los d\u00edas 14 y 18; intentar sustituir d\u00edas civiles por cortes de 168/72 horas. | D\u00eda 13 completo: \u22657 d\u00edas, devoluci\u00f3n correspondiente seg\u00fan base y pol\u00edtica acreditadas; d\u00eda 14: \u22653 y <7 d\u00edas, retenci\u00f3n/cobro del 50 %; d\u00eda 17 completo: \u22653 y <7 d\u00edas, retenci\u00f3n/cobro del 50 %; d\u00eda 18: <3 d\u00edas, retenci\u00f3n/cobro del 100 %. No inventa cuant\u00eda de devoluci\u00f3n si la base o pol\u00edtica concreta no est\u00e1 acreditada. Solo proyecta resultados existentes: no autoriza nuevos c\u00e1lculos econ\u00f3micos, Refund, cobros ni cambios de estado; rechaza cortes intrad\u00eda inventados. Preservar referencia civil, alcance de servicio, base/derecho/pol\u00edtica y hechos existentes. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C05",
+      "frozen_row": "| C05 Referencias por Booking/modalidad/servicio/noche | D020; SPEC \u00a711.2; Tasks ficha H1-011; Plan \u00a710.2 PT-05 | ADMIN, consulta interna de A multifecha, destinatario ADMIN. | FECHAS: Booking primer servicio20, modalidad22, noche23; servicios y cifra final espec\u00edfica identificados. | Consultar anclas y plazos de cada alcance. | Global/saldo/cancelaci\u00f3n total Booking usan primer servicio contratado20; modalidad completa usa su primero22; servicio su fecha; noche inicio23. Cifra final espec\u00edfica usa su alcance y no se propaga. Preservar cantidades/versiones/modalidades; no divide precio fijo ni replica confirmaci\u00f3n. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C06",
+      "frozen_row": "| C06 Referencia contractual expresa | D020; SPEC \u00a711.2; Plan \u00a75.2 | ADMIN, consulta interna de referencia contractual de A, destinatario ADMIN. | Referencia contractual distinta expresa, v\u00e1lida y conservada; otro registro meramente sugerido/no verificado. | Consultar ambos alcances y el fundamento de la referencia. | La referencia contractual v\u00e1lida prevalece con trazabilidad. La sugerencia no sustituye la can\u00f3nica; si su validez material est\u00e1 sin verificar, queda pendiente solo esa determinaci\u00f3n. Preservar contrato, fecha de origen y decisiones; no inventa acuerdo. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C07",
+      "frozen_row": "| C07 Hora, fecha y vencimiento externo | D020; SPEC \u00a711.2; ARCH \u00a78.3; Plan \u00a710.2 PT-05 | ADMIN, calendario interno de A, destinatario ADMIN. | Servicio20 que cambia de hora dentro de la fecha y luego a22 mediante cambios ya autorizados; opci\u00f3n con vencimiento horario externo expl\u00edcito. | Reconstruir plazos antes/despu\u00e9s y compararlos. | Hora dentro del20 no cambia intervalos civiles; fecha22 reeval\u00faa solo dependientes y conserva historia previa. Vencimiento horario externo mantiene su evidencia propia, sin forzarlo a D020. Preservar decisiones/alcances no afectados; no aplicar cambio por la lectura. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C08",
+      "frozen_row": "| C08 Datos temporales o par\u00e1metros desconocidos | D020; Tasks \u00a77.2 zona/fecha; Plan \u00a78; \u00a710.2 PT-08 | ADMIN, consulta operacional interna de A y trabajo independiente B, destinatario ADMIN. | Una zona/referencia leg\u00edtima necesaria desconocida, deadline desconocido y par\u00e1metros de programaci\u00f3n ausentes; B con datos suficientes. | Consultar vencimientos/cifra final/avisos y solicitar completar supuestos con zona local del servidor o hora ficticia. | Pendiente \u00fanicamente el c\u00e1lculo/programaci\u00f3n dependientes. No fecha/hora/zona/adelanto inventados, deadline desconocido no es vencido y cifra no se confirma por defecto. B y lecturas independientes contin\u00faan. Preservar valores conocidos, desconocidos y D038 (no aplica D020 a sesi\u00f3n). | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C09",
+      "frozen_row": "| C09 Cambio Calendar cr\u00edtico y vista atrasada | SPEC \u00a724.4 AC-076; \u00a715 SPEC-FR-COORD-008; \u00a722 SPEC-FR-INT-005; SM \u00a717 SM-FORB-28; DM \u00a714 DM-INV-049 | ADMIN, revisi\u00f3n/consulta interna de A; origen externo auxiliar sin autoridad de escritura. | Se\u00f1al cr\u00edtica normalizada del bloque previo, estado can\u00f3nico actual y proyecci\u00f3n anterior de A. | Consultar se\u00f1al/revisi\u00f3n; intentar usar fecha externa o vista vieja como autorizaci\u00f3n de cambio de Booking. | Se\u00f1al cr\u00edtica queda en revisi\u00f3n; solo proceso autorizado con guardas actuales permite modificaci\u00f3n. Proyecci\u00f3n no otorga escritura ni cambia c\u00e1lculo D020. Preservar evento original, estado actual, versi\u00f3n anterior y revisi\u00f3n; ning\u00fan efecto silencioso. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C10",
+      "frozen_row": "| C10 Eco y evento fuera de orden | SPEC \u00a724.4 AC-076; \u00a715 SPEC-FR-COORD-008; Plan \u00a78; ARCH \u00a78.3 | ADMIN, consulta de calendario/referencias de A, destinatario ADMIN. | Eco correlacionado y recepci\u00f3n antigua con estado can\u00f3nico posterior, procedencia y resultado conservados. | Consultar repetidamente y contrastar intentos/resultados/eventos. | Conserva eco/antig\u00fcedad/referencias y los distingue del hecho vigente. No duplica efecto/intenci\u00f3n ni retrocede estado por evento viejo o repetici\u00f3n de lectura. Preservar evidencia/deduplicaci\u00f3n del bloque anterior; no crea sincronizador nuevo. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C11",
+      "frozen_row": "| C11 Frontera indisponible o sustituida | SPEC \u00a725 SPEC-NFR-011; \u00a722 SPEC-FR-INT-005; ARCH \u00a717 ARCH-DEC-008; Plan \u00a78 | ADMIN, consulta interna can\u00f3nica A/B; fuente externa solo auxiliar. | Referencias/originales sint\u00e9ticos existentes, adaptador doble indisponible o sustituido y dato externo pendiente. | Consultar proyecciones can\u00f3nicas y el l\u00edmite dependiente del proveedor. | Identidad, evidencia y reglas centrales siguen accesibles seg\u00fan permisos; dato dependiente permanece pendiente, partes independientes disponibles. No afirma entrega/capacidad de proveedor ni acceso p\u00fablico al Core. Preservar significado de fuente/referencia y historia sin integraci\u00f3n f\u00edsica. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "C12",
+      "frozen_row": "| C12 Avaibook sin escritura V1 | SM \u00a717 SM-FORB-28; DM \u00a714 DM-INV-049; Plan \u00a78; ARCH \u00a78.3 | ADMIN, consulta/revisi\u00f3n interna de referencia externa de A, destinatario ADMIN; proveedor sin autoridad CRM. | Referencia sint\u00e9tica de consulta y discrepancia conservadas; capacidad real no acreditada. | Intentar derivar de la consulta intenci\u00f3n de crear/modificar/cancelar en Avaibook o cambio silencioso en CRM. | Escritura/intenci\u00f3n V1 prohibida rechazada; discrepancia queda visible para revisi\u00f3n. No afirma consulta real ni resuelve escribiendo en proveedor. Preservar autoridad externa y hechos CRM; no se implementa conector. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S01",
+      "frozen_row": "| S01 Consulta interna del Administrador | SPEC \u00a720 SPEC-FR-SEC-003; P11; DM \u00a714 DM-INV-050; Plan \u00a77.1 PLAN-C01 | ADMIN, funci\u00f3n interna econ\u00f3mica autorizada de A, destinatario ADMIN. | Contexto/finalidad vigentes; econom\u00eda interna y personales pertinentes sint\u00e9ticos separados. | Consultar el alcance econ\u00f3mico leg\u00edtimo y compararlo con salida para tercero. | ADMIN accede a econom\u00eda que requiere su funci\u00f3n/alcance; no se elimina de can\u00f3nicos ni se reutiliza esa respuesta para contexto externo. Personales ajenos a la funci\u00f3n no se agregan. Preservar componentes/importes/unidades y permisos del original. | V-DOM, V-DAT |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S02",
+      "frozen_row": "| S02 Consulta para tercero | SPEC \u00a720 SPEC-FR-SEC-003/006; \u00a724.4 AC-065; Plan \u00a76.5; P10/P11 | ADMIN, preparar consulta m\u00ednima de A, destinatario tercero sint\u00e9tico con finalidad expl\u00edcita. | MARCADORES econ\u00f3micos/personales innecesarios, datos comerciales permitidos conocidos. | Solicitar consulta para tercero, incluyendo intento de ampliar con acceso del propietario. | Respuesta autorizada excluye costes/m\u00e1rgenes/beneficios/comisiones/honorarios y personales innecesarios. Propiedad no concede divulgaci\u00f3n. Preservar can\u00f3nicos y referencias permitidas; rechazo sin filtrar valores en diagn\u00f3stico. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S03",
+      "frozen_row": "| S03 B\u00fasqueda para tercero | SPEC \u00a720 SPEC-FR-SEC-003/006; \u00a724.4 AC-065; BR \u00a722 BR-SEC-002/004 | ADMIN, preparar b\u00fasqueda de A por finalidad externa expl\u00edcita, destinatario tercero sint\u00e9tico. | MARCADORES tambi\u00e9n en texto econ\u00f3mico/derivados y datos ajenos de B. | Buscar y recorrer resultados/referencias, intentando incluir texto reservado o alcance B. | B\u00fasqueda no elude restricciones mediante resultados, fragmentos o v\u00ednculos; no devuelve contenido econ\u00f3mico/personal no autorizado. Preservar b\u00fasqueda interna leg\u00edtima, objetos y originales; sin nuevos derechos por conocer ID. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S04",
+      "frozen_row": "| S04 Exportaci\u00f3n para tercero | SPEC \u00a720 SPEC-FR-SEC-003/006; \u00a724.4 AC-065; Plan \u00a76.5 | ADMIN, preparar exportaci\u00f3n local de A para finalidad/destinatario tercero sint\u00e9ticos. | Desglose reservado y personales innecesarios en fuente; selecci\u00f3n de informaci\u00f3n permitida por finalidad. | Solicitar exportaci\u00f3n, intentando copiar la respuesta interna completa. | Contenido exportado excluye toda econom\u00eda interna y personales innecesarios; copiar/exportar no ampl\u00eda permiso. Preservar fuente/desglose interno y atribuci\u00f3n; no fija formato f\u00edsico ni env\u00eda el artefacto. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S05",
+      "frozen_row": "| S05 Documento para tercero | SPEC \u00a720 SPEC-FR-SEC-003/006; \u00a724.4 AC-065; BR \u00a722 BR-SEC-002/004 | ADMIN, preparar documento local autorizado de A, destinatario tercero sint\u00e9tico. | Fuente y adjuntos/derivados sint\u00e9ticos contienen MARCADORES; informaci\u00f3n comercial permitida separada. | Componer salida documental e intentar a\u00f1adir adjunto o cuerpo completo reservado. | Documento/referencias no revelan econom\u00eda ni personales no necesarios, tampoco por adjunto o derivado. Preservar originales y permisos; no inventa obligaci\u00f3n fiscal o autorizaci\u00f3n de entrega. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S06",
+      "frozen_row": "| S06 Timeline para tercero | SPEC \u00a714 SPEC-FR-HIST-006; \u00a720 SPEC-FR-SEC-003/006; \u00a724.4 AC-065; SM \u00a717 SM-FORB-29 como l\u00edmite | ADMIN, preparar timeline m\u00ednimo de A por finalidad externa expl\u00edcita, destinatario tercero sint\u00e9tico. | Hechos autorizados y reservados comparten historia; v\u00ednculos m\u00faltiples a originales. | Solicitar salida y seguir v\u00ednculos intentando lectura universal. | Vista unificada no ampl\u00eda permisos de hechos/objetos; excluye econom\u00eda/personales indebidos y solo ofrece referencias autorizadas. Preservar historia \u00edntegra interna; ninguna descarga por mero v\u00ednculo. No declara cierre global de SM-FORB-29. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S07",
+      "frozen_row": "| S07 Contexto IA permitido | SPEC \u00a720 SPEC-FR-SEC-003/006; \u00a724.4 AC-065; BR \u00a722 BR-SEC-004; Plan \u00a78 | ADMIN, preparar contexto IA local de funci\u00f3n y destinatarios sint\u00e9ticos autorizados para A. | Datos comerciales necesarios y MARCADORES econ\u00f3micos/personales ajenos, originales/derivados diferenciados. | Preparar contexto e intentar incluir objeto interno completo o reutilizar contexto de otra finalidad. | IA recibe \u00fanicamente informaci\u00f3n permitida para la funci\u00f3n/destinatario; acceso ADMIN no justifica contexto externo completo. Preservar provenance/review y hechos confirmados; no llama modelo externo ni extrae conclusiones aut\u00f3nomas. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S08",
+      "frozen_row": "| S08 Pack comercial multimodal | BR \u00a725 BR-PACK-003; DM \u00a714 DM-INV-025; SPEC \u00a720 SPEC-FR-SEC-003; Plan \u00a76.5 | ADMIN, presentaci\u00f3n comercial local de PACK, destinatario cliente sint\u00e9tico. | Modalidades/precios/participantes/incluidos y unidades/descomposici\u00f3n interna ya fijados en PACK. | Preparar propuesta comercial por modalidad, intentando exponer coste fijo, suplido interno, comisi\u00f3n/honorario/margen. | Solo precio final/persona, participantes e incluidos por modalidad; 120,00/10 y 180,00/8 conservados como datos del caso. Componente fijo900 y todo desglose reservado permanecen internos; no convierte unidad fija en tarifa por persona ni calcula media/prorrateo. Preservar versi\u00f3n/composici\u00f3n. Verificaci\u00f3n global DM-INV-025 mantiene asignaciones originales. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S09",
+      "frozen_row": "| S09 Finalidad y conservaci\u00f3n no presumidas | SPEC \u00a720 SPEC-FR-SEC-006; \u00a725 SPEC-NFR-003; DM \u00a715 DM-PENDING-005; P10 | ADMIN, salida m\u00ednima para servicio/alcance concreto de A, destinatario tercero sint\u00e9tico definido. | Personales necesarios para esa funci\u00f3n sint\u00e9ticamente justificados y otros datos nominales ajenos; autorizaci\u00f3n de transcripci\u00f3n/original diferenciada. | Pedir todos los datos por compartir Contact o solicitar retenci\u00f3n indefinida/audio/borrado autom\u00e1tico sin pol\u00edtica. | Solo datos necesarios autorizados; tratamiento/divulgaci\u00f3n dependientes no acreditados quedan pendientes o denegados. Sin consentimiento, audio, plazo, anonimizaci\u00f3n/borrado inventados. Preservar originales/derivados/historia de acuerdo con permiso; no equipara archivado con pol\u00edtica legal resuelta. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S10",
+      "frozen_row": "| S10 Naturaleza fiscal de las salidas | SPEC \u00a720 SPEC-FR-SEC-007; BR \u00a723 BR-BILL-001\u2013005; P16; D008/D013 | ADMIN, consulta/documento local de A, destinatario permitido por finalidad sint\u00e9tica; l\u00edmite de H5-011. | Factura externa sint\u00e9tica con emisor, borrador autorizado no fiscal y pago conciliado existente. | Consultar/exportar; intentar convertirlos en factura CRM/numeraci\u00f3n fiscal por pago o aprobaci\u00f3n humana. | Documento externo conserva naturaleza/emisor; borrador inequ\u00edvocamente no fiscal. Emisi\u00f3n/numeraci\u00f3n/motor fiscal no habilitados, sin nuevo mandato ni conclusi\u00f3n suplidos/Tarar\u00ed. Preservar documentos/importes. Verificaci\u00f3n asignada a H3-014/H3-010/H6-017 no se declara realizada ni se prepara. | V-DOM, V-DAT, V-NEG, V-EVI de l\u00edmite local |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S11",
+      "frozen_row": "| S11 Referencias de diagn\u00f3stico autorizadas | SPEC \u00a724.4 AC-081; DM \u00a714 DM-INV-047; ARCH \u00a713.2/13.3; Plan \u00a711.2 | ADMIN/revisor autorizado V1, localizar fallo de A por petici\u00f3n/ejecuci\u00f3n/evento, destinatario interno autorizado. | Referencias sint\u00e9ticas a alcance, intento, aprobaci\u00f3n, historia y resultado; log t\u00e9cnico distinto de evidencia de negocio. | Consultar referencias autorizadas desde timeline y buscar la cadena pertinente. | Localiza registros permitidos sin tomar log como aceptaci\u00f3n/pago/entrega o prueba sustitutiva. No copia secretos, URLs temporales, cuerpos completos ni econom\u00eda innecesaria a diagn\u00f3stico. Preservar registros originales; solo l\u00edmite de consulta H5-011, AC-081 sigue asignado a H5-018. | V-DOM, V-DAT, V-EVI de l\u00edmite local |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "S12",
+      "frozen_row": "| S12 Diagn\u00f3stico o rechazo no autorizados | AC-081 como l\u00edmite H5-011; P10; Plan \u00a76.5/\u00a77.1/\u00a711.2; BR \u00a722 BR-SEC-004 | Solicitante sin autoridad del alcance A, finalidad/actor autodeclarados, destinatario no autorizado. | Referencias conocidas de A y MARCADORES reservados en registros originales. | Intentar leer detalle/cuerpo/resultado por referencia de log o forzar mensaje de error con esos valores. | Rechazo sin revelar econom\u00eda/personales ni entregar original/URL temporal; referencia conocida no concede permiso. Preservar registros/historia. No implementa observabilidad H5-017/018 ni acredita la verificaci\u00f3n posterior AC-081. | V-DAT, V-NEG, V-EVI de l\u00edmite local |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "A01",
+      "frozen_row": "| A01 Sin contexto v\u00e1lido | Tasks \u00a72.2 V-DAT; P10; SM \u00a72.1 G1; Plan \u00a76.5/\u00a77.1 PLAN-C01 | Solicitante sin contexto confiable, consulta declarada de A, destinatario no autorizado. | IDs conocidos, sin autoridad emitida/admitida por servidor. | Intentar consulta/timeline/calendario y referencia de original fuera de UI. | Denegaci\u00f3n por defecto en servidor/base seg\u00fan superficie; no devuelve registros/personales/econom\u00eda ni produce efecto de negocio. Preservar can\u00f3nicos, objetos, historia y ausencia de autoridad humana. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "A02",
+      "frozen_row": "| A02 Contexto falsificado o ampliado | P10; G1; Plan \u00a76.5/\u00a77.1; D037/D038 | Solicitante/M2 con contexto declarado o alterado para actor/finalidad/alcance/recurso de A/B, destinatario no autorizado. | Identificadores y SQL permitido conocidos; ninguna clave real en evidencia. | Alterar campos/binding o autodeclarar rol/humanidad/alcance y acceder directamente. | Contexto del cliente no selecciona identidad/efecto; falsificaci\u00f3n/ampliaci\u00f3n rechazada sin datos ni efecto. Preservar separaci\u00f3n F1/F2, permisos, generation y binding transaccional; no modifica criptograf\u00eda/ventanas. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "A03",
+      "frozen_row": "| A03 Actor/sesi\u00f3n ya inhabilitados o revocados | Tasks \u00a72.2 V-DAT; P10; Plan \u00a76.5/\u00a77.1; D038 | Mismo ADMIN anterior sin autoridad actual, intento de lectura A desde sesi\u00f3n/epoch/generaci\u00f3n viejos. | Inhabilitaci\u00f3n/revocaci\u00f3n ya confirmada o identificaci\u00f3n vencida seg\u00fan contrato vigente. | Repetir lectura o intentar recuperar una respuesta previa con autoridad antigua. | Reautoriza cada acceso/resultado; deniega y no reactiva sesi\u00f3n ni activity por admitir primero actualizaci\u00f3n. Preservar revocaci\u00f3n/generaci\u00f3n/historia, sin cancelar retroactivamente operaci\u00f3n que ya estuvo autorizada. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "A04",
+      "frozen_row": "| A04 Relaci\u00f3n o rol futuro sin acceso | DM \u00a714 DM-INV-050; SM \u00a717 SM-FORB-29; G1; D015; BR \u00a722 BR-SEC-001 | Cliente/proveedor/colaborador o rol previsto autodeclarado, destinatario mismo tercero; sin nuevo actor operativo. | Relaci\u00f3n real solo dentro del escenario sint\u00e9tico y IDs conocidos. | Pedir consulta interna, econom\u00eda/timeline/objeto alegando esa relaci\u00f3n. | Relaci\u00f3n/rol previsto no son permisos activos; rechazo sin contenido restringido. Preservar \u00fanico Administrador y m\u00ednimos privilegios. Los casos locales no cierran comprobaciones globales SM-FORB-29/DM-INV-050 asignadas fuera de H5-012. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "A05",
+      "frozen_row": "| A05 V\u00ednculo compartido y scope concreto | G1; P10; SPEC \u00a714 SPEC-FR-HIST-006; \u00a720 SPEC-FR-SEC-006; Plan \u00a77.1 PLAN-C01 | Contexto autorizado solo para lectura concreta de A, destinatario seg\u00fan finalidad; intento adicional sobre B. | A/B comparten Contact/Organization, documento u original con v\u00ednculos m\u00faltiples. | Cambiar ID/filtro a B o seguir objeto compartido hacia contenido no permitido; repetir con ADMIN y autoridad leg\u00edtima para B como control positivo. | V\u00ednculo no extiende scope ni permiso de original; intento no autorizado rechazado, control leg\u00edtimo admitido seg\u00fan finalidad. Preservar ambos v\u00ednculos/objetos e historia sin duplicar original ni inventar propietarios distintos. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "A06",
+      "frozen_row": "| A06 Sesiones y respuestas personales aisladas | Plan \u00a73.2 PLAN-DEC-009; P10; fichas H5-011/012; D038 | ADMIN, dos sesiones independientes y finalidades distintas A/B, destinatarios diferenciados. | Una lectura interna previa, otra salida externa y una sesi\u00f3n que posteriormente pierde autoridad. | Alternar consultas y repetirlas usando conexi\u00f3n reutilizada, resultado/cach\u00e9 anterior si existe. | Sin cach\u00e9 compartida ni herencia de contexto entre transacciones/conexiones/sesiones/finalidades; respuesta interna no pasa a externa y sesi\u00f3n revocada no recibe respuesta por cach\u00e9. Preservar l\u00edmites independientes y permisos; no exige implantar cach\u00e9. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "A07",
+      "frozen_row": "| A07 Frontera p\u00fablica y origen externo | ARCH \u00a717 ARCH-DEC-008; SPEC \u00a722 SPEC-FR-INT-005; G1; P10 | Origen p\u00fablico/externo sin autoridad Core, destinatario tercero; intento de alcance A. | Evento/referencia auxiliar conocida sin sesi\u00f3n interna v\u00e1lida. | Usar ID aportado por formulario/doble/evento para leer expediente/econom\u00eda o cambiar estado. | Web/app separadas y referencia externa no otorgan acceso interno ni escritura arbitraria. Rechazo sin datos/efecto; preserva evento/can\u00f3nicos. No crea formulario, endpoint p\u00fablico, webhook ni conector real. | V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "A08",
+      "frozen_row": "| A08 Acceso directo y privilegios m\u00ednimos | Tasks \u00a72.2 V-DAT; Plan \u00a76.5; P10; D037\u2013D039 | Rol ordinario de ensayo aislado, actor/contexto autorizado e intentos sin autoridad, destino propio para comparaci\u00f3n. | Grants/RLS/objetos reales del entorno de ensayo futuro; owner/migration separados, sin service_role/BYPASSRLS como identidad ordinaria. | Invocar superficies realmente existentes fuera de UI y probar lectura/DML directo que el rol no tiene autorizado. | Permisos m\u00ednimos y RLS/controles pertinentes resisten v\u00edas directas; no se concede CRUD/helper/ownership global para conseguir PASS. Originales/versiones/historia permanecen protegidos; consultas autorizadas s\u00ed funcionan. Preservar ACL, roles y cadena hist\u00f3rica. | V-DAT, V-NEG; V-MIG si cambia persistencia/permisos |",
+      "observed": "NOT EXECUTED"
+    },
+    {
+      "id": "A09",
+      "frozen_row": "| A09 Lectura no autoriza mutaci\u00f3n ni actividad ficticia | Plan \u00a77.1 PLAN-C01/C06; SPEC \u00a715 SPEC-FR-COORD-008; D038/D039 | ADMIN con permiso de consulta concreto A; origen t\u00e9cnico/polling sin interacci\u00f3n humana para control negativo. | Evaluaci\u00f3n previa/actual de A, estados can\u00f3nicos y sesi\u00f3n admitida conforme a contratos existentes. | Intentar convertir salida en aprobaci\u00f3n/cierre/confirmaci\u00f3n o usar lectura t\u00e9cnica para renovar autoridad humana. | Proyecci\u00f3n no permite mutaci\u00f3n ni confirma/cierra por arrastre. Polling/background no cuenta como actividad humana; interacci\u00f3n real autorizada mantiene contrato D038 y no extiende l\u00edmites absolutos. Preservar estados/HA/versiones y autoridad TTE cuando corresponda, sin crear nuevas unidades sensibles. | V-DOM, V-DAT, V-NEG |",
+      "observed": "NOT EXECUTED"
+    }
+  ],
+  "normative_rows": [
+    "| **SPEC-FR-HIST-006** \u2014 [spec.md](spec.md), \u00a7 14. Versions, Snapshots, History and Evidence | [TSK-H1-003], [TSK-H5-011] | [TSK-H1-004], [TSK-H5-012], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **SPEC-FR-COORD-008** \u2014 [spec.md](spec.md), \u00a7 15. Tasks, Alerts, Incidents and Operational Calendar | [TSK-H5-011], [TSK-H5-009] | [TSK-H5-012], [TSK-H5-010] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **SPEC-FR-SEC-003** \u2014 [spec.md](spec.md), \u00a7 20. Security, Privacy and Authorization | [TSK-H2-003], [TSK-H5-011] | [TSK-H2-004], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **SPEC-FR-SEC-006** \u2014 [spec.md](spec.md), \u00a7 20. Security, Privacy and Authorization | [TSK-H1-001], [TSK-H4-001], [TSK-H5-005], [TSK-H5-011] | [TSK-H1-002], [TSK-H4-002], [TSK-H5-006], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **SPEC-FR-SEC-007** \u2014 [spec.md](spec.md), \u00a7 20. Security, Privacy and Authorization | [TSK-H3-013], [TSK-H3-009], [TSK-H5-011] | [TSK-H3-014], [TSK-H3-010], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **SPEC-FR-INT-005** \u2014 [spec.md](spec.md), \u00a7 22. Core Integration Boundaries | [TSK-H5-009], [TSK-H5-011] | [TSK-H5-010], [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **AC-062** \u2014 [spec.md](spec.md), \u00a7 24.3. Coordinaci\u00f3n, supervisi\u00f3n y cierres | [TSK-H1-003], [TSK-H5-011], [TSK-H5-015] | [TSK-H1-004], [TSK-H5-012], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **AC-065** \u2014 [spec.md](spec.md), \u00a7 24.4. Controles t\u00e9cnicos y fronteras | [TSK-H5-011], [TSK-H2-003] | [TSK-H5-012], [TSK-H2-004], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **AC-075** \u2014 [spec.md](spec.md), \u00a7 24.4. Controles t\u00e9cnicos y fronteras | [TSK-H2-007], [TSK-H1-013], [TSK-H5-011] | [TSK-H2-008], [TSK-H5-012], [TSK-H6-002] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **AC-076** \u2014 [spec.md](spec.md), \u00a7 24.4. Controles t\u00e9cnicos y fronteras | [TSK-H5-009], [TSK-H5-011], [TSK-H1-011] | [TSK-H5-010], [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **AC-081** \u2014 [spec.md](spec.md), \u00a7 24.4. Controles t\u00e9cnicos y fronteras | [TSK-H0-009], [TSK-H5-017], [TSK-H5-011] | [TSK-H5-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **SPEC-NFR-001** \u2014 [spec.md](spec.md), \u00a7 25. Non-Functional Requirements | [TSK-H0-009], [TSK-H1-013], [TSK-H5-011] | [TSK-H2-008], [TSK-H5-012], [TSK-H6-001], [TSK-H6-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **SPEC-NFR-003** \u2014 [spec.md](spec.md), \u00a7 25. Non-Functional Requirements | [TSK-H1-001], [TSK-H4-001], [TSK-H5-005], [TSK-H5-011] | [TSK-H2-011], [TSK-H4-002], [TSK-H5-006], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **SPEC-NFR-011** \u2014 [spec.md](spec.md), \u00a7 25. Non-Functional Requirements | [TSK-H5-009] | [TSK-H5-010], [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **DM-INV-025** \u2014 [domain-model.md](../../docs/domain-model.md), \u00a7 14. Invariants \u2014 Invariantes del dominio | [TSK-H2-003], [TSK-H5-011] | [TSK-H2-004], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **DM-INV-047** \u2014 [domain-model.md](../../docs/domain-model.md), \u00a7 14. Invariants \u2014 Invariantes del dominio | [TSK-H0-009], [TSK-H1-013], [TSK-H5-017], [TSK-H5-011] | [TSK-H0-010], [TSK-H1-014], [TSK-H5-018], [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **DM-INV-049** \u2014 [domain-model.md](../../docs/domain-model.md), \u00a7 14. Invariants \u2014 Invariantes del dominio | [TSK-H5-009], [TSK-H5-011] | [TSK-H5-010], [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **DM-INV-050** \u2014 [domain-model.md](../../docs/domain-model.md), \u00a7 14. Invariants \u2014 Invariantes del dominio | [TSK-H0-005], [TSK-H0-007], [TSK-H5-011] | [TSK-H6-008], [TSK-H0-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **DM-INV-051** \u2014 [domain-model.md](../../docs/domain-model.md), \u00a7 14. Invariants \u2014 Invariantes del dominio | [TSK-H1-003], [TSK-H5-011] | [TSK-H1-004], [TSK-H5-012], [TSK-H6-013] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **SM-FORB-28** \u2014 [state-machines.md](../../docs/state-machines.md), \u00a7 17. Forbidden transitions \u2014 Transiciones prohibidas | [TSK-H5-009], [TSK-H5-011] | [TSK-H5-010], [TSK-H5-012] | V-NEG: intentar \u00abDato externo/calendario \u2192 cambio silencioso; consulta Avaibook \u2192 crear/modificar/cancelar all\u00ed\u00bb; impedir la transici\u00f3n/inferencia y conservar hechos/historia. V-NEG: AC-076, AC-077. Intentar inferencia/transici\u00f3n prohibida de SM \u00a717; debe rechazarse sin efecto indebido. |",
+    "| **SM-FORB-29** \u2014 [state-machines.md](../../docs/state-machines.md), \u00a7 17. Forbidden transitions \u2014 Transiciones prohibidas | [TSK-H0-005], [TSK-H0-007], [TSK-H5-011], [TSK-H1-015] | [TSK-H0-008], [TSK-H6-008], [TSK-H6-017] | V-NEG: intentar \u00abRol previsto/relaci\u00f3n comercial \u2192 permiso activo; timeline \u2192 divulgaci\u00f3n de econom\u00eda/datos personales no autorizados\u00bb; impedir la transici\u00f3n/inferencia y conservar hechos/historia. V-NEG: AC-064, AC-065, AC-082. Intentar inferencia/transici\u00f3n prohibida de SM \u00a717; debe rechazarse sin efecto indebido. |",
+    "| **SM-FORB-32** \u2014 [state-machines.md](../../docs/state-machines.md), \u00a7 17. Forbidden transitions \u2014 Transiciones prohibidas | [TSK-H1-003], [TSK-H2-007] | [TSK-H1-004], [TSK-H2-008], [TSK-H5-012] | V-NEG: intentar \u00abAnular/fusionar/archivar \u2192 borrar historia o reutilizar identificadores\u00bb; impedir la transici\u00f3n/inferencia y conservar hechos/historia. V-NEG: AC-003, AC-062, AC-075. Intentar inferencia/transici\u00f3n prohibida de SM \u00a717; debe rechazarse sin efecto indebido. |",
+    "| **ARCH-DEC-007** \u2014 [architecture.md](../../docs/architecture.md), \u00a7 17. ARCH-DEC \u2014 Decisiones arquitect\u00f3nicas aprobadas | [TSK-H5-011] | [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **ARCH-DEC-008** \u2014 [architecture.md](../../docs/architecture.md), \u00a7 17. ARCH-DEC \u2014 Decisiones arquitect\u00f3nicas aprobadas | [TSK-H5-009], [TSK-H5-011], [TSK-H0-007] | [TSK-H5-010], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **ARCH-DEC-016** \u2014 [architecture.md](../../docs/architecture.md), \u00a7 17. ARCH-DEC \u2014 Decisiones arquitect\u00f3nicas aprobadas | [TSK-H0-009], [TSK-H1-013], [TSK-H1-003], [TSK-H5-011] | [TSK-H0-010], [TSK-H1-014], [TSK-H1-004], [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **P10** \u2014 [constitution.md](../../docs/constitution.md), \u00a7 P10. Seguridad y privacidad desde el dise\u00f1o | [TSK-H0-005], [TSK-H0-007], [TSK-H1-015], [TSK-H5-011] | [TSK-H6-008], [TSK-H0-008], [TSK-H1-016], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **P11** \u2014 [constitution.md](../../docs/constitution.md), \u00a7 P11. Informaci\u00f3n econ\u00f3mica interna reservada | [TSK-H3-013], [TSK-H5-011], [TSK-H0-007] | [TSK-H3-014], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **PLAN-DEC-009** \u2014 [plan.md](plan.md), \u00a7 3.2. PLAN-DEC \u2014 decisiones t\u00e9cnicas APPROVED | [TSK-H5-011], [TSK-H1-017], [TSK-H5-007], [TSK-H5-009] | [TSK-H5-012], [TSK-H1-018], [TSK-H5-008], [TSK-H5-010] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **PLAN-B07** \u2014 [plan.md](plan.md), \u00a7 4. Bloques, componentes y responsabilidades | [TSK-H1-013], [TSK-H1-015], [TSK-H1-017], [TSK-H5-001], [TSK-H5-003], [TSK-H5-005], [TSK-H5-011] | [TSK-H1-014], [TSK-H1-016], [TSK-H1-018], [TSK-H5-002], [TSK-H5-004], [TSK-H5-006], [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **PLAN-C01** \u2014 [plan.md](plan.md), \u00a7 7.1. Contrato com\u00fan de aplicaci\u00f3n | [TSK-H0-005], [TSK-H0-007], [TSK-H1-015], [TSK-H5-011] | [TSK-H0-006], [TSK-H0-008], [TSK-H1-016], [TSK-H5-012], [TSK-H6-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **PT-05** \u2014 [plan.md](plan.md), \u00a7 10.2. Familias de pruebas y los 92 criterios | [TSK-H4-011], [TSK-H4-013], [TSK-H1-011], [TSK-H5-011] | [TSK-H4-012], [TSK-H4-014], [TSK-H1-012], [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **PT-08** \u2014 [plan.md](plan.md), \u00a7 10.2. Familias de pruebas y los 92 criterios | [TSK-H1-017], [TSK-H5-001], [TSK-H4-001], [TSK-H4-003], [TSK-H5-003], [TSK-H5-005], [TSK-H5-011], [TSK-H5-007] | [TSK-H1-018], [TSK-H5-002], [TSK-H4-002], [TSK-H4-004], [TSK-H5-004], [TSK-H5-006], [TSK-H5-012], [TSK-H5-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **G1** \u2014 [state-machines.md](../../docs/state-machines.md), \u00a7 2.1. Sem\u00e1ntica de la transici\u00f3n | [TSK-H0-005], [TSK-H0-007], [TSK-H5-011] | [TSK-H0-006], [TSK-H0-008], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todav\u00eda NO EJECUTADA. |",
+    "| **D020** \u2014 [DECISIONS.md](../../docs/DECISIONS.md), \u00a7 D020 \u2014 C\u00f3mputo temporal por d\u00edas naturales y alcance | [TSK-H1-011], [TSK-H4-013], [TSK-H3-001], [TSK-H5-011] | [TSK-H1-012], [TSK-H4-014], [TSK-H3-002], [TSK-H5-012] | D\u00edas civiles completos y referencia por alcance. |"
+  ],
+  "git_initial": {
+    "branch": "main",
+    "head_main_origin": "f063879d203330adb57d7e8fef3607ae796f52d5",
+    "divergence": "0/0",
+    "index": "empty",
+    "worktree": "clean"
+  },
+  "timestamp_utc": "2026-10-15T17:12:51.482644+00:00",
+  "authorization": "Resume complete 41 cases,34 rows; minimal technical fixes authorized; normative/evidence/security/real-data limits require STOP."
+}

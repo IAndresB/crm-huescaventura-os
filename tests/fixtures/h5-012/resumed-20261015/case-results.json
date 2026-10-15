@@ -1,0 +1,754 @@
+{
+  "status": "READY FOR REVIEW local/isolated only",
+  "conceptual_cases": [
+    {
+      "id": "H01",
+      "title": "H01 Reconstrucción canónica",
+      "sources": "SPEC §14 SPEC-FR-HIST-006; §25 SPEC-NFR-001; ARCH §13.2/§17 ARCH-DEC-016; Plan §4 PLAN-B07",
+      "expected": "Reconstruye necesidad, versiones, aceptación y hechos relacionados sin sustituirlos por resúmenes ni por la proyección. Preservar IDs, versiones, vínculos y significado de cada hecho; ninguna escritura de negocio por consultar.",
+      "observed": "canonical chain, exact version/acceptance and references",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "canonical chain, exact version/acceptance and references"
+    },
+    {
+      "id": "H02",
+      "title": "H02 Registro tardío y momento desconocido",
+      "sources": "SPEC §14 SPEC-FR-HIST-006; BR §21 BR-HIST-001/002; DM §14 DM-INV-047",
+      "expected": "Distingue fecha conocida del hecho y fecha de registro; no presenta el primero como ocurrido el 12 ni inventa hora/fecha para el desconocido. Preservar cronología conocida y relaciones; no fija orden visual ni desempate nuevo.",
+      "observed": "late and unknown moments remain distinct",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "late and unknown moments remain distinct"
+    },
+    {
+      "id": "H03",
+      "title": "H03 Rectificación de llamada atribuida",
+      "sources": "SPEC §24.4 AC-075; §14 SPEC-FR-HIST-006; BR §21 BR-HIST-003",
+      "expected": "Ambos hechos y su enlace son recuperables; diferencia atribución original/corregida y dependientes actuales. No fabrica llamada/aceptación ni revierte banco/proveedor por la lectura. Preservar original, términos históricos y corrección.",
+      "observed": "attributed phone acceptance and rectification remain retrievable",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "attributed phone acceptance and rectification remain retrievable"
+    },
+    {
+      "id": "H04",
+      "title": "H04 Actores y procedencia distintos",
+      "sources": "DM §14 DM-INV-047; BR §21 BR-HIST-001/005; ARCH §13.2",
+      "expected": "Conserva quién/cuándo/motivo, origen humano/automático, antes/después y ausencia de previo en una creación. No confunde solicitante con CRM Actor, ejecutor con aprobador ni responsable con autor del hecho. Preservar identidades y evidencias.",
+      "observed": "provenance distinguishes human recorder and automatic derivative",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "provenance distinguishes human recorder and automatic derivative"
+    },
+    {
+      "id": "H05",
+      "title": "H05 Original, derivado y conservación incompleta",
+      "sources": "SPEC §14 SPEC-FR-HIST-006 y HIST-003/004 como fuentes de originales; §20 SPEC-FR-SEC-006; D016/D017",
+      "expected": "Diferencia original/resumen, revisión y qué está conservado. No presenta objeto ausente como íntegro, resumen como original ni audio/consentimiento inferidos. Preservar enlaces/permisos y estados reales; ninguna reparación se ejecuta por consultar.",
+      "observed": "original bytes, derivative and incomplete conservation reauthorize",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "original bytes, derivative and incomplete conservation reauthorize"
+    },
+    {
+      "id": "H06",
+      "title": "H06 Archivado recuperable",
+      "sources": "SPEC §24.3 AC-062; §14 SPEC-FR-HIST-006; DM §14 DM-INV-051; BR §22 BR-SEC-005",
+      "expected": "Archivado sale de vistas normales, permanece recuperable y no acredita cierre. Se rechaza inferencia de borrado/cierre; preserva códigos, vínculos, estados e historia, sin activar política de retención.",
+      "observed": "archive hides normal view and preserves recovery without closure",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "archive hides normal view and preserves recovery without closure"
+    },
+    {
+      "id": "H07",
+      "title": "H07 Fusión humana de identidades",
+      "sources": "SPEC §24.3 AC-062; DM §14 DM-INV-051; BR §3 BR-CON-005; D017/D018",
+      "expected": "Conserva las dos historias, IDs de origen y relaciones; compartir identidad no fusiona expedientes ni amplía permisos. Inferencia de fusión de Opportunity/Booking rechazada; no se ejecuta nueva fusión en H5-011.",
+      "observed": "human identity merge preserves two histories and distinct Bookings",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "human identity merge preserves two histories and distinct Bookings"
+    },
+    {
+      "id": "H08",
+      "title": "H08 Anulación e IDs no reutilizables",
+      "sources": "SM §17 SM-FORB-32; SPEC §24.3 AC-062; BR §29 BR-ID-001/002; D040",
+      "expected": "Identidades/códigos anteriores permanecen rastreables; nuevo expediente no reutiliza los anteriores. Año/código fijados no cambian por fecha futura del servicio. Preservar historia y enlaces; no se implementa asignador de códigos nuevo.",
+      "observed": "stable distinct codes survive cancelled operation and future service dates",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "stable distinct codes survive cancelled operation and future service dates"
+    },
+    {
+      "id": "C01",
+      "title": "C01 Calendario canónico completo en su alcance",
+      "sources": "SPEC §15 SPEC-FR-COORD-008; BR §17 BR-TASK-007; ARCH §17 ARCH-DEC-007; Plan §4 PLAN-B07",
+      "expected": "Deriva cada categoría aplicable de su hecho canónico, con procedencia/alcance/certeza; pago previsto no es recibido, Task no acredita prestación y fecha visual no confirma servicio. Preservar hechos/estados; ninguna segunda autoridad de agenda.",
+      "observed": "calendar exposes canonical services, payments, Tasks and pending schedules",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "calendar exposes canonical services, payments, Tasks and pending schedules"
+    },
+    {
+      "id": "C02",
+      "title": "C02 Proyección reconstruible y filtros",
+      "sources": "Plan §3.2 PLAN-DEC-009; §7.1 PLAN-C01; SPEC §15 SPEC-FR-COORD-008",
+      "expected": "Misma información permitida para iguales estado/finalidad/alcance; cambio nuevo puede reconstruirse sin caché compartida. Filtros/páginas no amplían alcance ni pierden referencias aplicables. Preservar canónicos; no impone formato/tamaño de página ni SLA de actualización.",
+      "observed": "reconstruction pagination and filters bind purpose and root",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "reconstruction pagination and filters bind purpose and root"
+    },
+    {
+      "id": "C03",
+      "title": "C03 Día completo a siete días",
+      "sources": "D020; SPEC §11.2; Tasks ficha H1-011; Plan §10.2 PT-05",
+      "expected": "El día 13 completo pertenece a ≥7; saldo general no vencido hasta terminar ese día y vencido desde el 14 si sigue sin cobertura. Cifra final no transforma estimación en confirmación ni ejecuta cobro/aviso por consultar. Preservar importe y fuente canónica.",
+      "observed": "full seventh day balance and final-count civil reference",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "full seventh day balance and final-count civil reference"
+    },
+    {
+      "id": "C04",
+      "title": "C04 Límites civiles de cancelación a siete y tres días",
+      "sources": "D020; SPEC §11.2; Plan §10.2 PT-05",
+      "expected": "Día 13 completo: ≥7 días, devolución correspondiente según base y política acreditadas; día 14: ≥3 y <7 días, retención/cobro del 50 %; día 17 completo: ≥3 y <7 días, retención/cobro del 50 %; día 18: <3 días, retención/cobro del 100 %. No inventa cuantía de devolución si la base o política concreta no está acreditada. Solo proyecta resultados existentes: no autoriza nuevos cálculos económicos, Refund, cobros ni cambios de estado; rechaza cortes intradía inventados. Preservar referencia civil, alcance de servicio, base/derecho/política y hechos existentes.",
+      "observed": "retained canonical cancellation results respect complete 7/3 days",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "retained canonical cancellation results respect complete 7/3 days"
+    },
+    {
+      "id": "C05",
+      "title": "C05 Referencias por Booking/modalidad/servicio/noche",
+      "sources": "D020; SPEC §11.2; Tasks ficha H1-011; Plan §10.2 PT-05",
+      "expected": "Global/saldo/cancelación total Booking usan primer servicio contratado20; modalidad completa usa su primero22; servicio su fecha; noche inicio23. Cifra final específica usa su alcance y no se propaga. Preservar cantidades/versiones/modalidades; no divide precio fijo ni replica confirmación.",
+      "observed": "civil scopes retain independent anchors and accepted quantities",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "civil scopes retain independent anchors and accepted quantities"
+    },
+    {
+      "id": "C06",
+      "title": "C06 Referencia contractual expresa",
+      "sources": "D020; SPEC §11.2; Plan §5.2",
+      "expected": "La referencia contractual válida prevalece con trazabilidad. La sugerencia no sustituye la canónica; si su validez material está sin verificar, queda pendiente solo esa determinación. Preservar contrato, fecha de origen y decisiones; no inventa acuerdo.",
+      "observed": "expressly valid contract reference prevails without inventing validity",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "expressly valid contract reference prevails without inventing validity"
+    },
+    {
+      "id": "C07",
+      "title": "C07 Hora, fecha y vencimiento externo",
+      "sources": "D020; SPEC §11.2; ARCH §8.3; Plan §10.2 PT-05",
+      "expected": "Hora dentro del20 no cambia intervalos civiles; fecha22 reevalúa solo dependientes y conserva historia previa. Vencimiento horario externo mantiene su evidencia propia, sin forzarlo a D020. Preservar decisiones/alcances no afectados; no aplicar cambio por la lectura.",
+      "observed": "hourly external limit keeps own instant while D020 remains civil",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "hourly external limit keeps own instant while D020 remains civil"
+    },
+    {
+      "id": "C08",
+      "title": "C08 Datos temporales o parámetros desconocidos",
+      "sources": "D020; Tasks §7.2 zona/fecha; Plan §8; §10.2 PT-08",
+      "expected": "Pendiente únicamente el cálculo/programación dependientes. No fecha/hora/zona/adelanto inventados, deadline desconocido no es vencido y cifra no se confirma por defecto. B y lecturas independientes continúan. Preservar valores conocidos, desconocidos y D038 (no aplica D020 a sesión).",
+      "observed": "unknown schedule/deadline stays pending and independent Booking remains readable",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "unknown schedule/deadline stays pending and independent Booking remains readable"
+    },
+    {
+      "id": "C09",
+      "title": "C09 Cambio Calendar crítico y vista atrasada",
+      "sources": "SPEC §24.4 AC-076; §15 SPEC-FR-COORD-008; §22 SPEC-FR-INT-005; SM §17 SM-FORB-28; DM §14 DM-INV-049",
+      "expected": "Señal crítica queda en revisión; solo proceso autorizado con guardas actuales permite modificación. Proyección no otorga escritura ni cambia cálculo D020. Preservar evento original, estado actual, versión anterior y revisión; ningún efecto silencioso.",
+      "observed": "critical Calendar event remains review and stale projection has no write authority",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "critical Calendar event remains review and stale projection has no write authority"
+    },
+    {
+      "id": "C10",
+      "title": "C10 Eco y evento fuera de orden",
+      "sources": "SPEC §24.4 AC-076; §15 SPEC-FR-COORD-008; Plan §8; ARCH §8.3",
+      "expected": "Conserva eco/antigüedad/referencias y los distingue del hecho vigente. No duplica efecto/intención ni retrocede estado por evento viejo o repetición de lectura. Preservar evidencia/deduplicación del bloque anterior; no crea sincronizador nuevo.",
+      "observed": "echo and earlier event never duplicate effect or overwrite current dates",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "echo and earlier event never duplicate effect or overwrite current dates"
+    },
+    {
+      "id": "C11",
+      "title": "C11 Frontera indisponible o sustituida",
+      "sources": "SPEC §25 SPEC-NFR-011; §22 SPEC-FR-INT-005; ARCH §17 ARCH-DEC-008; Plan §8",
+      "expected": "Identidad, evidencia y reglas centrales siguen accesibles según permisos; dato dependiente permanece pendiente, partes independientes disponibles. No afirma entrega/capacidad de proveedor ni acceso público al Core. Preservar significado de fuente/referencia y historia sin integración física.",
+      "observed": "unavailable/replaced auxiliary source does not make Core unavailable",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "unavailable/replaced auxiliary source does not make Core unavailable"
+    },
+    {
+      "id": "C12",
+      "title": "C12 Avaibook sin escritura V1",
+      "sources": "SM §17 SM-FORB-28; DM §14 DM-INV-049; Plan §8; ARCH §8.3",
+      "expected": "Escritura/intención V1 prohibida rechazada; discrepancia queda visible para revisión. No afirma consulta real ni resuelve escribiendo en proveedor. Preservar autoridad externa y hechos CRM; no se implementa conector.",
+      "observed": "Avaibook discrepancy never grants create/update/cancel capability",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "Avaibook discrepancy never grants create/update/cancel capability"
+    },
+    {
+      "id": "S01",
+      "title": "S01 Consulta interna del Administrador",
+      "sources": "SPEC §20 SPEC-FR-SEC-003; P11; DM §14 DM-INV-050; Plan §7.1 PLAN-C01",
+      "expected": "ADMIN accede a economía que requiere su función/alcance; no se elimina de canónicos ni se reutiliza esa respuesta para contexto externo. Personales ajenos a la función no se agregan. Preservar componentes/importes/unidades y permisos del original.",
+      "observed": "legitimate internal economics remains available only to internal purpose",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "legitimate internal economics remains available only to internal purpose"
+    },
+    {
+      "id": "S02",
+      "title": "S02 Consulta para tercero",
+      "sources": "SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; Plan §6.5; P10/P11",
+      "expected": "Respuesta autorizada excluye costes/márgenes/beneficios/comisiones/honorarios y personales innecesarios. Propiedad no concede divulgación. Preservar canónicos y referencias permitidas; rechazo sin filtrar valores en diagnóstico.",
+      "observed": "external query excludes marked economics personal data originals derivatives",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "external query excludes marked economics personal data originals derivatives"
+    },
+    {
+      "id": "S03",
+      "title": "S03 Búsqueda para tercero",
+      "sources": "SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; BR §22 BR-SEC-002/004",
+      "expected": "Búsqueda no elude restricciones mediante resultados, fragmentos o vínculos; no devuelve contenido económico/personal no autorizado. Preservar búsqueda interna legítima, objetos y originales; sin nuevos derechos por conocer ID.",
+      "observed": "external search excludes marked economics personal data originals derivatives",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "external search excludes marked economics personal data originals derivatives"
+    },
+    {
+      "id": "S04",
+      "title": "S04 Exportación para tercero",
+      "sources": "SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; Plan §6.5",
+      "expected": "Contenido exportado excluye toda economía interna y personales innecesarios; copiar/exportar no amplía permiso. Preservar fuente/desglose interno y atribución; no fija formato físico ni envía el artefacto.",
+      "observed": "external export excludes marked economics personal data originals derivatives",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "external export excludes marked economics personal data originals derivatives"
+    },
+    {
+      "id": "S05",
+      "title": "S05 Documento para tercero",
+      "sources": "SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; BR §22 BR-SEC-002/004",
+      "expected": "Documento/referencias no revelan economía ni personales no necesarios, tampoco por adjunto o derivado. Preservar originales y permisos; no inventa obligación fiscal o autorización de entrega.",
+      "observed": "external document excludes marked economics personal data originals derivatives",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "external document excludes marked economics personal data originals derivatives"
+    },
+    {
+      "id": "S06",
+      "title": "S06 Timeline para tercero",
+      "sources": "SPEC §14 SPEC-FR-HIST-006; §20 SPEC-FR-SEC-003/006; §24.4 AC-065; SM §17 SM-FORB-29 como límite",
+      "expected": "Vista unificada no amplía permisos de hechos/objetos; excluye economía/personales indebidos y solo ofrece referencias autorizadas. Preservar historia íntegra interna; ninguna descarga por mero vínculo. No declara cierre global de SM-FORB-29.",
+      "observed": "external timeline excludes marked economics personal data originals derivatives",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "external timeline excludes marked economics personal data originals derivatives"
+    },
+    {
+      "id": "S07",
+      "title": "S07 Contexto IA permitido",
+      "sources": "SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; BR §22 BR-SEC-004; Plan §8",
+      "expected": "IA recibe únicamente información permitida para la función/destinatario; acceso ADMIN no justifica contexto externo completo. Preservar provenance/review y hechos confirmados; no llama modelo externo ni extrae conclusiones autónomas.",
+      "observed": "external ai_context excludes marked economics personal data originals derivatives",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "external ai_context excludes marked economics personal data originals derivatives"
+    },
+    {
+      "id": "S08",
+      "title": "S08 Pack comercial multimodal",
+      "sources": "BR §25 BR-PACK-003; DM §14 DM-INV-025; SPEC §20 SPEC-FR-SEC-003; Plan §6.5",
+      "expected": "Solo precio final/persona, participantes e incluidos por modalidad; 120,00/10 y 180,00/8 conservados como datos del caso. Componente fijo900 y todo desglose reservado permanecen internos; no convierte unidad fija en tarifa por persona ni calcula media/prorrateo. Preservar versión/composición. Verificación global DM-INV-025 mantiene asignaciones originales.",
+      "observed": "PACK preserves literal 120/10 and 180/8 with fixed900 internal",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "PACK preserves literal 120/10 and 180/8 with fixed900 internal"
+    },
+    {
+      "id": "S09",
+      "title": "S09 Finalidad y conservación no presumidas",
+      "sources": "SPEC §20 SPEC-FR-SEC-006; §25 SPEC-NFR-003; DM §15 DM-PENDING-005; P10",
+      "expected": "Solo datos necesarios autorizados; tratamiento/divulgación dependientes no acreditados quedan pendientes o denegados. Sin consentimiento, audio, plazo, anonimización/borrado inventados. Preservar originales/derivados/historia de acuerdo con permiso; no equipara archivado con política legal resuelta.",
+      "observed": "purpose does not presume all personal data audio retention or consent",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "purpose does not presume all personal data audio retention or consent"
+    },
+    {
+      "id": "S10",
+      "title": "S10 Naturaleza fiscal de las salidas",
+      "sources": "SPEC §20 SPEC-FR-SEC-007; BR §23 BR-BILL-001–005; P16; D008/D013",
+      "expected": "Documento externo conserva naturaleza/emisor; borrador inequívocamente no fiscal. Emisión/numeración/motor fiscal no habilitados, sin nuevo mandato ni conclusión suplidos/Tararí. Preservar documentos/importes. Verificación asignada a H3-014/H3-010/H6-017 no se declara realizada ni se prepara.",
+      "observed": "external invoice keeps issuer and projection cannot emit fiscal documents",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "external invoice keeps issuer and projection cannot emit fiscal documents"
+    },
+    {
+      "id": "S11",
+      "title": "S11 Referencias de diagnóstico autorizadas",
+      "sources": "SPEC §24.4 AC-081; DM §14 DM-INV-047; ARCH §13.2/13.3; Plan §11.2",
+      "expected": "Localiza registros permitidos sin tomar log como aceptación/pago/entrega o prueba sustitutiva. No copia secretos, URLs temporales, cuerpos completos ni economía innecesaria a diagnóstico. Preservar registros originales; solo límite de consulta H5-011, AC-081 sigue asignado a H5-018.",
+      "observed": "authorized diagnostic references remain facts not evidence of delivery",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "authorized diagnostic references remain facts not evidence of delivery"
+    },
+    {
+      "id": "S12",
+      "title": "S12 Diagnóstico o rechazo no autorizados",
+      "sources": "AC-081 como límite H5-011; P10; Plan §6.5/§7.1/§11.2; BR §22 BR-SEC-004",
+      "expected": "Rechazo sin revelar economía/personales ni entregar original/URL temporal; referencia conocida no concede permiso. Preservar registros/historia. No implementa observabilidad H5-017/018 ni acredita la verificación posterior AC-081.",
+      "observed": "known diagnostic IDs and injected markers cannot leak on rejection",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "known diagnostic IDs and injected markers cannot leak on rejection"
+    },
+    {
+      "id": "A01",
+      "title": "A01 Sin contexto válido",
+      "sources": "Tasks §2.2 V-DAT; P10; SM §2.1 G1; Plan §6.5/§7.1 PLAN-C01",
+      "expected": "Denegación por defecto en servidor/base según superficie; no devuelve registros/personales/economía ni produce efecto de negocio. Preservar canónicos, objetos, historia y ausencia de autoridad humana.",
+      "observed": "invalid or absent identity/session/MFA refuses every surface",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "invalid or absent identity/session/MFA refuses every surface"
+    },
+    {
+      "id": "A02",
+      "title": "A02 Contexto falsificado o ampliado",
+      "sources": "P10; G1; Plan §6.5/§7.1; D037/D038",
+      "expected": "Contexto del cliente no selecciona identidad/efecto; falsificación/ampliación rechazada sin datos ni efecto. Preservar separación F1/F2, permisos, generation y binding transaccional; no modifica criptografía/ventanas.",
+      "observed": "genuine bound envelopes reject forged MAC root purpose scope and transaction replay",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "genuine bound envelopes reject forged MAC root purpose scope and transaction replay"
+    },
+    {
+      "id": "A03",
+      "title": "A03 Actor/sesión ya inhabilitados o revocados",
+      "sources": "Tasks §2.2 V-DAT; P10; Plan §6.5/§7.1; D038",
+      "expected": "Reautoriza cada acceso/resultado; deniega y no reactiva sesión ni activity por admitir primero actualización. Preservar revocación/generación/historia, sin cancelar retroactivamente operación que ya estuvo autorizada.",
+      "observed": "disabled actor revoked session and stale epochs cannot read",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "disabled actor revoked session and stale epochs cannot read"
+    },
+    {
+      "id": "A04",
+      "title": "A04 Relación o rol futuro sin acceso",
+      "sources": "DM §14 DM-INV-050; SM §17 SM-FORB-29; G1; D015; BR §22 BR-SEC-001",
+      "expected": "Relación/rol previsto no son permisos activos; rechazo sin contenido restringido. Preservar único Administrador y mínimos privilegios. Los casos locales no cierran comprobaciones globales SM-FORB-29/DM-INV-050 asignadas fuera de H5-012.",
+      "observed": "customer/provider identity and future role are not active permissions",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "customer/provider identity and future role are not active permissions"
+    },
+    {
+      "id": "A05",
+      "title": "A05 Vínculo compartido y scope concreto",
+      "sources": "G1; P10; SPEC §14 SPEC-FR-HIST-006; §20 SPEC-FR-SEC-006; Plan §7.1 PLAN-C01",
+      "expected": "Vínculo no extiende scope ni permiso de original; intento no autorizado rechazado, control legítimo admitido según finalidad. Preservar ambos vínculos/objetos e historia sin duplicar original ni inventar propietarios distintos.",
+      "observed": "shared original and Contact never expand bound root or object purpose",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "shared original and Contact never expand bound root or object purpose"
+    },
+    {
+      "id": "A06",
+      "title": "A06 Sesiones y respuestas personales aisladas",
+      "sources": "Plan §3.2 PLAN-DEC-009; P10; fichas H5-011/012; D038",
+      "expected": "Sin caché compartida ni herencia de contexto entre transacciones/conexiones/sesiones/finalidades; respuesta interna no pasa a externa y sesión revocada no recibe respuesta por caché. Preservar límites independientes y permisos; no exige implantar caché.",
+      "observed": "two sessions and reused pool do not share internal/external responses",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "two sessions and reused pool do not share internal/external responses"
+    },
+    {
+      "id": "A07",
+      "title": "A07 Frontera pública y origen externo",
+      "sources": "ARCH §17 ARCH-DEC-008; SPEC §22 SPEC-FR-INT-005; G1; P10",
+      "expected": "Web/app separadas y referencia externa no otorgan acceso interno ni escritura arbitraria. Rechazo sin datos/efecto; preserva evento/canónicos. No crea formulario, endpoint público, webhook ni conector real.",
+      "observed": "public/external event ID never authenticates Core",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "public/external event ID never authenticates Core"
+    },
+    {
+      "id": "A08",
+      "title": "A08 Acceso directo y privilegios mínimos",
+      "sources": "Tasks §2.2 V-DAT; Plan §6.5; P10; D037–D039",
+      "expected": "Permisos mínimos y RLS/controles pertinentes resisten vías directas; no se concede CRUD/helper/ownership global para conseguir PASS. Originales/versiones/historia permanecen protegidos; consultas autorizadas sí funcionan. Preservar ACL, roles y cadena histórica.",
+      "observed": "direct SQL cannot read or mutate original histories or operational view",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "direct SQL cannot read or mutate original histories or operational view"
+    },
+    {
+      "id": "A09",
+      "title": "A09 Lectura no autoriza mutación ni actividad ficticia",
+      "sources": "Plan §7.1 PLAN-C01/C06; SPEC §15 SPEC-FR-COORD-008; D038/D039",
+      "expected": "Proyección no permite mutación ni confirma/cierra por arrastre. Polling/background no cuenta como actividad humana; interacción real autorizada mantiene contrato D038 y no extiende límites absolutos. Preservar estados/HA/versiones y autoridad TTE cuando corresponda, sin crear nuevas unidades sensibles.",
+      "observed": "projection cannot mutate or renew human authority through polling",
+      "result": "PASS-local",
+      "evidence": "final-full.log",
+      "test": "tests/integration/postgres-h5-012-complete.test.ts",
+      "observed_test": "projection cannot mutate or renew human authority through polling"
+    }
+  ],
+  "normative_rows": [
+    {
+      "id": "SPEC-FR-HIST-006",
+      "development": true,
+      "verification": true,
+      "cases": "H01–H08, S06, A05",
+      "other_assignments": "[TSK-H1-004], [TSK-H5-016]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "SPEC-FR-COORD-008",
+      "development": true,
+      "verification": true,
+      "cases": "C01–C10, A09",
+      "other_assignments": "[TSK-H5-010]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "SPEC-FR-SEC-003",
+      "development": true,
+      "verification": true,
+      "cases": "S01–S08",
+      "other_assignments": "[TSK-H2-004], [TSK-H6-017]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "SPEC-FR-SEC-006",
+      "development": true,
+      "verification": true,
+      "cases": "H05, S02–S09, A05",
+      "other_assignments": "[TSK-H1-002], [TSK-H4-002], [TSK-H5-006], [TSK-H6-017]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "SPEC-FR-SEC-007",
+      "development": true,
+      "verification": false,
+      "cases": "S10 (límite local)",
+      "other_assignments": "[TSK-H3-014], [TSK-H3-010], [TSK-H6-017]",
+      "result": "PASS-local-boundary-only"
+    },
+    {
+      "id": "SPEC-FR-INT-005",
+      "development": true,
+      "verification": true,
+      "cases": "C09–C11, A07",
+      "other_assignments": "[TSK-H5-010]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "AC-062",
+      "development": true,
+      "verification": true,
+      "cases": "H06–H08",
+      "other_assignments": "[TSK-H1-004], [TSK-H5-016]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "AC-065",
+      "development": true,
+      "verification": true,
+      "cases": "S02–S08",
+      "other_assignments": "[TSK-H2-004], [TSK-H6-017]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "AC-075",
+      "development": true,
+      "verification": true,
+      "cases": "H03",
+      "other_assignments": "[TSK-H2-008], [TSK-H6-002]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "AC-076",
+      "development": true,
+      "verification": true,
+      "cases": "C03–C10",
+      "other_assignments": "[TSK-H5-010]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "AC-081",
+      "development": true,
+      "verification": false,
+      "cases": "S11–S12 (límite local)",
+      "other_assignments": "[TSK-H5-018]",
+      "result": "PASS-local-boundary-only"
+    },
+    {
+      "id": "SPEC-NFR-001",
+      "development": true,
+      "verification": true,
+      "cases": "H01–H04",
+      "other_assignments": "[TSK-H2-008], [TSK-H6-001], [TSK-H6-018]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "SPEC-NFR-003",
+      "development": true,
+      "verification": false,
+      "cases": "H05, S02–S09 (límite local)",
+      "other_assignments": "[TSK-H2-011], [TSK-H4-002], [TSK-H5-006], [TSK-H6-017]",
+      "result": "PASS-local-boundary-only"
+    },
+    {
+      "id": "SPEC-NFR-011",
+      "development": false,
+      "verification": true,
+      "cases": "C11",
+      "other_assignments": "[TSK-H5-010]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "DM-INV-025",
+      "development": true,
+      "verification": false,
+      "cases": "S08 (límite local)",
+      "other_assignments": "[TSK-H2-004], [TSK-H6-017]",
+      "result": "PASS-local-boundary-only"
+    },
+    {
+      "id": "DM-INV-047",
+      "development": true,
+      "verification": true,
+      "cases": "H02–H04, S11",
+      "other_assignments": "[TSK-H0-010], [TSK-H1-014], [TSK-H5-018]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "DM-INV-049",
+      "development": true,
+      "verification": true,
+      "cases": "C09–C12",
+      "other_assignments": "[TSK-H5-010]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "DM-INV-050",
+      "development": true,
+      "verification": false,
+      "cases": "S01, A04 (límite local)",
+      "other_assignments": "[TSK-H6-008], [TSK-H0-008], [TSK-H6-017]",
+      "result": "PASS-local-boundary-only"
+    },
+    {
+      "id": "DM-INV-051",
+      "development": true,
+      "verification": true,
+      "cases": "H06–H08",
+      "other_assignments": "[TSK-H1-004], [TSK-H6-013]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "SM-FORB-28",
+      "development": true,
+      "verification": true,
+      "cases": "C09–C12",
+      "other_assignments": "[TSK-H5-010]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "SM-FORB-29",
+      "development": true,
+      "verification": false,
+      "cases": "S06, A04–A07 (límite local)",
+      "other_assignments": "[TSK-H0-008], [TSK-H6-008], [TSK-H6-017]",
+      "result": "PASS-local-boundary-only"
+    },
+    {
+      "id": "SM-FORB-32",
+      "development": false,
+      "verification": true,
+      "cases": "H06–H08",
+      "other_assignments": "[TSK-H1-004], [TSK-H2-008]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "ARCH-DEC-007",
+      "development": true,
+      "verification": true,
+      "cases": "C01, C09–C10",
+      "other_assignments": "—",
+      "result": "PASS-local"
+    },
+    {
+      "id": "ARCH-DEC-008",
+      "development": true,
+      "verification": true,
+      "cases": "C11, A07",
+      "other_assignments": "[TSK-H5-010], [TSK-H6-017]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "ARCH-DEC-016",
+      "development": true,
+      "verification": true,
+      "cases": "H01–H04",
+      "other_assignments": "[TSK-H0-010], [TSK-H1-014], [TSK-H1-004]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "P10",
+      "development": true,
+      "verification": true,
+      "cases": "S02–S09, S12, A01–A09",
+      "other_assignments": "[TSK-H6-008], [TSK-H0-008], [TSK-H1-016], [TSK-H6-017]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "P11",
+      "development": true,
+      "verification": true,
+      "cases": "S01–S08",
+      "other_assignments": "[TSK-H3-014], [TSK-H6-017]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "PLAN-DEC-009",
+      "development": true,
+      "verification": true,
+      "cases": "C02, A06",
+      "other_assignments": "[TSK-H1-018], [TSK-H5-008], [TSK-H5-010]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "PLAN-B07",
+      "development": true,
+      "verification": true,
+      "cases": "H01–H05, C01",
+      "other_assignments": "[TSK-H1-014], [TSK-H1-016], [TSK-H1-018], [TSK-H5-002], [TSK-H5-004], [TSK-H5-006]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "PLAN-C01",
+      "development": true,
+      "verification": true,
+      "cases": "C02, S01, A01–A09",
+      "other_assignments": "[TSK-H0-006], [TSK-H0-008], [TSK-H1-016], [TSK-H6-008]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "PT-05",
+      "development": true,
+      "verification": true,
+      "cases": "C03–C07 (consumo D020, sin ampliar H4)",
+      "other_assignments": "[TSK-H4-012], [TSK-H4-014], [TSK-H1-012]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "PT-08",
+      "development": true,
+      "verification": true,
+      "cases": "C01, C08–C10 (consulta, sin ampliar otros bloques)",
+      "other_assignments": "[TSK-H1-018], [TSK-H5-002], [TSK-H4-002], [TSK-H4-004], [TSK-H5-004], [TSK-H5-006], [TSK-H5-008]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "G1",
+      "development": true,
+      "verification": true,
+      "cases": "A01–A09",
+      "other_assignments": "[TSK-H0-006], [TSK-H0-008], [TSK-H6-017]",
+      "result": "PASS-local"
+    },
+    {
+      "id": "D020",
+      "development": true,
+      "verification": true,
+      "cases": "C03–C09",
+      "other_assignments": "[TSK-H1-012], [TSK-H4-014], [TSK-H3-002]",
+      "result": "PASS-local"
+    }
+  ],
+  "physical_focal_tests": 52,
+  "full_regression": {
+    "receipt": "final-full.json",
+    "tests": 2545,
+    "pass": 2545,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "exit_code": 0,
+    "log_sha256": "b485b038323928608a2485404ff14b54e448c8fcf70c7710df90b1178327cfdb"
+  },
+  "supplement": {
+    "receipt": "supplement-references.json",
+    "tests": 1,
+    "pass": 1,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "exit_code": 0,
+    "log_sha256": "16eaa8ce56ddc036cef7b9da83416abdac30a09a35c88f31b71dcbf5cd1754f2"
+  },
+  "no_formal_closure": true
+}

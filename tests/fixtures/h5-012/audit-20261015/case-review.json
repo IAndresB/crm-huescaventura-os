@@ -1,0 +1,531 @@
+{
+  "cases": [
+    {
+      "id": "H01",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "IDs de Booking, versión, Acceptance, propuesta, originales e historia; lectura sin mutación."
+    },
+    {
+      "id": "H02",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Momentos de hecho y registro separados; momento desconocido conserva null."
+    },
+    {
+      "id": "H03",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Aceptación telefónica, términos, verificación y rectificación recuperables."
+    },
+    {
+      "id": "H04",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Original/derivado y actor; suplemento sigue la aprobación y el ejecutor automático por lectura autorizada."
+    },
+    {
+      "id": "H05",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Bytes de Storage reales, objeto preparado incompleto y denegación sin autoridad."
+    },
+    {
+      "id": "H06",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Archivo excluido de vista normal y recuperación con historia, sin cierre implícito."
+    },
+    {
+      "id": "H07",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Restauración/fusión humana; dos identidades y Bookings conservados."
+    },
+    {
+      "id": "H08",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Cancelación del Booking y códigos distintos conservados. No cubre la representación de noche cancelada descubierta en F03."
+    },
+    {
+      "id": "C01",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "FAIL F03",
+      "reason": "FAIL F03: una noche cancelada por versión operacional vigente sigue igual en calendario; Task genérica no representa su estado."
+    },
+    {
+      "id": "C02",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "FAIL F03",
+      "reason": "FAIL F03: releer tras cambio canónico no reconstruye el estado cancelado de la noche. Paginación y binding sí cuentan con pruebas."
+    },
+    {
+      "id": "C03",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "BLOCKED parcial",
+      "reason": "Evidencia parcial: saldo y límites 13/14 probados; no se crea/proyecta la Task de cifra final configurada a siete días en esta prueba."
+    },
+    {
+      "id": "C04",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Ocho determinaciones nativas: inicio/final de 13,14,17,18; intervalos y retenciones literales."
+    },
+    {
+      "id": "C05",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "BLOCKED parcial",
+      "reason": "Evidencia parcial: servicios nativos 20/22 y helpers con referencias global/modalidad/servicio/noche construidas en el test; no vincula las cuatro referencias proyectadas ni la cifra final específica a registros reales. F01 sí cubre noche20→23."
+    },
+    {
+      "id": "C06",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "BLOCKED parcial",
+      "reason": "Evidencia parcial: referencia contractual válida proyectada; el negativo usa projectCivilReference(null), sin registro sugerido/no verificado que compita con el canónico."
+    },
+    {
+      "id": "C07",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Modificación real de hora y fecha, versiones históricas, límites civiles y horario externo; F01/F02 complementan noche y vencimiento."
+    },
+    {
+      "id": "C08",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Schedule/deadline desconocidos, cálculo null y Booking independiente; zona ficticia rechazada."
+    },
+    {
+      "id": "C09",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Señal crítica en revisión; calendario sin cambio automático ni autoridad de escritura."
+    },
+    {
+      "id": "C10",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Eco real correlacionado con ejecución y evento antiguo; repetición no altera efecto ni fecha."
+    },
+    {
+      "id": "C11",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Doble indisponible/sustituido y lectura Core/objeto original disponible; sin atribuir disponibilidad al proveedor real."
+    },
+    {
+      "id": "C12",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Discrepancia Avaibook en revisión y solicitudes de escritura prohibidas."
+    },
+    {
+      "id": "S01",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Economía interna disponible; salida para cliente elimina economía y Booking ajeno."
+    },
+    {
+      "id": "S02",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Query externa: tres destinatarios, lista de campos permitidos y marcadores excluidos antes de búsqueda."
+    },
+    {
+      "id": "S03",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Search externa: tres destinatarios, mismos controles de minimización efectivos."
+    },
+    {
+      "id": "S04",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Export externa: tres destinatarios, mismos controles de minimización efectivos."
+    },
+    {
+      "id": "S05",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Document externa: tres destinatarios, mismos controles de minimización efectivos."
+    },
+    {
+      "id": "S06",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Timeline externo: tres destinatarios, sin originales ni derivados reservados."
+    },
+    {
+      "id": "S07",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Contexto IA externo: tres destinatarios, lista mínima y ausencia de marcadores."
+    },
+    {
+      "id": "S08",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "PACK literal120/10,180/8; fijo900 interno sin prorrateo ni nueva regla."
+    },
+    {
+      "id": "S09",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Parámetros de audio/consentimiento/retención/borrado no autorizan efecto; bytes originales conservados."
+    },
+    {
+      "id": "S10",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Factura externa mantiene referencia de proveedor; emisión/numeración no admitidas. Solo límite local."
+    },
+    {
+      "id": "S11",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Operaciones e historia; suplemento sigue receipt→ejecución autorizada sin convertir contacto en entrega."
+    },
+    {
+      "id": "S12",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "IDs y marcadores no revelados por denegación; original exige autoridad."
+    },
+    {
+      "id": "A01",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Superficies rechazan identidad sin sesión/contexto válido y admiten control positivo."
+    },
+    {
+      "id": "A02",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Sobres reales: MAC, raíz, destino, scope y replay transaccional rechazados."
+    },
+    {
+      "id": "A03",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Revocación real de sesión y actor deshabilitado; lectura/objeto denegados."
+    },
+    {
+      "id": "A04",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Relación de cliente/proveedor y rol futuro no conceden acceso."
+    },
+    {
+      "id": "A05",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Original compartido conserva un vínculo por contexto; binding y finalidad de objeto no se amplían."
+    },
+    {
+      "id": "A06",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Dos sesiones y conexión reutilizada; finalidad externa no hereda resultado interno y revocación deniega."
+    },
+    {
+      "id": "A07",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Origen externo/público e IDs no autentican Core; SQL sin sobre denegado."
+    },
+    {
+      "id": "A08",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "SELECT/DML ordinario denegado; control60 añade vistas/revisiones, ACL/RLS y advisors."
+    },
+    {
+      "id": "A09",
+      "prior_run": "PASS verificado en final-full.log",
+      "audit": "PASS de aserciones revisadas",
+      "reason": "Polling/falsa interacción no renuevan sesión; salida carece de autoridad de mutación."
+    }
+  ],
+  "normative_rows": [
+    {
+      "id": "SPEC-FR-HIST-006",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "H01–H08, S06, A05",
+      "other_assignments": "[TSK-H1-004], [TSK-H5-016]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "SPEC-FR-COORD-008",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C01–C10, A09",
+      "other_assignments": "[TSK-H5-010]",
+      "audit": "FAIL F03"
+    },
+    {
+      "id": "SPEC-FR-SEC-003",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "S01–S08",
+      "other_assignments": "[TSK-H2-004], [TSK-H6-017]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "SPEC-FR-SEC-006",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "H05, S02–S09, A05",
+      "other_assignments": "[TSK-H1-002], [TSK-H4-002], [TSK-H5-006], [TSK-H6-017]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "SPEC-FR-SEC-007",
+      "development": "Sí",
+      "verification": "No",
+      "cases": "S10 (límite local)",
+      "other_assignments": "[TSK-H3-014], [TSK-H3-010], [TSK-H6-017]",
+      "audit": "PASS del límite local"
+    },
+    {
+      "id": "SPEC-FR-INT-005",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C09–C11, A07",
+      "other_assignments": "[TSK-H5-010]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "AC-062",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "H06–H08",
+      "other_assignments": "[TSK-H1-004], [TSK-H5-016]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "AC-065",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "S02–S08",
+      "other_assignments": "[TSK-H2-004], [TSK-H6-017]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "AC-075",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "H03",
+      "other_assignments": "[TSK-H2-008], [TSK-H6-002]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "AC-076",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C03–C10",
+      "other_assignments": "[TSK-H5-010]",
+      "audit": "BLOCKED cobertura parcial"
+    },
+    {
+      "id": "AC-081",
+      "development": "Sí",
+      "verification": "No",
+      "cases": "S11–S12 (límite local)",
+      "other_assignments": "[TSK-H5-018]",
+      "audit": "PASS del límite local"
+    },
+    {
+      "id": "SPEC-NFR-001",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "H01–H04",
+      "other_assignments": "[TSK-H2-008], [TSK-H6-001], [TSK-H6-018]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "SPEC-NFR-003",
+      "development": "Sí",
+      "verification": "No",
+      "cases": "H05, S02–S09 (límite local)",
+      "other_assignments": "[TSK-H2-011], [TSK-H4-002], [TSK-H5-006], [TSK-H6-017]",
+      "audit": "PASS del límite local"
+    },
+    {
+      "id": "SPEC-NFR-011",
+      "development": "No",
+      "verification": "Sí",
+      "cases": "C11",
+      "other_assignments": "[TSK-H5-010]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "DM-INV-025",
+      "development": "Sí",
+      "verification": "No",
+      "cases": "S08 (límite local)",
+      "other_assignments": "[TSK-H2-004], [TSK-H6-017]",
+      "audit": "PASS del límite local"
+    },
+    {
+      "id": "DM-INV-047",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "H02–H04, S11",
+      "other_assignments": "[TSK-H0-010], [TSK-H1-014], [TSK-H5-018]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "DM-INV-049",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C09–C12",
+      "other_assignments": "[TSK-H5-010]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "DM-INV-050",
+      "development": "Sí",
+      "verification": "No",
+      "cases": "S01, A04 (límite local)",
+      "other_assignments": "[TSK-H6-008], [TSK-H0-008], [TSK-H6-017]",
+      "audit": "PASS del límite local"
+    },
+    {
+      "id": "DM-INV-051",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "H06–H08",
+      "other_assignments": "[TSK-H1-004], [TSK-H6-013]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "SM-FORB-28",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C09–C12",
+      "other_assignments": "[TSK-H5-010]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "SM-FORB-29",
+      "development": "Sí",
+      "verification": "No",
+      "cases": "S06, A04–A07 (límite local)",
+      "other_assignments": "[TSK-H0-008], [TSK-H6-008], [TSK-H6-017]",
+      "audit": "PASS del límite local"
+    },
+    {
+      "id": "SM-FORB-32",
+      "development": "No",
+      "verification": "Sí",
+      "cases": "H06–H08",
+      "other_assignments": "[TSK-H1-004], [TSK-H2-008]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "ARCH-DEC-007",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C01, C09–C10",
+      "other_assignments": "—",
+      "audit": "FAIL F03"
+    },
+    {
+      "id": "ARCH-DEC-008",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C11, A07",
+      "other_assignments": "[TSK-H5-010], [TSK-H6-017]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "ARCH-DEC-016",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "H01–H04",
+      "other_assignments": "[TSK-H0-010], [TSK-H1-014], [TSK-H1-004]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "P10",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "S02–S09, S12, A01–A09",
+      "other_assignments": "[TSK-H6-008], [TSK-H0-008], [TSK-H1-016], [TSK-H6-017]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "P11",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "S01–S08",
+      "other_assignments": "[TSK-H3-014], [TSK-H6-017]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "PLAN-DEC-009",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C02, A06",
+      "other_assignments": "[TSK-H1-018], [TSK-H5-008], [TSK-H5-010]",
+      "audit": "FAIL F03"
+    },
+    {
+      "id": "PLAN-B07",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "H01–H05, C01",
+      "other_assignments": "[TSK-H1-014], [TSK-H1-016], [TSK-H1-018], [TSK-H5-002], [TSK-H5-004], [TSK-H5-006]",
+      "audit": "FAIL F03"
+    },
+    {
+      "id": "PLAN-C01",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C02, S01, A01–A09",
+      "other_assignments": "[TSK-H0-006], [TSK-H0-008], [TSK-H1-016], [TSK-H6-008]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "PT-05",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C03–C07 (consumo D020, sin ampliar H4)",
+      "other_assignments": "[TSK-H4-012], [TSK-H4-014], [TSK-H1-012]",
+      "audit": "BLOCKED cobertura parcial"
+    },
+    {
+      "id": "PT-08",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C01, C08–C10 (consulta, sin ampliar otros bloques)",
+      "other_assignments": "[TSK-H1-018], [TSK-H5-002], [TSK-H4-002], [TSK-H4-004], [TSK-H5-004], [TSK-H5-006], [TSK-H5-008]",
+      "audit": "FAIL F03"
+    },
+    {
+      "id": "G1",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "A01–A09",
+      "other_assignments": "[TSK-H0-006], [TSK-H0-008], [TSK-H6-017]",
+      "audit": "Sin hallazgo en las aserciones revisadas"
+    },
+    {
+      "id": "D020",
+      "development": "Sí",
+      "verification": "Sí",
+      "cases": "C03–C09",
+      "other_assignments": "[TSK-H1-012], [TSK-H4-014], [TSK-H3-002]",
+      "audit": "BLOCKED cobertura parcial"
+    }
+  ],
+  "prior_executable_passes": 41,
+  "audited_cases": {
+    "no_finding": 36,
+    "fail": 2,
+    "partial": 3
+  },
+  "no_normative_change": true
+}

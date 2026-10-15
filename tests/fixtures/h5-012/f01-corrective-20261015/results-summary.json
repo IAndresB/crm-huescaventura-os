@@ -1,0 +1,332 @@
+{
+  "scope": "H5-012-F01 exclusively; local corrective verification, no formal H5-012 closure",
+  "status": "CORRECTIVE_IMPLEMENTED_AND_VERIFIED_LOCALLY_PENDING_HUMAN_REVIEW",
+  "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+  "product_delta": [
+    "src/domain/coordinated-projection.ts",
+    "supabase/migrations/20261015172843_h5_calendar_current_nights.sql"
+  ],
+  "primary_input_manifest": "tested-inputs.final.json",
+  "primary_input_manifest_sha256": "bf2f7277dc2e59d522c725709338fb2cdf0ffc5e335d9650fa8a8ac678611b23",
+  "additional_security_input_manifest": "tested-inputs.security.json",
+  "additional_security_input_manifest_sha256": "d4f580b5697c95e9bbf8dd79696e64bfd6d20b7ef6590b33b8816a4e5245444f",
+  "gates": {
+    "audit.final.status.json": {
+      "gate": "audit",
+      "command": [
+        "pnpm",
+        "audit",
+        "--prod",
+        "--json"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:32:22.754662+00:00",
+      "elapsed_seconds": 1.296,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "bf2f7277dc2e59d522c725709338fb2cdf0ffc5e335d9650fa8a8ac678611b23",
+      "log_sha256": "11124a8c8cd76328bb93c913c49494fd2f63d7a4193871141c812f5b1cffc655",
+      "counts": {}
+    },
+    "build.final.status.json": {
+      "gate": "build",
+      "command": [
+        "pnpm",
+        "build"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:32:22.754351+00:00",
+      "elapsed_seconds": 11.958,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "bf2f7277dc2e59d522c725709338fb2cdf0ffc5e335d9650fa8a8ac678611b23",
+      "log_sha256": "956055f09d7e7ccbce8db045314e164d695867efa815843dcedf9219ccdc4f81",
+      "counts": {}
+    },
+    "focal-domain.status.json": {
+      "gate": "focal-domain",
+      "command": [
+        "node",
+        "--test",
+        "--experimental-strip-types",
+        "tests/coordinated-projection-h5-011.test.ts",
+        "tests/coordinated-projection-h5-011-coverage.test.ts",
+        "tests/coordinated-projection-h5-012-f01.test.ts"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:31:08.985488+00:00",
+      "elapsed_seconds": 0.45,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "02bd49c4ab0b23d7429819abe94c54263d281a01d3d9d9eebc5273d4ae95b761",
+      "log_sha256": "7bf22857c12c960708ddf5d13c2a581f6b2a45d2ae5b96fba6b698ad7c08c4f1",
+      "counts": {
+        "tests": 24,
+        "pass": 24,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      }
+    },
+    "focal-postgres.final.status.json": {
+      "gate": "focal-postgres",
+      "command": [
+        "node",
+        "scripts/test-postgres.mjs",
+        "postgres-h5-012-independent.test.ts",
+        "postgres-h5-012-f01-corrective.test.ts"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:32:02.005509+00:00",
+      "elapsed_seconds": 12.135,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "bf2f7277dc2e59d522c725709338fb2cdf0ffc5e335d9650fa8a8ac678611b23",
+      "log_sha256": "5d659d22ecf24fbec1a771b638736b2b40fc09283e0255098f77cb0255dfc3e5",
+      "counts": {
+        "tests": 5,
+        "pass": 5,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      }
+    },
+    "focal-postgres.security.status.json": {
+      "gate": "focal-postgres",
+      "command": [
+        "node",
+        "scripts/test-postgres.mjs",
+        "postgres-h5-012-f01-security.test.ts"
+      ],
+      "cwd": "/tmp/h512s-ww8ck0va/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:36:46.645412+00:00",
+      "elapsed_seconds": 24.105,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "d4f580b5697c95e9bbf8dd79696e64bfd6d20b7ef6590b33b8816a4e5245444f",
+      "log_sha256": "2202c04a069fde406f19a5aa892d3b636b2f0299e5220dc2ec0f0d5cb11acdb8",
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      }
+    },
+    "focal-postgres.status.json": {
+      "gate": "focal-postgres",
+      "command": [
+        "node",
+        "scripts/test-postgres.mjs",
+        "postgres-h5-012-independent.test.ts",
+        "postgres-h5-012-f01-corrective.test.ts"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:31:08.985488+00:00",
+      "elapsed_seconds": 12.225,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "02bd49c4ab0b23d7429819abe94c54263d281a01d3d9d9eebc5273d4ae95b761",
+      "log_sha256": "3948ae83f5aa355c277f0357ad4a995360963d8ae3bd95dae8c4ea19d845687c",
+      "counts": {
+        "tests": 5,
+        "pass": 5,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      }
+    },
+    "health.final.status.json": {
+      "gate": "health",
+      "command": [
+        "node",
+        "--test",
+        "tests/operations/supabase-health.test.mjs"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:32:59.879251+00:00",
+      "elapsed_seconds": 2.872,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "bf2f7277dc2e59d522c725709338fb2cdf0ffc5e335d9650fa8a8ac678611b23",
+      "log_sha256": "347fda27f75d607450be86533bcdf206d8d5da1f5cc30f9db7558018bcf96b5c",
+      "counts": {
+        "tests": 1,
+        "pass": 1,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      }
+    },
+    "lint.final.status.json": {
+      "gate": "lint",
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:32:22.754115+00:00",
+      "elapsed_seconds": 0.837,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "bf2f7277dc2e59d522c725709338fb2cdf0ffc5e335d9650fa8a8ac678611b23",
+      "log_sha256": "6eaeae66537f6e78eccf8bc1538038163c02589c1f4bcef2e62b3cc4e58dcc54",
+      "counts": {}
+    },
+    "postgres-regression.final.status.json": {
+      "gate": "postgres-regression",
+      "command": [
+        "node",
+        "scripts/test-postgres.mjs"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:32:21.602550+00:00",
+      "elapsed_seconds": 431.225,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "bf2f7277dc2e59d522c725709338fb2cdf0ffc5e335d9650fa8a8ac678611b23",
+      "log_sha256": "2ff8cc3bd4c150c5d28b83e4dd021789d5d0c57dce73f2edb38907f2f50c8ab4",
+      "counts": {
+        "tests": 2498,
+        "pass": 2498,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      }
+    },
+    "typecheck.final.status.json": {
+      "gate": "typecheck",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:32:02.005010+00:00",
+      "elapsed_seconds": 2.05,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "bf2f7277dc2e59d522c725709338fb2cdf0ffc5e335d9650fa8a8ac678611b23",
+      "log_sha256": "99d7c2179cdd316467c51f37901025a0753453664d741214ba56fc631fa6c0bc",
+      "counts": {}
+    },
+    "typecheck.security.status.json": {
+      "gate": "typecheck",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/tmp/h512s-ww8ck0va/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:36:46.634647+00:00",
+      "elapsed_seconds": 10.363,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "d4f580b5697c95e9bbf8dd79696e64bfd6d20b7ef6590b33b8816a4e5245444f",
+      "log_sha256": "99d7c2179cdd316467c51f37901025a0753453664d741214ba56fc631fa6c0bc",
+      "counts": {}
+    },
+    "typecheck.status.json": {
+      "gate": "typecheck",
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:31:08.985487+00:00",
+      "elapsed_seconds": 6.516,
+      "exit_code": 1,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "02bd49c4ab0b23d7429819abe94c54263d281a01d3d9d9eebc5273d4ae95b761",
+      "log_sha256": "d6a6c890d96559a4fc50d7d348f639488ceaf0b9077507bc859e1f1b6ddd9370",
+      "counts": {}
+    },
+    "unit-complete.final.status.json": {
+      "gate": "unit-complete",
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "cwd": "/tmp/h512f-9pp4mqkv/r",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin",
+      "started_utc": "2026-10-15T17:32:02.005105+00:00",
+      "elapsed_seconds": 2.136,
+      "exit_code": 0,
+      "base_sha": "f063879d203330adb57d7e8fef3607ae796f52d5",
+      "tested_inputs_sha256": "bf2f7277dc2e59d522c725709338fb2cdf0ffc5e335d9650fa8a8ac678611b23",
+      "log_sha256": "788dcb98869586face5baa2eda80dbdee6cbfde13d27979d0bf6a1c060db42fe",
+      "counts": {
+        "tests": 195,
+        "pass": 195,
+        "fail": 0,
+        "skipped": 0,
+        "cancelled": 0,
+        "todo": 0
+      }
+    }
+  },
+  "counting": {
+    "postgres_regression": {
+      "pass": 2498,
+      "fail": 0,
+      "includes_corrective_native_focal5_once": true,
+      "additional_security_test_not_in_this_file_list": true
+    },
+    "corrective_native_focal": {
+      "pass": 5,
+      "fail": 0
+    },
+    "additional_security_migration59": {
+      "pass": 1,
+      "fail": 0
+    },
+    "unit": {
+      "pass": 195,
+      "fail": 0,
+      "includes_domain_focal24_once": true
+    },
+    "domain_focal": {
+      "pass": 24,
+      "fail": 0,
+      "attribution": "first corrective inputs; pure product/domain bytes identical to final inputs"
+    },
+    "health": {
+      "pass": 1,
+      "fail": 0
+    }
+  },
+  "history": "Original independent 2PASS/1FAIL and all original evidence retained byte-exact; initial corrective typecheck TS2532 retained and fixed only by assert.ok in the new test helper. Embedded H2 historical FAIL is an expected metatest reproduction, whose current verification passes.",
+  "acceptance": {
+    "A": "PASS: approved/applied operational version2 has 2026-10-23",
+    "B": "PASS: calendar current night2026-10-23",
+    "C": "PASS: accepted history retains2026-10-20 and operational revision retained",
+    "D": "PASS: sibling2026-10-21 unchanged, exact entry preserved",
+    "E": "PASS within executed native/security/regression scope, no contract/security changes",
+    "F": "PASS: gates and preservation controls, with initial technical typecheck failure preserved separately",
+    "G": "PASS: D020, economic/modification/cancellation rules and expected unchanged"
+  },
+  "not_executed": [
+    "formal independent H5-012 completion/41case acceptance",
+    "V3 historical auditor under falsified Git context",
+    "fresh dependency installation (existing dependency bytes unchanged)",
+    "commit/staging/push/deploy",
+    "Hosted/Production or real integrations"
+  ],
+  "stopping_point": "Human review before resuming H5-012; no later tasks"
+}

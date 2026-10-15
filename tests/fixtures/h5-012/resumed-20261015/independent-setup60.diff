@@ -1,0 +1,10 @@
+--- independent-before60
++++ independent-final60
+@@ -19,6 +19,7 @@
+  h=await isolatedBoundaries("h512",59412);
+  await h.migration.unsafe(await readFile("supabase/migrations/20261014003559_h5_authorized_projections.sql","utf8"));
+  await h.migration.unsafe(await readFile("supabase/migrations/20261015172843_h5_calendar_current_nights.sql","utf8"));
++ await h.migration.unsafe(await readFile("supabase/migrations/20261015180420_h5_projection_canonical_revisions.sql","utf8"));
+  reader=new H5011ProjectionAdapter(h.runtime,h.f1,h.f2);
+ });
+ after(async()=>{await h?.close();});

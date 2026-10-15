@@ -1,0 +1,37 @@
+--- migration60
++++ migration61
+@@ -1,4 +1,4 @@
+--- H5-012-F02: project existing hold/documentary revisions, retaining current state and history.
++-- H5-012-F03: retain current night and ancestor operational states from existing canonical scopes.
+ begin;
+ do $$begin if current_user<>'crm_h0_migration' then raise exception 'PROJECTION_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501';end if;end$$;
+ 
+@@ -97,8 +97,26 @@
+    ('b04_holds','opportunity_id',opps),('identity_codes','target_id',ctx),
+    ('b05_own_economic_revisions','economy_id',array(select economy_id from crm_private.b05_own_economies where admin_scope=s and booking_id=any(bids)))
+   ) as catalogue(tab,key,ids) loop
+-   execute format('select coalesce(jsonb_agg(jsonb_build_object(''kind'',%L,''data'',to_jsonb(x)) order by to_jsonb(x)::text),''[]'') from crm_private.%I x where x.admin_scope=$1 and (to_jsonb(x)->>%L)=any($2::text[])',item.tab,item.tab,item.key)
+-    into rows using s,item.ids;
++   if item.tab='b04_current_nights' then
++    -- The current-night view resolves dates into the accepted row type, which
++    -- has no cancellation field. Preserve that projection and attach the
++    -- existing canonical scope state; never infer cancellation across scopes.
++    select coalesce(jsonb_agg(jsonb_build_object('kind','b04_current_nights','data',
++     to_jsonb(n)||jsonb_build_object(
++      'operational_source','crm_private.modification_scope',
++      'operational',crm_private.modification_scope(jsonb_build_object('kind','night','id',n.night_id,'serviceId',n.service_id),v.booking_id,s),
++      'service_operational',jsonb_build_object('id',v.service_id,'revision',sc.value->'revision','cancelled',sc.value->'cancelled'),
++      'booking_operational',jsonb_build_object('id',v.booking_id,'revision',bc.value->'revision','cancelled',bc.value->'cancelled')
++     )) order by n.night_id),'[]') into rows
++     from crm_private.b04_current_nights n
++     join crm_private.b04_services v on v.service_id=n.service_id and v.admin_scope=s
++     cross join lateral(select crm_private.modification_scope(jsonb_build_object('kind','service','id',v.service_id),v.booking_id,s) value) sc
++     cross join lateral(select crm_private.modification_scope(jsonb_build_object('kind','booking','id',v.booking_id),v.booking_id,s) value) bc
++     where n.admin_scope=s and n.service_id=any(item.ids) and v.booking_id=any(bids);
++   else
++    execute format('select coalesce(jsonb_agg(jsonb_build_object(''kind'',%L,''data'',to_jsonb(x)) order by to_jsonb(x)::text),''[]'') from crm_private.%I x where x.admin_scope=$1 and (to_jsonb(x)->>%L)=any($2::text[])',item.tab,item.tab,item.key)
++     into rows using s,item.ids;
++   end if;
+    facts:=facts||rows;
+   end loop;
+   select coalesce(jsonb_agg(jsonb_build_object('kind','identity_history','data',to_jsonb(x)) order by x.recorded_at,x.history_id),'[]') into rows

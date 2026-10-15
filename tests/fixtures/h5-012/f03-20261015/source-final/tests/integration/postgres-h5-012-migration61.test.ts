@@ -1,0 +1,88 @@
+// Final migration60 acceptance: retains F01 assertions and tests59->60 rollback/retry.
+import {before,after,test} from "node:test";
+import assert from "node:assert/strict";
+import {readFile} from "node:fs/promises";
+import {createHash} from "node:crypto";
+import {isolatedBoundaries,read,write} from "../support/h5-boundary-isolated.ts";
+import {quantityFixture} from "../support/h2-quantities-fixtures.ts";
+import {invoiceFixture} from "../support/h3-invoice-fixtures.ts";
+import {bookingFixture} from "../support/h2-booking-fixtures.ts";
+import {confirmationFixture} from "../support/h4-confirmation-fixtures.ts";
+import {modificationFixture} from "../support/h4-modification-fixtures.ts";
+import {H5011ProjectionAdapter} from "../../src/infrastructure/postgres/h5-projection-adapter.ts";
+import type {ProjectionQuery} from "../../src/domain/coordinated-projection.ts";
+
+const original="supabase/migrations/20261014003559_h5_authorized_projections.sql";
+const intermediate="supabase/migrations/20261015172843_h5_calendar_current_nights.sql";
+const previous="supabase/migrations/20261015180420_h5_projection_canonical_revisions.sql";
+const corrective="supabase/migrations/20261015190418_h5_calendar_night_operational_state.sql";
+let h:Awaited<ReturnType<typeof isolatedBoundaries>>,reader:H5011ProjectionAdapter;
+before(async()=>{
+ h=await isolatedBoundaries("h512final",59452);
+ await h.migration.unsafe(await readFile(original,"utf8"));
+ await h.migration.unsafe(await readFile(intermediate,"utf8"));
+ await h.migration.unsafe(await readFile(previous,"utf8"));
+ await h.migration.unsafe(await readFile(corrective,"utf8"));
+ reader=new H5011ProjectionAdapter(h.runtime,h.f1,h.f2);
+});
+after(async()=>{await h?.close();});
+const q=(contextId:string,surface:ProjectionQuery["surface"]="calendar"):ProjectionQuery=>({contextKind:"booking",contextId,surface,destination:"administrator"});
+const hash=(x:unknown)=>createHash("sha256").update(JSON.stringify(x)).digest("hex");
+
+test("H5-012-candidate61 A-D/E: changed night23, sibling21, accepted20, unchanged history and independent Booking",async()=>{
+ const fallback=await invoiceFixture(h),n=await quantityFixture(h);await h.booking.apply(await h.auth(),write,n.q);
+ const shared={...fallback,bookingId:n.q.bookingId,b:{...fallback.b,q:n.q,detail:n.detail}},f=await confirmationFixture(h,shared,2),m=await modificationFixture(h,f);
+ const service=n.detail.services[2]!,night=service.nights[0]!,sibling=service.nights[1]!;
+ const getNight=(r:any,id:string)=>{const found=(r.entries as Record<string,any>[]).find(x=>x.data?.night_id===id);assert.ok(found,"the requested night must exist in its authorized projection");return found;};
+ const before=await reader.read(await h.auth(),read,q(n.q.bookingId));assert.ok(before);
+ assert.equal(getNight(before,night.id).data.night_date,"2026-10-20");assert.equal(getNight(before,sibling.id).data.night_date,"2026-10-21");
+ await m.run(await m.request([{id:m.partId,scope:{kind:"night",id:night.id,serviceId:service.id},expectedScopeRevision:1,desired:{date:"2026-10-23"},aspects:["date"],dependencies:[]}]));
+ await m.run(await m.evaluate());await m.run(await m.approve());await m.run(await m.apply());
+ const tables=["b04_bookings","b04_nights","b04_operational_versions","b06_modification_revisions"];
+ const snapshot=async()=>Promise.all(tables.map(async table=>({table,rows:await h.observer.unsafe(`select to_jsonb(x) value from crm_private.${table} x order by to_jsonb(x)::text`)})));
+ const stable=hash(await snapshot()),after=await reader.read(await h.auth(),read,q(n.q.bookingId));assert.ok(after);
+ assert.equal(getNight(after,night.id).data.night_date,"2026-10-23");assert.equal(getNight(after,night.id).source,"crm_private.b04_current_nights");
+ assert.equal(getNight(after,night.id).certainty,getNight(before,night.id).certainty);
+ assert.deepEqual(getNight(after,sibling.id),getNight(before,sibling.id));
+ const timeline=await reader.read(await h.auth(),read,q(n.q.bookingId,"timeline"));assert.ok(timeline);
+ assert.equal(getNight(timeline,night.id).data.night_date,"2026-10-20");assert.equal(getNight(timeline,night.id).source,"crm_private.b04_nights");
+ assert.ok((timeline.entries as Record<string,any>[]).some(x=>x.source==="crm_private.b04_operational_versions"&&x.data.scope_id===night.id&&x.data.material.date==="2026-10-23"));
+ for(const destination of ["customer","provider","ai"] as const){
+  const result=await reader.read(await h.auth(),read,{...q(n.q.bookingId),destination});assert.ok(result);
+  assert.equal(JSON.stringify(result).includes(night.id),false);assert.equal(JSON.stringify(result).includes("700.00"),false);
+ }
+ assert.equal(hash(await snapshot()),stable,"read must preserve accepted snapshots, current operational versions and modification history");
+ const other=await bookingFixture(h);await h.booking.apply(await h.auth(),write,other.q);
+ assert.equal(JSON.stringify(await reader.read(await h.auth(),read,q(other.q.bookingId))).includes(night.id),false);
+ await assert.rejects(h.runtime.unsafe("select * from crm_private.b04_current_nights"));
+ console.log("H512 F01 corrective",JSON.stringify({accepted:"2026-10-20",current:"2026-10-23",sibling:"2026-10-21",timelineOriginalRetained:true,historyPreserved:true,externalMinimization:true,directRuntimeViewDenied:true}));
+});
+
+test("H5-012-candidate61 V-MIG: populated60, transactional rollback/retry, function-only change and unchanged ACL/RLS",async()=>{
+ const db=await isolatedBoundaries("h512m60",59453);
+ try{
+  await db.migration.unsafe(await readFile(original,"utf8"));
+  await db.migration.unsafe(await readFile(intermediate,"utf8"));
+  await db.migration.unsafe(await readFile(previous,"utf8"));
+  const f=await bookingFixture(db);await db.booking.apply(await db.auth(),write,f.q);
+  const catalog=async()=>({
+   tables:await db.observer`select c.oid,c.relname,c.relowner,c.relacl,c.relrowsecurity,c.relforcerowsecurity from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname like 'crm%' and c.relkind in ('r','p','v') order by c.oid`,
+   functions:await db.observer`select p.oid,p.proname,p.proowner,p.proacl,p.proconfig,p.prosecdef,md5(pg_get_functiondef(p.oid)) body from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname like 'crm%' and p.prokind='f' order by p.oid`,
+   policies:await db.observer`select oid,polrelid,polname,polroles,polqual::text,polwithcheck::text from pg_policy order by oid`,
+   roles:await db.observer`select oid,rolname,rolsuper,rolcanlogin,rolbypassrls,rolcreaterole,rolcreatedb from pg_roles order by oid`,
+   schemas:await db.observer`select oid,nspname,nspowner,nspacl from pg_namespace where nspname like 'crm%' order by oid`,
+  });
+  const tables=await db.observer`select schemaname,tablename from pg_tables where schemaname like 'crm%' order by schemaname,tablename`;
+  const data=async()=>hash(await Promise.all(tables.map(async t=>({table:`${t.schemaname}.${t.tablename}`,rows:await db.admin.unsafe(`select to_jsonb(x) value from ${t.schemaname}.${t.tablename} x order by to_jsonb(x)::text`)}))));
+  const before=await catalog(),beforeData=await data(),sql=await readFile(corrective,"utf8");
+  await assert.rejects(db.migration.unsafe(sql.replace(/commit;\s*$/,"select 1/0;commit;")));await db.migration.unsafe("rollback");
+  assert.deepEqual(await catalog(),before);assert.equal(await data(),beforeData);
+  await db.migration.unsafe(sql);const after=await catalog();assert.equal(await data(),beforeData);
+  const target=before.functions.find(x=>x.proname==="h5_projection_read")!;assert.ok(target);
+  assert.equal(after.functions.length,before.functions.length);
+  for(const old of before.functions){const next=after.functions.find(x=>x.oid===old.oid)!;assert.ok(next);if(old.oid===target.oid){assert.notEqual(next.body,old.body);assert.deepEqual({...next,body:old.body},old);}else assert.deepEqual(next,old);}
+  for(const key of ["tables","policies","roles","schemas"] as const)assert.deepEqual(after[key],before[key]);
+  await db.migration.unsafe(sql);assert.deepEqual(await catalog(),after);assert.equal(await data(),beforeData);
+  console.log("H512 F01 V-MIG",JSON.stringify({previousMigration:60,correctiveMigration:61,tablesPreserved:tables.length,functionsPreservedExceptTargetBody:before.functions.length,rollback:true,retry:true,reapplicationIdempotent:true,dataDigest:beforeData}));
+ }finally{await db.close();}
+});

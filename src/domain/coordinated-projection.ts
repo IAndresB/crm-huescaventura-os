@@ -58,8 +58,12 @@ function commercialEntry(value:unknown) {
   };}):[]};
 }
 function entry(f:CanonicalProjectionFact):ProjectionEntry {
- const d=f.data,m=object(d.material),external=object(d.raw_event);
- const certainty=f.kind==="b07_records"
+ const d=f.data,m=object(d.material),external=object(d.raw_event),state=object(d.after_data);
+ const certainty=f.kind==="b07_requirement_revisions"
+  ? state.status==="No aplica"||state.status==="Revisado"&&state.review!==null&&state.review!==undefined?"verified":"pending"
+  : f.kind==="b04_hold_revisions"
+  ? Array.isArray(state.parts)&&state.parts.length>0&&state.parts.every(value=>{const p=object(value);return p.validity==="Vigente"&&p.verified!=null&&p.review==null;})?"verified":"pending"
+  : f.kind==="b07_records"
   ? m.certainty==="reviewed"?"verified":m.certainty==="unknown"?"unknown":"pending"
   : d.certainty==="unknown"?"unknown":
     ["estimated","uncertain","pending","candidate"].includes(String(d.certainty))||m.reviewState==="pending"?"pending":"verified";
@@ -99,7 +103,7 @@ export function composeProjection(frame:CanonicalProjectionFrame,q:ProjectionQue
  let entries:readonly unknown[]=q.destination!=="administrator"?frame.commercial.map(commercialEntry):
   q.surface==="calendar"?[
    ...frame.calendar,
-   ...frame.facts.filter(f=>["b04_nights","b04_holds","b05_expected_payments","b07_pending_tasks","b07_requirements"].includes(f.kind)).map(entry),
+   ...frame.facts.filter(f=>["b04_nights","b04_current_nights","b04_holds","b04_hold_revisions","b07_requirement_revisions","b05_expected_payments","b07_pending_tasks","b07_requirements"].includes(f.kind)).map(entry),
   ]:frame.facts.map(entry).sort(registrationOrder);
  // Search occurs after purpose selection; a reserved field cannot influence
  // external matches, counts or snippets.
