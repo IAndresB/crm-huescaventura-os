@@ -1,0 +1,67 @@
+# Matriz interna de cobertura — TSK-H5-011
+
+**IN PROGRESS — STOP por regresión protegida. H5-012 NOT STARTED.**
+
+Esta matriz traza 41 casos del expected y 34 filas normativas. No declara 41 PASS ni sustituye la verificación independiente. Los ensayos y revisiones son propios de implementación H5-011. Las limitaciones indican lo que realmente se ejercitó. No se declara aceptación global ni se atribuyen los resultados históricos a nuevos commits.
+
+Base local `1346dd64ec2e9e804be23b17ea5f62f64515339c`; origin/main `71906987f9b74241cc4583e51498759829cded73`. Árbol probado: [inventario final](../../tests/fixtures/h5-011/integral-20261014/tested-inputs.final.json), SHA-256 `de43fc2bfb73c3129f67dd897f1580e10aa239ba46254bc28bc507ba0b1f2a59`.
+
+Fuentes: [expected congelado](expected-TSK-H5-011-012.md), Tasks ficha H5-011/012 y §§2.2–2.3/6/7, Plan §§6.5/7.1/8/11.2, Constitución, decisiones D017/D018/D020/D037–D040 y fuentes de las filas congeladas. H4-024 y H5-009/010 mantienen sus cierres previos; no se reabren por esta matriz.
+
+| Caso | Fuente del expected | Implementación / comprobación interna | Observado y límite |
+|---|---|---|---|
+| H01 Reconstrucción canónica | SPEC §14 SPEC-FR-HIST-006; §25 SPEC-NFR-001; ARCH §13.2/§17 ARCH-DEC-016; Plan §4 PLAN-B07 | SQL catálogo canónico; C01 native, H03 y V-MIG | Reconstrucción de cadena ejercitada; no equivalencia a todos los hechos de cada escenario. |
+| H02 Registro tardío y momento desconocido | SPEC §14 SPEC-FR-HIST-006; BR §21 BR-HIST-001/002; DM §14 DM-INV-047 | Unit late/unknown/offsets; B09 native momentos | Momentos distintos, desconocidos y orden técnico de instantes ejercitados. |
+| H03 Rectificación de llamada atribuida | SPEC §24.4 AC-075; §14 SPEC-FR-HIST-006; BR §21 BR-HIST-003 | Native H03 rectificación | Original, verificación y rectificación recuperables; original preservado. |
+| H04 Actores y procedencia distintos | DM §14 DM-INV-047; BR §21 BR-HIST-001/005; ARCH §13.2 | Unit H04; native comunicación derivada | Actores/procedencia conservados; no toda la cadena de cuatro actores en un único escenario real. |
+| H05 Original, derivado y conservación incompleta | SPEC §14 SPEC-FR-HIST-006 y HIST-003/004 como fuentes de originales; §20 SPEC-FR-SEC-006; D016/D017 | Native H05/A05; unidad metadata | Original/derivado/candidato y reference_only; no se afirma objeto ausente íntegro ni audio. |
+| H06 Archivado recuperable | SPEC §24.3 AC-062; §14 SPEC-FR-HIST-006; DM §14 DM-INV-051; BR §22 BR-SEC-005 | Native H06/H07 | Contacto archivado fuera de consulta normal y recuperado explícitamente, sin escritura por leer. |
+| H07 Fusión humana de identidades | SPEC §24.3 AC-062; DM §14 DM-INV-051; BR §3 BR-CON-005; D017/D018 | Native H06/H07; CTE de linaje scoped | Ambas historias de Contact recuperadas; rama Organization revisada por mismo contrato, no escenario separado ejecutado. |
+| H08 Anulación e IDs no reutilizables | SM §17 SM-FORB-32; SPEC §24.3 AC-062; BR §29 BR-ID-001/002; D040 | Native código/acciones inválidas; regresión H1/H2 | Código estable y ausencia de borrado/fusión por lectura; no escenario completo de anulación posterior. |
+| C01 Calendario canónico completo en su alcance | SPEC §15 SPEC-FR-COORD-008; BR §17 BR-TASK-007; ARCH §17 ARCH-DEC-007; Plan §4 PLAN-B07 | Native C01/C08; unidad categorías; SQL canónico | Servicios reales/horario desconocido; selector de noches/holds/pagos/Task/documentos unitario. No se atribuye todo el escenario a la focal de servicios. |
+| C02 Proyección reconstruible y filtros | Plan §3.2 PLAN-DEC-009; §7.1 PLAN-C01; SPEC §15 SPEC-FR-COORD-008 | Unit cursor/contexto/UUID; native firmas | Igual raíz UUID, sin caché compartida, input ligado; no revalidación independiente de toda paginación. |
+| C03 Día completo a siete días | D020; SPEC §11.2; Tasks ficha H1-011; Plan §10.2 PT-05 | Fuentes B05 conservadas; regresión H3/H1 | ESCENARIO INTEGRADO 13/14 noviembre saldo/cifra final NO ACREDITADO por las focales. La antigua etiqueta C03–C08 era demasiado amplia y se corrigió. |
+| C04 Límites civiles de cancelación a siete y tres días | D020; SPEC §11.2; Plan §10.2 PT-05 | Native C04 con servicio20 noviembre y ocho instantes | Cuatro límites con base200/política acreditadas, principio/final de cada día; preservación y ausencia de efecto de consulta. |
+| C05 Referencias por Booking/modalidad/servicio/noche | D020; SPEC §11.2; Tasks ficha H1-011; Plan §10.2 PT-05 | Unit cuatro referencias; B04/B05/B06 scoped; regresión temporal | Consumo puro por alcance ejercitado; no escenario integrado multifecha entero atribuido a una unidad. |
+| C06 Referencia contractual expresa | D020; SPEC §11.2; Plan §5.2 | Unit selectReference/contrato; regresión temporal | Referencia sintética acreditada y desconocido pendiente; no contrato real ni verificación de validez externa. |
+| C07 Hora, fecha y vencimiento externo | D020; SPEC §11.2; ARCH §8.3; Plan §10.2 PT-05 | Unit horas/fecha; fuente operacional; R06 global FAIL | BLOQUEO DE REGRESIÓN: R06 no alcanza sus aserciones por evidencia del fixture posterior al instante histórico. |
+| C08 Datos temporales o parámetros desconocidos | D020; Tasks §7.2 zona/fecha; Plan §8; §10.2 PT-08 | Native calendario/candidato/Task desconocido; unidades | Sin hora/zona/plazo inventados; estados pendientes y DST ejercitados. Sin programación de avisos. |
+| C09 Cambio Calendar crítico y vista atrasada | SPEC §24.4 AC-076; §15 SPEC-FR-COORD-008; §22 SPEC-FR-INT-005; SM §17 SM-FORB-28; DM §14 DM-INV-049 | Native recibos Calendar/review, datos antes/después | Vista sin autoridad; revisión recibida visible, consulta sin mutación. |
+| C10 Eco y evento fuera de orden | SPEC §24.4 AC-076; §15 SPEC-FR-COORD-008; Plan §8; ARCH §8.3 | Native duplicate/conflict/lecturas repetidas; regresión B09/B08 | Recibos visibles; no se duplica efecto por consultar. Eco de ejecución propio probado por regresión anterior dentro de la tanda actual. |
+| C11 Frontera indisponible o sustituida | SPEC §25 SPEC-NFR-011; §22 SPEC-FR-INT-005; ARCH §17 ARCH-DEC-008; Plan §8 | Revisión del adaptador PostgreSQL sin proveedor directo; regresión B08/B09 | Independencia estructural; no proveedor real ni escenario completo de sustitución en H5-011. |
+| C12 Avaibook sin escritura V1 | SM §17 SM-FORB-28; DM §14 DM-INV-049; Plan §8; ARCH §8.3 | Native Avaibook review y acción inválida; regresión B09 | Sin escritura/intención externa por consulta; no acceso Avaibook real. |
+| S01 Consulta interna del Administrador | SPEC §20 SPEC-FR-SEC-003; P11; DM §14 DM-INV-050; Plan §7.1 PLAN-C01 | Native rama económica interna y preservación | Economía interna disponible para ADMIN y no reutilizada en ramas externas. |
+| S02 Consulta para tercero | SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; Plan §6.5; P10/P11 | Native salidas externas y PACK, superficie query; unidad minimización | Comparación de entradas permitidas y búsqueda posterior a minimización; sin economía/personales reservados. |
+| S03 Búsqueda para tercero | SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; BR §22 BR-SEC-002/004 | Native salidas externas y PACK, superficie search; unidad minimización | Comparación de entradas permitidas y búsqueda posterior a minimización; sin economía/personales reservados. |
+| S04 Exportación para tercero | SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; Plan §6.5 | Native salidas externas y PACK, superficie export; unidad minimización | Comparación de entradas permitidas y búsqueda posterior a minimización; sin economía/personales reservados. |
+| S05 Documento para tercero | SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; BR §22 BR-SEC-002/004 | Native salidas externas y PACK, superficie document; unidad minimización | Comparación de entradas permitidas y búsqueda posterior a minimización; sin economía/personales reservados. |
+| S06 Timeline para tercero | SPEC §14 SPEC-FR-HIST-006; §20 SPEC-FR-SEC-003/006; §24.4 AC-065; SM §17 SM-FORB-29 como límite | Native salidas externas y PACK, superficie timeline; unidad minimización | Comparación de entradas permitidas y búsqueda posterior a minimización; sin economía/personales reservados. |
+| S07 Contexto IA permitido | SPEC §20 SPEC-FR-SEC-003/006; §24.4 AC-065; BR §22 BR-SEC-004; Plan §8 | Native salidas externas y PACK, superficie ai_context; unidad minimización | Comparación de entradas permitidas y búsqueda posterior a minimización; sin economía/personales reservados. |
+| S08 Pack comercial multimodal | BR §25 BR-PACK-003; DM §14 DM-INV-025; SPEC §20 SPEC-FR-SEC-003; Plan §6.5 | Native PACK literal120/10 y180/8, fijo900 | Dieciocho combinaciones de superficie/destinatario con entradas exactas e internos preservados. |
+| S09 Finalidad y conservación no presumidas | SPEC §20 SPEC-FR-SEC-006; §25 SPEC-NFR-003; DM §15 DM-PENDING-005; P10 | Native/Unit claves no autorizadas y campos externos | Personales y opciones no autorizadas excluidos; no se resuelve retención/consentimiento pendientes. |
+| S10 Naturaleza fiscal de las salidas | SPEC §20 SPEC-FR-SEC-007; BR §23 BR-BILL-001–005; P16; D008/D013 | Native proveedor/factura externa; acción fiscal inválida | Emisor documental interno y exclusión externa; sin numeración/emisión fiscal. |
+| S11 Referencias de diagnóstico autorizadas | SPEC §24.4 AC-081; DM §14 DM-INV-047; ARCH §13.2/13.3; Plan §11.2 | B09 operaciones/recibos y procedencia; revisión de código | Referencias de diagnóstico recuperables; no verificación global AC-081/H5-018. |
+| S12 Diagnóstico o rechazo no autorizados | AC-081 como límite H5-011; P10; Plan §6.5/§7.1/§11.2; BR §22 BR-SEC-004 | Native auth/MAC/SQL/contextos; unidad mensaje constante | Sin contenido restringido en rechazos; no descarga por referencia. |
+| A01 Sin contexto válido | Tasks §2.2 V-DAT; P10; SM §2.1 G1; Plan §6.5/§7.1 PLAN-C01 | Native auth vacía, SQL sin sobres | Denegación antes de datos, con rol runtime ordinario. |
+| A02 Contexto falsificado o ampliado | P10; G1; Plan §6.5/§7.1; D037/D038 | Native F1/F2 genuinos y MAC falseadas/input otro Booking | Control positivo y cada firma/input negativo ejercitados en transacciones reales. |
+| A03 Actor/sesión ya inhabilitados o revocados | Tasks §2.2 V-DAT; P10; Plan §6.5/§7.1; D038 | Native actor inhabilitado y segunda sesión revocada | Reautorización en cada acceso; sin respuesta por caché. |
+| A04 Relación o rol futuro sin acceso | DM §14 DM-INV-050; SM §17 SM-FORB-29; G1; D015; BR §22 BR-SEC-001 | Auth servidor/DB y rol único; revisión de código; regresión | No nuevos actores/roles activos; entidades Contact/Organization no son CRM Actor. No todos los roles futuros en escenario separado. |
+| A05 Vínculo compartido y scope concreto | G1; P10; SPEC §14 SPEC-FR-HIST-006; §20 SPEC-FR-SEC-006; Plan §7.1 PLAN-C01 | Native original compartido y cambio de Booking bajo firmaA | Solo vínculos solicitados; MAC de A no autoriza B; control positivoB admitido. |
+| A06 Sesiones y respuestas personales aisladas | Plan §3.2 PLAN-DEC-009; P10; fichas H5-011/012; D038 | Native dos sesiones/revocación; unidad cursor finalidades | Aislamiento y ausencia de caché compartida; respuestas externas distintas de internas. |
+| A07 Frontera pública y origen externo | ARCH §17 ARCH-DEC-008; SPEC §22 SPEC-FR-INT-005; G1; P10 | Native sobres falsos/polling; regresión B09 web/calendar | Referencia pública no autoriza Core; no endpoint público nuevo. |
+| A08 Acceso directo y privilegios mínimos | Tasks §2.2 V-DAT; Plan §6.5; P10; D037–D039 | Native permisos/RLS/advisors; V-MIG170/283 | Definer NOLOGIN/NOBYPASSRLS, sin PUBLIC, runtime sin SELECT/DML directo, ACL anteriores preservadas. |
+| A09 Lectura no autoriza mutación ni actividad ficticia | Plan §7.1 PLAN-C01/C06; SPEC §15 SPEC-FR-COORD-008; D038/D039 | Native acciones invalidas y mutationAuthority=false | No aprobación/cierre/fusión/cobro por consultar; actividad humana D038 conservada, polling rechazado. |
+
+## Asignaciones preservadas
+
+34 filas: 32 desarrollo H5-011, 28 comprobación H5-012, 26 compartidas, seis solo desarrollo y dos solo comprobación. No son contadores de pruebas. La extracción literal permanece en el expected congelado; esta matriz no cambia responsables ni asigna comprobaciones globales a H5-011.
+
+H1-011/D020 conserva su integración adicional H5-012. H6-007/H6-017, DM-INV-025/050, SM-FORB-29, fiscalidad y observabilidad conservan las asignaciones originales y sus límites; no se ejecutan ni preparan tareas posteriores. Las filas SPEC-NFR-011/SM-FORB-32 con comprobación H5-012 no crean desarrollo adicional no asignado.
+
+## Resultado de revisión y puertas pendientes
+
+Regresión real del árbol final: 2492/2493 PASS, único FAIL H4-012 R06 E3 de cronología del fixture protegido. Unitarias completas194/194, focales propias23 dominio y20 PostgreSQL ejercitadas dentro de suites, health1/1, build/typecheck/lint/audit PASS; las focales no son41 casos aprobados.
+
+El escenario completo C03 no se acredita por la prueba pura de intervalos. C01 y C05–C08 requieren todavía contraste integrado específico frente a todos los datos del expected antes de dar por aceptado el bloque; los resultados de componentes existentes no se convierten por sí solos en PASS de esos recorridos. La regresión protegida y el alcance del auditor histórico impiden el cierre integral en esta entrega.
+
+STOP: no se toca el fixture H4 protegido ni su guarda, no se modifica expected, no H5-012, staging, commit o push. Véanse [defectos](defects-TSK-H5-011.md) y [evidencia](evidence-TSK-H5-011.md).

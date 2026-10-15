@@ -1,0 +1,74 @@
+{
+  "state": "F01 APPLIED; focal verification incomplete; STOP",
+  "tested_inputs_sha256": "bd7cb2423e7b8100e96e32088b63f575ec370c34db4bbc7ff52157bcd44f5e0f",
+  "domain_cases": [
+    "✔ H5-011 H02/H05: fact and registration instants and unknown original remain distinct (2.878083ms)",
+    "✔ H5-011 S02–S07: query uses the permitted list before external search (1.647791ms)",
+    "✔ H5-011 S02–S07: search uses the permitted list before external search (0.122417ms)",
+    "✔ H5-011 S02–S07: export uses the permitted list before external search (0.099875ms)",
+    "✔ H5-011 S02–S07: document uses the permitted list before external search (0.198125ms)",
+    "✔ H5-011 S02–S07: timeline uses the permitted list before external search (0.119083ms)",
+    "✔ H5-011 S02–S07: ai_context uses the permitted list before external search (0.08625ms)",
+    "✔ H5-011 A05/A06: mismatched root and cursor purpose fail without shared cache (0.422375ms)",
+    "✔ H5-011 C03–C08: D020 civil references keep full days and unknown data pending (50.260042ms)",
+    "✔ H5-011 C04: cancellation output preserves four accredited decisions without calculating amounts (0.241167ms)",
+    "✔ H5-011 query rejects undeclared authority and input fields (0.56925ms)"
+  ],
+  "postgres_cases": [
+    "✔ H5-011 native C01: reconstructs exact chain and scoped original/history without business writes (1413.387ms)",
+    "✖ H5-011 native external surfaces: explicit commercial output preserves fixed internal economics (54.822041ms)",
+    "✖ H5-011 native calendar reads current canonical service references (61.161459ms)",
+    "✔ H5-011 native scope, untrusted context and SQL privilege attempts deny (54.735833ms)",
+    "✔ H5-011 native independent bookings and stale sessions remain isolated (105.48175ms)",
+    "✔ H5-011 V-MIG: rollback/retry leaves prior data and existing objects unchanged (1523.980666ms)"
+  ],
+  "gates": {
+    "domain-focal": {
+      "command": [
+        "node",
+        "--test",
+        "--experimental-strip-types",
+        "tests/coordinated-projection-h5-011.test.ts"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.463,
+      "tested_inputs_sha256": "bd7cb2423e7b8100e96e32088b63f575ec370c34db4bbc7ff52157bcd44f5e0f",
+      "attribution": "uncommitted working tree identified by tested-inputs.json; not base SHA alone"
+    },
+    "postgres-focal": {
+      "command": [
+        "node",
+        "scripts/test-postgres.mjs",
+        "postgres-h5-011.test.ts"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 11.5,
+      "tested_inputs_sha256": "bd7cb2423e7b8100e96e32088b63f575ec370c34db4bbc7ff52157bcd44f5e0f",
+      "attribution": "uncommitted working tree identified by tested-inputs.json; not base SHA alone",
+      "POSTGRES_H0_BIN": "/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin"
+    },
+    "typecheck": {
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.48,
+      "tested_inputs_sha256": "bd7cb2423e7b8100e96e32088b63f575ec370c34db4bbc7ff52157bcd44f5e0f",
+      "attribution": "uncommitted working tree identified by tested-inputs.json; not base SHA alone"
+    },
+    "lint": {
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.092,
+      "tested_inputs_sha256": "bd7cb2423e7b8100e96e32088b63f575ec370c34db4bbc7ff52157bcd44f5e0f",
+      "attribution": "uncommitted working tree identified by tested-inputs.json; not base SHA alone"
+    }
+  },
+  "new_failures": "Two assertion defects diagnosed; no further code/test changes applied",
+  "independent_h5_012": "NOT STARTED",
+  "h5_011": "IN PROGRESS"
+}

@@ -1,0 +1,31 @@
+import {test,before,after} from 'node:test';
+import assert from 'node:assert/strict';
+import {randomUUID as uid} from 'node:crypto';
+import {isolatedModification,write} from '../support/h4-modification-isolated.ts';
+import {modificationFixture} from '../support/h4-modification-fixtures.ts';
+let h:Awaited<ReturnType<typeof isolatedModification>>;
+before(async()=>{h=await isolatedModification('crm_f14_v3_edges',56609,false,true);});
+after(async()=>{await h?.close();});
+const claim=async(m:any,q:any)=>`modification:${q.action}:${await m.f.hash(Object.fromEntries(Object.entries(q).filter(([k,v])=>!['operationId','evidenceId'].includes(k)&&v!==undefined)))}`;
+const proofAt=async(m:any,q:any,at:string)=>{const p=h.req('evidence',{claim:await claim(m,q),coverage:m.modificationId,certainty:'reviewed',source_kind:'manual'},m.modificationId,'other');await h.evidence.apply(await h.auth(),write,{...p,occurredAt:at,coverage:m.modificationId});return {...q,evidenceId:p.targetId};};
+for(const mode of ['default','historical','future','offset','fraction'] as const)test('F14 V3 edge valid '+mode,async()=>{
+ const m=await modificationFixture(h),q=await m.request();
+ const at={default:m.f.at,historical:'2026-10-13T21:59:59+02:00',future:'2030-01-01T00:00:00Z',offset:'2026-10-19T23:59:59+02:00',fraction:'2026-10-13T19:59:59.123Z'}[mode];
+ const att=await m.attest({...q,at});assert.equal(att.at,at);
+ const rows=await h.observer`select occurred_at::text at,recorded_at::text recorded,recorded_by::text actor,source_ref,material from crm_private.b07_records where record_id=${att.evidenceId}::uuid`;
+ assert.equal(Date.parse(rows[0]!.at),Date.parse(at));assert.equal(rows[0]!.actor,h.actorId);assert.match(rows[0]!.source_ref,/SYNTHETIC/);assert.equal(rows[0]!.material.source_kind,'manual');assert.equal(rows[0]!.material.certainty,'reviewed');assert.ok(rows[0]!.recorded);
+ await m.run(att);assert.equal((await m.see())!.progress,'Solicitada');
+});
+test('F14 V3 edge missing at prepares proof without completing command, product rejects',async()=>{
+ const m=await modificationFixture(h),q=await m.request();const bad=await m.attest({...q,at:undefined} as any);assert.equal(bad.at,undefined);assert.equal(JSON.parse(JSON.stringify(bad)).at,undefined);
+ const r=await h.observer`select occurred_at::text at from crm_private.b07_records where record_id=${bad.evidenceId}::uuid`;assert.equal(Date.parse(r[0]!.at),Date.parse(m.f.at));await assert.rejects(m.run(bad),/MODIFICATION_INPUT_INVALID/);assert.equal(await m.see(),null);
+});
+for(const [name,value] of [['null',null],['invalid','not-an-instant'],['impossible','2026-99-99T99:99:99Z']] as const)test('F14 V3 edge unsupported '+name+' rejected, not repaired',async()=>{
+ const m=await modificationFixture(h),q=await m.request();const bad={...q,at:value};await assert.rejects(m.attest(bad as any));assert.equal(bad.at,value);
+ // A separately valid proof permits exercising the original business input guard.
+ const p=await proofAt(m,bad,m.f.at);await assert.rejects(m.run(p as any));assert.equal(await m.see(),null);
+});
+for(const [name,delta,accepted] of [['before',-1000,true],['simultaneous',0,true],['after',1000,false]] as const)test('F14 V3 edge evidence '+name+' command',async()=>{
+ const m=await modificationFixture(h),q=await m.request();const proof=await proofAt(m,q,new Date(Date.parse(q.at)+delta).toISOString());
+ if(accepted){await m.run(proof);assert.equal((await m.see())!.progress,'Solicitada');}else{await assert.rejects(m.run(proof),/MODIFICATION_EVIDENCE_REQUIRED/);assert.equal(await m.see(),null);}
+});

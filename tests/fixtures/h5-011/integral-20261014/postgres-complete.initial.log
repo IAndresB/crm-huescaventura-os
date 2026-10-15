@@ -1,0 +1,2802 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-dC1MS7/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-dC1MS7/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ F1 migration from H0-M01 preserves data; C01 returns only public projection (2528.465ms)
+✔ A01 modification of authenticated claim is denied (3.494958ms)
+✔ A02 modification of authenticated claim is denied (2.780625ms)
+✔ A03 modification of authenticated claim is denied (2.773291ms)
+✔ A04 modification of authenticated claim is denied (5.461083ms)
+✔ A05 modification of authenticated claim is denied (3.391917ms)
+✔ A06 modification of authenticated claim is denied (5.816166ms)
+✔ A07/A08 malformed capability, MAC lengths and random MAC fail closed (10.125917ms)
+✔ A09/A10/A24 copied capability fails on another transaction or connection (14.604667ms)
+✔ A11/A12/A30 valid capability cannot widen scope, operation or material input (8.264083ms)
+✔ A13/A25 C03 consumption permits only one surviving application, savepoints roll back effects together (9.317208ms)
+✔ A14/A15/A16/A17/A18 runtime cannot reach helpers, keys, roles or unsigned executors (2.214833ms)
+✔ A19 false GUC, verified flags and baseline envelope never authorize direct access (1.076167ms)
+✔ A20/A21/A22 hostile search_path and shadow attempts do not alter resolution (4.870416ms)
+✔ A23 driver/public failure paths do not include synthetic sensitive input (7.958708ms)
+✔ A26 commit, rollback, SQL error and reused max-one connection retain no authority (8.688166ms)
+✔ A28 expiration and future not-before are denied with a valid MAC (2.818084ms)
+✔ A29 exact key selection and revocation fail closed, no fallback (4.028458ms)
+✔ D037 effective ownership, memberships, FORCE RLS and split verifier/executor permissions (28.323417ms)
+✔ C03 first/intermediate error and explicit rollback leave no partial writes (17.870792ms)
+✔ Codec rejects invalid UTF-8 source, oversized strings/input and unknown client authority fields (1.28775ms)
+✔ A27 connection lost before COMMIT returns E4 without blind retry (1013.742042ms)
+✔ A29 key rotation supports overlap, exact selection and retirement (26.49475ms)
+✔ RLS independently limits the executor to authenticated scope, row and manifest (14.467833ms)
+✔ D037 comparator checks every MAC bit and has fresh internal blinding with a fixed loop (325.121958ms)
+✔ Authenticated but incompatible version, audience, generation, binding and limits fail closed (25.332125ms)
+F06 current authority chain applied through 20261006152658_h4_joint_funds_compatible_actor_admission.sql after historical boundary 202609260003_h0_m03_f2_expiry_revalidation_fix.sql
+✔ H0-M03 upgrades historical chain; only migration can apply and mapping is unique (3488.888ms)
+✔ H0-M03 injected mid-migration failure is atomic and a clean retry succeeds (156.122ms)
+✔ H0-006-F01 forward migration is atomic, preserves predecessor and restores narrow ACL (26.266833ms)
+✔ H0-006-F02 forward migration upgrades F01 atomically and preserves function ACL (225.505667ms)
+✔ verified Auth boundary rejects client-shaped claims and incomplete full identification (2.405375ms)
+✔ full identification creates two independent sessions and minimal F2+F1 C01 (29.506458ms)
+✔ H0-006-F02: six F2 operations expire while waiting for the actor lock (30221.103667ms)
+ℹ {"sixCallsBlocked":true,"allExpiredAtRelease":true,"outcome":[{"name":"establish","ok":false,"code":"42501"},{"name":"reidentify","ok":false,"code":"42501"},{"name":"revoke_one","ok":false,"code":"42501"},{"name":"revoke_all","ok":false,"code":"42501"},{"name":"human_read_probe","ok":false,"code":"42501"},{"name":"human_apply_probe_batch","ok":false,"code":"42501"}]}
+✔ H0-006-F02: a short actor-lock wait still permits a current F2 (110.513167ms)
+✔ H0-006-F02: an INSERT lock wait after actor admission cannot commit an expired F2 (30133.06425ms)
+✔ H0-006-F02: expiry during delegated Core waits rolls back C01/C03 (60382.130042ms)
+ℹ {"operation":"C01","waitedInsideCore":true,"f2ExpiredWhileF1Valid":true,"ok":false,"code":"42501"}
+ℹ {"operation":"C03","waitedInsideCore":true,"f2ExpiredWhileF1Valid":true,"ok":false,"code":"42501"}
+✔ F2 owners, FORCE RLS and grants exclude runtime, generic roles and the key (54.381416ms)
+✔ M2 plain GUCs, wrong scope, altered MAC and F1/F2 substitution cannot authorize (61.96ms)
+✔ F2 is transaction/PID bound; valid F1 alone and valid F2 alone both fail (11.120833ms)
+✔ C03 writes and human activity commit together; failed F1 leaves neither (28.648709ms)
+✔ interactive read moves only its own epoch; refresh/polling/passive cannot claim activity (18.829542ms)
+✔ 7/30 day boundaries deny at equality; expired epoch needs a new full identification (31.926208ms)
+✔ single revoke isolates devices; global revoke advances generation and disables prior sessions (21.3235ms)
+✔ disabled/recovery/enrollment actor never grants Core; enable does not revive old generation (16.988583ms)
+✔ actor lock serializes authorize versus one-revoke, global revoke and disable (176.171458ms)
+✔ reidentification committed first invalidates an old epoch capability in a live transaction (5.224708ms)
+✔ two concurrent reads serialize safely and do not share connection/session authority (5.325458ms)
+✔ fault after activity update rolls back activity and Core; reidentify and generation faults roll back (11.441292ms)
+✔ F2 authenticates every authority claim and material input; malformed MACs fail closed (53.73025ms)
+✔ F2 capability from another live backend cannot cross PID (4.532958ms)
+✔ runtime cannot enable actor, invent subject, sign, or exploit search_path/temp shadow (4.286708ms)
+✔ F2 issuer requires branded interactive route and a key distinct from F1 (4.972667ms)
+✔ F2 exact key selection, generation and rotation fail closed without fallback (24.083292ms)
+✔ synthetic sensitive canaries do not escape the server-facing failure (31.617334ms)
+✔ H0-006-F01 preparation denies revoked, stale, old epoch, disabled and expired authority (73.251208ms)
+✔ H0-006-F01 locked recheck denies a capability issued before revoke-one COMMIT (25.882291ms)
+✔ H0-006-F01 locked recheck rejects a pre-issued old epoch and expired session (18.977167ms)
+✔ H0-006-F01 generation overflow fails closed without partial mutation (9.154958ms)
+F06 current authority chain applied through 20261006152658_h4_joint_funds_compatible_actor_admission.sql after historical boundary 202609260003_h0_m03_f2_expiry_revalidation_fix.sql
+✔ H0-006 N11: revoked session cannot invoke global revocation through server F2 issuance (3886.02075ms)
+ℹ {"revokedSessionDeniedForCore":true,"globalRevocationDenied":true,"generationBefore":"1","generationAfter":"1","otherSessionStillAuthorized":true}
+✔ H0-006 R22: independent predecessor upgrade, rollback and reapply (1580.797083ms)
+✔ H0-006 R07/R18: F2 expiry while waiting for actor lock must deny establishment (31486.460958ms)
+ℹ {"initialValidControl":true,"initialExpiredControlDenied":true,"sawLockWait":true,"releasedAfterExpiry":true,"accepted":false,"code":"42501","sessions":0,"epochs":0,"created_after_expiry":null,"coreAllowed":false}
+▶ H0-006 third execution: independent actor, lookup and M2 controls
+  ✔ R03 generic lookup is metadata, not authority; revoke-all lookup requires live session (7.890334ms)
+  ✔ R03 revoke-all lookup rejects revoked, stale, old epoch, disabled and 7/30 expiry (7.831333ms)
+  ✔ R04 M2 SQL cannot create an actor, session, epoch or mutate authority (7.748167ms)
+  ✔ R05/R20 independently signed F2 and F1 are both necessary and scope-bound (9.588792ms)
+  ✔ R06 independent 25-field framing rejects mutation and malformed input (21.026625ms)
+  ✔ R07 a valid capability cannot cross transactions or backends (22.480292ms)
+  ✔ R08 plain GUC and reused pooled connection grant no authority (3.539583ms)
+  ✔ R09 key custody and exact key lifecycle fail closed (10.849334ms)
+  ✔ R10 singleton mapping cannot be duplicated or changed by runtime (1.250083ms)
+  ✔ R11 session, subject and epoch must match current coherent rows (2.341708ms)
+  ✔ R12 unverified Auth, incomplete MFA and unclassified interaction deny (1.979167ms)
+  ✔ R13/R14 elapsed 7/30-day limits deny at equality before activity update (10.900166ms)
+  ✔ R02 pre-issued authority loses to a committed revocation (17.225083ms)
+  ✔ R15 two devices keep independent activity and reidentify without history rewrite (14.449667ms)
+  ✔ R19 failed Core operation rolls back F2 activity and F1 consumption (11.527333ms)
+  ✔ R21 roles, SECURITY DEFINER and FORCE RLS remain effective (3.199167ms)
+  ✔ R18 F02 six independently issued operations deny after a real actor-lock expiry (30157.159166ms)
+  ✔ R18 a short real lock wait may continue while F2 remains valid (225.572375ms)
+  ✔ R18 F2 also expires while waiting on session and epoch locks (60269.518333ms)
+  ✔ R17 disable, recovery and enrollment deny; re-enable does not revive old generation (87.197333ms)
+  ✔ R23 a committed global revocation stays effective after response loss (9.139917ms)
+  ✔ R16 revoke-one/global are scoped and generation overflow fails closed (25.511083ms)
+✔ H0-006 third execution: independent actor, lookup and M2 controls (92182.40975ms)
+ℹ {"f02SixBlocked":true,"postLockClockAfterExpiry":true,"sixDeniedWithoutPartialEffect":true}
+✔ H0-007 runtime is non-owner and has no global privilege attributes (2510.037334ms)
+✔ H0-007 runtime cannot administer schema (10.912167ms)
+✔ H0-007 runtime cannot grant itself privileges or roles (1.606875ms)
+✔ H0-007 generic untrusted role cannot connect to the Core database (7.111083ms)
+✔ H0-007 absence of context is denied by grants and the capability interface (1.369625ms)
+✔ H0-007 valid technical context authorizes only its scoped projection (7.294458ms)
+✔ H0-007 hostile client fields cannot establish trusted context (0.362541ms)
+✔ H0-007 commit clears transaction-local identity (3.799417ms)
+✔ H0-007 rollback clears transaction-local identity (1.52425ms)
+✔ H0-007 database error clears transaction-local identity (2.1825ms)
+✔ H0-007 reused max-one connection does not inherit the prior actor (2.227208ms)
+✔ H0-007 grants and RLS jointly hide rows from another scope (3.937709ms)
+✔ H0-007 runtime cannot read the reserved column directly (1.1205ms)
+✔ H0-007 runtime cannot perform arbitrary table DML (1.934625ms)
+✔ H0-007 H0-M01 migrations execute from an empty local cluster (0.218708ms)
+✔ H0-007 migration and runtime authorities are separate (4.490625ms)
+✔ H0-007 C01 consumes a real authorized PostgreSQL read port (3.023875ms)
+✔ H0-007 C03 commits a real PostgreSQL unit through the narrow function (6.757875ms)
+✔ H0-007 C03 rolls back all changes after a database error (4.772208ms)
+▶ H0-008 formal independent D037 reverification (fail-fast)
+  ✔ V-MIG: failed forward is atomic; retry preserves H0-M01 data without superuser (27.445375ms)
+  ✔ V-DAT: effective catalogs, owners, PUBLIC, transitive memberships and proconfig (10.837167ms)
+  ✔ V-DAT: hostile direct SQL cannot escalate, mutate ACL or use a privileged helper (16.0025ms)
+  ✔ Capability: every one of 21 fields is authenticated, not just the six original mutations (35.637ms)
+  ✔ Codec: signed malformed payload/input, trailing bytes, UTF-8 and exact limits fail closed (21.986417ms)
+  ✔ Binding: public observations and persistent forged envelope cannot cross transaction/pool (20.16625ms)
+  ✔ C03: authenticated order, complete manifest, no second surviving application or partial effect (7.288917ms)
+  ✔ D037 expiry during executor rolls back effects; no success after deadline (611.832709ms)
+  ✔ Keys: exact length, missing/revoked selection and no secret-bearing SQL definitions (8.743417ms)
+  ✔ C01/C03 server boundary: minimum projection, hostile input and real SQL errors do not leak canaries (9.148292ms)
+✔ H0-008 formal independent D037 reverification (fail-fast) (3650.216042ms)
+✔ H0-008 knowing GUC names must not let runtime self-declare authority (2549.01375ms)
+✔ H0-009 migration upgrades F1, preserves prior data and creates only technical objects (2569.921791ms)
+✔ H0-009 persists state, complete minimal history, fixed result and intent atomically (20.57675ms)
+✔ H0-009 later history records real before/after without rewriting the original (6.494042ms)
+✔ H0-009 equivalent replay reauthorizes, returns fixed result and creates only a new attempt (15.101875ms)
+✔ H0-009 same operation identity with different material returns E2 and no second effect (13.626583ms)
+✔ H0-009 concurrent equivalent operations converge on one durable result (30.798375ms)
+✔ H0-009 concurrent same identity with different fingerprints applies once and returns E2 (52.853541ms)
+✔ H0-009 expected version prevents concurrent overwrite (10.955583ms)
+✔ H0-009 failures at every critical boundary leave no partial unit (43.414833ms)
+✔ H0-009 response lost after real COMMIT recovers the previous result without duplicate material work (21.4ms)
+✔ H0-009 runtime cannot directly read, mutate or erase durable records (7.89375ms)
+✔ H0-009 roles, ownership, FORCE RLS and grants keep verifier/executor split (2.266292ms)
+✔ H0-009 C04 remains candidate and C05 persists intent without provider attempt or outcome (0.9285ms)
+✔ H0-009 PostgreSQL deadlock aborts one complete transaction and does not preserve its marker (64.450375ms)
+✔ H0-009 migration is transactional: an injected failure leaves no H0-M02 objects (138.544416ms)
+✔ H0-010 V-MIG starts from an empty PostgreSQL 17 cluster and preserves the F1 predecessor (1634.6965ms)
+✔ H0-010 history represents creation, later before/after and immutable chronology (43.090292ms)
+✔ H0-010 equivalent replay after a later root change returns the historical fixed result (31.977959ms)
+✔ H0-010 every material field change conflicts instead of reusing the prior result (69.299ms)
+✔ H0-010 visually similar byte-distinct Unicode and boundary inputs are not conflated (13.930041ms)
+✔ H0-010 SQL pack_fields is byte-for-byte equal to an independent reference codec (6.451083ms)
+✔ H0-010 distinct operation/effect/intent identities cannot mint a second material right (14.686ms)
+✔ H0-010 concurrent equivalent operation converges, with one effect and distinct attempts (15.713875ms)
+✔ H0-010 concurrent different material under one operation identity applies once and returns E2 (7.121625ms)
+✔ H0-010 concurrent different operations on one expected version prevent lost update (18.56975ms)
+✔ H0-010 failures at every C03 boundary commit no partial root, operation, attempt, history, result or intent (62.741667ms)
+✔ H0-010 a real post-COMMIT response loss is recovered only by a newly authorized transaction (34.293333ms)
+✔ H0-010 C04 candidate is not verification and C05 creates intent only (6.25325ms)
+✔ H0-010 runtime cannot create provider attempt/result/uncertain or mutate durable records directly (5.400125ms)
+✔ H0-010 H0-M02 rejects forged GUCs and binds valid capabilities to input, transaction, PID and target (15.931917ms)
+✔ H0-010 GUC authority is observationally absent after success, replay, conflict, error and connection reuse (17.2595ms)
+✔ H0-010 savepoint rollback removes capability consumption, material effects and GUC authority together (6.192375ms)
+✔ H0-010 catalog audit preserves D037 roles, ownership, minimal grants, SECURITY DEFINER and FORCE RLS (8.787625ms)
+✔ H0-010 hostile search_path, temporary shadows and public helpers cannot bypass the narrow API (3.914958ms)
+✔ H0-010 a real deadlock aborts one complete H0-M02 unit and the adapter returns E2 (1210.31975ms)
+✔ H0-010 migration rejects runtime, reapplication is fail-safe and injected failure leaves no hybrid schema (111.990833ms)
+✔ F01 correction V-MIG: predecessor M04/M02 survives denied authority, DDL rollback, upgrade and safe reapply denial (1707.728125ms)
+✔ F02 correction V-MIG: M02/M04 fixtures survive denied authority, DDL rollback, forward upgrade and safe reapply denial (0.142042ms)
+✔ F01 correction executor is narrow, NOLOGIN, fixed search_path, with no public grant or new key access (7.855125ms)
+✔ F02 partitions technical and human M02 entry points while keeping the internal core unreachable (13.1985ms)
+ℹ {"runtimeFunctionSurface":["crm_api.apply_probe_batch(bytea,bytea,bytea)","crm_api.commit_internal_unit(bytea,bytea,bytea)","crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)","crm_api.establish_session(bytea,bytea,bytea)","crm_api.f2_lookup(uuid,uuid)","crm_api.f2_lookup_revoke_all_authority(uuid,uuid)","crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)","crm_api.h0_m04_read_proposal(bytea,bytea,bytea,bytea,bytea,text)","crm_api.human_apply_probe_batch(bytea,bytea,bytea,bytea,bytea)","crm_api.human_read_probe(bytea,bytea,bytea,bytea,bytea)","crm_api.read_probe(bytea,bytea,bytea)","crm_api.reidentify_session(bytea,bytea,bytea)","crm_api.revoke_all_sessions(bytea,bytea,bytea)","crm_api.revoke_session(bytea,bytea,bytea)"]}
+✔ F02 keeps legitimate H0-009 technical commits, concurrent convergence and replay (22.671875ms)
+✔ H0-011 V-MIG applies M04 forward after M01/F1/M02/M03 on PostgreSQL 17 (4.410292ms)
+✔ synthetic AI proposal requires an independent human decision before exact-part reservation (35.372083ms)
+✔ human approval is exact, immutable and distinct from execution; uncertainty keeps reservation (54.553834ms)
+✔ material fingerprint separates absent, empty and every authorized material slot (1.413125ms)
+✔ changed material, expired/unverifiable evidence and unverified identity never reserve (15.59675ms)
+✔ same exact part is serialized across two PostgreSQL runtime connections (24.722834ms)
+✔ approved effect can be consumed part by part without reusing the completed part (39.863958ms)
+✔ direct runtime and PUBLIC SQL cannot mutate or read approval tables (17.370583ms)
+✔ same operation identity conflicts on changed material and recovers after lost post-COMMIT response (50.89025ms)
+✔ failure writing the M02 effect intent rolls back reservation and history atomically (22.398208ms)
+✔ decision actor, technical executor, attempt and outcome remain separate records (30.35ms)
+✔ revoked session cannot approve a previously proposed effect (13.137833ms)
+F06 current authority chain applied through 20261006152658_h4_joint_funds_compatible_actor_admission.sql after historical boundary 20260928193111_h0_m04_tte_boundary.sql
+✔ H0-012 R11 control: short real M02 ledger wait commits with live F2 (2396.559625ms)
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":true,"deniedBeforeLedger":false,"protocolWindowSeconds":30,"f2ExpiredAtRelease":false,"f1ExpiredAtRelease":false,"f2AgeMsAtRelease":130,"ledgerWaitMs":103,"committed":true,"activityChanged":true,"reservations":1,"events":1,"receipts":1,"operations":1,"roots":1,"attempts":1,"history":1,"results":1,"intents":1,"proposals":1,"decisions":1}
+✔ H0-012 R11 control: M02 wait above 30s expires both capabilities and rolls back (30322.917291ms)
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":true,"deniedBeforeLedger":false,"protocolWindowSeconds":30,"f2ExpiredAtRelease":true,"f1ExpiredAtRelease":true,"f2AgeMsAtRelease":30277,"ledgerWaitMs":30248,"committed":false,"activityChanged":false,"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}
+✔ H0-012 R11: expired F2 must roll back M04 plus M02 even while later F1 remains live (30343.059166ms)
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":true,"deniedBeforeLedger":false,"protocolWindowSeconds":30,"f2ExpiredAtRelease":true,"f1ExpiredAtRelease":false,"f2AgeMsAtRelease":30286,"ledgerWaitMs":27222,"committed":false,"activityChanged":false,"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}
+✔ F01 correction: expiry in the first phase denies before ledger and preserves every snapshot field (30333.677916ms)
+ℹ real actor wait; F2 age >30s: true
+✔ F01 correction: normal concurrent units, durable replay and actual post-COMMIT response loss (115.708166ms)
+✔ H0-012 F02 regression inside trusted executor: selecting the technical overload cannot bypass final human authority (30317.288833ms)
+ℹ {"runtimeEntryPoints":{"session_user":"crm_h0_ha_tx","current_user":"crm_h0_ha_tx","m04":true,"technical":true,"human":true}}
+ℹ {"m04ReturnedBeforeLedger":true,"realLedgerLockObserved":false,"deniedBeforeLedger":true,"protocolWindowSeconds":30,"f2ExpiredAtRelease":true,"f1ExpiredAtRelease":false,"f2AgeMsAtRelease":30296,"ledgerWaitMs":27239,"committed":false,"activityChanged":false,"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}
+▶ H0-012 D039 formal R01-R25 execution: independent matrix, stop at first material failure
+  ✔ R01 AI origin cannot decide without human authority; live human decides (54.031167ms)
+  ✔ R02 pending and rejected proposals permit neither reservation nor attempts/outcomes (103.431417ms)
+  ✔ R03 approval alone creates no external attempt, success or reservation (18.509125ms)
+  ✔ R04 exact material persists byte-for-byte with an independently computed fingerprint (22.495333ms)
+  ✔ R05 each changed material component denies and preserves the original approval (152.65425ms)
+  ✔ R06 independent codec vectors distinguish Unicode, slots, framing and exact limits (2.597875ms)
+  ✔ R07 part ID, fingerprint, scope, effect and cross-proposal swaps deny (66.875583ms)
+  ✔ R08 positive: current independently checked evidence must permit exact approved reservation (155.595458ms)
+  ✔ R08 negative: source/material expiry, missing provider and altered authenticated proof (320.711167ms)
+  ✔ R08 final evidence authority: immediate-short (138.580292ms)
+  ✔ R08 final evidence authority: deferred-expired (2616.120209ms)
+  ✔ R08 final evidence authority: immediate-expired (2604.644084ms)
+  ✔ R08 M2: runtime cannot build HA even with current evidence (15.822208ms)
+  ✔ R08/R23 M2: final evidence authority must survive omission or early invocation of the F04 wrapper (33.3315ms)
+  ✔ R09 revoked, disabled, generations, epochs, MFA and identification limits deny without activity (69.875583ms)
+  ✔ R10 real actor/session/epoch/command/part waits cannot outlive original F2 (150815.12175ms)
+  ✔ R11 original F01/F02 ledger races, current control and original F2 retention (91178.488458ms)
+  ✔ R12 revocation and authorized unit serialize on real actor/session locks (121.717959ms)
+  ✔ R13 signed login/purpose/target/scope/input crossings and missing F1/F2 deny (483.527ms)
+  ✔ R14 runtime, HA login and Data API cannot directly access authority or persisted data (15.065291ms)
+  ✔ R15 copied capabilities cannot survive backend, transaction, rollback or GUC substitution (114.112833ms)
+  ✔ R16 concurrent connections cannot reserve the same exact part twice (23.391291ms)
+  ✔ R17 partial execution preserves the independent remaining part (34.901208ms)
+  ✔ R18 uncertain attempt retains reservation and forbids blind retry (49.249833ms)
+  ✔ R19 reconciliation requires the exact original uncertain attempt (27.9495ms)
+  ✔ R20 known failure allows a new attempt; success consumes and cannot repeat (46.168667ms)
+  ✔ R21 committed replay uses durable result without provider refresh and different material conflicts (2036.719709ms)
+  ✔ R22 fault injection rolls back the whole unit; dispatched COMMIT response loss stays uncertain (106.457833ms)
+{
+  severity_local: 'WARNING',
+  severity: 'WARNING',
+  code: '25P01',
+  message: 'there is no transaction in progress',
+  file: 'xact.c',
+  line: '4113',
+  routine: 'EndTransactionBlock'
+}
+  ✔ R23 private finalization authority, owner separation, RLS and immutable public surface (6405.377792ms)
+  ✔ R24 fresh chain, predecessor upgrade, injected DDL rollback and scoped read (81.974208ms)
+  ✔ R25 AI proposer, human registrar/approver and technical executor remain separately attributable (1.021875ms)
+✔ H0-012 D039 formal R01-R25 execution: independent matrix, stop at first material failure (257928.784416ms)
+ℹ {"row":"R08","sourceFingerprintChecked":true,"sourceStillCurrent":true,"approvedMaterialMatches":true,"negativeExpiredDenied":true,"negativeMissingDenied":true,"noEvidenceControlReserved":true,"expected":"reserved","observed":"reserved","noResidueIfDenied":false}
+ℹ {"mode":"immediate-short","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":68229,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":false,"evidenceExpiryUs":"1792002865495000","releasedAtUs":"1792002863112273","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":true,"proofCount":1,"activityChanged":true,"counts":{"reservations":1,"events":1,"receipts":1,"operations":1,"roots":1,"attempts":1,"history":1,"results":1,"intents":1,"proposals":1,"decisions":1}}
+ℹ {"mode":"deferred-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":68229,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":false,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1792002865627000","releasedAtUs":"1792002865738536","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"immediate-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":68229,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1792002868243000","releasedAtUs":"1792002868343453","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"runtime-commit-short","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"runtime-commit-expired","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+✔ F03 focal: verified positive, immutable trace, effective minimum and replay without provider (20.509791ms)
+▶ F03 focal: expired, missing, mismatched, incomplete and unavailable providers deny without residue
+  ✔ expired (19.538167ms)
+  ✔ reference (26.744041ms)
+  ✔ fingerprint (18.433917ms)
+  ✔ missing (18.251333ms)
+  ✔ failure (21.515292ms)
+  ✔ incomplete (18.526375ms)
+  ✔ ambiguous (18.126917ms)
+  ✔ future (19.321292ms)
+✔ F03 focal: expired, missing, mismatched, incomplete and unavailable providers deny without residue (161.264542ms)
+▶ F03 focal: SQL checks signed proposal/part/scope/reference/fingerprint/time and MAC
+  ✔ proposal (23.051666ms)
+  ✔ part (18.776292ms)
+  ✔ scope (19.39925ms)
+  ✔ reference (20.2255ms)
+  ✔ fingerprint (23.395083ms)
+  ✔ command (19.999666ms)
+  ✔ future-check (20.803875ms)
+  ✔ extended-validity (20.271542ms)
+  ✔ mac (21.984416ms)
+✔ F03 focal: SQL checks signed proposal/part/scope/reference/fingerprint/time and MAC (188.861917ms)
+▶ F03 focal: real ledger wait expires evidence with F1/F2 live; short wait and committed replay work
+  ✔ expired (1928.596666ms)
+  ✔ short (1822.820833ms)
+✔ F03 focal: real ledger wait expires evidence with F1/F2 live; short wait and committed replay work (3752.040833ms)
+✔ F03 focal: V-MIG result, ACL/NOLOGIN/RLS and private helpers (6.24425ms)
+✔ F03 focal: no signed proof cannot reserve; a proof alone cannot commit (68.4835ms)
+▶ F05 focal D039: runtime A/B denied, TTE short/expired waits and internal durable delay
+  ✔ runtime-commit-expired (27.210416ms)
+  ✔ split-finalize-expired (22.634125ms)
+  ✔ immediate-short (88.104083ms)
+  ✔ immediate-expired (2620.169583ms)
+  ✔ deferred-expired (2631.360917ms)
+{
+  severity_local: 'WARNING',
+  severity: 'WARNING',
+  code: '25P01',
+  message: 'there is no transaction in progress',
+  file: 'xact.c',
+  line: '4113',
+  routine: 'EndTransactionBlock'
+}
+  ✔ private pool API positive and no SQL or transaction handles (47.78525ms)
+  ✔ D039 does not require physical durable completion before expiry (3622.901208ms)
+✔ F05 focal D039: runtime A/B denied, TTE short/expired waits and internal durable delay (9061.264833ms)
+ℹ {"mode":"runtime-commit-expired","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"split-finalize-expired","login":"crm_h0_runtime","effectiveRole":"crm_h0_runtime","deniedAtEntry":true,"proofCount":0,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"immediate-short","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":68229,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":false,"evidenceExpiryUs":"1792003126706000","releasedAtUs":"1792003124285126","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":true,"proofCount":1,"activityChanged":true,"counts":{"reservations":1,"events":1,"receipts":1,"operations":1,"roots":1,"attempts":1,"history":1,"results":1,"intents":1,"proposals":1,"decisions":1}}
+ℹ {"mode":"immediate-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":68229,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":true,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1792003126795000","releasedAtUs":"1792003126898680","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+ℹ {"mode":"deferred-expired","login":"crm_h0_ha_tx","effectiveRole":"crm_h0_ha_tx","pid":68229,"realAdvisoryWait":true,"finalMessageReached":true,"runtimeChoseCommit":false,"earlyFinalizerReturned":false,"immediateApplied":false,"checkedWhileLive":true,"evidenceExpiredAtRelease":true,"evidenceExpiryUs":"1792003129415000","releasedAtUs":"1792003129522542","f1LiveAtRelease":true,"f2LiveAtRelease":true,"committed":false,"proofCount":0,"activityChanged":false,"counts":{"reservations":0,"events":0,"receipts":0,"operations":0,"roots":0,"attempts":0,"history":0,"results":0,"intents":0,"proposals":1,"decisions":1}}
+✔ R19/R20 focal: a historical attempt cannot settle a newer active attempt (65.672292ms)
+✔ H0-013 completes Core and Auth revocation without preserving emitter authority (2145.97275ms)
+✔ H0-013 keeps Core closed and reports known Auth failure explicitly (6.526917ms)
+✔ H0-013 records provider uncertainty without fictitious success (4.946084ms)
+✔ H0-013 returns pending if post-provider persistence fails and does not reopen Core (6.81925ms)
+✔ H0-013 does not contact Auth when the Core revocation unit is denied (3.8635ms)
+✔ H0-M05 is forward-only, atomic, preserves predecessor fixtures and restores ACL (147.907167ms)
+✔ H0-014 R01-R04/R13/R16/R18: global closure is durable, includes emitter and permits only new identification (1900.257834ms)
+✔ H0-014 R05-R08: every partial Auth outcome leaves Core denied and never reports success (32.138916ms)
+✔ H0-014 R09: concurrent global closures serialize and coordinate Auth once (7.007667ms)
+✔ H0-014 R10: an already-authorized Core operation may finish before later revocation (60.977625ms)
+✔ H0-014 R11: revocation that holds actor first defeats an in-flight old Core request (48.95025ms)
+✔ H0-014 R12/R14/R15: revoked, disabled, stale and non-human routes cannot revive activity (14.18375ms)
+✔ H0-014 R17/R20/R21: ACL, capability binding and TTE partition deny indirect authority (17.900875ms)
+✔ H0-014 R19: independent predecessor upgrade is atomic and preserves D039 objects (281.926708ms)
+✔ H0-016 I01/I03/I05/I06 D027 closes Core and needs TOTP before new identification (1826.435625ms)
+✔ H0-016 I01 invalid/unverified email and owner cannot open recovery (1.8435ms)
+✔ H0-016 I02/I05 D031 requires new factor and verified new paper copy (33.973208ms)
+✔ H0-016 I02/I04/I05 D031 failure is partial; new factor and paper required (8.762916ms)
+✔ H0-016 I07/I08 duplicate attempts and direct runtime writes denied (6.727708ms)
+✔ H0-017 R01/R02/R07 password recovery denies pre-MFA and stale authority (1798.675459ms)
+✔ H0-017 R11 recovered access retains independent 7/30 server limits (11.291042ms)
+✔ H0-017 R04/R05 owner independence and factor replacement are mandatory (13.60625ms)
+✔ H0-017 R08 concurrent starts allow one generation and one incident (10.914458ms)
+✔ H0-017 R06/R09 provider uncertainty preserves denial and SQL boundary (6.309083ms)
+✔ H0-017 R10 forward migration preserves previous actor, session and epoch (169.469583ms)
+✔ H1-001 identities remain distinct, incomplete and attributable (1202.154833ms)
+✔ H1-001 separate roles, provenance, version, replay and rollback (90.362833ms)
+✔ H1-001 runtime SQL surface denies direct writes and unauthenticated reads (1.181333ms)
+✔ H1-001 unverified identity cannot become primary while independent work continues (24.166583ms)
+✔ H1-001 overlapping primary changes have one winner and no partial history (25.880292ms)
+✔ H1-001 ACL keeps human tables outside runtime, public, Data API and SET ROLE (2.055584ms)
+✔ H1-001 contact signals and group counts preserve unknown versus known (32.287917ms)
+✔ H1-001 C01 limits and pages history with explicit provenance (8.106709ms)
+✔ H1-001 injected history failure rolls back the entity and result together (6.904584ms)
+✔ H1-002 R01-R08,R17: distinct parties, context, history and denied inference (1192.542875ms)
+✔ H1-002 R09-R10,R15: C01/C02 and narrow SQL authority (12.320792ms)
+✔ H1-002 R11-R14: concurrent versions, replay and cross-connection rollback (37.029334ms)
+✔ H1-002 R16,R18: migration chain and synthetic fixture discipline (1.63325ms)
+✔ H1-003 I01-I03: candidates are passive; human merge and archive keep both histories (1343.988417ms)
+✔ H1-003 I04-I06: server year, independent annual series, concurrency and replay (148.183625ms)
+✔ H1-003 I07: scope, authorization, atomicity and SQL privileges (10.076625ms)
+✔ H1-004 R01-R04: no automatic merge, scoped resolution, retained links and restoration (1583.659083ms)
+✔ H1-004 R05-R07: D040 cut, distinct serials, no reuse and replay competition (83.662291ms)
+✔ H1-004 R06: code remains searchable after linked identities merge and archive (29.373416ms)
+✔ H1-004 R08-R10: rollback, SQL authority, RLS and old session (18.38375ms)
+✔ H1-005 smoke: create and read (1511.72875ms)
+✔ H1-005 I01-I06: typed relations, exact versions, immutable applied snapshot (126.66575ms)
+✔ H1-005 I05/I07: provider identity link, invalid relation, replay and concurrency (28.892375ms)
+✔ H1-005 I07/I08: injected history failure rolls back and runtime cannot bypass (26.192ms)
+✔ H1-006 R01-R06: independent domain and persistence matrix (1520.479458ms)
+✔ H1-006 R07-R10: independent rejection, atomicity, security and predecessor (63.503458ms)
+✔ H1-007 smoke: tariff version and exact catalog reference (1423.999209ms)
+✔ H1-007 I01/I07: tariff unknown, known decimal, source, validity and frozen application (36.3875ms)
+✔ H1-007 I02/I03/I04/I05: custom pack, manual promotion, promotion rule and unknown guards (65.409709ms)
+✔ H1-007 I01/I04/I05: tiers, scoped requirements and exact rule versions (45.214917ms)
+✔ H1-007 I08/I09: replay, concurrency, rollback, scope and SQL authority (52.984083ms)
+✔ H1-007 I01: exact civil-date and instant validity stay distinct (25.782125ms)
+✔ H1-008 R01-R08: independent version, unknown and cross-connection history matrix (1400.691542ms)
+✔ H1-008 R09-R11: independent race, replay, fault, scope and prior-data matrix (49.469833ms)
+✔ H1-013 E01/E02: document, evidence, derived and late manual call remain distinct (1571.59725ms)
+✔ H1-013 E03: one original links two contexts without broadening either read (14.527875ms)
+✔ H1-013 E05: incoming begins received, outgoing facts require separate evidence (13.634667ms)
+✔ H1-013 E05/E06: proposal send guard and external candidate are not confirmation (16.266292ms)
+✔ H1-013 E07/E08: correction, replay, conflict and atomic rollback (11.896333ms)
+✔ H1-013 E08/E09: concurrent replay and runtime direct access denial (11.3565ms)
+✔ R01-R04/R09: original, two links, late manual fact, incoming and no business inference (1015.090458ms)
+✔ R05-R08: send, receipt and response are separate; proposal guard rejects inference (24.223042ms)
+✔ R10-R14: external pending, correction, replay conflict, concurrency and rollback (28.596209ms)
+✔ R13: concurrent distinct links to the same context have one durable winner (5.803292ms)
+✔ R15-R17: role boundary, forced RLS and local migration (9.102666ms)
+✔ E01-E03: real Storage prepare/upload/accredit/link and authorized bytes (1285.56875ms)
+✔ E01/E02/E05/E06: reference absent, repair, replay and lost metadata after upload (127.428875ms)
+✔ E04/E07: replacement preserves original, concurrency rejects incompatible successors (91.18725ms)
+✔ E08-E10: orphan diagnostic keeps real bytes, direct and wrong-context access deny (36.69025ms)
+✔ R01-R04/R08: independent conservation oracle and durable replay (1305.793459ms)
+✔ R05: real same-path corruption and media mismatch are not conserved (150.323ms)
+✔ R10/R11/R13: independently signed foreign scope and generic JWT cannot access (27.093708ms)
+✔ R06/R07/R15/R17: real upload survives internal rollback and repair/orphan retains bytes (100.462583ms)
+✔ R09/R10/R16: all five concurrency surfaces and retained original (151.867083ms)
+✔ R11-R14: actual signed URL remains technically valid; Core access is reauthorized (3598.695042ms)
+✔ R18/R19: forced RLS, narrow grants and migration rollback/reapply (258.646292ms)
+✔ E01/E02/E03/E08: business needs preserve unknowns and never prove the motivating fact (1262.258791ms)
+✔ E04: civil and exact instant deadlines preserve sources; D020 grants a complete day (23.697917ms)
+✔ E05-E07/E09: functional dedup differs from replay, revision and separate causes (32.619667ms)
+✔ E09/E10/E11: concurrent receipts, history rollback, context and runtime (12.470083ms)
+✔ R01-R06: independent unknown, civil/instant/D020 and priority oracle (1210.903666ms)
+✔ R07-R12: independent technical replay, structured cause separation and concurrency (43.714209ms)
+✔ R13/R14: independent fault create/update rollback and no motivating-fact inference (16.90975ms)
+✔ R15-R17: scope/context/purpose, stale authority and forced RLS (18.485291ms)
+✔ R18: predecessor upgrade retains records, DDL rollback/reapply and unique cause backstop (269.987583ms)
+✔ H2 focal: direct creation, H1 OP and atomic replay (1129.116166ms)
+✔ H2 focal: incomplete lead converts preserving source and owner (9.488416ms)
+✔ H2 focal: loss/pause/reactivate and forbidden Ganada preserve history (10.994458ms)
+✔ H2 focal: runtime has no direct DML (0.600292ms)
+✔ F01 historical: approved reviewed B07 contact incorrectly rejected at 00cf358 (1196.93425ms)
+✔ F02 historical: malformed numeric contact accepted by SQL at a5bbb06 (1153.8715ms)
+✔ R01: three exact minima; each individually absent rejected by PostgreSQL (1277.064541ms)
+✔ R02: unknown final data never adds mandatory minima or inferred values (22.353042ms)
+✔ R03: incomplete Lead, source/owner/link and direct H1 identity reuse (10.288084ms)
+✔ R04: committed response discarded, replay and equivalent conversion use one H1 OP (23.554792ms)
+✔ R05: OP-02 every material guard and real scoped B07 contact, attempt not response (85.377667ms)
+✔ R06: OP-03 both origins with each guard removed and final details still unknown (89.453666ms)
+✔ R07: OP-04 commercial guards and every normative origin; Proposal dependency pending (67.44ms)
+✔ R08: OP-05 exact version/send evidence cannot be fabricated; future capability pending (70.355625ms)
+✔ R09: OP-06 identifiable exchange and affected scope; offer/provider unchanged (75.661416ms)
+✔ R10: OP-08 all approved reasons, unknown explicit, no loss from alternative rejection (461.416333ms)
+✔ R11: OP-09 all active states guard matrix; actual pause retains previous state (86.4495ms)
+✔ R12: OP-10 lost/paused to both supported destinations; history and old vigencies preserved (783.942667ms)
+✔ R13: OP-11 backwards with documented change, human evaluation and supported destination (243.892667ms)
+✔ R14: seven attempts at Ganada cannot replace future verified Acceptance (178.732542ms)
+✔ R15: explicit SM-FORB-30 attempts do not erase loss or renew external validity (91.02725ms)
+✔ R16: actual V-DAT admission, forgery, disabled actor, ordinary SQL and ACL/RLS (201.29875ms)
+✔ R17: independent history and strict separation across all persisted commercial effects (2.579792ms)
+✔ R18: atomic write faults, changed replay, two actors absence/races/revision (100.44975ms)
+✔ R19: empty-chain and exact H1 upgrade preserve IDs/codes/history/B07/Task/permissions (433.446ms)
+✔ R20: C02 normative decision, every approved state/unknown and pending limits (0.2615ms)
+✔ H2-003 focal T01 preparation/fix/price/PR/privacy/replay (1218.205ms)
+✔ H2-004-F01 historical jsonb reproducer fails old comparator, current reconstructs exact historic (1423.691792ms)
+✔ H2-004-F02 historical projection misses estimation label; current preserves it (2703.008833ms)
+✔ H2-004-F03 historical omission allows definitive price without eligibility; current blocks (3069.70625ms)
+✔ R01 preparation real Opportunity, PR and atomic commercial progress (1282.420917ms)
+✔ R02 each preparation guard removed, no side effect (71.722416ms)
+✔ R03 independent alternatives retained (41.12075ms)
+✔ R04 fixed v1 exact linked preparation; not sent or verified (39.080417ms)
+✔ R05 individual fixed guards quantities/participants/composition/conditions/sources (265.483208ms)
+✔ R06 ordinary contract cannot edit fixed v1 (75.704125ms)
+✔ R07 material price creates v2 and keeps v1 (36.086875ms)
+✔ R08 material composition creates v2 and keeps v1 (88.677166ms)
+✔ R09 material terms creates v2 and keeps v1 (59.611625ms)
+✔ R10 material selectability creates v2 and keeps v1 (43.233042ms)
+✔ R11 SM-PV06 before/after/review/motive/base individually guarded (320.264583ms)
+✔ R12 AC013 nonselectable partial request recorded no historical repair (92.140666ms)
+✔ R13 modalities preserve rafting10/cena12/night12/night10 contributions (46.76525ms)
+✔ R14 exact PM02 100.01 x10 =1000.10 (34.652041ms)
+✔ R15 calculated90/manual100.01/difference10.01 actor and immutable costs (32.948333ms)
+✔ R16 commercial projection excludes economics outside UI (29.628709ms)
+✔ R17 unknown material cost only dependent fixation blocked, independent work allowed (108.751708ms)
+✔ R18 exact unit/tariff/pack references preserved structurally (26.865375ms)
+✔ R19 masters changed later preserve v1 (64.756583ms)
+✔ R20 PM09 replay historical calculation and unknown is not zero (41.459416ms)
+✔ R21 direct SQL runtime/API roles denied and private FORCE RLS (74.712292ms)
+✔ R22 missing context denied with no writes (83.216ms)
+✔ R23 forged context/signature denied with no writes (96.604125ms)
+✔ R24 disabled actor denies write/read/replay (108.25975ms)
+✔ R25 ordinary role/unprovisioned actor cannot use authorized contract (96.731875ms)
+✔ R26 prewrite fault rolls back whole T01 (126.890209ms)
+✔ R27 late history fault rolls back version/modalities/lines/result (141.838208ms)
+✔ R28 lost response after commit recovers equivalent original (174.171667ms)
+✔ R29 same key changed content is conflict not overwrite (124.796417ms)
+✔ R30 two authorized sessions concurrent revision one winner (113.658709ms)
+✔ R31 numbering race fixes only one v1, alternative unaffected (45.575333ms)
+✔ R32 independent observer sees complete history and results (48.023166ms)
+✔ R33 explicit SM-FORB02 SQL and ordinary edit both denied (242.900458ms)
+✔ R34 no Acceptance/Ganada/Booking/economic/operational effects (0.982042ms)
+✔ R35 future commands rejected, no H2-005 capacities (904.669167ms)
+✔ R36 SM-OP04 real preparation, origin/guards/pause forbid fake progress (288.905708ms)
+✔ R37 V-MIG prior fixtures/data/ACL and empty full chain (254.53775ms)
+✔ R38 exact sources, authorized estimates and unknown boundaries (283.93325ms)
+✔ R39 AC085 objective eligibility rule cannot be bypassed by recommendation (429.30125ms)
+✔ H2-005 focal immutable issuance and intent without send (1619.666834ms)
+✔ H2-006 preserved F01/F02/F03 reproduce on archived implementation (7990.348ms)
+✔ H2-006 preserved F04 reproduces on archived temporal guard (9411.487333ms)
+✔ H2-006 preserved F05 native roles regression and forward compatibility (1346.10775ms)
+✔ R01 default seven days/configuration (1357.178417ms)
+✔ R02 most restrictive material limit (38.489542ms)
+✔ R03 limit/source guards (61.250958ms)
+✔ R04 inside/outside expiry without rejection (152.155125ms)
+✔ R05 uncertainty evidence and missing source (72.371833ms)
+✔ R06 act revalidation preserves original (142.17325ms)
+✔ R07 each material review guard (288.428666ms)
+✔ R08 exact act scope/time/version revalidation (337.4495ms)
+✔ R09 no silent reissue/new validity (114.977625ms)
+✔ R10 new condition requires T01 replacement retains v1 (104.116292ms)
+✔ R11 intent not sent or received (42.259542ms)
+✔ R12 real manual send exact commercial effects (63.000333ms)
+✔ R13 every send guard invalidated (599.910125ms)
+✔ R14 approval/intention/AI not send (205.021459ms)
+✔ R15 expired no review blocks (157.824125ms)
+✔ R16 expired act review permits exact send not extension (136.997708ms)
+✔ R17 unknown material costs retained not zero (115.9435ms)
+✔ R18 rejection modality no whole loss (61.528167ms)
+✔ R19 rejection version/line retains exact history (95.455ms)
+✔ R20 each rejection guard removed (577.906458ms)
+✔ R21 read/silence/nonselection never acceptance/rejection (365.987959ms)
+✔ R22 rejected scope cannot reuse without current review (149.112875ms)
+✔ R23 no positive Acceptance/Ganada/economy operations (374.669084ms)
+✔ R24 direct ordinary SQL denies update/delete/insert (188.327542ms)
+✔ R25 FORCE RLS ownership and minimum ACL (1.353083ms)
+✔ R26 absent context no writes (64.176458ms)
+✔ R27 forged scope or signature no writes (159.106042ms)
+✔ R28 disabled actor read/write/replay denied (108.8395ms)
+✔ R29 no provisioned actor and ordinary API role (42.594458ms)
+✔ R30 prewrite fault atomic (105.313833ms)
+✔ R31 late fault rolls back send/Commercial/history/result (119.146625ms)
+✔ R32 lost postcommit response and equivalent replay (268.837625ms)
+✔ R33 changed replay is conflict (146.703666ms)
+✔ R34 concurrent sessions both orders one winner (145.074209ms)
+✔ R35 independent connection sees append history/results/exact refs (106.847042ms)
+✔ R36 migration preserves every prior row and ACL (1.427167ms)
+✔ R37 empty full chain native PG17 (296.731875ms)
+✔ R38 published migrations bytewise unchanged (23.714291ms)
+✔ R39 dimensions separate and no future objects (1.151584ms)
+✔ R40 aggregate send must include rejected modality review (163.564833ms)
+✔ R41 attributable rejection requires responsible context identity (148.342416ms)
+✔ R42 missing/null/typed revisions cannot bypass concurrency (416.208208ms)
+✔ R43 validity cannot be accredited before original issuance (140.872084ms)
+✔ H2-007 focal migration and runtime private integrity (1554.803375ms)
+H2-008 historical complete stdout: ✔ R01 incomplete candidate preserves evidence without Acceptance (1313.512958ms)
+✔ R02 registered immutable fact is unverified (73.945166ms)
+✔ R03 verification without won requested preserves commercial state (58.081583ms)
+✔ R04 verified Acceptance + exact won/history/result T02 (79.778208ms)
+✔ R05 missing each identity/faculty/context guard stays pending (184.417583ms)
+✔ R06 each incorrect commercial relation rejects atomically (267.230792ms)
+✔ R07 different exact terms cannot register (45.210042ms)
+✔ R08 verification cannot replace registered selection (150.13825ms)
+✔ R09 ambiguous evidence cannot verify (140.871041ms)
+✔ R10 outside effective material expiry cannot verify (241.487041ms)
+✔ R11 late recording preserves real act within validity (72.351209ms)
+✔ R12 missing evidence of real act time blocks (189.371791ms)
+✔ R13 selection A leaves B neither accepted nor rejected (78.621875ms)
+✔ R14 nonselectable request needs new version before Acceptance (43.88525ms)
+✔ R15 exact phone act requires no fictitious Communication (98.483375ms)
+✔ R16 insufficient phone cannot verify (204.205459ms)
+✔ R17 advance unequivocally linked is evidence without Payment (227.896667ms)
+✔ R18 Human Approval cannot replace client (371.918042ms)
+✔ R19 sent/read/silence/supposed payment/provider are not agreement (1359.160542ms)
+✔ R20 changing Primary Contact preserves earlier accepter (61.578375ms)
+✔ R21 ordinary win with historical or claimed acceptance blocked (35.609667ms)
+✔ R22 replaced version cannot silently verify as current (255.05ms)
+✔ R23 rejected coverage cannot verify without review (279.676792ms)
+✔ R24 later revalidation cannot rescue an earlier expired act (350.830917ms)
+✔ R25 direct ordinary Ganada write denied; DB guard too (305.289375ms)
+✔ R26 direct editing/deleting historical facts denied (289.668125ms)
+✔ R27 rectification preserves original and historical verification; reeval explicit (69.841875ms)
+✔ R28 every material rectification guard required (1106.628833ms)
+✔ R29 opinion change is not an error (388.774708ms)
+✔ R30 lost response replay recovers persisted result without second effect (319.970875ms)
+✔ R31 changed replay conflicts and preserves every fact (317.601792ms)
+✔ R32 concurrent verifications in both dispatch orders (222.6485ms)
+✔ R33 new version and stale verification serialize without overwrite (359.048166ms)
+✔ R34 pre-write fault rolls back all T02 effects (441.537917ms)
+✔ R35 late history fault rolls back verification/Ganada/result (798.317625ms)
+✔ R36 authorized administrator and independent observer see exact chain (70.257167ms)
+✔ R37 missing auth/context cannot write (429.210959ms)
+✔ R38 forged context and signature reject from direct SQL (403.921708ms)
+✔ R39 disabled/unprovisioned actor denied including replay (466.319041ms)
+✔ R40 minimal ACL/FORCE RLS/ordinary roles and successful direct authorized SQL (76.644709ms)
+✔ R41 upgrade retains all prior H0/H1/H2 persisted fixtures (0.405375ms)
+✔ R42 empty database installs full chain through new migration (414.18575ms)
+✔ R43 old IDs, human OP/PR codes and contexts remain retained (77.453791ms)
+✔ R44 B07 records/links/Tasks immutable during Acceptance (533.573ms)
+✔ R45 no forbidden future/economic/operational effects from actual paths (132.031ms)
+✔ R46 historical agreement not revoked by later expired evaluation (130ms)
+✔ R47 prior material revalidation for exact expired act permits verification (172.653458ms)
+✔ R48 every material review guard independently withdrawn (1764.085083ms)
+✔ R49 exact received multichannel agreement; each Communication guard (2978.258125ms)
+✔ R50 total acceptance retains exact immutable terms (85.469792ms)
+✔ R51 wrong identity/faculty is not client acceptance (54.512333ms)
+✔ R52 lost/paused origin cannot become won from ordinary verification (613.157083ms)
+✔ R53 null/string revision attempts direct SQL rejected atomically (2095.488584ms)
+✔ R54 historical migration source bytes and ACL preserved (437.958208ms)
+✔ R55 two authorized sessions concurrently verify same root (80.893333ms)
+✖ R56 actual H2-005 rejection cannot affect accepted A but B remains independent (360.220333ms)
+✖ R57 later requested Ganada preserves the initial verification and same Acceptance (77.620125ms)
+ℹ tests 57
+ℹ suites 0
+ℹ pass 55
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22828.86775
+
+✖ failing tests:
+
+test at tests/integration/historical-a40b1101-446a-42b8-aa23-021245c9643f.ts:101:1
+✖ R56 actual H2-005 rejection cannot affect accepted A but B remains independent (360.220333ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/historical-a40b1101-446a-42b8-aa23-021245c9643f.ts:101:961)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/historical-a40b1101-446a-42b8-aa23-021245c9643f.ts:102:1
+✖ R57 later requested Ganada preserves the initial verification and same Acceptance (77.620125ms)
+  Error: ACCEPTANCE_ALREADY_DECIDED
+      at H2007AcceptanceAdapter.call (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/src/infrastructure/postgres/h2-acceptance-adapter.ts:31:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H2007AcceptanceAdapter.apply (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/src/infrastructure/postgres/h2-acceptance-adapter.ts:33:178)
+      at async TestContext.<anonymous> (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/historical-a40b1101-446a-42b8-aa23-021245c9643f.ts:102:165)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+H2-008 historical complete stderr: 
+H2-008 historical status: 1 signal: null error: null
+✔ H2-008 F01/F02 original15dbf11 reproduces normative FAIL without weakening expected (22988.336916ms)
+✔ R01 incomplete candidate preserves evidence without Acceptance (1269.183291ms)
+✔ R02 registered immutable fact is unverified (55.182292ms)
+✔ R03 verification without won requested preserves commercial state (68.385292ms)
+✔ R04 verified Acceptance + exact won/history/result T02 (65.561208ms)
+✔ R05 missing each identity/faculty/context guard stays pending (207.391917ms)
+✔ R06 each incorrect commercial relation rejects atomically (270.15125ms)
+✔ R07 different exact terms cannot register (87.665917ms)
+✔ R08 verification cannot replace registered selection (135.967958ms)
+✔ R09 ambiguous evidence cannot verify (137.681042ms)
+✔ R10 outside effective material expiry cannot verify (263.943542ms)
+✔ R11 late recording preserves real act within validity (114.070084ms)
+✔ R12 missing evidence of real act time blocks (223.300625ms)
+✔ R13 selection A leaves B neither accepted nor rejected (86.064417ms)
+✔ R14 nonselectable request needs new version before Acceptance (82.576292ms)
+✔ R15 exact phone act requires no fictitious Communication (73.976084ms)
+✔ R16 insufficient phone cannot verify (242.506958ms)
+✔ R17 advance unequivocally linked is evidence without Payment (196.0645ms)
+✔ R18 Human Approval cannot replace client (361.402917ms)
+✔ R19 sent/read/silence/supposed payment/provider are not agreement (1166.7305ms)
+✔ R20 changing Primary Contact preserves earlier accepter (47.814916ms)
+✔ R21 ordinary win with historical or claimed acceptance blocked (43.995333ms)
+✔ R22 replaced version cannot silently verify as current (268.233ms)
+✔ R23 rejected coverage cannot verify without review (279.515042ms)
+✔ R24 later revalidation cannot rescue an earlier expired act (382.422417ms)
+✔ R25 direct ordinary Ganada write denied; DB guard too (317.227083ms)
+✔ R26 direct editing/deleting historical facts denied (372.509167ms)
+✔ R27 rectification preserves original and historical verification; reeval explicit (74.810875ms)
+✔ R28 every material rectification guard required (1086.001833ms)
+✔ R29 opinion change is not an error (383.321625ms)
+✔ R30 lost response replay recovers persisted result without second effect (398.7245ms)
+✔ R31 changed replay conflicts and preserves every fact (368.628334ms)
+✔ R32 concurrent verifications in both dispatch orders (167.318667ms)
+✔ R33 new version and stale verification serialize without overwrite (404.794375ms)
+✔ R34 pre-write fault rolls back all T02 effects (420.560917ms)
+✔ R35 late history fault rolls back verification/Ganada/result (959.530042ms)
+✔ R36 authorized administrator and independent observer see exact chain (98.018167ms)
+✔ R37 missing auth/context cannot write (492.255125ms)
+✔ R38 forged context and signature reject from direct SQL (491.200833ms)
+✔ R39 disabled/unprovisioned actor denied including replay (453.316584ms)
+✔ R40 minimal ACL/FORCE RLS/ordinary roles and successful direct authorized SQL (75.851834ms)
+✔ R41 upgrade retains all prior H0/H1/H2 persisted fixtures (0.776375ms)
+✔ R42 empty database installs full chain through new migration (325.55ms)
+✔ R43 old IDs, human OP/PR codes and contexts remain retained (57.300875ms)
+✔ R44 B07 records/links/Tasks immutable during Acceptance (431.617292ms)
+✔ R45 no forbidden future/economic/operational effects from actual paths (71.567583ms)
+✔ R46 historical agreement not revoked by later expired evaluation (55.272459ms)
+✔ R47 prior material revalidation for exact expired act permits verification (156.675666ms)
+✔ R48 every material review guard independently withdrawn (1789.190708ms)
+✔ R49 exact received multichannel agreement; each Communication guard (2915.518042ms)
+✔ R50 total acceptance retains exact immutable terms (66.793667ms)
+✔ R51 wrong identity/faculty is not client acceptance (55.0725ms)
+✔ R52 lost/paused origin cannot become won from ordinary verification (546.791625ms)
+✔ R53 null/string revision attempts direct SQL rejected atomically (2079.597083ms)
+✔ R54 historical migration source bytes and ACL preserved (450.146666ms)
+✔ R55 two authorized sessions concurrently verify same root (69.626917ms)
+✔ R56 actual H2-005 rejection cannot affect accepted A but B remains independent (930.116ms)
+✔ R57 later requested Ganada preserves the initial verification and same Acceptance (62.914834ms)
+✔ R58 actual fix/verify concurrency in both dispatch orders (132.9375ms)
+✔ R59 rectification of unverified registration preserves original (55.552917ms)
+✔ R60 expressly selectable line preserves exact partial scope (47.344583ms)
+✔ R61 Organization/context payer/nonparticipant and changed interlocutor preserve Acceptance (59.900334ms)
+✔ R62 actual verified H1 payer designation cannot act as accepter authority (86.299208ms)
+✔ H2-009 focal: exact immutable chain, complete detail, RES H1, replay and authorized read (1528.226083ms)
+✔ H2-010 historical F01 reproduces original immutable FAIL and expected (1916.086458ms)
+✔ H2-010 historical F02 preserves original migration inventory failure (2412.393709ms)
+✔ R01 normal valid chain exact immutable Booking (1654.528833ms)
+✔ R02 direct reuses existing real chain without Lead or fake sends (142.463375ms)
+✔ R03 direct composes real T02 then T03 atomically; missing agreement retains preparation (200.999708ms)
+✔ R04 uniqueness at database boundary (67.959959ms)
+✔ R05 concurrent same keys both dispatch orders (163.677833ms)
+✔ R06 concurrent different keys both dispatch orders (154.954416ms)
+✔ R07 exact replay retains root code detail and history (181.896083ms)
+✔ R08 committed result survives lost response (56.532708ms)
+✔ R09 changed replay conflicts E2 (215.861625ms)
+✔ R10 unverified Acceptance no Booking (218.845708ms)
+✔ R11 textual Ganada cannot substitute exact chain (356.942875ms)
+✔ R12 rectified Acceptance does not permit conversion (225.119667ms)
+✔ R13 exact modality A leaves B uncontracted (103.677583ms)
+✔ R14 exact selectable line only (52.540625ms)
+✔ R15 no unselected/nonselectable part sneaks into Booking (226.887583ms)
+✔ R16 wrong version and terms reject atomically (700.266042ms)
+✔ R17 incomplete detail no fictitious complete Booking (486.805583ms)
+✔ R18 AC017 rafting10 dinner12 nights12/10 with contributions (139.258542ms)
+✔ R19 exact inclusions only no extra contribution (261.093416ms)
+✔ R20 same catalog does not merge incompatible prestations (93.502875ms)
+✔ R21 unit and quantity remain distinct from estimated attendees (62.051625ms)
+✔ R22 night occupancy independent no rooms or person-night pricing inferred (151.162584ms)
+✔ R23 partial nominal4 explains12 without double count or fictitious8 (135.904458ms)
+✔ R24 nominal necessity required (500.989917ms)
+✔ R25 unverified Contact cannot become verified Participant association (472.8645ms)
+✔ R26 duplicate nominal assignment rejected (496.151542ms)
+✔ R27 accepter and actor not nominal participants by default (62.876208ms)
+✔ R28 changing Primary Contact preserves Acceptance and Booking chain (74.421292ms)
+✔ R29 fault identity_contexts material write rolls back all (438.704ms)
+✔ R30 fault b04_services material write rolls back all (458.602ms)
+✔ R31 fault b04_contributions material write rolls back all (469.142375ms)
+✔ R32 fault b04_modalities material write rolls back all (457.014666ms)
+✔ R33 fault b04_contributions material write rolls back all (443.467541ms)
+✔ R34 fault b04_history material write rolls back all (465.179041ms)
+✔ R35 fault b04_operations at COMMIT rolls back all (479.194084ms)
+✔ R36 concurrent revision change rejects stale conversion (195.600791ms)
+✔ R37 rectification first prevents conversion; original never erased (545.852417ms)
+✔ R38 no trusted auth context or null SQL envelope (64.852875ms)
+✔ R39 forged context and signature fail closed (508.26125ms)
+✔ R40 disabled and unprovisioned actor including replay (585.248667ms)
+✔ R41 ordinary SQL roles ACL/FORCE RLS and authorized direct SQL (106.781041ms)
+✔ R42 append-only immutable facts visible independently (67.969416ms)
+✔ R43 RES reuses H1 allocator Madrid year stable replay (63.533333ms)
+✔ R44 empty database full migration chain (306.5745ms)
+✔ R45 predecessor upgrade retains all prior fixtures (0.446ms)
+✔ R46 migration fault rolls back objects and privileges (273.197792ms)
+✔ R47 optional anon/authenticated roles absent migration (286.017292ms)
+✔ R48 SM-FORB04 tempting Ganada cannot confirm or reconcile (583.143833ms)
+✔ R49 SM-FORB10 global quantity/gratuity cannot overwrite scope (1067.723667ms)
+✔ R50 SM-FORB31 split/merge or second distinct Booking rejected (1494.354875ms)
+✔ R51 no Payment funds reconciliation Refund invoice (562.367125ms)
+✔ R52 no provider availability confirmation execution (595.747875ms)
+✔ R53 no fake Lead Proposal Acceptance Communications Human Approval or external effect (562.380875ms)
+✔ R54 SM-BK01 each material guard withdrawn (4076.391167ms)
+✔ R55 SM-BS01 each source detail guard withdrawn (5558.515459ms)
+✔ R56 AI creation without exact Human Approval denied G3 (1262.205ms)
+✔ R57 retained sources after catalog change not reinterpreted (81.840375ms)
+✔ R58 authorized C01 read reauthorizes result (61.352833ms)
+✔ R59 H1/H2 historical migrations unchanged and previous persisted fixtures retained (5.063083ms)
+✔ R60 scope limits no future operation economy external module (0.880459ms)
+✔ R61 duplicate known Contact identity must not count as two Participants (787.418ms)
+✔ R62 Organization and payer contextual stay distinct from participant and internal actor (74.431583ms)
+✔ R63 actual nights occupancy participant assignment fault rollbacks (3690.594917ms)
+✔ R64 direct composes T01 T02 T03 same commit with full late rollback (1270.712541ms)
+✔ R65 distinct conflicting keys two authorized sessions both orders (210.206417ms)
+✔ R66 actual stale revision plus FK and historical source invariance (2330.968833ms)
+✔ F01 historical original verifier failure preserved (1811.015666ms)
+✔ F02 historical original verifier failure preserved (1638.746375ms)
+✔ R01 AC017 exact 10/12/12/10, one Booking (1337.158416ms)
+✔ R02 payment unit not attendance (0.902167ms)
+✔ R03 estimated never confirmed by Ganada (0.411292ms)
+✔ R04 provenance exact full chain per contribution (1.811958ms)
+✔ R05 four names explain twelve, not sixteen or eight invented (1.161917ms)
+✔ R06 same verified Contact two Participant IDs rejected (222.333ms)
+✔ R07 missing nominal necessity (217.713125ms)
+✔ R08 unverified Contact rejects association (253.21525ms)
+✔ R09 same name unknown people not fused (125.914875ms)
+✔ R10 duplicate assignment rejects (268.466667ms)
+✔ R11 thirteen nominal on twelve rejects without total change (316.273708ms)
+✔ R12 whole house needs no invented rooms (0.740834ms)
+✔ R13 separate night origins and certainty (0.93825ms)
+✔ R14 fixed house quantity remains fixed, no inferred capacity (0.677958ms)
+✔ R15 same revision distinct prestation factors preserved (57.881083ms)
+✔ R16 wrong Service Revision (343.000209ms)
+✔ R17 global/free counts cannot overwrite service (1453.988958ms)
+✔ R18 quantity or unit mutation denied (823.836292ms)
+✔ R19 missing accepted contribution (412.89325ms)
+✔ R20 wrong night date rejects (500.326125ms)
+✔ R21 internal service cannot carry external provider (426.261667ms)
+✔ R22 forbidden split/merge/nonselected part (1259.287708ms)
+✔ R23 context actor ACL FORCE RLS fail closed (73.162958ms)
+✔ R24 direct mutation of historical facts denied (336.522416ms)
+✔ R25 commercial projection minimal and no nominal list (2.908875ms)
+✔ R26 changing actual master retains historic chain (3.527958ms)
+✔ R27 Primary Contact cannot rewrite accepter or participants (60.049542ms)
+✔ R28 explicit prohibited economic operational external fields (2984.475125ms)
+✔ R29 explicit prohibited economic operational external fields (1993.907209ms)
+✔ R30 explicit prohibited economic operational external fields (3032.387166ms)
+✔ R31 concurrent same/different keys both orders (333.4875ms)
+✔ R32 postCOMMIT lost response/replay/distinct key (713.86575ms)
+✔ R33 rectification race both orders rejects obsolete versions (663.347041ms)
+✔ R34 early intermediate nights nominal history late COMMIT rollback (4226.407166ms)
+✔ R35 preservation predecessor and published chain byte identical (2166.486667ms)
+✔ R36 pure domain permission and each material guard blocked (0.397708ms)
+✔ H3-001 focal: PM-03 schedule persists with no reception and replay (1670.354917ms)
+✔ F01 reproduces original forbidden number JSON difference (1374.731791ms)
+✔ F02 reproduces original numeric amount acceptance against fail-closed expected (117.581709ms)
+✔ F03 reproduces original literal session activity equality failure (113.14325ms)
+✔ F04 reproduces original H2 R35 inventory includes a later H3 migration (0.754625ms)
+✔ R01 PM-03 500.01+500.00 and exact internal 500.005 (1265.540875ms)
+✔ R02 zero and odd cent limits (598.678667ms)
+✔ R03 policy schedule obligations retain applied version chain and sources (102.334458ms)
+✔ R04 before threshold day12 ordinary (91.744791ms)
+✔ R05 exactly day13 all local hours ordinary (256.686875ms)
+✔ R06 after threshold day14 requires100 before confirmation (102.382083ms)
+✔ R07 service day20 requires100 (87.905084ms)
+✔ R08 before balance day12 not expired (91.927583ms)
+✔ R09 whole limit day13 not expired (92.992791ms)
+✔ R10 next local day14 expired without any charge/cancel/funds (116.109292ms)
+✔ R11 sourced NewYork zone determines local day (143.329958ms)
+✔ R12 DST leap month year boundaries are civil (303.702708ms)
+✔ R13 global first contracted service20 despite modalityB22 (115.79475ms)
+✔ R14 explicit valid reference only its scope (84.28325ms)
+✔ R15 missing temporal reference blocks (104.761834ms)
+✔ R16 zone or provenance missing blocks (204.304084ms)
+✔ R17 missing amount blocks no zero guess (99.329458ms)
+✔ R18 missing policy/version blocks (137.95175ms)
+✔ R19 missing Booking/scope cannot use Proposal/Ganada (139.2195ms)
+✔ R20 localized missing source preserves independent obligation (196.517208ms)
+✔ R21 authorized exception retains original policy actor cause moment result (89.629041ms)
+✔ R22 exception missing cause or authorization denied (141.37675ms)
+✔ R23 customer integration AI payload cannot change dates/amounts (201.618958ms)
+✔ R24 historical bases reconstruct after masters change (114.384417ms)
+✔ R25 Expected never money received (146.294417ms)
+✔ R26 Expected/promised reference never reconciliation (251.713416ms)
+✔ R27 forecast payload never positive coverage (140.077167ms)
+✔ R28 no funds integration all obligations remain pending (87.233834ms)
+✔ R29 authorized correction keeps original debt cause history link (93.828375ms)
+✔ R30 missing change cause authority amount fails atomically (249.520166ms)
+✔ R31 simple refund cannot generate new debt (203.864458ms)
+✔ R32 exact inverse without rounding original (126.675709ms)
+✔ R33 same operation replay no new history (158.187541ms)
+✔ R34 changed content same operation conflict E2 (159.80325ms)
+✔ R35 simultaneous same key one complete schedule (120.2055ms)
+✔ R36 different keys same functional obligation no duplicate (416.921125ms)
+✔ R37 stale revision no overwrite (278.558083ms)
+✔ R38 concurrent adjustments one revision succeeds (248.820917ms)
+✔ R39 failure before first write no partial effects (170.397458ms)
+✔ R40 each material insert failure rolls back dependent unit (1236.83125ms)
+✔ R41 deferred failure at COMMIT rollback (237.219625ms)
+✔ R42 committed response lost replay durable result (184.939917ms)
+✔ R43 absent or forged signed contexts denied (200.012333ms)
+✔ R44 disabled/unprovisioned actor including read and replay denied (133.301417ms)
+✔ R45 wrong scope cannot disclose/replay (117.73075ms)
+✔ R46 owners ACL FORCE RLS no ordinary DML (270.667375ms)
+✔ R47 direct historical update delete denied including executor (125.666959ms)
+✔ R48 no third party economic projection route (203.994209ms)
+✔ R49 fresh migration installs tables policies functions with least ACL (2.089917ms)
+✔ R50 H2 fixture upgrade preserves all prior data objects IDs privileges (1413.847833ms)
+✔ R51 failed migration objects ACL rollback and H2 remains (1508.752458ms)
+✔ R52 migration with optional roles absent (1388.5885ms)
+✔ R53 Booking and service states unchanged (816.291458ms)
+✔ R54 all historical migrations intact H3 only no future positive modules (1.05275ms)
+✔ R55 material null invalid numeric signed input fail closed (573.977875ms)
+✔ R56 specific service uses authorized exact base never guessed proration (196.316333ms)
+✔ R57 invented default reference rejected without legitimate express override (208.481833ms)
+✔ R58 accepted reproducible total cannot be silently changed (217.200167ms)
+✔ R59 revised current policy does not alter historical application (92.969625ms)
+✔ R60 separate session cannot see partial schedule during uncommitted change (100.500208ms)
+✔ H3-003 focal: detection receipt correspondence 500/200/300 are separate (1444.826291ms)
+✔ F01 historical ACC005 shared evidence field rejected by first product (1185.288333ms)
+✔ F02 historical C03/G6 repeated receipt hits ambiguous SQL operator (122.422792ms)
+ℹ operator is not unique: unknown - unknown
+✔ F03 verifier guard helper reinstated removed evidence; corrected removal really denies (106.743625ms)
+✔ F04 verifier passed Opportunity as Booking argument; exact Booking and states work (99.277334ms)
+✔ F05 verifier second human violates approved singleton; unprovisioned identity remains denied (1.6315ms)
+✔ F06 verifier pinned connection prevents own setup; independent inspector observes actual locks (31.909917ms)
+✔ F07 historical inventory sees extra forward migration while frozen base remains31 (1.072125ms)
+✔ F08 original historical reproducer counted32 global migrations instead of its31 (1.429708ms)
+✔ R01 Expected exists independently, no movement created (1293.865709ms)
+✔ R02 notice or promise detection is not money (127.404125ms)
+✔ R03 customer proof alone cannot receive (107.995958ms)
+✔ R04 unknown movement data stays unknown without invalidating signal (114.026125ms)
+✔ R05 detection each missing source/evidence/material rejects without effects (166.339458ms)
+✔ R06 repeated identical signal links prior without double money (109.558417ms)
+✔ R07 reliable movement retry other key keeps one root (101.752334ms)
+✔ R08 same reliable identity different material conflicts E2 (107.596583ms)
+✔ R09 two real transfers same amount date payer reference remain two (222.025167ms)
+✔ R10 no reliable identity retains similar signals for review (215.301166ms)
+✔ R11 authorized receipt separate from correspondence (220.742ms)
+✔ R12 missing authorized source blocks receipt (111.36375ms)
+✔ R13 he pagado or expected reference is not source authority (136.551875ms)
+✔ R14 wrong root source/evidence rejected (216.134334ms)
+✔ R15 discrepancy receipt retains detected and gross amounts explicitly (108.373375ms)
+✔ R16 repeated receipt other operation does not add money or revision (124.896291ms)
+✔ R17 changed receipt never overwrites original (135.331958ms)
+✔ R18 later contrast links duplicated unidentified signal without second receipt (215.134292ms)
+✔ R19 proposal before receipt is distinct pending act (112.14725ms)
+✔ R20 proposal guards missing candidate/amount/source block only dependent scope (293.207041ms)
+✔ R21 AI may propose only (113.792667ms)
+✔ R22 proposal without receipt cannot verify (105.9145ms)
+✔ R23 reference match alone not correspondence check (196.440333ms)
+✔ R24 each material verification guard necessary (256.603459ms)
+✔ R25 AI cannot verify or rectify (153.53525ms)
+✔ R26 normative 500 received 200 identified 300 unresolved (135.039125ms)
+✔ R27 complete correspondence500 does not confirm Booking (138.142042ms)
+✔ R28 known context cannot transfer correspondence to another Booking (239.848416ms)
+✔ R29 wrong obligation or slot cannot fabricate destination (181.988542ms)
+✔ R30 overlapping correspondence cannot count same portion twice (157.511875ms)
+✔ R31 excessive/negative portion rejected preserving receipt (174.970542ms)
+✔ R32 incident suspends only100 of verified200 (110.010625ms)
+✔ R33 incident on unresolved300 leaves200 verified (97.689834ms)
+✔ R34 discrepancy preserves prior proposal and checked correspondence (133.28925ms)
+✔ R35 discrepancy each material guard without side effect (318.537792ms)
+✔ R36 human linked rectification preserves original and checked result (121.780625ms)
+✔ R37 rectification all authority cause evidence context guards required (422.479458ms)
+✔ R38 later error preserves bank receipt and reconciliation history (117.339875ms)
+✔ R39 Refund remains explicit unavailable boundary (207.546333ms)
+✔ R40 common evidence can link Acceptance and payment with separate verification (153.09425ms)
+✔ R41 H2 states remain independent (134.670709ms)
+✔ R42 forbidden paid/covered/allocation/Refund inference attempted and denied (401.805667ms)
+✔ R43 verified correspondence still no integrated obligation coverage (148.239875ms)
+✔ R44 odd cents exactly0.03 received0.01 reconciled0.02 pending (135.516375ms)
+✔ R45 direct signed definitive number/nondecimal authority rejected (352.886792ms)
+✔ R46 equivalent same identity key-order replay no new history (153.81325ms)
+✔ R47 same operation different material E2 (153.701708ms)
+✔ R48 lost committed response replays without duplicate receipt (151.108583ms)
+✔ R49 replay actor/scope unauthorized denied (218.298042ms)
+✔ R50 absent forged disabled and MFA-less contexts fail closed (113.208375ms)
+✔ R51 narrow authorized projection only exact root (260.481542ms)
+✔ R52 third parties no economic read or reference search enumeration (165.383041ms)
+✔ R53 direct DML and historical alteration unavailable ordinary roles (840.1125ms)
+✔ R54 owner ACL RLS FORCE RLS search_path narrowly controlled (5.804875ms)
+✔ R55 same movement simultaneous different keys one root both orders (271.65225ms)
+✔ R56 simultaneous same operation exactly one durable result (125.615291ms)
+✔ R57 simultaneous similar real transfers stay separate (306.205ms)
+✔ R58 proposal concurrent same revision one conflict both orders (294.523583ms)
+✔ R59 same proposal concurrent validation one fact and conflict/replay (265.894834ms)
+✔ R60 obsolete root revision detected without overwrite (140.600708ms)
+✔ R61 rectification concurrent same revision one result both orders (310.675458ms)
+✔ R62 read another session during receipt written before COMMIT sees prior snapshot (140.003917ms)
+✔ R63 fail before first movement write rolls all back (220.3625ms)
+✔ R64 fail after movement before history no incomplete root (636.377959ms)
+✔ R65 receipt writes fail atomically at every insert (798.524458ms)
+✔ R66 proposal rollback all dependent writes (858.778917ms)
+✔ R67 validation rollback act revision history result together (744.034ms)
+✔ R68 rectification rollback retains original and pending review (1030.188125ms)
+✔ R69 deferred COMMIT fault no durable result (251.188042ms)
+✔ R70 fresh install least objects triggers ACL roles (3.930042ms)
+✔ R71 upgrade from populated H3-002 preserves all old data objects and privileges (2137.0265ms)
+✔ R72 failed migration rollback restores preceding schema grants and roles (1674.656625ms)
+✔ R73 optional roles absent installs with no implicit PUBLIC grant (1299.591208ms)
+✔ R74 exact prior migrations health-check and expected preserved; future absent (548.687125ms)
+✔ R75 payload authorized boolean cannot certify source contrast (260.282042ms)
+✔ R76 overlapping doubts suspend union not sum twice (152.86375ms)
+✔ R77 human resolution only affected receipt portion, no bank reversal (210.311916ms)
+✔ R78 retained movement acts survive changed catalog/policy versions (161.766166ms)
+✔ H3-005 focal verified funds allocate and consume without overuse (1685.705542ms)
+✔ H3-006-F01 historical reserved full fails42601; current migration installs (2803.927709ms)
+✔ H3-006-F02 historical ambiguous revision42702; qualified current reproduces coverage (359.830583ms)
+✔ H3-006-F03 separate plan/verification identities and rejection independent of text (461.735625ms)
+✔ H3-006-F04 historical NULL basis accepted; current mandatory typed fields reject (452.35425ms)
+✔ H3-006-F06 historical NULL Schedule revision accepted current rejects typed stale guard (413.643458ms)
+✔ H3-006-F07 Customer Payment independent does not remove verified Reconciliation context (156.48725ms)
+✔ H3-006-F08 global33 cannot stand for historical32; frozen H3-004 reproducer scope (1.844333ms)
+✔ R01 Expected cannot create funds or coverage (1499.450416ms)
+✔ R02 detected cannot allocate verified funds (145.026ms)
+✔ R03 receipt without correspondence cannot cover (169.11375ms)
+✔ R04 proposed Reconciliation cannot cover (170.607583ms)
+✔ R05 planned Allocation no reservation consumption or coverage (209.579209ms)
+✔ R06 partial coverage200 of obligation500 (155.613583ms)
+✔ R07 complete coverage preserves Booking and provider independence (292.930041ms)
+✔ R08 multiple real payments cover one obligation without1to1 (379.411917ms)
+✔ R09 one payment multiple disjoint obligation destinations (225.290334ms)
+✔ R10 unassigned unresolved300 cannot fund another purpose automatically (226.309083ms)
+✔ R11 managed funds and Fee distinct no output mandate own income (398.962709ms)
+✔ R12 cross Booking client or service destinations denied (409.407417ms)
+✔ R13 each destination portion amount purpose source evidence guard fails without side effect (646.922167ms)
+✔ R14 no reviewed authorized assertion no checked Allocation (341.767916ms)
+✔ R15 only200 of500 reconciled does not allow other300 (405.724791ms)
+✔ R16 overlap second allocation cannot count twice (238.783958ms)
+✔ R17 overlapping forecasts do not consume verified funds (210.767ms)
+✔ R18 verifying forecast adds linked act once and atomic coverage (144.841666ms)
+✔ R19 AI may plan cannot verify consume correct without human authority (211.400583ms)
+✔ R20 internal80 consumed assigned100 leaves20 for its purpose no bank output (120.60125ms)
+✔ R21 no consumption without checked Allocation (211.679667ms)
+✔ R22 second80 on consumed80 out100 fails no negative (229.80725ms)
+✔ R23 consumption for another purpose rejected (213.447709ms)
+✔ R24 read and replay never consume again (152.815709ms)
+✔ R25 discrepancy100 of assigned200 leaves100 current coverage original200 (149.989583ms)
+✔ R26 doubts over unrelated300 do not invalidate checked200 (141.312083ms)
+✔ R27 human resolution restores scope only once (120.504875ms)
+✔ R28 discrepancy material evidence cause portion guards preserved (257.651709ms)
+✔ R29 linked Allocation rectification preserves original before after (133.1135ms)
+✔ R30 missingD019 blocks dependent cancellation only independent valid can continue (253.116041ms)
+✔ R31 prior reviewed reproducibleD019 authorizes exactly determined effect (147.268625ms)
+✔ R32 D019 each basis field wrong scope unreviewed and mismatched amount rejects (587.4995ms)
+✔ R33 reversal reduces coverage keeps original obligation no new debt (168.728416ms)
+✔ R34 PM08 advance500.01 reversal exact-500.01 historical bank remains (207.697417ms)
+✔ R35 PM08 internal signed-20 reversal+20 without external output (154.843125ms)
+✔ R36 PM11 persisted33.34/33.33/33.33 residualA sum100 (112.03375ms)
+✔ R37 PM12 exact internals remainders and final0.01/0.01/0.03 (196.579208ms)
+✔ R38 PM13 persisted negative inversions preserve magnitude order (379.383916ms)
+✔ R39 missing legitimate total bases weights order fail closed (310.179917ms)
+✔ R40 historical split survives current policy changes odd cents (151.506333ms)
+✔ R41 definitive number float negative or bad scale rejected raw too (311.614833ms)
+✔ R42 same operation equivalent keyorder replay no duplicate Allocation consume coverage adjustment (164.01575ms)
+✔ R43 same key changed material E2 original remains (190.850209ms)
+✔ R44 lost committed response timeout retry recognizes durable effect (142.866083ms)
+✔ R45 replay unauthorized actor scope denied (182.0615ms)
+✔ R46 stale funds payment schedule revisions never overwrite (460.2715ms)
+✔ R47 A→B80 then80 shared100 with no initial child (221.774083ms)
+✔ R48 B→A80 then80 shared100 with no initial child (199.793958ms)
+✔ R49 real concurrent80/80 same and different destinations no existing child (812.483166ms)
+✔ R50 same key concurrent one effect plus replay (169.497375ms)
+✔ R51 competing different obligations cannot move shared portion arbitrarily (154.064625ms)
+✔ R52 two movement roots concurrent same obligation do not overcover500 (1469.26875ms)
+✔ R53 competing linked modifications both orders one revision wins (318.447542ms)
+✔ R54 concurrent reversal once preserves original exact opposite (150.095125ms)
+✔ R55 Allocation vs Customer Payment discrepancy and rectification serialized same root (348.047792ms)
+✔ R56 independent reader before COMMIT sees complete preceding state (152.88975ms)
+✔ R57 failure before first Allocation write rolls unit back (193.166875ms)
+✔ R58 failure between Allocation revision history and operation rolls all back (1004.752375ms)
+✔ R59 failure after derived coverage rolls all dependencies back (179.803625ms)
+✔ R60 consume failure no isolated consumed portion (450.126625ms)
+✔ R61 correction reversal failure preserves original and coverage (462.333ms)
+✔ R62 failure middle of distribution no first destination durable (225.568542ms)
+✔ R63 deferred COMMIT failure no durable result retry succeeds (241.447167ms)
+✔ R64 absent forged disabled MFA-less contexts fail closed (126.462167ms)
+✔ R65 direct DML append-only ownership no runtime economic CRUD (831.126417ms)
+✔ R66 exact scoped read no economic enumeration or third-party projection (137.251167ms)
+✔ R67 owners ACL RLS FORCE RLS explicit search_path checked (8.2205ms)
+✔ R68 fresh install33 migrations coherent all8 allocation tables present (5.125583ms)
+✔ R69 populatedH3-004 upgrade preserves all old data objects and ACL (1627.489583ms)
+✔ R70 failed migration rollback restores preceding schema grants roles (1846.83ms)
+✔ R71 optional roles absent installs without PUBLIC grant (1264.279ms)
+✔ R72 forbidden paid implicit funding and rights from funds rejected (385.073458ms)
+✔ R73 allocation consumption not invoice ProviderPayment mandate Booking (140.592917ms)
+✔ R74 full Refund deposit Provider Payment commands unavailable (443.130125ms)
+✔ R75 exact32 prior migrations expected health-check preserved future absent (685.865833ms)
+✔ H3-007 focal external invoice need/receive/review/link and linked correction (2269.920042ms)
+✔ H3-008-F01 fixture bootstrap authority differs from migration/runtime authority (1270.261459ms)
+✔ H3-008-F02 attest helper must not reinsert intentionally absent evidence (110.472834ms)
+✔ H3-008-F03 independent visibility probe avoids F2 actor-lock harness deadlock (98.295083ms)
+✔ H3-008-F04 identified signed/zero document is retained; positive receipt validator is historical defect (315.961167ms)
+✔ H3-008-F05 documentary need can have unknown comparison amount; review stays fail closed (201.541083ms)
+✔ H3-008-F06 historical verifier inventory is frozen at H3-006, not global live migrations (2.861125ms)
+✔ H3-008-F08 isolated Unix socket fixture name fits native 103-byte limit (0.346917ms)
+✔ H3-008-F07 SM-PI03 compares stable issuer identity, retaining both applied revisions (1750.598042ms)
+▶ H3-008 independent frozen normative matrix
+  ✔ R01 (353.57725ms)
+  ✔ R02 (95.456875ms)
+  ✔ R03 (79.047708ms)
+  ✔ R04 (87.1555ms)
+  ✔ R05 (107.110208ms)
+  ✔ R06 (108.765916ms)
+  ✔ R07 (155.450208ms)
+  ✔ R08 (120.68475ms)
+  ✔ R09 (102.607959ms)
+  ✔ R10 (139.950542ms)
+  ✔ R11 (158.892583ms)
+  ✔ R12 (140.279833ms)
+  ✔ R13 (104.357792ms)
+  ✔ R14 (103.054375ms)
+  ✔ R15 (162.071083ms)
+  ✔ R16 (314.189375ms)
+  ✔ R17 (134.658416ms)
+  ✔ R18 (128.329958ms)
+  ✔ R19 (239.338292ms)
+  ✔ R20 (129.777708ms)
+  ✔ R21 (119.464834ms)
+  ✔ R22 (112.050167ms)
+  ✔ R23 (125.499625ms)
+  ✔ R24 (139.49325ms)
+  ✔ R25 (126.650667ms)
+  ✔ R26 (179.598208ms)
+  ✔ R27 (146.357083ms)
+  ✔ R28 (174.185708ms)
+  ✔ R29 (162.241334ms)
+  ✔ R30 (133.123375ms)
+  ✔ R31 (157.727834ms)
+  ✔ R32 (112.918041ms)
+  ✔ R33 (103.217208ms)
+  ✔ R34 (114.261541ms)
+  ✔ R35 (171.626584ms)
+  ✔ R36 (120.207083ms)
+  ✔ R37 (234.801667ms)
+  ✔ R38 (177.458417ms)
+  ✔ R39 (111.321209ms)
+  ✔ R40 (121.508291ms)
+  ✔ R41 (116.306625ms)
+  ✔ R42 (116.823125ms)
+  ✔ R43 (362.973209ms)
+  ✔ R44 (122.063417ms)
+  ✔ R45 (121.836917ms)
+  ✔ R46 (151.794459ms)
+  ✔ R47 (125.039417ms)
+  ✔ R48 (116.03ms)
+  ✔ R49 (82.1775ms)
+  ✔ R50 (161.978334ms)
+  ✔ R51 (157.525042ms)
+  ✔ R52 (119.470792ms)
+  ✔ R53 (232.975084ms)
+  ✔ R54 (241.792166ms)
+  ✔ R55 (123.935458ms)
+  ✔ R56 (4.202375ms)
+  ✔ R57 (220.214208ms)
+  ✔ R58 (5.394292ms)
+  ✔ R59 (151.908709ms)
+  ✔ R60 (423.943375ms)
+  ✔ R61 (1880.252958ms)
+  ✔ R62 (1963.474ms)
+  ✔ R63 (4.087083ms)
+  ✔ R64 (147.277416ms)
+  ✔ R65 (158.788542ms)
+✔ H3-008 independent frozen normative matrix (14914.434917ms)
+✔ H3-009 real coordination keeps 300 assigned/200 pending and invoice independent (1959.909ms)
+✔ H3-010-F01 minimal seeded historical revision retains stale protection (1801.110125ms)
+✔ H3-010-F02 prebuilt command becomes stale; current attestation succeeds (1654.751459ms)
+✔ H3-010-F03 pre-migration fixture does not call an absent API (1551.617417ms)
+✔ H3-010-F04 changed funds cannot be presented as current usable snapshot (1612.37525ms)
+✔ H3-010-F05 historical migration inventory must exclude subsequent forward migrations (1.606459ms)
+▶ H3-010 independent frozen normative matrix
+  ✔ R01 (305.026167ms)
+  ✔ R02 (184.231708ms)
+  ✔ R03 (248.416167ms)
+  ✔ R04 (213.494917ms)
+  ✔ R05 (221.052209ms)
+  ✔ R06 (184.341667ms)
+  ✔ R07 (213.675584ms)
+  ✔ R08 (168.662667ms)
+  ✔ R09 (174.283834ms)
+  ✔ R10 (210.28925ms)
+  ✔ R11 (171.763959ms)
+  ✔ R12 (278.173583ms)
+  ✔ R13 (180.372666ms)
+  ✔ R14 (197.181916ms)
+  ✔ R15 (172.032958ms)
+  ✔ R16 (418.044417ms)
+  ✔ R17 (206.899583ms)
+  ✔ R18 (228.556875ms)
+  ✔ R19 (227.401666ms)
+  ✔ R20 (192.017375ms)
+  ✔ R21 (276.639084ms)
+  ✔ R22 (469.077416ms)
+  ✔ R23 (470.490292ms)
+  ✔ R24 (231.651583ms)
+  ✔ R25 (300.576583ms)
+  ✔ R26 (201.917625ms)
+  ✔ R27 (347.164291ms)
+  ✔ R28 (0.180958ms)
+  ✔ R29 (0.12625ms)
+  ✔ R30 (0.07125ms)
+  ✔ R31 (434.255666ms)
+  ✔ R32 (196.679583ms)
+  ✔ R33 (303.948792ms)
+  ✔ R34 (712.753375ms)
+  ✔ R35 (221.595417ms)
+  ✔ R36 (238.709416ms)
+  ✔ R37 (344.249875ms)
+  ✔ R38 (348.381417ms)
+  ✔ R39 (323.596458ms)
+  ✔ R40 (401.307ms)
+  ✔ R41 (559.353667ms)
+  ✔ R42 (216.246166ms)
+  ✔ R43 (185.970958ms)
+  ✔ R44 (214.428167ms)
+  ✔ R45 (257.30325ms)
+  ✔ R46 (185.994083ms)
+  ✔ R47 (186.844917ms)
+  ✔ R48 (589.447417ms)
+  ✔ R49 (496.761208ms)
+  ✔ R50 (279.453416ms)
+  ✔ R51 (376.859792ms)
+  ✔ R52 (296.542125ms)
+  ✔ R53 (187.663792ms)
+  ✔ R54 (241.115375ms)
+  ✔ R55 (192.540417ms)
+  ✔ R56 (140.547125ms)
+  ✔ R57 (400.009042ms)
+  ✔ R58 (203.77375ms)
+  ✔ R59 (147.076208ms)
+  ✔ R60 (146.1125ms)
+  ✔ R61 (405.035709ms)
+  ✔ R62 (234.36225ms)
+  ✔ R63 (227.669958ms)
+  ✔ R64 (2.605834ms)
+  ✔ R65 (231.300125ms)
+  ✔ R66 (449.247375ms)
+  ✔ R67 (1907.306125ms)
+  ✔ R68 (1496.104791ms)
+  ✔ R69 (34.494541ms)
+✔ H3-010 independent frozen normative matrix (22445.345833ms)
+✔ H3-011 TTE programming, verified partial200/500 and final Suplido integration (1962.523208ms)
+▶ H3-012 minimal corrected reproducers F01–F06; original FAIL files retained
+  ✔ F01 exact H1 helpers and fixture identity (0.764417ms)
+  ✔ F02 existing key_id type preserved, bootstrap succeeds (3.84725ms)
+  ✔ F03 root and revision SQL have unambiguous variables (14.091959ms)
+  ✔ F04 UTF8 sidecar equals approved JSON object and stays inside TTE (61.641541ms)
+  ✔ F05 identity validation preserves separate accredited movement (22.24975ms)
+  ✔ F06 verifier respects B07 guards, byPurpose and F2 singleton (13.183292ms)
+✔ H3-012 minimal corrected reproducers F01–F06; original FAIL files retained (1795.755583ms)
+✔ H3-012-F07 minimal port namespace reproducer and correction (11.980709ms)
+▶ H3-012 independent frozen matrix R001–R100
+  ✔ R001 (407.527375ms)
+  ✔ R002 (240.36375ms)
+  ✔ R003 (233.141875ms)
+  ✔ R004 (544.95575ms)
+  ✔ R005 (178.441291ms)
+  ✔ R006 (178.012542ms)
+  ✔ R007 (291.849ms)
+  ✔ R008 (170.631208ms)
+  ✔ R009 (292.0305ms)
+  ✔ R010 (246.988875ms)
+  ✔ R011 (205.811792ms)
+  ✔ R012 (200.486458ms)
+  ✔ R013 (240.606917ms)
+  ✔ R014 (255.68275ms)
+  ✔ R015 (221.177084ms)
+  ✔ R016 (210.776167ms)
+  ✔ R017 (250.578208ms)
+  ✔ R018 (163.230917ms)
+  ✔ R019 (533.4245ms)
+  ✔ R020 (232.560625ms)
+  ✔ R021 (204.827292ms)
+  ✔ R022 (2330.82325ms)
+  ✔ R023 (295.489ms)
+  ✔ R024 (292.003542ms)
+  ✔ R025 (266.984333ms)
+  ✔ R026 (271.844167ms)
+  ✔ R027 (219.89425ms)
+  ✔ R028 (211.26475ms)
+  ✔ R029 (185.656666ms)
+  ✔ R030 (257.793042ms)
+  ✔ R031 (290.894916ms)
+  ✔ R032 (211.756542ms)
+  ✔ R033 (240.360334ms)
+  ✔ R034 (226.58075ms)
+  ✔ R035 (234.456083ms)
+  ✔ R036 (267.536708ms)
+  ✔ R037 (229.574583ms)
+  ✔ R038 (340.70575ms)
+  ✔ R039 (232.193833ms)
+  ✔ R040 (224.000042ms)
+  ✔ R041 (224.337791ms)
+  ✔ R042 (245.764541ms)
+  ✔ R043 (219.232708ms)
+  ✔ R044 (223.813416ms)
+  ✔ R045 (963.1395ms)
+  ✔ R046 (712.62775ms)
+  ✔ R047 (346.547292ms)
+  ✔ R048 (351.619125ms)
+  ✔ R049 (432.964583ms)
+  ✔ R050 (372.147917ms)
+  ✔ R051 (409.809375ms)
+  ✔ R052 (1803.330167ms)
+  ✔ R053 (358.605916ms)
+  ✔ R054 (323.778875ms)
+  ✔ R055 (267.163667ms)
+  ✔ R056 (276.033792ms)
+  ✔ R057 (233.584875ms)
+  ✔ R058 (214.842333ms)
+  ✔ R059 (229.641458ms)
+  ✔ R060 (220.548167ms)
+  ✔ R061 (306.219583ms)
+  ✔ R062 (245.151042ms)
+  ✔ R063 (227.631333ms)
+  ✔ R064 (227.064542ms)
+  ✔ R065 (261.839375ms)
+  ✔ R066 (402.950875ms)
+  ✔ R067 (278.792917ms)
+  ✔ R068 (337.054709ms)
+  ✔ R069 (240.75125ms)
+  ✔ R070 (219.869125ms)
+  ✔ R071 (190.950833ms)
+  ✔ R072 (272.090167ms)
+  ✔ R073 (518.098958ms)
+  ✔ R074 (270.59575ms)
+  ✔ R075 (223.058209ms)
+  ✔ R076 (251.119916ms)
+  ✔ R077 (259.804917ms)
+  ✔ R078 (283.30875ms)
+  ✔ R079 (278.740417ms)
+  ✔ R080 (996.9085ms)
+  ✔ R081 (1014.91225ms)
+  ✔ R082 (715.4375ms)
+  ✔ R083 (893.667834ms)
+  ✔ R084 (673.900541ms)
+  ✔ R085 (714.477583ms)
+  ✔ R086 (740.979167ms)
+  ✔ R087 (791.249583ms)
+  ✔ R088 (765.608625ms)
+  ✔ R089 (1163.112666ms)
+  ✔ R090 (1066.357833ms)
+  ✔ R091 (302.922917ms)
+  ✔ R092 (300.281ms)
+  ✔ R093 (4.337ms)
+  ✔ R094 (339.765292ms)
+  ✔ R095 (7.614875ms)
+  ✔ R096 (2902.590042ms)
+  ✔ R097 (1297.207041ms)
+  ✔ R098 (398.085125ms)
+  ✔ R099 (282.259583ms)
+  ✔ R100 (234.9215ms)
+✔ H3-012 independent frozen matrix R001–R100 (43522.598792ms)
+✔ H3-013 own economy persisted with exact Fee/cost and A150/B120 promotion (1570.329417ms)
+✔ H3-014-F08 one promotion per Booking across economic scopes (1869.674791ms)
+✔ H3-014-F09 equivalent economic material with a new technical key reuses snapshot (1495.834417ms)
+✔ H3-014-F11 historical V-MIG keeps its 36-migration boundary (0.869ms)
+▶ H3-014 independent R001-R093
+  ✔ R001 (2.247833ms)
+  ✔ R002 (14.839958ms)
+  ✔ R003 (0.197125ms)
+  ✔ R004 (12.594042ms)
+  ✔ R005 (0.16725ms)
+  ✔ R006 (0.206666ms)
+  ✔ R007 (0.143042ms)
+  ✔ R008 (0.081417ms)
+  ✔ R009 (6.65825ms)
+  ✔ R010 (0.66175ms)
+  ✔ R011 (0.258041ms)
+  ✔ R012 (0.319333ms)
+  ✔ R013 (0.333917ms)
+  ✔ R014 (13.679292ms)
+  ✔ R015 (0.580792ms)
+  ✔ R016 (0.343292ms)
+  ✔ R017 (0.51725ms)
+  ✔ R018 (0.5975ms)
+  ✔ R019 (0.191583ms)
+  ✔ R020 (169.873917ms)
+  ✔ R021 (17.269875ms)
+  ✔ R022 (0.787291ms)
+  ✔ R023 (0.07325ms)
+  ✔ R024 (0.116542ms)
+  ✔ R025 (0.585125ms)
+  ✔ R026 (0.235209ms)
+  ✔ R027 (0.617333ms)
+  ✔ R028 (0.696125ms)
+  ✔ R029 (1.395875ms)
+  ✔ R030 (0.376917ms)
+  ✔ R031 (0.424ms)
+  ✔ R032 (0.34425ms)
+  ✔ R033 (0.29275ms)
+  ✔ R034 (0.291417ms)
+  ✔ R035 (0.289875ms)
+  ✔ R036 (0.309708ms)
+  ✔ R037 (0.158333ms)
+  ✔ R038 (0.163166ms)
+  ✔ R039 (0.159084ms)
+  ✔ R040 (0.157416ms)
+  ✔ R041 (0.152125ms)
+  ✔ R042 (0.152542ms)
+  ✔ R043 (0.162125ms)
+  ✔ R044 (0.379625ms)
+  ✔ R045 (0.305209ms)
+  ✔ R046 (0.148125ms)
+  ✔ R047 (0.323125ms)
+  ✔ R048 (0.105916ms)
+  ✔ R049 (0.165667ms)
+  ✔ R050 (0.46475ms)
+  ✔ R051 (0.42075ms)
+  ✔ R052 (0.364125ms)
+  ✔ R053 (0.175334ms)
+  ✔ R054 (0.161709ms)
+  ✔ R055 (0.1785ms)
+  ✔ R056 (0.465833ms)
+  ✔ R057 (1.238958ms)
+  ✔ R058 (0.199042ms)
+  ✔ R059 (0.522917ms)
+  ✔ R060 (0.172833ms)
+  ✔ R061 (22.241292ms)
+  ✔ R062 (15.952916ms)
+  ✔ R063 (10.788709ms)
+  ✔ R064 (10.442333ms)
+  ✔ R065 (10.726542ms)
+  ✔ R066 (125.634167ms)
+  ✔ R067 (99.939541ms)
+  ✔ R068 (0.503167ms)
+  ✔ R069 (0.227375ms)
+  ✔ R070 (0.374208ms)
+  ✔ R071 (131.254875ms)
+  ✔ R072 (152.497917ms)
+  ✔ R073 (108.023291ms)
+  ✔ R074 (136.034292ms)
+  ✔ R075 (150.164959ms)
+  ✔ R076 (69.094625ms)
+  ✔ R077 (106.118875ms)
+  ✔ R078 (102.437625ms)
+  ✔ R079 (135.667667ms)
+  ✔ R080 (92.20225ms)
+  ✔ R081 (222.908125ms)
+  ✔ R082 (219.319959ms)
+  ✔ R083 (286.192958ms)
+  ✔ R084 (251.923625ms)
+  ✔ R085 (246.459959ms)
+  ✔ R086 (248.226583ms)
+  ✔ R087 (280.284083ms)
+  ✔ R088 (0.563208ms)
+  ✔ R089 (3.245333ms)
+  ✔ R090 (2.6305ms)
+  ✔ R093 (148.141208ms)
+✔ H3-014 independent R001-R093 (5421.333583ms)
+✔ R091 V-MIG populated upgrade from 36 migrations preserves H0-H3-012 (2261.401333ms)
+✔ R092 V-MIG migration failure rolls back all objects and privilege grants (1377.718333ms)
+✔ H3-014 C01/F1/F2 and economic history cannot be forged or rewritten (1691.417333ms)
+✔ H3-014 other session sees no partial root/components/history before COMMIT (2000.011292ms)
+✔ H3-014 concurrent same key returns one durable snapshot and one replay (1707.16425ms)
+✔ H3-014-F01 bounded F1 preserves complete Unicode economic material (1438.68175ms)
+✔ H4-001 focal need/receipt/explicit review/versioned reopening, B07 original preserved (1558.920375ms)
+✔ H4-002-F01 reproducer: independent new-scope original; frozen defective function rejects, current accepts (1714.83875ms)
+✔ H4-002-F02 reproducer: evaluation origin expected revision zero; semantic duplicate reuses need (1682.375667ms)
+✔ H4-002-F03 reproducer: actual session table, revoked session never reads Requirement (1584.634833ms)
+✔ H4-002-F04 reproducer: migration denial rollback on reserved connection preserves future runtime reads (1558.188709ms)
+✔ H4-002-F08 reproducer: 38 current migrations do not invalidate frozen 37/36 H3 boundaries (2.365125ms)
+✔ H4-002 guard complement: indispensable-only, action/purpose, participant/night/booking scope, no personal extraction (1776.581083ms)
+✔ H4-002-F05 material guard: unchanged original cannot reopen a reviewed requirement (1689.091625ms)
+✔ H4-002 authorization complement: existing foreign requirement, service, original and Booking UUIDs deny read/write (1919.6755ms)
+✔ H4-002-F06 result contract: first effect applied is explicit false replay; repeated operation explicit true (1933.87875ms)
+✔ H4-002-F07 corrected B07 original replay and future V2 keep its existing correction lineage (1614.7435ms)
+✔ R01 (1358.181583ms)
+✔ R02 (10.485042ms)
+✔ R03 (43.51675ms)
+✔ R04 (9.642166ms)
+✔ R05 (216.859041ms)
+✔ R06 (98.701709ms)
+✔ R07 (80.763792ms)
+✔ R08 (30.222333ms)
+✔ R09 (581.415541ms)
+✔ R10 (45.100625ms)
+✔ R11 (46.683459ms)
+✔ R12 (59.303ms)
+✔ R13 (51.383208ms)
+✔ R14 (58.567875ms)
+✔ R15 (56.301083ms)
+✔ R16 (44.843875ms)
+✔ R17 (161.316ms)
+✔ R18 (58.575084ms)
+✔ R19 (204.718917ms)
+✔ R20 (95.192334ms)
+✔ R21 (74.774666ms)
+✔ R22 (70.107458ms)
+✔ R23 (145.384709ms)
+✔ R24 (64.968125ms)
+✔ R25 (162.674958ms)
+✔ R26 (137.957ms)
+✔ R27 (67.966709ms)
+✔ R28 (64.82975ms)
+✔ R29 (79.614333ms)
+✔ R30 (44.515709ms)
+✔ R31 (2.369416ms)
+✔ R32 (15.343667ms)
+✔ R33 (50.361458ms)
+✔ R34 (8.952458ms)
+✔ R35 (42.063333ms)
+✔ R36 (50.872167ms)
+✔ R37 (16.823042ms)
+✔ R38 (10.666166ms)
+✔ R39 (106.397375ms)
+✔ R40 (28.059291ms)
+✔ R41 (60.600708ms)
+✔ R42 (67.387042ms)
+✔ R43 (71.636375ms)
+✔ R44 (43.278791ms)
+✔ R45 (134.836708ms)
+✔ R46 (96.316417ms)
+✔ R47 (50.896916ms)
+✔ R48 (50.826833ms)
+✔ R49 (76.341667ms)
+✔ R50 (171.954958ms)
+✔ R51 (130.950292ms)
+✔ R52 (97.6255ms)
+✔ R53 (110.689542ms)
+✔ R54 (52.824375ms)
+✔ R55 (1.038792ms)
+✔ R56 (3022.938334ms)
+✔ R57 (237.498917ms)
+✔ R58 (402.474791ms)
+✔ R59 (14.677208ms)
+✔ R60 (3.923375ms)
+✔ R61 (0.754459ms)
+✔ R62 (1567.418125ms)
+✔ R63 (1445.268375ms)
+✔ R64 (12.676625ms)
+✔ R65 (621.985208ms)
+✔ R66 (24.326ms)
+✔ R67 (355.3875ms)
+✔ R68 (1.183709ms)
+✔ H4-003 focal: INC and explicit critical cycle, independent localized guard (1578.551125ms)
+✔ H4-004 real economic effect links survive resolution without execution (1741.7055ms)
+✔ H4-004 overlap: equivalent root without children, two connections, single INC/history (1425.903583ms)
+✔ H4-004 overlap: distinct incidents share H1 INC series without competitor code (236.143875ms)
+✔ H4-004 overlap: management vs severity on same base conflicts atomically in both orders (109.642333ms)
+✔ H4-004 cross-scope ID/code/history and replay return no foreign data (17.06375ms)
+✔ H4-004 actual lost response AFTER PostgreSQL COMMIT recovers durable INC (12.486083ms)
+✔ H4-004 AC-060: specific critical justification cannot waive economic impact or pending payment (236.04825ms)
+✔ H4-004-F06 minimum SQL reproducer: former wrong column fails; valid real payment link now accepted (173.383209ms)
+✔ H4-004 overlap: resolution vs recurrence, both submission orders preserve solution (126.466292ms)
+✔ H4-004 overlap: closing vs new contradictory evidence, stale writer never overwrites (131.744708ms)
+✔ H4-004 overlap: two real Incidents same impact, resolving one cannot remove the other (128.580209ms)
+✔ R01 (1325.915958ms)
+✔ R02 (231.108375ms)
+✔ R03 (19.693625ms)
+✔ R04 (29.028666ms)
+✔ R05 (16.359875ms)
+✔ R06 (85.842084ms)
+✔ R07 (61.449666ms)
+✔ R08 (30.783125ms)
+✔ R09 (299.613708ms)
+✔ R10 (24.299083ms)
+✔ R11 (208.1525ms)
+✔ R12 (106.818125ms)
+✔ R13 (167.171875ms)
+✔ R14 (104.023333ms)
+✔ R15 (211.316833ms)
+✔ R16 (16.121458ms)
+✔ R17 (28.79875ms)
+✔ R18 (193.496292ms)
+✔ R19 (130.335125ms)
+✔ R20 (216.707208ms)
+✔ R21 (99.627917ms)
+✔ R22 (92.205209ms)
+✔ R23 (87.36625ms)
+✔ R24 (171.560333ms)
+✔ R25 (18.145667ms)
+✔ R26 (3719.287958ms)
+✔ R27 (7.565708ms)
+✔ R28 (300.9965ms)
+✔ R29 (79.092125ms)
+✔ R30 (60.459834ms)
+✔ R31 (45.368125ms)
+✔ R32 (272.754042ms)
+✔ R33 (51.124042ms)
+✔ R34 (610.384916ms)
+✔ R35 (2918.976ms)
+✔ R36 (2056.870667ms)
+✔ R37 (32.141917ms)
+✔ R38 (219.286667ms)
+✔ H4-005 AC-020 real query, response, explicit scoped verification (1771.086ms)
+✔ H4-006 F05 response cannot reassign S1 evidence to S2 (1710.127208ms)
+✔ H4-006 F06 review dependencies must refer to affected scope (1656.4035ms)
+✔ H4-006 F07 capacity in people may differ from retained charging unit (1553.52625ms)
+✔ H4-006 F10 repeated old reliable response cannot append material history (1982.64225ms)
+✔ H4-006 F11 fresh complete ratification of retained scope resolves only its review (2624.989291ms)
+✔ H4-006 F12 later external fact cannot retroactively cover earlier action (2241.419709ms)
+✔ H4-006 S01 actor disabled/session revoked reauthorizes cached results (4620.773ms)
+✔ H4-006 S02 null/fake F1/F2, full CRUD, helper PUBLIC and RLS policies (195.126292ms)
+✔ H4-006 S03 foreign admin scope does not leak state or cached result (286.646583ms)
+✔ H4-006 S04 actual lost response AFTER COMMIT recovers root/history/Task (197.296042ms)
+✔ H4-006 S05 equivalent/different responses same key both orders with overlap (332.632625ms)
+✔ H4-006 S06 two distinct verification writers same base both orders (366.48325ms)
+✔ H4-006 S07 verification vs explicit expiration review both orders (318.957458ms)
+✔ H4-006 S08 recent evidence vs old late response cannot overwrite confirmed fact (428.11275ms)
+✔ H4-006 S09 independent scopes concurrent first roots no propagation (208.415458ms)
+✔ H4-006 S10 faults during receive/verify/review preserve exact previous state (409.001041ms)
+✔ H4-006 S11 actual nights 12/10 and four nominal remain independent (471.859917ms)
+✔ H4-006 S12 Availability cannot satisfy Required Document or resolve Incident (158.1605ms)
+✔ H4-006 S13 consistent independent facts coexist; contradictions remain E8 (394.027416ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-006.test.ts (210.887417ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-007.test.ts (111.736708ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-008-reproducer.test.ts (101.41275ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-008-supplement.test.ts (92.483042ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-008.test.ts (94.70725ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-009.test.ts (104.466125ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-010-supplement.test.ts (85.145875ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-010.test.ts (104.058875ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-011.test.ts (91.99875ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-012-f16.test.ts (108.285209ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-012-supplement.test.ts (98.433583ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-012.test.ts (111.353791ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-013.test.ts (105.122375ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-014-defects.test.ts (86.989083ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-014-migration.test.ts (98.518875ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-014.test.ts (205.11825ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-015.test.ts (94.702375ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-016-f23-migration.test.ts (114.803375ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-016-f23.test.ts (114.694167ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-016-migration.test.ts (114.204625ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-016.test.ts (113.762833ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-018-migration.test.ts (95.301041ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-018.test.ts (121.805542ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-019-f06.test.ts (120.68675ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-019-preservation.test.ts (130.393208ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-019.test.ts (153.533167ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-atomicity.test.ts (127.960708ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-concrete.test.ts (127.616916ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-concurrency.test.ts (133.867875ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-f23-atomicity.test.ts (120.568791ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-f23-concurrency.test.ts (129.144625ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-f23-migration.test.ts (125.014292ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-f23.test.ts (131.938416ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-migration.test.ts (118.420917ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021.test.ts (138.014208ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-023-atomicity.test.ts (211.079ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-023-concurrency.test.ts (114.474083ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-023-migration.test.ts (197.515084ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-023.test.ts (207.113458ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-024-concurrency.test.ts (199.72475ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-024.test.ts (204.423792ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-002-migration.test.ts (156.003584ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-002.test.ts (169.214208ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-004-migration.test.ts (204.783542ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-004.test.ts (165.294834ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-006-migration.test.ts (179.351459ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-006.test.ts (235.610916ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-008-migration.test.ts (183.070875ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-008.test.ts (172.053708ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-009-migration.test.ts (162.950875ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-009.test.ts (150.652ms)
+node:internal/modules/package_json_reader:331
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'postgres' imported from /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/support/h2-isolated.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+    at packageResolve (node:internal/modules/esm/resolve:784:25)
+    at moduleResolve (node:internal/modules/esm/resolve:873:18)
+    at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+    at #resolve (node:internal/modules/esm/loader:687:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v24.21.0
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-011.test.ts (148.395583ms)
+ℹ tests 1416
+ℹ suites 0
+ℹ pass 1364
+ℹ fail 52
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 399293.764458
+
+✖ failing tests:
+
+test at tests/integration/postgres-h4-006.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-006.test.ts (210.887417ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-007.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-007.test.ts (111.736708ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-008-reproducer.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-008-reproducer.test.ts (101.41275ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-008-supplement.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-008-supplement.test.ts (92.483042ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-008.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-008.test.ts (94.70725ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-009.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-009.test.ts (104.466125ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-010-supplement.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-010-supplement.test.ts (85.145875ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-010.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-010.test.ts (104.058875ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-011.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-011.test.ts (91.99875ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-012-f16.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-012-f16.test.ts (108.285209ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-012-supplement.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-012-supplement.test.ts (98.433583ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-012.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-012.test.ts (111.353791ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-013.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-013.test.ts (105.122375ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-014-defects.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-014-defects.test.ts (86.989083ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-014-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-014-migration.test.ts (98.518875ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-014.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-014.test.ts (205.11825ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-015.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-015.test.ts (94.702375ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-016-f23-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-016-f23-migration.test.ts (114.803375ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-016-f23.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-016-f23.test.ts (114.694167ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-016-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-016-migration.test.ts (114.204625ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-016.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-016.test.ts (113.762833ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-018-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-018-migration.test.ts (95.301041ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-018.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-018.test.ts (121.805542ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-019-f06.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-019-f06.test.ts (120.68675ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-019-preservation.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-019-preservation.test.ts (130.393208ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-019.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-019.test.ts (153.533167ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-021-atomicity.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-atomicity.test.ts (127.960708ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-021-concrete.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-concrete.test.ts (127.616916ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-021-concurrency.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-concurrency.test.ts (133.867875ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-021-f23-atomicity.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-f23-atomicity.test.ts (120.568791ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-021-f23-concurrency.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-f23-concurrency.test.ts (129.144625ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-021-f23-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-f23-migration.test.ts (125.014292ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-021-f23.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-f23.test.ts (131.938416ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-021-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021-migration.test.ts (118.420917ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-021.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-021.test.ts (138.014208ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-023-atomicity.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-023-atomicity.test.ts (211.079ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-023-concurrency.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-023-concurrency.test.ts (114.474083ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-023-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-023-migration.test.ts (197.515084ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-023.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-023.test.ts (207.113458ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-024-concurrency.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-024-concurrency.test.ts (199.72475ms)
+  'test failed'
+
+test at tests/integration/postgres-h4-024.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h4-024.test.ts (204.423792ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-002-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-002-migration.test.ts (156.003584ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-002.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-002.test.ts (169.214208ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-004-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-004-migration.test.ts (204.783542ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-004.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-004.test.ts (165.294834ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-006-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-006-migration.test.ts (179.351459ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-006.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-006.test.ts (235.610916ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-008-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-008-migration.test.ts (183.070875ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-008.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-008.test.ts (172.053708ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-009-migration.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-009-migration.test.ts (162.950875ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-009.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-009.test.ts (150.652ms)
+  'test failed'
+
+test at tests/integration/postgres-h5-011.test.ts:1:1
+✖ /private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-integral-c305h1fq/repo/tests/integration/postgres-h5-011.test.ts (148.395583ms)
+  'test failed'
+waiting for server to shut down.... done
+server stopped

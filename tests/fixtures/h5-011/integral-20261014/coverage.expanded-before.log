@@ -1,0 +1,131 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-wRYKox/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-wRYKox/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ H5-011 H06/H07: merged identity retains both histories; archive is recoverable without closing bookings (1238.408416ms)
+✖ H5-011 H05/H04: original and derived communication remain distinct with pending review and provenance (102.649875ms)
+✖ H5-011 C09/C10/C12: review, duplicate and conflict receipts are visible without silent business changes (76.681541ms)
+✔ H5-011 C01/C08: canonical calendar preserves unknown schedules and exposes their pending certainty (54.25175ms)
+✔ H5-011 A03/A06: second session is independently admitted; revoked session cannot reuse a prior response (87.597375ms)
+✔ H5-011 S08: canonical PACK 120/10 and 180/8 preserves fixed900 internally across external surfaces (215.897375ms)
+✔ H5-011 A05/H05: shared original keeps only requested links and never combines independent Bookings (111.017666ms)
+✖ H5-011 H08/A09/S09: stable code survives reads; queries cannot merge, erase or authorize fiscal effects (35.841916ms)
+✔ H5-011 C04/D020: service20 November projects all four accredited civil limits without economic writes (1152.92425ms)
+H5011 advisors: results=[] exclusively loopback
+✔ H5-011 A08 V-DAT: least privilege, authenticated guards, RLS and advisors on the new read function (5587.567ms)
+✖ H5-011 V-MIG: populated57 to58 preserves all prior tables, functions, schemas, policies and roles on rollback/retry (1527.526125ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 7
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10674.954292
+
+✖ failing tests:
+
+test at tests/integration/postgres-h5-011-coverage.test.ts:41:1
+✖ H5-011 H05/H04: original and derived communication remain distinct with pending review and provenance (102.649875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'verified'
+  - 'pending'
+  
+      at TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h5-011-coverage.test.ts:48:86)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'verified',
+    expected: 'pending',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h5-011-coverage.test.ts:54:1
+✖ H5-011 C09/C10/C12: review, duplicate and conflict receipts are visible without silent business changes (76.681541ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - '2026-10-14T20:51:03.394685+02:00'
+  
+      at TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h5-011-coverage.test.ts:68:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: '2026-10-14T20:51:03.394685+02:00',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h5-011-coverage.test.ts:118:1
+✖ H5-011 H08/A09/S09: stable code survives reads; queries cannot merge, erase or authorize fiscal effects (35.841916ms)
+  Error: IDENTITY_CODE_ALREADY_ASSIGNED
+      at H1003ResolutionAdapter.apply (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h1-resolution-adapter.ts:110:15)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h5-011-coverage.test.ts:120:13)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h5-011-coverage.test.ts:151:1
+✖ H5-011 V-MIG: populated57 to58 preserves all prior tables, functions, schemas, policies and roles on rollback/retry (1527.526125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    [
+      {
+        nspacl: [
+          'crm_h0_migration=UC/crm_h0_migration',
+          'crm_h0_table_owner=U/crm_h0_migration',
+  ...
+          'crm_h0_executor=U/crm_h0_migration',
+  +       'crm_h0_f2_executor=U/crm_h0_migration',
+  -       'crm_h0_f2_executor=UC/crm_h0_migration',
+          'crm_h0_ha_tx=U/crm_h0_migration'
+        ],
+        nspname: 'crm_api',
+        nspowner: 16384,
+        oid: 16391
+  
+      at TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h5-011-coverage.test.ts:168:76)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { oid: 16390, nspname: 'crm_private', nspowner: 16384, nspacl: [Array] }, { oid: 16391, nspname: 'crm_api', nspowner: 16384, nspacl: [Array] }, { oid: 16409, nspname: 'crm_f1', nspowner: 16384, nspacl: [Array] }, { oid: 16410, nspname: 'crm_crypto', nspowner: 16384, nspacl: [Array] }, { oid: 16579, nspname: 'crm_f2', nspowner: 16384, nspacl: [Array] }, { oid: 16661, nspname: 'crm_ha', nspowner: 16384, nspacl: [Array] }, { oid: 16774, nspname: 'crm_internal', nspowner: 16384, nspacl: [Array] } ],
+    expected: [ { oid: 16390, nspname: 'crm_private', nspowner: 16384, nspacl: [Array] }, { oid: 16391, nspname: 'crm_api', nspowner: 16384, nspacl: [Array] }, { oid: 16409, nspname: 'crm_f1', nspowner: 16384, nspacl: [Array] }, { oid: 16410, nspname: 'crm_crypto', nspowner: 16384, nspacl: [Array] }, { oid: 16579, nspname: 'crm_f2', nspowner: 16384, nspacl: [Array] }, { oid: 16661, nspname: 'crm_ha', nspowner: 16384, nspacl: [Array] }, { oid: 16774, nspname: 'crm_internal', nspowner: 16384, nspacl: [Array] } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+waiting for server to shut down.... done
+server stopped

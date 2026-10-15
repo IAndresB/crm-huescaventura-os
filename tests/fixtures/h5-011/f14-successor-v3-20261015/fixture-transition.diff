@@ -1,0 +1,11 @@
+--- a/tests/support/h4-modification-fixtures.ts
++++ b/tests/support/h4-modification-fixtures.ts
+@@ -9,7 +9,7 @@
+  const see=async()=>h.modifications.read(await h.auth(),read,modificationId,bookingId);
+  const attest=async(q:ModificationCommand)=>{
+   const claim=`modification:${q.action}:${await f.hash(Object.fromEntries(Object.entries(q).filter(([k,v])=>!['operationId','evidenceId'].includes(k)&&v!==undefined)))}`;
+-  if(q.at===f.at)return {...q,evidenceId:await f.proof(claim,modificationId)};
++  if(q.at===f.at||q.at===undefined)return {...q,evidenceId:await f.proof(claim,modificationId)};
+   const proof=h.req('evidence',{claim,coverage:modificationId,certainty:'reviewed',source_kind:'manual'},modificationId,'other');
+   await h.evidence.apply(await h.auth(),write,{...proof,occurredAt:q.at,coverage:modificationId});
+   return {...q,evidenceId:proof.targetId};

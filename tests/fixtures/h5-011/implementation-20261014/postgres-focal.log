@@ -1,0 +1,79 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-wBB0mf/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-wBB0mf/data -l logfile start
+
+waiting for server to start.... done
+server started
+✖ H5-011 native C01: reconstructs exact chain and scoped original/history without business writes (1319.7915ms)
+✖ H5-011 native external surfaces: explicit commercial output preserves fixed internal economics (47.587333ms)
+✖ H5-011 native calendar reads current canonical service references (43.469791ms)
+✔ H5-011 native scope, untrusted context and SQL privilege attempts deny (40.943458ms)
+✖ H5-011 native independent bookings and stale sessions remain isolated (81.470792ms)
+✔ H5-011 V-MIG: rollback/retry leaves prior data and existing objects unchanged (1470.916125ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 2
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3350.260416
+
+✖ failing tests:
+
+test at tests/integration/postgres-h5-011.test.ts:16:1
+✖ H5-011 native C01: reconstructs exact chain and scoped original/history without business writes (1319.7915ms)
+  Error: PROJECTION_DENIED
+      at H5011ProjectionAdapter.read (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h5-projection-adapter.ts:32:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h5-011.test.ts:18:15)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/integration/postgres-h5-011.test.ts:23:1
+✖ H5-011 native external surfaces: explicit commercial output preserves fixed internal economics (47.587333ms)
+  Error: PROJECTION_DENIED
+      at H5011ProjectionAdapter.read (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h5-projection-adapter.ts:32:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h5-011.test.ts:26:16)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h5-011.test.ts:33:1
+✖ H5-011 native calendar reads current canonical service references (43.469791ms)
+  Error: PROJECTION_DENIED
+      at H5011ProjectionAdapter.read (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h5-projection-adapter.ts:32:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h5-011.test.ts:34:33)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h5-011.test.ts:47:1
+✖ H5-011 native independent bookings and stale sessions remain isolated (81.470792ms)
+  Error: PROJECTION_DENIED
+      at H5011ProjectionAdapter.read (file:///Users/andres/Developer/crm-huescaventura-os/src/infrastructure/postgres/h5-projection-adapter.ts:32:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h5-011.test.ts:48:50)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+waiting for server to shut down.... done
+server stopped

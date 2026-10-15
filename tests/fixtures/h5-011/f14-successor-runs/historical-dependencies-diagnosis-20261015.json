@@ -1,0 +1,16 @@
+{
+  "symlink_untracked": [
+    ".gitignore",
+    "node_modules"
+  ],
+  "physical_directory_untracked": [
+    ".gitignore"
+  ],
+  "diagnosis": "The published node_modules/ ignore pattern covers a physical directory but not a directory symlink; the sealed auditor creates that symlink in its historical checkout",
+  "product_or_business_guard_defect": false,
+  "minimum_proposed_correction": "Use shutil.copytree(...,symlinks=True) inside disposable historical snapshot instead of node_modules.symlink_to; no ignore/config/guard relaxation",
+  "sealed_artifact_to_change": "tests/fixtures/h5-011/f14-successor-20261015/audit.py",
+  "applied": false,
+  "new_independent_review_required": true,
+  "no_primary_checkout_mutation_by_diagnosis": true
+}

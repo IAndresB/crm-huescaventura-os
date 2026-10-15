@@ -1,0 +1,26 @@
+--- a/tests/support/h5-006-dependency-preservation.ts
++++ b/tests/support/h5-006-dependency-preservation.ts
+@@ -94,7 +94,7 @@
+ }
+ 
+ // Proposed human-authorized F14 transition; requires independent successor seal before activation.
+-export const f14Transition=Object.freeze({"path":"tests/support/h4-modification-fixtures.ts","baseCommit":"71906987f9b74241cc4583e51498759829cded73","historicalSha256":"7739f5603d576a41855c0d1238f1f2535568e2dd34f4a8fd0f48d35fec8d75ed","correctedSha256":"5cb28867ff6bbba211ff04fd65dc39f8d00c26727957bcc3d827e37708cd14d2","historicalBytes":2856,"correctedBytes":3177,"type":"regular","mode":"0644","reason":"H5-011-F14 R06 explicit synthetic occurredAt equal to overridden command instant; default f.proof unchanged","scope":"H5-011-F14 local/isolated","expectedSha256":"669dcfa74aff6a95e01e93c5a3f72718c33e04c41ab5bab6ff67a9bef8dedb4b"});
++export const f14Transition=Object.freeze({"path":"tests/support/h4-modification-fixtures.ts","baseCommit":"71906987f9b74241cc4583e51498759829cded73","historicalSha256":"7739f5603d576a41855c0d1238f1f2535568e2dd34f4a8fd0f48d35fec8d75ed","correctedSha256":"1dd453597648051e727efd2d394f2e248ab50fed3ed81e046ef7ba95fbe8d01b","historicalBytes":2856,"correctedBytes":3195,"type":"regular","mode":"0644","reason":"H5-011-F14 V3 MO01 missing at uses valid fixture-time proof without completing command; explicit valid instants preserve R06 correction","scope":"H5-011-F14 local/isolated","expectedSha256":"669dcfa74aff6a95e01e93c5a3f72718c33e04c41ab5bab6ff67a9bef8dedb4b","previousSha256":"5cb28867ff6bbba211ff04fd65dc39f8d00c26727957bcc3d827e37708cd14d2","previousBytes":3177,"previousTrustSha256":"bfc239e6f462d9aaef0a8700ef4e4777504efedb781aebe0a70be68cdb44f17d","previousRecordSha256":"33797865bfebaf7e19649a805d47eafb232afff424d87aad6874d9a4a3eb4bcb"});
+ function assertF14Transition(path:string,current:Uint8Array,historicalHash:string,root:string):boolean {
+  if(path!==f14Transition.path)return false;
+  assert.equal(historicalHash,f14Transition.historicalSha256,path+': frozen F14 historical hash');
+@@ -107,9 +107,13 @@
+  assert.ok(hash===f14Transition.historicalSha256||hash===f14Transition.correctedSha256,path+': unauthorized F14 third version');
+  assert.equal(current.length,hash===f14Transition.historicalSha256?f14Transition.historicalBytes:f14Transition.correctedBytes,path+': F14 exact size');
+  if(hash===f14Transition.correctedSha256){
++  for(const [name,expectedHash] of [
++   ['tests/fixtures/h5-011/f14-successor-20261015/trust.json',f14Transition.previousTrustSha256],
++   ['tests/fixtures/h5-011/f14-20261014/transition.authorized.json',f14Transition.previousRecordSha256]
++  ]){const previous=resolve(root,name),metadata=lstatSync(previous);assert.ok(metadata.isFile()&&!metadata.isSymbolicLink());assert.equal(metadata.mode&0o777,0o644);assert.equal(digest(readFileSync(previous)),expectedHash,path+': F14 V2 predecessor');}
+   const expected=readFileSync(resolve(root,'specs/001-core-crm/expected-TSK-H5-011-012.md'));
+   assert.equal(expected.length,67346);assert.equal(digest(expected),f14Transition.expectedSha256,path+': F14 isolated expected');
+-  const record=resolve(root,'tests/fixtures/h5-011/f14-20261014/transition.authorized.json'),stat=lstatSync(record);
++  const record=resolve(root,'tests/fixtures/h5-011/f14-v3-applied-20261015/transition.authorized.json'),stat=lstatSync(record);
+   assert.ok(stat.isFile()&&!stat.isSymbolicLink());assert.equal(stat.mode&0o777,0o644);
+   assert.deepEqual(JSON.parse(readFileSync(record,'utf8')),f14Transition,path+': exact F14 authorization record');
+  }

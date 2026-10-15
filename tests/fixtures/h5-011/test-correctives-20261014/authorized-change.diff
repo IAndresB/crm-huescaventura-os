@@ -1,0 +1,45 @@
+--- tests/integration/postgres-h5-011.test.ts (antes)
++++ tests/integration/postgres-h5-011.test.ts (correctivos autorizados)
+@@ -24,7 +24,16 @@
+  const f=await fixture();
+  for(const surface of ["query","search","export","document","timeline","ai_context"] as const){
+   const result=await adapter.read(await h.auth(),read,q(f.q.bookingId,surface,"customer"));assert.ok(result);
+-  const content=JSON.stringify(result);assert.ok(content.includes("1000.01"));
++  const content=JSON.stringify(result);
++  const expected=await Promise.all(f.f.content.modalities.map(async m=>({
++   reference:f.q.versionId,finalPersonPrice:m.finalPersonPrice,participants:m.participants,
++   included:await Promise.all(m.lines.filter(l=>l.included).map(async l=>({
++    service:(await h.observer`select definition->>'name' name from crm_private.catalog_revisions where revision_id=${l.serviceRevisionId}::uuid`)[0]!.name,
++    quantity:Number(l.quantity),date:l.date,
++   }))),
++  })));
++  assert.equal(result.entries.length,expected.length);
++  assert.deepEqual(new Set(result.entries),new Set(expected));
+   for(const forbidden of ["cost_amount","costMaterial","economics","accepter_id","terms_text","700.00"]){assert.equal(content.includes(forbidden),false,forbidden);}
+   assert.equal((await adapter.read(await h.auth(),read,{...q(f.q.bookingId,surface,"customer"),search:"700.00"}))!.entries.length,0);
+  }
+@@ -32,9 +41,21 @@
+ });
+ test("H5-011 native calendar reads current canonical service references",async()=>{
+  const f=await fixture(),result=await adapter.read(await h.auth(),read,q(f.q.bookingId,"calendar"));assert.ok(result);
+- const entry=result.entries[0] as {reference:string;scope:{date:string|null;cancelled:boolean}};
+- assert.equal(entry.reference,f.detail.services[0]!.id);assert.equal(entry.scope.cancelled,false);
+- assert.equal(typeof entry.scope.date,"string");
++ const entries=(result.entries as {reference:string;bookingId:string;source:string;phase:unknown;scope:{id:string;serviceRevisionId:string;date:string|null;schedule:unknown;cancelled:boolean}}[])
++  .filter(x=>x.source==="crm_private.modification_scope");
++ assert.equal(entries.length,f.detail.services.length);
++ assert.equal(new Set(entries.map(x=>x.reference)).size,entries.length);
++ assert.deepEqual(new Set(entries.map(x=>x.reference)),new Set(f.detail.services.map(x=>x.id)));
++ for(const service of f.detail.services){
++  const entry=entries.find(x=>x.reference===service.id);assert.ok(entry);
++  assert.equal(entry.reference,service.id);assert.equal(entry.scope.id,service.id);
++  assert.equal(entry.bookingId,f.q.bookingId);assert.equal(entry.scope.serviceRevisionId,service.serviceRevisionId);
++  assert.equal(entry.source,"crm_private.modification_scope");assert.equal(entry.phase,null);
++  const lines=service.contributions.map(c=>f.f.content.modalities.flatMap(m=>m.lines).find(l=>l.id===c.lineId)!);
++  assert.ok(lines.length>0);assert.ok(lines.every(l=>!l.datePending&&l.date===lines[0]!.date));
++  assert.equal(entry.scope.date,lines[0]!.date);assert.equal(typeof entry.scope.date,"string");
++  assert.deepEqual(entry.scope.schedule,service.schedule);assert.equal(entry.scope.cancelled,false);
++ }
+ });
+ test("H5-011 native scope, untrusted context and SQL privilege attempts deny",async()=>{
+  const f=await fixture();await assert.rejects(adapter.read(await h.auth(),read,q(uid())),/PROJECTION_DENIED/);

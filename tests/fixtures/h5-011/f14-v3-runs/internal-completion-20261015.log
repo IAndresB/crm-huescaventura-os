@@ -1,0 +1,280 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-pNVNeR/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-pNVNeR/data -l logfile start
+
+waiting for server to start.... done
+server started
+✖ H5-011 INTERNAL C01 known canonical hold deadline must be derivable from scoped calendar output (741.962875ms)
+✖ H5-011 INTERNAL C03 integrated November13 full day and14 balance/final-count projection, no economic writes (734.87675ms)
+✖ H5-011 INTERNAL C01 all applicable canonical calendar categories coexist in one Booking without mutation (0.319542ms)
+✖ H5-011 INTERNAL C05 native multiday20/22/23 anchors and scope-specific configured final count remain independent (0.084708ms)
+✖ H5-011 INTERNAL C06 accredited explicit contract25 projects before default20; unreviewed suggestion cannot replace it (0.028792ms)
+✖ H5-011 INTERNAL C07 current projection follows actual authorized hour/date changes and retains prior versions (0.052292ms)
+✖ H5-011 INTERNAL C08 unknown deadlines and absent zone stay pending while independent Booking continues (0.027709ms)
+✖ H5-011 INTERNAL C02 real pagination reconstructs same scoped facts without duplication or scope extension (0.023375ms)
+✖ H5-011 INTERNAL H07 Organization merge keeps both historical identities and archive remains recoverable (0.029792ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 0
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1054.104292
+
+✖ failing tests:
+
+test at tests/integration/postgres-h5-011-internal-c01-follow.test.ts:11:1
+✖ H5-011 INTERNAL C01 known canonical hold deadline must be derivable from scoped calendar output (741.962875ms)
+  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server
+  Examine the log output.
+  
+  
+  1 !== 0
+  
+      at command (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:25:569)
+      at isolatedH2 (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:27:2)
+      at async isolatedProposal (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-proposal-isolated.ts:11:10)
+      at async isolatedOffer (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-offer-isolated.ts:7:10)
+      at async isolatedAcceptance (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-acceptance-isolated.ts:7:10)
+      at async isolatedBooking (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-booking-isolated.ts:7:10)
+      at async isolatedObligation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-obligation-isolated.ts:7:10)
+      at async isolatedPayment (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-payment-isolated.ts:7:10)
+      at async isolatedAllocation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-allocation-isolated.ts:7:10)
+      at async isolatedInvoice (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-invoice-isolated.ts:10:10) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h5-011-internal-completion.test.ts:61:1
+✖ H5-011 INTERNAL C03 integrated November13 full day and14 balance/final-count projection, no economic writes (734.87675ms)
+  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server
+  Examine the log output.
+  
+  
+  1 !== 0
+  
+      at command (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:25:569)
+      at isolatedH2 (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:27:2)
+      at async isolatedProposal (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-proposal-isolated.ts:11:10)
+      at async isolatedOffer (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-offer-isolated.ts:7:10)
+      at async isolatedAcceptance (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-acceptance-isolated.ts:7:10)
+      at async isolatedBooking (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-booking-isolated.ts:7:10)
+      at async isolatedObligation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-obligation-isolated.ts:7:10)
+      at async isolatedPayment (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-payment-isolated.ts:7:10)
+      at async isolatedAllocation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-allocation-isolated.ts:7:10)
+      at async isolatedInvoice (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-invoice-isolated.ts:10:10) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h5-011-internal-completion.test.ts:75:1
+✖ H5-011 INTERNAL C01 all applicable canonical calendar categories coexist in one Booking without mutation (0.319542ms)
+  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server
+  Examine the log output.
+  
+  
+  1 !== 0
+  
+      at command (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:25:569)
+      at isolatedH2 (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:27:2)
+      at async isolatedProposal (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-proposal-isolated.ts:11:10)
+      at async isolatedOffer (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-offer-isolated.ts:7:10)
+      at async isolatedAcceptance (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-acceptance-isolated.ts:7:10)
+      at async isolatedBooking (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-booking-isolated.ts:7:10)
+      at async isolatedObligation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-obligation-isolated.ts:7:10)
+      at async isolatedPayment (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-payment-isolated.ts:7:10)
+      at async isolatedAllocation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-allocation-isolated.ts:7:10)
+      at async isolatedInvoice (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-invoice-isolated.ts:10:10) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h5-011-internal-completion.test.ts:85:1
+✖ H5-011 INTERNAL C05 native multiday20/22/23 anchors and scope-specific configured final count remain independent (0.084708ms)
+  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server
+  Examine the log output.
+  
+  
+  1 !== 0
+  
+      at command (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:25:569)
+      at isolatedH2 (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:27:2)
+      at async isolatedProposal (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-proposal-isolated.ts:11:10)
+      at async isolatedOffer (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-offer-isolated.ts:7:10)
+      at async isolatedAcceptance (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-acceptance-isolated.ts:7:10)
+      at async isolatedBooking (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-booking-isolated.ts:7:10)
+      at async isolatedObligation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-obligation-isolated.ts:7:10)
+      at async isolatedPayment (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-payment-isolated.ts:7:10)
+      at async isolatedAllocation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-allocation-isolated.ts:7:10)
+      at async isolatedInvoice (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-invoice-isolated.ts:10:10) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h5-011-internal-completion.test.ts:93:1
+✖ H5-011 INTERNAL C06 accredited explicit contract25 projects before default20; unreviewed suggestion cannot replace it (0.028792ms)
+  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server
+  Examine the log output.
+  
+  
+  1 !== 0
+  
+      at command (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:25:569)
+      at isolatedH2 (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:27:2)
+      at async isolatedProposal (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-proposal-isolated.ts:11:10)
+      at async isolatedOffer (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-offer-isolated.ts:7:10)
+      at async isolatedAcceptance (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-acceptance-isolated.ts:7:10)
+      at async isolatedBooking (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-booking-isolated.ts:7:10)
+      at async isolatedObligation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-obligation-isolated.ts:7:10)
+      at async isolatedPayment (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-payment-isolated.ts:7:10)
+      at async isolatedAllocation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-allocation-isolated.ts:7:10)
+      at async isolatedInvoice (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-invoice-isolated.ts:10:10) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h5-011-internal-completion.test.ts:100:1
+✖ H5-011 INTERNAL C07 current projection follows actual authorized hour/date changes and retains prior versions (0.052292ms)
+  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server
+  Examine the log output.
+  
+  
+  1 !== 0
+  
+      at command (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:25:569)
+      at isolatedH2 (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:27:2)
+      at async isolatedProposal (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-proposal-isolated.ts:11:10)
+      at async isolatedOffer (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-offer-isolated.ts:7:10)
+      at async isolatedAcceptance (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-acceptance-isolated.ts:7:10)
+      at async isolatedBooking (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-booking-isolated.ts:7:10)
+      at async isolatedObligation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-obligation-isolated.ts:7:10)
+      at async isolatedPayment (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-payment-isolated.ts:7:10)
+      at async isolatedAllocation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-allocation-isolated.ts:7:10)
+      at async isolatedInvoice (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-invoice-isolated.ts:10:10) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h5-011-internal-completion.test.ts:108:1
+✖ H5-011 INTERNAL C08 unknown deadlines and absent zone stay pending while independent Booking continues (0.027709ms)
+  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server
+  Examine the log output.
+  
+  
+  1 !== 0
+  
+      at command (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:25:569)
+      at isolatedH2 (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:27:2)
+      at async isolatedProposal (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-proposal-isolated.ts:11:10)
+      at async isolatedOffer (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-offer-isolated.ts:7:10)
+      at async isolatedAcceptance (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-acceptance-isolated.ts:7:10)
+      at async isolatedBooking (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-booking-isolated.ts:7:10)
+      at async isolatedObligation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-obligation-isolated.ts:7:10)
+      at async isolatedPayment (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-payment-isolated.ts:7:10)
+      at async isolatedAllocation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-allocation-isolated.ts:7:10)
+      at async isolatedInvoice (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-invoice-isolated.ts:10:10) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h5-011-internal-completion.test.ts:112:1
+✖ H5-011 INTERNAL C02 real pagination reconstructs same scoped facts without duplication or scope extension (0.023375ms)
+  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server
+  Examine the log output.
+  
+  
+  1 !== 0
+  
+      at command (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:25:569)
+      at isolatedH2 (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:27:2)
+      at async isolatedProposal (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-proposal-isolated.ts:11:10)
+      at async isolatedOffer (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-offer-isolated.ts:7:10)
+      at async isolatedAcceptance (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-acceptance-isolated.ts:7:10)
+      at async isolatedBooking (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-booking-isolated.ts:7:10)
+      at async isolatedObligation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-obligation-isolated.ts:7:10)
+      at async isolatedPayment (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-payment-isolated.ts:7:10)
+      at async isolatedAllocation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-allocation-isolated.ts:7:10)
+      at async isolatedInvoice (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-invoice-isolated.ts:10:10) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h5-011-internal-completion.test.ts:117:1
+✖ H5-011 INTERNAL H07 Organization merge keeps both historical identities and archive remains recoverable (0.029792ms)
+  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server
+  Examine the log output.
+  
+  
+  1 !== 0
+  
+      at command (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:25:569)
+      at isolatedH2 (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-isolated.ts:27:2)
+      at async isolatedProposal (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-proposal-isolated.ts:11:10)
+      at async isolatedOffer (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-offer-isolated.ts:7:10)
+      at async isolatedAcceptance (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-acceptance-isolated.ts:7:10)
+      at async isolatedBooking (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h2-booking-isolated.ts:7:10)
+      at async isolatedObligation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-obligation-isolated.ts:7:10)
+      at async isolatedPayment (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-payment-isolated.ts:7:10)
+      at async isolatedAllocation (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-allocation-isolated.ts:7:10)
+      at async isolatedInvoice (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5011-c01-scoped-probe-m6u_ud8a/repo/tests/support/h3-invoice-isolated.ts:10:10) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+waiting for server to shut down.... done
+server stopped

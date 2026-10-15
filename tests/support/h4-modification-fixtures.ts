@@ -7,7 +7,13 @@ export async function modificationFixture(h:H,existing?:Awaited<ReturnType<typeo
  const f=existing??await confirmationFixture(h),modificationId=uid(),bookingId=f.bookingId;
  const scope={kind:'service',id:f.service.id},partId=uid(),before=()=>h.observer`select to_jsonb(s) value from crm_private.b04_services s where service_id=${f.service.id}::uuid`;
  const see=async()=>h.modifications.read(await h.auth(),read,modificationId,bookingId);
- const attest=async(q:ModificationCommand)=>({...q,evidenceId:await f.proof(`modification:${q.action}:${await f.hash(Object.fromEntries(Object.entries(q).filter(([k,v])=>!['operationId','evidenceId'].includes(k)&&v!==undefined)))}`,modificationId)});
+ const attest=async(q:ModificationCommand)=>{
+  const claim=`modification:${q.action}:${await f.hash(Object.fromEntries(Object.entries(q).filter(([k,v])=>!['operationId','evidenceId'].includes(k)&&v!==undefined)))}`;
+  if(q.at===f.at||q.at===undefined)return {...q,evidenceId:await f.proof(claim,modificationId)};
+  const proof=h.req('evidence',{claim,coverage:modificationId,certainty:'reviewed',source_kind:'manual'},modificationId,'other');
+  await h.evidence.apply(await h.auth(),write,{...proof,occurredAt:q.at,coverage:modificationId});
+  return {...q,evidenceId:proof.targetId};
+ };
  const command=async(action:ModificationCommand['action'],data:Record<string,unknown>,changes:Partial<ModificationCommand>={})=>attest({action,operationId:uid(),modificationId,bookingId,expectedRevision:(await see())?.revision??0,sourceRef:'SYNTHETIC legitimate precise source',reason:'SYNTHETIC operational independent change',at:f.at,evidenceId:uid(),data,...changes});
  const request=async(parts?:unknown[])=>command('request',{requester:{kind:'internal',id:h.actorId},cause:'SYNTHETIC real scoped need',type:'change',recordId:await f.record(),parts:parts??[{id:partId,scope,expectedScopeRevision:1,desired:{date:'2026-10-22'},aspects:['date','capacity','conditions'],dependencies:[]}]});
  const evaluate=async()=>command('evaluate',{policy:{id:'SYNTHETIC accepted policy',version:'V1',terms:f.coverage.commercialBasis.terms},impacts:{commercial:'SYNTHETIC exact client change agreement needed',operational:'SYNTHETIC localized future coverage',economic:'pending'}});

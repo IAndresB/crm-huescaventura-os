@@ -1,0 +1,11 @@
+--- src/infrastructure/postgres/h5-projection-adapter.ts (original local)
++++ src/infrastructure/postgres/h5-projection-adapter.ts (correctivo F01)
+@@ -18,7 +18,7 @@
+  async read(auth:VerifiedAuthEvidence,interaction:VerifiedServerInteraction,input:ProjectionQuery){
+   if(!isVerifiedAuth(auth)||!auth.sessionId||!auth.mfaVerified||!isVerifiedServerInteraction(interaction,"interactive_read"))throw new Error("PROJECTION_AUTH_REQUIRED");
+   validateProjectionQuery(input);
+-  try{return await this.sql.begin("isolation level repeatable read",async tx=>{
++  try{return await this.sql.begin("isolation level read committed",async tx=>{
+    const row=(await tx.unsafe<{actor_id:string;admin_scope:string;access_generation:string;epoch_id:string}[]>(
+     "select actor_id::text,admin_scope,access_generation::text,epoch_id::text from crm_api.f2_lookup($1::uuid,$2::uuid)",[auth.subject,auth.sessionId!]))[0];
+    if(!row?.epoch_id)throw new Error("PROJECTION_DENIED");

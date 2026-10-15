@@ -1,0 +1,77 @@
+Nine exact artifact bytes/types/modes verified with standalone hashlib; digest NOT accepted as authentication PASS
+Python launcher/auditor syntax parsed without execution PASS
+Counterproof JavaScript syntax checked without execution PASS
+Exact reviewed patch reconstructed in memory; patch applicable; active guard unchanged PASS
+Candidate transition record matches literal guard and trust; authorized record NOT installed PASS
+35942 historical entries bound to actual Git objects;135 current H5-011/evidence entries exact PASS
+125 prior evidence files and historical document prefixes preserved;36 initial evidence included PASS
+Published predecessor F09 seals verified against Git; not reused for successor authentication PASS
+Git tracked diff remains only authorized fixture; index empty; whitespace clean PASS
+missing external seal REJECTED before auditor
+invalid external seal REJECTED before auditor
+{
+  "status": "PREPARATION CHECKED; NO EXTERNAL AUTHENTICATION",
+  "checks": [
+    {
+      "check": "Nine exact artifact bytes/types/modes verified with standalone hashlib; digest NOT accepted as authentication",
+      "result": "PASS preparation only"
+    },
+    {
+      "check": "Python launcher/auditor syntax parsed without execution",
+      "result": "PASS preparation only"
+    },
+    {
+      "check": "Counterproof JavaScript syntax checked without execution",
+      "result": "PASS preparation only"
+    },
+    {
+      "check": "Exact reviewed patch reconstructed in memory; patch applicable; active guard unchanged",
+      "result": "PASS preparation only"
+    },
+    {
+      "check": "Candidate transition record matches literal guard and trust; authorized record NOT installed",
+      "result": "PASS preparation only"
+    },
+    {
+      "check": "35942 historical entries bound to actual Git objects;135 current H5-011/evidence entries exact",
+      "result": "PASS preparation only"
+    },
+    {
+      "check": "125 prior evidence files and historical document prefixes preserved;36 initial evidence included",
+      "result": "PASS preparation only"
+    },
+    {
+      "check": "Published predecessor F09 seals verified against Git; not reused for successor authentication",
+      "result": "PASS preparation only"
+    },
+    {
+      "check": "Git tracked diff remains only authorized fixture; index empty; whitespace clean",
+      "result": "PASS preparation only"
+    },
+    {
+      "check": "missing external seal",
+      "result": "REJECTED before auditor",
+      "exit": 2
+    },
+    {
+      "check": "invalid external seal",
+      "result": "REJECTED before auditor",
+      "exit": 1
+    }
+  ],
+  "trust_digest_for_external_review_only": "517619e94784ffbbf6267db25ba270d200927c3be1d3b2a998b11b2ef5ce2d97",
+  "candidate_auditor_executed": false,
+  "candidate_guard_executed_or_applied": false,
+  "counterproof_suite_executed": false,
+  "functional_suites_executed": false,
+  "external_seal_available": false,
+  "approval_mechanism": "Published protocol requires human reviewer-supplied seal; no configured independent signer or authorized signing service located; no credentials requested or accessed",
+  "tracked_count": 35942,
+  "current_inputs_count": 135
+}
+
+Additional syntax check — original compiler-API attempt preserved: FAIL, TypeError Cannot read properties of undefined (reading Latest); installed module did not expose the assumed API. No source or dependencies changed.
+Corrective preparation check uses native Node parser only, no candidate execution.
+{"command": ["node", "--experimental-strip-types", "--check", "temporary inert candidate.ts"], "exit": 1, "stdout": "", "stderr": "/private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/tmpaw5yix3y.ts:10\nexport const f10DependencyHashes:Readonly<Record<string,Readonly<{historical:string;current:string}>>>={\n             ^^^^^^^^^^^^^^^^^^^\n\nSyntaxError: Missing initializer in const declaration\n    at checkSyntax (node:internal/main/check_syntax:84:5)\n\nNode.js v24.21.0\n"}
+
+Native --check on .ts rejected type annotations before stripping (exit1); this was a parser invocation issue, not candidate execution. Preserved above. Final preparation check: node:module.stripTypeScriptTypes followed by node --input-type=module --check on stdin: exit0 PASS; candidate guard/auditor NOT executed. No package bytes changed.

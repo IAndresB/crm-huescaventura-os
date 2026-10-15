@@ -1,0 +1,119 @@
+import {createHash} from "node:crypto";
+import {canonicalCommercial} from "./commercial-progress.ts";
+import {evaluateInstant,instant,type CivilReference} from "./civil-time.ts";
+
+export type ProjectionSurface = "timeline"|"calendar"|"query"|"search"|"export"|"document"|"ai_context";
+export interface ProjectionQuery {
+ readonly contextKind:"booking"|"opportunity"|"contact"|"organization";
+ readonly contextId:string;
+ readonly surface:ProjectionSurface;
+ readonly destination:"administrator"|"customer"|"provider"|"ai";
+ readonly includeArchived?:boolean;
+ readonly search?:string;
+ readonly pageSize?:number;
+ readonly after?:string;
+}
+export interface CanonicalProjectionFact {
+ readonly kind:string;
+ readonly data:Readonly<Record<string,unknown>>;
+ readonly links?:readonly unknown[];
+}
+export interface CanonicalProjectionFrame {
+ readonly contextKind:ProjectionQuery["contextKind"];
+ readonly contextId:string;
+ readonly facts:readonly CanonicalProjectionFact[];
+ readonly calendar:readonly Readonly<Record<string,unknown>>[];
+ readonly commercial:readonly unknown[];
+}
+export interface ProjectionEntry {
+ readonly reference:string;
+ readonly source:string;
+ readonly occurredAt:string|null;
+ readonly recordedAt:string|null;
+ readonly certainty:"verified"|"pending"|"unknown";
+ readonly data:Readonly<Record<string,unknown>>;
+ readonly links?:readonly unknown[];
+}
+const surfaces = new Set(["timeline","calendar","query","search","export","document","ai_context"]);
+const destinations = new Set(["administrator","customer","provider","ai"]);
+const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+export function validateProjectionQuery(q:ProjectionQuery):void {
+ if(!q || Object.keys(q).some(k=>!["contextKind","contextId","surface","destination","includeArchived","search","pageSize","after"].includes(k))
+  || !["booking","opportunity","contact","organization"].includes(q.contextKind)||!uuid.test(q.contextId)
+  || !surfaces.has(q.surface)||!destinations.has(q.destination)
+  || q.includeArchived!==undefined&&typeof q.includeArchived!=="boolean"
+  || q.search!==undefined&&(typeof q.search!=="string"||q.search.includes("\0"))
+  || q.pageSize!==undefined&&(!Number.isSafeInteger(q.pageSize)||q.pageSize<1)
+  || q.after!==undefined&&(typeof q.after!=="string"||!q.pageSize)) throw new Error("PROJECTION_INPUT_INVALID");
+}
+const object=(x:unknown):Readonly<Record<string,unknown>>=>x && typeof x==="object"&&!Array.isArray(x)?x as Readonly<Record<string,unknown>>:{};
+const text=(x:unknown):string|null=>typeof x==="string"?x:null;
+const fingerprint=(x:unknown)=>createHash("sha256").update(canonicalCommercial(x)).digest("hex");
+function commercialEntry(value:unknown) {
+ const x=object(value);
+ return {reference:text(x.reference),finalPersonPrice:text(x.finalPersonPrice),
+  participants:typeof x.participants==="number"?x.participants:null,
+  included:Array.isArray(x.included)?x.included.map(v=>{const l=object(v);return {
+   service:text(l.service),quantity:typeof l.quantity==="number"||typeof l.quantity==="string"?l.quantity:null,date:text(l.date),
+  };}):[]};
+}
+function entry(f:CanonicalProjectionFact):ProjectionEntry {
+ const d=f.data,m=object(d.material),external=object(d.raw_event);
+ const certainty=f.kind==="b07_records"
+  ? m.certainty==="reviewed"?"verified":m.certainty==="unknown"?"unknown":"pending"
+  : d.certainty==="unknown"?"unknown":
+    ["estimated","uncertain","pending","candidate"].includes(String(d.certainty))||m.reviewState==="pending"?"pending":"verified";
+ return {reference:`${f.kind}:${fingerprint(d)}`,source:`crm_private.${f.kind}`,
+  occurredAt:text(d.occurred_at)??text(d.happened_at)??text(external.occurred_at),
+  recordedAt:text(d.recorded_at)??text(d.created_at)??text(d.received_at),certainty,data:d,
+  ...(f.links?{links:f.links}:{})};
+}
+function registrationOrder(a:ProjectionEntry,b:ProjectionEntry):number {
+ const ticks=(value:string|null):bigint|null=>{
+  if(value===null)return null;
+  const milliseconds=Date.parse(value);if(!Number.isFinite(milliseconds))return null;
+  const fraction=value.match(/\.(\d+)(?:Z|[+-]\d{2}:\d{2})$/)?.[1]??"";
+  return BigInt(milliseconds)*1000000n+BigInt(fraction.padEnd(9,"0").slice(3,9));
+ };
+ const x=ticks(a.recordedAt),y=ticks(b.recordedAt);
+ return (x!==null&&y!==null?(x<y?-1:x>y?1:0):(a.recordedAt??"").localeCompare(b.recordedAt??""))||a.reference.localeCompare(b.reference);
+}
+/** Reads the accredited temporal decision; never computes a new economic right. */
+export function cancellationProjection(data:Readonly<Record<string,unknown>>) {
+ const state=object(data.after_data),computed=object(state.computed),facts=object(state.facts);
+ return {reference:object(facts.reference),temporal:computed.temporal??null,
+  status:computed.status??"pending",right:computed.right??null,retention:computed.retention??null,
+  sourceRevision:data.revision??null};
+}
+/** Civil-date evaluation is only a query of its evidenced reference, with no mutation. */
+export function projectCivilReference(reference:CivilReference|null,at:string|null) {
+ if(!reference||!at)return {certainty:"pending" as const,evaluation:null};
+ try{return {certainty:"verified" as const,evaluation:evaluateInstant(reference,instant(at))};}
+ catch{return {certainty:"pending" as const,evaluation:null};}
+}
+export function composeProjection(frame:CanonicalProjectionFrame,q:ProjectionQuery) {
+ validateProjectionQuery(q);
+ if(frame.contextId.toLowerCase()!==q.contextId.toLowerCase()||frame.contextKind!==q.contextKind)throw new Error("PROJECTION_DENIED");
+ // The database has already selected the permitted external fields. This second
+ // boundary never appends internal facts or originals, even if a port supplies them.
+ let entries:readonly unknown[]=q.destination!=="administrator"?frame.commercial.map(commercialEntry):
+  q.surface==="calendar"?[
+   ...frame.calendar,
+   ...frame.facts.filter(f=>["b04_nights","b04_holds","b05_expected_payments","b07_pending_tasks","b07_requirements"].includes(f.kind)).map(entry),
+  ]:frame.facts.map(entry).sort(registrationOrder);
+ // Search occurs after purpose selection; a reserved field cannot influence
+ // external matches, counts or snippets.
+ if(q.search!==undefined){const needle=q.search.toLocaleLowerCase("en");entries=entries.filter(x=>canonicalCommercial(x).toLocaleLowerCase("en").includes(needle));}
+ const binding=fingerprint({...q,after:undefined});
+ let start=0;
+ if(q.after){try{
+  const cursor=JSON.parse(Buffer.from(q.after,"base64url").toString("utf8"));
+  if(cursor.binding!==binding||!Number.isSafeInteger(cursor.offset)||cursor.offset<0)throw new Error();
+  start=cursor.offset;
+ }catch{throw new Error("PROJECTION_CURSOR_INVALID");}}
+ const end=q.pageSize===undefined?entries.length:start+q.pageSize;
+ const nextPage=end<entries.length?Buffer.from(JSON.stringify({binding,offset:end})).toString("base64url"):undefined;
+ return {contextKind:q.contextKind,contextId:frame.contextId,surface:q.surface,destination:q.destination,
+  entries:entries.slice(start,end),...(nextPage?{nextPage}:{}),
+  provenance:"crm-canonical-projection-v1",certainty:"verified" as const,mutationAuthority:false as const};
+}
