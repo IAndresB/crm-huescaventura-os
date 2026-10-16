@@ -1,0 +1,73 @@
+{
+  "constraints": [
+    {
+      "relation": "crm_private.b06_joint_closures",
+      "contype": "f",
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.b06_joint_closures",
+      "contype": "f",
+      "definition": "FOREIGN KEY (booking_id) REFERENCES crm_private.b04_bookings(booking_id)"
+    },
+    {
+      "relation": "crm_private.b06_joint_closures",
+      "contype": "f",
+      "definition": "FOREIGN KEY (evidence_id) REFERENCES crm_private.b07_records(record_id)"
+    },
+    {
+      "relation": "crm_private.b06_joint_closures",
+      "contype": "f",
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.b06_closure_operations(operation_id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "relation": "crm_private.b06_joint_closures",
+      "contype": "u",
+      "definition": "UNIQUE (operation_id)"
+    },
+    {
+      "relation": "crm_private.b06_joint_closures",
+      "contype": "p",
+      "definition": "PRIMARY KEY (booking_id, revision)"
+    },
+    {
+      "relation": "crm_private.b06_joint_closures",
+      "contype": "c",
+      "definition": "CHECK ((revision > 0))"
+    },
+    {
+      "relation": "crm_private.b06_closure_invalidations",
+      "contype": "f",
+      "definition": "FOREIGN KEY (booking_id, assessment_revision) REFERENCES crm_private.b06_closure_assessments(booking_id, revision)"
+    },
+    {
+      "relation": "crm_private.b06_closure_invalidations",
+      "contype": "c",
+      "definition": "CHECK ((jsonb_typeof(cause) = 'object'::text))"
+    },
+    {
+      "relation": "crm_private.b06_closure_invalidations",
+      "contype": "c",
+      "definition": "CHECK ((previous_basis IS DISTINCT FROM current_basis))"
+    },
+    {
+      "relation": "crm_private.b06_closure_invalidations",
+      "contype": "p",
+      "definition": "PRIMARY KEY (booking_id, assessment_revision)"
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "b06_closure_invalidations",
+      "indexdef": "CREATE UNIQUE INDEX b06_closure_invalidations_pkey ON crm_private.b06_closure_invalidations USING btree (booking_id, assessment_revision)"
+    },
+    {
+      "tablename": "b06_joint_closures",
+      "indexdef": "CREATE UNIQUE INDEX b06_joint_closures_operation_id_key ON crm_private.b06_joint_closures USING btree (operation_id)"
+    },
+    {
+      "tablename": "b06_joint_closures",
+      "indexdef": "CREATE UNIQUE INDEX b06_joint_closures_pkey ON crm_private.b06_joint_closures USING btree (booking_id, revision)"
+    }
+  ]
+}

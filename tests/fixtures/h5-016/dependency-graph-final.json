@@ -1,0 +1,1721 @@
+{
+  "functions": [
+    "crm_private.closure_assess",
+    "crm_private.invoice_text",
+    "crm_private.closure_criterion",
+    "crm_private.closure_basis",
+    "crm_private.closure_inputs",
+    "crm_private.deposit_amounts",
+    "crm_private.modification_scope",
+    "crm_private.refund_latest",
+    "crm_private.cancellation_token",
+    "crm_private.cancellation_material",
+    "crm_private.cancellation_scope",
+    "crm_private.cancellation_reference",
+    "crm_private.reality_read_core",
+    "crm_private.reality_incidents",
+    "crm_private.reality_scopes",
+    "crm_private.reality_facts",
+    "crm_private.reality_material",
+    "crm_private.booking_preparation_inputs",
+    "crm_private.fund_coverage",
+    "crm_private.fund_usable",
+    "crm_private.refund_blocks",
+    "crm_private.refund_attempt_remaining",
+    "crm_private.confirmation_current",
+    "crm_private.confirmation_dependencies",
+    "crm_private.confirmation_requirements",
+    "crm_private.confirmation_coverage",
+    "crm_private.modification_token",
+    "crm_private.confirmation_commercial",
+    "crm_private.b04_current_nights",
+    "crm_private.b04_current_services",
+    "crm_private.reality_service_state",
+    "crm_private.confirmation_discrepancy",
+    "crm_private.modification_pending",
+    "crm_private.booking_preparation_hash",
+    "crm_private.reality_phase",
+    "crm_private.reality_final_basis",
+    "crm_private.provider_payment_documentary",
+    "crm_private.suplido_invoice",
+    "crm_private.suplido_funds"
+  ],
+  "sources": [
+    {
+      "name": "crm_private.catalog_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.catalog_applications",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.catalog_applications DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.catalog_applications FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.catalog_items",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": true,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b03_proposal_lines",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_bookings",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_services",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b04_services DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b04_services FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_modalities",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_contributions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_nights",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_night_occupancies",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_payment_schedules",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_payment_schedules DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_payment_schedules FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_schedule_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_schedule_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "fund_obligation_changed",
+          "definition": "CREATE TRIGGER fund_obligation_changed AFTER INSERT ON crm_private.b05_schedule_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.fund_obligation_changed()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_schedule_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_customer_payments",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "payment_immutable",
+          "definition": "CREATE TRIGGER payment_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_customer_payments FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_payment_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_payment_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "fund_payment_changed",
+          "definition": "CREATE TRIGGER fund_payment_changed AFTER INSERT ON crm_private.b05_payment_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.fund_payment_changed()"
+        },
+        {
+          "tgname": "payment_immutable",
+          "definition": "CREATE TRIGGER payment_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_payment_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_payment_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_allocations",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "allocation_immutable",
+          "definition": "CREATE TRIGGER allocation_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_allocations FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_allocations DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_allocations FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_allocation_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "allocation_immutable",
+          "definition": "CREATE TRIGGER allocation_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_allocation_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_allocation_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_allocation_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_allocation_acts",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "allocation_immutable",
+          "definition": "CREATE TRIGGER allocation_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_allocation_acts FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_allocation_acts DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_allocation_acts FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        },
+        {
+          "tgname": "provider_consumption_guard",
+          "definition": "CREATE TRIGGER provider_consumption_guard BEFORE INSERT ON crm_private.b05_allocation_acts FOR EACH ROW EXECUTE FUNCTION crm_private.provider_consumption_guard()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_provider_invoices",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_provider_invoices DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_closure_writer()"
+        },
+        {
+          "tgname": "closure_material_lock",
+          "definition": "CREATE TRIGGER closure_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_provider_invoices FOR EACH ROW EXECUTE FUNCTION crm_private.closure_writer()"
+        },
+        {
+          "tgname": "invoice_immutable",
+          "definition": "CREATE TRIGGER invoice_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_provider_invoices FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_invoice_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_invoice_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_closure_writer()"
+        },
+        {
+          "tgname": "closure_material_lock",
+          "definition": "CREATE TRIGGER closure_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_invoice_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.closure_writer()"
+        },
+        {
+          "tgname": "invoice_immutable",
+          "definition": "CREATE TRIGGER invoice_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_invoice_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_suplidos",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_suplidos DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_closure_writer()"
+        },
+        {
+          "tgname": "closure_material_lock",
+          "definition": "CREATE TRIGGER closure_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_suplidos FOR EACH ROW EXECUTE FUNCTION crm_private.closure_writer()"
+        },
+        {
+          "tgname": "suplido_immutable",
+          "definition": "CREATE TRIGGER suplido_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_suplidos FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_suplido_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_suplido_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_closure_writer()"
+        },
+        {
+          "tgname": "closure_material_lock",
+          "definition": "CREATE TRIGGER closure_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_suplido_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.closure_writer()"
+        },
+        {
+          "tgname": "suplido_immutable",
+          "definition": "CREATE TRIGGER suplido_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_suplido_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_provider_payments",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "provider_payment_immutable",
+          "definition": "CREATE TRIGGER provider_payment_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_provider_payments FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_provider_payment_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_provider_payment_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_provider_payment_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        },
+        {
+          "tgname": "provider_payment_immutable",
+          "definition": "CREATE TRIGGER provider_payment_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_provider_payment_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_own_economies",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_own_economies DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_closure_writer()"
+        },
+        {
+          "tgname": "closure_material_lock",
+          "definition": "CREATE TRIGGER closure_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_own_economies FOR EACH ROW EXECUTE FUNCTION crm_private.closure_writer()"
+        },
+        {
+          "tgname": "own_economy_immutable",
+          "definition": "CREATE TRIGGER own_economy_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_own_economies FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_own_economic_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_own_economic_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_closure_writer()"
+        },
+        {
+          "tgname": "closure_material_lock",
+          "definition": "CREATE TRIGGER closure_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_own_economic_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.closure_writer()"
+        },
+        {
+          "tgname": "own_economy_immutable",
+          "definition": "CREATE TRIGGER own_economy_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_own_economic_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b07_requirements",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b07_requirements DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b07_requirements FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        },
+        {
+          "tgname": "requirement_immutable",
+          "definition": "CREATE TRIGGER requirement_immutable BEFORE DELETE OR UPDATE ON crm_private.b07_requirements FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b07_requirement_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b07_requirement_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b07_requirement_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        },
+        {
+          "tgname": "requirement_immutable",
+          "definition": "CREATE TRIGGER requirement_immutable BEFORE DELETE OR UPDATE ON crm_private.b07_requirement_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b07_incidents",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "incident_immutable",
+          "definition": "CREATE TRIGGER incident_immutable BEFORE DELETE OR UPDATE ON crm_private.b07_incidents FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b07_incident_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b07_incident_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "incident_immutable",
+          "definition": "CREATE TRIGGER incident_immutable BEFORE DELETE OR UPDATE ON crm_private.b07_incident_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT ON crm_private.b07_incident_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_availability",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "availability_immutable",
+          "definition": "CREATE TRIGGER availability_immutable BEFORE DELETE OR UPDATE ON crm_private.b04_availability FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b04_availability DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b04_availability FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_availability_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "availability_immutable",
+          "definition": "CREATE TRIGGER availability_immutable BEFORE DELETE OR UPDATE ON crm_private.b04_availability_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b04_availability_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b04_availability_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_holds",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "hold_immutable",
+          "definition": "CREATE TRIGGER hold_immutable BEFORE DELETE OR UPDATE ON crm_private.b04_holds FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_hold_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b04_hold_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "hold_immutable",
+          "definition": "CREATE TRIGGER hold_immutable BEFORE DELETE OR UPDATE ON crm_private.b04_hold_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b04_hold_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_confirmations",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "confirmation_immutable",
+          "definition": "CREATE TRIGGER confirmation_immutable BEFORE DELETE OR UPDATE ON crm_private.b04_confirmations FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_confirmation_facts",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b04_confirmation_facts DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "confirmation_immutable",
+          "definition": "CREATE TRIGGER confirmation_immutable BEFORE DELETE OR UPDATE ON crm_private.b04_confirmation_facts FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b04_confirmation_facts FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_confirmation_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b04_confirmation_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "confirmation_immutable",
+          "definition": "CREATE TRIGGER confirmation_immutable BEFORE DELETE OR UPDATE ON crm_private.b04_confirmation_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b04_confirmation_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b06_modifications",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b06_modifications DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "modification_immutable",
+          "definition": "CREATE TRIGGER modification_immutable BEFORE DELETE OR UPDATE ON crm_private.b06_modifications FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b06_modifications FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b06_modification_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b06_modification_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "modification_immutable",
+          "definition": "CREATE TRIGGER modification_immutable BEFORE DELETE OR UPDATE ON crm_private.b06_modification_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b06_modification_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_operational_versions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b04_operational_versions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "modification_immutable",
+          "definition": "CREATE TRIGGER modification_immutable BEFORE DELETE OR UPDATE ON crm_private.b04_operational_versions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b04_operational_versions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b06_cancellation_determinations",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "cancellation_immutable",
+          "definition": "CREATE TRIGGER cancellation_immutable BEFORE DELETE OR UPDATE ON crm_private.b06_cancellation_determinations FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b06_cancellation_determinations DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_closure_writer()"
+        },
+        {
+          "tgname": "closure_material_lock",
+          "definition": "CREATE TRIGGER closure_material_lock BEFORE INSERT OR UPDATE ON crm_private.b06_cancellation_determinations FOR EACH ROW EXECUTE FUNCTION crm_private.closure_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b06_cancellation_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "cancellation_immutable",
+          "definition": "CREATE TRIGGER cancellation_immutable BEFORE DELETE OR UPDATE ON crm_private.b06_cancellation_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b06_cancellation_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_closure_writer()"
+        },
+        {
+          "tgname": "closure_material_lock",
+          "definition": "CREATE TRIGGER closure_material_lock BEFORE INSERT OR UPDATE ON crm_private.b06_cancellation_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.closure_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_refund_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_refund_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_refund_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        },
+        {
+          "tgname": "refund_immutable",
+          "definition": "CREATE TRIGGER refund_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_refund_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_refund_movements",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "refund_immutable",
+          "definition": "CREATE TRIGGER refund_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_refund_movements FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_deposits",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "deposit_immutable",
+          "definition": "CREATE TRIGGER deposit_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_deposits FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b05_deposit_revisions",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b05_deposit_revisions DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "deposit_immutable",
+          "definition": "CREATE TRIGGER deposit_immutable BEFORE DELETE OR UPDATE ON crm_private.b05_deposit_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT OR UPDATE ON crm_private.b05_deposit_revisions FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    },
+    {
+      "name": "crm_private.b04_reality_events",
+      "relkind": "r",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "triggers": [
+        {
+          "tgname": "closure_material_invalidation",
+          "definition": "CREATE CONSTRAINT TRIGGER closure_material_invalidation AFTER INSERT OR UPDATE ON crm_private.b04_reality_events DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION crm_private.closure_invalidation_booking_preparation_writer()"
+        },
+        {
+          "tgname": "preparation_material_lock",
+          "definition": "CREATE TRIGGER preparation_material_lock BEFORE INSERT ON crm_private.b04_reality_events FOR EACH ROW EXECUTE FUNCTION crm_private.booking_preparation_writer()"
+        },
+        {
+          "tgname": "reality_immutable",
+          "definition": "CREATE TRIGGER reality_immutable BEFORE DELETE OR UPDATE ON crm_private.b04_reality_events FOR EACH ROW EXECUTE FUNCTION crm_private.payment_immutable()"
+        }
+      ],
+      "perms": [
+        {
+          "rolname": "crm_h0_f2_executor",
+          "ins": true,
+          "upd": false,
+          "del": false
+        },
+        {
+          "rolname": "crm_h0_migration",
+          "ins": true,
+          "upd": true,
+          "del": true
+        },
+        {
+          "rolname": "crm_h0_runtime",
+          "ins": false,
+          "upd": false,
+          "del": false
+        }
+      ]
+    }
+  ]
+}

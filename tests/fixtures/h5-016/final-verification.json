@@ -1,0 +1,136 @@
+{
+  "verdict": "PASS corrected candidate; FAIL received candidate (F01)",
+  "base": "ff0ad6c6e505914f31eb15d56725179c9f065426",
+  "inputManifestSha256": "f72596dafa448cbba1d3ddb1525aab57097a4992f40bc0712da2eb444008f30d",
+  "inputCount": 456,
+  "candidateFileCountIncludingInventory": 112,
+  "modifiedFromBase": 6,
+  "newFromBase": 106,
+  "originalInputCount": 453,
+  "changedProductOrTestInputs": [
+    "supabase/migrations/20261015233307_h5_joint_closure_reopening.sql",
+    "tests/integration/postgres-h5-015-migration.test.ts"
+  ],
+  "addedTestInputs": [
+    "tests/integration/postgres-h5-016-audit.test.ts",
+    "tests/integration/postgres-h5-016-races.test.ts",
+    "tests/integration/postgres-h5-016-security.test.ts"
+  ],
+  "results": {
+    "completePostgres": {
+      "tests": 2756,
+      "pass": 2756,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "20-complete-final.log.gz",
+      "inputManifestSha256": "f72596dafa448cbba1d3ddb1525aab57097a4992f40bc0712da2eb444008f30d"
+    },
+    "focal": {
+      "tests": 78,
+      "pass": 78,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "12-final-focal.log.gz",
+      "inputManifestSha256": "f72596dafa448cbba1d3ddb1525aab57097a4992f40bc0712da2eb444008f30d"
+    },
+    "evaluatorsOn63": {
+      "tests": 66,
+      "pass": 66,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "13-evaluators-on63.log.gz",
+      "inputManifestSha256": "f72596dafa448cbba1d3ddb1525aab57097a4992f40bc0712da2eb444008f30d"
+    },
+    "unit": {
+      "tests": 197,
+      "pass": 197,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "15-unit.log.gz",
+      "inputManifestSha256": "f72596dafa448cbba1d3ddb1525aab57097a4992f40bc0712da2eb444008f30d"
+    },
+    "health": {
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "19-health.log.gz",
+      "inputManifestSha256": "f72596dafa448cbba1d3ddb1525aab57097a4992f40bc0712da2eb444008f30d"
+    },
+    "install": {
+      "exitCode": 0,
+      "log": "05-install.log.gz"
+    },
+    "typecheck": {
+      "exitCode": 0,
+      "log": "14-final-typecheck.log.gz"
+    },
+    "lint": {
+      "exitCode": 0,
+      "log": "16-lint.log.gz"
+    },
+    "build": {
+      "exitCode": 0,
+      "log": "17-build.log.gz"
+    },
+    "audit": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0
+      },
+      "exitCode": 0,
+      "log": "18-audit.json"
+    }
+  },
+  "countsNotAdditive": "Focal and evaluator retests overlap full regression; only 37 H5-016 cases are new. Full final =2678 historical +41 H5-015 +37 H5-016.",
+  "newRealConcurrencyCases": 13,
+  "inheritedRealConcurrencyCases": 25,
+  "V_DOM": "PASS scoped local",
+  "V_DAT": "PASS scoped local",
+  "V_MIG": "PASS fresh63, populated62 upgrade, mid-migration rollback and retry; final focal and complete",
+  "advisors": "Loopback only; results=[] in final focal log",
+  "format": {
+    "command": "git diff --cached --check",
+    "index": "isolated temporary GIT_INDEX_FILE with entire candidate",
+    "exitCode": 0,
+    "realIndexEmpty": true
+  },
+  "preservation": "preservation.json",
+  "git": {
+    "branch": "main",
+    "refs": {
+      "HEAD": "ff0ad6c6e505914f31eb15d56725179c9f065426",
+      "main": "ff0ad6c6e505914f31eb15d56725179c9f065426",
+      "origin/main": "ff0ad6c6e505914f31eb15d56725179c9f065426"
+    },
+    "divergence": [
+      0,
+      0
+    ],
+    "realIndexEmpty": true,
+    "evidence": "git-final.txt",
+    "evidenceSha256": "db66a9108b474aef6a70def48a16156f5c0263ae12e67cfd9b97e4571fc0c3fc"
+  },
+  "noProductOrTestChangesAfterFinalInputs": true,
+  "finalEditsAfterExecution": "Only successor evidence, report and task/status documentation. No modified input among456.",
+  "limits": [
+    "Local synthetic only; not Hosted/Production or H6.",
+    "Invoice/service/cancellation new concurrent fixtures prove exclusion/rejection on pending Bookings, not integral settled external sales.",
+    "Current contract has one administrator; two independent sessions tested, no invented actor delegation.",
+    "No exhaustive privileged database maintenance or production load claim."
+  ],
+  "publication": "Recommendation only; requires later user instruction. No commit/push/deploy."
+}

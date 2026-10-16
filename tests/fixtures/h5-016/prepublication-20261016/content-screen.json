@@ -1,0 +1,36 @@
+{
+  "result": "PASS scoped content review",
+  "scope": "All127 proposed paths, recursively decompress gzip and tar members; generated digest/status envelopes are sealed afterwards and checked in final pass. Ignored inventory includes names/modes/sizes/hashes only, not ignored contents.",
+  "scanCounts": {
+    "payloads": 278,
+    "bytes": 32712061,
+    "gzipCrcVerified": 94
+  },
+  "suspiciousMatches": [],
+  "checks": [
+    "Private key headers",
+    "Provider token patterns",
+    "JWT shapes",
+    "Spanish IBAN shape",
+    "Unexpected binary payload",
+    "Email and endpoint domains",
+    "Source review for hardcoded credentials and real records",
+    "Declared archive provenance and file modes"
+  ],
+  "emailDomains": {
+    "github.com": 2
+  },
+  "emailInterpretation": "git@github.com is authorized SSH transport identity, not customer/contact data.",
+  "endpointHosts": {
+    "supabase.com": 39,
+    "127.0.0.1": 29
+  },
+  "absolutePathOccurrences": {
+    "/Users/andres": 182
+  },
+  "absolutePathAssessment": "Historical local runtime/PostgreSQL and temp workspace paths support reproduction; no secrets. Preserved instead of rewriting protected evidence. New artifacts use repository-relative paths.",
+  "limits": "Heuristics plus manual scoped source/evidence review; not a claim to recognize all possible secrets or personal data automatically.",
+  "securityUnchanged": "Migration63 identical to audited SHA256; RLS/FORCE RLS, function attributes/ACL and final permission tests reconciled, not rerun.",
+  "onlyNewMigration": "supabase/migrations/20261015233307_h5_joint_closure_reopening.sql",
+  "generatedAndDependencies": "Only ignored .next/node_modules/tsconfig.tsbuildinfo; their contents not staged. All candidate files regular100644; gzip/tar are declared evidence."
+}

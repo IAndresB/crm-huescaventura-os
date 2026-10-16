@@ -1,5 +1,27 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+**Prepublicación H5-015/H5-016 — aceptación técnica preliminar del candidato corregido, exclusivamente local/aislado, 2026-10-16.** Verificación de identidad, integridad y preparación para publicación; el dictamen y el inventario sucesor constan en el informe de prepublicación. H5-013/H5-014 están publicadas en `ff0ad6c6e505914f31eb15d56725179c9f065426`. H5-015 está implementada y auditada PASS en local; H5-016 COMPLETED en ese alcance. Publicación H5-015/H5-016 pendiente de instrucción posterior. El candidato original conserva FAIL y queda excluido de la aceptación.
+
+Los456 inputs probados permanecen idénticos al manifiesto `f72596dafa448cbba1d3ddb1525aab57097a4992f40bc0712da2eb444008f30d`. La evidencia completa2756/2756, focal78/78, evaluadores66/66, unitarias197/197 y health1/1 se conserva; esta fase no repite ni se atribuye esas ejecuciones. H5 global IN PROGRESS; H5-017 y H6 NOT STARTED. Hosted/Production no acreditados, pendientes globales intactos. Sin commit/push/despliegue ni datos reales.
+
+[Informe de prepublicación e inventario propuesto](../specs/001-core-crm/prepublication-TSK-H5-015-016.md). STOP tras el dictamen; cualquier publicación exige una instrucción posterior.
+
+## Antecedente de auditoría H5-016 — conservado
+
+**TSK-H5-016 — auditoría independiente COMPLETED local/aislado, 2026-10-16. Dictamen PASS del candidato corregido; original FAIL por F01.** Contrapruebas nuevas detectaron suficiencia indebidamente aceptada ante fundamentos incompletos; correctivo mínimo del evaluador compartido en migración63 no publicada. Migraciones1–62, expected y evidencias originales conservados. Regresión PostgreSQL completa limpia **2756/2756**, focal **78/78** (41 H5-015 +37 H5-016), evaluadores sobre63 **66/66**, unitarias **197/197**, health **1/1**. Instalación congelada, typecheck/lint/build, seguridad y migraciones PASS; audit0 vulnerabilidades. Manifiesto final456 inputs SHA-256 `f72596dafa448cbba1d3ddb1525aab57097a4992f40bc0712da2eb444008f30d`.
+
+H5-015 IN PROGRESS pendiente de aceptación humana/publicación del candidato corregido. H5-016 COMPLETED exclusivamente como auditoría local; H5 global IN PROGRESS. Base `ff0ad6c6e505914f31eb15d56725179c9f065426`, sin commit/push/despliegue ni datos reales. H5-017 y H6 NOT STARTED; pendientes globales conservados. Se recomienda aceptar técnicamente el candidato corregido y tratar cualquier publicación mediante instrucción posterior. STOP tras entregar dictamen y evidencias.
+
+[Informe independiente, inventario y límites](../specs/001-core-crm/evidence-TSK-H5-016.md), [matriz normativa](../specs/001-core-crm/matrix-TSK-H5-016.md), [hallazgos](../specs/001-core-crm/defects-TSK-H5-016.md), [invalidación](../specs/001-core-crm/invalidation-TSK-H5-016.md).
+
+## Antecedente de implementación H5-015 — conservado
+
+**TSK-H5-015 — READY FOR INDEPENDENT REVIEW, 2026-10-16; candidato exclusivamente local/aislado.** Cierre conjunto explícito y reapertura fundada implementados sobre H5-013; invalidación persistida e historial preservado. Base verificada `ff0ad6c6e505914f31eb15d56725179c9f065426`. Focal final41/41, regresión de evaluadores sobre63 66/66, unitarias197/197; typecheck/lint, seguridad y upgrade PASS. PostgreSQL2719 casos únicos consolidados PASS; el completo anterior fue2700/2716 y conserva16 FAIL instrumentales, subsanados en focal final. No se declara ejecución completa limpia del candidato final.
+
+H5-015 IN PROGRESS pendiente de revisión/aceptación independiente; H5-016 NOT STARTED. H5 global IN PROGRESS. Sin commit/push/deploy ni datos reales. [Informe y límites](../specs/001-core-crm/evidence-TSK-H5-015.md), [matriz](../specs/001-core-crm/matrix-TSK-H5-015.md), [defectos](../specs/001-core-crm/defects-TSK-H5-015.md). STOP tras entregar este candidato. La siguiente acción recomendada requiere autorización posterior para H5-016; no se inicia aquí.
+
+## Antecedente de prepublicación H5-013/H5-014 — conservado
+
 **Prepublicación H5-013/H5-014 — READY TO PUBLISH, 2026-10-16; exclusivamente local/aislado.** Aceptación técnica humana del candidato corregido, condicionada a esta verificación final: 434 inputs idénticos al candidato auditado, preservación y formato PASS. La aceptación no equivale a publicación: no se ha ejecutado commit, push ni despliegue. H5-014 COMPLETED local/aislado; H5-013 mantiene pendiente su publicación controlada. H5 global IN PROGRESS; H5-015+ no iniciadas.
 
 [Informe de prepublicación e inventario exacto](../specs/001-core-crm/prepublication-TSK-H5-013-014.md). STOP tras entregar el dictamen; cualquier publicación requiere instrucción posterior.
