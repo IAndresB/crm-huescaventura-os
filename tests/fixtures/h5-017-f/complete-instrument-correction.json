@@ -1,0 +1,24 @@
+{
+  "capture": "14-complete",
+  "result": {
+    "tests": 2920,
+    "pass": 2916,
+    "fail": 4
+  },
+  "changedDuringRun": [],
+  "productSha256": "69f8bdddb1acd5fbef1d2154ae81d16a6ecc1a0f5ed34783a99c11dbb83e9563",
+  "findings": [
+    {
+      "cases": "E-I05 alias=false/true",
+      "cause": "Uniform F fixture maps previous=true to67, but these two original historical tests require66 to prepare the D-accepted false pair before applying67. Setup correctly denied on67.",
+      "resolution": "Exact mixed-fixture adapter for only the E identity importer. Default E-I01\u2013I04 use68; previous=true in E-I05 uses original protected E factory previous=true (66), then original test applies67. Original sources/assertions unchanged."
+    },
+    {
+      "cases": "H4-023 independent Bookings and enclosing parent",
+      "cause": "Original 2000ms deadline for independent progress expired in the 179-file parallel phase; fixture uses historic H4 migrations and does not load F. Timing hypothesis to confirm in isolated retest.",
+      "resolution": "Run the untouched file independently and isolate it as a separate phase in the complete V2 runner. No deadline, assertion or protected fixture change."
+    }
+  ],
+  "productChanges": 0,
+  "oldRunnerAndHookPreserved": true
+}

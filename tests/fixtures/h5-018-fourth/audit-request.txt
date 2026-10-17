@@ -1,0 +1,566 @@
+# CRM HUESCAVENTURA OS
+# TSK-H5-018 — CUARTA AUDITORÍA INDEPENDIENTE
+# CANDIDATO H5-017-E / MIGRACIÓN 67
+
+Actúa como auditor técnico independiente especializado en
+PostgreSQL, seguridad, integridad referencial, historia
+canónica y consistencia temporal.
+
+MISIÓN
+
+Auditar independientemente el candidato H5-017-E.
+
+Las tres auditorías anteriores detectaron defectos
+materiales que fueron corregidos posteriormente.
+
+El candidato E declara PASS interno y está preparado
+para una cuarta auditoría independiente.
+
+Tu responsabilidad es intentar falsar ese resultado.
+
+No limitarte a repetir los reproductores conocidos.
+
+Diseñar nuevas contrapruebas desde las fuentes normativas
+y las invariantes del sistema.
+
+No modificar el producto auditado.
+
+No realizar commits, push ni despliegues.
+
+==================================================
+1. PREFLIGHT E IDENTIDAD
+==================================================
+
+Verificar:
+
+- HEAD, main y origin/main.
+- Commit base aprobado.
+- Divergencia 0/0.
+- Índice vacío.
+- Integridad del árbol.
+- Ausencia de cambios no autorizados.
+- Identidad del candidato E.
+- Sellos históricos.
+- Evidencias protegidas.
+
+Base aprobada:
+
+9649a2773530ea8a43237b4e1f2034f80e34136f
+
+SHA-256 declarado del contenido del inventario E:
+
+0e0c08b8b70da6d12c2480eb8217cdf1e5df9b640c6dd1244f153b76a3be8191
+
+Inventario declarado:
+
+37.758 archivos.
+
+37.543 recibidos intactos.
+
+215 altas E.
+
+0 archivos anteriores modificados o eliminados.
+
+Consultar:
+
+specs/001-core-crm/evidence-TSK-H5-017-E.md
+
+tests/fixtures/h5-017-e/candidate-seal.json
+
+Localizar y verificar los demás manifiestos y
+documentos del correctivo E.
+
+Recalcular independientemente:
+
+- Rutas.
+- Hashes.
+- Tamaños.
+- Tipos.
+- Permisos relevantes.
+- Inventario.
+- Sello.
+
+No asumir que el inventario es correcto por existir.
+
+No alterar el candidato durante la auditoría.
+
+Si aparece una discrepancia material, investigar.
+
+Si no puede establecerse su identidad, STOP.
+
+==================================================
+2. INDEPENDENCIA NORMATIVA
+==================================================
+
+Consultar directamente:
+
+- tasks.md.
+- TSK-H5-017.
+- TSK-H5-018.
+- Asignaciones normativas §6.
+- Protocolos §2.2.
+- Plan §§7.1, 8 y 11.2.
+- SPEC-FR-HIST-001.
+- SPEC-FR-ERR-001.
+- AC-070.
+- AC-072.
+- AC-081.
+- B01/B07/B08/B10.
+- C01/C04.
+- Contratos de identidad y propiedad.
+- Contratos de revisión autorizada.
+- Contratos de evidencia y permisos.
+- Invariantes aplicables.
+
+Construir una matriz normativa independiente.
+
+Utilizar los contratos aprobados como oráculo.
+
+No aceptar como definición normativa las
+pruebas del implementador.
+
+==================================================
+3. PROPIEDAD CANÓNICA — B08
+==================================================
+
+Auditar la relación entre:
+
+- Operación.
+- Ejecución.
+- Evento.
+- Evidencia.
+- Observación.
+- Trabajo.
+
+Comprobar que cada relación diagnóstica
+presentada como canónica está respaldada
+por su fuente de verdad.
+
+Diseñar contrapruebas con:
+
+A. Operación perteneciente a su ejecución.
+
+B. Operación perteneciente a otra ejecución.
+
+C. UUID iguales entre tipos diferentes.
+
+D. UUID diferentes.
+
+E. Operación inicialmente desconocida.
+
+F. Confirmación canónica posterior.
+
+G. Asociación falsa almacenada previamente.
+
+H. Evidencia local con ejecución ajena.
+
+I. Referencias opcionales.
+
+J. Referencias múltiples.
+
+K. Relaciones que cambian tras una transición
+   autorizada.
+
+L. Lectura posterior a cambios canónicos.
+
+Comprobar tanto escritura como lectura.
+
+No aceptar que una validación inicial sustituya
+a la comprobación posterior cuando sea necesaria.
+
+==================================================
+4. RECORRIDOS HISTÓRICOS
+==================================================
+
+Auditar la recuperación diagnóstica desde:
+
+- Contexto original.
+- Contexto vigente.
+- Contexto padre.
+- Contexto derivado.
+- Historia autorizada.
+
+Construir secuencias temporales completas.
+
+Ejemplos de escenarios que deben validarse
+contra las normas antes de ejecutarse:
+
+A. Servicio → Reserva.
+
+B. Reserva → Oportunidad.
+
+C. Servicio → Reserva → Oportunidad.
+
+D. Revisión autorizada A → B.
+
+E. Revisiones sucesivas.
+
+F. Petición anterior a la revisión.
+
+G. Petición posterior a la revisión.
+
+H. Confirmación posterior de operación.
+
+I. Observación pendiente.
+
+J. Referencia histórica válida.
+
+K. Referencia histórica incompatible.
+
+L. Contexto padre sin autorización.
+
+M. Contexto derivado sin autorización.
+
+Comprobar:
+
+- Trazabilidad.
+- Procedencia.
+- Versión.
+- Contexto histórico.
+- Contexto vigente.
+- Permisos efectivos.
+- Ausencia de filtración.
+
+No asumir que un recorrido histórico
+concede automáticamente acceso.
+
+==================================================
+5. REVOCACIÓN Y RESTAURACIÓN DE PERMISOS
+==================================================
+
+Diseñar pruebas adversariales con datos sintéticos.
+
+Secuencia mínima:
+
+1. Crear información accesible legítimamente.
+2. Confirmar acceso autorizado.
+3. Retirar autorización mediante un flujo permitido.
+4. Consultar nuevamente.
+5. Verificar ausencia de exposición.
+6. Restaurar autorización mediante flujo permitido.
+7. Consultar nuevamente.
+8. Verificar recuperación legítima.
+
+Extender a:
+
+- Evidencia.
+- Observaciones.
+- Operaciones.
+- Ejecuciones.
+- Contextos padre.
+- Contextos derivados.
+- Referencias opcionales.
+- Metadatos.
+- Enlaces.
+
+Comprobar que no se filtran:
+
+- Identificadores restringidos.
+- Metadatos.
+- Enlaces.
+- Cuerpos completos.
+- Secretos.
+- URL temporales.
+- Economía interna innecesaria.
+
+No inventar mecanismos de revocación
+que no existan en los contratos.
+
+==================================================
+6. MIGRACIÓN 67
+==================================================
+
+El implementador declara que la migración 67:
+
+- Modifica tres funciones existentes.
+- No crea objetos.
+- No amplía privilegios.
+- Conserva RLS/FORCE RLS.
+- Preserva ACL y propietarios.
+
+Verificar cada afirmación independientemente.
+
+Examinar:
+
+- Definiciones anteriores y posteriores.
+- Dependencias.
+- Funciones invocadas.
+- Seguridad de ejecución.
+- Permisos efectivos.
+- Integridad referencial.
+- Identidad tipo + UUID.
+- Comportamiento temporal.
+- Posibles filtraciones indirectas.
+
+Ejecutar V-MIG independiente.
+
+Verificar:
+
+- Instalación limpia.
+- Actualización poblada.
+- Rollback aplicable.
+- Recuperación.
+- Reaplicación.
+- Permisos.
+- Compatibilidad.
+
+No modificar migraciones anteriores.
+
+==================================================
+7. REGRESIÓN DE DEFECTOS ANTERIORES
+==================================================
+
+Reejecutar los reproductores originales:
+
+F01 — Aislamiento de contexto.
+
+F02 — Integridad de referencias.
+
+F03 — Incertidumbre E4.
+
+H5-018-2-F01 — Trazabilidad temporal.
+
+H5-018-3-F01 — Operación/ejecución.
+
+H5-018-3-F02 — Contexto padre.
+
+Revisar también las tres variantes
+derivadas corregidas en E.
+
+No modificar los reproductores originales.
+
+Conservar los FAIL históricos.
+
+No considerar suficiente el PASS de estas
+regresiones para emitir dictamen favorable.
+
+==================================================
+8. CONTRAPRUEBAS NUEVAS
+==================================================
+
+Diseñar pruebas que combinen dimensiones:
+
+- Identidad.
+- Propiedad.
+- Contexto.
+- Tiempo.
+- Permisos.
+- Procedencia.
+
+Priorizar escenarios no cubiertos por
+las pruebas anteriores.
+
+Comprobar transiciones sucesivas y cambios
+de autorización durante la vida del trabajo.
+
+Evitar combinaciones artificiales que violen
+precondiciones normativas.
+
+Registrar para cada prueba:
+
+- Norma aplicable.
+- Precondiciones.
+- Datos sintéticos.
+- Transición.
+- Resultado esperado.
+- Resultado observado.
+- Evidencia.
+- Conclusión.
+
+==================================================
+9. REGRESIONES TÉCNICAS
+==================================================
+
+Ejecutar:
+
+- V-DOM.
+- V-DAT.
+- V-MIG.
+- Contrapruebas negativas.
+- Permisos y confidencialidad.
+- PostgreSQL completo.
+- Unitarias.
+- Health independiente.
+- Instalación congelada.
+- Typecheck.
+- Lint.
+- Build.
+- Auditoría de dependencias.
+
+La verificación interna declara:
+
+PostgreSQL: 2884/2884 PASS.
+Unitarias: 208/208 PASS.
+Health: 1/1 PASS.
+
+Estos resultados son antecedentes, no pruebas
+independientes de esta auditoría.
+
+Distinguir:
+
+- Ejecuciones actuales.
+- Repeticiones.
+- Contrapruebas nuevas.
+- Evidencias históricas reutilizadas.
+
+No sumar baterías solapadas.
+
+No declarar PASS si existen defectos
+materiales reproducibles.
+
+==================================================
+10. PRESERVACIÓN
+==================================================
+
+Verificar:
+
+- Candidato E intacto.
+- Migraciones 1–66 intactas.
+- Expected congelados.
+- Auditorías FAIL anteriores.
+- Evidencias históricas.
+- Sellos anteriores.
+- Inventarios anteriores.
+- 456 inputs de H5-016.
+
+Conservar documentada la transición
+previamente autorizada de composition.ts.
+
+No sobrescribir resultados originales.
+
+No alterar evidencias protegidas.
+
+==================================================
+11. AUTONOMÍA TÉCNICA
+==================================================
+
+Dispones de autonomía para:
+
+INVESTIGAR
+→ REPRODUCIR
+→ CONTRAPROBAR
+→ AUDITAR
+→ REPETIR.
+
+Puedes:
+
+- Crear pruebas independientes.
+- Corregir instrumentos propios.
+- Resolver problemas técnicos ordinarios.
+- Repetir verificaciones.
+- Ampliar cobertura dentro del alcance.
+- Documentar hallazgos.
+
+No puedes:
+
+- Modificar producto.
+- Cambiar contratos normativos.
+- Alterar expected.
+- Debilitar seguridad.
+- Sobrescribir pruebas originales.
+- Usar datos reales.
+- Publicar.
+- Desplegar.
+
+Ante un defecto material:
+
+1. Reproducir.
+2. Aislar la causa.
+3. Identificar la norma incumplida.
+4. Conservar FAIL.
+5. Documentar reproductor.
+6. Continuar verificaciones seguras.
+
+No corregir producto.
+
+==================================================
+12. INFORME FINAL
+==================================================
+
+Entregar:
+
+A. PASS / FAIL / BLOCKED.
+
+B. Identidad exacta del candidato E.
+
+C. Matriz normativa independiente.
+
+D. Propiedad canónica B08.
+
+E. Recorridos históricos.
+
+F. Revocación y restauración de permisos.
+
+G. Identidad operación/ejecución/evidencia.
+
+H. Auditoría migración 67.
+
+I. Regresiones anteriores.
+
+J. Contrapruebas nuevas.
+
+K. V-DOM/V-DAT/V-MIG.
+
+L. PostgreSQL completo.
+
+M. Unitarias y health.
+
+N. Seguridad y confidencialidad.
+
+O. Preservación histórica.
+
+P. Defectos materiales pendientes.
+
+Q. Recomendación de aceptación.
+
+R. Inventario y sello de auditoría.
+
+Preparar evidencias independientes nuevas,
+sin sobrescribir las anteriores.
+
+Si el resultado es PASS:
+
+Identificar exactamente el conjunto de archivos
+y hashes recomendado para aceptación.
+
+Si el resultado es FAIL:
+
+Documentar los correctivos necesarios,
+sin implementarlos.
+
+==================================================
+13. STOP
+==================================================
+
+DM-PENDING-005 permanece OPEN.
+
+No inventar políticas de conservación,
+anonimización, eliminación ni parámetros
+operativos definitivos.
+
+No utilizar datos o servicios de negocio reales.
+
+No realizar commits.
+
+No realizar push.
+
+No desplegar.
+
+No iniciar H5-019 ni H6.
+
+No acreditar H6-015 ni H6-017.
+
+No declarar H5-017/H5-018 COMPLETED.
+
+Finalizar con:
+
+- Dictamen independiente.
+- Evidencias reproducibles.
+- Inventario.
+- Hallazgos.
+- Recomendación.
+
+STOP.
+
+Esperar autorización expresa del director
+del proyecto.

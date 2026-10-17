@@ -1,0 +1,48 @@
+--- supabase/migrations/20261016142812_h5_protected_diagnostics.sql
++++ supabase/migrations/20261017004525_h5_diagnostic_version_provenance_replay.sql
+@@ -1,6 +1,6 @@
+-create function crm_api.h5_diagnostic_read(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea)returns jsonb
++create or replace function crm_api.h5_diagnostic_read(f2p bytea,f2s bytea,f1p bytea,f1s bytea,q bytea)returns jsonb
+ language plpgsql volatile security definer set search_path=pg_catalog,pg_temp as $$
+-declare h text[];t text[];f text[];a jsonb;nodes jsonb;chosen jsonb;r jsonb;refs text[];n integer;
++declare h text[];t text[];f text[];a jsonb;nodes jsonb;chosen jsonb;r jsonb;refs text[];n integer;history jsonb;
+ begin
+  h:=crm_f2.admit(f2p,f2s,q,'C01','read_evidence');t:=crm_f1.verify_envelope(f1p,f1s,q,'C01','evidence','read_evidence');f:=crm_f1.fields(q);
+  if h[17]<>t[14]or cardinality(f)<>2 or f[1]<>'CRM-H5-DIAGNOSTIC-READ1'then raise exception 'DIAGNOSTIC_DENIED';end if;
+@@ -12,6 +12,36 @@
+  or(a?'reference'and a->>'reference'!~'^([a-f0-9-]{36}|ref-[a-f0-9]{16})$')then raise exception 'DIAGNOSTIC_DENIED';end if;
+  n:=(a->>'pageSize')::int;nodes:=crm_private.diagnostic_nodes(h[17],a->>'contextKind',(a->>'contextId')::uuid);
+  if a?'reference'then
++  -- An explicit B08 operation lookup may inspect its owner's authorized history.
++  -- This is not part of the root's canonical set and never authorizes a write.
++  -- Preserve original typed context/version and revalidate both source versions.
++  with owned_history as(
++   select o.operation_id,o.actor_id,o.recorded_at,hist.history_id,hist.recorded_at history_time,
++    e.execution_id,d.version,d.context
++   from crm_private.b07_operations o
++   join crm_private.b07_history hist on hist.operation_id=o.operation_id and hist.subject_id=o.result_ref
++   join crm_private.b08_command_results result on result.operation_id=o.operation_id
++   join crm_private.b08_executions e on e.execution_id=hist.subject_id
++   join crm_private.b08_definitions d on d.definition_id=e.definition_id
++    and d.definition_id::text=hist.after_state#>>'{definition,definition_id}'
++    and d.version::text=hist.after_state#>>'{definition,version}'
++    and d.context=hist.after_state#>'{definition,context}'
++   where o.operation_id::text=a->>'reference' and o.admin_scope=h[17] and hist.admin_scope=h[17]
++    and result.admin_scope=h[17] and e.admin_scope=h[17] and d.admin_scope=h[17]
++    and left(hist.action_kind,5)='work_' and hist.subject_id::text=hist.after_state#>>'{execution,execution_id}'
++    and crm_private.b08_context(d,h[17])
++    and exists(select 1 from jsonb_array_elements(nodes)x where x->>'source'='b08_executions' and x->>'id'=e.execution_id::text)
++  ), projected as(
++   select jsonb_build_object('key','b07_operations/'||operation_id,'source','b07_operations','id',operation_id,
++    'references',jsonb_build_array(operation_id,execution_id),'actorId',actor_id,'recordedAt',recorded_at,
++    'historical',true,'definitionVersion',version,'originContextKind',context->>'contextKind','originContextId',context->>'contextId')node from owned_history
++   union all
++   select jsonb_build_object('key','b07_history/'||history_id,'source','b07_history','id',history_id,
++    'references',jsonb_build_array(history_id,operation_id,execution_id),'actorId',actor_id,'recordedAt',history_time,
++    'historical',true,'definitionVersion',version,'originContextKind',context->>'contextKind','originContextId',context->>'contextId')node from owned_history
++  )select coalesce(jsonb_agg(distinct node),'[]')into history from projected
++   where not exists(select 1 from jsonb_array_elements(nodes)x where x->>'key'=node->>'key');
++  nodes:=nodes||history;
+   -- Follow correlated IDs transitively inside this root only. No business state
+   -- is inferred from the existence or outcome of an observation.
+   with recursive edges as(select value node from jsonb_array_elements(nodes)),walk(ref)as(

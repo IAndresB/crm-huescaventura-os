@@ -1,0 +1,47 @@
+{
+  "migration": "supabase/migrations/20261016220850_h5_diagnostic_owned_references.sql",
+  "migrationSha256": "45ee62b013979f09b1145b6fa3ad096f88f676bc2170f48e245b7df2ca8c28a5",
+  "functions": [
+    {
+      "function": "crm_private.diagnostic_canonical_nodes",
+      "priorSource": "supabase/migrations/20261016174248_h5_diagnostic_context_reference_fix.sql",
+      "priorDefinitionSha256": "84b04e716f4d48368e0ab0ca19168bf9deeb64a34d85cd0e5127f20198e4a31a",
+      "finalDefinitionSha256": "a0bfcfb00aa438fd41afa666a41c0b976fc114ddd3431b4375d3200f1ebbe436"
+    },
+    {
+      "function": "crm_private.diagnostic_nodes",
+      "priorSource": "supabase/migrations/20261016192425_h5_diagnostic_temporal_trace.sql",
+      "priorDefinitionSha256": "18c57f734e873cc68f62610140a684d2420e3ba2095860b71593578659bbbf97",
+      "finalDefinitionSha256": "225a768d0fdd78a459711f74707d280cc989a704e2e18922d3ff39456b90f34c"
+    },
+    {
+      "function": "crm_api.h5_diagnostic_record",
+      "priorSource": "supabase/migrations/20261016174248_h5_diagnostic_context_reference_fix.sql",
+      "priorDefinitionSha256": "52ebd4e78820e6f0c0a7503944d163d0a3978bc9a73dbd2833bea3a89d758377",
+      "finalDefinitionSha256": "0a4db1c3fbc7e9332701e2b7ea4d353c86d6a07dcef23022cf17654191465a1f"
+    }
+  ],
+  "newObjects": 0,
+  "dataDml": false,
+  "aclStatements": false,
+  "historicalMigrationFilesPreserved": 66,
+  "existingProductFilesEdited": [],
+  "newProductFiles": [
+    "supabase/migrations/20261016220850_h5_diagnostic_owned_references.sql"
+  ],
+  "vmigCapture": "22-final-focal",
+  "catalog": {
+    "tables": 175,
+    "relations": 487,
+    "functions": 305,
+    "policies": 332,
+    "constraints": 1037
+  },
+  "migrationTool": "npx --yes supabase@2.119.0 migration new h5_diagnostic_owned_references",
+  "officialReferences": [
+    "https://supabase.com/changelog.md",
+    "https://supabase.com/changelog/postgres-15-19-17-11-breaking-changes",
+    "https://supabase.com/docs/guides/database/functions.md"
+  ],
+  "officialReview": "Pinned local PostgreSQL17.11 and Supabase CLI2.119.0; no version upgrade, new extension, legacy cipher, custom operator or index introduced. Existing restricted function owners and search_path preserved; V-MIG/advisors loopback checked."
+}

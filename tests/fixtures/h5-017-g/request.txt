@@ -1,0 +1,489 @@
+# CRM HUESCAVENTURA OS
+# H5-017/H5-018 — CORRECTIVO G
+# H5-018-5-F01 — REPRODUCIBILIDAD TEMPORAL
+
+Actúa como ingeniero principal de verificación,
+especialista en PostgreSQL, fixtures deterministas,
+cronología de dominio y auditoría de regresiones.
+
+MISIÓN
+
+Resolver el hallazgo H5-018-5-F01 de la quinta
+auditoría independiente.
+
+El candidato F permanece rechazado.
+
+La auditoría identificó un fixture heredado
+de cancelaciones con una cronología sintética
+incoherente.
+
+El acto utiliza:
+
+2026-10-17T10:00:00Z
+
+La evidencia utiliza la hora real del sistema.
+
+Cuando la evidencia queda después del acto,
+el producto la rechaza correctamente.
+
+La quinta auditoría obtuvo:
+
+2630 PASS / 303 FAIL de 2933 casos PostgreSQL.
+
+295 fallos presentan rechazo de evidencia.
+
+Otros siete fallos de aserción y un bloqueo
+no observado carecen de causa concluyente.
+
+OBJETIVO
+
+Corregir exclusivamente la instrumentación
+temporal defectuosa y comprobar si el candidato F
+supera una batería completa reproducible.
+
+No modificar el comportamiento del producto.
+
+No modificar migraciones.
+
+No publicar.
+
+==================================================
+1. PREFLIGHT
+==================================================
+
+Verificar:
+
+- HEAD = main = origin/main.
+- Base aprobada.
+- Divergencia 0/0.
+- Índice vacío.
+- Integridad del candidato F.
+- Integridad de la quinta auditoría.
+- Sellos e inventarios históricos.
+- Expected congelados.
+- FAIL anteriores.
+
+Base:
+
+9649a2773530ea8a43237b4e1f2034f80e34136f
+
+Sello de quinta auditoría:
+
+dcd6a2ad70c72b6e22c52c95230155df76e775a47bb3b2a88d9fe3d025887dea
+
+Consultar:
+
+specs/001-core-crm/evidence-TSK-H5-018-fifth.md
+
+specs/001-core-crm/defects-TSK-H5-018-fifth.md
+
+specs/001-core-crm/matrix-TSK-H5-018-fifth.md
+
+tests/fixtures/h5-018-fifth/audit-inventory.json
+
+tests/fixtures/h5-018-fifth/audit-seal.json
+
+Verificar el candidato F recibido:
+
+38118 archivos.
+
+Verificar los 153 artefactos añadidos
+por la quinta auditoría.
+
+No modificar ni sobrescribir estos elementos.
+
+==================================================
+2. REPRODUCCIÓN DEL DEFECTO
+==================================================
+
+Localizar el fixture heredado de cancelaciones.
+
+Reproducir el fallo original.
+
+Identificar:
+
+- Instante del acto.
+- Instante de la evidencia.
+- Origen de ambos instantes.
+- Dependencia de la hora real.
+- Precondiciones temporales.
+- Validaciones del producto.
+- Pruebas afectadas.
+
+Demostrar que el rechazo ocurre cuando
+la evidencia queda después del acto.
+
+Confirmar que el producto sigue rechazando
+correctamente la evidencia posterior.
+
+Conservar el FAIL original.
+
+==================================================
+3. CONSULTA NORMATIVA
+==================================================
+
+Consultar las normas aprobadas aplicables:
+
+- tasks.md.
+- Protocolos §2.2.
+- Plan §§7.1, 8 y 11.2.
+- Contratos temporales de cancelación.
+- Reglas de evidencia.
+- Reglas de inmutabilidad.
+- Criterios de aceptación afectados.
+- Contrapruebas históricas.
+
+Determinar qué relaciones temporales
+son obligatorias.
+
+No inventar una nueva política temporal.
+
+No cambiar el comportamiento normativo.
+
+==================================================
+4. CORRECCIÓN DEL FIXTURE
+==================================================
+
+Implementar la corrección mínima.
+
+REQUISITOS
+
+1. Utilizar una cronología sintética coherente.
+
+2. Eliminar la dependencia accidental
+   de la hora real cuando afecte a la
+   reproducibilidad del fixture.
+
+3. Preservar el instante del acto cuando
+   esté protegido por el contrato.
+
+4. Preservar las precondiciones temporales.
+
+5. Mantener las pruebas negativas de
+   evidencia posterior.
+
+6. Mantener los rechazos por cronología inválida.
+
+7. No modificar aserciones para ocultar fallos.
+
+8. No eliminar casos.
+
+9. No marcar pruebas como omitidas.
+
+10. No alterar expected congelados.
+
+11. No modificar producto ni migraciones.
+
+12. No sobrescribir el fixture histórico
+    protegido si su modificación está prohibida.
+
+Si el fixture original está protegido,
+crear una adaptación de instrumentación
+separada y trazable, sin alterar el original.
+
+Si no puede corregirse dentro de estos
+límites, STOP y documentar el bloqueo.
+
+==================================================
+5. CONTRAPRUEBAS TEMPORALES
+==================================================
+
+Crear o ejecutar pruebas con:
+
+A. Evidencia anterior al acto.
+
+B. Evidencia exactamente en el acto.
+
+C. Evidencia posterior al acto.
+
+D. Acto con fecha sintética fija.
+
+E. Repetición en diferentes momentos reales.
+
+F. Ejecución independiente de la fecha actual.
+
+G. Cancelación válida.
+
+H. Cancelación inválida.
+
+I. Evidencia histórica.
+
+J. Evidencia de contexto incorrecto.
+
+K. Ausencia de efectos secundarios.
+
+L. Preservación de historia.
+
+Verificar que los resultados no dependen
+accidentalmente del momento de ejecución.
+
+==================================================
+6. INVESTIGACIÓN DE LOS OCHO FALLOS
+==================================================
+
+Investigar individualmente:
+
+- Siete fallos de aserción.
+- Un bloqueo no observado.
+
+Para cada caso:
+
+1. Localizar test y aserción exacta.
+2. Reproducir.
+3. Registrar resultado esperado.
+4. Registrar resultado observado.
+5. Identificar dependencias.
+6. Determinar causa raíz.
+7. Clasificar el defecto.
+
+Clasificaciones permitidas:
+
+- Consecuencia demostrada del fixture temporal.
+- Otro defecto de instrumentación.
+- Regresión funcional.
+- Defecto histórico independiente.
+- Bloqueo no concluyente.
+
+No atribuir automáticamente los ocho
+fallos al problema temporal.
+
+Si existe un defecto de instrumentación
+dentro del alcance autorizado, corregirlo
+sin alterar la semántica de las pruebas.
+
+Si se identifica una regresión funcional,
+no modificar producto.
+
+Documentar el defecto y aplicar STOP
+para cualquier correctivo de producto.
+
+==================================================
+7. REGRESIÓN
+==================================================
+
+Reejecutar:
+
+- Reproductores de cuarta auditoría.
+- Contrapruebas de quinta auditoría.
+- Regresiones F01/F02/F03.
+- Trazabilidad temporal.
+- Propiedad operación/ejecución.
+- Contextos padre.
+- Procedencia A→B→A.
+- Idempotencia histórica.
+- Referencias entre raíces.
+- Recuperación histórica explícita.
+
+Conservar todos los reproductores
+originales protegidos.
+
+No modificar sus resultados históricos.
+
+==================================================
+8. POSTGRESQL COMPLETO
+==================================================
+
+Ejecutar nuevamente la batería PostgreSQL
+completa sobre el candidato F.
+
+No reutilizar los resultados anteriores
+para declarar PASS de esta ejecución.
+
+Registrar:
+
+- Número de archivos.
+- Número de fases.
+- Número de casos.
+- PASS.
+- FAIL.
+- Cancelados.
+- Omitidos.
+- Duración.
+- Logs completos.
+
+Comprobar que la batería incluye los
+casos afectados por el fixture corregido.
+
+Si aparecen fallos residuales:
+
+- Investigar.
+- Reproducir.
+- Clasificar.
+- Corregir instrumentación autorizada.
+- Repetir la batería cuando proceda.
+
+No declarar PASS global con fallos
+materiales pendientes.
+
+==================================================
+9. VERIFICACIONES COMPLEMENTARIAS
+==================================================
+
+Ejecutar las verificaciones aplicables:
+
+- V-DOM.
+- V-DAT.
+- V-MIG.
+- Unitarias.
+- Health independiente.
+- Instalación congelada.
+- Typecheck.
+- Lint.
+- Build.
+- Auditoría de dependencias.
+- Seguridad.
+- Preservación histórica.
+
+Separar resultados actuales de
+evidencias históricas reutilizadas.
+
+No sumar baterías solapadas.
+
+==================================================
+10. AUTONOMÍA TÉCNICA
+==================================================
+
+Aplicar:
+
+INVESTIGAR
+→ REPRODUCIR
+→ DIAGNOSTICAR
+→ CORREGIR
+→ PROBAR
+→ AUDITAR
+→ REPETIR.
+
+Dispones de autonomía para:
+
+- Corregir fixtures no protegidos.
+- Crear adaptaciones de prueba.
+- Crear contrapruebas.
+- Corregir instrumentación propia.
+- Resolver problemas ordinarios del entorno.
+- Repetir verificaciones.
+- Documentar hallazgos.
+
+No puedes:
+
+- Modificar producto.
+- Modificar migraciones.
+- Cambiar contratos normativos.
+- Alterar expected congelados.
+- Sobrescribir evidencias protegidas.
+- Ocultar FAIL históricos.
+- Reducir cobertura para obtener PASS.
+- Utilizar datos reales.
+- Publicar.
+- Desplegar.
+
+Ante cualquier discrepancia material
+fuera del alcance autorizado, STOP.
+
+==================================================
+11. PRESERVACIÓN Y SELLADO
+==================================================
+
+Conservar:
+
+- Candidato F.
+- Quinta auditoría FAIL.
+- Auditorías anteriores.
+- FAIL históricos.
+- Migraciones 1–68.
+- Expected congelados.
+- Sellos anteriores.
+- Inventarios anteriores.
+- Evidencias protegidas.
+- Inputs H5-016.
+
+Registrar cualquier modificación autorizada
+de instrumentación con:
+
+- Ruta.
+- Hash anterior.
+- Hash posterior.
+- Justificación.
+- Pruebas afectadas.
+
+Crear evidencias nuevas del correctivo G.
+
+Generar inventario reproducible del
+candidato resultante.
+
+Distinguir claramente:
+
+- Producto F intacto.
+- Instrumentación corregida G.
+- Evidencias nuevas.
+- Historial protegido.
+
+Verificar el sello después de generarlo.
+
+==================================================
+12. INFORME FINAL
+==================================================
+
+Entregar:
+
+A. PASS / FAIL / BLOCKED.
+
+B. Identidad exacta del candidato.
+
+C. Causa raíz H5-018-5-F01.
+
+D. Corrección de instrumentación.
+
+E. Resultado de controles temporales.
+
+F. Análisis individual de los ocho fallos.
+
+G. Resultado PostgreSQL completo.
+
+H. Regresiones anteriores.
+
+I. V-DOM/V-DAT/V-MIG.
+
+J. Unitarias y health.
+
+K. Seguridad.
+
+L. Preservación histórica.
+
+M. Inventario y hashes.
+
+N. Defectos pendientes.
+
+O. Recomendación para nueva auditoría
+   independiente H5-018.
+
+No declarar H5-017 ni H5-018 COMPLETED.
+
+==================================================
+13. STOP
+==================================================
+
+DM-PENDING-005 permanece OPEN.
+
+Utilizar exclusivamente datos sintéticos.
+
+No realizar commits.
+
+No realizar push.
+
+No desplegar.
+
+No utilizar servicios de negocio reales.
+
+No iniciar H5-019 ni H6.
+
+No acreditar H6-015 ni H6-017.
+
+Cuando el correctivo de instrumentación
+esté implementado, verificado y sellado:
+
+STOP.
+
+Entregar informe completo.
+
+Esperar una nueva auditoría independiente
+antes de recomendar aceptación.

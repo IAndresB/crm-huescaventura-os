@@ -1,0 +1,35 @@
+import {before,after,test} from 'node:test';
+import assert from 'node:assert/strict';
+import {randomUUID as id} from 'node:crypto';
+import {thirdDatabase,read,write} from '../support/h5-018-third-isolated.ts';
+import {jointFixture} from '../support/h5-joint-closure-fixtures.ts';
+import {workFixture} from '../support/h5-work-isolated.ts';
+import {communicationFixture} from '../support/h5-communication-isolated.ts';
+import {diagnosticReference} from '../../src/server/diagnostics.ts';
+import {semanticIssue} from '../../src/domain/semantic-error.ts';
+import type {DiagnosticNode,DiagnosticQuery} from '../../src/domain/operation-diagnostic.ts';
+let h:Awaited<ReturnType<typeof thirdDatabase>>;
+before(async()=>{h=await thirdDatabase('h5018thirdparent',59954);});after(async()=>{await h?.close();});
+async function all(q:DiagnosticQuery){const nodes:DiagnosticNode[]=[];let after:string|undefined;do{const p=await h.diagnostic.read(await h.auth(),read,{...q,...(after?{after}:{})});nodes.push(...p.nodes);after=p.next??undefined;}while(after);return nodes;}
+for(const mode of ['service-through-booking','booking-through-opportunity']as const)test('T07 historical request through existing authorized parent '+mode,async()=>{
+ const booking=await jointFixture(h),relation=(await h.observer`select b.booking_id::text,b.opportunity_id::text,s.service_id::text from crm_private.b04_bookings b join crm_private.b04_services s using(booking_id) where b.booking_id=${booking.bookingId}::uuid order by s.service_id limit 1`)[0]!;
+ const childKind=mode==='service-through-booking'?'booking_service' as const:'booking' as const,childId=mode==='service-through-booking'?relation.service_id:relation.booking_id;
+ const parentKind=mode==='service-through-booking'?'booking' as const:'opportunity' as const,parentId=mode==='service-through-booking'?relation.booking_id:relation.opportunity_id;
+ const evidence=h.req('evidence',{claim:'synthetic child history',coverage:'audit third',certainty:'reviewed',source_kind:'manual'},childId,childKind);await h.evidence.apply(await h.auth(),write,evidence);
+ const f=await workFixture(h),child={recordId:evidence.targetId,contextKind:childKind,contextId:childId,purpose:evidence.purpose};
+ await f.run({...f.definition,context:child,affectedRefs:[evidence.targetId]});
+ const o={contextKind:parentKind,contextId:parentId,operationId:f.definition.operationId,observationId:id(),requestRef:diagnosticReference(id()),outcome:'pending' as const,issues:[semanticIssue('E4','operation')]};
+ await h.diagnostic.record(await h.auth(),write,o);
+ const query={contextKind:parentKind,contextId:parentId,reference:o.requestRef,pageSize:100};const before=await all(query);
+ assert.ok(before.some(n=>n.id===o.observationId));assert.equal(before.find(n=>n.id===o.observationId)?.operationReferenceState,'canonical');assert.ok(before.some(n=>n.id===f.executionId));
+ const original=(await h.observer`select to_jsonb(x) row from crm_private.b10_diagnostic_observations x where observation_id=${o.observationId}::uuid`)[0]!.row;
+ const dest=await communicationFixture(h),nextContext={recordId:dest.recordId,...dest.context},material={...f.material,content:'Cambio posterior de trabajo sintético hijo'},approval=await f.approve(material);
+ await f.run({...f.definition,...f.base(),action:'revise',version:2,context:nextContext,material,...approval,affectedRefs:[dest.recordId]});
+ const afterParent=await all(query),afterChild=childKind==='booking'?await all({contextKind:childKind,contextId:childId,reference:o.requestRef,pageSize:100}):[],afterNew=await all({contextKind:'booking',contextId:nextContext.contextId,reference:o.requestRef,pageSize:100});
+ const history=childKind==='booking'?await all({contextKind:childKind,contextId:childId,reference:f.definition.operationId,pageSize:100}):[];
+ if(childKind==='booking')assert.ok(history.some(n=>n.id===f.definition.operationId),'authorized child historical operation remains available');
+ assert.notEqual((await h.evidence.read(await h.auth(),read,evidence.targetId,childKind,childId)).data,null,'original child evidence remains authorized');
+ const owner=await f.worker.read(await h.auth(),read,f.executionId,nextContext);assert.ok(JSON.stringify(owner).includes(f.definition.operationId));assert.deepEqual((await h.observer`select to_jsonb(x) row from crm_private.b10_diagnostic_observations x where observation_id=${o.observationId}::uuid`)[0]!.row,original);
+ console.log('T07 parent temporal',JSON.stringify({mode,operation:f.definition.operationId,observation:o.observationId,request:o.requestRef,parentKind,parentId,childKind,childId,initialCanonical:true,initialNodes:before.length,afterParent,afterChild,afterNew,authorizedChildHistory:history,originalPreserved:true}));
+ assert.ok([...afterParent,...afterChild,...afterNew].some(n=>n.id===o.observationId),'AC081: an accepted request of a canonically owned child must retain an authorized route after revision');
+});

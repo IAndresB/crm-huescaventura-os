@@ -1,0 +1,23 @@
+# H5-018 — tercera auditoría: oráculo independiente
+
+Congelado antes de leer el SQL66 y de ejecutar pruebas de esta auditoría. Candidato D declarado por el director: base9649a2773530ea8a43237b4e1f2034f80e34136f, inventario SHA2568fc37c4b13f114d3a689cac57d68a338df75b5602cb94cfc6b5211d9359b4912. La auditoría añade instrumentos/evidencias; no modifica el producto ni los originales.
+
+Fuentes leídas directamente: Constitución P06/P07/P10/P12/P13/P14/P18; Tasks §2.2, H5-017/018 y sus13 filas de §6; SPEC §14, §19–21, AC070/072/081 y NFR009/010/014; Plan B01/B07/B08/B10, C01/C04, §§5.4/7.1/8/10.1/11.2; DM-INV-047, SM-FORB-27, BR-HIST y decisiones D015–D017/D039. Identidad y filas literales en normative-sources.json. Los resultados del implementador son afirmaciones a contrastar, no el oráculo.
+
+| Obligación / casos | Esperado independiente y fundamento |
+|---|---|
+| T01 original A→B | Una petición inicialmente válida conserva localización mediante operación e historia original autorizada después de una revisión válida. Observación y hechos originales inmutables. No requiere igualdad de proyecciones entre A y B. AC081, HIST001/006, C01. |
+| T02 A→B→C y retorno permitido | Las revisiones posteriores no borran los recorridos anteriores; cada petición se evalúa con su identidad, alcance, versión, evidencia y autorización. Referencia histórica no concede acceso al estado actual ajeno. P07/P10, Plan8, HIST006. |
+| T03 antes/después, pending/confirmed | La incertidumbre se conserva; confirmación solo procede de fuente canónica compatible. Una petición anterior no se reasigna por un cambio posterior. Un intento pendiente no se transforma en éxito por estar en el diagnóstico. ERR001/002, AC072, SM-FORB27. |
+| T04 permisos y evidencia | Actor sin autenticación/MFA/contexto válido, inhabilitado, contexto falsificado o autorización final revocada obtiene rechazo sin contenido. Referencias/eventos/evidencia restringidos no conceden acceso transversal; cuerpos/canarios/URLs temporales/secretos no aparecen en diagnóstico. C01, SEC001–006, P10/P12. |
+| T05 identidad completa | UUID coincidentes entre tipos de contexto, operación, ejecución y evento no prueban identidad. No unir operación de un expediente con ejecución de otro, incluso en historia; identidad inexistente permanece no verificada o rechazada según contrato. AC081, HIST001, DM-INV047, Plan7.1. |
+| T06 F01 | La consulta solo retorna metadatos/IDs/enlaces de su contexto y procedencia autorizados; historia nueva no reintroduce filtración. C01, SEC002/003, HIST006. |
+| T07 F02 | Escritura y consulta no presentan asociaciones incompatibles como hechos. Se conservan originales y se revalida si una operación antes desconocida queda canónicamente vinculada. HIST001/006, Plan7.1, C04. |
+| T08 F03 | Excepción después de iniciar contrato con efecto desconocido conserva E4/pending, incluso tras efecto durable. Fallo conocido sin efecto puede ser E5. Sin retry/duplicación automática; resultados explícitos conservados. ERR001/002, AC072, SM-FORB27. |
+| T09 diagnóstico completo | E1–E8, trabajos pendientes, intentos y fallos persistentes investigables con referencias mínimas. Log no sustituye pago/Acceptance/entrega; sin avisos recursivos ni email interno. AC070/072/081, NFR009/010/014, Plan8/11.2. |
+| M01 migración66 | Comparar catálogo y datos65→66: únicamente cuerpo de función declarado, sin ampliación de ACL, permisos, objetos ni bypass; conservar RLS/FORCE, restricciones, IDs, versiones/historia y datos. P13, V-MIG, Plan5.4. |
+| M02 instalación/recuperación | Cadena vacía, upgrade poblado, fallo transaccional/rollback y reintento; rol ordinario no migra. Restaurar función anterior es ensayo aislado de recuperación, no modificación del candidato. V-MIG/V-DAT. |
+| C01 cobertura | Reconstruir2848 casos únicos desde resultados crudos y selecciones207/2641; comprobar dependencia directa/indirecta y entradas. No sumar repeticiones. Reejecutar lo no acreditado. V-EVI/P18. |
+| P01 preservación |37400 archivos del candidato permanecen exactos;65 migraciones anteriores,456 inputs H5-016 con única transición autorizada composition.ts y todos los FAIL/sellos recuperables. No cambiar archivos existentes. P06/P07/P18. |
+
+Los casos concretos pueden ampliarse para contradecir hipótesis; las expectativas no se adaptan al resultado. Se puede corregir un instrumento propio con evidencia de su error y conservando sus versiones/FAIL. No se activa política de retención/anonimización/borrado ni parámetros operativos: DM-PENDING-005 abierto. Solo sintéticos/local/aislado; sin H5-019/H6, publicación o COMPLETED.

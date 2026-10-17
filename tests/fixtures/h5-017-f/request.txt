@@ -1,0 +1,573 @@
+# CRM HUESCAVENTURA OS
+# H5-017/H5-018 — CORRECTIVO F
+# CUARTA AUDITORÍA: H5-018-4-F01 / H5-018-4-F02
+
+Actúa como arquitecto técnico principal especializado en
+PostgreSQL, integridad de dominio, procedencia histórica,
+consistencia temporal, idempotencia y seguridad.
+
+MISIÓN
+
+Corregir los dos defectos materiales P2 identificados
+por la cuarta auditoría independiente H5-018:
+
+H5-018-4-F01:
+Procedencia incorrecta tras una revisión A→B→A.
+
+H5-018-4-F02:
+Repetición histórica autorizada rechazada.
+
+El candidato H5-017-E tiene dictamen FAIL.
+
+Tu objetivo es producir un candidato F corregido,
+probado, documentado y sellado, preparado para una
+quinta auditoría independiente.
+
+Dispones de autonomía técnica para investigar,
+reproducir, corregir y verificar dentro del alcance.
+
+No tienes autorización para publicar.
+
+==================================================
+1. PREFLIGHT E INTEGRIDAD
+==================================================
+
+Antes de modificar archivos:
+
+1. Verificar HEAD, main y origin/main.
+2. Confirmar commit base aprobado.
+3. Confirmar divergencia 0/0.
+4. Confirmar índice vacío.
+5. Inventariar el árbol completo.
+6. Verificar el candidato H5-017-E.
+7. Verificar la cuarta auditoría H5-018.
+8. Verificar sellos e inventarios anteriores.
+9. Identificar rutas protegidas.
+10. Identificar las rutas modificables necesarias.
+
+Base aprobada:
+
+9649a2773530ea8a43237b4e1f2034f80e34136f
+
+SHA-256 del inventario E:
+
+0e0c08b8b70da6d12c2480eb8217cdf1e5df9b640c6dd1244f153b76a3be8191
+
+SHA-256 del inventario de cuarta auditoría:
+
+b921a9a6f4cf2e48723112267e8b6aa589411a69833aee3fea6bdb395d701e58
+
+Verificar:
+
+- 37.758 archivos del candidato E.
+- 116 archivos nuevos de cuarta auditoría.
+- Migraciones 1–67.
+- 456 inputs de H5-016, considerando la
+  transición previa autorizada de composition.ts.
+- FAIL históricos.
+- Expected congelados.
+
+No ejecutar limpiezas destructivas.
+
+No sobrescribir evidencias anteriores.
+
+Si aparece una discrepancia material de integridad,
+investigar y aplicar STOP si no puede resolverse
+de forma segura.
+
+==================================================
+2. CONSULTA NORMATIVA
+==================================================
+
+Consultar:
+
+- tasks.md.
+- TSK-H5-017.
+- TSK-H5-018.
+- Asignaciones normativas §6.
+- Protocolos §2.2.
+- Plan §§7.1, 8 y 11.2.
+- SPEC-FR-HIST-001.
+- SPEC-FR-ERR-001.
+- AC-070.
+- AC-072.
+- AC-081.
+- B01/B07/B08/B10.
+- C01/C04.
+- Contratos de revisión de contexto.
+- Contratos de identidad y procedencia.
+- Contratos de observaciones e idempotencia.
+- Invariantes y prohibiciones aplicables.
+
+Consultar especialmente:
+
+specs/001-core-crm/evidence-TSK-H5-018-fourth.md
+specs/001-core-crm/defects-TSK-H5-018-fourth.md
+specs/001-core-crm/matrix-TSK-H5-018-fourth.md
+
+tests/fixtures/h5-018-fourth/audit-inventory.json
+tests/fixtures/h5-018-fourth/audit-seal.json
+
+Localizar los reproductores independientes exactos.
+
+No modificar sus originales.
+
+No inventar reglas normativas.
+
+==================================================
+3. REPRODUCCIÓN DE LOS DEFECTOS
+==================================================
+
+Antes de corregir:
+
+A. Reproducir H5-018-4-F01.
+
+B. Reproducir H5-018-4-F02.
+
+C. Confirmar los siete FAIL originales.
+
+D. Registrar entradas y resultados.
+
+E. Identificar causas raíz.
+
+F. Comprobar las fuentes canónicas.
+
+G. Conservar los resultados originales.
+
+No modificar las contrapruebas independientes
+para conseguir PASS.
+
+==================================================
+4. ANÁLISIS TRANSVERSAL
+==================================================
+
+Construir un mapa de:
+
+- Petición.
+- Operación.
+- Ejecución.
+- Trabajo.
+- Observación.
+- Evidencia.
+- Contexto original.
+- Contexto intermedio.
+- Contexto vigente.
+- Contexto padre.
+- Historia canónica.
+- Revisiones autorizadas.
+
+Para cada relación relevante, identificar:
+
+1. Identidad completa.
+2. Fuente de verdad.
+3. Procedencia.
+4. Versión histórica.
+5. Contexto de origen.
+6. Contexto actual.
+7. Reglas de consulta.
+8. Reglas de escritura.
+9. Permisos.
+10. Condiciones de repetición autorizada.
+
+Determinar si existe una causa común entre
+los defectos o si requieren soluciones separadas.
+
+No asumir una causa común sin demostrarla.
+
+No ampliar el alcance funcional.
+
+==================================================
+5. H5-018-4-F01 — PROCEDENCIA A→B→A
+==================================================
+
+DEFECTO
+
+Tras una revisión autorizada A→B→A,
+el diagnóstico incorpora información
+procedente del contexto intermedio B:
+
+- Definiciones.
+- Aprobaciones.
+- Operaciones.
+- Historia.
+
+También admite una observación nueva en A
+con una operación de B como canónica.
+
+OBJETIVO
+
+Conservar la procedencia histórica exacta
+de cada hecho y evitar asociaciones entre
+contextos que no estén acreditadas.
+
+TRABAJO
+
+1. Identificar el recorrido A→B→A.
+2. Localizar el filtro que incorpora B.
+3. Examinar el uso del contexto vigente.
+4. Examinar el uso de versiones históricas.
+5. Identificar las relaciones canónicas.
+6. Corregir el alcance del diagnóstico.
+7. Corregir la validación de observaciones nuevas.
+8. Mantener los recorridos históricos autorizados.
+
+Contraprobar:
+
+A. Contexto A inicial.
+
+B. Revisión A→B.
+
+C. Revisión B→A.
+
+D. Consulta posterior en A.
+
+E. Definiciones de A.
+
+F. Definiciones de B.
+
+G. Aprobaciones de A.
+
+H. Aprobaciones de B.
+
+I. Operaciones de A.
+
+J. Operaciones de B.
+
+K. Historia y procedencia.
+
+L. Nueva observación con operación de B.
+
+M. Observación histórica legítima.
+
+N. Revisiones sucesivas autorizadas.
+
+O. Contextos padre y derivados.
+
+No resolver el defecto eliminando toda
+la historia intermedia.
+
+Distinguir entre historia legítimamente
+consultable y hechos que pueden presentarse
+como pertenecientes al contexto A.
+
+No atribuir a A hechos canónicos de B.
+
+No ampliar permisos.
+
+==================================================
+6. H5-018-4-F02 — REPETICIÓN HISTÓRICA
+==================================================
+
+DEFECTO
+
+Tras revisar A→B, una observación histórica
+permanece íntegra y consultable desde A.
+
+Sin embargo, repetir exactamente la misma
+observación devuelve DIAGNOSTIC_DENIED
+cuando contiene operación, ejecución o ambas.
+
+Las validaciones del contexto vigente se
+ejecutan antes de reconocer el resultado
+previamente persistido.
+
+OBJETIVO
+
+Reconocer correctamente la repetición exacta
+de una observación ya persistida, cuando esté
+autorizada por los contratos aprobados.
+
+TRABAJO
+
+1. Reproducir el defecto.
+2. Localizar el flujo de escritura.
+3. Identificar la clave de identidad.
+4. Identificar las condiciones de igualdad.
+5. Revisar las validaciones de acceso.
+6. Determinar el orden normativo correcto.
+7. Corregir la secuencia.
+8. Verificar ausencia de nuevas escrituras.
+
+Contraprobar:
+
+A. Primera observación válida.
+
+B. Repetición idéntica antes de revisión.
+
+C. Repetición idéntica después de revisión.
+
+D. Observación con operación.
+
+E. Observación con ejecución.
+
+F. Observación con ambas.
+
+G. Mismo identificador y contenido diferente.
+
+H. Repetición desde contexto no autorizado.
+
+I. Referencia canónica incompatible.
+
+J. Observación inexistente.
+
+K. Observación histórica legítima.
+
+L. Ausencia de duplicados.
+
+M. Ausencia de efectos colaterales.
+
+N. Concurrencia cuando sea relevante.
+
+IMPORTANTE
+
+No convertir la idempotencia en una vía
+para eludir permisos.
+
+No reconocer como repetición una observación
+que no coincida exactamente.
+
+No permitir que una nueva escritura aproveche
+una autorización histórica caducada.
+
+No alterar la observación original.
+
+No inventar una política nueva de idempotencia.
+
+==================================================
+7. PRESERVAR CORRECTIVOS ANTERIORES
+==================================================
+
+Reejecutar:
+
+F01 — Aislamiento de contexto.
+
+F02 — Integridad de referencias.
+
+F03 — Incertidumbre E4.
+
+H5-018-2-F01 — Trazabilidad temporal.
+
+H5-018-3-F01 — Propiedad operación/ejecución.
+
+H5-018-3-F02 — Contextos padre.
+
+Revisar también las tres variantes derivadas
+del correctivo E.
+
+No aceptar una solución que reabra defectos
+anteriores.
+
+==================================================
+8. IMPLEMENTACIÓN
+==================================================
+
+Implementar la corrección mínima compatible
+con los contratos aprobados.
+
+Puedes:
+
+- Modificar código de producto dentro del alcance.
+- Mejorar validaciones.
+- Añadir pruebas.
+- Crear una migración nueva si es necesaria.
+- Corregir defectos derivados.
+- Resolver problemas técnicos ordinarios.
+
+Si se necesita una migración:
+
+- Utilizar la siguiente numeración disponible.
+- No modificar migraciones anteriores.
+- Verificar instalación limpia.
+- Verificar actualización poblada.
+- Verificar rollback aplicable.
+- Verificar RLS/FORCE RLS.
+- Verificar ACL y propietarios.
+- Verificar ausencia de ampliación de permisos.
+
+No refactorizar componentes ajenos.
+
+No modificar contratos normativos.
+
+==================================================
+9. VERIFICACIÓN
+==================================================
+
+Ejecutar:
+
+1. Los siete reproductores FAIL originales.
+
+2. Contrapruebas adicionales.
+
+3. Regresiones de defectos anteriores.
+
+4. V-DOM.
+
+5. V-DAT.
+
+6. V-MIG aplicable.
+
+7. PostgreSQL completo.
+
+8. Unitarias.
+
+9. Health independiente.
+
+10. Instalación congelada.
+
+11. Typecheck.
+
+12. Lint.
+
+13. Build.
+
+14. Auditoría de dependencias.
+
+15. Preservación histórica.
+
+Comprobar:
+
+- Cero defectos materiales conocidos abiertos.
+- Cero filtraciones nuevas.
+- Cero asociaciones canónicas falsas.
+- Cero duplicaciones indebidas.
+- Cero regresiones.
+
+Distinguir ejecuciones nuevas, retests y
+evidencias reutilizadas.
+
+No sumar baterías solapadas.
+
+==================================================
+10. AUTONOMÍA TÉCNICA
+==================================================
+
+Aplicar:
+
+INVESTIGAR
+→ REPRODUCIR
+→ DIAGNOSTICAR
+→ CORREGIR
+→ PROBAR
+→ AUDITAR
+→ REPETIR.
+
+No establecer límites artificiales de intentos.
+
+Puedes resolver problemas técnicos ordinarios
+sin solicitar autorización adicional.
+
+STOP si necesitas:
+
+- Cambiar normas.
+- Ampliar funcionalidades.
+- Debilitar permisos.
+- Alterar expected congelados.
+- Modificar evidencias protegidas.
+- Utilizar datos reales.
+- Ejecutar acciones productivas.
+- Continuar sin integridad acreditada.
+
+DM-PENDING-005 permanece OPEN.
+
+==================================================
+11. PRESERVACIÓN Y SELLADO
+==================================================
+
+Conservar:
+
+- Candidato E rechazado.
+- Cuarta auditoría FAIL.
+- Auditorías anteriores.
+- FAIL históricos.
+- Expected congelados.
+- Migraciones anteriores.
+- Sellos anteriores.
+- Inventarios anteriores.
+- Evidencias protegidas.
+
+Crear evidencias nuevas del correctivo F.
+
+Preparar un inventario exacto:
+
+- Rutas.
+- Hashes.
+- Tamaños.
+- Tipos.
+- Modos.
+- Modificados.
+- Nuevos.
+- Eliminados.
+- Migraciones.
+
+Sellar el candidato F.
+
+Verificar el sello después de generarlo.
+
+==================================================
+12. INFORME FINAL
+==================================================
+
+Entregar:
+
+A. PASS / FAIL / BLOCKED.
+
+B. Identidad exacta del candidato F.
+
+C. Causa raíz H5-018-4-F01.
+
+D. Causa raíz H5-018-4-F02.
+
+E. Correcciones implementadas.
+
+F. Resultados de los siete reproductores.
+
+G. Contrapruebas adicionales.
+
+H. Regresiones anteriores.
+
+I. PostgreSQL completo.
+
+J. Unitarias y health.
+
+K. V-DOM/V-DAT/V-MIG.
+
+L. Seguridad y confidencialidad.
+
+M. Migraciones.
+
+N. Preservación histórica.
+
+O. Inventario y hashes.
+
+P. Defectos materiales pendientes.
+
+Q. Superficies para quinta auditoría
+   independiente H5-018.
+
+No declarar H5-017 ni H5-018 COMPLETED.
+
+==================================================
+13. STOP
+==================================================
+
+Utilizar únicamente datos sintéticos.
+
+No realizar commits.
+
+No realizar push.
+
+No desplegar.
+
+No utilizar servicios de negocio reales.
+
+No iniciar H5-019 ni H6.
+
+No acreditar H6-015 ni H6-017.
+
+Cuando el candidato F esté corregido,
+probado, documentado y sellado:
+
+STOP.
+
+Entregar informe completo y esperar
+una nueva auditoría independiente.

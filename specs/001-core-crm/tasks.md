@@ -1,5 +1,47 @@
 # Tasks — SPEC 001 Core CRM
 
+## Cierre autorizado H5-017/H5-018 — candidato G
+
+**TSK-H5-017 y TSK-H5-018 COMPLETED, exclusivamente local/aislado — 2026-10-17.** El director acepta técnicamente G (D01), autoriza las 341 rutas exactas con los metadatos locales revisados (D02), el archivo histórico D de 90.706.957 bytes en Git normal (D03) y un único commit y un único push normal del conjunto final verificado (D04). Esta resolución expresa sustituye la negativa anterior a D02; no modifica las normas de negocio.
+
+La sexta auditoría acredita PostgreSQL **2.945/2.945 PASS**, unitarias **208/208 PASS**, health **1/1 PASS**, V-DOM/V-DAT/V-MIG y cero defectos materiales abiertos en alcance. Los cinco dictámenes FAIL anteriores y los correctivos C–G permanecen íntegros. Son resultados del candidato G auditado; el cierre documental no se presenta como otra ejecución funcional.
+
+[Aceptación y límites](acceptance-TSK-H5-017-018.md), [matriz de aceptación](acceptance-matrix-TSK-H5-017-018.md), [sexta auditoría](evidence-TSK-H5-018-sixth.md). La [resolución y lista exacta D02](../../tests/fixtures/h5-017-018-acceptance/publication-authorization.json) vincula hashes y modos autorizados. El cierre documental local está autorizado; la publicación solo se acredita mediante el commit exacto y su lectura posterior en main de GitHub, conservados en el recibo independiente de publicación. No se presume publicada por este texto.
+
+**DM-PENDING-005 OPEN; H5 global IN PROGRESS; H5-019 y H6 NOT STARTED.** Hosted/Production y H6-015/H6-017 no acreditados. No se fijan políticas de conservación, anonimización o eliminación ni parámetros operativos definitivos. Sin despliegue ni servicios de negocio reales. No hay trabajo posterior autorizado: conservar el recibo de publicación y **STOP** hasta nueva instrucción expresa del director.
+
+## Antecedentes documentales conservados
+
+Las entradas anteriores que siguen describen sus momentos históricos. Sus estados IN PROGRESS, negativas o autorizaciones pendientes no sustituyen la resolución vigente de este cierre.
+
+## Correctivo D — PASS interno; tercera auditoría pendiente
+
+**H5-017/H5-018 IN PROGRESS, exclusivamente local/aislado — 2026-10-16.** C conserva FAIL de segunda auditoría por H5-018-2-F01. El nuevo candidato D recupera la petición en su contexto histórico autorizado, sin exponer estado actual ajeno ni modificar hechos. Migración66 nueva;65 SQL anteriores y src anteriores intactos.
+
+Cobertura PostgreSQL consolidada **2848/2848 casos únicos**:2641 de156 suites no afectadas reutilizados de la completa20 (2847/2847 sobre la versión66 anterior) y207 actuales de20 suites después de corregir la colisión operación/ejecución D10. No se suman los206 casos previos repetidos ni se afirma una única ejecución2848 final. Unitarias208/208, health1/1; frozen/typecheck/lint/build/audit/V-MIG/advisors PASS,0 vulnerabilidades. FAIL previos y todas las evidencias C/auditorías conservados; nueva identidad y delta D en su sello.
+
+[Informe D](evidence-TSK-H5-017-D.md), [matriz D](matrix-TSK-H5-017-D.md), [defectos y cierre interno](defects-TSK-H5-017-D.md). DM-PENDING-005 abierto. Sin commits/push/deploy, servicios reales, Hosted/Production ni H5-019/H6. **STOP: entregar D y esperar tercera auditoría independiente; aceptación/publicación no autorizadas.**
+
+## Bloque C — antecedente conservado
+
+El bloque C que sigue conserva su verificación interna anterior; su FAIL de segunda auditoría consta arriba. Las fichas y fuentes normativas posteriores mantienen su vigencia.
+
+**H5-017/H5-018 — Bloque C F01–F03: candidato corregido PASS de verificación interna, exclusivamente local/aislado, 2026-10-16.** H5-017 y H5-018 IN PROGRESS, nueva auditoría independiente y aceptación pendientes. El candidato original conserva FAIL H5-01829 PASS/3 FAIL. Base HEAD/main/origin/main9649a2773530ea8a43237b4e1f2034f80e34136f y divergencia0/0; sin publicación.
+
+Migración65 nueva,64 anteriores intactas; único componente histórico de producto cambiado: composition.ts, transición literal autorizada y verificada. F01: ámbito tipo/UUID. F02: referencia canónica coherente o intento no verificado, revalidado al leer sin borrar originales. F03: excepción del contrato iniciado conserva E4/pending, sin retry. Focal68/68 (25 independientes repetidas+29 regresiones+14 PostgreSQL propios), dependencias104/104 sobre65, completa2834/2834 en una ejecución limpia,0 fail/cancelled/skipped; unitarias208/208 y health1/1 separado. Frozen install/tipos/lint/build/audit/V-MIG/advisors PASS,0 vulnerabilidades.455 inputs H5-016 idénticos+1 transición autorizada;75 artefactos H5-018 y641 filas normativas Tasks§6 intactos. DM-PENDING-005 abierto; H6-015/H6-017, Hosted y Production no acreditados. Sin datos/servicios de negocio reales, commit/push/despliegue ni H5-019/H6.
+
+[Informe C y nueva identidad](evidence-TSK-H5-017-C.md), [matriz C](matrix-TSK-H5-017-C.md), [registro de correctivos](defects-TSK-H5-017-C.md). **Preparado para nueva auditoría H5-018. STOP: esperar nueva auditoría y autorización expresa de publicación.**
+
+## Antecedentes del candidato rechazado — conservados
+
+**TSK-H5-017 — candidato del Bloque A PASS de verificación interna, exclusivamente local/aislado, 2026-10-16.** H5-017 IN PROGRESS, pendiente de aceptación y verificación independiente H5-018. Base publicada comprobada `9649a2773530ea8a43237b4e1f2034f80e34136f`, HEAD/main/origin/main y divergencia0/0 antes del primer cambio. Correctivo57/57 (32 propias H5-017 y25 regresiones H0), regresión adicional sobre64 104/104, unitarias201/201 y health1/1 PASS. PostgreSQL completo corregido2788/2788 PASS en una ejecución limpia,0 fail/cancelled/skipped; frozen install/typecheck/lint/build/audit PASS,0 vulnerabilidades. La primera completa conserva25 FAIL por instalación sin roles API; correctivo cerrado sin reescribir originales.
+
+Migración64 y consulta mínima de petición/operación/ejecución/evento, historia, aprobación, intentos y trabajo/objetos incompletos. E4 conserva incertidumbre; logs sin cuerpos/secretos/economía innecesaria, sin inferir hechos de negocio. Expected, migraciones1–63 y evidencias históricas intactos. DM-PENDING-005 abierto, sin políticas productivas nuevas ni datos/servicios reales. No commit/push/despliegue; H5-018/H5-019/H6 no iniciadas por este encargo. H5 global IN PROGRESS; Hosted/Production no acreditados.
+
+[Informe del candidato y resultados](./evidence-TSK-H5-017.md), [matriz normativa](./matrix-TSK-H5-017.md), [defectos y originales](./defects-TSK-H5-017.md). STOP tras la entrega; aceptación, auditoría y publicación requieren autorización posterior.
+
+## Antecedentes anteriores — conservados
+
 **Prepublicación H5-015/H5-016 — aceptación técnica preliminar del candidato corregido, exclusivamente local/aislado, 2026-10-16.** Verificación de identidad, integridad y preparación para publicación; el dictamen y el inventario sucesor constan en el informe de prepublicación. H5-013/H5-014 están publicadas en `ff0ad6c6e505914f31eb15d56725179c9f065426`. H5-015 está implementada y auditada PASS en local; H5-016 COMPLETED en ese alcance. Publicación H5-015/H5-016 pendiente de instrucción posterior. El candidato original conserva FAIL y queda excluido de la aceptación.
 
 Los456 inputs probados permanecen idénticos al manifiesto `f72596dafa448cbba1d3ddb1525aab57097a4992f40bc0712da2eb444008f30d`. La evidencia completa2756/2756, focal78/78, evaluadores66/66, unitarias197/197 y health1/1 se conserva; esta fase no repite ni se atribuye esas ejecuciones. H5 global IN PROGRESS; H5-017 y H6 NOT STARTED. Hosted/Production no acreditados, pendientes globales intactos. Sin commit/push/despliegue ni datos reales.
@@ -2099,37 +2141,35 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-017 — Relacionar fallos con historia y proteger diagnóstico
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: implementación.
+- [x] **Ejecución: COMPLETED, exclusivamente local/aislado. Candidato G aceptado expresamente por el director (D01); sexta auditoría PASS. Cierre documental y publicación autorizados por la resolución D01–D04, con resultado de publicación sujeto al recibo del commit/push y lectura GitHub.** Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Referencias de petición/operación/ejecución/evento, estados de trabajo y conservación mínima de logs.
 - **Fuentes exactas:** Plan §§7.1, 8, 11.2; SPEC-FR-ERR-001, AC-072, AC-081. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-017.
 - **Bloques, contratos y unidades:** B01/B07/B08/B10; C01/C04; —.
-- **Entregable previsto:** Áreas propuestas de diagnóstico y documentación de operación. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable previsto:** Áreas propuestas de diagnóstico y documentación de operación. Áreas implementadas en candidato local/aislado; véase [informe](evidence-TSK-H5-017.md) y alcance de §2.1.
 - **Dependencias y precondiciones:** [TSK-H4-024], [TSK-H5-008], [TSK-H5-012], [TSK-H5-016]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H4 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Umbrales y retención no verificados no se inventan; política de privacidad conserva bloqueo en su uso real. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** Umbrales y retención no verificados no se inventan; política de privacidad conserva bloqueo en su uso real. El detalle de evidencia/decisión y puerta está en §7; el candidato G tiene aceptación técnica exclusivamente local/aislada y el uso real sigue bloqueado.
 - **Acción futura:** Completar consulta autorizada de fallos persistentes, incertidumbre y objetos/trabajo incompletos, enlazando hechos sin copiarlos al log.
 - **Salida observable:** Investigación puede seguir referencias hasta evidencia autorizada; errores/intentos y limitaciones visibles sin filtrar contenido.
 - **Verificación y esperado:** Ocho causas E1–E8 localizables; excepción técnica con efecto desconocido sigue E4; no secretos, URLs temporales, cuerpos completos ni economía interna innecesaria. Log de éxito nunca sustituye pago/Acceptance/entrega. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes. Comprobación local obligatoria: [TSK-H5-018].
 - **Integración adicional obligatoria:** [TSK-H6-017], [TSK-H6-015]. Se ejecuta cuando sus dependencias estén disponibles; no sustituye el ensayo local ni permite acreditar antes ese recorrido.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI y verificaciones reales de §2.2 acreditadas en [aceptación local definitiva](acceptance-TSK-H5-017-018.md) y [sexta auditoría](evidence-TSK-H5-018-sixth.md): PostgreSQL 2.945/2.945, unitarias 208/208, health 1/1, V-DOM/V-DAT/V-MIG PASS, cero defectos materiales abiertos. Cinco FAIL históricos y todos sus originales conservados. Sin acreditación Hosted/Production ni H6.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
-
 <a id="tsk-h5-018"></a>
 
 #### TSK-H5-018 — Verificar: Relacionar fallos con historia y proteger diagnóstico
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED, exclusivamente local/aislado. Candidato G aceptado expresamente por el director (D01); sexta auditoría PASS. Cierre documental y publicación autorizados por la resolución D01–D04, con resultado de publicación sujeto al recibo del commit/push y lectura GitHub.** Hito: H5. Tipo: comprobación.
 - **Objetivo y alcance:** Referencias de petición/operación/ejecución/evento, estados de trabajo y conservación mínima de logs.
 - **Fuentes exactas:** Plan §§7.1, 8, 11.2; SPEC-FR-HIST-001, SPEC-FR-ERR-001, AC-070, AC-072, AC-081. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-018.
 - **Bloques, contratos y unidades:** B01/B07/B08/B10; C01/C04; —.
-- **Entregable previsto:** Casos y evidencias del alcance; rutas propuestas según §2.3. Áreas propuestas, no creadas; véase §2.1.
+- **Entregable previsto:** Casos y evidencias locales realizados en [sexta auditoría](evidence-TSK-H5-018-sixth.md), con matriz normativa y registro de defectos conservados; aceptados expresamente por el director para el cierre exclusivamente local/aislado.
 - **Dependencias y precondiciones:** [TSK-H4-024], [TSK-H5-017]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H4 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Umbrales y retención no verificados no se inventan; política de privacidad conserva bloqueo en su uso real. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
+- **Bloqueo localizado / condición para levantarlo:** Umbrales y retención no verificados no se inventan; política de privacidad conserva bloqueo en su uso real. El detalle de evidencia/decisión y puerta está en §7; mantiene uso real bloqueado.
 - **Acción futura:** Ejecutar V-DOM + V-DAT + V-MIG sobre TSK-H5-017; contrastar los casos siguientes con sus fuentes, sin usar la implementación como oráculo.
 - **Salida observable:** Investigación puede seguir referencias hasta evidencia autorizada; errores/intentos y limitaciones visibles sin filtrar contenido. Deben pasar todos los casos asignados, incluidos rechazos sin efecto colateral.
 - **Verificación y esperado:** Ocho causas E1–E8 localizables; excepción técnica con efecto desconocido sigue E4; no secretos, URLs temporales, cuerpos completos ni economía interna innecesaria. Log de éxito nunca sustituye pago/Acceptance/entrega. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI y verificaciones reales de §2.2 acreditadas en [aceptación local definitiva](acceptance-TSK-H5-017-018.md) y [sexta auditoría](evidence-TSK-H5-018-sixth.md): PostgreSQL 2.945/2.945, unitarias 208/208, health 1/1, V-DOM/V-DAT/V-MIG PASS, cero defectos materiales abiertos. Cinco FAIL históricos y todos sus originales conservados. Sin acreditación Hosted/Production ni H6.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades internas aplicables conservan atomicidad y revisión conjunta.
-
 <a id="tsk-h5-019"></a>
 
 #### TSK-H5-019 — Registrar cierre integrado de capacidades Core

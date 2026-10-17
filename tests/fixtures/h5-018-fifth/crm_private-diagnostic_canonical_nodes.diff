@@ -1,0 +1,79 @@
+--- supabase/migrations/20261016220850_h5_diagnostic_owned_references.sql
++++ supabase/migrations/20261017004525_h5_diagnostic_version_provenance_replay.sql
+@@ -1,6 +1,6 @@
+ create or replace function crm_private.diagnostic_canonical_nodes(s text,k text,root uuid)returns jsonb
+ language plpgsql stable set search_path=pg_catalog,pg_temp as $$
+-declare ctx jsonb;bids uuid[];opps uuid[];records uuid[];execs uuid[];tasks uuid[];alerts uuid[];nodes jsonb:='[]';rows jsonb;item record;
++declare ctx jsonb;bids uuid[];opps uuid[];records uuid[];execs uuid[];work_ops uuid[];tasks uuid[];alerts uuid[];nodes jsonb:='[]';rows jsonb;item record;
+ begin
+  if not crm_private.diagnostic_root(s,k,root)then raise exception 'DIAGNOSTIC_DENIED';end if;
+  select coalesce(array_agg(booking_id),'{}'::uuid[]),coalesce(array_agg(opportunity_id),'{}'::uuid[])into bids,opps from crm_private.b04_bookings where admin_scope=s and(k='booking'and booking_id=root or k='opportunity'and opportunity_id=root);
+@@ -8,30 +8,52 @@
+  select coalesce(jsonb_agg(jsonb_build_object('kind',c.context_kind,'id',c.context_id::text)),'[]')into ctx from crm_private.diagnostic_contexts(s,k,root)c;
+  select coalesce(array_agg(distinct l.record_id),'{}'::uuid[])into records from crm_private.b07_links l where l.admin_scope=s and exists(select 1 from jsonb_array_elements(ctx)c where c->>'kind'=l.context_kind and c->>'id'=l.context_id::text);
+  select coalesce(array_agg(e.execution_id),'{}'::uuid[])into execs from crm_private.b08_executions e join crm_private.b08_definitions d using(definition_id,version)where e.admin_scope=s and d.admin_scope=s and crm_private.b08_context(d,s) and exists(select 1 from jsonb_array_elements(ctx)c where c->>'kind'=d.context->>'contextKind' and c->>'id'=d.context->>'contextId');
++ -- A current execution does not authorize every operation in its history.
++ -- Match the immutable version/context of each B08 command against its owner.
++ select coalesce(array_agg(distinct o.operation_id),'{}'::uuid[])into work_ops
++ from crm_private.b07_operations o
++ join crm_private.b07_history h on h.operation_id=o.operation_id and h.subject_id=o.result_ref
++ join crm_private.b08_command_results r on r.operation_id=o.operation_id
++ join crm_private.b08_executions e on e.execution_id=h.subject_id
++ join crm_private.b08_definitions d on d.definition_id=e.definition_id
++  and d.definition_id::text=h.after_state#>>'{definition,definition_id}'
++  and d.version::text=h.after_state#>>'{definition,version}'
++  and d.context=h.after_state#>'{definition,context}'
++ where o.admin_scope=s and h.admin_scope=s and r.admin_scope=s and e.admin_scope=s and d.admin_scope=s
++  and e.execution_id=any(execs) and left(h.action_kind,5)='work_'
++  and h.subject_id::text=h.after_state#>>'{execution,execution_id}'
++  and crm_private.b08_context(d,s) and exists(select 1 from jsonb_array_elements(ctx)c where c->>'kind'=d.context->>'contextKind' and c->>'id'=d.context->>'contextId');
+  select coalesce(array_agg(task_id),'{}'::uuid[])into tasks from crm_private.b07_pending_tasks where admin_scope=s and exists(select 1 from jsonb_array_elements(ctx)c where c->>'kind'=identity->>'contextKind' and c->>'id'=identity->>'contextId');
+  select coalesce(array_agg(alert_id),'{}'::uuid[])into alerts from crm_private.b07_alerts where admin_scope=s and exists(select 1 from jsonb_array_elements(ctx)c where c->>'kind'=identity->>'contextKind' and c->>'id'=identity->>'contextId');
+  select coalesce(jsonb_agg(jsonb_build_object('key','execution/'||e.execution_id,'source','b08_executions','id',e.execution_id,
+-  'references',jsonb_build_array(e.execution_id,e.definition_id,e.task_id,d.context->>'recordId',crm_private.diagnostic_ref(d.proposal_id),crm_private.diagnostic_ref(d.decision_id)),
++  'references',jsonb_build_array(e.execution_id,e.definition_id,case when e.task_id=any(tasks)then e.task_id else null end,d.context->>'recordId',crm_private.diagnostic_ref(d.proposal_id),crm_private.diagnostic_ref(d.decision_id)),
+   'state',e.control_state,'generation',e.generation,'version',e.version,'recordedAt',e.created_at,'ageSeconds',extract(epoch from(statement_timestamp()-e.created_at)),'responsibleActor',d.responsible_actor,
+   'approvalRef',crm_private.diagnostic_ref(d.decision_id),'approvalWithdrawn',e.approval_withdrawn_at is not null,
+-  'incomplete',exists(select 1 from crm_private.b08_parts p where p.execution_id=e.execution_id and p.state<>'succeeded'))),'[]')into rows
++  'incomplete',exists(select 1 from crm_private.b08_parts p where p.execution_id=e.execution_id and p.state<>'succeeded' and exists(select 1 from jsonb_array_elements(d.material->'parts')x where x->>'partId'=p.part_id)))),'[]')into rows
+  from crm_private.b08_executions e join crm_private.b08_definitions d using(definition_id,version)where e.admin_scope=s and d.admin_scope=s and e.execution_id=any(execs);nodes:=nodes||rows;
+  select coalesce(jsonb_agg(jsonb_build_object('key','definition/'||d.definition_id||':'||d.version,'source','b08_definitions','id',d.definition_id,
+   'references',jsonb_build_array(d.definition_id,e.execution_id,crm_private.diagnostic_ref(d.proposal_id),crm_private.diagnostic_ref(d.decision_id),d.context->>'recordId'),
+   'version',d.version,'responsibleActor',d.responsible_actor,'recordedAt',d.created_at)),'[]')into rows
+- from crm_private.b08_definitions d join crm_private.b08_executions e on e.definition_id=d.definition_id where d.admin_scope=s and e.admin_scope=s and e.execution_id=any(execs);nodes:=nodes||rows;
++ from crm_private.b08_definitions d join crm_private.b08_executions e on e.definition_id=d.definition_id where d.admin_scope=s and e.admin_scope=s and e.execution_id=any(execs) and crm_private.b08_context(d,s) and exists(select 1 from jsonb_array_elements(ctx)c where c->>'kind'=d.context->>'contextKind' and c->>'id'=d.context->>'contextId');nodes:=nodes||rows;
+  select coalesce(jsonb_agg(jsonb_build_object('key','attempt/'||a.attempt_id,'source','b08_attempts','id',a.attempt_id,
+   'references',jsonb_build_array(a.execution_id,a.attempt_id,crm_private.diagnostic_ref(a.reservation_id)),'state',a.state,'generation',a.generation,
+   'executorRef',crm_private.diagnostic_ref(a.executor_id),'partRef',crm_private.diagnostic_ref(a.part_id),'resultRef',crm_private.diagnostic_ref(a.result_ref),
+   'recordedAt',a.claimed_at,'contactedAt',a.contacted_at,'resultAt',a.result_at,'leaseUntil',a.lease_until,'leaseExpired',a.lease_until<=statement_timestamp(),
+   'issues',case when a.state='uncertain'then jsonb_build_array(jsonb_build_object('code','E4','affectedScope','execution'))else '[]'::jsonb end)),'[]')into rows
+- from crm_private.b08_attempts a where a.admin_scope=s and a.execution_id=any(execs);nodes:=nodes||rows;
++ from crm_private.b08_attempts a join crm_private.b08_executions e using(execution_id)
++ join crm_private.b08_definitions d on d.definition_id=e.definition_id and d.version=a.definition_version
++ where a.admin_scope=s and e.admin_scope=s and d.admin_scope=s and a.execution_id=any(execs) and crm_private.b08_context(d,s) and exists(select 1 from jsonb_array_elements(ctx)c where c->>'kind'=d.context->>'contextKind' and c->>'id'=d.context->>'contextId');nodes:=nodes||rows;
+  select coalesce(jsonb_agg(jsonb_build_object('key','part/'||p.execution_id||':'||crm_private.diagnostic_ref(p.part_id),'source','b08_parts','id',crm_private.diagnostic_ref(p.part_id),
+-  'references',jsonb_build_array(p.execution_id,p.attempt_id,crm_private.diagnostic_ref(p.reservation_id)),'state',p.state,'resultRef',crm_private.diagnostic_ref(p.result_ref))), '[]')into rows
+- from crm_private.b08_parts p where p.admin_scope=s and p.execution_id=any(execs);nodes:=nodes||rows;
++  'references',jsonb_build_array(p.execution_id,a.attempt_id,crm_private.diagnostic_ref(a.reservation_id)),'state',p.state,'resultRef',crm_private.diagnostic_ref(a.result_ref))), '[]')into rows
++ from crm_private.b08_parts p join crm_private.b08_executions e using(execution_id)
++ join crm_private.b08_definitions d using(definition_id,version)
++ left join crm_private.b08_attempts a on a.attempt_id=p.attempt_id and a.execution_id=p.execution_id
++  and a.part_id=p.part_id and a.admin_scope=s and a.definition_version=d.version
++ where p.admin_scope=s and e.admin_scope=s and d.admin_scope=s and p.execution_id=any(execs)
++  and exists(select 1 from jsonb_array_elements(d.material->'parts')x where x->>'partId'=p.part_id);nodes:=nodes||rows;
+  select coalesce(jsonb_agg(jsonb_build_object('key','approval/'||crm_private.diagnostic_ref(d.decision_id),'source','crm_ha.decisions','id',crm_private.diagnostic_ref(d.decision_id),
+   'references',jsonb_build_array(crm_private.diagnostic_ref(d.decision_id),crm_private.diagnostic_ref(d.proposal_id)),'state',d.decision,'actorId',d.actor_id,'recordedAt',d.decided_at)),'[]')into rows
+- from crm_ha.decisions d join crm_ha.proposals p using(proposal_id)where p.scope=s and exists(select 1 from crm_private.b08_definitions b join crm_private.b08_executions e on e.definition_id=b.definition_id where b.decision_id=d.decision_id and b.admin_scope=s and e.execution_id=any(execs));nodes:=nodes||rows;
++ from crm_ha.decisions d join crm_ha.proposals p using(proposal_id)where p.scope=s and exists(select 1 from crm_private.b08_definitions b join crm_private.b08_executions e on e.definition_id=b.definition_id where b.decision_id=d.decision_id and b.admin_scope=s and e.admin_scope=s and e.execution_id=any(execs) and crm_private.b08_context(b,s) and exists(select 1 from jsonb_array_elements(ctx)c where c->>'kind'=b.context->>'contextKind' and c->>'id'=b.context->>'contextId'));nodes:=nodes||rows;
+  select coalesce(jsonb_agg(jsonb_build_object('key','event/'||r.operation_id,'source','b09_event_receipts','id',r.operation_id,
+   'references',jsonb_build_array(r.operation_id,r.event_id,r.received_event_id,r.source_id),'state',r.receipt_state,'actorId',r.actor_id,'recordedAt',r.received_at,
+   'issues',case when r.receipt_state='conflict'then jsonb_build_array(jsonb_build_object('code','E2','affectedScope','event'))else '[]'::jsonb end)),'[]')into rows
+@@ -101,7 +123,7 @@
+  ('b06_closure_assessments','operation_id','booking_id',bids),
+  ('b06_joint_closures','operation_id','booking_id',bids)
+  )as c(tab,idcol,rootcol,ids)loop
+-  execute format('select coalesce(jsonb_agg(jsonb_build_object(''key'',%L||''/''||(to_jsonb(x)->>%L),''source'',%L,''id'',to_jsonb(x)->>%L,''references'',jsonb_build_array(to_jsonb(x)->>%L,to_jsonb(x)->>%L,to_jsonb(x)->>''operation_id'',to_jsonb(x)->>''evidence_id''),''actorId'',to_jsonb(x)->>''actor_id'',''recordedAt'',to_jsonb(x)->>''recorded_at'')),''[]'')from crm_private.%I x where x.admin_scope=$1 and (to_jsonb(x)->>%L)=any($2::text[]) and (%L not in(''b07_operations'',''b07_history'') or not exists(select 1 from crm_private.b08_command_results w where w.operation_id=(to_jsonb(x)->>''operation_id'')::uuid) or (to_jsonb(x)->>%L)=any($3::text[]))',item.tab,item.idcol,item.tab,item.idcol,item.idcol,item.rootcol,item.tab,item.rootcol,item.tab,item.rootcol)into rows using s,item.ids,execs;nodes:=nodes||rows;
++  execute format('select coalesce(jsonb_agg(jsonb_build_object(''key'',%L||''/''||(to_jsonb(x)->>%L),''source'',%L,''id'',to_jsonb(x)->>%L,''references'',jsonb_build_array(to_jsonb(x)->>%L,to_jsonb(x)->>%L,to_jsonb(x)->>''operation_id'',to_jsonb(x)->>''evidence_id''),''actorId'',to_jsonb(x)->>''actor_id'',''recordedAt'',to_jsonb(x)->>''recorded_at'')),''[]'')from crm_private.%I x where x.admin_scope=$1 and (to_jsonb(x)->>%L)=any($2::text[]) and (%L not in(''b07_operations'',''b07_history'') or not exists(select 1 from crm_private.b08_command_results w where w.operation_id=(to_jsonb(x)->>''operation_id'')::uuid) or ((to_jsonb(x)->>%L)=any($3::text[]) and (to_jsonb(x)->>''operation_id'')::uuid=any($4::uuid[])))',item.tab,item.idcol,item.tab,item.idcol,item.idcol,item.rootcol,item.tab,item.rootcol,item.tab,item.rootcol)into rows using s,item.ids,execs,work_ops;nodes:=nodes||rows;
+  end loop;
+  select coalesce(jsonb_agg(jsonb_build_object('key','task/'||task_id,'source','b07_pending_tasks','id',task_id,'references',jsonb_build_array(task_id),'state',state,'recordedAt',created_at)),'[]')into rows
+  from crm_private.b07_pending_tasks where admin_scope=s and task_id=any(tasks);nodes:=nodes||rows;

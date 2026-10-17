@@ -1,0 +1,20 @@
+{
+  "capture": "24-complete",
+  "tests": 2920,
+  "pass": 2920,
+  "fail": 0,
+  "processExit": 1,
+  "changedDuringRun": [],
+  "postcheck": "ENOENT replica tests/fixtures/h2-004/diffcheck.log after all15 phases passed",
+  "workspaceOriginal": {
+    "exists": true,
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "workspacePreservation": "Separate current V2 verifier PASS37874",
+  "replicaPostcheckComplete": false,
+  "causeStatus": "Replica was removed by old finally after postcheck error; absence cause not independently established. Do not infer deletion by tests.",
+  "instrumentDefect": "Finally reported exit0 from tests and replicaRemoved=true even when postcheck threw; failed pool did not ensure all workers settled before cleanup.",
+  "correction": "New V3 runner records every postcheck result, waits all workers, and retains failed replica. No allowlist expansion.",
+  "resolutionRequired": "Fresh complete25 with all tests and full postcheck PASS;24 retained as functionalPASS but overallinstrumentFAIL"
+}

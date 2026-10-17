@@ -1,0 +1,12 @@
+# H5-018 segunda auditoría — precisión normativa temporal anterior a la contraprueba de correlación
+
+El expected inicial y sus hashes no se modifican. Los FAIL S01/S02/T02/T03 están conservados. La medición O01 demuestra que el C01 propietario B08, después de una revisión autorizada, devuelve historia que contiene la evidencia, aprobación y responsable anteriores. Por tanto, la denegación del lector B07 de un original en otro contexto, aislada de la autoridad histórica de B08, no prueba una filtración diagnóstica. Tampoco una referencia histórica con recordedAt anterior afirma por sí sola propiedad o ejecución actual. Las aserciones que prohibían toda referencia previa eran excesivas. No se debe inventar una política que borre la trazabilidad de revisiones legales.
+
+Oráculo directo: Constitución P06/P07/P10; BR-HIST-001/002/004; DM-INV-047; SPEC-FR-HIST-001, AC-081 y Plan §§7.1/8/11.2. Historia conservada, permisos actuales y vínculos históricos legítimos son obligaciones simultáneas. La implementación no define el esperado; el C01 propietario permite medir si se amplían los derechos, y la norma exige poder investigar la historia autorizada por referencia.
+
+| ID | Secuencia | Esperado |
+|---|---|---|
+| R01 | Define en booking A; registra observación con operationId canónico legítimo y executionId; conserva su fila; revisa trabajo hacia B con nueva aprobación, mediante API permitida; busca requestRef en A y B y contrasta historia autorizada. | La petición previamente válida debe seguir localizando al menos su intento/historia autorizada; no clasificar como ajena la operación histórica cuyo contexto original no se reescribió. Puede distinguir relación histórica de vínculo actual, sin exponer hechos actuales de B en A ni modificar la observación original. |
+| R02 | Misma revisión con operationId de intento desconocido; consulta vieja petición y lector B08 actual; contrasta metadatos previos y actuales. | El hecho técnico histórico puede conservarse con su fecha. No debe exponer estado/evidencia/aprobación actuales de B en la consulta A. La historia anterior autorizada por B08 en B no es una ampliación de derechos por sí misma. |
+
+Esto corrige el instrumento de auditoría, no el producto ni los expected anteriores. No convierte un FAIL material válido en PASS. La segunda auditoría conserva un resultado propio según evidencia y fuente, sin nueva política de negocio ni permisos.

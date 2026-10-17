@@ -1,0 +1,674 @@
+{
+  "cases": [
+    {
+      "name": "H4-014 C27 competing determinations with actual independent PG sessions 0,1",
+      "source": "tests/integration/postgres-h4-014.test.ts:63:34",
+      "classification": "Consequence of temporal fixture independently reproduced",
+      "cause": "Original cancellations rejected E3 before the intended competition. G reaches unchanged conflict/replay/history assertions with actual PG overlap in both input schedules where defined.",
+      "original": {
+        "log": "21-original-focal.stdout.log.gz",
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "10b4e1f5-acb2-4c14-94de-3328bde32ad7",
+            "determinationId": "e2ad931b-9dd5-46be-852c-5d7f2a3bfce5",
+            "operationId": "733f9eb9-fc8d-4810-b952-afe6dae307ca",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:11.341Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "10b4e1f5-acb2-4c14-94de-3328bde32ad7",
+            "determinationId": "e2ad931b-9dd5-46be-852c-5d7f2a3bfce5",
+            "operationId": "f4ff0765-6588-4207-9c49-93f2ae73834a",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:11.341Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ]
+      },
+      "G": {
+        "log": "22-corrected-focal.stdout.log.gz",
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "d0f5c116-ac39-4b54-8887-9e483b4b2481",
+            "determinationId": "39de8395-25ad-450d-825d-f98f17a88f61",
+            "operationId": "2b1ae26a-7bed-4e0b-abf1-8e5edbfcf437",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "d0f5c116-ac39-4b54-8887-9e483b4b2481",
+            "determinationId": "39de8395-25ad-450d-825d-f98f17a88f61",
+            "operationId": "12fc7ee7-3abd-4bf3-aae5-afe78ad441c6",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_REVISION_CONFLICT:E2"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ]
+      },
+      "deadlineMs": null,
+      "originalSourceSha256": "3164f518d9ac79aa5f98ea392c3ef0723c8c18185196ada453bd47738817cadd",
+      "assertionsChanged": false,
+      "productCorrective": false
+    },
+    {
+      "name": "H4-014 C27 competing determinations with actual independent PG sessions 1,0",
+      "source": "tests/integration/postgres-h4-014.test.ts:63:34",
+      "classification": "Consequence of temporal fixture independently reproduced",
+      "cause": "Original cancellations rejected E3 before the intended competition. G reaches unchanged conflict/replay/history assertions with actual PG overlap in both input schedules where defined.",
+      "original": {
+        "log": "21-original-focal.stdout.log.gz",
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "ca6c12fc-889e-4f72-8843-46f2a84b5742",
+            "determinationId": "d18f7bb9-845c-46bb-a014-82daa89ec0fc",
+            "operationId": "3ae4e17d-7d71-4302-a323-b1e9c6ff3195",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:11.547Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "ca6c12fc-889e-4f72-8843-46f2a84b5742",
+            "determinationId": "d18f7bb9-845c-46bb-a014-82daa89ec0fc",
+            "operationId": "6e795adc-3082-4a00-b458-ea263326e4e7",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:11.547Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ]
+      },
+      "G": {
+        "log": "22-corrected-focal.stdout.log.gz",
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "b9f755b4-7b13-40bf-978a-a156899863c3",
+            "determinationId": "eeba2604-152c-4cc9-b5ce-e3b330c55fb5",
+            "operationId": "0ba41796-c64f-4e30-ac06-0c6f9d0fa1cc",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "b9f755b4-7b13-40bf-978a-a156899863c3",
+            "determinationId": "eeba2604-152c-4cc9-b5ce-e3b330c55fb5",
+            "operationId": "72d47384-a85d-4227-9895-31760fd6ccd5",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_REVISION_CONFLICT:E2"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ]
+      },
+      "deadlineMs": null,
+      "originalSourceSha256": "3164f518d9ac79aa5f98ea392c3ef0723c8c18185196ada453bd47738817cadd",
+      "assertionsChanged": false,
+      "productCorrective": false
+    },
+    {
+      "name": "H4-014 C27 equivalent concurrent replay independent sessions 0,1",
+      "source": "tests/integration/postgres-h4-014.test.ts:64:34",
+      "classification": "Consequence of temporal fixture independently reproduced",
+      "cause": "Original cancellations rejected E3 before the intended competition. G reaches unchanged conflict/replay/history assertions with actual PG overlap in both input schedules where defined.",
+      "original": {
+        "log": "21-original-focal.stdout.log.gz",
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "53255d0a-afed-4f3d-b723-51d1d0be1e0d",
+            "determinationId": "ac400477-7641-4335-882c-c604b885c8b6",
+            "operationId": "37ae115b-de00-4a45-8343-cf75dae23b1a",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:11.708Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "53255d0a-afed-4f3d-b723-51d1d0be1e0d",
+            "determinationId": "ac400477-7641-4335-882c-c604b885c8b6",
+            "operationId": "37ae115b-de00-4a45-8343-cf75dae23b1a",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:11.708Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ]
+      },
+      "G": {
+        "log": "22-corrected-focal.stdout.log.gz",
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "8abaa165-3456-4d67-91ef-266b43175a3e",
+            "determinationId": "0892ebf2-12d9-41c7-9c8e-8304b48413c7",
+            "operationId": "1733e0f2-72e9-4a53-b055-e50c30ef6c21",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "8abaa165-3456-4d67-91ef-266b43175a3e",
+            "determinationId": "0892ebf2-12d9-41c7-9c8e-8304b48413c7",
+            "operationId": "1733e0f2-72e9-4a53-b055-e50c30ef6c21",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": true
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ]
+      },
+      "deadlineMs": null,
+      "originalSourceSha256": "3164f518d9ac79aa5f98ea392c3ef0723c8c18185196ada453bd47738817cadd",
+      "assertionsChanged": false,
+      "productCorrective": false
+    },
+    {
+      "name": "H4-014 C27 equivalent concurrent replay independent sessions 1,0",
+      "source": "tests/integration/postgres-h4-014.test.ts:64:34",
+      "classification": "Consequence of temporal fixture independently reproduced",
+      "cause": "Original cancellations rejected E3 before the intended competition. G reaches unchanged conflict/replay/history assertions with actual PG overlap in both input schedules where defined.",
+      "original": {
+        "log": "21-original-focal.stdout.log.gz",
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "e13b6e40-dcf1-4163-a205-f23a476fe216",
+            "determinationId": "c705ada2-0e5a-473d-b1ca-74084ea67119",
+            "operationId": "c6d48de0-19b9-4c9f-b2de-a3a9a36e2096",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:11.845Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "e13b6e40-dcf1-4163-a205-f23a476fe216",
+            "determinationId": "c705ada2-0e5a-473d-b1ca-74084ea67119",
+            "operationId": "c6d48de0-19b9-4c9f-b2de-a3a9a36e2096",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:11.845Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ]
+      },
+      "G": {
+        "log": "22-corrected-focal.stdout.log.gz",
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "2e038586-a5a1-407d-9545-1f8cf0bafa73",
+            "determinationId": "67a77380-b694-4e3b-bfe0-79f1953814a7",
+            "operationId": "4d8e8ce0-f6e5-4b29-85ca-f5bc30810b5e",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "2e038586-a5a1-407d-9545-1f8cf0bafa73",
+            "determinationId": "67a77380-b694-4e3b-bfe0-79f1953814a7",
+            "operationId": "4d8e8ce0-f6e5-4b29-85ca-f5bc30810b5e",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": true
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ]
+      },
+      "deadlineMs": null,
+      "originalSourceSha256": "3164f518d9ac79aa5f98ea392c3ef0723c8c18185196ada453bd47738817cadd",
+      "assertionsChanged": false,
+      "productCorrective": false
+    },
+    {
+      "name": "H4-014 C28 determination versus applied actual service date change 0,1",
+      "source": "tests/integration/postgres-h4-014.test.ts:65:34",
+      "classification": "Consequence of temporal fixture independently reproduced",
+      "cause": "Original cancellations rejected E3 before the intended competition. G reaches unchanged conflict/replay/history assertions with actual PG overlap in both input schedules where defined.",
+      "original": {
+        "log": "21-original-focal.stdout.log.gz",
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "83a27530-6f6e-40aa-b342-3728444a5941",
+            "determinationId": "863b5034-d7b8-46e8-8b0f-6147cdec7058",
+            "operationId": "294af014-fc70-49fe-a76c-ea16841e52c1",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:12.005Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ]
+      },
+      "G": {
+        "log": "22-corrected-focal.stdout.log.gz",
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "17a5585b-b52d-4c6e-8978-f9a608f54e62",
+            "determinationId": "afa2cca7-9751-429d-835b-cb0551ba8bcc",
+            "operationId": "d28002b9-97ce-4b80-b050-292d161317f5",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "17a5585b-b52d-4c6e-8978-f9a608f54e62",
+            "determinationId": "afa2cca7-9751-429d-835b-cb0551ba8bcc",
+            "operationId": "fb1d678b-a905-47e0-b644-31cbea4066fd",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ]
+      },
+      "deadlineMs": null,
+      "originalSourceSha256": "3164f518d9ac79aa5f98ea392c3ef0723c8c18185196ada453bd47738817cadd",
+      "assertionsChanged": false,
+      "productCorrective": false
+    },
+    {
+      "name": "H4-014 C27 distinct identities competing overlapping participation rights 0,1",
+      "source": "tests/integration/postgres-h4-014.test.ts:83:34",
+      "classification": "Consequence of temporal fixture independently reproduced",
+      "cause": "Original cancellations rejected E3 before the intended competition. G reaches unchanged conflict/replay/history assertions with actual PG overlap in both input schedules where defined.",
+      "original": {
+        "log": "21-original-focal.stdout.log.gz",
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "5be58910-8412-4468-974f-a551356c42b0",
+            "determinationId": "886106cf-d9b7-4875-8fec-1ccc461801c0",
+            "operationId": "9cde5d67-a8f0-45e9-969f-2b70a14d79d7",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:16.945Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "5be58910-8412-4468-974f-a551356c42b0",
+            "determinationId": "e77d5bf3-ed04-45a7-b19c-3bb7ae39b5ab",
+            "operationId": "b71e7da9-e5ee-4b21-9fe7-937a241c7554",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:16.945Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ]
+      },
+      "G": {
+        "log": "22-corrected-focal.stdout.log.gz",
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "e407455d-f019-48a8-b7f2-485a86ee6c56",
+            "determinationId": "fd593cf1-39b4-49a1-8a22-7dc1982192bb",
+            "operationId": "6577ca72-c04d-42de-90bf-3011af40dbe5",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "e407455d-f019-48a8-b7f2-485a86ee6c56",
+            "determinationId": "af60723d-bebb-45c6-9ef4-3b1538703aaa",
+            "operationId": "415b3e7a-d61b-4bcc-bfcb-bf05ce18f7d8",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_PORTION_CONFLICT:E2"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ]
+      },
+      "deadlineMs": null,
+      "originalSourceSha256": "3164f518d9ac79aa5f98ea392c3ef0723c8c18185196ada453bd47738817cadd",
+      "assertionsChanged": false,
+      "productCorrective": false
+    },
+    {
+      "name": "H4-014 C27 distinct identities competing overlapping participation rights 1,0",
+      "source": "tests/integration/postgres-h4-014.test.ts:83:34",
+      "classification": "Consequence of temporal fixture independently reproduced",
+      "cause": "Original cancellations rejected E3 before the intended competition. G reaches unchanged conflict/replay/history assertions with actual PG overlap in both input schedules where defined.",
+      "original": {
+        "log": "21-original-focal.stdout.log.gz",
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "249e91c8-a648-4c1e-ab7f-3cd8e6d564f1",
+            "determinationId": "17cc59c9-bde8-4a4d-99f6-ebbd4433a9a8",
+            "operationId": "dd283018-660f-48a4-b4ca-5455ac735380",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:17.087Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "249e91c8-a648-4c1e-ab7f-3cd8e6d564f1",
+            "determinationId": "dab7ec2e-4c65-43a7-9817-4b10ba91fa47",
+            "operationId": "fcce40e4-ec97-4a6c-9605-94866d442465",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:17.087Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ]
+      },
+      "G": {
+        "log": "22-corrected-focal.stdout.log.gz",
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "fde1e83b-70e9-4d17-82b5-b91af6186471",
+            "determinationId": "efa26146-4aaa-4163-9045-4c9a372813de",
+            "operationId": "7ecd3df3-31c9-4928-91cf-133b58d65d15",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "fde1e83b-70e9-4d17-82b5-b91af6186471",
+            "determinationId": "2553793f-8682-400f-a51b-afda39d4adc2",
+            "operationId": "9cb581d9-cbe9-4025-9e4c-499980cdf283",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_PORTION_CONFLICT:E2"
+          }
+        ],
+        "locks": [],
+        "overlap": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ]
+      },
+      "deadlineMs": null,
+      "originalSourceSha256": "3164f518d9ac79aa5f98ea392c3ef0723c8c18185196ada453bd47738817cadd",
+      "assertionsChanged": false,
+      "productCorrective": false
+    },
+    {
+      "name": "H5-016 A03 close has read material before cancellation writes",
+      "source": "tests/integration/postgres-h5-016-races.test.ts:31:129",
+      "classification": "Consequence of temporal fixture independently reproduced",
+      "cause": "Writer rejected before cancellation insert/closure_writer; second advisory wait never reached. G reaches original two-wait barrier with real blocking pids; original writer fulfilled and close rejected assertions pass.",
+      "original": {
+        "log": "21-original-focal.stdout.log.gz",
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "3b0ea4a3-64e8-4b25-8b50-d4690c0436c1",
+            "determinationId": "0423d56c-9285-4d00-b949-effa0782a834",
+            "operationId": "41b44e3a-dd87-4e09-98bb-d3ad8ae8d3c8",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T14:28:15.646Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "locks": [
+          {
+            "bid": "3b0ea4a3-64e8-4b25-8b50-d4690c0436c1",
+            "results": [
+              {
+                "status": "rejected",
+                "error": "Error: CLOSURE_DIMENSION_PENDING:E3:commercial"
+              },
+              {
+                "status": "rejected",
+                "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+              }
+            ]
+          }
+        ],
+        "overlap": []
+      },
+      "G": {
+        "log": "22-corrected-focal.stdout.log.gz",
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "603c1cd7-f8b4-4bbd-83f8-e4e312115442",
+            "determinationId": "fb14a4f3-5e58-4a72-89f5-403be1da26ea",
+            "operationId": "65f6c420-d715-4c93-90fb-9c4170930109",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          }
+        ],
+        "locks": [
+          {
+            "bid": "603c1cd7-f8b4-4bbd-83f8-e4e312115442",
+            "locks": [
+              {
+                "pid": 57879,
+                "classid": 1997886889,
+                "objid": 3782996710,
+                "granted": true,
+                "blockers": [
+                  58090
+                ]
+              },
+              {
+                "pid": 57879,
+                "classid": 2059206844,
+                "objid": 71621768,
+                "granted": true,
+                "blockers": [
+                  58090
+                ]
+              },
+              {
+                "pid": 57879,
+                "classid": 2238463381,
+                "objid": 4079133983,
+                "granted": false,
+                "blockers": [
+                  58090
+                ]
+              },
+              {
+                "pid": 57879,
+                "classid": 3569953546,
+                "objid": 2594044254,
+                "granted": true,
+                "blockers": [
+                  58090
+                ]
+              },
+              {
+                "pid": 57879,
+                "classid": 3846100841,
+                "objid": 3975902792,
+                "granted": true,
+                "blockers": [
+                  58090
+                ]
+              },
+              {
+                "pid": 58088,
+                "classid": 0,
+                "objid": 601616,
+                "granted": true,
+                "blockers": []
+              },
+              {
+                "pid": 58090,
+                "classid": 0,
+                "objid": 601616,
+                "granted": false,
+                "blockers": [
+                  58088
+                ]
+              },
+              {
+                "pid": 58090,
+                "classid": 2238463381,
+                "objid": 4079133983,
+                "granted": true,
+                "blockers": [
+                  58088
+                ]
+              }
+            ],
+            "results": [
+              {
+                "status": "rejected",
+                "error": "Error: CLOSURE_DIMENSION_PENDING:E3:commercial"
+              },
+              {
+                "status": "fulfilled"
+              }
+            ]
+          }
+        ],
+        "overlap": []
+      },
+      "deadlineMs": 15000,
+      "originalSourceSha256": "ceffcc4290e532742f0ef6c1dd8a3f596de59b1a989c7f98d3dacd8f9d27b425",
+      "assertionsChanged": false,
+      "productCorrective": false
+    }
+  ],
+  "unresolved": 0,
+  "historicalFAILPreserved": true
+}

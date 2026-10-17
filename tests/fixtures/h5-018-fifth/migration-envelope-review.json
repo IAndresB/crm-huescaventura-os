@@ -1,0 +1,10 @@
+{
+  "functions": [
+    "crm_private.diagnostic_canonical_nodes",
+    "crm_api.h5_diagnostic_record",
+    "crm_api.h5_diagnostic_read"
+  ],
+  "otherStatements": "begin; do $$begin if current_user<>'crm_h0_migration'then raise exception 'DIAGNOSTIC_MIGRATION_AUTHORITY_REQUIRED';end if;end$$; commit;",
+  "expectedEnvelopeOnly": true,
+  "noAdditionalDDLOrDML": true
+}

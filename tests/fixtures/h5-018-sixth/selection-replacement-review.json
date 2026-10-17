@@ -1,0 +1,245 @@
+[
+  {
+    "file": "h5017c-preservation-postgres-h4-024.test.ts",
+    "selected": "h5017d-dependency-postgres-h4-024.test.ts",
+    "oldTestCalls": 18,
+    "newTestCalls": 18,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -6,7 +6,7 @@\n\n import {readFile,writeFile} from 'node:fs/promises';\n import {resolve} from 'node:path';\n import {createHash,randomUUID as uid} from 'node:crypto';\n-import {isolatedReality,read,write} from '../support/h4-reality-isolated.ts';\n+import {isolatedReality,read,write} from '../support/h5-diagnostic-d-regression.ts';\n import {confirmationFixture} from '../support/h4-confirmation-fixtures.ts';\n import {availabilityFixture} from '../support/h4-availability-fixtures.ts';\n import {requirementFixture} from '../support/h4-requirement-fixtures.ts';"
+  },
+  {
+    "file": "postgres-h4-018-migration.test.ts",
+    "selected": "h5017c-preservation-postgres-h4-018-migration.test.ts",
+    "oldTestCalls": 5,
+    "newTestCalls": 5,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,4 +1,4 @@\n\n-import {assertHistoricalBytes} from '../support/h5-006-dependency-preservation.ts';\n+import {assertHistoricalBytes} from '../support/h5-017-c-dependency-preservation.ts';\n import {test} from 'node:test';import assert from 'node:assert/strict';import {readFile,readdir,writeFile} from 'node:fs/promises';import {spawnSync} from 'node:child_process';import {createHash} from 'node:crypto';\n import {isolatedDeposit as isolatedCancellation,depositMigration as cancellationMigration,read,write} from '../support/h4-deposit-isolated.ts';\n import {refundFixture}from'../support/h4-refund-fixtures.ts';"
+  },
+  {
+    "file": "postgres-h4-019-f06.test.ts",
+    "selected": "h5017c-preservation-postgres-h4-019-f06.test.ts",
+    "oldTestCalls": 8,
+    "newTestCalls": 8,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,4 +1,4 @@\n\n-import {assertHistoricalBytes} from '../support/h5-006-dependency-preservation.ts';\n+import {assertHistoricalBytes} from '../support/h5-017-c-dependency-preservation.ts';\n import {test,beforeEach,afterEach}from'node:test';import assert from'node:assert/strict';import{randomUUID as uid,createHash}from'node:crypto';import{readFile,writeFile}from'node:fs/promises';\n import{isolatedDeposit,write}from'../support/h4-deposit-isolated.ts';import{allocationFixture}from'../support/h3-allocation-fixtures.ts';import{refundFixture}from'../support/h4-refund-fixtures.ts';import{depositFixture}from'../support/h4-deposit-fixtures.ts';import{f06Migration}from'../support/h4-019-current-chain.ts';import{H0005PostgresAdapter}from'../../src/infrastructure/postgres/h0-005-adapter.ts';import{verifyAuth}from'../../src/application/verified-auth.ts';\n let h:Awaited<ReturnType<typeof isolatedDeposit>>;beforeEach(async()=>{h=await isolatedDeposit('crm_f06_authority',57210);await h.migration.unsafe(await readFile('supabase/migrations/'+f06Migration,'utf8'));});afterEach(async()=>{await h?.close();});"
+  },
+  {
+    "file": "postgres-h4-019-preservation.test.ts",
+    "selected": "h5017c-preservation-postgres-h4-019-preservation.test.ts",
+    "oldTestCalls": 4,
+    "newTestCalls": 4,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,4 +1,4 @@\n\n-import {assertHistoricalBytes} from '../support/h5-006-dependency-preservation.ts';\n+import {assertHistoricalBytes} from '../support/h5-017-c-dependency-preservation.ts';\n import {test} from 'node:test';import assert from 'node:assert/strict';import {readFile,readdir,writeFile} from 'node:fs/promises';import {spawnSync} from 'node:child_process';import {createHash} from 'node:crypto';\n const base='ae1f3c360624bb0fb3714ec3983a13b888a444a7';\n test('J22 48 published migrations sources expected health; exact F10 dependency exception',async()=>{const migrations=(await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')&&x<='20261006152658_h4_joint_funds_compatible_actor_admission.sql');assert.equal(migrations.length,49);assert.equal(migrations.filter(x=>x<'20261006152658_h4_joint_funds_compatible_actor_admission.sql').length,48);const paths=spawnSync('git',['ls-tree','-r','--name-only',base],{encoding:'utf8'}).stdout.split('\\n').filter(p=>p.startsWith('supabase/migrations/')||/\\/expected-.*\\.md$/.test(p)||['package.json','pnpm-lock.yaml','docs/constitution.md','docs/product.md','docs/business-rules.md','docs/domain-model.md','docs/state-machines.md','docs/architecture.md','docs/DECISIONS.md','specs/001-core-crm/spec.md','specs/001-core-crm/plan.md','supabase/operations/20261002225221_crm_supabase_daily_health.sql','tests/operations/supabase-health.test.mjs','docs/SUPABASE-KEEPALIVE.md'].includes(p));const manifest:Record<string,string>={};for(const p of paths){const r=spawnSync('git',['show',base+':'+p]);assert.equal(r.status,0);const value=await readFile(p);assertHistoricalBytes(p,value,r.stdout);manifest[p]=createHash('sha256').update(value).digest('hex');}console.log('J22 immutable hashes',JSON.stringify(manifest));if(process.env.H4014_CAPTURE_DIR)await writeFile(process.env.H4014_CAPTURE_DIR+'/joint-preservation-hashes.json',JSON.stringify(manifest,null,2)+'\\n');});"
+  },
+  {
+    "file": "postgres-h4-021-f23-migration.test.ts",
+    "selected": "h5017c-preservation-postgres-h4-021-f23-migration.test.ts",
+    "oldTestCalls": 3,
+    "newTestCalls": 3,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,4 +1,4 @@\n\n-import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-006-dependency-preservation.ts';\n+import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-017-c-dependency-preservation.ts';\n import {invoiceFixture}from'../support/h3-invoice-fixtures.ts';import {read,write}from'../support/h4-booking-preparation-isolated.ts';\n import {test}from'node:test';import assert from'node:assert/strict';import {readFile,writeFile}from'node:fs/promises';import {spawnSync}from'node:child_process';import {createHash}from'node:crypto';\n import {isolatedPreparation,preparationF23Migration}from'../support/h4-booking-preparation-isolated.ts';import {preparationFixture}from'../support/h4-booking-preparation-fixtures.ts';"
+  },
+  {
+    "file": "postgres-h4-021-migration.test.ts",
+    "selected": "h5017c-preservation-postgres-h4-021-migration.test.ts",
+    "oldTestCalls": 3,
+    "newTestCalls": 3,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,4 +1,4 @@\n\n-import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-006-dependency-preservation.ts';\n+import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-017-c-dependency-preservation.ts';\n import {invoiceFixture}from'../support/h3-invoice-fixtures.ts';import {read,write}from'../support/h4-booking-preparation-isolated.ts';\n import {test}from'node:test';import assert from'node:assert/strict';import {readFile,writeFile}from'node:fs/promises';import {spawnSync}from'node:child_process';import {createHash}from'node:crypto';\n import {isolatedPreparation,preparationMigration}from'../support/h4-booking-preparation-isolated.ts';import {preparationFixture}from'../support/h4-booking-preparation-fixtures.ts';"
+  },
+  {
+    "file": "postgres-h4-023-migration.test.ts",
+    "selected": "h5017c-preservation-postgres-h4-023-migration.test.ts",
+    "oldTestCalls": 3,
+    "newTestCalls": 3,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,4 +1,4 @@\n\n-import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-006-dependency-preservation.ts';\n+import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-017-c-dependency-preservation.ts';\n import{confirmationFixture}from'../support/h4-confirmation-fixtures.ts';import{randomUUID as uid}from'node:crypto';import{modificationFixture}from'../support/h4-modification-fixtures.ts';import{refundFixture}from'../support/h4-refund-fixtures.ts';import{depositFixture}from'../support/h4-deposit-fixtures.ts';\n import {invoiceFixture}from'../support/h3-invoice-fixtures.ts';import {read,write}from'../support/h4-booking-preparation-isolated.ts';\n import {test}from'node:test';import assert from'node:assert/strict';import {readFile,writeFile}from'node:fs/promises';import {spawnSync}from'node:child_process';import {createHash}from'node:crypto';"
+  },
+  {
+    "file": "postgres-h4-024.test.ts",
+    "selected": "h5017d-dependency-postgres-h4-024.test.ts",
+    "oldTestCalls": 18,
+    "newTestCalls": 18,
+    "added": 2,
+    "removed": 2,
+    "diff": "--- \n\n+++ \n\n@@ -1,4 +1,4 @@\n\n-import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-006-dependency-preservation.ts';\n+import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-017-c-dependency-preservation.ts';\n // H4-024 exit routes on current52. Expected literal: O01\u2013O32 frozen ba9b9f7.\n // Reuses accredited ordinary-contract routes; assertions never call product calculation helpers.\n import {test,before,after} from 'node:test';\n@@ -6,7 +6,7 @@\n\n import {readFile,writeFile} from 'node:fs/promises';\n import {resolve} from 'node:path';\n import {createHash,randomUUID as uid} from 'node:crypto';\n-import {isolatedReality,read,write} from '../support/h4-reality-isolated.ts';\n+import {isolatedReality,read,write} from '../support/h5-diagnostic-d-regression.ts';\n import {confirmationFixture} from '../support/h4-confirmation-fixtures.ts';\n import {availabilityFixture} from '../support/h4-availability-fixtures.ts';\n import {requirementFixture} from '../support/h4-requirement-fixtures.ts';"
+  },
+  {
+    "file": "postgres-h5-004-migration.test.ts",
+    "selected": "h5017c-preservation-postgres-h5-004-migration.test.ts",
+    "oldTestCalls": 4,
+    "newTestCalls": 4,
+    "added": 2,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,3 +1,4 @@\n\n+import {assertHistoricalBytes as assertCProductBytes} from '../support/h5-017-c-dependency-preservation.ts';\n import {test} from 'node:test';\n import assert from 'node:assert/strict';\n import {readFile,writeFile,readdir} from 'node:fs/promises';\n@@ -41,7 +42,7 @@\n\n  const base='e54331e41d5da154379542d0a08578288a57f01a';\n  const git=(args:string[])=>{const r=spawnSync('git',args,{encoding:'utf8'});assert.equal(r.status,0);return r.stdout;};\n  const prior=git(['ls-tree','-r','--name-only',base,'src','supabase','tests/operations','scripts']).trim().split('\\n');\n- for(const file of prior)assert.equal(await readFile(file,'utf8'),git(['show',base+':'+file]),file);\n+ for(const file of prior){const current=await readFile(file,'utf8'),historical=git(['show',base+':'+file]);if(file==='src/server/composition.ts')assertCProductBytes(file,Buffer.from(current),Buffer.from(historical));else assert.equal(current,historical,file);}\n  const expected='specs/001-core-crm/expected-TSK-H5-003-004.md';assert.equal(await readFile(expected,'utf8'),git(['show','7cfa0ee:'+expected]));\n  const tasks=git(['show',base+':specs/001-core-crm/tasks.md']);const rows=tasks.split('## 6. Matrices de trazabilidad')[1]!.split('## 7.')[0]!.split('\\n').filter(x=>x.startsWith('|')&&/\\[TSK-H5-00[34]\\]/.test(x));\n  assert.equal(rows.length,10);for(const row of rows)assert.ok((await readFile(expected,'utf8')).includes(row));"
+  },
+  {
+    "file": "postgres-h5-006-migration.test.ts",
+    "selected": "h5017c-preservation-postgres-h5-006-migration.test.ts",
+    "oldTestCalls": 4,
+    "newTestCalls": 4,
+    "added": 2,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,3 +1,4 @@\n\n+import {assertHistoricalBytes as assertCProductBytes} from '../support/h5-017-c-dependency-preservation.ts';\n import {test} from 'node:test';\n import assert from 'node:assert/strict';\n import {createHash} from 'node:crypto';\n@@ -30,7 +31,7 @@\n\n test('H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE exact expected33 rows57 cases and historic product bytes',async()=>{\n  const base='7eac0d27b6b74331868a14bbc4ca967f8d2f6bb9',expectedSha='b14396627cbadfc4a99dd3b158b47c3562d3f08f';\n  const git=(...args:string[])=>{const r=spawnSync('git',args,{encoding:'utf8'});assert.equal(r.status,0);return r.stdout;};\n- const protectedFiles=git('ls-tree','-r','--name-only',base,'src','supabase','scripts','tests/operations').trim().split('\\n');for(const f of protectedFiles)assert.equal(await readFile(f,'utf8'),git('show',base+':'+f),f);\n+ const protectedFiles=git('ls-tree','-r','--name-only',base,'src','supabase','scripts','tests/operations').trim().split('\\n');for(const f of protectedFiles){const current=await readFile(f,'utf8'),historical=git('show',base+':'+f);if(f==='src/server/composition.ts')assertCProductBytes(f,Buffer.from(current),Buffer.from(historical));else assert.equal(current,historical,f);}\n  const expectedFile='specs/001-core-crm/expected-TSK-H5-005-006.md',expected=await readFile(expectedFile,'utf8');assert.equal(expected,git('show',expectedSha+':'+expectedFile));\n  const tasks=git('show',base+':specs/001-core-crm/tasks.md'),rows=tasks.split('\\n## 6.')[1]!.split('\\n## 7.')[0]!.split('\\n').filter(x=>x.startsWith('|')&&/\\[TSK-H5-00[56]\\]/.test(x));assert.equal(rows.length,33);for(const row of rows)assert.ok(expected.includes(row));assert.equal(expected.split('\\n').filter(x=>x.startsWith('| H5-C')).length,57);\n  assert.equal((await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')&&x<=migration.split('/').at(-1)!).length,55);"
+  },
+  {
+    "file": "postgres-h5-008-migration.test.ts",
+    "selected": "h5017c-preservation-postgres-h5-008-migration.test.ts",
+    "oldTestCalls": 5,
+    "newTestCalls": 5,
+    "added": 3,
+    "removed": 2,
+    "diff": "--- \n\n+++ \n\n@@ -1,3 +1,4 @@\n\n+import {assertHistoricalBytes as assertCProductBytes} from '../support/h5-017-c-dependency-preservation.ts';\n import {test} from 'node:test';\n import assert from 'node:assert/strict';\n import {createHash} from 'node:crypto';\n@@ -32,9 +33,9 @@\n\n  const historicalCommit='5e3add4b2c82fc5b0e459b43ea0685393c495840',historicalFiles=git('ls-tree','-r','--name-only',historicalCommit,'supabase/migrations').trim().split('\\n').filter(x=>x.endsWith('.sql')).map(x=>x.split('/').at(-1)!).sort();assert.equal(historicalFiles.length,56,'published H5-008 migration baseline');\n  const currentFiles=(await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')).sort();assert.ok(currentFiles.length>=historicalFiles.length);assert.deepEqual(currentFiles.slice(0,historicalFiles.length),historicalFiles,'the first 56 migration names and order are frozen at published H5-008');\n  for(const file of historicalFiles){const actual=await readFile('supabase/migrations/'+file),published=gitBytes('show',historicalCommit+':supabase/migrations/'+file);assert.deepEqual(actual,published,file);assert.equal(createHash('sha256').update(actual).digest('hex'),createHash('sha256').update(published).digest('hex'),file);}\n- const baseline=git('ls-tree','-r','--name-only','ff109036e3bb08a1d61e948693bc622bb10f240e','src','scripts','tests/operations','package.json','pnpm-lock.yaml').trim().split('\\n');for(const file of baseline)assert.equal(await readFile(file,'utf8'),git('show','ff109036e3bb08a1d61e948693bc622bb10f240e:'+file),file);\n+ const baseline=git('ls-tree','-r','--name-only','ff109036e3bb08a1d61e948693bc622bb10f240e','src','scripts','tests/operations','package.json','pnpm-lock.yaml').trim().split('\\n');for(const file of baseline){const current=await readFile(file,'utf8'),historical=git('show','ff109036e3bb08a1d61e948693bc622bb10f240e:'+file);if(file==='src/server/composition.ts')assertCProductBytes(file,Buffer.from(current),Buffer.from(historical));else assert.equal(current,historical,file);}\n  assert.ok(currentFiles.length>=56,'future migrations may follow the frozen H5-008 prefix');\n- const chain=spawnSync(process.execPath,['tests/fixtures/h5-006/f12/chain-counterexamples.mjs'],{encoding:'utf8',timeout:60000});assert.equal(chain.status,0,chain.stdout+chain.stderr);\n+ const chain=spawnSync(process.execPath,['tests/support/h5-017-c-chain-counterexamples.mjs'],{encoding:'utf8',timeout:60000});assert.equal(chain.status,0,chain.stdout+chain.stderr);\n  for(const file of [migration,'src/domain/persisted-work.ts','src/infrastructure/postgres/persisted-work-executor.ts','src/application/work-result-verification.ts'])assert.doesNotMatch(await readFile(file,'utf8'),/\\b(fetch\\(|setInterval\\(|cron\\.schedule|https:\\/\\/|openai\\.com|anthropic|gemini|whisper|twilio|evolution-api|n8n)/i);\n  await capture('preservation',{historicalCommit,historicalFiles,currentFiles,baseline,rows,expectedPublication:'ae7f3b0',expectedSha256:createHash('sha256').update(raw).digest('hex'),expectedBytes:raw.length,chainStatus:chain.status,pending:['DM-PENDING-005','BR-PENDING-035','schedulerCapacity','resumePolicy'],laterTasksStarted:false});\n });"
+  },
+  {
+    "file": "postgres-h5-008.test.ts",
+    "selected": "h5017d-dependency-postgres-h5-008.test.ts",
+    "oldTestCalls": 28,
+    "newTestCalls": 28,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,6 +1,6 @@\n\n import {before,after,afterEach,test} from 'node:test';\n import assert from 'node:assert/strict';\n-import {isolatedWork,workFixture,secondWorkActor,write} from '../support/h5-work-isolated.ts';\n+import {isolatedWork,workFixture,secondWorkActor,write} from '../support/h5-diagnostic-d-regression.ts';\n let h:Awaited<ReturnType<typeof isolatedWork>>;\n before(async()=>{h=await isolatedWork('crm_h5008',59008);});after(async()=>{await h?.close();});afterEach(async()=>{await h?.closeExecutors();});\n test('W01 W02 W11 W43 definition claim exact HA start result',async()=>{"
+  },
+  {
+    "file": "postgres-h5-009.test.ts",
+    "selected": "h5017d-dependency-postgres-h5-009.test.ts",
+    "oldTestCalls": 10,
+    "newTestCalls": 10,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,7 +1,7 @@\n\n import {after,afterEach,before,test} from \"node:test\";\n import assert from \"node:assert/strict\";\n import {randomUUID as uid} from \"node:crypto\";\n-import {boundaryFixture,isolatedBoundaries,read,write} from \"../support/h5-boundary-isolated.ts\";\n+import {boundaryFixture,isolatedBoundaries,read,write} from \"../support/h5-diagnostic-d-regression.ts\";\n let h:Awaited<ReturnType<typeof isolatedBoundaries>>;\n before(async()=>{h=await isolatedBoundaries(\"crm_h5009\",59109);});\n after(async()=>{await h?.close();});"
+  },
+  {
+    "file": "postgres-h5-016-audit.test.ts",
+    "selected": "h5017d-dependency-postgres-h5-016-audit.test.ts",
+    "oldTestCalls": 6,
+    "newTestCalls": 6,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,6 +1,6 @@\n\n import {before,after,test} from 'node:test';\n import assert from 'node:assert/strict';\n-import {isolatedJointClosures,write,read} from '../support/h5-joint-closure-isolated.ts';\n+import {isolatedJointClosures,write,read} from '../support/h5-diagnostic-d-regression.ts';\n import {jointFixture} from '../support/h5-joint-closure-fixtures.ts';\n import {incidentFixture} from '../support/h4-incident-fixtures.ts';\n let h:Awaited<ReturnType<typeof isolatedJointClosures>>;"
+  },
+  {
+    "file": "postgres-h5-017-c-017.test.ts",
+    "selected": "postgres-h5-017-d-017.test.ts",
+    "oldTestCalls": 15,
+    "newTestCalls": 15,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,7 +1,7 @@\n\n import {before,after,test} from 'node:test';\n import assert from 'node:assert/strict';\n import {randomUUID as uid} from 'node:crypto';\n-import {isolatedDiagnostics,read,write} from '../support/h5-diagnostic-corrected-isolated.ts';\n+import {isolatedDiagnostics,read,write} from '../support/h5-diagnostic-d-isolated.ts';\n import {workFixture} from '../support/h5-work-isolated.ts';\n import {boundaryFixture} from '../support/h5-boundary-isolated.ts';\n import {communicationFixture} from '../support/h5-communication-isolated.ts';"
+  },
+  {
+    "file": "postgres-h5-017-c-counterexamples.test.ts",
+    "selected": "postgres-h5-017-d-counterexamples.test.ts",
+    "oldTestCalls": 12,
+    "newTestCalls": 12,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -2,7 +2,7 @@\n\n import assert from 'node:assert/strict';\n import {randomUUID as id} from 'node:crypto';\n import {readFile} from 'node:fs/promises';\n-import {isolatedCorrectedDiagnostics,read,write,migration65} from '../support/h5-diagnostic-corrected-isolated.ts';\n+import {isolatedCorrectedDiagnostics,read,write,migration65} from '../support/h5-diagnostic-d-isolated.ts';\n import {workFixture,secondWorkActor} from '../support/h5-work-isolated.ts';\n import {communicationFixture} from '../support/h5-communication-isolated.ts';\n import {boundaryFixture} from '../support/h5-boundary-isolated.ts';"
+  },
+  {
+    "file": "postgres-h5-017-c-independent-audit.test.ts",
+    "selected": "postgres-h5-017-d-independent-audit.test.ts",
+    "oldTestCalls": 16,
+    "newTestCalls": 16,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,7 +1,7 @@\n\n import {before,after,test} from 'node:test';\n import assert from 'node:assert/strict';\n import {randomUUID as id} from 'node:crypto';\n-import {auditDatabase,read,write} from '../support/h5-diagnostic-corrected-isolated.ts';\n+import {auditDatabase,read,write} from '../support/h5-diagnostic-d-isolated.ts';\n import {workFixture,secondWorkActor} from '../support/h5-work-isolated.ts';\n import {communicationFixture} from '../support/h5-communication-isolated.ts';\n import {boundaryFixture} from '../support/h5-boundary-isolated.ts';"
+  },
+  {
+    "file": "postgres-h5-017-c-independent-causes.test.ts",
+    "selected": "postgres-h5-017-d-independent-causes.test.ts",
+    "oldTestCalls": 9,
+    "newTestCalls": 9,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,7 +1,7 @@\n\n import {before,after,test} from 'node:test';\n import assert from 'node:assert/strict';\n import {randomUUID as id} from 'node:crypto';\n-import {auditDatabase,read,write} from '../support/h5-diagnostic-corrected-isolated.ts';\n+import {auditDatabase,read,write} from '../support/h5-diagnostic-d-isolated.ts';\n import {communicationFixture} from '../support/h5-communication-isolated.ts';\n import {boundaryFixture} from '../support/h5-boundary-isolated.ts';\n import {invokeDiagnosticOperation} from '../../src/server/diagnostic-operation.ts';"
+  },
+  {
+    "file": "postgres-h5-017-c-regression-security.test.ts",
+    "selected": "postgres-h5-017-d-regression-security.test.ts",
+    "oldTestCalls": 9,
+    "newTestCalls": 9,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,7 +1,7 @@\n\n import {before,after,test} from 'node:test';\n import assert from 'node:assert/strict';\n import {randomUUID as uid} from 'node:crypto';\n-import {isolatedDiagnostics,read,write} from '../support/h5-diagnostic-corrected-isolated.ts';\n+import {isolatedDiagnostics,read,write} from '../support/h5-diagnostic-d-isolated.ts';\n import {communicationFixture} from '../support/h5-communication-isolated.ts';\n import {workFixture,secondWorkActor} from '../support/h5-work-isolated.ts';\n import {semanticIssue} from '../../src/domain/semantic-error.ts';"
+  },
+  {
+    "file": "postgres-h5-017-security.test.ts",
+    "selected": "postgres-h5-017-d-regression-security.test.ts",
+    "oldTestCalls": 9,
+    "newTestCalls": 9,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,7 +1,7 @@\n\n import {before,after,test} from 'node:test';\n import assert from 'node:assert/strict';\n import {randomUUID as uid} from 'node:crypto';\n-import {isolatedDiagnostics,read,write} from '../support/h5-diagnostic-isolated.ts';\n+import {isolatedDiagnostics,read,write} from '../support/h5-diagnostic-d-isolated.ts';\n import {communicationFixture} from '../support/h5-communication-isolated.ts';\n import {workFixture,secondWorkActor} from '../support/h5-work-isolated.ts';\n import {semanticIssue} from '../../src/domain/semantic-error.ts';"
+  },
+  {
+    "file": "postgres-h5-017.test.ts",
+    "selected": "postgres-h5-017-d-017.test.ts",
+    "oldTestCalls": 15,
+    "newTestCalls": 15,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,7 +1,7 @@\n\n import {before,after,test} from 'node:test';\n import assert from 'node:assert/strict';\n import {randomUUID as uid} from 'node:crypto';\n-import {isolatedDiagnostics,read,write} from '../support/h5-diagnostic-isolated.ts';\n+import {isolatedDiagnostics,read,write} from '../support/h5-diagnostic-d-isolated.ts';\n import {workFixture} from '../support/h5-work-isolated.ts';\n import {boundaryFixture} from '../support/h5-boundary-isolated.ts';\n import {communicationFixture} from '../support/h5-communication-isolated.ts';"
+  },
+  {
+    "file": "postgres-h5-018-audit.test.ts",
+    "selected": "postgres-h5-017-d-independent-audit.test.ts",
+    "oldTestCalls": 16,
+    "newTestCalls": 16,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,7 +1,7 @@\n\n import {before,after,test} from 'node:test';\n import assert from 'node:assert/strict';\n import {randomUUID as id} from 'node:crypto';\n-import {auditDatabase,read,write} from '../support/h5-018-audit-isolated.ts';\n+import {auditDatabase,read,write} from '../support/h5-diagnostic-d-isolated.ts';\n import {workFixture,secondWorkActor} from '../support/h5-work-isolated.ts';\n import {communicationFixture} from '../support/h5-communication-isolated.ts';\n import {boundaryFixture} from '../support/h5-boundary-isolated.ts';"
+  },
+  {
+    "file": "postgres-h5-018-causes.test.ts",
+    "selected": "postgres-h5-017-d-independent-causes.test.ts",
+    "oldTestCalls": 9,
+    "newTestCalls": 9,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -1,7 +1,7 @@\n\n import {before,after,test} from 'node:test';\n import assert from 'node:assert/strict';\n import {randomUUID as id} from 'node:crypto';\n-import {auditDatabase,read,write} from '../support/h5-018-audit-isolated.ts';\n+import {auditDatabase,read,write} from '../support/h5-diagnostic-d-isolated.ts';\n import {communicationFixture} from '../support/h5-communication-isolated.ts';\n import {boundaryFixture} from '../support/h5-boundary-isolated.ts';\n import {invokeDiagnosticOperation} from '../../src/server/diagnostic-operation.ts';"
+  },
+  {
+    "file": "postgres-h5-018-migration.test.ts",
+    "selected": "postgres-h5-017-c-legacy64-migration.test.ts",
+    "oldTestCalls": 3,
+    "newTestCalls": 3,
+    "added": 1,
+    "removed": 1,
+    "diff": "--- \n\n+++ \n\n@@ -29,7 +29,7 @@\n\n  const h=await auditDatabase('h5018clean',59720,true);\n  try{\n  await h.admin.unsafe('drop role anon;drop role authenticated');await h.migration.unsafe(await readFile(migration64,'utf8'));await h.admin.unsafe('create role anon login;create role authenticated login');\n- assert.equal((await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')).length,64);\n+ assert.equal((await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')&&x<='20261016142812_h5_protected_diagnostics.sql').length,64);\n  for(const role of ['anon','authenticated','crm_h0_runtime','crm_h0_ha_tx']){\n   assert.equal((await h.admin`select has_table_privilege(${role},'crm_private.b10_diagnostic_observations','SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER') p`)[0]!.p,false);\n   assert.equal((await h.admin`select has_function_privilege(${role},'crm_private.diagnostic_nodes(text,text,uuid)','EXECUTE') p`)[0]!.p,false);"
+  },
+  {
+    "file": "postgres-h5-018-second-controls.test.ts",
+    "sha256": "00b041f02d2784d3a0194343e9bb5785c5d76e105ca333fc5ff6a44928a20e3a",
+    "chain": [
+      "postgres-h5-018-second-controls.test.ts"
+    ],
+    "selectedReplacement": null,
+    "reason": "Original historical instrument with overbroad S01/T02 temporal prohibition; preserved clarification precedes this audit. Valid temporal regressions rerun as original R01/R02 and D/T/Q suites. Not counted as a current PASS for this file."
+  },
+  {
+    "file": "postgres-h5-018-second-temporal.test.ts",
+    "sha256": "119e005d35b05172238846d67f5eb21ac86a56de2c43e84245e0f5114b5c3eab",
+    "chain": [
+      "postgres-h5-018-second-temporal.test.ts"
+    ],
+    "selectedReplacement": null,
+    "reason": "Original historical instrument with overbroad S01/T02 temporal prohibition; preserved clarification precedes this audit. Valid temporal regressions rerun as original R01/R02 and D/T/Q suites. Not counted as a current PASS for this file."
+  },
+  {
+    "file": "postgres-h5-018-third-migration.test.ts",
+    "sha256": "f4e71e71e7142fb2ad13df662f980ad7adc8e330ddc355c51bbc474c33727ef6",
+    "chain": [
+      "postgres-h5-018-third-migration.test.ts"
+    ],
+    "selectedReplacement": null,
+    "reason": "Historical migration66 audit not part of received F192 selection; version66 migration tested by selected D migration and earlier original second migration; own fifth V08 separately verifies68. Not counted as a current PASS for this file."
+  }
+]

@@ -1,0 +1,680 @@
+{
+  "result": "PASS individual causal diagnosis",
+  "cases": [
+    {
+      "test": "H4-014 C27 competing determinations with actual independent PG sessions 0,1",
+      "originalLocation": "tests/integration/postgres-h4-014.test.ts:63:34",
+      "historicalDetail": "test at tests/integration/postgres-h4-014.test.ts:63:34\n\u2716 H4-014 C27 competing determinations with actual independent PG sessions 0,1 (411.182958ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5018-fifth-SyE8Cb/repo/tests/integration/postgres-h4-014.test.ts:63:326)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\n",
+      "expected": "one fulfilled, one REVISION_CONFLICT:E2; one revision and order-specific right",
+      "before": {
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "d77500f1-7c00-4209-a6ee-cb9993da110a",
+            "determinationId": "c7b5ad39-8e3a-4931-96ea-afaf57a5969d",
+            "operationId": "3e13d0dd-2a5d-465c-a091-5b4b9b28434f",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:06.674Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "d77500f1-7c00-4209-a6ee-cb9993da110a",
+            "determinationId": "c7b5ad39-8e3a-4931-96ea-afaf57a5969d",
+            "operationId": "89167f1a-7f93-4f98-ba35-43676fdb72b1",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:06.674Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ],
+        "log": "01-original-cancellation.stdout.log.gz"
+      },
+      "after": {
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "62bf7a79-a14b-47ac-afe4-debdbe129976",
+            "determinationId": "d83f0419-c072-4c3d-ac52-ab96531dca75",
+            "operationId": "022df148-02eb-4a59-bc4b-26606a2d2d09",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "62bf7a79-a14b-47ac-afe4-debdbe129976",
+            "determinationId": "d83f0419-c072-4c3d-ac52-ab96531dca75",
+            "operationId": "f57dd546-c99c-4c41-9ef1-b14a209ba402",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_REVISION_CONFLICT:E2"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ],
+        "log": "05-corrected-cancellation.stdout.log.gz"
+      },
+      "rootCause": "Both original commands rejected E3 before revision competition; zero successes instead of one.",
+      "classification": "Consecuencia demostrada del fixture temporal",
+      "productCorrective": false,
+      "assertionsChanged": false
+    },
+    {
+      "test": "H4-014 C27 competing determinations with actual independent PG sessions 1,0",
+      "originalLocation": "tests/integration/postgres-h4-014.test.ts:63:34",
+      "historicalDetail": "test at tests/integration/postgres-h4-014.test.ts:63:34\n\u2716 H4-014 C27 competing determinations with actual independent PG sessions 1,0 (537.536625ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5018-fifth-SyE8Cb/repo/tests/integration/postgres-h4-014.test.ts:63:326)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\n",
+      "expected": "one fulfilled, one REVISION_CONFLICT:E2; one revision and order-specific right",
+      "before": {
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "976dfe24-2c35-4849-95fd-0d57bfe9deb4",
+            "determinationId": "98aaa4f7-93b3-406c-a16e-51a346a1d8a9",
+            "operationId": "a84a71aa-63e4-46c6-b20c-50a36cd159e6",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:07.508Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "976dfe24-2c35-4849-95fd-0d57bfe9deb4",
+            "determinationId": "98aaa4f7-93b3-406c-a16e-51a346a1d8a9",
+            "operationId": "13e609f3-874a-4fc1-9eb5-8af0de83be1b",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:07.508Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ],
+        "log": "01-original-cancellation.stdout.log.gz"
+      },
+      "after": {
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "d8d18e09-f348-4a4a-b03f-35c1f143d542",
+            "determinationId": "1e396779-9ca7-417d-9ea9-6d4dcf2df0a0",
+            "operationId": "394210af-9775-41b9-a6ce-c3091026d3db",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "d8d18e09-f348-4a4a-b03f-35c1f143d542",
+            "determinationId": "1e396779-9ca7-417d-9ea9-6d4dcf2df0a0",
+            "operationId": "cf3bf49a-c740-4344-983e-df4b04499c82",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_REVISION_CONFLICT:E2"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ],
+        "log": "05-corrected-cancellation.stdout.log.gz"
+      },
+      "rootCause": "Both original commands rejected E3 before revision competition; zero successes instead of one.",
+      "classification": "Consecuencia demostrada del fixture temporal",
+      "productCorrective": false,
+      "assertionsChanged": false
+    },
+    {
+      "test": "H4-014 C27 equivalent concurrent replay independent sessions 0,1",
+      "originalLocation": "tests/integration/postgres-h4-014.test.ts:64:34",
+      "historicalDetail": "test at tests/integration/postgres-h4-014.test.ts:64:34\n\u2716 H4-014 C27 equivalent concurrent replay independent sessions 0,1 (387.588709ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 2\n  \n      at TestContext.<anonymous> (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5018-fifth-SyE8Cb/repo/tests/integration/postgres-h4-014.test.ts:64:242)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 2,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\n",
+      "expected": "two fulfilled responses; exactly one replay and one history revision",
+      "before": {
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "7506c132-c9bd-4c3e-9732-fc9fdd071d0c",
+            "determinationId": "4d6beb82-10dc-4798-96b3-274bd2899a1b",
+            "operationId": "051433f7-6dfe-4b14-8e73-50e1a0403b78",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:08.049Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "7506c132-c9bd-4c3e-9732-fc9fdd071d0c",
+            "determinationId": "4d6beb82-10dc-4798-96b3-274bd2899a1b",
+            "operationId": "051433f7-6dfe-4b14-8e73-50e1a0403b78",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:08.049Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ],
+        "log": "01-original-cancellation.stdout.log.gz"
+      },
+      "after": {
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "ba75a319-5f31-4757-bebd-8ce46377afd5",
+            "determinationId": "e41e7199-f94b-42a6-a831-2ad9ba065d36",
+            "operationId": "3bfdbf71-91f6-4d2a-82a8-6cbe32380412",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "ba75a319-5f31-4757-bebd-8ce46377afd5",
+            "determinationId": "e41e7199-f94b-42a6-a831-2ad9ba065d36",
+            "operationId": "3bfdbf71-91f6-4d2a-82a8-6cbe32380412",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": true
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ],
+        "log": "05-corrected-cancellation.stdout.log.gz"
+      },
+      "rootCause": "Both equivalent original calls fail E3 on evidence chronology; neither can create the result to replay.",
+      "classification": "Consecuencia demostrada del fixture temporal",
+      "productCorrective": false,
+      "assertionsChanged": false
+    },
+    {
+      "test": "H4-014 C27 equivalent concurrent replay independent sessions 1,0",
+      "originalLocation": "tests/integration/postgres-h4-014.test.ts:64:34",
+      "historicalDetail": "test at tests/integration/postgres-h4-014.test.ts:64:34\n\u2716 H4-014 C27 equivalent concurrent replay independent sessions 1,0 (454.717042ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 2\n  \n      at TestContext.<anonymous> (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5018-fifth-SyE8Cb/repo/tests/integration/postgres-h4-014.test.ts:64:242)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 2,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\n",
+      "expected": "two fulfilled responses; exactly one replay and one history revision",
+      "before": {
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "45a9681d-90c5-47d1-b8f1-3671460bb38d",
+            "determinationId": "6901ce7d-eb77-4346-ad2c-3eb08b48fc5e",
+            "operationId": "b934f660-086b-496a-aef7-196f7cff3c0e",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:08.448Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "45a9681d-90c5-47d1-b8f1-3671460bb38d",
+            "determinationId": "6901ce7d-eb77-4346-ad2c-3eb08b48fc5e",
+            "operationId": "b934f660-086b-496a-aef7-196f7cff3c0e",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:08.448Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ],
+        "log": "01-original-cancellation.stdout.log.gz"
+      },
+      "after": {
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "752faf9c-ab3a-4000-983d-8c511a103f45",
+            "determinationId": "b74b89a1-a7e8-442c-bc5c-55ca37b30304",
+            "operationId": "29f1b7c1-5033-4502-a041-43142276f4e5",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "752faf9c-ab3a-4000-983d-8c511a103f45",
+            "determinationId": "b74b89a1-a7e8-442c-bc5c-55ca37b30304",
+            "operationId": "29f1b7c1-5033-4502-a041-43142276f4e5",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": true
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ],
+        "log": "05-corrected-cancellation.stdout.log.gz"
+      },
+      "rootCause": "Both equivalent original calls fail E3 on evidence chronology; neither can create the result to replay.",
+      "classification": "Consecuencia demostrada del fixture temporal",
+      "productCorrective": false,
+      "assertionsChanged": false
+    },
+    {
+      "test": "H4-014 C28 determination versus applied actual service date change 0,1",
+      "originalLocation": "tests/integration/postgres-h4-014.test.ts:65:34",
+      "historicalDetail": "test at tests/integration/postgres-h4-014.test.ts:65:34\n\u2716 H4-014 C28 determination versus applied actual service date change 0,1 (1103.96775ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  false !== true\n  \n      at TestContext.<anonymous> (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5018-fifth-SyE8Cb/repo/tests/integration/postgres-h4-014.test.ts:65:793)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: false,\n    expected: true,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\n",
+      "expected": "both writes fulfilled in order0,1; cancellation becomes inapplicable after date change, accepted_detail preserved",
+      "before": {
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "61898845-98b8-44a5-b820-434fa3bd104c",
+            "determinationId": "f74eccdc-d6d6-4e02-9d3e-53cbf0f4e27a",
+            "operationId": "468b11f6-665f-43f5-8425-626ef9cc9f31",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:08.852Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ],
+        "log": "01-original-cancellation.stdout.log.gz"
+      },
+      "after": {
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "95f24a05-8f50-485e-ab8e-9e2d7003393e",
+            "determinationId": "b1f9061e-3637-495c-bf29-075a22901e8f",
+            "operationId": "c4f67823-07ae-4cdd-be45-294b9c3bd6df",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "95f24a05-8f50-485e-ab8e-9e2d7003393e",
+            "determinationId": "b1f9061e-3637-495c-bf29-075a22901e8f",
+            "operationId": "ac841b06-4568-4f08-a72b-df4f653875ac",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ],
+        "log": "05-corrected-cancellation.stdout.log.gz"
+      },
+      "rootCause": "Original determination rejected E3 after root wait; modification succeeds, so r.every(ok) is false. Corrected chronology admits determination; original assertions then verify invalidation and accepted snapshot.",
+      "classification": "Consecuencia demostrada del fixture temporal",
+      "productCorrective": false,
+      "assertionsChanged": false
+    },
+    {
+      "test": "H4-014 C27 distinct identities competing overlapping participation rights 0,1",
+      "originalLocation": "tests/integration/postgres-h4-014.test.ts:83:34",
+      "historicalDetail": "test at tests/integration/postgres-h4-014.test.ts:83:34\n\u2716 H4-014 C27 distinct identities competing overlapping participation rights 0,1 (376.610292ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5018-fifth-SyE8Cb/repo/tests/integration/postgres-h4-014.test.ts:83:443)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\n",
+      "expected": "one fulfilled, one PORTION_CONFLICT:E2; one determination",
+      "before": {
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "1fd9b2ed-360a-4c41-8aaf-7709abdcf71b",
+            "determinationId": "a9d1d51e-cd7c-4995-bdf8-d5e45b5ad25c",
+            "operationId": "22a9c2cc-d0df-4db1-988e-b3e944b6a2e7",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:24.352Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "1fd9b2ed-360a-4c41-8aaf-7709abdcf71b",
+            "determinationId": "e540bb0a-4b3d-4b7c-ac7d-4bc9385340fc",
+            "operationId": "68efa53b-ccb3-451d-9acc-a48bd034ab94",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:24.352Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ],
+        "log": "01-original-cancellation.stdout.log.gz"
+      },
+      "after": {
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "76458a90-9ec9-43f4-8d4a-e4e099f87d2c",
+            "determinationId": "90ea18e5-7b90-4618-beb4-31edfb64b0de",
+            "operationId": "ac759c5a-eeb7-4569-b7d3-3b4f94a5dc3a",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "76458a90-9ec9-43f4-8d4a-e4e099f87d2c",
+            "determinationId": "f17c9259-c8b8-4cd6-98af-f9ce4eb20154",
+            "operationId": "848c59f8-0430-411f-a35b-2c9d92127a38",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_PORTION_CONFLICT:E2"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 0, 1 ] queued 2 sessions 2"
+        ],
+        "log": "05-corrected-cancellation.stdout.log.gz"
+      },
+      "rootCause": "Both original rights rejected E3 before portion competition; zero successes instead of one.",
+      "classification": "Consecuencia demostrada del fixture temporal",
+      "productCorrective": false,
+      "assertionsChanged": false
+    },
+    {
+      "test": "H4-014 C27 distinct identities competing overlapping participation rights 1,0",
+      "originalLocation": "tests/integration/postgres-h4-014.test.ts:83:34",
+      "historicalDetail": "test at tests/integration/postgres-h4-014.test.ts:83:34\n\u2716 H4-014 C27 distinct identities competing overlapping participation rights 1,0 (395.165666ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5018-fifth-SyE8Cb/repo/tests/integration/postgres-h4-014.test.ts:83:443)\n      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\n",
+      "expected": "one fulfilled, one PORTION_CONFLICT:E2; one determination",
+      "before": {
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "4900fd1b-caab-47f7-804c-3f191133610e",
+            "determinationId": "18ed4276-f216-43a9-af53-b5777c45c804",
+            "operationId": "569e8690-231c-400f-8837-0acb0226c041",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:24.902Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          },
+          {
+            "mode": "original",
+            "bookingId": "4900fd1b-caab-47f7-804c-3f191133610e",
+            "determinationId": "7fadca17-24df-4ad9-bd13-c4428bef5bac",
+            "operationId": "f169cb36-d844-4fd1-8dcb-d464e0614d47",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:24.902Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ],
+        "log": "01-original-cancellation.stdout.log.gz"
+      },
+      "after": {
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "b94fc6aa-818a-41e6-9d44-4ed2529ef017",
+            "determinationId": "e96924eb-3131-40c4-aa71-219b66767558",
+            "operationId": "ac471a6f-bb65-47f3-b2ac-3a696ebfd9f9",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          },
+          {
+            "mode": "corrected",
+            "bookingId": "b94fc6aa-818a-41e6-9d44-4ed2529ef017",
+            "determinationId": "2e85fe24-9acb-4d49-a87a-539b588aaa38",
+            "operationId": "a8bbb3ee-700e-486f-8c71-8f1eee6cccc7",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_PORTION_CONFLICT:E2"
+          }
+        ],
+        "interleavings": [],
+        "overlaps": [
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 1 sessions 1",
+          "H4-014 observed PostgreSQL lock overlap [ 1, 0 ] queued 2 sessions 2"
+        ],
+        "log": "05-corrected-cancellation.stdout.log.gz"
+      },
+      "rootCause": "Both original rights rejected E3 before portion competition; zero successes instead of one.",
+      "classification": "Consecuencia demostrada del fixture temporal",
+      "productCorrective": false,
+      "assertionsChanged": false
+    },
+    {
+      "test": "H5-016 A03 close has read material before cancellation writes",
+      "originalLocation": "tests/integration/postgres-h5-016-races.test.ts:31:129",
+      "historicalDetail": "test at tests/integration/postgres-h5-016-races.test.ts:31:129\n\u2716 H5-016 A03 close has read material before cancellation writes (15975.768875ms)\n  Error: H5016_EXPECTED_PG_LOCK_NOT_OBSERVED\n      at waitFor (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5018-fifth-SyE8Cb/repo/tests/integration/postgres-h5-016-races.test.ts:17:170)\n      at async afterReadRace (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5018-fifth-SyE8Cb/repo/tests/integration/postgres-h5-016-races.test.ts:27:222)\n      at async TestContext.<anonymous> (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h5018-fifth-SyE8Cb/repo/tests/integration/postgres-h5-016-races.test.ts:46:20)\n      at async Test.run (node:internal/test_runner/test:1409:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)\nwaiting for server to shut down.... done\nserver stopped\n",
+      "expected": "writer fulfilled; joint close rejected as commercial pending; no joint history; both waits observed",
+      "before": {
+        "result": "FAIL",
+        "trace": [
+          {
+            "mode": "original",
+            "bookingId": "52f6796e-3a40-43fe-86cc-cdeb170c8442",
+            "determinationId": "a38523ad-d022-4238-aa67-79524ca593b4",
+            "operationId": "cfe5cd22-4c5d-49a0-a5ec-a7f9bd520ca6",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T11:42:08.040Z",
+            "status": "rejected",
+            "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+          }
+        ],
+        "interleavings": [
+          {
+            "bid": "52f6796e-3a40-43fe-86cc-cdeb170c8442",
+            "results": [
+              {
+                "status": "rejected",
+                "error": "Error: CLOSURE_DIMENSION_PENDING:E3:commercial"
+              },
+              {
+                "status": "rejected",
+                "error": "Error: CANCELLATION_EVIDENCE_REQUIRED:E3"
+              }
+            ]
+          }
+        ],
+        "overlaps": [],
+        "log": "02-original-races.stdout.log.gz"
+      },
+      "after": {
+        "result": "PASS",
+        "trace": [
+          {
+            "mode": "corrected",
+            "bookingId": "4f60df80-d228-4a60-8fb8-c48e9a93a4c4",
+            "determinationId": "1b13032a-813a-41be-8d67-1b3ea5ed993f",
+            "operationId": "adf6c206-22f1-4ed5-8f05-0029ebe72e47",
+            "action": "determine",
+            "at": "2026-10-17T10:00:00Z",
+            "evidenceAt": "2026-10-17T10:00:00.000Z",
+            "status": "fulfilled",
+            "replayed": false
+          }
+        ],
+        "interleavings": [
+          {
+            "bid": "4f60df80-d228-4a60-8fb8-c48e9a93a4c4",
+            "locks": [
+              {
+                "pid": 8865,
+                "classid": 80033018,
+                "objid": 1628100901,
+                "granted": true,
+                "blockers": [
+                  8927
+                ]
+              },
+              {
+                "pid": 8865,
+                "classid": 823126616,
+                "objid": 2796981011,
+                "granted": false,
+                "blockers": [
+                  8927
+                ]
+              },
+              {
+                "pid": 8865,
+                "classid": 1077480491,
+                "objid": 3066972578,
+                "granted": true,
+                "blockers": [
+                  8927
+                ]
+              },
+              {
+                "pid": 8865,
+                "classid": 2557533081,
+                "objid": 1023356202,
+                "granted": true,
+                "blockers": [
+                  8927
+                ]
+              },
+              {
+                "pid": 8865,
+                "classid": 3466261699,
+                "objid": 1188732269,
+                "granted": true,
+                "blockers": [
+                  8927
+                ]
+              },
+              {
+                "pid": 8925,
+                "classid": 0,
+                "objid": 601616,
+                "granted": true,
+                "blockers": []
+              },
+              {
+                "pid": 8927,
+                "classid": 0,
+                "objid": 601616,
+                "granted": false,
+                "blockers": [
+                  8925
+                ]
+              },
+              {
+                "pid": 8927,
+                "classid": 823126616,
+                "objid": 2796981011,
+                "granted": true,
+                "blockers": [
+                  8925
+                ]
+              }
+            ],
+            "results": [
+              {
+                "status": "rejected",
+                "error": "Error: CLOSURE_DIMENSION_PENDING:E3:commercial"
+              },
+              {
+                "status": "fulfilled"
+              }
+            ]
+          }
+        ],
+        "overlaps": [],
+        "log": "07-corrected-races.stdout.log.gz"
+      },
+      "rootCause": "Writer rejected future evidence before cancellation insert and closure_material_lock trigger. First advisory wait observed, second wait at :27:222 absent; deadline15s unchanged. Corrected writer reaches trigger and second lock, then completes after release.",
+      "classification": "Consecuencia demostrada del fixture temporal",
+      "productCorrective": false,
+      "assertionsChanged": false
+    }
+  ],
+  "unresolved": 0,
+  "sourceOrder": {
+    "guard": "20261005223726_h4_cancellation_right.sql:105",
+    "insert": "same:143",
+    "trigger": "20261015204955_h5_booking_closure_assessments.sql:31-46",
+    "timeout": "postgres-h5-016-races.test.ts:17 unchanged15000ms"
+  }
+}

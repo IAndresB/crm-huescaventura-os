@@ -1,0 +1,334 @@
+{
+  "reused": {
+    "24-complete": {
+      "statusSha256": "2c7ced6ad2299ebea0691164e9aeb4197dd8d02f138dc13202c278bbc0325e05",
+      "command": [
+        "node",
+        "scripts/test-h5-017-c-complete.mjs",
+        "24"
+      ],
+      "inputsVerified": 464,
+      "inputsExact": true,
+      "counts": {
+        "tests": 2834,
+        "pass": 2834,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "stdoutContentSha256": "c611ba14db5b81afac12d1fd76e0ae91a07a25313b74afcee7fc2b118436f050",
+      "exit": 0,
+      "scope": "sealed candidate inputs only; does not cover second-audit new tests"
+    },
+    "18-unit": {
+      "statusSha256": "ce2e721b80e5fb4bf7d990a7e1253189eac0a1a211dbc087ab79ef3b1f28bdec",
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "inputsVerified": 459,
+      "inputsExact": true,
+      "counts": {
+        "tests": 208,
+        "pass": 208,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "stdoutContentSha256": "1261ca9efc08ebd952720a283636ae3dcc7722d443c2e4c65468a5a5bbd1afca",
+      "exit": 0,
+      "scope": "sealed candidate inputs only; does not cover second-audit new tests"
+    },
+    "17-dependencies": {
+      "statusSha256": "2be339e18fabe52dfe805627345b0cc1fdc85ace0f24ac93f72a598eff4ccec9",
+      "command": [
+        "node",
+        "scripts/test-h5-017-c-dependencies.mjs"
+      ],
+      "inputsVerified": 459,
+      "inputsExact": true,
+      "counts": {
+        "tests": 104,
+        "pass": 104,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "stdoutContentSha256": "e56f706f91155018318bbe50d64798bfbac52312dbe28955253d913e514ddad5",
+      "exit": 0,
+      "scope": "sealed candidate inputs only; does not cover second-audit new tests"
+    },
+    "26-frozen-final": {
+      "statusSha256": "a5db76683f555c54fd57e368b807c3dc764e261bde3d08f911db0071fdc1b28c",
+      "command": [
+        "python3",
+        "scripts/check-h5-017-c-frozen.py"
+      ],
+      "inputsVerified": 465,
+      "inputsExact": true,
+      "counts": {},
+      "stdoutContentSha256": "bc0387249a34357e9c9dcdd5df94cdcd96f85edd0ca8df0491201700ce87b56f",
+      "exit": 0,
+      "scope": "sealed candidate inputs only; does not cover second-audit new tests"
+    },
+    "19-build": {
+      "statusSha256": "48a843c0bdf175ce10e7f44043a612a4f8d12f01ed7b0db1dbc440275e87b61e",
+      "command": [
+        "pnpm",
+        "run",
+        "build"
+      ],
+      "inputsVerified": 459,
+      "inputsExact": true,
+      "counts": {},
+      "stdoutContentSha256": "6ea88392a81abe504428b06f0454f949334c615fd28aae6a5e70ab9af1d6358e",
+      "exit": 0,
+      "scope": "sealed candidate inputs only; does not cover second-audit new tests"
+    },
+    "20-audit": {
+      "statusSha256": "2075765e39159c7ee6cfb279fd68004fa7bdde09070d9abf107174a82f7b8daf",
+      "command": [
+        "pnpm",
+        "audit",
+        "--prod"
+      ],
+      "inputsVerified": 459,
+      "inputsExact": true,
+      "counts": {},
+      "stdoutContentSha256": "15950a68a7ed99c59779717acefdceb3f69cfd31bde67d2c954f2a3cea4d7955",
+      "exit": 0,
+      "scope": "sealed candidate inputs only; does not cover second-audit new tests"
+    }
+  },
+  "completeSelection": {
+    "uniqueFiles": 170,
+    "substitutions": 15,
+    "selectionSha256": "3658ac7860482a14d84459b447ee659865439ece7de972835011d301c711cc7c",
+    "overlapNotAdded": true
+  },
+  "originalAssertionsVerified": [
+    {
+      "source": "tests/integration/postgres-h5-018-audit.test.ts",
+      "derived": "tests/integration/postgres-h5-017-c-independent-audit.test.ts",
+      "assertionsUnchanged": true
+    },
+    {
+      "source": "tests/integration/postgres-h5-018-causes.test.ts",
+      "derived": "tests/integration/postgres-h5-017-c-independent-causes.test.ts",
+      "assertionsUnchanged": true
+    },
+    {
+      "source": "tests/integration/postgres-h5-017.test.ts",
+      "derived": "tests/integration/postgres-h5-017-c-017.test.ts",
+      "assertionsUnchanged": true
+    },
+    {
+      "source": "tests/integration/postgres-h5-017-security.test.ts",
+      "derived": "tests/integration/postgres-h5-017-c-regression-security.test.ts",
+      "assertionsUnchanged": true
+    }
+  ],
+  "preservationDerivativesReviewed": [
+    {
+      "source": "tests/integration/postgres-h4-018-migration.test.ts",
+      "derived": "tests/integration/h5017c-preservation-postgres-h4-018-migration.test.ts",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -1,2 +1,2 @@\n",
+        "-import {assertHistoricalBytes} from '../support/h5-006-dependency-preservation.ts';",
+        "+import {assertHistoricalBytes} from '../support/h5-017-c-dependency-preservation.ts';",
+        " import {test} from 'node:test';import assert from 'node:assert/strict';import {readFile,readdir,writeFile} from 'node:fs/promises';import {spawnSync} from 'node:child_process';import {createHash} from 'node:crypto';"
+      ]
+    },
+    {
+      "source": "tests/integration/postgres-h4-019-f06.test.ts",
+      "derived": "tests/integration/h5017c-preservation-postgres-h4-019-f06.test.ts",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -1,2 +1,2 @@\n",
+        "-import {assertHistoricalBytes} from '../support/h5-006-dependency-preservation.ts';",
+        "+import {assertHistoricalBytes} from '../support/h5-017-c-dependency-preservation.ts';",
+        " import {test,beforeEach,afterEach}from'node:test';import assert from'node:assert/strict';import{randomUUID as uid,createHash}from'node:crypto';import{readFile,writeFile}from'node:fs/promises';"
+      ]
+    },
+    {
+      "source": "tests/integration/postgres-h4-019-preservation.test.ts",
+      "derived": "tests/integration/h5017c-preservation-postgres-h4-019-preservation.test.ts",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -1,2 +1,2 @@\n",
+        "-import {assertHistoricalBytes} from '../support/h5-006-dependency-preservation.ts';",
+        "+import {assertHistoricalBytes} from '../support/h5-017-c-dependency-preservation.ts';",
+        " import {test} from 'node:test';import assert from 'node:assert/strict';import {readFile,readdir,writeFile} from 'node:fs/promises';import {spawnSync} from 'node:child_process';import {createHash} from 'node:crypto';"
+      ]
+    },
+    {
+      "source": "tests/integration/postgres-h4-021-f23-migration.test.ts",
+      "derived": "tests/integration/h5017c-preservation-postgres-h4-021-f23-migration.test.ts",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -1,2 +1,2 @@\n",
+        "-import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-006-dependency-preservation.ts';",
+        "+import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-017-c-dependency-preservation.ts';",
+        " import {invoiceFixture}from'../support/h3-invoice-fixtures.ts';import {read,write}from'../support/h4-booking-preparation-isolated.ts';"
+      ]
+    },
+    {
+      "source": "tests/integration/postgres-h4-021-migration.test.ts",
+      "derived": "tests/integration/h5017c-preservation-postgres-h4-021-migration.test.ts",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -1,2 +1,2 @@\n",
+        "-import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-006-dependency-preservation.ts';",
+        "+import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-017-c-dependency-preservation.ts';",
+        " import {invoiceFixture}from'../support/h3-invoice-fixtures.ts';import {read,write}from'../support/h4-booking-preparation-isolated.ts';"
+      ]
+    },
+    {
+      "source": "tests/integration/postgres-h4-023-migration.test.ts",
+      "derived": "tests/integration/h5017c-preservation-postgres-h4-023-migration.test.ts",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -1,2 +1,2 @@\n",
+        "-import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-006-dependency-preservation.ts';",
+        "+import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-017-c-dependency-preservation.ts';",
+        " import{confirmationFixture}from'../support/h4-confirmation-fixtures.ts';import{randomUUID as uid}from'node:crypto';import{modificationFixture}from'../support/h4-modification-fixtures.ts';import{refundFixture}from'../support/h4-refund-fixtures.ts';import{depositFixture}from'../support/h4-deposit-fixtures.ts';"
+      ]
+    },
+    {
+      "source": "tests/integration/postgres-h4-024.test.ts",
+      "derived": "tests/integration/h5017c-preservation-postgres-h4-024.test.ts",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -1,2 +1,2 @@\n",
+        "-import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-006-dependency-preservation.ts';",
+        "+import {assertAuthorizedPreservationChain,assertHistoricalHash} from '../support/h5-017-c-dependency-preservation.ts';",
+        " // H4-024 exit routes on current52. Expected literal: O01\u2013O32 frozen ba9b9f7."
+      ]
+    },
+    {
+      "source": "tests/integration/postgres-h5-004-migration.test.ts",
+      "derived": "tests/integration/h5017c-preservation-postgres-h5-004-migration.test.ts",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -1 +1,2 @@\n",
+        "+import {assertHistoricalBytes as assertCProductBytes} from '../support/h5-017-c-dependency-preservation.ts';",
+        " import {test} from 'node:test';",
+        "@@ -43,3 +44,3 @@\n",
+        "  const prior=git(['ls-tree','-r','--name-only',base,'src','supabase','tests/operations','scripts']).trim().split('\\n');",
+        "- for(const file of prior)assert.equal(await readFile(file,'utf8'),git(['show',base+':'+file]),file);",
+        "+ for(const file of prior){const current=await readFile(file,'utf8'),historical=git(['show',base+':'+file]);if(file==='src/server/composition.ts')assertCProductBytes(file,Buffer.from(current),Buffer.from(historical));else assert.equal(current,historical,file);}",
+        "  const expected='specs/001-core-crm/expected-TSK-H5-003-004.md';assert.equal(await readFile(expected,'utf8'),git(['show','7cfa0ee:'+expected]));"
+      ]
+    },
+    {
+      "source": "tests/integration/postgres-h5-006-migration.test.ts",
+      "derived": "tests/integration/h5017c-preservation-postgres-h5-006-migration.test.ts",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -1 +1,2 @@\n",
+        "+import {assertHistoricalBytes as assertCProductBytes} from '../support/h5-017-c-dependency-preservation.ts';",
+        " import {test} from 'node:test';",
+        "@@ -32,3 +33,3 @@\n",
+        "  const git=(...args:string[])=>{const r=spawnSync('git',args,{encoding:'utf8'});assert.equal(r.status,0);return r.stdout;};",
+        "- const protectedFiles=git('ls-tree','-r','--name-only',base,'src','supabase','scripts','tests/operations').trim().split('\\n');for(const f of protectedFiles)assert.equal(await readFile(f,'utf8'),git('show',base+':'+f),f);",
+        "+ const protectedFiles=git('ls-tree','-r','--name-only',base,'src','supabase','scripts','tests/operations').trim().split('\\n');for(const f of protectedFiles){const current=await readFile(f,'utf8'),historical=git('show',base+':'+f);if(f==='src/server/composition.ts')assertCProductBytes(f,Buffer.from(current),Buffer.from(historical));else assert.equal(current,historical,f);}",
+        "  const expectedFile='specs/001-core-crm/expected-TSK-H5-005-006.md',expected=await readFile(expectedFile,'utf8');assert.equal(expected,git('show',expectedSha+':'+expectedFile));"
+      ]
+    },
+    {
+      "source": "tests/integration/postgres-h5-008-migration.test.ts",
+      "derived": "tests/integration/h5017c-preservation-postgres-h5-008-migration.test.ts",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -1 +1,2 @@\n",
+        "+import {assertHistoricalBytes as assertCProductBytes} from '../support/h5-017-c-dependency-preservation.ts';",
+        " import {test} from 'node:test';",
+        "@@ -34,5 +35,5 @@\n",
+        "  for(const file of historicalFiles){const actual=await readFile('supabase/migrations/'+file),published=gitBytes('show',historicalCommit+':supabase/migrations/'+file);assert.deepEqual(actual,published,file);assert.equal(createHash('sha256').update(actual).digest('hex'),createHash('sha256').update(published).digest('hex'),file);}",
+        "- const baseline=git('ls-tree','-r','--name-only','ff109036e3bb08a1d61e948693bc622bb10f240e','src','scripts','tests/operations','package.json','pnpm-lock.yaml').trim().split('\\n');for(const file of baseline)assert.equal(await readFile(file,'utf8'),git('show','ff109036e3bb08a1d61e948693bc622bb10f240e:'+file),file);",
+        "+ const baseline=git('ls-tree','-r','--name-only','ff109036e3bb08a1d61e948693bc622bb10f240e','src','scripts','tests/operations','package.json','pnpm-lock.yaml').trim().split('\\n');for(const file of baseline){const current=await readFile(file,'utf8'),historical=git('show','ff109036e3bb08a1d61e948693bc622bb10f240e:'+file);if(file==='src/server/composition.ts')assertCProductBytes(file,Buffer.from(current),Buffer.from(historical));else assert.equal(current,historical,file);}",
+        "  assert.ok(currentFiles.length>=56,'future migrations may follow the frozen H5-008 prefix');",
+        "- const chain=spawnSync(process.execPath,['tests/fixtures/h5-006/f12/chain-counterexamples.mjs'],{encoding:'utf8',timeout:60000});assert.equal(chain.status,0,chain.stdout+chain.stderr);",
+        "+ const chain=spawnSync(process.execPath,['tests/support/h5-017-c-chain-counterexamples.mjs'],{encoding:'utf8',timeout:60000});assert.equal(chain.status,0,chain.stdout+chain.stderr);",
+        "  for(const file of [migration,'src/domain/persisted-work.ts','src/infrastructure/postgres/persisted-work-executor.ts','src/application/work-result-verification.ts'])assert.doesNotMatch(await readFile(file,'utf8'),/\\b(fetch\\(|setInterval\\(|cron\\.schedule|https:\\/\\/|openai\\.com|anthropic|gemini|whisper|twilio|evolution-api|n8n)/i);"
+      ]
+    },
+    {
+      "source": "tests/fixtures/h5-006/f12/chain-counterexamples.mjs",
+      "derived": "tests/support/h5-017-c-chain-counterexamples.mjs",
+      "diff": [
+        "--- \n",
+        "+++ \n",
+        "@@ -7,3 +7,3 @@\n",
+        " import {join,dirname} from 'node:path';",
+        "-import {assertHistoricalHash,assertHistoricalBytes,assertAuthorizedPreservationChain,f10DependencyHashes,f12VerifierHashes,f12ManifestHashes} from '../../../support/h5-006-dependency-preservation.ts';",
+        "+import {assertHistoricalHash,assertHistoricalBytes,assertAuthorizedPreservationChain,f10DependencyHashes,f12VerifierHashes,f12ManifestHashes} from './h5-017-c-dependency-preservation.ts';",
+        " const digest=b=>createHash('sha256').update(b).digest('hex');"
+      ]
+    }
+  ],
+  "historicalFailures": {
+    "h5-017/16-postgres-complete": {
+      "counts": {
+        "tests": 2787,
+        "pass": 2762,
+        "fail": 25,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "compressedSha256": "fce7d76e6489236c2b4849bd7f1a5e0b69d1caca3c8e9b8b870ba8d102369548"
+    },
+    "h5-018/01-independent": {
+      "counts": {
+        "tests": 16,
+        "pass": 14,
+        "fail": 2,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "compressedSha256": "9d62e9ed52119829ee30b5e76ac23de5f992c036d7fa6eefb8d2734407c7abc3"
+    },
+    "h5-018/05-causes": {
+      "counts": {
+        "tests": 9,
+        "pass": 8,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "compressedSha256": "e108927c9bfe7bf69fa1d42aa7453974ae1253dc1856567eb5383522403975a1"
+    },
+    "h5-018/04-migrations-corrected": {
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "compressedSha256": "d5acf2d46de16a739e6dd302746273f4ae92ff0a26aa5bd262cc00e2a45d2d90"
+    },
+    "h5-018/14-controls": {
+      "counts": {
+        "tests": 5,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "compressedSha256": "6c2a2e83b8b8c1dbf3a4657dc8b547ae161a7c1c4151cf48063e1bdecd326281"
+    }
+  },
+  "applicability": "PASS exact sealed inputs; broad historical PASS cannot cover new temporal counterexamples"
+}

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python3",
+    "-c",
+    "import tempfile,pathlib,shutil,subprocess,hashlib; p=tempfile.TemporaryDirectory(prefix=\"crm-h5017-install-\"); target=pathlib.Path(p.name); [shutil.copy2(n,target/n) for n in [\"package.json\",\"pnpm-lock.yaml\"]]; before=hashlib.sha256((target/\"pnpm-lock.yaml\").read_bytes()).hexdigest(); subprocess.run([\"pnpm\",\"install\",\"--frozen-lockfile\",\"--ignore-scripts\"],cwd=target,check=True); assert hashlib.sha256((target/\"pnpm-lock.yaml\").read_bytes()).hexdigest()==before; print(\"Frozen isolated install PASS\",before); p.cleanup()"
+  ],
+  "startedAtEpoch": 1792161949.577989,
+  "finishedAtEpoch": 1792161955.663698,
+  "exit": 0,
+  "inputs": 542,
+  "changedDuringRun": [],
+  "base": "9649a2773530ea8a43237b4e1f2034f80e34136f"
+}

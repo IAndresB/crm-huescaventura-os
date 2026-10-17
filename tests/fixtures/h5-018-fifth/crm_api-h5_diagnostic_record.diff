@@ -1,0 +1,40 @@
+--- supabase/migrations/20261016220850_h5_diagnostic_owned_references.sql
++++ supabase/migrations/20261017004525_h5_diagnostic_version_provenance_replay.sql
+@@ -17,6 +17,21 @@
+    or coalesce(i->>'affectedScope','')not in('request','access','operation','execution','event','evidence','dependency','identity','document','work')
+    or (i->>'code'='E4' and a->>'outcome'='rejected')then raise exception 'DIAGNOSTIC_DENIED';end if;
+  end loop;
++ -- Serialize only technical observation identity; conflicting content is not a replay.
++ perform pg_advisory_xact_lock(hashtextextended(a->>'observationId',17017));
++ select * into old from crm_private.b10_diagnostic_observations where observation_id=(a->>'observationId')::uuid;
++ if found then
++  if old.admin_scope<>s or old.actor_id<>h[12]::uuid or old.context_kind<>k or old.context_id<>root or old.request_ref<>a->>'requestRef'
++   or old.operation_id is distinct from (a->>'operationId')::uuid or old.execution_id is distinct from (a->>'executionId')::uuid
++   or old.event_id is distinct from(a->>'eventId')::uuid or old.outcome<>a->>'outcome' or old.issues<>a->'issues'then raise exception 'DIAGNOSTIC_DENIED';end if;
++  -- Reauthorize the exact stored observation through the same typed historical
++  -- projection as C01. This rejects stale evidence and incompatible late owners.
++  if not exists(select 1 from jsonb_array_elements(crm_private.diagnostic_nodes(s,k,root))n
++   where n->>'source'='b10_diagnostic_observations' and n->>'id'=old.observation_id::text)
++   then raise exception 'DIAGNOSTIC_DENIED';end if;
++  r:=jsonb_build_object('id',old.observation_id,'replayed',true);
++ else
++  -- A missing identity is a new write; historical readability is insufficient.
+  if a?'executionId' and not exists(select 1 from crm_private.b08_executions e join crm_private.b08_definitions d using(definition_id,version)
+  where e.execution_id=(a->>'executionId')::uuid and e.admin_scope=s and d.admin_scope=s and crm_private.b08_context(d,s) and exists(select 1 from crm_private.diagnostic_contexts(s,k,root)c
+   where c.context_kind=d.context->>'contextKind' and c.context_id::text=d.context->>'contextId'))then raise exception 'DIAGNOSTIC_DENIED';end if;
+@@ -29,15 +44,6 @@
+    where op.operation_id=(a->>'operationId')::uuid and op.result_ref=(a->>'executionId')::uuid
+     and op.admin_scope=s and result.admin_scope=s))then raise exception 'DIAGNOSTIC_DENIED';end if;
+  end if;
+- -- Serialize only technical observation identity; conflicting content is not a replay.
+- perform pg_advisory_xact_lock(hashtextextended(a->>'observationId',17017));
+- select * into old from crm_private.b10_diagnostic_observations where observation_id=(a->>'observationId')::uuid;
+- if found then
+-  if old.admin_scope<>s or old.actor_id<>h[12]::uuid or old.context_kind<>k or old.context_id<>root or old.request_ref<>a->>'requestRef'
+-   or old.operation_id is distinct from (a->>'operationId')::uuid or old.execution_id is distinct from (a->>'executionId')::uuid
+-   or old.event_id is distinct from(a->>'eventId')::uuid or old.outcome<>a->>'outcome' or old.issues<>a->'issues'then raise exception 'DIAGNOSTIC_DENIED';end if;
+-  r:=jsonb_build_object('id',old.observation_id,'replayed',true);
+- else
+   insert into crm_private.b10_diagnostic_observations(observation_id,admin_scope,actor_id,context_kind,context_id,request_ref,operation_id,execution_id,event_id,outcome,issues)
+    values((a->>'observationId')::uuid,s,h[12]::uuid,k,root,a->>'requestRef',(a->>'operationId')::uuid,(a->>'executionId')::uuid,(a->>'eventId')::uuid,a->>'outcome',a->'issues');
+   r:=jsonb_build_object('id',a->>'observationId','replayed',false);
