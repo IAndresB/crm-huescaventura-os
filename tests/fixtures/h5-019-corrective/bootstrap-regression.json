@@ -1,0 +1,87 @@
+{
+  "oracle": "externally supplied fixture seal hash, manifest, full metadata and path universe; no candidate imports",
+  "tool": "/Users/andres/Developer/crm-h5-019-corrective-20261018/authenticate-successor.py",
+  "toolSha256": "6499b42a865c2f5fdc5ab0898758f66b988bd18883e5706647e8df2c724a098f",
+  "trials": [
+    {
+      "id": "intact-before",
+      "command": [
+        "python3",
+        "/Users/andres/Developer/crm-h5-019-corrective-20261018/authenticate-successor.py",
+        "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+        "a3da4e87f1539c87659a038301c55ec739de353c8f559169643292eed686d127"
+      ],
+      "started": 1792298437.957372,
+      "finished": 1792298442.800294,
+      "exit": 0,
+      "expectedExit": 0,
+      "result": "SATISFACTORIA",
+      "stdoutSha256": "ffbce1a7d2f5a80edab8fa12055dcdfa8c89d69c816d28596b8924452db6370d",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "forged-instrument-can-print-pass",
+      "command": [
+        "python3",
+        "scripts/verify-h5-019.py"
+      ],
+      "started": 1792298442.800755,
+      "finished": 1792298442.826678,
+      "exit": 0,
+      "expectedExit": 0,
+      "result": "SATISFACTORIA",
+      "stdoutSha256": "221558de6c5390ecaa3de1ece69aec1e7f5d8f56c7c392401801822f2cff820c",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "external-rejects-forged-instrument-before-trust",
+      "command": [
+        "python3",
+        "/Users/andres/Developer/crm-h5-019-corrective-20261018/authenticate-successor.py",
+        "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+        "a3da4e87f1539c87659a038301c55ec739de353c8f559169643292eed686d127"
+      ],
+      "started": 1792298442.82671,
+      "finished": 1792298443.034818,
+      "exit": 1,
+      "expectedExit": 1,
+      "result": "SATISFACTORIA",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "8b4b450dc67f968b3f2fa9e38b41e262f17746f0b9f2f356feaa7ed44252fb0b"
+    },
+    {
+      "id": "external-rejects-ignored-evidence-extra",
+      "command": [
+        "python3",
+        "/Users/andres/Developer/crm-h5-019-corrective-20261018/authenticate-successor.py",
+        "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+        "a3da4e87f1539c87659a038301c55ec739de353c8f559169643292eed686d127"
+      ],
+      "started": 1792298443.035139,
+      "finished": 1792298443.212576,
+      "exit": 1,
+      "expectedExit": 1,
+      "result": "SATISFACTORIA",
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "827565612b3a628573b550c9daa0d26d5305a167967f333477f9a9bc2d833cba"
+    },
+    {
+      "id": "restored-postcontrol",
+      "command": [
+        "python3",
+        "/Users/andres/Developer/crm-h5-019-corrective-20261018/authenticate-successor.py",
+        "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+        "a3da4e87f1539c87659a038301c55ec739de353c8f559169643292eed686d127"
+      ],
+      "started": 1792298443.212696,
+      "finished": 1792298447.8663092,
+      "exit": 0,
+      "expectedExit": 0,
+      "result": "SATISFACTORIA",
+      "stdoutSha256": "ffbce1a7d2f5a80edab8fa12055dcdfa8c89d69c816d28596b8924452db6370d",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "passed": 5,
+  "failed": 0
+}

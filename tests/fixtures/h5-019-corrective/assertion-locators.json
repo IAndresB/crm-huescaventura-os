@@ -1,0 +1,2573 @@
+{
+  "schema": "H5-019-assertion-locators/v1",
+  "auditSealSha256": "649565d21191f585d57038c4ef1ee9c3f86f817db8c32dbc92d820285af8a2ab",
+  "rows": [
+    {
+      "id": "AC-050",
+      "expected": "Una tarea de misma causa, resultado histórico y reapertura explícita; completar no confirma pago/proveedor/aceptación; deadline desconocido no es vencido.",
+      "observed": "Same Task identity survives complete/reopen; last_closure/history retained; deadline day13 not overdue,day14 overdue; 13 literal approved causes exercised; missing guards preserve snapshots.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-002.test.ts",
+          "fileSha256": "952648cffdefa0db74a80ba57caf60c69e393141c3a1d093cc0894349d96d9ba",
+          "registrationLine": 39,
+          "case": {
+            "name": "H5-T01/T05/T06/T08 completes and explicitly reopens without losing prior closure",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2215,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 41,
+              "text": " let s=await see(p);assert.equal(s?.state,'pending');assert.equal(s?.last_closure,null);"
+            },
+            {
+              "line": 42,
+              "text": " assert.equal(s?.responsible_actor,h.actorId);"
+            },
+            {
+              "line": 44,
+              "text": " s=await see(p);assert.equal(s?.state,'completed');assert.equal(s?.last_closure?.result,'Seguimiento realizado');"
+            },
+            {
+              "line": 45,
+              "text": " assert.equal((s?.last_closure?.references as string[])[0],'synthetic-record-1');"
+            },
+            {
+              "line": 46,
+              "text": " assert.equal(s?.last_closure?.actorId,h.actorId);"
+            },
+            {
+              "line": 47,
+              "text": " assert.equal(Number.isFinite(Date.parse(String(s?.last_closure?.at))),true);"
+            },
+            {
+              "line": 48,
+              "text": " assert.equal((await tasks.transition(await h.auth(),write,q)).replayed,true);"
+            },
+            {
+              "line": 50,
+              "text": " s=await see(p);assert.equal(s?.state,'pending');assert.equal(s?.task_id,p.taskId);"
+            },
+            {
+              "line": 51,
+              "text": " assert.equal(s?.last_closure?.result,'Seguimiento realizado');"
+            },
+            {
+              "line": 52,
+              "text": " const rows=await history(p);assert.deepEqual(rows.map(x=>x.action_kind),['task_receive','task_complete','task_reopen']);"
+            },
+            {
+              "line": 53,
+              "text": " assert.equal(rows[1]?.after_state.last_closure.result,'Seguimiento realizado');"
+            },
+            {
+              "line": 54,
+              "text": " assert.equal(rows[2]?.source_ref,'synthetic-review-1');"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-002.test.ts",
+          "fileSha256": "952648cffdefa0db74a80ba57caf60c69e393141c3a1d093cc0894349d96d9ba",
+          "registrationLine": 57,
+          "case": {
+            "name": "H5-T05/T07/T08 missing guards and closed reception reject without side effects",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2216,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 61,
+              "text": "  await assert.rejects(tasks.transition(await h.auth(),write,transition(p,'complete',1,bad)));"
+            },
+            {
+              "line": 62,
+              "text": " assert.deepEqual(await history(p),old);assert.equal((await see(p))?.state,'pending');"
+            },
+            {
+              "line": 64,
+              "text": " assert.equal((await see(p))?.state,'cancelled');"
+            },
+            {
+              "line": 65,
+              "text": " assert.equal((await see(p))?.last_closure?.reason,'Revisión sintética fundada');"
+            },
+            {
+              "line": 66,
+              "text": " assert.equal((await see(p))?.last_closure?.actorId,h.actorId);"
+            },
+            {
+              "line": 67,
+              "text": " await assert.rejects(tasks.transition(await h.auth(),write,transition(p,'reopen',2,{reviewEvidenceRef:''})));"
+            },
+            {
+              "line": 68,
+              "text": " await assert.rejects(tasks.apply(await h.auth(),write,{...p,action:'update',expectedRevision:2,operationId:uid(),"
+            },
+            {
+              "line": 70,
+              "text": " assert.equal((await see(p))?.state,'cancelled');assert.equal((await history(p)).length,2);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-002.test.ts",
+          "fileSha256": "952648cffdefa0db74a80ba57caf60c69e393141c3a1d093cc0894349d96d9ba",
+          "registrationLine": 73,
+          "case": {
+            "name": "H5-T23 missing creation guards and transition authority leave no Task or history",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2217,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 83,
+              "text": " for(const input of bad)await assert.rejects(tasks.apply(await h.auth(),write,input));"
+            },
+            {
+              "line": 84,
+              "text": " assert.equal((await h.observer`select count(*)::int n from crm_private.b07_pending_tasks where task_id=${p.taskId}::uuid`)[0]!.n,0);"
+            },
+            {
+              "line": 85,
+              "text": " assert.equal((await h.observer`select count(*)::int n from crm_private.b07_history where subject_id=${p.taskId}::uuid`)[0]!.n,0);"
+            },
+            {
+              "line": 89,
+              "text": "  await assert.rejects(tasks.transition({} as never,write,transition(p,action,1)));"
+            },
+            {
+              "line": 90,
+              "text": "  await assert.rejects(tasks.transition(await h.auth(),read,transition(p,action,1)));"
+            },
+            {
+              "line": 92,
+              "text": " assert.deepEqual(await history(p),old);assert.deepEqual(await see(p),state);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-051",
+      "expected": "S1 no satisface requisito hasta revisión; S2 sigue; No aplica requiere fundamento; cambio reabre solo exigencia afectada sin borrar revisión anterior.",
+      "observed": "Required Document assertions distinguish Pendiente/Recibido/Revisado/No aplica; per-scope changes preserve prior review, negatives compare complete requirement snapshots. Generic Rxx names are located by selected file and phase, not assumed globally unique.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h4-002.test.ts",
+          "fileSha256": "1826deaf27a53bcf308004dd184c0612479b64029262ffb8813149ea9a993d07",
+          "registrationLine": 39,
+          "case": {
+            "name": "R07",
+            "phase": "independent-full-15",
+            "file": "tests/integration/postgres-h4-002.test.ts",
+            "ordinal": "No se asigna ordinal único: el reporter repite Rxx; archivo seleccionado, registro y fase sin fallos acreditan su ejecución."
+          },
+          "assertions": [
+            {
+              "line": 39,
+              "text": " R07:async()=>{const f=await staged(2),s=(await f.see())!;assert.equal(s.status,'Recibido');assert.equal(s.review,null);assert.ok((s.document as unknown as {provenance:unknown}).provenance);assert.equal((await h.observer`select state from crm_private.b07_object_versions where version_id=${s.document!.objectVersionId}::uuid`)[0]!.state,'stored');},"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h4-002.test.ts",
+          "fileSha256": "1826deaf27a53bcf308004dd184c0612479b64029262ffb8813149ea9a993d07",
+          "registrationLine": 41,
+          "case": {
+            "name": "R09",
+            "phase": "independent-full-15",
+            "file": "tests/integration/postgres-h4-002.test.ts",
+            "ordinal": "No se asigna ordinal único: el reporter repite Rxx; archivo seleccionado, registro y fase sin fallos acreditan su ejecución."
+          },
+          "assertions": [
+            {
+              "line": 41,
+              "text": " R09:async()=>{const f=await staged(2);await deny(await f.attest({...await f.receive((await f.see())!.document!),status:'Revisado'} as RequirementCommand));assert.equal((await f.see())!.status,'Recibido');},"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h4-002.test.ts",
+          "fileSha256": "1826deaf27a53bcf308004dd184c0612479b64029262ffb8813149ea9a993d07",
+          "registrationLine": 44,
+          "case": {
+            "name": "R12",
+            "phase": "independent-full-15",
+            "file": "tests/integration/postgres-h4-002.test.ts",
+            "ordinal": "No se asigna ordinal único: el reporter repite Rxx; archivo seleccionado, registro y fase sin fallos acreditan su ejecución."
+          },
+          "assertions": [
+            {
+              "line": 44,
+              "text": " R12:async()=>{const f=await staged(3),s=(await f.see())!;assert.equal(s.status,'Revisado');assert.ok(s.review!.actorId);assert.ok(s.review!.evidenceId);assert.equal((await h.requirements.evaluate(await h.auth(),read,f.bookingId,f.basis.scope,f.basis.rule.purpose)).pending.some(x=>x.requirementId===f.requirementId),false);},"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-052",
+      "expected": "Gravedad independiente; en gestión sigue abierta para guarda crítica; resolución no ejecuta Refund; reapertura conserva solución y revisa impactos.",
+      "observed": "Resolution/recurrence, concurrent closing/evidence and economic-effect links tested; Incident resolution leaves real payment/refund facts untouched.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h4-004-links.test.ts",
+          "fileSha256": "9e990252c361e4f2c4b229938072a1b61daf3e8a80d478a8487924c3715c36da",
+          "registrationLine": 5,
+          "case": {
+            "name": "H4-004 real economic effect links survive resolution without execution",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 1267,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 6,
+              "text": " const h=await isolatedIncident('crm_h4004_links',56207);try{const p=await providerPaymentFixture(h);await h.providerPayments.apply(await h.auth(),write,await p.open());const f=await incidentFixture(h,p.su.invoice,{bookingId:p.su.bookingId,serviceId:p.basis.serviceId});await h.incidents.apply(await h.auth(),write,await f.detect({data:{...f.data,effectLinks:[{kind:'provider-payment',id:p.id}],context:{providerId:p.providerId,clientId:p.su.basis.clientId}}}));const original=await p.view();await h.incidents.apply(await h.auth(),write,await f.resolve());assert.deepEqual(await p.view(),original);assert.equal((await f.state())!.effectLinks.length,1);}finally{await h.close();}"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h4-004-supplement.test.ts",
+          "fileSha256": "74eb19e6548f1abb776076ef6ab2eb53b1c5d4785527aff41ee77281a1ff6312",
+          "registrationLine": 12,
+          "case": {
+            "name": "H4-004 overlap: equivalent root without children, two connections, single INC/history",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 1268,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 12,
+              "text": "test('H4-004 overlap: equivalent root without children, two connections, single INC/history',async()=>{for(const reverse of [false,true]){const f=await incidentFixture(h,shared),q=await f.detect(),other=new H4003IncidentAdapter(h.connect('crm_h0_runtime'),h.f1,h.f2),auth=await h.auth();const commands=reverse?[()=>other.apply(auth,write,{...q,operationId:uid()}),()=>apply(q)]:[()=>apply(q),()=>other.apply(auth,write,{...q,operationId:uid()})];const results=await overlap('incident-booking:'+f.bookingId,()=>Promise.all(commands.map(run=>run()))) as Awaited<ReturnType<typeof apply>>[];assert.equal(results[0]!.id,results[1]!.id);assert.equal((await f.state())!.history!.length,1);assert.equal((await h.observer`select count(*)::int n from crm_private.identity_codes where target_id=${f.incidentId}::uuid`)[0]!.n,1);}});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h4-004-supplement.test.ts",
+          "fileSha256": "74eb19e6548f1abb776076ef6ab2eb53b1c5d4785527aff41ee77281a1ff6312",
+          "registrationLine": 14,
+          "case": {
+            "name": "H4-004 overlap: management vs severity on same base conflicts atomically in both orders",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 1270,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 14,
+              "text": "test('H4-004 overlap: management vs severity on same base conflicts atomically in both orders',async()=>{for(const reverse of [false,true]){const f=await incidentFixture(h,shared);await apply(await f.detect());const a=await f.manage(),b=await f.severity(),other=new H4003IncidentAdapter(h.connect('crm_h0_runtime'),h.f1,h.f2),auth=await h.auth();const commands=reverse?[()=>other.apply(auth,write,b),()=>apply(a)]:[()=>apply(a),()=>other.apply(auth,write,b)];const result=await overlap('incident-booking:'+f.bookingId,()=>Promise.allSettled(commands.map(run=>run()))) as PromiseSettledResult<unknown>[];assert.equal(result.filter(x=>x.status==='fulfilled').length,1);assert.equal((await f.state())!.history!.length,2);}});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-070",
+      "expected": "Fallo Importante/Crítico visible en CRM, intentos/versiones conservados, sin bucle de avisos ni reintento ilimitado; email no recibe aviso interno.",
+      "observed": "CRM and WhatsApp intent remain distinct; simulated-delivered keeps delivery unavailable; stop/review/retry limits and no recursive equivalent alert verified.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-004.test.ts",
+          "fileSha256": "4b58ed53d4708c44583ff5edd56bda381db06bc1d85d8dbc963389c3c3b388db",
+          "registrationLine": 26,
+          "case": {
+            "name": "H5-AD/AP reject email, different recipient and forged real delivery",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2234,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 27,
+              "text": " const p=alert();for(const extra of [{channel:'email'},{recipient:uid()},{delivery_state:'delivered'}])await assert.rejects(apply({...p,...extra} as never),/ALERT_INPUT_INVALID/);"
+            },
+            {
+              "line": 28,
+              "text": " assert.equal(await see(p),null);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-004.test.ts",
+          "fileSha256": "4b58ed53d4708c44583ff5edd56bda381db06bc1d85d8dbc963389c3c3b388db",
+          "registrationLine": 30,
+          "case": {
+            "name": "H5-AE missing material and identity guards reject without persistence",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2235,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 32,
+              "text": "  const p=alert();await assert.rejects(apply({...p,identity:{...p.identity,[key]:null}} as never));assert.equal(await see(p),null);"
+            },
+            {
+              "line": 36,
+              "text": "  await assert.rejects(apply({...p,material} as never));assert.equal(await see(p),null);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-004.test.ts",
+          "fileSha256": "4b58ed53d4708c44583ff5edd56bda381db06bc1d85d8dbc963389c3c3b388db",
+          "registrationLine": 39,
+          "case": {
+            "name": "H5-AI/AJ/AT/AY persistent automation and failed WhatsApp are visible without recursion",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2236,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 41,
+              "text": " for(let i=0;i<5;i++){assert.equal((await apply(q)).replayed,true);assert.equal((await apply({...q,operationId:uid()})).replayed,true);}"
+            },
+            {
+              "line": 42,
+              "text": " const s=(await see(p))!;assert.equal(s.notifications.length,2);assert.equal(s.history.length,2);assert.equal(s.attempts.length,1);"
+            },
+            {
+              "line": 43,
+              "text": " assert.equal(s.notifications[1]!.last_synthetic_outcome,'failed');assert.equal(s.notifications[1]!.delivery_state,'unavailable');"
+            },
+            {
+              "line": 44,
+              "text": " assert.deepEqual(s.material,p.material);assert.equal(s.attempts[0]!.source_version,'1');assert.equal(s.attempts[0]!.simulated,true);"
+            },
+            {
+              "line": 45,
+              "text": " assert.deepEqual(s.missing_parameters,['retryLimit','pauseSeconds']);await capture('persistent-failure',s);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-076",
+      "expected": "Entrada en revisión, eco sin efecto duplicado; solo guardas/cambio aprobado modifican Core; mutación usa estado actual y cálculo D020, no vista obsoleta.",
+      "observed": "Calendar stale/echo inputs retain canonical dates and review; current-night corrections preserve accepted snapshots; mutationAuthority=false. Supplement I03 repeated on68.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-012-candidate61.test.ts",
+          "fileSha256": "781a1ee1494b7e6b859eaaf5d2256ff3e8f2a59aa1e4b81932859edb13fdc830",
+          "registrationLine": 101,
+          "case": {
+            "name": "H5-012 C01 calendar exposes canonical services, payments, Tasks and pending schedules",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2322,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 103,
+              "text": " await pure(async()=>{const hr=await get(hold.opportunityId,{contextKind:'opportunity',surface:'calendar'});assert.ok(facts(hr,'b04_holds').some(x=>x.hold_id===hold.holdId));assert.ok(JSON.stringify(hr).includes('2026-11-13T13:15:00'));const rr=await get(requirement.bookingId,{surface:'calendar'});assert.ok(facts(rr,'b07_requirements').some(x=>x.requirement_id===requirement.requirementId));});"
+            },
+            {
+              "line": 105,
+              "text": " await pure(async()=>{const calendar=entries(await get(a.q.bookingId,{surface:'calendar'}));assert.ok(calendar.some(x=>x.source==='crm_private.b07_pending_tasks'));const services=calendar.filter(x=>x.source==='crm_private.modification_scope');assert.equal(services.length,2);for(const s of services){assert.equal(s.scope.date,'2026-10-20');assert.equal(s.scope.schedule,null);assert.equal(s.certainty,'pending');}assert.ok(facts(await get(o.b.bookingId,{surface:'calendar'}),'b05_expected_payments').length);});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-012-candidate61.test.ts",
+          "fileSha256": "781a1ee1494b7e6b859eaaf5d2256ff3e8f2a59aa1e4b81932859edb13fdc830",
+          "registrationLine": 146,
+          "case": {
+            "name": "H5-012 C09 critical Calendar event remains review and stale projection has no write authority",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2330,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 147,
+              "text": " const previous=await get(a.q.bookingId,{surface:'calendar'}),f=await boundaryFixture(h,'calendar',a.q.bookingId),event={...f.base(),material:{date:'2026-12-29',critical:true}};assert.equal((await f.run(event)).state,'review');"
+            },
+            {
+              "line": 148,
+              "text": " await pure(async()=>{assert.deepEqual(await get(a.q.bookingId,{surface:'calendar'}),previous);const r=await get();assert.ok(facts(r,'b09_event_receipts').some(x=>x.operation_id===event.operationId&&x.receipt_state==='review'));await assert.rejects(reader.read(await h.auth(),read,{...q(a.q.bookingId),approveChange:previous} as never));});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-012-candidate61.test.ts",
+          "fileSha256": "781a1ee1494b7e6b859eaaf5d2256ff3e8f2a59aa1e4b81932859edb13fdc830",
+          "registrationLine": 150,
+          "case": {
+            "name": "H5-012 C10 echo and earlier event never duplicate effect or overwrite current dates",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2331,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 151,
+              "text": " const w=await workFixture(h);await h.identities.apply(await h.auth(),write,{action:'create_context',operationId:uid(),targetId:w.context.contextId,kind:'booking',expectedVersion:0,sourceRef:'synthetic reference',evidenceRef:'synthetic context',reason:'independent echo context',verified:true});await w.run(w.definition);const claim=w.claim(),claimed=await w.run(claim);await w.run(w.start(claim,claimed.generation!));const ef=await boundaryFixture(h,'other',w.context.contextId),e={...ef.base(),echoOfOperationId:claim.attemptId},prior=await w.see();assert.equal((await ef.run(e)).state,'duplicate');await pure(async()=>{assert.ok(facts(await get(w.context.contextId),'b09_event_receipts').some(x=>x.operation_id===e.operationId&&x.receipt_state==='duplicate'));assert.deepEqual(await w.see(),prior);});"
+            },
+            {
+              "line": 154,
+              "text": " await pure(async()=>{for(let i=0;i<2;i++){const r=await get(),receipts=facts(r,'b09_event_receipts');assert.ok(receipts.some(x=>x.operation_id===echo.operationId));assert.ok(JSON.stringify(receipts).includes(one.operationId));const older=entries(r).find(x=>x.source==='crm_private.b09_event_receipts'&&x.data?.operation_id===old.operationId);assert.equal(Date.parse(older.occurredAt),Date.parse(old.occurredAt));assert.ok(entries(await get(a.q.bookingId,{surface:'calendar'})).filter(x=>x.scope).every(x=>x.scope.date==='2026-10-20'));}});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-083",
+      "expected": "Dato pendiente localizado; no fecha/frecuencia/número universal inventados; tareas y revisión independientes pueden continuar.",
+      "observed": "Unknown followup/advance/retry/pause blocks dependent work only. No universal operational values inferred.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-002.test.ts",
+          "fileSha256": "952648cffdefa0db74a80ba57caf60c69e393141c3a1d093cc0894349d96d9ba",
+          "registrationLine": 251,
+          "case": {
+            "name": "H5-T17/T18 AC083 missing proposal parameters stay localized while independent Task proceeds",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2226,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 255,
+              "text": " assert.deepEqual(needs.map(x=>x.material.deadline.kind),['unknown','unknown']);"
+            },
+            {
+              "line": 257,
+              "text": "  assert.equal((await see(p))?.material.deadline.kind,'unknown');}"
+            },
+            {
+              "line": 260,
+              "text": " assert.equal((await see(independent))?.material.deadline.kind,'civil');"
+            },
+            {
+              "line": 261,
+              "text": " assert.equal(evaluateTaskDeadline((await see(independent))!.material.deadline,{date:'2026-10-14'}).overdue,true);"
+            },
+            {
+              "line": 267,
+              "text": "  assert.equal((await see(pending))?.material.deadline.kind,'unknown');"
+            },
+            {
+              "line": 268,
+              "text": "  assert.equal(((await see(pending))?.material.deadline as {reason:string}).reason,missingParameter);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-087",
+      "expected": "No Enviada/Recibida inferidas; entrada conserva original/vínculos sin borrador ficticio ni duplicación por contexto; respuesta se evalúa por alcance.",
+      "observed": "Prepared exact approval retains no sent fact; incoming begins received; send/read/response require separate synthetic evidence and original links.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-006.test.ts",
+          "fileSha256": "c11f6cf90a4edd800add949bb9fab994d5469a48776e6508e7a9f78dfa8b3015",
+          "registrationLine": 11,
+          "case": {
+            "name": "H5-CA/CB/CC/CD/CE/CAA draft prepared exact HA approval does not send",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2258,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 12,
+              "text": " const f=await communicationFixture(h),d=f.draft();await f.run(d);let s=await f.see();assert.equal(s.work[0].kind,'draft');assert.equal(s.work[0].prepared,false);assert.equal(s.work[0].approval,null);"
+            },
+            {
+              "line": 13,
+              "text": " await f.prepare(d);s=await f.see();assert.equal(s.work[0].prepared,true);assert.equal(s.work[0].approval,null);"
+            },
+            {
+              "line": 14,
+              "text": " const a=await f.approve(d);s=await f.see();assert.equal(s.work[0].approval.proposalId,a.proposal);assert.equal(s.work[0].approval.actor,h.actorId);assert.ok(s.work[0].approval.at);"
+            },
+            {
+              "line": 15,
+              "text": " assert.equal(s.work.some((x:any)=>x.kind==='sent'),false);assert.equal(s.externalSendEnabled,false);await capture('composition-ha',s);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-006.test.ts",
+          "fileSha256": "c11f6cf90a4edd800add949bb9fab994d5469a48776e6508e7a9f78dfa8b3015",
+          "registrationLine": 17,
+          "case": {
+            "name": "H5-CF/CG/CAB changed version preserves historical approval and requires new review",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2259,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 20,
+              "text": " const s=await f.see();assert.ok(s.work.find((x:any)=>x.work_id===d.workId).approval);assert.equal(s.work.find((x:any)=>x.work_id===next.workId).approval,null);assert.equal(s.work.find((x:any)=>x.work_id===next.workId).prepared,false);"
+            },
+            {
+              "line": 21,
+              "text": " await assert.rejects(f.run(await f.fact('sent',d.workId)),/COMM_APPROVAL_REQUIRED/);await f.prepare(next);assert.equal((await f.see()).work.find((x:any)=>x.work_id===next.workId).approval,null);await capture('changed-version',await f.see());"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-006.test.ts",
+          "fileSha256": "c11f6cf90a4edd800add949bb9fab994d5469a48776e6508e7a9f78dfa8b3015",
+          "registrationLine": 23,
+          "case": {
+            "name": "H5-CH/CI incoming starts received and original remains linked without draft",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2260,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 24,
+              "text": " const f=await communicationFixture(h,'incoming'),s=await f.see();assert.equal(s.record.material.initial_fact,'received');assert.equal(s.record.source_ref,f.originalId);assert.ok(s.record.occurred_at);assert.equal(s.record.material.sender_ref,'synthetic-person');assert.deepEqual(s.work,[]);"
+            },
+            {
+              "line": 25,
+              "text": " await assert.rejects(f.run(f.draft()),/COMM_DIRECTION_INVALID/);await capture('incoming',s);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-088",
+      "expected": "Original y resumen separados, fuente/actor/momentos/revisión y dato confirmado preservados; sin audio/consentimiento por defecto ni conector supuesto.",
+      "observed": "Original transcript/summary/candidate distinct; confirmed18 stays against tentative16; Review/Task links and no-audio manual fact preserved. Real privacy use not accredited.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-006.test.ts",
+          "fileSha256": "c11f6cf90a4edd800add949bb9fab994d5469a48776e6508e7a9f78dfa8b3015",
+          "registrationLine": 36,
+          "case": {
+            "name": "H5-CN/CO/CP/CQ/CR/CT/CAI/CAL original synthetic PLAUD summary note remain distinct",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2262,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 38,
+              "text": " const s=await f.see();assert.equal(s.work.length,2);for(const w of s.work){assert.equal(w.original_id,f.originalId);assert.equal(w.material.origin,'synthetic_automatic');assert.ok(w.material.review);assert.ok(w.material.permissionRef);assert.ok(w.material.authorRef);assert.deepEqual(w.objectConservation,[]);}"
+            },
+            {
+              "line": 40,
+              "text": " assert.equal((await h.observer`select count(*)::int n from crm_private.b07_records where record_id=${f.originalId}::uuid`)[0]!.n,1);"
+            },
+            {
+              "line": 41,
+              "text": " assert.equal((await h.observer`select count(*)::int n from crm_private.b07_links where record_id=${f.originalId}::uuid`)[0]!.n,2);await capture('original-derivatives',s);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-006.test.ts",
+          "fileSha256": "c11f6cf90a4edd800add949bb9fab994d5469a48776e6508e7a9f78dfa8b3015",
+          "registrationLine": 43,
+          "case": {
+            "name": "H5-CU/CV/CW/CX/CY/CZ/CAQ 18 remains confirmed against perhaps16 with Review Task and source identity",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2263,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 44,
+              "text": " const f=await communicationFixture(h),p=f.derive();const result=await f.run(p);assert.equal((await f.run(p)).replayed,true);"
+            },
+            {
+              "line": 45,
+              "text": " assert.equal((await f.run({...p,operationId:uid(),workId:uid()})).id,result.id);"
+            },
+            {
+              "line": 47,
+              "text": " const s=await f.see();assert.equal(s.work.length,3);assert.equal(new Set(s.work.map((x:any)=>x.task_id)).size,1);"
+            },
+            {
+              "line": 48,
+              "text": " for(const w of s.work){assert.equal(w.material.confirmedSnapshot.claim,'18');assert.equal(w.material.reviewState,'pending');assert.ok(w.task_id);}"
+            },
+            {
+              "line": 49,
+              "text": " assert.equal((await h.observer`select material->>'claim' value from crm_private.b07_records where record_id=${f.confirmedId}::uuid`)[0]!.value,'18');"
+            },
+            {
+              "line": 50,
+              "text": " const task=(await h.observer`select * from crm_private.b07_pending_tasks where task_id=${s.work[0].task_id}::uuid`)[0]!;assert.equal(task.state,'pending');assert.equal(task.identity.causeKind,'review');"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-006.test.ts",
+          "fileSha256": "c11f6cf90a4edd800add949bb9fab994d5469a48776e6508e7a9f78dfa8b3015",
+          "registrationLine": 53,
+          "case": {
+            "name": "H5-CS manual call Evidence needs no audio or file",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2264,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 55,
+              "text": " assert.equal(record.record.material.source_kind,'manual');assert.equal(record.record.material.document_id,undefined);assert.equal(record.record.original_id,null);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-053",
+      "expected": "Aprobación identificada y trazable, efecto aún no ejecutado; ejecutor humano/automático distinguible cuando actúe.",
+      "observed": "Human approval and technical executor identities/parts bound separately; no attempt from approval alone. I01 and own N03 distinguish claim/contact and denied material.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h0-012.test.ts",
+          "fileSha256": "a925444a50e08cf3a19ceb82fa2a64258232f3f9f62f0bb65142218f44ab109e",
+          "registrationLine": 326,
+          "case": {
+            "name": "H0-012 R11 control: short real M02 ledger wait commits with live F2",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 251,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 328,
+              "text": "  assert.equal(r.facts.f2ExpiredAtRelease, false); assert.equal(r.outcome.committed, true);"
+            },
+            {
+              "line": 329,
+              "text": "  assert.equal(r.afterState.reservations, 1); assert.equal(r.afterState.history, 1); assert.equal(r.afterState.intents, 1);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h0-012.test.ts",
+          "fileSha256": "a925444a50e08cf3a19ceb82fa2a64258232f3f9f62f0bb65142218f44ab109e",
+          "registrationLine": 331,
+          "case": {
+            "name": "H0-012 R11 control: M02 wait above 30s expires both capabilities and rolls back",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 252,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 333,
+              "text": "  assert.ok(r.facts.ledgerWaitMs > 30000); assert.equal(r.facts.f2ExpiredAtRelease, true);"
+            },
+            {
+              "line": 334,
+              "text": "  assert.equal(r.facts.f1ExpiredAtRelease, true); assert.equal(r.outcome.committed, false);"
+            },
+            {
+              "line": 335,
+              "text": "  assert.deepEqual(r.afterState, r.beforeState);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h0-012.test.ts",
+          "fileSha256": "a925444a50e08cf3a19ceb82fa2a64258232f3f9f62f0bb65142218f44ab109e",
+          "registrationLine": 337,
+          "case": {
+            "name": "H0-012 R11: expired F2 must roll back M04 plus M02 even while later F1 remains live",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 253,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 339,
+              "text": "  assert.equal(r.facts.f2ExpiredAtRelease, true); assert.equal(r.facts.f1ExpiredAtRelease, false);"
+            },
+            {
+              "line": 340,
+              "text": "  assert.ok(r.facts.f2AgeMsAtRelease > 30000);"
+            },
+            {
+              "line": 341,
+              "text": "  assert.equal(r.outcome.committed, false, \"H0-012-F01: expired human authority committed reservation and ledger\");"
+            },
+            {
+              "line": 342,
+              "text": "  assert.deepEqual(r.afterState, r.beforeState, \"DENY must preserve preparation but no new reservation/ledger/activity\");"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-054",
+      "expected": "Cada cambio material exige nueva Human Approval; evidencia caducada exige revalidación aunque contenido coincida; ninguna ejecución automática con contexto obsoleto.",
+      "observed": "Changed recipient/material and expired evidence denied before committing HA; original approvals remain historical. Own N03 unchanged work/reservations.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h0-012.test.ts",
+          "fileSha256": "a925444a50e08cf3a19ceb82fa2a64258232f3f9f62f0bb65142218f44ab109e",
+          "registrationLine": 1145,
+          "case": {
+            "name": "F03 focal: verified positive, immutable trace, effective minimum and replay without provider",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 289,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 1147,
+              "text": "  assert.equal((await p.reserve()).state, \"reserved\");"
+            },
+            {
+              "line": 1149,
+              "text": "  assert.equal(proof!.reference, p.m.evidence.reference);"
+            },
+            {
+              "line": 1150,
+              "text": "  assert.equal(proof!.fingerprint, p.m.evidence.fingerprint);"
+            },
+            {
+              "line": 1151,
+              "text": "  assert.equal(proof!.outcome, \"verified\");"
+            },
+            {
+              "line": 1152,
+              "text": "  assert.equal(proof!.effective_until_us, String(BigInt(Date.parse(p.m.evidence.expiresAt)) * 1000n));"
+            },
+            {
+              "line": 1153,
+              "text": "  assert.ok(BigInt(proof!.checked_us) < BigInt(proof!.effective_until_us));"
+            },
+            {
+              "line": 1154,
+              "text": "  assert.equal(proof!.verifier_identity, \"h0-synthetic-source-reader\");"
+            },
+            {
+              "line": 1158,
+              "text": "  assert.equal(resultBefore.length, 1);"
+            },
+            {
+              "line": 1159,
+              "text": "  await assert.rejects(async () => { throw new Error(\"SYNTHETIC_POST_COMMIT_RESPONSE_LOSS\"); });"
+            },
+            {
+              "line": 1162,
+              "text": "  assert.equal(replay.commandState, \"previous\"); assert.equal(replay.reservationId, \"f03-positive\");"
+            },
+            {
+              "line": 1163,
+              "text": "  assert.equal(p.fixture.calls(), calls);"
+            },
+            {
+              "line": 1164,
+              "text": "  assert.deepEqual(await admin`select row_to_json(r)::text v from crm_private.unit_results r where operation_id='f03-positive'`, resultBefore);"
+            },
+            {
+              "line": 1165,
+              "text": "  await assert.rejects(() => p.reserve(p.api, \"f03-positive\", { ...p.m,"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-055",
+      "expected": "Como máximo un efecto acreditado; el otro reconoce resultado/pendiente o conflicto, sin doble consumo; parte ya ejecutada no se repite.",
+      "observed": "Both real claim orders yield one winner/generation; HA durable replay and late-result reconciliation do not consume twice.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-008.test.ts",
+          "fileSha256": "a510e8d357e63f5df854e171a0eab621656fdfeacebf7b68684552700216d72a",
+          "registrationLine": 47,
+          "case": {
+            "name": "W06 W09 W10 W30 late original evidence reconciles once; conflict never overwrites",
+            "passed": true,
+            "evidence": "evidence/independent-full-13.stdout.log",
+            "ordinal": 6,
+            "phase": "independent-full-13"
+          },
+          "assertions": [
+            {
+              "line": 51,
+              "text": " assert.equal((await f.run(proof)).replayed,true);assert.equal(h.inspections(),calls);"
+            },
+            {
+              "line": 52,
+              "text": " assert.equal((await f.run({...proof,operationId:(await import('node:crypto')).randomUUID()})).recognized,true);"
+            },
+            {
+              "line": 53,
+              "text": " const before=(await f.see())!,oldRef=before.parts[0].result_ref;const contradictory=f.prove(c.attemptId,'failed');assert.equal((await f.run(contradictory)).state,'conflict');"
+            },
+            {
+              "line": 54,
+              "text": " const after=(await f.see())!;assert.equal(after.parts[0].result_ref,oldRef);assert.equal(after.parts[0].state,'succeeded');"
+            },
+            {
+              "line": 56,
+              "text": " assert.equal(events.filter(x=>x.event_kind==='reconciled-succeeded').length,1);await capture('late-result',{before,after,events});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-13.stdout.log",
+          "rawExecutionSha256": "c3a2f588e2566f74b61687cb86796edb0be2818d2b6cf81349e4c08b57a426ef",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-056",
+      "expected": "Todos rechazados en su parte dependiente; IA solo prepara y Human Approval no crea acuerdo del cliente, confirmación del proveedor ni dispensa P16.",
+      "observed": "D039 R01–R25 and communication exact-approval negatives deny authority misuse; fiscal projection does not emit; no approval creates external acceptance. H6-017 remains pending.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h0-012.test.ts",
+          "fileSha256": "a925444a50e08cf3a19ceb82fa2a64258232f3f9f62f0bb65142218f44ab109e",
+          "registrationLine": 498,
+          "case": {
+            "name": "H0-012 D039 formal R01-R25 execution: independent matrix, stop at first material failure",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 288,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 518,
+              "text": "    assert.equal((await admin`select proposer_kind from crm_ha.proposals where proposal_id='r01-ai'`)[0]!.proposer_kind, \"ai\");"
+            },
+            {
+              "line": 531,
+              "text": "    assert.deepEqual((await admin`select actor_id::text,session_id::text,decision from crm_ha.decisions"
+            },
+            {
+              "line": 551,
+              "text": "    assert.deepEqual(counts, { decisions: 1, reservations: 0, execution_events: 0, external_records: 0 });"
+            },
+            {
+              "line": 558,
+              "text": "    assert.deepEqual(stored!.material_payload, referenceMaterial(m));"
+            },
+            {
+              "line": 559,
+              "text": "    assert.equal(stored!.material_fingerprint, referenceHash(referenceMaterial(m)));"
+            },
+            {
+              "line": 560,
+              "text": "    assert.equal((await admin`select material_fingerprint from crm_ha.decisions where proposal_id='r04-material'`)[0]!.material_fingerprint,"
+            },
+            {
+              "line": 581,
+              "text": "    assert.equal(fingerprintHumanApprovalMaterial(reordered), base);"
+            },
+            {
+              "line": 585,
+              "text": "      assert.equal(fingerprintHumanApprovalMaterial(value), referenceHash(referenceMaterial(value)));"
+            },
+            {
+              "line": 588,
+              "text": "    assert.equal(new Set(hashes).size, vectors.length);"
+            },
+            {
+              "line": 590,
+              "text": "    assert.equal(new Set(slots.map((amount) => fingerprintHumanApprovalMaterial({ ...m, amount }))).size, 3);"
+            },
+            {
+              "line": 592,
+              "text": "    assert.throws(() => fingerprintHumanApprovalMaterial(absent as unknown as HumanApprovalMaterial));"
+            },
+            {
+              "line": 593,
+              "text": "    assert.throws(() => fingerprintHumanApprovalMaterial({ ...m, content: \"\\ud800\" }));"
+            },
+            {
+              "line": 594,
+              "text": "    assert.throws(() => fingerprintHumanApprovalMaterial({ ...m, content: \"nul\\0byte\" }));"
+            },
+            {
+              "line": 597,
+              "text": "    assert.equal(referenceMaterial(exact).length, 16384);"
+            },
+            {
+              "line": 598,
+              "text": "    assert.equal(fingerprintHumanApprovalMaterial(exact), referenceHash(referenceMaterial(exact)));"
+            },
+            {
+              "line": 599,
+              "text": "    assert.throws(() => fingerprintHumanApprovalMaterial({ ...empty, content: \"x\".repeat(max + 1) }));"
+            },
+            {
+              "line": 600,
+              "text": "    assert.throws(() => fingerprintHumanApprovalMaterial({ ...empty, content: \"x\".repeat(16385) }));"
+            },
+            {
+              "line": 617,
+              "text": "    assert.equal((await reserve(\"r07-correct\", p.proposalId, decisionId, m)).state, \"reserved\");"
+            },
+            {
+              "line": 625,
+              "text": "    assert.equal(evidence.fingerprint, createHash(\"sha256\").update(source).digest(\"hex\"));"
+            },
+            {
+              "line": 626,
+              "text": "    assert.ok(BigInt(Date.parse(validUntil)) * 1000n > await nowUs());"
+            },
+            {
+              "line": 634,
+              "text": "    assert.equal((await reserve(\"r08-control\", noRequirement.p.proposalId, noRequirement.decisionId, noRequirement.m)).state, \"reserved\");"
+            },
+            {
+              "line": 638,
+              "text": "    if (observed === \"denied\") assert.deepEqual(await formalSnapshot(), beforeState);"
+            },
+            {
+              "line": 643,
+              "text": "    assert.equal(observed, \"reserved\", \"H0-012-F03: required evidence has no positive revalidation/reservation route\");"
+            },
+            {
+              "line": 645,
+              "text": "    assert.equal(previous.commandState, \"previous\");"
+            },
+            {
+              "line": 648,
+              "text": "    assert.equal((await replayWithoutProvider.reserve(auth, interaction, \"r08-positive-reserve\","
+            },
+            {
+              "line": 677,
+              "text": "      assert.equal(result.committed, mode === \"immediate-short\","
+            },
+            {
+              "line": 679,
+              "text": "      if (mode !== \"immediate-short\") assert.deepEqual(result.afterState, result.beforeState);"
+            },
+            {
+              "line": 685,
+              "text": "    assert.equal(result.committed, false);"
+            },
+            {
+              "line": 686,
+              "text": "    assert.equal(result.facts.proofCount, 0);"
+            },
+            {
+              "line": 687,
+              "text": "    assert.equal(result.facts.counts.reservations, 0);"
+            },
+            {
+              "line": 693,
+              "text": "    assert.equal(split.committed, false);"
+            },
+            {
+              "line": 694,
+              "text": "    assert.deepEqual(split.afterState, split.beforeState);"
+            },
+            {
+              "line": 701,
+              "text": "      assert.equal(deferred.committed, false);"
+            },
+            {
+              "line": 702,
+              "text": "      assert.deepEqual(deferred.afterState, deferred.beforeState);"
+            },
+            {
+              "line": 706,
+              "text": "    assert.equal(result.committed, false,"
+            },
+            {
+              "line": 708,
+              "text": "    assert.deepEqual(result.afterState, result.beforeState);"
+            },
+            {
+              "line": 735,
+              "text": "    assert.equal((await api.propose(auth, interaction, \"r09-restored\", \"ai\", material())).commandState, \"applied\");"
+            },
+            {
+              "line": 759,
+              "text": "        assert.ok(trace.f2Expiry);"
+            },
+            {
+              "line": 762,
+              "text": "      assert.equal(await pending,false,kind);"
+            },
+            {
+              "line": 763,
+              "text": "      assert.deepEqual(await formalSnapshot(),beforeState,kind);"
+            },
+            {
+              "line": 769,
+              "text": "      assert.equal(result.outcome.committed,mode === \"short\");"
+            },
+            {
+              "line": 770,
+              "text": "      if (mode !== \"short\") assert.deepEqual(result.afterState,result.beforeState);"
+            },
+            {
+              "line": 773,
+              "text": "    assert.equal(result.outcome.committed,false); assert.deepEqual(result.afterState,result.beforeState);"
+            },
+            {
+              "line": 786,
+              "text": "    assert.equal(await pending,false);"
+            },
+            {
+              "line": 787,
+              "text": "    assert.equal((await admin`select count(*)::int n from crm_ha.proposals where proposal_id='r12-revoked'`)[0]!.n,0);"
+            },
+            {
+              "line": 799,
+              "text": "      assert.ok(blocked);"
+            },
+            {
+              "line": 801,
+              "text": "    assert.equal((await accepted).commandState,\"applied\"); await revoke;"
+            },
+            {
+              "line": 828,
+              "text": "      assert.throws(()=>createF1Issuer(f1)(formalTechnicalContext(),binding,\"C03\",Buffer.from(\"x\"),{resource:\"human_approval\",action:\"manage_effect\"}));"
+            },
+            {
+              "line": 834,
+              "text": "    assert.equal((await new H0009PostgresAdapter(m2,f1).commit(ordinary,unit)).status,\"applied\");"
+            },
+            {
+              "line": 835,
+              "text": "    assert.equal((await admin`select count(*)::int n from crm_private.unit_results where operation_id='r13-ordinary'`)[0]!.n,1);"
+            },
+            {
+              "line": 844,
+              "text": "    ]) await assert.rejects(()=>client.unsafe(query),{code:\"42501\"});"
+            },
+            {
+              "line": 845,
+              "text": "    await assert.rejects(()=>m2.unsafe(\"set role crm_h0_ha_tx\"),{code:\"42501\"});"
+            },
+            {
+              "line": 848,
+              "text": "    assert.equal(memberships.length,0);"
+            },
+            {
+              "line": 853,
+              "text": "        assert.equal(r!.allowed,false,`${role} ${name}`);"
+            },
+            {
+              "line": 855,
+              "text": "      assert.equal((await admin`select has_function_privilege('crm_h0_ha_tx',${name},'execute') allowed`)[0]!.allowed,true);"
+            },
+            {
+              "line": 862,
+              "text": "    assert.equal(captured.length,5);"
+            },
+            {
+              "line": 869,
+              "text": "      await assert.rejects(()=>c.begin(async tx=>{await tx`select 1/0`;}));"
+            },
+            {
+              "line": 872,
+              "text": "    assert.equal((await api.propose(auth,interaction,\"r15-recovered\",\"ai\",material())).commandState,\"applied\");"
+            },
+            {
+              "line": 880,
+              "text": "      assert.equal(results.filter(r=>r.status===\"fulfilled\").length,1);"
+            },
+            {
+              "line": 881,
+              "text": "      assert.equal((await admin`select count(*)::int n from crm_ha.reservations where proposal_id='r16-concurrent'`)[0]!.n,1);"
+            },
+            {
+              "line": 882,
+              "text": "      assert.equal((await admin`select count(*)::int n from crm_private.external_effect_records where operation_id in ('r16-a','r16-b') and stage='intent'`)[0]!.n,1);"
+            },
+            {
+              "line": 893,
+              "text": "    assert.deepEqual(Array.from(await admin`select part_id,state from crm_ha.reservations where proposal_id='r17-partial' order by part_id`),"
+            },
+            {
+              "line": 902,
+              "text": "    assert.equal((await admin`select state from crm_ha.reservations where reservation_id=${r.reservationId!}`)[0]!.state,\"uncertain\");"
+            },
+            {
+              "line": 908,
+              "text": "    assert.equal((await api.reconcile(formalTechnicalContext(),\"r19-reconcile\",\"r18-reserve\",\"r18-try\",\"succeeded\",\"synthetic-reconciled\")).state,\"consumed\");"
+            },
+            {
+              "line": 914,
+              "text": "    assert.equal((await api.recordOutcome(formalTechnicalContext(),\"r20-failed\",r.reservationId!,\"r20-try1\",\"failed\",\"synthetic-known-failure\")).state,\"reserved\");"
+            },
+            {
+              "line": 917,
+              "text": "    assert.equal((await api.recordOutcome(formalTechnicalContext(),\"r20-ok\",r.reservationId!,\"r20-try2\",\"succeeded\",\"synthetic-success\")).state,\"consumed\");"
+            },
+            {
+              "line": 924,
+              "text": "    assert.equal(fixed.length,1);"
+            },
+            {
+              "line": 928,
+              "text": "    assert.equal((await p.reserve(new H0011PostgresAdapter(runtime,f1,f2,throwing))).commandState,\"previous\");"
+            },
+            {
+              "line": 929,
+              "text": "    assert.deepEqual(await admin`select row_to_json(r)::text v from crm_private.unit_results r where operation_id='r21-evidence'`,fixed);"
+            },
+            {
+              "line": 931,
+              "text": "    await deniedWithoutChanges(async()=>{await assert.rejects(()=>api.propose(auth,interaction,\"r01-ai\",\"ai\",changed),/CONFLICT_E2/);throw new Error(\"EXPECTED_DENIAL\");});"
+            },
+            {
+              "line": 949,
+              "text": "    await assert.rejects(()=>new H0011PostgresAdapter(losing,f1,f2).propose(auth,interaction,\"r22-lost\",\"ai\",material()),"
+            },
+            {
+              "line": 951,
+              "text": "    assert.equal((await admin`select count(*)::int n from crm_ha.proposals where proposal_id='r22-lost'`)[0]!.n,1);"
+            },
+            {
+              "line": 952,
+              "text": "    assert.equal((await api.propose(auth,interaction,\"r22-lost\",\"ai\",material())).commandState,\"previous\");"
+            },
+            {
+              "line": 956,
+              "text": "      const result=await finalEvidenceWait(mode);assert.equal(result.committed,mode===\"immediate-short\");"
+            },
+            {
+              "line": 960,
+              "text": "    assert.equal(roles.length,2);for(const r of roles)for(const k of ['rolsuper','rolcreatedb','rolcreaterole','rolreplication','rolbypassrls'])assert.equal(r[k],false);"
+            },
+            {
+              "line": 961,
+              "text": "    assert.equal((await admin`select count(*)::int n from pg_class where relowner='crm_h0_ha_tx'::regrole`)[0]!.n,0);"
+            },
+            {
+              "line": 963,
+              "text": "    assert.ok(tables.length>0);for(const r of tables){assert.equal(r.relrowsecurity,true);assert.equal(r.relforcerowsecurity,true);}"
+            },
+            {
+              "line": 966,
+              "text": "    for(const r of functions){assert.equal(r.rolcanlogin,false);assert.ok(r.proconfig.some((v:string)=>v.replaceAll(' ','')==='search_path=pg_catalog,pg_temp'));}"
+            },
+            {
+              "line": 970,
+              "text": "      assert.deepEqual(Object.keys(executor.operations).sort(),[\"decide\",\"propose\",\"readProposal\",\"reconcile\",\"recordAttempt\",\"recordOutcome\",\"reserve\"]);"
+            },
+            {
+              "line": 971,
+              "text": "      assert.ok(Object.isFrozen(executor.operations));"
+            },
+            {
+              "line": 972,
+              "text": "      assert.equal((await executor.operations.propose(auth,interaction,\"r23-private-api\",\"ai\",material())).commandState,\"applied\");"
+            },
+            {
+              "line": 977,
+              "text": "    assert.equal(f05UpgradeVerified,true); // This run's before hook created a fresh cluster and performed both wrong-authority and rollback attacks."
+            },
+            {
+              "line": 978,
+              "text": "    const p=await api.readProposal(auth,classifyServerEvent(\"core-read\"),\"r01-ai\");assert.equal(p?.proposalId,\"r01-ai\");"
+            },
+            {
+              "line": 984,
+              "text": "    assert.equal(original.status,0);assert.deepEqual(historical,original.stdout);"
+            },
+            {
+              "line": 988,
+              "text": "    assert.deepEqual(p,{proposer_kind:\"ai\",proposer_actor:actor});"
+            },
+            {
+              "line": 990,
+              "text": "    assert.deepEqual(d,{actor_id:actor,session_id:sessionId});"
+            },
+            {
+              "line": 992,
+              "text": "    assert.ok(events.some(e=>e.actor_kind==='human'&&e.actor_identity===actor));"
+            },
+            {
+              "line": 993,
+              "text": "    assert.ok(events.some(e=>e.actor_kind==='technical'&&e.actor_identity==='h012-independent-executor'));"
+            },
+            {
+              "line": 994,
+              "text": "    assert.equal((await admin`select count(*)::int n from crm_private.unit_results where operation_id in ('r20-a1','r20-failed','r20-a2','r20-ok')`)[0]!.n,4);"
+            },
+            {
+              "line": 1016,
+              "text": "    await assert.rejects(() => m2.begin(tx => tx.unsafe(query)), { code: \"42501\" });"
+            },
+            {
+              "line": 1018,
+              "text": "    assert.deepEqual(afterState, beforeState);"
+            },
+            {
+              "line": 1050,
+              "text": "          assert.equal(login, \"crm_h0_ha_tx\"); assert.equal(effectiveRole, \"crm_h0_ha_tx\");"
+            },
+            {
+              "line": 1051,
+              "text": "          assert.ok(checkedWhileLive, \"evidence must still be live before requesting early checks\");"
+            },
+            {
+              "line": 1072,
+              "text": "    assert.ok(blocked, \"independent backend must observe real advisory wait after M02\");"
+            },
+            {
+              "line": 1076,
+              "text": "    assert.ok(trace.f1Expiry! > releaseUs && trace.f2Expiry! > releaseUs,"
+            },
+            {
+              "line": 1086,
+              "text": "    assert.equal(proofCount, 1);"
+            },
+            {
+              "line": 1088,
+              "text": "      assert.equal(afterCounts[key], 1, `${mode}: independently persisted ${key}`);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-057",
+      "expected": "Resultado incierto, intento conservado; no fracaso/éxito supuestos ni repetición peligrosa. Verificar efecto previo y guardas antes de repetir; si no verificable, sigue pendiente.",
+      "observed": "Contact timeout keeps uncertain reservation and original attempt; blind/manual claim denied; late evidence reconciles once. I01 repeated and independent N03 no unauthorized contact.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-008.test.ts",
+          "fileSha256": "a510e8d357e63f5df854e171a0eab621656fdfeacebf7b68684552700216d72a",
+          "registrationLine": 33,
+          "case": {
+            "name": "W04 W08 W39 expired before-contact claim recovers with fencing",
+            "passed": true,
+            "evidence": "evidence/independent-full-13.stdout.log",
+            "ordinal": 4,
+            "phase": "independent-full-13"
+          },
+          "assertions": [
+            {
+              "line": 35,
+              "text": " const two=f.claim()as any,r=await f.run(two);assert.equal(r.generation,2);"
+            },
+            {
+              "line": 36,
+              "text": " await assert.rejects(f.run(f.start(c,one.generation!)),/WORK_FENCED/);"
+            },
+            {
+              "line": 37,
+              "text": " await assert.rejects(f.run({...f.base(),action:'renew',attemptId:c.attemptId,generation:1,leaseUntil:new Date(Date.now()+90000).toISOString()}),/WORK_FENCED/);"
+            },
+            {
+              "line": 38,
+              "text": " await assert.rejects(f.run(f.prove(c.attemptId)),/WORK_NO_CONTACT_ATTEMPT/);"
+            },
+            {
+              "line": 39,
+              "text": " assert.equal((await f.see())!.attempts[0].state,'expired');await f.run(f.start(two,2));await f.run(f.prove(two.attemptId));await capture('fencing',await f.see());"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-13.stdout.log",
+          "rawExecutionSha256": "c3a2f588e2566f74b61687cb86796edb0be2818d2b6cf81349e4c08b57a426ef",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-008.test.ts",
+          "fileSha256": "a510e8d357e63f5df854e171a0eab621656fdfeacebf7b68684552700216d72a",
+          "registrationLine": 41,
+          "case": {
+            "name": "W05 W07 W23 timeout retains uncertainty and reserve; manual retry cannot resend",
+            "passed": true,
+            "evidence": "evidence/independent-full-13.stdout.log",
+            "ordinal": 5,
+            "phase": "independent-full-13"
+          },
+          "assertions": [
+            {
+              "line": 43,
+              "text": " assert.equal((await f.run({...f.base(),action:'recover'})).state,'uncertain');await assert.rejects(f.run(f.claim()),/WORK_NO_SAFE_PENDING_PART/);"
+            },
+            {
+              "line": 44,
+              "text": " await f.run({...f.base(),action:'review'});await f.run({...f.base(),action:'resume'});await assert.rejects(f.run(f.claim()));"
+            },
+            {
+              "line": 45,
+              "text": " const s=(await f.see())!;assert.equal(s.parts[0].state,'uncertain');assert.equal((await h.admin`select state from crm_ha.reservations where reservation_id=${s.parts[0].reservation_id}`)[0]!.state,'uncertain');await capture('uncertain-recovery',s);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-13.stdout.log",
+          "rawExecutionSha256": "c3a2f588e2566f74b61687cb86796edb0be2818d2b6cf81349e4c08b57a426ef",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-008.test.ts",
+          "fileSha256": "a510e8d357e63f5df854e171a0eab621656fdfeacebf7b68684552700216d72a",
+          "registrationLine": 47,
+          "case": {
+            "name": "W06 W09 W10 W30 late original evidence reconciles once; conflict never overwrites",
+            "passed": true,
+            "evidence": "evidence/independent-full-13.stdout.log",
+            "ordinal": 6,
+            "phase": "independent-full-13"
+          },
+          "assertions": [
+            {
+              "line": 51,
+              "text": " assert.equal((await f.run(proof)).replayed,true);assert.equal(h.inspections(),calls);"
+            },
+            {
+              "line": 52,
+              "text": " assert.equal((await f.run({...proof,operationId:(await import('node:crypto')).randomUUID()})).recognized,true);"
+            },
+            {
+              "line": 53,
+              "text": " const before=(await f.see())!,oldRef=before.parts[0].result_ref;const contradictory=f.prove(c.attemptId,'failed');assert.equal((await f.run(contradictory)).state,'conflict');"
+            },
+            {
+              "line": 54,
+              "text": " const after=(await f.see())!;assert.equal(after.parts[0].result_ref,oldRef);assert.equal(after.parts[0].state,'succeeded');"
+            },
+            {
+              "line": 56,
+              "text": " assert.equal(events.filter(x=>x.event_kind==='reconciled-succeeded').length,1);await capture('late-result',{before,after,events});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-13.stdout.log",
+          "rawExecutionSha256": "c3a2f588e2566f74b61687cb86796edb0be2818d2b6cf81349e4c08b57a426ef",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-058",
+      "expected": "Finalización real conservada; Economic Closure y cierre conjunto no resueltos por finalizar.",
+      "observed": "Finalizada/operational history preserved while new document basis or invoice/refund balance keeps economic evaluation pending.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-014-audit.test.ts",
+          "fileSha256": "52aa9fd1aefea5e54ca788da8648bd29ddd0db1aa30f2775733aba8cfef487dc",
+          "registrationLine": 41,
+          "case": {
+            "name": "H5-014 A02/A16 Finalizada then new documentary basis leaves historical resolution immutable",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2468,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 41,
+              "text": "test('H5-014 A02/A16 Finalizada then new documentary basis leaves historical resolution immutable',async()=>{const f=await realityFixture(h);for(const action of ['start','perform','finish'] as const)await f.run(await f.command(action));const c=await closureCommands(h,f.f.bid);assert.deepEqual((await c.view()).assessments,{});await c.run(await c.command('operational',operational));await c.run(await c.command('operational',operational,{action:'evaluate'}));const history=(await c.view()).history;const rf=await requirementFixture(h);const need=await rf.need();await h.requirements.apply(await h.auth(),write,await rf.attest({...need,bookingId:f.f.bid,basis:{...rf.basis,scope:{action:'prepare',serviceId:f.f.o.detail.services[0]!.id}}}));const v=await c.view();assert.equal(v.assessments.operational!.status,'Resuelto');assert.equal(v.assessments.operational!.currentStatus,'Pendiente');assert.deepEqual(v.history,history);});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-014-audit.test.ts",
+          "fileSha256": "52aa9fd1aefea5e54ca788da8648bd29ddd0db1aa30f2775733aba8cfef487dc",
+          "registrationLine": 45,
+          "case": {
+            "name": "H5-014 A15 existing linked invoice without outgoing funds does not settle economy",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2472,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 45,
+              "text": "test('H5-014 A15 existing linked invoice without outgoing funds does not settle economy',async()=>{const f=await invoiceFixture(h);await h.invoices.apply(await h.auth(),write,await f.need());await h.invoices.apply(await h.auth(),write,await f.receive());await h.invoices.apply(await h.auth(),write,await f.review());await h.invoices.apply(await h.auth(),write,await f.link());const c=await closureCommands(h,f.bookingId);await c.run(await c.command('economic',{}, {serviceApplicability:flags(await c.view())}));assert.equal((await c.view()).assessments.economic!.criteria.find(x=>x.id==='supplier-documents')!.result,'pending');});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-014-safety.test.ts",
+          "fileSha256": "f3672e6370867df4cb8a977243ffb9c6c4153619cd5d3ca5a2a5ca0df4336bf1",
+          "registrationLine": 36,
+          "case": {
+            "name": "H5-014 A12 real partial Refund and failure without execution stay economically pending",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2496,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 36,
+              "text": "test('H5-014 A12 real partial Refund and failure without execution stay economically pending',async()=>{const f=await refundFixture(h);await f.run(await f.request());await f.run(await f.determine());await(await f.approval(await f.authorization())).execute();await f.run(await f.movement('80.00'));const c=await closureCommands(h,f.bid),v=await c.view();const serviceApplicability=(v.inputs.services as any[]).map(s=>({serviceId:s.service_id,suplido:false,deposit:false,ownEconomics:false,reason:'SYNTHETIC actual facts prevail'}));await c.run(await c.command('economic',{}, {serviceApplicability}));assert.equal((await c.view()).assessments.economic!.criteria.find(x=>x.id==='refunds')!.result,'pending');const inc=await f.incident(),attemptId=uid();await f.run(await f.command('uncertain',{incidentId:inc.incidentId,attempt:{id:attemptId,portion:await f.portion('20.00','80.00'),sourceRef:'SYNTHETIC local attempt uncertain'}}));await f.run(await f.command('resolve',{attemptId,resolution:'not_occurred'}));await c.run(await c.command('economic',{}, {action:'evaluate',serviceApplicability}));assert.equal((await c.view()).assessments.economic!.criteria.find(x=>x.id==='refunds')!.result,'pending');});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-059",
+      "expected": "Evaluaciones independientes; solo después de resolver las tres con criterios aplicables puede declararse Closed / Historical; dimensión sin requisitos exige evaluación explícita.",
+      "observed": "Joint closure explicit after three resolved assessments; each omitted dimension independently denied. Own N01 tests all three omissions with exact view equality.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-015.test.ts",
+          "fileSha256": "421e5bfb39d9cbb9c98ff2905af82825744e04c367ed25b9b0c9a502f6ddae8a",
+          "registrationLine": 10,
+          "case": {
+            "name": "H5-015 J01 no implicit closure and pending dimensions reject",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2526,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 12,
+              "text": " const c=await closureCommands(h,f.q.bookingId),v=await c.view();assert.equal(v.jointClosure.current,false);"
+            },
+            {
+              "line": 16,
+              "text": " await assert.rejects(h.closures.close(await h.auth(),write,{...q,evidenceId:e.targetId}),/DIMENSION_PENDING/);"
+            },
+            {
+              "line": 17,
+              "text": " assert.equal((await c.view()).jointClosure.history.length,0);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-015.test.ts",
+          "fileSha256": "421e5bfb39d9cbb9c98ff2905af82825744e04c367ed25b9b0c9a502f6ddae8a",
+          "registrationLine": 22,
+          "case": {
+            "name": "H5-015 J01/J06 explicit closure, canonical projection, replay and duplicate rejection",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2527,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 23,
+              "text": " const f=await jointFixture(h),j=f.j,v=await j.c.view();assert.equal(v.jointClosure.current,false);"
+            },
+            {
+              "line": 24,
+              "text": " const q=await j.command(),r=await j.run(q);assert.equal(r.result.status,'Cerrada / Histórico');assert.equal(r.result.actorId,h.actorId);"
+            },
+            {
+              "line": 25,
+              "text": " assert.equal((await j.run(q)).replayed,true);await assert.rejects(j.run(await j.attest({...q,reason:'different'})),/REPLAY_CONFLICT/);"
+            },
+            {
+              "line": 26,
+              "text": " await assert.rejects(j.run(await j.command()),/ALREADY_CLOSED/);assert.equal((await j.c.view()).jointClosure.history.length,1);"
+            },
+            {
+              "line": 27,
+              "text": " const canonical=await h.booking.read(await h.auth(),read,f.bookingId) as {closureAssessments:{jointClosure:{current:boolean}}};assert.equal(canonical.closureAssessments.jointClosure.current,true);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-060",
+      "expected": "Sin justificación bloquea cierre; con justificación solo salva ese bloqueo admisible, pero devolución/otra incidencia económica sigue bloqueando economía.",
+      "observed": "Critical exception scoped; economic impact still blocks. Own N02 valid pending economic criterion and rejected joint close preserve snapshots.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-015.test.ts",
+          "fileSha256": "421e5bfb39d9cbb9c98ff2905af82825744e04c367ed25b9b0c9a502f6ddae8a",
+          "registrationLine": 47,
+          "case": {
+            "name": "H5-015 J02 global critical guard persists invalidation even outside dimension materiality filter",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2533,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 51,
+              "text": " const v=await j.c.view();assert.equal(v.jointClosure.current,false);assert.equal(v.assessments.operational!.currentStatus,'Pendiente');"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-015.test.ts",
+          "fileSha256": "421e5bfb39d9cbb9c98ff2905af82825744e04c367ed25b9b0c9a502f6ddae8a",
+          "registrationLine": 53,
+          "case": {
+            "name": "H5-015 J02 critical exception is explicit, scoped and cannot waive economic incident",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2534,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 60,
+              "text": " await j.run(await j.command());assert.equal((await j.c.view()).jointClosure.current,true);"
+            },
+            {
+              "line": 63,
+              "text": " await h.incidents.apply(await h.auth(),write,await economic.justify());assert.equal((await j.c.view()).jointClosure.current,false);"
+            },
+            {
+              "line": 64,
+              "text": " await assert.rejects(j.run(await j.command()),/DIMENSION_PENDING/);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-061",
+      "expected": "Reabre evaluación económica y retira cierre conjunto actual; conserva cierre previo/causa, sin modificar ejecución comercial/operativa por inferencia.",
+      "observed": "Post-close material evidence invalidates affected assessment and current joint condition while keeping prior history. New I02 independently retains other Booking and dimensions.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-016-audit.test.ts",
+          "fileSha256": "86b56c37d3f2703440cd63cc195c1d605b36b761aff9d66680c864464b79bcc1",
+          "registrationLine": 32,
+          "case": {
+            "name": "H5-016 A04 explicit reopening changes only assessment history",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 81,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 35,
+              "text": " const before=await snapshot(),old=(await f.j.c.view()).jointClosure.history;const q=await f.j.c.command('economic',{}, {action:'reopen',serviceApplicability:await f.j.flags()});await f.j.c.run(q);assert.deepEqual(await snapshot(),before);assert.deepEqual((await f.j.c.view()).jointClosure.history,old);assert.equal((await f.j.c.run(q)).replayed,true);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-016-audit.test.ts",
+          "fileSha256": "86b56c37d3f2703440cd63cc195c1d605b36b761aff9d66680c864464b79bcc1",
+          "registrationLine": 37,
+          "case": {
+            "name": "H5-016 A02 independent SQL dependency graph and immutability inventory",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 82,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 43,
+              "text": " assert.ok(sources.length>36);for(const s of sources)assert.equal(s.perms.find((p:any)=>p.rolname==='crm_h0_runtime')!.del,false);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-016-races.test.ts",
+          "fileSha256": "ceffcc4290e532742f0ef6c1dd8a3f596de59b1a989c7f98d3dacd8f9d27b425",
+          "registrationLine": 62,
+          "case": {
+            "name": "H5-016 A04 reopening has read invalidated basis before a new critical event",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2550,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 65,
+              "text": " try{const rs=await afterReadRace(f.bookingId,()=>other.auth().then(a=>adapter.apply(a,write,q)),()=>h.auth().then(a=>h.incidents.apply(a,write,change)));assert.ok(rs.every(r=>r.status==='fulfilled'));const v=await j.c.view();assert.equal(v.assessments.economic!.status,'Pendiente');assert.equal(v.assessments.operational!.currentStatus,'Pendiente');assert.equal(v.jointClosure.current,false);assert.deepEqual(v.jointClosure.history,old);}finally{await conn.end({timeout:1});}"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-066",
+      "expected": "Primero reutiliza resultado sin doble efecto, antiguo no sobrescribe actual; contenido distinto es conflicto; sin ID se revisa sin deduplicar por semejanza.",
+      "observed": "Reliable equivalent key reuses canonical result; separate receipts retained; unreliable identity review; changed material E2. Own N04 checks exact canonical rows and same-operation no-write rejection.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-009.test.ts",
+          "fileSha256": "77ba8ddfabc4735041be9a3f17d1ef3ef4335ab2eafb3b5a8d0481a44a2f76f9",
+          "registrationLine": 11,
+          "case": {
+            "name": "H5-009 B07 event receipt, duplicate and E2 conflict preserve canonical event",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 54,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 12,
+              "text": " const f=await boundaryFixture(h),first=f.base(),applied=await f.run(first);assert.equal(applied.state,\"applied\");"
+            },
+            {
+              "line": 13,
+              "text": " const replay=await f.run(first);assert.equal(replay.replayed,true);assert.equal(replay.id,first.eventId);"
+            },
+            {
+              "line": 15,
+              "text": " assert.equal(duplicate.state,\"duplicate\");assert.equal(duplicate.id,first.eventId);"
+            },
+            {
+              "line": 17,
+              "text": " assert.equal(conflict.state,\"conflict\");assert.equal(conflict.code,\"E2\");assert.equal(conflict.id,first.eventId);"
+            },
+            {
+              "line": 19,
+              "text": " assert.deepEqual(receipts.map(x=>x.receipt_state),[\"applied\",\"duplicate\",\"conflict\"]);"
+            },
+            {
+              "line": 20,
+              "text": " assert.equal(receipts[2]!.raw_material.payload.amount,\"101.00\");assert.equal(receipts[1]!.raw_event.target_id,repeat.eventId);"
+            },
+            {
+              "line": 21,
+              "text": " assert.equal(receipts[1]!.source_ref,\"fixture:redelivery\");assert.equal((await material(f,first.eventId)).length,1);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-009.test.ts",
+          "fileSha256": "77ba8ddfabc4735041be9a3f17d1ef3ef4335ab2eafb3b5a8d0481a44a2f76f9",
+          "registrationLine": 24,
+          "case": {
+            "name": "H5-009 unreliable event identity persists as review and does not fuzzy-deduplicate",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 55,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 26,
+              "text": " const a=await f.run(one),b=await f.run(two);assert.equal(a.state,\"review\");assert.equal(b.state,\"review\");assert.notEqual(a.id,b.id);"
+            },
+            {
+              "line": 27,
+              "text": " assert.equal((await h.observer`select count(*)::int n from crm_private.b09_event_receipts where source_id=${f.sourceId}::uuid and receipt_state='review'`)[0]!.n,2);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-009.test.ts",
+          "fileSha256": "77ba8ddfabc4735041be9a3f17d1ef3ef4335ab2eafb3b5a8d0481a44a2f76f9",
+          "registrationLine": 30,
+          "case": {
+            "name": "H5-009 corrected external reference preserves the prior reference and history",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 56,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 37,
+              "text": " assert.equal(rows.length,2);assert.ok(rows.find(x=>x.record_id===firstId));assert.equal(rows.find(x=>x.record_id===nextId)?.corrects_id,firstId);"
+            },
+            {
+              "line": 38,
+              "text": " assert.equal((await h.observer`select count(*)::int n from crm_private.b07_history where subject_id=${nextId}::uuid and before_state is not null`)[0]!.n,1);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-067",
+      "expected": "Detecta cambio material y conflicto/revisión, sin overwrite; versión histórica permanece; no aceptación de contenido sustituido silenciosamente.",
+      "observed": "Real root waits and expected revisions reject stale decisions; concurrent incompatible closes persist one decision and history remains.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-014-races.test.ts",
+          "fileSha256": "e22cbb0bb2ef033601ec7d4528ff68fceca88ee23cf41a242df0b72768299543",
+          "registrationLine": 29,
+          "case": {
+            "name": "H5-014 C03 invoice writer first; real root wait and stale check",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2473,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 42,
+              "text": "  assert.equal((await (first==='writer'?adapter.read(await session.auth(),read,unrelated.q.bookingId):h.closures.read(await h.auth(),read,unrelated.q.bookingId))).revision,0);"
+            },
+            {
+              "line": 46,
+              "text": "  const blocked=observations.filter(x=>!x.granted);assert.equal(new Set(blocked.map(x=>x.pid)).size,2);assert.ok(blocked.some(x=>observations.some(y=>y.pid!==x.pid&&y.granted&&y.classid===x.classid&&y.objid===x.objid)));"
+            },
+            {
+              "line": 51,
+              "text": "  assert.equal(results[0]!.status,'fulfilled');"
+            },
+            {
+              "line": 52,
+              "text": "  if(first==='writer'){assert.equal(results[1]!.status,'rejected');assert.match(String((results[1] as PromiseRejectedResult).reason),/MATERIAL_CONFLICT/);assert.equal((await c.view()).revision,0);}else{assert.equal(results[1]!.status,'fulfilled');assert.equal((await c.view()).revision,1);}"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": {
+            "kind": "invoice",
+            "first": "writer"
+          }
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-068",
+      "expected": "O quedan juntos hecho/vínculos/historia/resultado/intención requeridos o no se confirma esa unidad; sin Booking incompleta ni porciones incoherentes. Preparación previa válida no finge conversión.",
+      "observed": "Failure injection before writes/deferred COMMIT and lost response preserves whole internal unit or recovers durable identity. Mocks are not used as proof of PostgreSQL rollback.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-004.test.ts",
+          "fileSha256": "4b58ed53d4708c44583ff5edd56bda381db06bc1d85d8dbc963389c3c3b388db",
+          "registrationLine": 146,
+          "case": {
+            "name": "H5-AW deferred COMMIT failure rolls back complete T09",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2253,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 149,
+              "text": " try{await assert.rejects(apply(p));}finally{await h.admin.unsafe('drop trigger h5004_fail on crm_private.b07_history');await h.admin.unsafe('drop function crm_private.h5004_fail()');}"
+            },
+            {
+              "line": 150,
+              "text": " assert.equal(await see(p),null);await apply(p);assert.equal((await see(p))!.notifications.length,2);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-004.test.ts",
+          "fileSha256": "4b58ed53d4708c44583ff5edd56bda381db06bc1d85d8dbc963389c3c3b388db",
+          "registrationLine": 188,
+          "case": {
+            "name": "H5-AW failure between CRM and WhatsApp intent rolls back both",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2257,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 191,
+              "text": " try{await assert.rejects(apply(p));}finally{await h.admin.unsafe('drop trigger h5004_fail on crm_private.b07_notifications');await h.admin.unsafe('drop function crm_private.h5004_fail()');}"
+            },
+            {
+              "line": 192,
+              "text": " assert.equal(await see(p),null);assert.equal((await h.observer`select count(*)::int n from crm_private.b07_notifications where alert_id=${p.alertId}::uuid`)[0]!.n,0);"
+            },
+            {
+              "line": 193,
+              "text": " await apply(p);assert.equal((await see(p))!.notifications.length,2);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-069",
+      "expected": "No dos efectos; trabajo/intentos identificados y reanudables; después del contacto se verifica resultado antes de reenviar.",
+      "observed": "Persistent claim generations, process restart before/during/after contact and stale fencing observed; uncertain prior effect never authorizes resend.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-008.test.ts",
+          "fileSha256": "a510e8d357e63f5df854e171a0eab621656fdfeacebf7b68684552700216d72a",
+          "registrationLine": 6,
+          "case": {
+            "name": "W01 W02 W11 W43 definition claim exact HA start result",
+            "passed": true,
+            "evidence": "evidence/independent-full-13.stdout.log",
+            "ordinal": 1,
+            "phase": "independent-full-13"
+          },
+          "assertions": [
+            {
+              "line": 7,
+              "text": " const f=await workFixture(h);await f.run(f.definition);const c=f.claim() as any,r=await f.run(c);assert.equal(r.state,'claimed');assert.equal((await f.see())!.parts[0].state,'claimed');"
+            },
+            {
+              "line": 8,
+              "text": " await f.run(f.start(c,r.generation!));assert.equal((await f.see())!.parts[0].state,'contacted');await f.run(f.prove(c.attemptId));const snapshot=(await f.see())!;assert.equal(snapshot.parts[0].state,'succeeded');"
+            },
+            {
+              "line": 9,
+              "text": " for(const event of snapshot.history){assert.ok(!event.before_state||!('history'in event.before_state));assert.ok(!('history'in event.after_state));}"
+            },
+            {
+              "line": 25,
+              "text": " assert.equal(locks.length,2);assert.notEqual((locks[0]as any).pid,(locks[1]as any).pid);return {locks,results};"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-13.stdout.log",
+          "rawExecutionSha256": "c3a2f588e2566f74b61687cb86796edb0be2818d2b6cf81349e4c08b57a426ef",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-008.test.ts",
+          "fileSha256": "a510e8d357e63f5df854e171a0eab621656fdfeacebf7b68684552700216d72a",
+          "registrationLine": 33,
+          "case": {
+            "name": "W04 W08 W39 expired before-contact claim recovers with fencing",
+            "passed": true,
+            "evidence": "evidence/independent-full-13.stdout.log",
+            "ordinal": 4,
+            "phase": "independent-full-13"
+          },
+          "assertions": [
+            {
+              "line": 35,
+              "text": " const two=f.claim()as any,r=await f.run(two);assert.equal(r.generation,2);"
+            },
+            {
+              "line": 36,
+              "text": " await assert.rejects(f.run(f.start(c,one.generation!)),/WORK_FENCED/);"
+            },
+            {
+              "line": 37,
+              "text": " await assert.rejects(f.run({...f.base(),action:'renew',attemptId:c.attemptId,generation:1,leaseUntil:new Date(Date.now()+90000).toISOString()}),/WORK_FENCED/);"
+            },
+            {
+              "line": 38,
+              "text": " await assert.rejects(f.run(f.prove(c.attemptId)),/WORK_NO_CONTACT_ATTEMPT/);"
+            },
+            {
+              "line": 39,
+              "text": " assert.equal((await f.see())!.attempts[0].state,'expired');await f.run(f.start(two,2));await f.run(f.prove(two.attemptId));await capture('fencing',await f.see());"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-13.stdout.log",
+          "rawExecutionSha256": "c3a2f588e2566f74b61687cb86796edb0be2818d2b6cf81349e4c08b57a426ef",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-008.test.ts",
+          "fileSha256": "a510e8d357e63f5df854e171a0eab621656fdfeacebf7b68684552700216d72a",
+          "registrationLine": 41,
+          "case": {
+            "name": "W05 W07 W23 timeout retains uncertainty and reserve; manual retry cannot resend",
+            "passed": true,
+            "evidence": "evidence/independent-full-13.stdout.log",
+            "ordinal": 5,
+            "phase": "independent-full-13"
+          },
+          "assertions": [
+            {
+              "line": 43,
+              "text": " assert.equal((await f.run({...f.base(),action:'recover'})).state,'uncertain');await assert.rejects(f.run(f.claim()),/WORK_NO_SAFE_PENDING_PART/);"
+            },
+            {
+              "line": 44,
+              "text": " await f.run({...f.base(),action:'review'});await f.run({...f.base(),action:'resume'});await assert.rejects(f.run(f.claim()));"
+            },
+            {
+              "line": 45,
+              "text": " const s=(await f.see())!;assert.equal(s.parts[0].state,'uncertain');assert.equal((await h.admin`select state from crm_ha.reservations where reservation_id=${s.parts[0].reservation_id}`)[0]!.state,'uncertain');await capture('uncertain-recovery',s);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-13.stdout.log",
+          "rawExecutionSha256": "c3a2f588e2566f74b61687cb86796edb0be2818d2b6cf81349e4c08b57a426ef",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-071",
+      "expected": "S1 dependiente pendiente, S2 puede continuar; intención interna no prueba entrega; sustitución conserva originales/referencias y significado del Core.",
+      "observed": "Unavailable source/channel stays pending while independent roots remain readable; original source identity preserved; no external delivery inferred.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-012-candidate61.test.ts",
+          "fileSha256": "781a1ee1494b7e6b859eaaf5d2256ff3e8f2a59aa1e4b81932859edb13fdc830",
+          "registrationLine": 156,
+          "case": {
+            "name": "H5-012 C11 unavailable/replaced auxiliary source does not make Core unavailable",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2332,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 157,
+              "text": " for(const label of ['original adapter unavailable','replacement adapter unavailable']){const double=new ManualExternalBoundaryDouble(),sourceId=uid();double.registerSource({id:sourceId,kind:'calendar',label,provenance:'synthetic',verifiedCapabilities:[],enabled:false});assert.throws(()=>double.registerReference({id:uid(),sourceId,externalKey:'synthetic',context:a.q.bookingId,coverage:'synthetic',authority:'reference_only',recordedAt:'2026-10-15T10:00:00Z'},{actor:'synthetic-admin',purpose:'external-boundary',context:a.q.bookingId,coverage:'synthetic',permission:'boundary:receive'}),/SOURCE_UNAVAILABLE/);assert.ok(await get());}"
+            },
+            {
+              "line": 159,
+              "text": " await pure(async()=>{for(const id of [a.q.bookingId,b.q.bookingId]){assert.ok(await get(id));assert.ok(await get(id,{surface:'calendar'}));}assert.ok(JSON.stringify(await get(b.q.bookingId)).includes('unavailable'));assert.deepEqual(Buffer.from(await h.objects.download(await h.auth(),read,version,c.context)),bytes);});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-012-candidate61.test.ts",
+          "fileSha256": "781a1ee1494b7e6b859eaaf5d2256ff3e8f2a59aa1e4b81932859edb13fdc830",
+          "registrationLine": 156,
+          "case": {
+            "name": "H5-012 C11 unavailable/replaced auxiliary source does not make Core unavailable",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2373,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 157,
+              "text": " for(const label of ['original adapter unavailable','replacement adapter unavailable']){const double=new ManualExternalBoundaryDouble(),sourceId=uid();double.registerSource({id:sourceId,kind:'calendar',label,provenance:'synthetic',verifiedCapabilities:[],enabled:false});assert.throws(()=>double.registerReference({id:uid(),sourceId,externalKey:'synthetic',context:a.q.bookingId,coverage:'synthetic',authority:'reference_only',recordedAt:'2026-10-15T10:00:00Z'},{actor:'synthetic-admin',purpose:'external-boundary',context:a.q.bookingId,coverage:'synthetic',permission:'boundary:receive'}),/SOURCE_UNAVAILABLE/);assert.ok(await get());}"
+            },
+            {
+              "line": 159,
+              "text": " await pure(async()=>{for(const id of [a.q.bookingId,b.q.bookingId]){assert.ok(await get(id));assert.ok(await get(id,{surface:'calendar'}));}assert.ok(JSON.stringify(await get(b.q.bookingId)).includes('unavailable'));assert.deepEqual(Buffer.from(await h.objects.download(await h.auth(),read,version,c.context)),bytes);});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-072",
+      "expected": "Se distinguen E1–E8, causa/alcance/estado conocido y siguiente revisión; excepción técnica con resultado desconocido sigue E4 para el efecto, sin bloqueo indiscriminado.",
+      "observed": "E1–E8 causal cases and diagnostic isolation/replay reproduced; exception after effect remains E4. Own N05 accepted diagnostic cannot satisfy or close dimensions.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h5-017-d-independent-causes.test.ts",
+          "fileSha256": "6a755396fbb15665e8e0daf84452b5c8b472f6e9265f3080947ca4656b0fac7f",
+          "registrationLine": 24,
+          "case": {
+            "name": "A01 E1 actual C01 guard blocks port and authorized reviewer locates cause",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2610,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 26,
+              "text": " await locate(f.context.contextId,id(),()=>invokeC01({context:context(),scope:'access',guards:{...safe,identityAndScope:'missing'},input:{}},{read:async()=>{invoked++;return {data:{},provenance:'synthetic',certainty:'verified'};}}),{code:'E1',state:'unchanged',step:'correct-or-review'});assert.equal(invoked,0);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-017-d-independent-causes.test.ts",
+          "fileSha256": "6a755396fbb15665e8e0daf84452b5c8b472f6e9265f3080947ca4656b0fac7f",
+          "registrationLine": 29,
+          "case": {
+            "name": "A02 E2 actual C01 version guard blocks port while original and conflicting external receipt persist",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2611,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 31,
+              "text": " const receipt=(await h.observer`select receipt_state from crm_private.b09_event_receipts where operation_id=${second.operationId}::uuid`)[0]!;assert.equal(receipt.receipt_state,'conflict');"
+            },
+            {
+              "line": 32,
+              "text": " await locate(f.contextId,second.operationId,()=>invokeC01({context:context(),scope:'event',guards:{...safe,repetition:'conflicting'},input:{}},{read:async()=>{invoked++;return {data:{},provenance:'synthetic',certainty:'verified'};}}),{code:'E2',state:'conflicting',step:'reevaluate-current-state'},first.eventId);assert.equal(invoked,0);"
+            },
+            {
+              "line": 33,
+              "text": " assert.equal((await h.observer`select count(*)::int n from crm_private.b09_event_receipts where source_id=${f.sourceId}::uuid`)[0]!.n,2);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h5-017-d-independent-causes.test.ts",
+          "fileSha256": "6a755396fbb15665e8e0daf84452b5c8b472f6e9265f3080947ca4656b0fac7f",
+          "registrationLine": 36,
+          "case": {
+            "name": "A03 E3 actual evidence contract blocks invalid verification but independent query remains usable",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 2612,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 39,
+              "text": " assert.equal(registered,0);assert.notEqual((await h.evidence.read(await h.auth(),read,f.originalId,'booking',f.context.contextId)).data,null);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-073",
+      "expected": "Automatismos sensibles suspendidos hasta conciliar efecto externo; no pago/envío duplicado ni original declarado recuperado; objetivos RPO/RTO siguen pendientes, sin cifras inventadas.",
+      "observed": "Only preventive uncertain-work/absent-object controls present. No backup restored or external after-restore reconciliation performed; scenario AC073 not executed.",
+      "localState": "NO EJECUTADA",
+      "anchors": [
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-008.test.ts",
+          "fileSha256": "a510e8d357e63f5df854e171a0eab621656fdfeacebf7b68684552700216d72a",
+          "registrationLine": 153,
+          "case": {
+            "name": "W41 restored pre-contact state suspends effects when durable simulated source says previous effect",
+            "passed": true,
+            "evidence": "evidence/independent-full-13.stdout.log",
+            "ordinal": 32,
+            "phase": "independent-full-13"
+          },
+          "assertions": [
+            {
+              "line": 158,
+              "text": " await assert.rejects(f.run(f.start(c,r.generation!),w),/WORK_PRIOR_EFFECT_REVIEW_REQUIRED/);assert.equal((await f.see())!.parts[0].state,'claimed');await capture('restore-barrier',{snapshot:await f.see(),providerRemembersEffect:true,contactCount:0,integralH6RestoreAccredited:false});"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-13.stdout.log",
+          "rawExecutionSha256": "c3a2f588e2566f74b61687cb86796edb0be2818d2b6cf81349e4c08b57a426ef",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-074",
+      "expected": "Estado de conservación exacto y reparación trazable; no evidencia completa ni acceso por referencia conocida; no atomicidad externa simulada.",
+      "observed": "Real local Storage corrupt/missing binary/metadata, orphan repair and reauthorized access tested; native URL lifetime remains distinct from Core access. Restore coherence reserved H6.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/postgres-h1-016.test.ts",
+          "fileSha256": "e9277b7f0538f4b280cb3137b866d08f70b75602848647aee988b4c98191472d",
+          "registrationLine": 138,
+          "case": {
+            "name": "R05: real same-path corruption and media mismatch are not conserved",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 398,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 145,
+              "text": "  assert.equal(changed.status,200);"
+            },
+            {
+              "line": 146,
+              "text": "  await assert.rejects(objects.download(await auth(),read,p.versionId,objectContext));"
+            },
+            {
+              "line": 148,
+              "text": "  assert.equal((await second`select state from crm_private.b07_object_versions where version_id=${p.versionId}::uuid`)[0]?.state,\"inconsistent\");"
+            },
+            {
+              "line": 152,
+              "text": " assert.equal(changedMedia.status,200);await objects.reconcile(await auth(),read,write,p.versionId,objectContext,randomUUID());"
+            },
+            {
+              "line": 153,
+              "text": " assert.equal((await second`select state from crm_private.b07_object_versions where version_id=${p.versionId}::uuid`)[0]?.state,\"inconsistent\");"
+            },
+            {
+              "line": 159,
+              "text": " assert.equal(removed.status,200);"
+            },
+            {
+              "line": 160,
+              "text": " const linkId=randomUUID();await assert.rejects(objects.link(await auth(),read,write,missing.versionId,objectContext,linkId));"
+            },
+            {
+              "line": 161,
+              "text": " assert.equal((await second`select linked_at from crm_private.b07_object_versions where version_id=${missing.versionId}::uuid`)[0]?.linked_at,null);"
+            },
+            {
+              "line": 162,
+              "text": " assert.equal((await second`select count(*)::int n from crm_private.b07_operations where operation_id=${linkId}::uuid`)[0]?.n,0);"
+            },
+            {
+              "line": 164,
+              "text": " assert.equal((await second`select state from crm_private.b07_object_versions where version_id=${missing.versionId}::uuid`)[0]?.state,\"missing\");"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h1-016.test.ts",
+          "fileSha256": "e9277b7f0538f4b280cb3137b866d08f70b75602848647aee988b4c98191472d",
+          "registrationLine": 193,
+          "case": {
+            "name": "R06/R07/R15/R17: real upload survives internal rollback and repair/orphan retains bytes",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 400,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 197,
+              "text": " const failedOp=randomUUID();await assert.rejects(objects.upload(await auth(),read,write,p.versionId,objectContext,bytes,failedOp));"
+            },
+            {
+              "line": 199,
+              "text": " assert.deepEqual(Buffer.from((await storage.get(`${p.rootId}/${p.versionId}`))!.bytes),bytes);"
+            },
+            {
+              "line": 200,
+              "text": " assert.equal((await second`select state from crm_private.b07_object_versions where version_id=${p.versionId}::uuid`)[0]?.state,\"prepared\");"
+            },
+            {
+              "line": 201,
+              "text": " assert.equal((await second`select count(*)::int n from crm_private.b07_operations where operation_id=${failedOp}::uuid`)[0]?.n,0);"
+            },
+            {
+              "line": 205,
+              "text": " const linkRetry=randomUUID();await assert.rejects(objects.link(await auth(),read,write,p.versionId,objectContext,linkRetry));"
+            },
+            {
+              "line": 207,
+              "text": " assert.equal((await second`select state from crm_private.b07_object_versions where version_id=${p.versionId}::uuid`)[0]?.state,\"verified_unlinked\");"
+            },
+            {
+              "line": 208,
+              "text": " assert.equal((await second`select count(*)::int n from crm_private.b07_operations where operation_id=${linkRetry}::uuid`)[0]?.n,0);"
+            },
+            {
+              "line": 212,
+              "text": " assert.equal((await objects.diagnoseOrphan(await auth(),read,write,orphan,diagnosis)).replayed,true);"
+            },
+            {
+              "line": 214,
+              "text": " assert.equal(diagnostic?.state,\"needs_review\");assert.ok(await storage.get(orphan));"
+            },
+            {
+              "line": 215,
+              "text": " assert.ok((await storage.inventory(orphan.split(\"/\")[0]!)).includes(orphan));"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        },
+        {
+          "file": "tests/integration/postgres-h1-016.test.ts",
+          "fileSha256": "e9277b7f0538f4b280cb3137b866d08f70b75602848647aee988b4c98191472d",
+          "registrationLine": 248,
+          "case": {
+            "name": "R11-R14: actual signed URL remains technically valid; Core access is reauthorized",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 402,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 257,
+              "text": " assert.equal(issued.status,200);"
+            },
+            {
+              "line": 259,
+              "text": " assert.equal((await fetch(`${endpoint}${signed}`)).status,200);"
+            },
+            {
+              "line": 262,
+              "text": " await assert.rejects(objects.download(oldAuth,read,p.versionId,objectContext));"
+            },
+            {
+              "line": 263,
+              "text": " await assert.rejects(objects.prepare(oldAuth,write,preparation(bytes)));"
+            },
+            {
+              "line": 264,
+              "text": " assert.equal((await fetch(`${endpoint}${signed}`)).status,200);"
+            },
+            {
+              "line": 273,
+              "text": " await assert.rejects(during.download(await auth(),read,p.versionId,objectContext));"
+            },
+            {
+              "line": 275,
+              "text": " assert.deepEqual(Buffer.from(await objects.download(await auth(),read,p.versionId,objectContext)),bytes);"
+            },
+            {
+              "line": 277,
+              "text": " assert.equal(persisted[0]?.private_ref,`${p.rootId}/${p.versionId}`);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    },
+    {
+      "id": "AC-077",
+      "expected": "Consulta/referencia solo si capacidad verificada; toda escritura excluida/rechazada, discrepancia revisada sin cambiar silenciosamente CRM.",
+      "observed": "Avaibook create/update/cancel capability denied; discrepancy remains review/reference, no external write. No real connector claimed.",
+      "localState": "SATISFACTORIA",
+      "anchors": [
+        {
+          "file": "tests/integration/h5017d-dependency-postgres-h5-009.test.ts",
+          "fileSha256": "77ba8ddfabc4735041be9a3f17d1ef3ef4335ab2eafb3b5a8d0481a44a2f76f9",
+          "registrationLine": 121,
+          "case": {
+            "name": "H5-009 Avaibook, calendar and web stay review-only and cannot execute external action requests",
+            "passed": true,
+            "evidence": "evidence/independent-full-15.stdout.log",
+            "ordinal": 63,
+            "phase": "independent-full-15"
+          },
+          "assertions": [
+            {
+              "line": 136,
+              "text": " assert.deepEqual(states,[\"review\",\"review\",\"review\"]);assert.equal(calendarResult.state,\"review\");assert.equal(webResult.state,\"review\");assert.equal(otherResult.state,\"applied\");assert.equal(invoiceAttempt.state,\"applied\");"
+            },
+            {
+              "line": 137,
+              "text": " assert.deepEqual(await counts(),before);"
+            }
+          ],
+          "rawExecution": "evidence/independent-full-15.stdout.log",
+          "rawExecutionSha256": "2f6fcc14fe78a2877723fe9fb413b155e7cbbb6e31b562f4bf467b4748d494f0",
+          "executionExit": 0,
+          "provenance": "independent audit original; not a new execution",
+          "dynamicInstance": null
+        }
+      ],
+      "scope": "Representative inspectable assertions. Full AC conclusion inherited only from pinned independent review, not computed from these anchors."
+    }
+  ],
+  "notAnOracle": true
+}

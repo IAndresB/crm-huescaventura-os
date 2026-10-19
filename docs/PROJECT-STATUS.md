@@ -1,5 +1,13 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+## Cierre vigente H5-019 / H5 — exclusivamente local/aislado, 2026-10-18
+
+**D01–D03 del director:** aceptación técnica del candidato H5-019 sucesor SHA-256 `31fd4ac89aea684f2155a4365cb5870a0c0163838cbfd543d2ad98d0db1ea619` y de la auditoría independiente PASS SHA-256 `9f35bae29b5a152c3520b36f723be57cd606c8cf9b2cc30f2ca80e88038b9915`. **TSK-H5-019 y H5 global COMPLETED exclusivamente local/aislado.** [Recibo](../specs/001-core-crm/acceptance-TSK-H5-019.md), [cierre](../specs/001-core-crm/closure-TSK-H5-019.md), [manifiesto propuesto](../tests/fixtures/h5-019-acceptance/publication-manifest.json). 19 dependencias y25/26 AC locales acreditados; AC-073 NO EJECUTADA/H6-015. AI-019-01/02 CLOSED, AI-019-03 RECONCILED. Estados históricos H5-011/013/015 preservados y reconciliados en Tasks. DM-PENDING-005 OPEN, H6 NOT STARTED; Hosted/Production NO ACREDITADOS. **D04: publicación pendiente de autorización expresa; no existe commit/push nuevo probado.**
+
+## Antecedentes publicados conservados
+
+Los apartados siguientes mantienen los hechos y estados de sus fechas originales; el cierre vigente anterior determina el estado actual.
+
 ## Cierre autorizado H5-017/H5-018 — candidato G
 
 **TSK-H5-017 y TSK-H5-018 COMPLETED, exclusivamente local/aislado — 2026-10-17.** El director acepta técnicamente G (D01), autoriza las 341 rutas exactas con los metadatos locales revisados (D02), el archivo histórico D de 90.706.957 bytes en Git normal (D03) y un único commit y un único push normal del conjunto final verificado (D04). Esta resolución expresa sustituye la negativa anterior a D02; no modifica las normas de negocio.

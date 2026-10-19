@@ -1,0 +1,263 @@
+{
+  "instruments": {
+    "scripts/verify-h5-019.py": "9edde9d22c85d30e7257297b9bdfb1ef48558d4aa42b5a6a66192a7e62ac328e",
+    "scripts/consolidate-h5-019.py": "2740fb8a5074206b856c951a917a50beb7a36b94b78d30aae3cff06d04af30db"
+  },
+  "trials": [
+    {
+      "id": "before-seal-baseline",
+      "command": [
+        "python3",
+        "scripts/verify-h5-019.py"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297600.0479949,
+      "finished": 1792297620.841262,
+      "exit": 0,
+      "stdoutSha256": "9077238ad1a6d7c6595c797a81bfa3593a9eed90fe7b21d5949c9a4ed35279f1",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "oracle": "baseline accepts; all seal mutations must reject",
+      "defectReproduced": false
+    },
+    {
+      "id": "before-seal-semantic",
+      "command": [
+        "python3",
+        "scripts/verify-h5-019.py"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297620.841723,
+      "finished": 1792297631.125407,
+      "exit": 0,
+      "stdoutSha256": "9fe23b9d34071d47089f3c546494d7ae15b7cea09d0880fdaf4337acc62e5541",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "oracle": "baseline accepts; all seal mutations must reject",
+      "defectReproduced": true
+    },
+    {
+      "id": "before-seal-missing",
+      "command": [
+        "python3",
+        "scripts/verify-h5-019.py"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297631.1257331,
+      "finished": 1792297641.4375942,
+      "exit": 0,
+      "stdoutSha256": "b4ffa326117d7f441ec5a7a74d29d22f3910197fcf292335a54cded1ffd54d38",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "oracle": "baseline accepts; all seal mutations must reject",
+      "defectReproduced": true
+    },
+    {
+      "id": "before-seal-unknown",
+      "command": [
+        "python3",
+        "scripts/verify-h5-019.py"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297641.4378922,
+      "finished": 1792297651.6842282,
+      "exit": 0,
+      "stdoutSha256": "994c8d35de54015c0bdea2fb860c42010c2fc0bcd007f068766720ea71e33df4",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "oracle": "baseline accepts; all seal mutations must reject",
+      "defectReproduced": true
+    },
+    {
+      "id": "before-generator-correct",
+      "command": [
+        "python3",
+        "scripts/consolidate-h5-019.py",
+        "results"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297651.687419,
+      "finished": 1792297652.4425752,
+      "exit": 0,
+      "stdoutSha256": "be441d9fc85e1a277650aa3eba335605a70a0e10433477dfa1609cd459c02ad0",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "oracle": "SAT requires applicable audited assertions and independent observed; never copy expected",
+      "observed": {
+        "id": "AC-050",
+        "currentObserved": "T01–T10,T19,T21–T23: causa única, cierre/reapertura y ningún pago por Task",
+        "localEvidenceState": "SATISFACTORIA",
+        "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture"
+      },
+      "cases": [
+        {
+          "id": "H5019/01/15/2215",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-T01/T05/T06/T08 completes and explicitly reopens without losing prior closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ]
+    },
+    {
+      "id": "before-generator-foreign",
+      "command": [
+        "python3",
+        "scripts/consolidate-h5-019.py",
+        "results"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297652.446383,
+      "finished": 1792297653.174518,
+      "exit": 0,
+      "stdoutSha256": "be441d9fc85e1a277650aa3eba335605a70a0e10433477dfa1609cd459c02ad0",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "oracle": "SAT requires applicable audited assertions and independent observed; never copy expected",
+      "observed": {
+        "id": "AC-050",
+        "currentObserved": "FALSE TASK CLAIM FROM FOREIGN DIAGNOSTIC",
+        "localEvidenceState": "SATISFACTORIA",
+        "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture"
+      },
+      "cases": [
+        {
+          "id": "H5019/01/15/2664",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "F-P01 A B A C A preserves exactly scoped versions approvals operations and requests",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ]
+    },
+    {
+      "id": "before-generator-missing-observed",
+      "command": [
+        "python3",
+        "scripts/consolidate-h5-019.py",
+        "results"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297653.1775649,
+      "finished": 1792297653.90458,
+      "exit": 0,
+      "stdoutSha256": "be441d9fc85e1a277650aa3eba335605a70a0e10433477dfa1609cd459c02ad0",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "oracle": "SAT requires applicable audited assertions and independent observed; never copy expected",
+      "observed": {
+        "id": "AC-050",
+        "currentObserved": "",
+        "localEvidenceState": "SATISFACTORIA",
+        "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture"
+      },
+      "cases": [
+        {
+          "id": "H5019/01/15/2215",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-T01/T05/T06/T08 completes and explicitly reopens without losing prior closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ]
+    },
+    {
+      "id": "before-generator-copied-expected",
+      "command": [
+        "python3",
+        "scripts/consolidate-h5-019.py",
+        "results"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297653.90775,
+      "finished": 1792297654.633301,
+      "exit": 0,
+      "stdoutSha256": "be441d9fc85e1a277650aa3eba335605a70a0e10433477dfa1609cd459c02ad0",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "oracle": "SAT requires applicable audited assertions and independent observed; never copy expected",
+      "observed": {
+        "id": "AC-050",
+        "currentObserved": "ARTIFICIAL EXPECTED WITHOUT OBSERVATION",
+        "localEvidenceState": "SATISFACTORIA",
+        "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture"
+      },
+      "cases": [
+        {
+          "id": "H5019/01/15/2215",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-T01/T05/T06/T08 completes and explicitly reopens without losing prior closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ]
+    },
+    {
+      "id": "before-generator-failed-test",
+      "command": [
+        "python3",
+        "scripts/consolidate-h5-019.py",
+        "results"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297654.705256,
+      "finished": 1792297654.97684,
+      "exit": 1,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "beb6353cf6d45c8a471d48b2faac4f473c102bbabc1f695f31f4e957ce57530b",
+      "oracle": "SAT requires applicable audited assertions and independent observed; never copy expected"
+    },
+    {
+      "id": "before-generator-historical-misattributed",
+      "command": [
+        "python3",
+        "scripts/consolidate-h5-019.py",
+        "results"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297654.979306,
+      "finished": 1792297655.70536,
+      "exit": 0,
+      "stdoutSha256": "be441d9fc85e1a277650aa3eba335605a70a0e10433477dfa1609cd459c02ad0",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "oracle": "SAT requires applicable audited assertions and independent observed; never copy expected",
+      "observed": {
+        "id": "AC-050",
+        "currentObserved": "T01–T10,T19,T21–T23: causa única, cierre/reapertura y ningún pago por Task",
+        "localEvidenceState": "SATISFACTORIA",
+        "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture"
+      },
+      "cases": [
+        {
+          "id": "H5019/01/15/2215",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-T01/T05/T06/T08 completes and explicitly reopens without losing prior closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ]
+    },
+    {
+      "id": "before-generator-future-H6",
+      "command": [
+        "python3",
+        "scripts/consolidate-h5-019.py",
+        "results"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297655.708278,
+      "finished": 1792297656.431165,
+      "exit": 1,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "475d15df22b8be84dc883c6471ac453cbb4c632cc527eecc3c9a7898bd07c8b3",
+      "oracle": "SAT requires applicable audited assertions and independent observed; never copy expected"
+    },
+    {
+      "id": "before-generator-missing-reference",
+      "command": [
+        "python3",
+        "scripts/consolidate-h5-019.py",
+        "results"
+      ],
+      "cwd": "/Users/andres/Developer/crm-h5-019-corrective-20261018/work/replay",
+      "started": 1792297656.434737,
+      "finished": 1792297657.1528802,
+      "exit": 1,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "896b343073145a575eb5fa6e3d4b04bb0dd473e18edd898ce312359ccb2e7729",
+      "oracle": "SAT requires applicable audited assertions and independent observed; never copy expected"
+    }
+  ]
+}

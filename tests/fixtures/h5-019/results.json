@@ -1,0 +1,356 @@
+{
+  "DM-PENDING-005": "OPEN",
+  "H5": "IN PROGRESS",
+  "H5-019": "IN PROGRESS pending audit/acceptance",
+  "H6": "NOT STARTED",
+  "additionalIntegration": {
+    "cancelled": 0,
+    "fail": 0,
+    "pass": 3,
+    "skipped": 0,
+    "tests": 3
+  },
+  "additionalMigration": 2,
+  "additionalTemporal": 14,
+  "captures": [
+    {
+      "capture": "01-complete",
+      "command": [
+        "node",
+        "scripts/test-h5-019-complete.mjs",
+        "01"
+      ],
+      "counts": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 2945,
+        "skipped": 0,
+        "tests": 2945
+      },
+      "durationSeconds": 695.6217811107635,
+      "exit": 0,
+      "finished": 1792258060.650652,
+      "inputCount": 584,
+      "ownHistoricalInputs": [],
+      "started": 1792257365.0288708,
+      "state": "SATISFACTORIA",
+      "status": "01-complete.status.json",
+      "stderr": "01-complete.stderr.log.gz",
+      "stdout": "01-complete.stdout.log.gz"
+    },
+    {
+      "capture": "02-gates",
+      "command": [
+        "python3",
+        "scripts/test-h5-019-gates.py",
+        "g02"
+      ],
+      "counts": {},
+      "durationSeconds": 80.6476149559021,
+      "exit": 1,
+      "finished": 1792257479.2405849,
+      "inputCount": 585,
+      "ownHistoricalInputs": [
+        {
+          "original": "tests/fixtures/h5-019/instrument-originals/test-h5-019-gates-before-postcheck.py",
+          "path": "scripts/test-h5-019-gates.py",
+          "sha256": "f0efb44116e14d4ff247a76db20c8f663125b3cf6a2276be4836eb39d28d4ed6"
+        }
+      ],
+      "started": 1792257398.59297,
+      "state": "FALLIDA",
+      "status": "02-gates.status.json",
+      "stderr": "02-gates.stderr.log.gz",
+      "stdout": "02-gates.stdout.log.gz"
+    },
+    {
+      "capture": "03-integrated",
+      "command": [
+        "node",
+        "scripts/test-postgres.mjs",
+        "postgres-h5-019-integrated.test.ts"
+      ],
+      "counts": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 3,
+        "skipped": 0,
+        "tests": 3
+      },
+      "durationSeconds": 20.192878007888794,
+      "exit": 0,
+      "finished": 1792257533.121685,
+      "inputCount": 586,
+      "ownHistoricalInputs": [
+        {
+          "original": "tests/fixtures/h5-019/instrument-originals/test-h5-019-gates-before-postcheck.py",
+          "path": "scripts/test-h5-019-gates.py",
+          "sha256": "f0efb44116e14d4ff247a76db20c8f663125b3cf6a2276be4836eb39d28d4ed6"
+        }
+      ],
+      "started": 1792257512.928807,
+      "state": "SATISFACTORIA",
+      "status": "03-integrated.status.json",
+      "stderr": "03-integrated.stderr.log.gz",
+      "stdout": "03-integrated.stdout.log.gz"
+    },
+    {
+      "capture": "04-gates-repeat",
+      "command": [
+        "python3",
+        "scripts/test-h5-019-gates.py",
+        "g04"
+      ],
+      "counts": {},
+      "durationSeconds": 94.18356108665466,
+      "exit": 0,
+      "finished": 1792257648.236777,
+      "inputCount": 586,
+      "ownHistoricalInputs": [],
+      "started": 1792257554.053216,
+      "state": "SATISFACTORIA",
+      "status": "04-gates-repeat.status.json",
+      "stderr": "04-gates-repeat.stderr.log.gz",
+      "stdout": "04-gates-repeat.stdout.log.gz"
+    }
+  ],
+  "commit": false,
+  "criteriaLocalSatisfactory": 25,
+  "criteriaReservedH6": 1,
+  "criteriaReviewed": 26,
+  "deploy": false,
+  "files": 196,
+  "gates": [
+    {
+      "command": [
+        "pnpm",
+        "install",
+        "--frozen-lockfile",
+        "--ignore-scripts"
+      ],
+      "counts": {},
+      "evidenceState": "SATISFACTORIA",
+      "exit": 0,
+      "finished": 1792257577.858618,
+      "gate": "frozen",
+      "started": 1792257575.8426838,
+      "stderr": "g04-frozen.stderr.log.gz",
+      "stdout": "g04-frozen.stdout.log.gz",
+      "stdoutContentSha256": "a239f1db10996561fe439e896e574460f4c8480fab99c07dd6471f86b878cbb4",
+      "stdoutGzipSha256": "0add6761d1fa9c44098bab8c0773fcdcbb3cb707a5eb3cca36a3dbf48b253d49"
+    },
+    {
+      "command": [
+        "pnpm",
+        "typecheck"
+      ],
+      "counts": {},
+      "evidenceState": "SATISFACTORIA",
+      "exit": 0,
+      "finished": 1792257583.739726,
+      "gate": "typecheck",
+      "started": 1792257577.85933,
+      "stderr": "g04-typecheck.stderr.log.gz",
+      "stdout": "g04-typecheck.stdout.log.gz",
+      "stdoutContentSha256": "adba4af9194e10e47dda75ff0fd0f8c2b756474896d0eba5612799c527ff372a",
+      "stdoutGzipSha256": "87417460f6b68343dfe6dfe0973432d06facd8a828a251502a6c11eab1da05bd"
+    },
+    {
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "counts": {},
+      "evidenceState": "SATISFACTORIA",
+      "exit": 0,
+      "finished": 1792257584.3015912,
+      "gate": "lint",
+      "started": 1792257583.74046,
+      "stderr": "g04-lint.stderr.log.gz",
+      "stdout": "g04-lint.stdout.log.gz",
+      "stdoutContentSha256": "e5c6cef641c90b2dfe8b25fae0bdf226423b1030f06b5cdda8d7958ff014bf5f",
+      "stdoutGzipSha256": "241c666696123ccbb6102e3e396c8e78a45bd8cbc3486dcf51f33adae62355a5"
+    },
+    {
+      "command": [
+        "pnpm",
+        "build"
+      ],
+      "counts": {},
+      "evidenceState": "SATISFACTORIA",
+      "exit": 0,
+      "finished": 1792257588.675064,
+      "gate": "build",
+      "started": 1792257584.302132,
+      "stderr": "g04-build.stderr.log.gz",
+      "stdout": "g04-build.stdout.log.gz",
+      "stdoutContentSha256": "1388b2e7a04688e96b01791ffd73e5b7d2167de1015bb670cc197b135009c62c",
+      "stdoutGzipSha256": "6e8a7fba85a79f30c9b05169782f3307b78cd5413e03021d577101e6322ae351"
+    },
+    {
+      "command": [
+        "pnpm",
+        "audit",
+        "--prod",
+        "--json"
+      ],
+      "counts": {},
+      "evidenceState": "SATISFACTORIA",
+      "exit": 0,
+      "finished": 1792257590.145141,
+      "gate": "audit",
+      "started": 1792257588.6758652,
+      "stderr": "g04-audit.stderr.log.gz",
+      "stdout": "g04-audit.stdout.log.gz",
+      "stdoutContentSha256": "11124a8c8cd76328bb93c913c49494fd2f63d7a4193871141c812f5b1cffc655",
+      "stdoutGzipSha256": "c8d7d7a0259b127ba5290bc4cdda68a4f605e4384aed9f911a8142d4a047801a"
+    },
+    {
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "counts": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 208,
+        "skipped": 0,
+        "tests": 208
+      },
+      "evidenceState": "SATISFACTORIA",
+      "exit": 0,
+      "finished": 1792257591.388099,
+      "gate": "unit",
+      "started": 1792257590.146202,
+      "stderr": "g04-unit.stderr.log.gz",
+      "stdout": "g04-unit.stdout.log.gz",
+      "stdoutContentSha256": "89c8db114ca2dd76cbe13931b437b8c79b65b1552a13063c0b3872db6177560a",
+      "stdoutGzipSha256": "1f04befd36b3522cfb8ec2d3f6613821d01c29a31c48ffc3a998afec540b4cdd"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/operations/supabase-health.test.mjs"
+      ],
+      "counts": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 1,
+        "skipped": 0,
+        "tests": 1
+      },
+      "evidenceState": "SATISFACTORIA",
+      "exit": 0,
+      "finished": 1792257592.354647,
+      "gate": "health",
+      "started": 1792257591.3890529,
+      "stderr": "g04-health.stderr.log.gz",
+      "stdout": "g04-health.stdout.log.gz",
+      "stdoutContentSha256": "e1f25d489fcb0f80d42f0726823f92785d2123718d5a1cb7d0d20e79132d3418",
+      "stdoutGzipSha256": "cacf4f6527c86f7c3582f8ebc4c7b95b8343feb165d28b6c1b43fa0dfa5f3406"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/test-postgres.mjs",
+        "postgres-h5-018-sixth-migration.test.ts"
+      ],
+      "counts": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 2,
+        "skipped": 0,
+        "tests": 2
+      },
+      "evidenceState": "SATISFACTORIA",
+      "exit": 0,
+      "finished": 1792257602.564379,
+      "gate": "migration",
+      "started": 1792257592.3552241,
+      "stderr": "g04-migration.stderr.log.gz",
+      "stdout": "g04-migration.stdout.log.gz",
+      "stdoutContentSha256": "2bc933d383fcbdbae82d5b7a48f6b8f70da67b4b65836264b0ba6ead0d18a268",
+      "stdoutGzipSha256": "b135135a2dd87e5024e2e7130cee36101f1a52dc4484fe548a736e0a8b70f1fe"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/test-postgres.mjs",
+        "postgres-h5-018-sixth-temporal.test.ts",
+        "postgres-h5-018-sixth-auxiliary.test.ts"
+      ],
+      "counts": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 14,
+        "skipped": 0,
+        "tests": 14
+      },
+      "evidenceState": "SATISFACTORIA",
+      "exit": 0,
+      "finished": 1792257613.0828302,
+      "gate": "temporal",
+      "started": 1792257602.565789,
+      "stderr": "g04-temporal.stderr.log.gz",
+      "stdout": "g04-temporal.stdout.log.gz",
+      "stdoutContentSha256": "53be7c748dca459102420c310c4cef1b203828e3fca337a353dd21655161384f",
+      "stdoutGzipSha256": "40ccfabad8d1585aa1d1a9c09eb9509f36fdf9e8c5fb5e9dd11aaf26bc075710"
+    }
+  ],
+  "health": 1,
+  "historyNotRelabelled": true,
+  "materialDefectsOpen": 0,
+  "phases": 15,
+  "postgres": {
+    "cancelled": 0,
+    "fail": 0,
+    "pass": 2945,
+    "skipped": 0,
+    "tests": 2945
+  },
+  "productionDependencyVulnerabilities": 0,
+  "proposedVerdict": "PASS",
+  "push": false,
+  "replicaIntegrity": {
+    "exit": 0,
+    "expectedFiles": 38531,
+    "fatal": null,
+    "regenerated": [
+      {
+        "allowed": true,
+        "capture": "01-generated-tests_fixtures_h2-011_reproducer-F01-corrected.log.gz",
+        "generatedSha256": "ef14509aa027892aa094ccaf196e8f91f66a614efa607845b3df93dd72222caa",
+        "path": "tests/fixtures/h2-011/reproducer-F01-corrected.log",
+        "protectedWorkspaceSha256": "3d123ac41cf6a9da845dd89518fff92c4012db3ede9da6b90f44e69839821ccc",
+        "protectedWorkspaceUnchanged": true
+      },
+      {
+        "allowed": true,
+        "capture": "01-generated-tests_fixtures_h2-011_reproducer-F02-corrected.log.gz",
+        "generatedSha256": "2740f160ee69a02c8c31e67c00f22fd2d539dfaebb5c9aaeee4fbe37a9bb57e6",
+        "path": "tests/fixtures/h2-011/reproducer-F02-corrected.log",
+        "protectedWorkspaceSha256": "e5edcf607bde904fc25e5f9665dc45922a96443f7762f97ce6bac4484d54b8ae",
+        "protectedWorkspaceUnchanged": true
+      },
+      {
+        "allowed": true,
+        "capture": "01-generated-tests_fixtures_h4-012-f16_preservation.json.gz",
+        "generatedSha256": "d6eb16889c7b37dcbdd31b5b2be4d94cdc53bff3ff966a644b9fa53b3f8eea4b",
+        "path": "tests/fixtures/h4-012-f16/preservation.json",
+        "protectedWorkspaceSha256": "8b6c0298b17b7ede0fabb58a264953f0ccfa5e880e89a8d472b3644e870003d7",
+        "protectedWorkspaceUnchanged": true
+      }
+    ],
+    "replicaChecked": 38531,
+    "replicaRemoved": true,
+    "retainedReplica": null,
+    "verificationComplete": true,
+    "verificationErrors": [],
+    "workspaceChecked": 38531,
+    "workspaceProtectedOutputsNeverOverwritten": true
+  },
+  "scope": "technical proposed local candidate only; independent audit and director acceptance pending",
+  "sourceNamesEqualToSixth": true,
+  "unit": 208
+}

@@ -1,0 +1,2664 @@
+{
+  "blocked": 0,
+  "criteria": [
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/2215",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-T01/T05/T06/T08 completes and explicitly reopens without losing prior closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2216",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-T05/T07/T08 missing guards and closed reception reject without side effects",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2218",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-T02/T04 stable identity converges and related distinct need survives",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2221",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-T09/T10 deadline unknown, civil full last day and next day",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2229",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-T06/T07 completed or cancelled work leaves real Booking and payment facts unchanged",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-T01/T05|H5-T02/T04|H5-T05/T07|H5-T06/T07|H5-T09",
+      "caseSelectorApplied": "H5-T01/T05|H5-T02/T04|H5-T05/T07|H5-T06/T07|H5-T09",
+      "contractsAndUnits": "C01/C02/C03/C06; T09",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "T01–T10,T19,T21–T23: causa única, cierre/reapertura y ningún pago por Task",
+      "developmentTasks": [
+        "TSK-H1-017",
+        "TSK-H5-001"
+      ],
+      "expectedLocalObservation": "T01–T10,T19,T21–T23: causa única, cierre/reapertura y ningún pago por Task",
+      "family": "PT-08",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-050",
+      "implementation": [
+        "src/infrastructure/postgres/h5-task-adapter.ts",
+        "src/domain/pending-task.ts",
+        "src/domain/approved-task-needs.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/approved-task-needs.ts": "04de48cecce386d26d195c83d99685270bd1122653c1507f4446d4726bae547d",
+        "src/domain/pending-task.ts": "66766f9a907750ab5740ced57aea39d40d8c2f93787f8eeba444b0de107b9726",
+        "src/infrastructure/postgres/h5-task-adapter.ts": "d488928f42886a0d935dae7120690ec4970bdf8f760c9a79ea1f9c8092737adc"
+      },
+      "limitations": "Parámetros productivos y scheduler pendientes",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-002.md",
+      "originalEvidenceSha256": "416229b877ce11352e8045602e0c8993e3de6e614425821b14a23bd41dc31595",
+      "rules": "COORD-001–003; DM-INV-044; SM-TA-01–05; SM-FORB-20; BR-TASK-001–005",
+      "specRow": "| AC-050 | Disparador de Task se procesa dos veces; se completa con resultado o cancela con motivo y luego se acredita cierre erróneo. | Una tarea de misma causa, resultado histórico y reapertura explícita; completar no confirma pago/proveedor/aceptación; deadline desconocido no es vencido. | SPEC-FR-COORD-001–003. |",
+      "tasksRow": "| **AC-050** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H1-017], [TSK-H5-001] | [TSK-H1-018], [TSK-H5-002] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H1-018",
+        "TSK-H5-002"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/0839",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R07",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0841",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R09",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0845",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R13",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0852",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R20",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0911",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R07",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0913",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R09",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0917",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R13",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0924",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R20",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1204",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R07",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1206",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R09",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1210",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R13",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1217",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R20",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1284",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R07",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1286",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R09",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1290",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R13",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1297",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R20",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2406",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 F02 documentary pending and received states never become reviewed by projection",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "^R(0[1-9]|1[0-9]|2[0-9])$|H5-012 F02 documentary",
+      "caseSelectorApplied": "H5-012 F02 documentary|^R(?:07|09|13|20)$",
+      "contractsAndUnits": "C01/C02/C03/C04/C06",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "R01–R23 y F02: recibido/revisado/no aplica fundamentado, cambio reabre solo alcance",
+      "developmentTasks": [
+        "TSK-H4-001"
+      ],
+      "expectedLocalObservation": "R01–R23 y F02: recibido/revisado/no aplica fundamentado, cambio reabre solo alcance",
+      "family": "PT-08",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-051",
+      "implementation": [
+        "src/infrastructure/postgres/h4-requirement-adapter.ts",
+        "src/domain/document-requirement.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/document-requirement.ts": "4fb62c00b75ba517d3b7077cd9e5d232ed43a318267ae0a96c1c6690261f50fa",
+        "src/infrastructure/postgres/h4-requirement-adapter.ts": "b676850f913dddd810d453801191ebf1932fce8d0daf1bc7849ff4d1cf8f01a1"
+      },
+      "limitations": "DM-PENDING-005; datos/requisitos reales verificados pendientes",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/evidence-TSK-H4-002.md",
+      "originalEvidenceSha256": "cf2579fef52eb32f4c2f3375e2c64b98dd00c8d60bf2fe9ccb5f1f203f5d0362",
+      "rules": "COORD-005; CAT-007; DM-INV-043; SM-DO-01–05; SM-FORB-20",
+      "specRow": "| AC-051 | Documento imprescindible de S1 recibido sin revisar; S2 no lo necesita; luego cambia alcance. | S1 no satisface requisito hasta revisión; S2 sigue; No aplica requiere fundamento; cambio reabre solo exigencia afectada sin borrar revisión anterior. | SPEC-FR-COORD-005, SPEC-FR-CAT-007. |",
+      "tasksRow": "| **AC-051** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H4-001] | [TSK-H4-002] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H4-002"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/1267",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H4-004 real economic effect links survive resolution without execution",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1273",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H4-004 AC-060: specific critical justification cannot waive economic impact or pending payment",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1275",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H4-004 overlap: resolution vs recurrence, both submission orders preserve solution",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1276",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H4-004 overlap: closing vs new contradictory evidence, stale writer never overwrites",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/1277",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H4-004 overlap: two real Incidents same impact, resolving one cannot remove the other",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2471",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 A06/A20 economic incident affects only economy and closure of incident does not resolve it",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H4-004.*(resolution|closing|impact|AC-060)|H5-014 A06/A20",
+      "caseSelectorApplied": "H4-004.*(resolution|closing|impact|AC-060)|H5-014 A06/A20",
+      "contractsAndUnits": "C01/C02/C03/C04/C06",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "Resolución y recurrencia conservadas; gestionar crítica no resuelve; sin Refund inferido",
+      "developmentTasks": [
+        "TSK-H4-003"
+      ],
+      "expectedLocalObservation": "Resolución y recurrencia conservadas; gestionar crítica no resuelve; sin Refund inferido",
+      "family": "PT-08",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-052",
+      "implementation": [
+        "src/infrastructure/postgres/h4-incident-adapter.ts",
+        "src/domain/incident.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/incident.ts": "e13d34bf9f7ce2870885eb43899164b0b4d3cff107a072820a149694addc94ce",
+        "src/infrastructure/postgres/h4-incident-adapter.ts": "cf8091abc8b5866d7406049c92e0597bd8cac229e20abe167f7a113d6cab1df3"
+      },
+      "limitations": "H6 conserva integración de evidencias tardías",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/evidence-TSK-H4-004.md",
+      "originalEvidenceSha256": "65a30e4a26d8b835bef2ed47213019fc4560ef662f5234d29e9179ed1d6e66fc",
+      "rules": "COORD-006; SM-IN-01–06; SM-FORB-24; BR-INC-001–002",
+      "specRow": "| AC-052 | Incident pasa de Abierta a En gestión, luego Resuelta/Cerrada con evidencia y reaparece misma causa. | Gravedad independiente; en gestión sigue abierta para guarda crítica; resolución no ejecuta Refund; reapertura conserva solución y revisa impactos. | SPEC-FR-COORD-006. |",
+      "tasksRow": "| **AC-052** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H4-003] | [TSK-H4-004] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H4-004"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/2236",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AI/AJ/AT/AY persistent automation and failed WhatsApp are visible without recursion",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2240",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AR/AS absent parameters block only dependent retry",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2241",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AT/AE manual stop review retry limit and uncertainty retain history",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2243",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AN/AO synthetic delivery never modifies origin or accredits external delivery",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-AI/AJ/AT|H5-AT/AE|H5-AN/AO|H5-AR/AS",
+      "caseSelectorApplied": "H5-AI/AJ/AT|H5-AT/AE|H5-AN/AO|H5-AR/AS",
+      "contractsAndUnits": "C01/C02/C03/C05",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "AI/AJ/AT/AE: visibilidad CRM, detener/revisar y no recursión; doble no entrega",
+      "developmentTasks": [
+        "TSK-H5-007",
+        "TSK-H5-003"
+      ],
+      "expectedLocalObservation": "AI/AJ/AT/AE: visibilidad CRM, detener/revisar y no recursión; doble no entrega",
+      "family": "PT-08",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-070",
+      "implementation": [
+        "src/infrastructure/postgres/h5-alert-adapter.ts",
+        "src/domain/internal-alert.ts",
+        "src/domain/persisted-work.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/internal-alert.ts": "d1ece952994f9ccd3bf058dd41689ce6412a460af182150d5ae5a474511b75b8",
+        "src/domain/persisted-work.ts": "de8b85735b5b155bc07935ab24af6c4cd65cb3fe241c89155d57c59d049f0986",
+        "src/infrastructure/postgres/h5-alert-adapter.ts": "8d210dd3e4a5152c4bbd1f8cf9c005d01cbbcc33705a6115992d615ab7b1c7f7"
+      },
+      "limitations": "WhatsApp real y parámetros de automatismo no configurados",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-004.md",
+      "originalEvidenceSha256": "8d930b231a2e0a0c0e46bb77e65399156afb5bb79c252839fedb81a24e98a743",
+      "rules": "COORD-004; CONC-006; SPEC-NFR-010/014; DM-INV-044; D016; ARCH-DEC-011",
+      "specRow": "| AC-070 | Automatización falla persistentemente y WhatsApp también falla; Administrador la detiene/revisa. | Fallo Importante/Crítico visible en CRM, intentos/versiones conservados, sin bucle de avisos ni reintento ilimitado; email no recibe aviso interno. | SPEC-FR-CONC-006, SPEC-FR-COORD-004, SPEC-NFR-014. |",
+      "tasksRow": "| **AC-070** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-007], [TSK-H5-003] | [TSK-H5-008], [TSK-H5-004], [TSK-H5-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H5-008",
+        "TSK-H5-004",
+        "TSK-H5-018"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/2330",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 C09 critical Calendar event remains review and stale projection has no write authority",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2331",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 C10 echo and earlier event never duplicate effect or overwrite current dates",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2371",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 C09 critical Calendar event remains review and stale projection has no write authority",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2372",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 C10 echo and earlier event never duplicate effect or overwrite current dates",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2402",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012-F01 A-D/E: changed night23, sibling21, accepted20, unchanged history and independent Booking",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2403",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012-F01 V-MIG: populated58, transactional rollback/retry, function-only change and unchanged ACL/RLS",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2404",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012-F01 security: migrated59 ACL, function authority, current-night view and official advisors",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2410",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 F01/F03 sequence: changed date survives cancellation and retains both revisions",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-012 C09|H5-012 C10|H5-012-F01|H5-012 F01/F03",
+      "caseSelectorApplied": "H5-012 C09|H5-012 C10|H5-012-F01|H5-012 F01/F03",
+      "contractsAndUnits": "C01/C04/C06; T09",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "C01–C11,F01–F03: fechas vigentes, eco/revisión y mutationAuthority=false",
+      "developmentTasks": [
+        "TSK-H5-009",
+        "TSK-H5-011",
+        "TSK-H1-011"
+      ],
+      "expectedLocalObservation": "C01–C11,F01–F03: fechas vigentes, eco/revisión y mutationAuthority=false",
+      "family": "PT-08",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-076",
+      "implementation": [
+        "src/infrastructure/postgres/h5-projection-adapter.ts",
+        "src/domain/external-boundary.ts",
+        "src/domain/coordinated-projection.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/coordinated-projection.ts": "429191803de93001ae228083b2533fba19dac3cb2a9a92326f55a6d92d705532",
+        "src/domain/external-boundary.ts": "e872f97e537d447ebdc0b8b898de0206bc9fb1606007a06e1ca0a30232074dd4",
+        "src/infrastructure/postgres/h5-projection-adapter.ts": "cd6cb04dd22c4dee50fb6b3783ca2adfea49e5ad6c27940dd4da3238b9dc1162"
+      },
+      "limitations": "Calendar real fuera; capacidad de sincronización futura",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-012-candidate61.md",
+      "originalEvidenceSha256": "f0e095280048676e31cb8db485256332c216e6f87625be4f540c32d7f8e95439",
+      "rules": "COORD-008; IDEMP-004; INT-005; DM-INV-049; SM-FORB-28; D020",
+      "specRow": "| AC-076 | Google Calendar cambia fecha crítica y emite eco de actualización propia; proyección CRM está retrasada. | Entrada en revisión, eco sin efecto duplicado; solo guardas/cambio aprobado modifican Core; mutación usa estado actual y cálculo D020, no vista obsoleta. | SPEC-FR-COORD-008, SPEC-FR-IDEMP-004, SPEC-FR-INT-005. |",
+      "tasksRow": "| **AC-076** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-009], [TSK-H5-011], [TSK-H1-011] | [TSK-H5-010], [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H5-010",
+        "TSK-H5-012"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/13/0007",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W12 W20 W21 W22 W23 control pause preserves HA and attempts",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0008",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W12 W20 W21 W22 W23 control stop preserves HA and attempts",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0009",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W12 W20 W21 W22 W23 control review preserves HA and attempts",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0022",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W37 W38 W40 persistent failure uses existing CRM alert and unavailable WhatsApp with pending parameters",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2226",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-T17/T18 AC083 missing proposal parameters stay localized while independent Task proceeds",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2240",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AR/AS absent parameters block only dependent retry",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-T17/T18|H5-AR/AS|W.*(unknown|missing|parameter|pause|retry)",
+      "caseSelectorApplied": "^H5-T17/T18|^H5-AR/AS|^W37 W38 W40|^W12 W20 W21",
+      "contractsAndUnits": "C02/C03/C06",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "T17/T18,AR/AS,W12–W23: sin frecuencia/adelanto/límite no inventar política",
+      "developmentTasks": [
+        "TSK-H5-001",
+        "TSK-H5-003",
+        "TSK-H5-007"
+      ],
+      "expectedLocalObservation": "T17/T18,AR/AS,W12–W23: sin frecuencia/adelanto/límite no inventar política",
+      "family": "PT-08",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-083",
+      "implementation": [
+        "src/domain/approved-task-needs.ts",
+        "src/domain/internal-alert.ts",
+        "src/domain/persisted-work.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/approved-task-needs.ts": "04de48cecce386d26d195c83d99685270bd1122653c1507f4446d4726bae547d",
+        "src/domain/internal-alert.ts": "d1ece952994f9ccd3bf058dd41689ce6412a460af182150d5ae5a474511b75b8",
+        "src/domain/persisted-work.ts": "de8b85735b5b155bc07935ab24af6c4cd65cb3fe241c89155d57c59d049f0986"
+      },
+      "limitations": "Configuración operativa ausente localizada",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-008.md",
+      "originalEvidenceSha256": "ad3dc7b4ffe816df8e934d5664e5e9e22d10b20ffacd7aa34007862b51a964c0",
+      "rules": "COORD-002–003; CONC-006; BR-TASK-005; ARCH-DEC-011",
+      "specRow": "| AC-083 | No está configurado adelanto de aviso, fecha dentro de 2–3 días o límite/pausa de reintento; se solicita automatismo. | Dato pendiente localizado; no fecha/frecuencia/número universal inventados; tareas y revisión independientes pueden continuar. | SPEC-FR-COORD-002–003, SPEC-FR-CONC-006. |",
+      "tasksRow": "| **AC-083** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-001], [TSK-H5-003], [TSK-H5-007] | [TSK-H5-002], [TSK-H5-004], [TSK-H5-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H5-002",
+        "TSK-H5-004",
+        "TSK-H5-008"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/2258",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CA/CB/CC/CD/CE/CAA draft prepared exact HA approval does not send",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2260",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CH/CI incoming starts received and original remains linked without draft",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2261",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CJ/CK/CL/CM/CAV/CAW/CAX/CAU specific synthetic send reception read response remain independent",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2265",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAT SM-CO-01 guards individually reject absent context recipient source nature content",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2266",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAT SM-CO-02 prepared requires current existing draft and visible pending list",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2267",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAT SM-CO-03/04 missing exact HA proof recipient scope time prevent sent",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2268",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAT SM-CO-05/06 missing source author moment scope or original reject",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-CA/CB|H5-CH/CI|H5-CJ/CK|H5-CAT SM-CO",
+      "caseSelectorApplied": "H5-CA/CB|H5-CH/CI|H5-CJ/CK|H5-CAT SM-CO",
+      "contractsAndUnits": "C01/C02/C03/C04/C05",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "CA–CM/CAA: aprobación no envío; entrada recibida sin borrador y hechos independientes",
+      "developmentTasks": [
+        "TSK-H1-013",
+        "TSK-H5-005",
+        "TSK-H2-005"
+      ],
+      "expectedLocalObservation": "CA–CM/CAA: aprobación no envío; entrada recibida sin borrador y hechos independientes",
+      "family": "PT-08",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-087",
+      "implementation": [
+        "src/infrastructure/postgres/h5-communication-adapter.ts",
+        "src/domain/communication-review.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/communication-review.ts": "4e9f1e659b4c61b5e13eb7bc503e995b1afda224120731e825b15ab3f8ae49ac",
+        "src/infrastructure/postgres/h5-communication-adapter.ts": "d9ae868618427a1d277ac5543b46c053acd3c5f9650daafc8a35dbfc9b42fae0"
+      },
+      "limitations": "Todo envío de prueba sintético; ningún destinatario externo",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-006.md",
+      "originalEvidenceSha256": "5ea026c26312b59a2578d38fd3af411f7784dd1084eb63734153f15521400a58",
+      "rules": "PROP-006; COORD-007; HIST-003; DM-INV-045; SM-CO-01–06; SM-FORB-21",
+      "specRow": "| AC-087 | Communication aprobada carece de evidencia de envío; entra una respuesta por canal externo. | No Enviada/Recibida inferidas; entrada conserva original/vínculos sin borrador ficticio ni duplicación por contexto; respuesta se evalúa por alcance. | SPEC-FR-PROP-006, SPEC-FR-COORD-007, SPEC-FR-HIST-003. |",
+      "tasksRow": "| **AC-087** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H1-013], [TSK-H5-005], [TSK-H2-005] | [TSK-H1-014], [TSK-H5-006], [TSK-H2-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H1-014",
+        "TSK-H5-006",
+        "TSK-H2-006"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/2262",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CN/CO/CP/CQ/CR/CT/CAI/CAL original synthetic PLAUD summary note remain distinct",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2263",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CU/CV/CW/CX/CY/CZ/CAQ 18 remains confirmed against perhaps16 with Review Task and source identity",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2264",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CS manual call Evidence needs no audio or file",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2283",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CT/CAQ AC088 actual synthetic Contact Booking links preserve all canonical business facts",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2290",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CU/CV/CZ normative18 is a real Core Provider Confirmation preserved against candidate16",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-CN/CO|H5-CU/CV|H5-CT/CAQ|H5-CS manual",
+      "caseSelectorApplied": "H5-CN/CO|H5-CU/CV|H5-CT/CAQ|H5-CS manual",
+      "contractsAndUnits": "C01/C03/C04/C06",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "CN–CT/CU–CZ: original/derivado,18 confirmado frente16 tentativo, Review y misma Task",
+      "developmentTasks": [
+        "TSK-H1-013",
+        "TSK-H5-005"
+      ],
+      "expectedLocalObservation": "CN–CT/CU–CZ: original/derivado,18 confirmado frente16 tentativo, Review y misma Task",
+      "family": "PT-08",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [
+        "TSK-H6-017"
+      ],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-088",
+      "implementation": [
+        "src/infrastructure/postgres/h5-communication-adapter.ts",
+        "src/domain/communication-review.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/communication-review.ts": "4e9f1e659b4c61b5e13eb7bc503e995b1afda224120731e825b15ab3f8ae49ac",
+        "src/infrastructure/postgres/h5-communication-adapter.ts": "d9ae868618427a1d277ac5543b46c053acd3c5f9650daafc8a35dbfc9b42fae0"
+      },
+      "limitations": "H6-017 NO EJECUTADA; DM-PENDING-005 OPEN; sin audio/PLAUD/IA real",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-006.md",
+      "originalEvidenceSha256": "5ea026c26312b59a2578d38fd3af411f7784dd1084eb63734153f15521400a58",
+      "rules": "HIST-003/005; INT-004; SEC-006; DM-INV-045/046; BR-AI-004–005",
+      "specRow": "| AC-088 | Transcripción PLAUD autorizada y resumen generado se vinculan a persona/Booking; IA detecta dato tentativo contra confirmación manual. | Original y resumen separados, fuente/actor/momentos/revisión y dato confirmado preservados; sin audio/consentimiento por defecto ni conector supuesto. | SPEC-FR-HIST-003/005, SPEC-FR-INT-004, SPEC-FR-SEC-006. |",
+      "tasksRow": "| **AC-088** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H1-013], [TSK-H5-005] | [TSK-H5-006], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H5-006",
+        "TSK-H6-017"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/13/0001",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W01 W02 W11 W43 definition claim exact HA start result",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0289",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "F03 focal: verified positive, immutable trace, effective minimum and replay without provider",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2258",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CA/CB/CC/CD/CE/CAA draft prepared exact HA approval does not send",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-CA/CB|W01 W02 W11|F03 focal: verified",
+      "caseSelectorApplied": "H5-CA/CB|W01 W02 W11|F03 focal: verified",
+      "contractsAndUnits": "C02/C03/C05; T08",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "HA exacta registrada; define/claim no ejecutan; humano y ejecutor distintos",
+      "developmentTasks": [
+        "TSK-H0-011"
+      ],
+      "expectedLocalObservation": "HA exacta registrada; define/claim no ejecutan; humano y ejecutor distintos",
+      "family": "PT-09",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-053",
+      "implementation": [
+        "src/infrastructure/postgres/h5-communication-adapter.ts",
+        "src/infrastructure/postgres/h0-011-adapter.ts",
+        "src/infrastructure/postgres/human-approval-executor.ts"
+      ],
+      "implementationSha256": {
+        "src/infrastructure/postgres/h0-011-adapter.ts": "73f36c8c1e01cca3729577013499ef6dbaffd23a7731e0b8e6393fdaf5909884",
+        "src/infrastructure/postgres/h5-communication-adapter.ts": "d9ae868618427a1d277ac5543b46c053acd3c5f9650daafc8a35dbfc9b42fae0",
+        "src/infrastructure/postgres/human-approval-executor.ts": "40e9712f75bdedf92abb450415bad60df6de0e0209d740be656411b9a054dde7"
+      },
+      "limitations": "Ensayo sensible real H6-006 pendiente",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/evidence-TSK-H0-012.md",
+      "originalEvidenceSha256": "a13c153ade8c82a840b0b02d46505c728db200a2747a5c32a95ddb7c21d7a3d2",
+      "rules": "HA-001/003; DM-INV-046/048; SM-HA-01–03; D037/D038/D039",
+      "specRow": "| AC-053 | IA prepara propuesta sensible y Administrador aprueba contenido exacto; no existe intento/resultado. | Aprobación identificada y trazable, efecto aún no ejecutado; ejecutor humano/automático distinguible cuando actúe. | SPEC-FR-HA-001/003. |",
+      "tasksRow": "| **AC-053** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H0-011] | [TSK-H0-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H0-012"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/0308",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "F03 focal: SQL checks signed proposal/part/scope/reference/fingerprint/time and MAC",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0311",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "F03 focal: real ledger wait expires evidence with F1/F2 live; short wait and committed replay work",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2259",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CF/CG/CAB changed version preserves historical approval and requires new review",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2286",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAA/CAB exact HA rejects other content recipient conditions amount action effect and destination",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-CF/CG|H5-CAA/CAB|F03 focal: SQL|F03 focal: real ledger",
+      "caseSelectorApplied": "H5-CF/CG|H5-CAA/CAB|F03 focal: SQL|F03 focal: real ledger",
+      "contractsAndUnits": "C02/C03/C05; T08",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "Cambio contenido/destinatario/importe/condición/parte y caducidad rechazan sin consumo",
+      "developmentTasks": [
+        "TSK-H0-011",
+        "TSK-H5-007"
+      ],
+      "expectedLocalObservation": "Cambio contenido/destinatario/importe/condición/parte y caducidad rechazan sin consumo",
+      "family": "PT-09",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-054",
+      "implementation": [
+        "src/infrastructure/postgres/persisted-work-executor.ts",
+        "src/infrastructure/postgres/human-approval-executor.ts"
+      ],
+      "implementationSha256": {
+        "src/infrastructure/postgres/human-approval-executor.ts": "40e9712f75bdedf92abb450415bad60df6de0e0209d740be656411b9a054dde7",
+        "src/infrastructure/postgres/persisted-work-executor.ts": "8285e190186749ef2118bfe73e70ff1d373bc4e70b503b29ee860eba6c030ed2"
+      },
+      "limitations": "Revalidación Hosted/pool real y H6 pendientes",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-008.md",
+      "originalEvidenceSha256": "ad3dc7b4ffe816df8e934d5664e5e9e22d10b20ffacd7aa34007862b51a964c0",
+      "rules": "HA-002; SM-HA-02; DM-INV-046; G1–G6; D039",
+      "specRow": "| AC-054 | Tras aprobar se cambia destinatario, precio, alcance, condiciones o efecto; variante sin cambio de contenido pero evidencia caducada. | Cada cambio material exige nueva Human Approval; evidencia caducada exige revalidación aunque contenido coincida; ninguna ejecución automática con contexto obsoleto. | SPEC-FR-HA-002. |",
+      "tasksRow": "| **AC-054** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H0-011], [TSK-H5-007] | [TSK-H0-012], [TSK-H5-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H0-012",
+        "TSK-H5-008"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/13/0002",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W03 real A/B competition order 0",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0003",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W03 real A/B competition order 1",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0006",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W06 W09 W10 W30 late original evidence reconciles once; conflict never overwrites",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0255",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "F01 correction: normal concurrent units, durable replay and actual post-COMMIT response loss",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "W03 real|F01 correction: normal concurrent|W06 W09 W10",
+      "caseSelectorApplied": "W03 real|F01 correction: normal concurrent|W06 W09 W10",
+      "contractsAndUnits": "C03/C05; T08/T09",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "R01–R25,W03,W06,W09: consumo único, ambos órdenes, replay reautorizado",
+      "developmentTasks": [
+        "TSK-H0-011",
+        "TSK-H5-007"
+      ],
+      "expectedLocalObservation": "R01–R25,W03,W06,W09: consumo único, ambos órdenes, replay reautorizado",
+      "family": "PT-09",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-055",
+      "implementation": [
+        "src/infrastructure/postgres/persisted-work-executor.ts",
+        "src/infrastructure/postgres/human-approval-executor.ts"
+      ],
+      "implementationSha256": {
+        "src/infrastructure/postgres/human-approval-executor.ts": "40e9712f75bdedf92abb450415bad60df6de0e0209d740be656411b9a054dde7",
+        "src/infrastructure/postgres/persisted-work-executor.ts": "8285e190186749ef2118bfe73e70ff1d373bc4e70b503b29ee860eba6c030ed2"
+      },
+      "limitations": "Sin garantía exactly-once externa; H6-006/016 pendientes",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-008.md",
+      "originalEvidenceSha256": "ad3dc7b4ffe816df8e934d5664e5e9e22d10b20ffacd7aa34007862b51a964c0",
+      "rules": "HA-004; CONC-002; IDEMP-001–002; DM-INV-048; T08/T09",
+      "specRow": "| AC-055 | Dos ejecutores o reintentos usan misma aprobación para el mismo efecto sensible. | Como máximo un efecto acreditado; el otro reconoce resultado/pendiente o conflicto, sin doble consumo; parte ya ejecutada no se repite. | SPEC-FR-HA-004, SPEC-FR-CONC-002. |",
+      "tasksRow": "| **AC-055** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H0-011], [TSK-H5-007] | [TSK-H0-012], [TSK-H5-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H0-012",
+        "TSK-H5-008"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/0288",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H0-012 D039 formal R01-R25 execution: independent matrix, stop at first material failure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2280",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAN/CAM/CAI/CAJ/CAK/CAL/CAO/CAP/CAU forbidden inferred effects and unsupported privacy fields reject",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2286",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAA/CAB exact HA rejects other content recipient conditions amount action effect and destination",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2343",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 S10 external invoice keeps issuer and projection cannot emit fiscal documents",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2384",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 S10 external invoice keeps issuer and projection cannot emit fiscal documents",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H0-012 D039 formal|H5-CAA/CAB|H5-012 S10|H5-CAN/CAM",
+      "caseSelectorApplied": "H0-012 D039 formal|H5-CAA/CAB|H5-012 S10|H5-CAN/CAM",
+      "contractsAndUnits": "C02/C03/C04",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "Autoaprobación/plantilla sin HA/acuerdo o factura por aprobación rechazados",
+      "developmentTasks": [
+        "TSK-H0-011",
+        "TSK-H2-007",
+        "TSK-H3-013"
+      ],
+      "expectedLocalObservation": "Autoaprobación/plantilla sin HA/acuerdo o factura por aprobación rechazados",
+      "family": "PT-09",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [
+        "TSK-H6-017"
+      ],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-056",
+      "implementation": [
+        "src/infrastructure/postgres/human-approval-executor.ts",
+        "src/domain/exact-acceptance.ts",
+        "src/domain/own-economics.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/exact-acceptance.ts": "8c64eb1ff7055290d256032ed26139b6238eaca2b0bba5feb302acbb8cacd3ef",
+        "src/domain/own-economics.ts": "03d363e7ee3ed10f5c013630ed843521bdeee7fa043fc337a0c54cf11e3e8115",
+        "src/infrastructure/postgres/human-approval-executor.ts": "40e9712f75bdedf92abb450415bad60df6de0e0209d740be656411b9a054dde7"
+      },
+      "limitations": "H6-017 NO EJECUTADA; fiscalidad/emisión excluida",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/evidence-TSK-H0-012.md",
+      "originalEvidenceSha256": "a13c153ade8c82a840b0b02d46505c728db200a2747a5c32a95ddb7c21d7a3d2",
+      "rules": "HA-001/005; ACC-005; SEC-007; SM-FORB-22; P15/P16",
+      "specRow": "| AC-056 | IA intenta aprobarse, usar plantilla sensible sin revisión, sustituir Acceptance/Provider Confirmation o emitir factura con aprobación interna. | Todos rechazados en su parte dependiente; IA solo prepara y Human Approval no crea acuerdo del cliente, confirmación del proveedor ni dispensa P16. | SPEC-FR-HA-001/005, SPEC-FR-ACC-005, SPEC-FR-SEC-007. |",
+      "tasksRow": "| **AC-056** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H0-011], [TSK-H2-007], [TSK-H3-013] | [TSK-H0-012], [TSK-H2-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H0-012",
+        "TSK-H2-008",
+        "TSK-H6-017"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/13/0004",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W04 W08 W39 expired before-contact claim recovers with fencing",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0005",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W05 W07 W23 timeout retains uncertainty and reserve; manual retry cannot resend",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0006",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W06 W09 W10 W30 late original evidence reconciles once; conflict never overwrites",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "W05 W07 W23|W06 W09 W10|W04 W08 W39",
+      "caseSelectorApplied": "W05 W07 W23|W06 W09 W10|W04 W08 W39",
+      "contractsAndUnits": "C03/C05/C06; T08/T09",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "W04–W10,W23: E4 conserva intento/reserva; no retry manual ciego; conciliación tardía única",
+      "developmentTasks": [
+        "TSK-H5-007",
+        "TSK-H5-009",
+        "TSK-H4-015"
+      ],
+      "expectedLocalObservation": "W04–W10,W23: E4 conserva intento/reserva; no retry manual ciego; conciliación tardía única",
+      "family": "PT-09",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [
+        "TSK-H6-006"
+      ],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-057",
+      "implementation": [
+        "src/infrastructure/postgres/h4-refund-adapter.ts",
+        "src/infrastructure/postgres/persisted-work-executor.ts",
+        "src/domain/external-boundary.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/external-boundary.ts": "e872f97e537d447ebdc0b8b898de0206bc9fb1606007a06e1ca0a30232074dd4",
+        "src/infrastructure/postgres/h4-refund-adapter.ts": "b010c931ccef8d0ed88b18b94ad175533681d34775ccee5d0807ef763204ad0c",
+        "src/infrastructure/postgres/persisted-work-executor.ts": "8285e190186749ef2118bfe73e70ff1d373bc4e70b503b29ee860eba6c030ed2"
+      },
+      "limitations": "H6-006 NO EJECUTADA; proveedor simulado, sin transferencia/envío",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-008.md",
+      "originalEvidenceSha256": "ad3dc7b4ffe816df8e934d5664e5e9e22d10b20ffacd7aa34007862b51a964c0",
+      "rules": "ERR-002; HA-003–004; SM-FORB-27; T08/T09",
+      "specRow": "| AC-057 | Timeout después de intentar reembolso/envío sensible; se pide reintento incluso manual. | Resultado incierto, intento conservado; no fracaso/éxito supuestos ni repetición peligrosa. Verificar efecto previo y guardas antes de repetir; si no verificable, sigue pendiente. | SPEC-FR-ERR-002, SPEC-FR-HA-003–004. |",
+      "tasksRow": "| **AC-057** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-007], [TSK-H5-009], [TSK-H4-015] | [TSK-H5-008], [TSK-H5-010], [TSK-H4-016], [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H5-008",
+        "TSK-H5-010",
+        "TSK-H4-016",
+        "TSK-H6-006"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/2468",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 A02/A16 Finalizada then new documentary basis leaves historical resolution immutable",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2472",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 A15 existing linked invoice without outgoing funds does not settle economy",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2496",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 A12 real partial Refund and failure without execution stay economically pending",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-014 A02/A16|H5-014 A12|H5-014 A15",
+      "caseSelectorApplied": "H5-014 A02/A16|H5-014 A12|H5-014 A15",
+      "contractsAndUnits": "C01/C02/C03/C06; T10",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "A02/A16,A05/A12,N02/N04: Finalizada no resuelve factura/fianza/Refund",
+      "developmentTasks": [
+        "TSK-H5-013",
+        "TSK-H4-022"
+      ],
+      "expectedLocalObservation": "A02/A16,A05/A12,N02/N04: Finalizada no resuelve factura/fianza/Refund",
+      "family": "PT-10",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-058",
+      "implementation": [
+        "src/infrastructure/postgres/h5-closure-adapter.ts",
+        "src/domain/operational-reality.ts",
+        "src/domain/closure-assessment.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/closure-assessment.ts": "3462fab520036e1e89dc7d4731f476f136f31b9281b9c8b06e8f46864befe38e",
+        "src/domain/operational-reality.ts": "1a1297ae9b4eaed81757f86ff76a634100f7159e089ac6498ffcabcca2456b70",
+        "src/infrastructure/postgres/h5-closure-adapter.ts": "a89e2564fed6da5a71462d7e7f032644ff48dfb52db830ed76ff168abadc1ce1"
+      },
+      "limitations": "Recorrido completo E2E-01 H6-001 pendiente",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-014.md",
+      "originalEvidenceSha256": "32340582eff5c720733eeb272f4969816a249564760507c238af4f6682e9b31b",
+      "rules": "BOOK-005; CLOSE-001–003; DM-INV-041; SM-CL-01–04; SM-FORB-23",
+      "specRow": "| AC-058 | Booking Finalizada pero factura/fianza/devolución siguen pendientes. | Finalización real conservada; Economic Closure y cierre conjunto no resueltos por finalizar. | SPEC-FR-BOOK-005, SPEC-FR-CLOSE-001–003. |",
+      "tasksRow": "| **AC-058** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-013], [TSK-H4-022] | [TSK-H5-014] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-014 indicada a continuación; restantes alcances conservan su estado.  **Evidencia local H4-023 EJECUTADA:** [matriz28](matrix-TSK-H4-023.md), SHA `f99de8bad495c86021e91730bb69af81f69e44ec`; alcance asignado local, AC-058/H5-014 y E2E-01/H6-001 integrales futuros conservados. **Evidencia H5-014 local/aislada:** [matriz independiente](matrix-TSK-H5-014.md), alcance de evaluación y rechazo de inferencias PASS; tramos conjuntos H5-015/016 y H6 siguen pendientes. |",
+      "verificationTasks": [
+        "TSK-H5-014"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/0064",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 null joint command action rejects without closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0065",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 null joint command operationId rejects without closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0066",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 null joint command bookingId rejects without closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0067",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 null joint command expectedRevision rejects without closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0068",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 null joint command expectedMaterial rejects without closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0069",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 null joint command expectedJointRevision rejects without closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0070",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 null joint command sourceRef rejects without closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0071",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 null joint command reason rejects without closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0072",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 null joint command at rejects without closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0073",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 null joint command evidenceId rejects without closure",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0074",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 corrupted final terms null cannot resolve or close",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0075",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 corrupted final terms {} cannot resolve or close",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0076",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 incomplete kernel inputs: missing deposit applicability",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0077",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 incomplete kernel inputs: null deposit applicability",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0078",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 incomplete kernel inputs: missing deposit resolution",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0079",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A01 incomplete kernel inputs: empty modification parts",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2467",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 A01/A04 explicit three independent dimensions and no implicit close",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2526",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-015 J01 no implicit closure and pending dimensions reject",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2527",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-015 J01/J06 explicit closure, canonical projection, replay and duplicate rejection",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2528",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-015 J01 pending commercial blocks independently",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2529",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-015 J01 pending operational blocks independently",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2530",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-015 J01 pending economic blocks independently",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-014 A01/A04|H5-015 J01|H5-016 A01",
+      "caseSelectorApplied": "H5-014 A01/A04|H5-015 J01|H5-016 A01",
+      "contractsAndUnits": "C01/C02/C03/C06; T10",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "A01/A04,J01: tres evaluaciones actuales explícitas y cierre conjunto posterior",
+      "developmentTasks": [
+        "TSK-H5-013",
+        "TSK-H5-015"
+      ],
+      "expectedLocalObservation": "A01/A04,J01: tres evaluaciones actuales explícitas y cierre conjunto posterior",
+      "family": "PT-10",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-059",
+      "implementation": [
+        "src/infrastructure/postgres/h5-closure-adapter.ts",
+        "src/domain/closure-assessment.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/closure-assessment.ts": "3462fab520036e1e89dc7d4731f476f136f31b9281b9c8b06e8f46864befe38e",
+        "src/infrastructure/postgres/h5-closure-adapter.ts": "a89e2564fed6da5a71462d7e7f032644ff48dfb52db830ed76ff168abadc1ce1"
+      },
+      "limitations": "H6-007/016 conservan integración futura; ningún cierre externo",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-016.md",
+      "originalEvidenceSha256": "6534795c16fc0bc385efa5d3bf124670cc30084dc5c1a0f2a980d24cd0cb0334",
+      "rules": "CLOSE-001–003; DM-INV-041/042; SM-CL-01/02/04; T10",
+      "specRow": "| AC-059 | Comercial resuelto, operación pendiente y economía resuelta; después se acreditan las partes operativas restantes. | Evaluaciones independientes; solo después de resolver las tres con criterios aplicables puede declararse Closed / Historical; dimensión sin requisitos exige evaluación explícita. | SPEC-FR-CLOSE-001–003. |",
+      "tasksRow": "| **AC-059** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-013], [TSK-H5-015] | [TSK-H5-014], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-014 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-014 local/aislada:** [matriz independiente](matrix-TSK-H5-014.md), alcance de evaluación y rechazo de inferencias PASS; tramos conjuntos H5-015/016 pendientes en aquel antecedente; resultado H5-016 actual indicado a continuación; H6 pendiente. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+      "verificationTasks": [
+        "TSK-H5-014",
+        "TSK-H5-016"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/1273",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H4-004 AC-060: specific critical justification cannot waive economic impact or pending payment",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2461",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 A05 kernel simultaneous independent economic blockers",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2533",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-015 J02 global critical guard persists invalidation even outside dimension materiality filter",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2534",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-015 J02 critical exception is explicit, scoped and cannot waive economic incident",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-015 J02|H4-004 AC-060|H5-014 A05",
+      "caseSelectorApplied": "H5-015 J02|H4-004 AC-060|H5-014 A05",
+      "contractsAndUnits": "C01/C02/C03/C06; T10",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "J02,A05/A06: excepción crítica acotada nunca dispensa Refund/incidencia económica",
+      "developmentTasks": [
+        "TSK-H4-003",
+        "TSK-H5-013",
+        "TSK-H5-015"
+      ],
+      "expectedLocalObservation": "J02,A05/A06: excepción crítica acotada nunca dispensa Refund/incidencia económica",
+      "family": "PT-10",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-060",
+      "implementation": [
+        "src/infrastructure/postgres/h5-closure-adapter.ts",
+        "src/domain/incident.ts",
+        "src/domain/closure-assessment.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/closure-assessment.ts": "3462fab520036e1e89dc7d4731f476f136f31b9281b9c8b06e8f46864befe38e",
+        "src/domain/incident.ts": "e13d34bf9f7ce2870885eb43899164b0b4d3cff107a072820a149694addc94ce",
+        "src/infrastructure/postgres/h5-closure-adapter.ts": "a89e2564fed6da5a71462d7e7f032644ff48dfb52db830ed76ff168abadc1ce1"
+      },
+      "limitations": "H6 conserva regresión integrada; no nuevas excepciones",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-016.md",
+      "originalEvidenceSha256": "6534795c16fc0bc385efa5d3bf124670cc30084dc5c1a0f2a980d24cd0cb0334",
+      "rules": "CLOSE-002–003; COORD-006; DM-INV-041; SM-FORB-24; T10",
+      "specRow": "| AC-060 | Crítica Abierta/En gestión, con y sin justificación del Administrador; además hay devolución debida pendiente. | Sin justificación bloquea cierre; con justificación solo salva ese bloqueo admisible, pero devolución/otra incidencia económica sigue bloqueando economía. | SPEC-FR-CLOSE-002–003, SPEC-FR-COORD-006. |",
+      "tasksRow": "| **AC-060** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H4-003], [TSK-H5-013], [TSK-H5-015] | [TSK-H4-004], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-016 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+      "verificationTasks": [
+        "TSK-H4-004",
+        "TSK-H5-016"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/0081",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A04 explicit reopening changes only assessment history",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2531",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-015 J04/J05 close, economic incident, founded reopen, correction, reevaluation and new close",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2540",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A03 close has read material before payment writes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2541",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A03 close has read material before deposit writes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2542",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A03 close has read material before critical writes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2543",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A03 close has read material before document writes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2544",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A03 close has read material before obligation writes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2545",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A03 close has read material before refund writes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2546",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A03 close has read material before invoice writes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2547",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A03 close has read material before service writes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2548",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A03 close has read material before cancellation writes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2550",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A04 reopening has read invalidated basis before a new critical event",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-015 J04/J05|H5-016 A03 close|H5-016 A04",
+      "caseSelectorApplied": "H5-015 J04/J05|H5-016 A03 close|H5-016 A04",
+      "contractsAndUnits": "C01/C02/C03/C06; T10",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "J04/J05,A02–A04: nueva evidencia invalida dimensión, historia previa y otras conservadas",
+      "developmentTasks": [
+        "TSK-H5-015"
+      ],
+      "expectedLocalObservation": "J04/J05,A02–A04: nueva evidencia invalida dimensión, historia previa y otras conservadas",
+      "family": "PT-10",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [
+        "TSK-H6-007"
+      ],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-061",
+      "implementation": [
+        "src/infrastructure/postgres/h5-closure-adapter.ts",
+        "src/domain/closure-assessment.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/closure-assessment.ts": "3462fab520036e1e89dc7d4731f476f136f31b9281b9c8b06e8f46864befe38e",
+        "src/infrastructure/postgres/h5-closure-adapter.ts": "a89e2564fed6da5a71462d7e7f032644ff48dfb52db830ed76ff168abadc1ce1"
+      },
+      "limitations": "H6-007 NO EJECUTADA; ensayos de evidencia posterior integrales pendientes",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-016.md",
+      "originalEvidenceSha256": "6534795c16fc0bc385efa5d3bf124670cc30084dc5c1a0f2a980d24cd0cb0334",
+      "rules": "CLOSE-004; HIST-001/002; DM-INV-042/047; SM-CL-03/05; T10",
+      "specRow": "| AC-061 | Tras cierre conjunto aparece nueva discrepancia material de pago. | Reabre evaluación económica y retira cierre conjunto actual; conserva cierre previo/causa, sin modificar ejecución comercial/operativa por inferencia. | SPEC-FR-CLOSE-004. |",
+      "tasksRow": "| **AC-061** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-015] | [TSK-H5-016], [TSK-H6-007] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-016 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+      "verificationTasks": [
+        "TSK-H5-016",
+        "TSK-H6-007"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/0054",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-009 B07 event receipt, duplicate and E2 conflict preserve canonical event",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0055",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-009 unreliable event identity persists as review and does not fuzzy-deduplicate",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0056",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-009 corrected external reference preserves the prior reference and history",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0057",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-009 own B08 effect echo correlates to its original attempt without a second effect",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0058",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-009 operation key material mismatch is rejected before any receipt side effect",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0062",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-009 concurrent independent PostgreSQL sessions apply one event once",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5.*(duplicate|different material|old|out.of.order|equivalent)|B0[1-9]",
+      "caseSelectorApplied": "^H5-009 (B07|unreliable|own B08|operation key|corrected external|concurrent)",
+      "contractsAndUnits": "C03/C04/C06; T09",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "Eventos equivalentes, antiguos/ecos, conflicto material y sinID revisados; sin dedup por parecido",
+      "developmentTasks": [
+        "TSK-H5-009",
+        "TSK-H0-009"
+      ],
+      "expectedLocalObservation": "Eventos equivalentes, antiguos/ecos, conflicto material y sinID revisados; sin dedup por parecido",
+      "family": "PT-12",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-066",
+      "implementation": [
+        "src/infrastructure/postgres/h5-external-event-adapter.ts",
+        "src/infrastructure/postgres/h0-009-adapter.ts",
+        "src/domain/external-boundary.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/external-boundary.ts": "e872f97e537d447ebdc0b8b898de0206bc9fb1606007a06e1ca0a30232074dd4",
+        "src/infrastructure/postgres/h0-009-adapter.ts": "6710832cf028fc482725c77fe08bf081a5ea5c1d46aaa5eb3dd205de5e0aa1a2",
+        "src/infrastructure/postgres/h5-external-event-adapter.ts": "c5dffc3316b55325dd3096ed851081c540d0c27fb4c0cd5cf727c830969c402c"
+      },
+      "limitations": "Conectores/capacidades externas BR-PENDING-035",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-009-010.md",
+      "originalEvidenceSha256": "e92f0da1a60770b10cc9f5d70a560418a6df31cbb73a425c31103edd91f5cebe",
+      "rules": "IDEMP-001–004; INT-001–002; SPEC-NFR-006; G6; T09",
+      "specRow": "| AC-066 | External Event equivalente llega dos veces o fuera de orden; misma clave llega con importe distinto; dos hechos similares sin ID fiable. | Primero reutiliza resultado sin doble efecto, antiguo no sobrescribe actual; contenido distinto es conflicto; sin ID se revisa sin deduplicar por semejanza. | SPEC-FR-IDEMP-001–004, SPEC-FR-INT-001–002, SPEC-NFR-006. |",
+      "tasksRow": "| **AC-066** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-009], [TSK-H0-009] | [TSK-H5-010] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H5-010"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/14/0033",
+          "log": "01-phase-14.stdout.log.gz",
+          "name": "R33 new version and stale verification serialize without overwrite",
+          "phase": 14,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2473",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 invoice writer first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2474",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 invoice assessment first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2475",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 own writer first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2476",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 own assessment first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2477",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 document writer first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2478",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 document assessment first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2479",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 incident writer first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2480",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 incident assessment first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2481",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 modification writer first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2482",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 modification assessment first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2483",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 refund writer first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2484",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 refund assessment first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2485",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 deposit writer first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2486",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-014 C03 deposit assessment first; real root wait and stale check",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2549",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A07 shared payment identity conflicts; foreign Booking reassignment rejected",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2551",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A07 two incompatible closes after first has read material persist one decision",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2552",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-016 A07 independent Booking closes while another close is paused after material read",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H4-024|H5-014 C03|H5-016 A07|stale",
+      "caseSelectorApplied": "^R33 new version|^H5-014 C03|^H5-016 A07",
+      "contractsAndUnits": "C02/C03/C06; T01/T04",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "O05/O12/O24 y C03/A07: revisiones obsoletas y competencia detectadas",
+      "developmentTasks": [
+        "TSK-H0-009",
+        "TSK-H2-003",
+        "TSK-H2-007",
+        "TSK-H4-011"
+      ],
+      "expectedLocalObservation": "O05/O12/O24 y C03/A07: revisiones obsoletas y competencia detectadas",
+      "family": "PT-12",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [
+        "TSK-H6-016"
+      ],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-067",
+      "implementation": [
+        "src/infrastructure/postgres/h4-modification-adapter.ts",
+        "src/infrastructure/postgres/h2-proposal-adapter.ts",
+        "src/infrastructure/postgres/h0-009-adapter.ts"
+      ],
+      "implementationSha256": {
+        "src/infrastructure/postgres/h0-009-adapter.ts": "6710832cf028fc482725c77fe08bf081a5ea5c1d46aaa5eb3dd205de5e0aa1a2",
+        "src/infrastructure/postgres/h2-proposal-adapter.ts": "79f37326c9ab61dc99fa62928498a46aba8392d0eaa88eb55a6887726514f601",
+        "src/infrastructure/postgres/h4-modification-adapter.ts": "8d8abd72e34af23118ecc6c6876c5cc6c2eaf2d6505cf6d797debcd983df4b88"
+      },
+      "limitations": "H6-016 NO EJECUTADA; histórico previo conserva alcance/versiones",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H4-024.md",
+      "originalEvidenceSha256": "9baf859433201d3f3b3f84dd15c677f757e33d1c95852753022210277f204c26",
+      "rules": "CONC-001–002; SPEC-NFR-007; T01/T04",
+      "specRow": "| AC-067 | Dos operaciones leen v1: una fija versión/modifica dato; otra intenta aceptar/aplicar basándose en v1 obsoleta. | Detecta cambio material y conflicto/revisión, sin overwrite; versión histórica permanece; no aceptación de contenido sustituido silenciosamente. | SPEC-FR-CONC-001–002, SPEC-NFR-007. |",
+      "tasksRow": "| **AC-067** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-009], [TSK-H2-003], [TSK-H2-007], [TSK-H4-011] | [TSK-H2-004], [TSK-H2-008], [TSK-H4-012], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H2-004",
+        "TSK-H2-008",
+        "TSK-H4-012",
+        "TSK-H6-016"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/11/0032",
+          "log": "01-phase-11.stdout.log.gz",
+          "name": "R32 postCOMMIT lost response/replay/distinct key",
+          "phase": 11,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/11/0034",
+          "log": "01-phase-11.stdout.log.gz",
+          "name": "R34 early intermediate nights nominal history late COMMIT rollback",
+          "phase": 11,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/14/0006",
+          "log": "01-phase-14.stdout.log.gz",
+          "name": "R06 each incorrect commercial relation rejects atomically",
+          "phase": 14,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/14/0053",
+          "log": "01-phase-14.stdout.log.gz",
+          "name": "R53 null/string revision attempts direct SQL rejected atomically",
+          "phase": 14,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0277",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R15 copied capabilities cannot survive backend, transaction, rollback or GUC substitution",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0284",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R22 fault injection rolls back the whole unit; dispatched COMMIT response loss stays uncertain",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0286",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R24 fresh chain, predecessor upgrade, injected DDL rollback and scoped read",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0390",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R10-R14: external pending, correction, replay conflict, concurrency and rollback",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0400",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R06/R07/R15/R17: real upload survives internal rollback and repair/orphan retains bytes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0403",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R18/R19: forced RLS, narrow grants and migration rollback/reapply",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0410",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R13/R14: independent fault create/update rollback and no motivating-fact inference",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0412",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R18: predecessor upgrade retains records, DDL rollback/reapply and unique cause backstop",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0434",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R18: atomic write faults, changed replay, two actors absence/races/revision",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0438",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R01 preparation real Opportunity, PR and atomic commercial progress",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0507",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R30 prewrite fault atomic",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0525",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R03 direct composes real T02 then T03 atomically; missing agreement retains preparation",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0538",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R16 wrong version and terms reject atomically",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0557",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R35 fault b04_operations at COMMIT rolls back all",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0585",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R63 actual nights occupancy participant assignment fault rollbacks",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0586",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R64 direct composes T01 T02 T03 same commit with full late rollback",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0623",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R30 missing change cause authority amount fails atomically",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0634",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R41 deferred failure at COMMIT rollback",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0644",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R51 failed migration objects ACL rollback and H2 remains",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0724",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R62 read another session during receipt written before COMMIT sees prior snapshot",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0727",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R65 receipt writes fail atomically at every insert",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0728",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R66 proposal rollback all dependent writes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0729",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R67 validation rollback act revision history result together",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0730",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R68 rectification rollback retains original and pending review",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0731",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R69 deferred COMMIT fault no durable result",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0734",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R72 failed migration rollback restores preceding schema grants and roles",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0766",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R18 verifying forecast adds linked act once and atomic coverage",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0804",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R56 independent reader before COMMIT sees complete preceding state",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0811",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R63 deferred COMMIT failure no durable result retry succeeds",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0818",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R70 failed migration rollback restores preceding schema grants roles",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2247",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AW receive rollback at b07_alerts",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2248",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AW receive rollback at b07_notifications",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2249",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AW receive rollback at b07_history",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2250",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AW attempt rollback at b07_notification_attempts",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2251",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AW attempt rollback at b07_notifications",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2252",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AW attempt rollback at b07_history",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2253",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AW deferred COMMIT failure rolls back complete T09",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2257",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AW failure between CRM and WhatsApp intent rolls back both",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2272",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAG internal candidate Review Task rollback at b07_records",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2273",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAG internal candidate Review Task rollback at b07_pending_tasks",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2274",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAG internal candidate Review Task rollback at b07_communication_work",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2275",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAG internal candidate Review Task rollback at b07_history",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2276",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAG deferred commit failure leaves no candidate or Task and retry succeeds",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2277",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAG T08 existing D039 approval rollback preserves prepared content and no reservation",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2291",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAG T08 communication part reserve once exact replay never creates sent fact",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-AW|H5-CAG|H4-024|rollback|atomic",
+      "caseSelectorApplied": "^H5-AW|^H5-CAG|^R.*(?:rollback|atomic|COMMIT)",
+      "contractsAndUnits": "C03; T03/T05/T08/T09",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "O28,H5-AW/CAG: hecho/historia/resultado/intención juntos o rollback; respuesta perdida replay",
+      "developmentTasks": [
+        "TSK-H0-009",
+        "TSK-H2-009",
+        "TSK-H3-005"
+      ],
+      "expectedLocalObservation": "O28,H5-AW/CAG: hecho/historia/resultado/intención juntos o rollback; respuesta perdida replay",
+      "family": "PT-12",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [
+        "TSK-H6-016"
+      ],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-068",
+      "implementation": [
+        "src/infrastructure/postgres/h2-booking-adapter.ts",
+        "src/infrastructure/postgres/h3-allocation-adapter.ts",
+        "src/infrastructure/postgres/transaction.ts"
+      ],
+      "implementationSha256": {
+        "src/infrastructure/postgres/h2-booking-adapter.ts": "b0f46e3c4d26d929f5922c82d58a10d7f2c58b2785e316ccc45f856a877206bb",
+        "src/infrastructure/postgres/h3-allocation-adapter.ts": "4e42fd8b51f4c4fa2f7cf1bf93317f844da244ddea306cb53c186003ae0ea497",
+        "src/infrastructure/postgres/transaction.ts": "65a947e513bf63507e115d5c4342771d2b71a9420a4dd30adc349d197f336bff"
+      },
+      "limitations": "H6-016 cadena integrada pendiente; ninguna atomicidad externa",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H4-024.md",
+      "originalEvidenceSha256": "9baf859433201d3f3b3f84dd15c677f757e33d1c95852753022210277f204c26",
+      "rules": "CONC-003–004; SPEC-NFR-008; T03/T05/T08/T09",
+      "specRow": "| AC-068 | Falla unidad interna durante creación Booking, conciliación o registro de intención asociada. | O quedan juntos hecho/vínculos/historia/resultado/intención requeridos o no se confirma esa unidad; sin Booking incompleta ni porciones incoherentes. Preparación previa válida no finge conversión. | SPEC-FR-CONC-003–004, SPEC-NFR-008. |",
+      "tasksRow": "| **AC-068** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-009], [TSK-H2-009], [TSK-H3-005] | [TSK-H0-010], [TSK-H2-010], [TSK-H3-006], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H0-010",
+        "TSK-H2-010",
+        "TSK-H3-006",
+        "TSK-H6-016"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/13/0001",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W01 W02 W11 W43 definition claim exact HA start result",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0002",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W03 real A/B competition order 0",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0003",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W03 real A/B competition order 1",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0004",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W04 W08 W39 expired before-contact claim recovers with fencing",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0005",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W05 W07 W23 timeout retains uncertainty and reserve; manual retry cannot resend",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/13/0006",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W06 W09 W10 W30 late original evidence reconciles once; conflict never overwrites",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "W01 W02 W11|W03 real|W04 W08 W39|W05 W07 W23|W06 W09 W10",
+      "caseSelectorApplied": "W01 W02 W11|W03 real|W04 W08 W39|W05 W07 W23|W06 W09 W10",
+      "contractsAndUnits": "C03/C05; T09",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "W01–W11,W39: reclamación exclusiva persistente, reinicio/fencing y contacto incierto",
+      "developmentTasks": [
+        "TSK-H5-007"
+      ],
+      "expectedLocalObservation": "W01–W11,W39: reclamación exclusiva persistente, reinicio/fencing y contacto incierto",
+      "family": "PT-12",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-069",
+      "implementation": [
+        "src/infrastructure/postgres/persisted-work-executor.ts",
+        "src/domain/persisted-work.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/persisted-work.ts": "de8b85735b5b155bc07935ab24af6c4cd65cb3fe241c89155d57c59d049f0986",
+        "src/infrastructure/postgres/persisted-work-executor.ts": "8285e190186749ef2118bfe73e70ff1d373bc4e70b503b29ee860eba6c030ed2"
+      },
+      "limitations": "Sin scheduler real; límites/capacidad pendientes",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-008.md",
+      "originalEvidenceSha256": "ad3dc7b4ffe816df8e934d5664e5e9e22d10b20ffacd7aa34007862b51a964c0",
+      "rules": "CONC-005; ERR-002; IDEMP-002; T09; ARCH-DEC-015",
+      "specRow": "| AC-069 | Dos ejecutores reclaman mismo trabajo persistido; uno cae antes/después de contactar proveedor. | No dos efectos; trabajo/intentos identificados y reanudables; después del contacto se verifica resultado antes de reenviar. | SPEC-FR-CONC-005, SPEC-FR-ERR-002. |",
+      "tasksRow": "| **AC-069** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-007] | [TSK-H5-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H5-008"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/13/0031",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W40 unavailable simulated channel remains pending; no effect inferred",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2243",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-AN/AO synthetic delivery never modifies origin or accredits external delivery",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2332",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 C11 unavailable/replaced auxiliary source does not make Core unavailable",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2373",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 C11 unavailable/replaced auxiliary source does not make Core unavailable",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-012 C11|H5-AD/AP|H5-AN/AO|unavailable|independent",
+      "caseSelectorApplied": "^H5-012 C11|^W40 unavailable|^H5-AN/AO",
+      "contractsAndUnits": "C01/C05/C06",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "Fuente caída deja dependiente pendiente; expediente independiente sigue; intento no entrega",
+      "developmentTasks": [
+        "TSK-H5-009"
+      ],
+      "expectedLocalObservation": "Fuente caída deja dependiente pendiente; expediente independiente sigue; intento no entrega",
+      "family": "PT-12",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-071",
+      "implementation": [
+        "src/infrastructure/postgres/h5-external-event-adapter.ts",
+        "src/domain/external-boundary.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/external-boundary.ts": "e872f97e537d447ebdc0b8b898de0206bc9fb1606007a06e1ca0a30232074dd4",
+        "src/infrastructure/postgres/h5-external-event-adapter.ts": "c5dffc3316b55325dd3096ed851081c540d0c27fb4c0cd5cf727c830969c402c"
+      },
+      "limitations": "BR-PENDING-035/ARCH-PENDING-001; dobles o registro manual",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-009-010.md",
+      "originalEvidenceSha256": "e92f0da1a60770b10cc9f5d70a560418a6df31cbb73a425c31103edd91f5cebe",
+      "rules": "INT-001/003–005; CONC-004; SPEC-NFR-011; SM-FORB-28",
+      "specRow": "| AC-071 | Canal/fuente externa indisponible durante operación de S1 y trabajo independiente de S2. | S1 dependiente pendiente, S2 puede continuar; intención interna no prueba entrega; sustitución conserva originales/referencias y significado del Core. | SPEC-FR-INT-001/003–005, SPEC-FR-CONC-004, SPEC-NFR-011. |",
+      "tasksRow": "| **AC-071** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-009] | [TSK-H5-010] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H5-010"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/2610",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "A01 E1 actual C01 guard blocks port and authorized reviewer locates cause",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2611",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "A02 E2 actual C01 version guard blocks port while original and conflicting external receipt persist",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2612",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "A03 E3 actual evidence contract blocks invalid verification but independent query remains usable",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2613",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "A04 E4 actual C05 uncertain attempt remains pending with stable attempt reference",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2614",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "A05 E5 known resolver failure occurs before business callback and does not claim unknown external effect",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2615",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "A06 E6 actual C05 intent without available channel stays pending without delivery",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2616",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "A07 E7 original ambiguous candidates retained; diagnostic locates review without promoting extraction",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2617",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "A08 E8 contradictory external versions remain preserved and diagnostic cannot rewrite canonical event",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2664",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "F-P01 A B A C A preserves exactly scoped versions approvals operations and requests",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2665",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "F-P02 expired attempts and removed parts retain history without borrowing current context",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2666",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "F-P03 current execution cannot expose the original task of a different root",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2667",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "F-P04 explicit operation lookup preserves authorized history without attributing it to the current root",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2668",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "F-P05 explicit history revalidates both original evidence and current owner evidence",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "F-P0|C.*E4|E1|E4|E5|diagnostic|correlation",
+      "caseSelectorApplied": "^A0[1-8] E[1-8]|^F-P0|^H5-018.*E4",
+      "contractsAndUnits": "C01/C04",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "Sexta y F01/F02/F03: causa/incertidumbre y correlación autorizada; E4 nunca E5 por excepción",
+      "developmentTasks": [
+        "TSK-H0-003",
+        "TSK-H5-017"
+      ],
+      "expectedLocalObservation": "Sexta y F01/F02/F03: causa/incertidumbre y correlación autorizada; E4 nunca E5 por excepción",
+      "family": "PT-12",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-072",
+      "implementation": [
+        "src/server/diagnostic-operation.ts",
+        "src/infrastructure/postgres/h5-diagnostic-adapter.ts",
+        "src/domain/semantic-error.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/semantic-error.ts": "b5c473cb29c9eab495bc2a9a10248aadc23d20f60f832fb2908a91d6be8bcecf",
+        "src/infrastructure/postgres/h5-diagnostic-adapter.ts": "81bac484640e863efaea5b9f160c3a87006e15536181510c54151ab7715edd19",
+        "src/server/diagnostic-operation.ts": "49da8bcf5e01734e4ee84495cfeb8e3196347fe9b8f2dc3a37af28915e345bec"
+      },
+      "limitations": "H6-017 y privacidad real pendientes; logs no acreditan pagos/entregas",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-018-sixth.md",
+      "originalEvidenceSha256": "15cafe8702446649d478a7edda401029bd1448dd92c2a78684b64026812af3c8",
+      "rules": "ERR-001–002; SPEC-NFR-014; E1–E8; C01/C04; B10",
+      "specRow": "| AC-072 | Se presentan ocho casos: sin permiso; versión cambiada; dato ausente; timeout tras efecto; fallo técnico confirmado sin efecto; fuente caída; identidad ambigua; documento externo contradictorio. | Se distinguen E1–E8, causa/alcance/estado conocido y siguiente revisión; excepción técnica con resultado desconocido sigue E4 para el efecto, sin bloqueo indiscriminado. | SPEC-FR-ERR-001–002, SPEC-NFR-014. |",
+      "tasksRow": "| **AC-072** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-003], [TSK-H5-017] | [TSK-H0-004], [TSK-H5-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H0-004",
+        "TSK-H5-018"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/13/0005",
+          "log": "01-phase-13.stdout.log.gz",
+          "name": "W05 W07 W23 timeout retains uncertainty and reserve; manual retry cannot resend",
+          "phase": 13,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0400",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R06/R07/R15/R17: real upload survives internal rollback and repair/orphan retains bytes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "W05 W07 W23|R06/R07/R15/R17",
+      "caseSelectorApplied": "W05 W07 W23|R06/R07/R15/R17",
+      "contractsAndUnits": "C03/C04/C05",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "Controles previos reproducidos; restauración NO EJECUTADA",
+      "developmentTasks": [
+        "TSK-H6-014",
+        "TSK-H0-009",
+        "TSK-H1-015",
+        "TSK-H5-007"
+      ],
+      "expectedLocalObservation": "Solo controles previos de incertidumbre y objeto ausente; NO ensayo de restauración H6",
+      "family": "PT-12",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [
+        "TSK-H6-015"
+      ],
+      "globalStatus": "NO EJECUTADA",
+      "id": "AC-073",
+      "implementation": [
+        "src/infrastructure/postgres/h1-object-adapter.ts",
+        "src/infrastructure/postgres/persisted-work-executor.ts",
+        "src/infrastructure/postgres/h0-009-adapter.ts"
+      ],
+      "implementationSha256": {
+        "src/infrastructure/postgres/h0-009-adapter.ts": "6710832cf028fc482725c77fe08bf081a5ea5c1d46aaa5eb3dd205de5e0aa1a2",
+        "src/infrastructure/postgres/h1-object-adapter.ts": "5fc5b73269e5ab616a820fb39296f2a0321a936ef4132dcb4277008c53b0bea3",
+        "src/infrastructure/postgres/persisted-work-executor.ts": "8285e190186749ef2118bfe73e70ff1d373bc4e70b503b29ee860eba6c030ed2"
+      },
+      "limitations": "AC-073 NO EJECUTADA; H6-014/015, conciliación tras backup, RPO/RTO/coste/periodicidad pendientes",
+      "localApplicable": false,
+      "localEvidenceState": "NO EJECUTADA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-008.md",
+      "originalEvidenceSha256": "ad3dc7b4ffe816df8e934d5664e5e9e22d10b20ffacd7aa34007862b51a964c0",
+      "rules": "IDEMP-002; HIST-004; SPEC-NFR-005; ARCH-PENDING-002",
+      "specRow": "| AC-073 | Restauración de punto anterior a pago/envío ya ejecutado externamente; objeto privado aún ausente. | Automatismos sensibles suspendidos hasta conciliar efecto externo; no pago/envío duplicado ni original declarado recuperado; objetivos RPO/RTO siguen pendientes, sin cifras inventadas. | SPEC-FR-IDEMP-002, SPEC-FR-HIST-004, SPEC-NFR-005. |",
+      "tasksRow": "| **AC-073** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H6-014], [TSK-H0-009], [TSK-H1-015], [TSK-H5-007] | [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H6-015"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/0398",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R05: real same-path corruption and media mismatch are not conserved",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0400",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R06/R07/R15/R17: real upload survives internal rollback and repair/orphan retains bytes",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/0402",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "R11-R14: actual signed URL remains technically valid; Core access is reauthorized",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2281",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-CAH/CR original Storage object absence and missing metadata never become conserved evidence",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "R06/R07/R15/R17|R05: real same.path|R11-R14: actual signed|H5-CAH/CR",
+      "caseSelectorApplied": "R06/R07/R15/R17|R05: real same.path|R11-R14: actual signed|H5-CAH/CR",
+      "contractsAndUnits": "C01/C03/C04",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "R01–R19: binario/metadata/orfandad, reparación real local y acceso reautorizado",
+      "developmentTasks": [
+        "TSK-H1-015"
+      ],
+      "expectedLocalObservation": "R01–R19: binario/metadata/orfandad, reparación real local y acceso reautorizado",
+      "family": "PT-12",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [
+        "TSK-H6-015"
+      ],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-074",
+      "implementation": [
+        "src/infrastructure/storage/private-storage.ts",
+        "src/infrastructure/postgres/h1-object-adapter.ts"
+      ],
+      "implementationSha256": {
+        "src/infrastructure/postgres/h1-object-adapter.ts": "5fc5b73269e5ab616a820fb39296f2a0321a936ef4132dcb4277008c53b0bea3",
+        "src/infrastructure/storage/private-storage.ts": "a17d958ae4a4480160891df5ba0ade6c05001265f354893fdac9e87d250a72b1"
+      },
+      "limitations": "H6-015 restauración coherente y Auth/Storage Hosted pendientes; URL nativa no revocada por promesa",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/evidence-TSK-H1-016.md",
+      "originalEvidenceSha256": "ae6301baea00120331c19c7c1bfa70f286bafbfa12e4062e2a975a09fcd84b53",
+      "rules": "HIST-003–004; SEC-005; DM-INV-045/050; ARCH-DEC-010",
+      "specRow": "| AC-074 | Carga de objeto logra binario pero falla metadata, o existe referencia sin objeto; se solicita documento por tercero con URL conocida. | Estado de conservación exacto y reparación trazable; no evidencia completa ni acceso por referencia conocida; no atomicidad externa simulada. | SPEC-FR-HIST-003–004, SPEC-FR-SEC-005. |",
+      "tasksRow": "| **AC-074** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H1-015] | [TSK-H1-016], [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H1-016",
+        "TSK-H6-015"
+      ]
+    },
+    {
+      "caseEvidenceMatches": [
+        {
+          "id": "H5019/01/15/0063",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-009 Avaibook, calendar and web stay review-only and cannot execute external action requests",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2333",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 C12 Avaibook discrepancy never grants create/update/cancel capability",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        },
+        {
+          "id": "H5019/01/15/2374",
+          "log": "01-phase-15.stdout.log.gz",
+          "name": "H5-012 C12 Avaibook discrepancy never grants create/update/cancel capability",
+          "phase": 15,
+          "result": "SATISFACTORIA"
+        }
+      ],
+      "caseMappingLimit": "Los matches son localizadores de evidencia, no casos nuevos ni contador de cobertura. Nombres genéricos Rxx pueden repetirse entre suites; el ID fase/ordinal y la matriz original delimitan su interpretación.",
+      "caseSelector": "H5-012 C12|[Aa]vaibook",
+      "caseSelectorApplied": "H5-012 C12|[Aa]vaibook",
+      "contractsAndUnits": "C02/C04/C06",
+      "currentCodeBase": "1e7822c11be817e4f2d4791338284aa825ad1a24; product unchanged; exact test inputs per capture",
+      "currentObserved": "Recepción/referencia en revisión y rechazo create/update/cancel; nunca autoridad Core",
+      "developmentTasks": [
+        "TSK-H5-009"
+      ],
+      "expectedLocalObservation": "Recepción/referencia en revisión y rechazo create/update/cancel; nunca autoridad Core",
+      "family": "PT-12",
+      "futureEvidenceState": "NO EJECUTADA",
+      "futureVerifications": [],
+      "globalStatus": "no cerrar globalmente por consolidación local",
+      "id": "AC-077",
+      "implementation": [
+        "src/infrastructure/postgres/h5-external-event-adapter.ts",
+        "src/domain/external-boundary.ts"
+      ],
+      "implementationSha256": {
+        "src/domain/external-boundary.ts": "e872f97e537d447ebdc0b8b898de0206bc9fb1606007a06e1ca0a30232074dd4",
+        "src/infrastructure/postgres/h5-external-event-adapter.ts": "c5dffc3316b55325dd3096ed851081c540d0c27fb4c0cd5cf727c830969c402c"
+      },
+      "limitations": "Avaibook sin conector/capacidad real comprobada",
+      "localApplicable": true,
+      "localEvidenceState": "SATISFACTORIA",
+      "originalEvidence": "specs/001-core-crm/matrix-TSK-H5-009-010.md",
+      "originalEvidenceSha256": "e92f0da1a60770b10cc9f5d70a560418a6df31cbb73a425c31103edd91f5cebe",
+      "rules": "INT-006; DM-INV-049; SM-FORB-28; ARCH-DEC-009",
+      "specRow": "| AC-077 | Llega discrepancia Avaibook y se intenta crear/modificar/cancelar allí. | Consulta/referencia solo si capacidad verificada; toda escritura excluida/rechazada, discrepancia revisada sin cambiar silenciosamente CRM. | SPEC-FR-INT-006. |",
+      "tasksRow": "| **AC-077** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-009] | [TSK-H5-010] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "verificationTasks": [
+        "TSK-H5-010"
+      ]
+    }
+  ],
+  "evidenceStates": "Plan10.1: NO EJECUTADA/SATISFACTORIA/FALLIDA/BLOQUEADA",
+  "failed": 0,
+  "globalFamilies": "not wholly accredited; all assigned H6 checks remain pending",
+  "localCriteriaVerified": 25,
+  "outsideScopeIds": [
+    "AC-073"
+  ],
+  "outsideScopeNotExecuted": 1,
+  "reviewed": 26,
+  "satisfactory": 25
+}

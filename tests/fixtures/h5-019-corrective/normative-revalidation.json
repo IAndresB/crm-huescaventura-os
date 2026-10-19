@@ -1,0 +1,299 @@
+{
+  "sources": {
+    "docs/DECISIONS.md": {
+      "bytes": 64511,
+      "mode": 420,
+      "sha256": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe"
+    },
+    "docs/NEXT-STEPS.md": {
+      "bytes": 86676,
+      "mode": 420,
+      "sha256": "2ce806a8d7832649eda7110f814024ebe1182ca7b7d203015a30998bc3f24c5f"
+    },
+    "docs/PROJECT-STATUS.md": {
+      "bytes": 110999,
+      "mode": 420,
+      "sha256": "ebff74189067e523c06df3eec13cd4538ef48ba9ed04dc438ef3fe4336e30ed6"
+    },
+    "docs/architecture.md": {
+      "bytes": 67213,
+      "mode": 420,
+      "sha256": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117"
+    },
+    "docs/business-rules.md": {
+      "bytes": 87956,
+      "mode": 420,
+      "sha256": "ab2504153a32ef9abfaec45efa5ee6846fc9ebcd8b5c244877d0d633ebfcbc07"
+    },
+    "docs/constitution.md": {
+      "bytes": 11457,
+      "mode": 420,
+      "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+    },
+    "docs/domain-model.md": {
+      "bytes": 96609,
+      "mode": 420,
+      "sha256": "f9fafbb715ca57ef843d673af3a475847b4bcae6c37c0469552430c2a8558ddf"
+    },
+    "docs/state-machines.md": {
+      "bytes": 126537,
+      "mode": 420,
+      "sha256": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240"
+    },
+    "specs/001-core-crm/plan.md": {
+      "bytes": 98837,
+      "mode": 420,
+      "sha256": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e"
+    },
+    "specs/001-core-crm/spec.md": {
+      "bytes": 134979,
+      "mode": 420,
+      "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+    },
+    "specs/001-core-crm/tasks.md": {
+      "bytes": 747841,
+      "mode": 420,
+      "sha256": "7321e52b9dcd6c0131a87de8268995c6e67182ed2dd490d6cf7b58c37a44fe77"
+    }
+  },
+  "rows": [
+    {
+      "id": "AC-050",
+      "family": "PT-08",
+      "sourceSpecRow": "| AC-050 | Disparador de Task se procesa dos veces; se completa con resultado o cancela con motivo y luego se acredita cierre erróneo. | Una tarea de misma causa, resultado histórico y reapertura explícita; completar no confirma pago/proveedor/aceptación; deadline desconocido no es vencido. | SPEC-FR-COORD-001–003. |",
+      "sourceTasksRow": "| **AC-050** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H1-017], [TSK-H5-001] | [TSK-H1-018], [TSK-H5-002] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Una tarea de misma causa, resultado histórico y reapertura explícita; completar no confirma pago/proveedor/aceptación; deadline desconocido no es vencido.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-051",
+      "family": "PT-08",
+      "sourceSpecRow": "| AC-051 | Documento imprescindible de S1 recibido sin revisar; S2 no lo necesita; luego cambia alcance. | S1 no satisface requisito hasta revisión; S2 sigue; No aplica requiere fundamento; cambio reabre solo exigencia afectada sin borrar revisión anterior. | SPEC-FR-COORD-005, SPEC-FR-CAT-007. |",
+      "sourceTasksRow": "| **AC-051** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H4-001] | [TSK-H4-002] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "S1 no satisface requisito hasta revisión; S2 sigue; No aplica requiere fundamento; cambio reabre solo exigencia afectada sin borrar revisión anterior.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-052",
+      "family": "PT-08",
+      "sourceSpecRow": "| AC-052 | Incident pasa de Abierta a En gestión, luego Resuelta/Cerrada con evidencia y reaparece misma causa. | Gravedad independiente; en gestión sigue abierta para guarda crítica; resolución no ejecuta Refund; reapertura conserva solución y revisa impactos. | SPEC-FR-COORD-006. |",
+      "sourceTasksRow": "| **AC-052** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H4-003] | [TSK-H4-004] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Gravedad independiente; en gestión sigue abierta para guarda crítica; resolución no ejecuta Refund; reapertura conserva solución y revisa impactos.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-070",
+      "family": "PT-08",
+      "sourceSpecRow": "| AC-070 | Automatización falla persistentemente y WhatsApp también falla; Administrador la detiene/revisa. | Fallo Importante/Crítico visible en CRM, intentos/versiones conservados, sin bucle de avisos ni reintento ilimitado; email no recibe aviso interno. | SPEC-FR-CONC-006, SPEC-FR-COORD-004, SPEC-NFR-014. |",
+      "sourceTasksRow": "| **AC-070** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-007], [TSK-H5-003] | [TSK-H5-008], [TSK-H5-004], [TSK-H5-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Fallo Importante/Crítico visible en CRM, intentos/versiones conservados, sin bucle de avisos ni reintento ilimitado; email no recibe aviso interno.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-076",
+      "family": "PT-08",
+      "sourceSpecRow": "| AC-076 | Google Calendar cambia fecha crítica y emite eco de actualización propia; proyección CRM está retrasada. | Entrada en revisión, eco sin efecto duplicado; solo guardas/cambio aprobado modifican Core; mutación usa estado actual y cálculo D020, no vista obsoleta. | SPEC-FR-COORD-008, SPEC-FR-IDEMP-004, SPEC-FR-INT-005. |",
+      "sourceTasksRow": "| **AC-076** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-009], [TSK-H5-011], [TSK-H1-011] | [TSK-H5-010], [TSK-H5-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Entrada en revisión, eco sin efecto duplicado; solo guardas/cambio aprobado modifican Core; mutación usa estado actual y cálculo D020, no vista obsoleta.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-083",
+      "family": "PT-08",
+      "sourceSpecRow": "| AC-083 | No está configurado adelanto de aviso, fecha dentro de 2–3 días o límite/pausa de reintento; se solicita automatismo. | Dato pendiente localizado; no fecha/frecuencia/número universal inventados; tareas y revisión independientes pueden continuar. | SPEC-FR-COORD-002–003, SPEC-FR-CONC-006. |",
+      "sourceTasksRow": "| **AC-083** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-001], [TSK-H5-003], [TSK-H5-007] | [TSK-H5-002], [TSK-H5-004], [TSK-H5-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Dato pendiente localizado; no fecha/frecuencia/número universal inventados; tareas y revisión independientes pueden continuar.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-087",
+      "family": "PT-08",
+      "sourceSpecRow": "| AC-087 | Communication aprobada carece de evidencia de envío; entra una respuesta por canal externo. | No Enviada/Recibida inferidas; entrada conserva original/vínculos sin borrador ficticio ni duplicación por contexto; respuesta se evalúa por alcance. | SPEC-FR-PROP-006, SPEC-FR-COORD-007, SPEC-FR-HIST-003. |",
+      "sourceTasksRow": "| **AC-087** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H1-013], [TSK-H5-005], [TSK-H2-005] | [TSK-H1-014], [TSK-H5-006], [TSK-H2-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "No Enviada/Recibida inferidas; entrada conserva original/vínculos sin borrador ficticio ni duplicación por contexto; respuesta se evalúa por alcance.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-088",
+      "family": "PT-08",
+      "sourceSpecRow": "| AC-088 | Transcripción PLAUD autorizada y resumen generado se vinculan a persona/Booking; IA detecta dato tentativo contra confirmación manual. | Original y resumen separados, fuente/actor/momentos/revisión y dato confirmado preservados; sin audio/consentimiento por defecto ni conector supuesto. | SPEC-FR-HIST-003/005, SPEC-FR-INT-004, SPEC-FR-SEC-006. |",
+      "sourceTasksRow": "| **AC-088** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H1-013], [TSK-H5-005] | [TSK-H5-006], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Original y resumen separados, fuente/actor/momentos/revisión y dato confirmado preservados; sin audio/consentimiento por defecto ni conector supuesto.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-053",
+      "family": "PT-09",
+      "sourceSpecRow": "| AC-053 | IA prepara propuesta sensible y Administrador aprueba contenido exacto; no existe intento/resultado. | Aprobación identificada y trazable, efecto aún no ejecutado; ejecutor humano/automático distinguible cuando actúe. | SPEC-FR-HA-001/003. |",
+      "sourceTasksRow": "| **AC-053** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H0-011] | [TSK-H0-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Aprobación identificada y trazable, efecto aún no ejecutado; ejecutor humano/automático distinguible cuando actúe.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-054",
+      "family": "PT-09",
+      "sourceSpecRow": "| AC-054 | Tras aprobar se cambia destinatario, precio, alcance, condiciones o efecto; variante sin cambio de contenido pero evidencia caducada. | Cada cambio material exige nueva Human Approval; evidencia caducada exige revalidación aunque contenido coincida; ninguna ejecución automática con contexto obsoleto. | SPEC-FR-HA-002. |",
+      "sourceTasksRow": "| **AC-054** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H0-011], [TSK-H5-007] | [TSK-H0-012], [TSK-H5-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Cada cambio material exige nueva Human Approval; evidencia caducada exige revalidación aunque contenido coincida; ninguna ejecución automática con contexto obsoleto.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-055",
+      "family": "PT-09",
+      "sourceSpecRow": "| AC-055 | Dos ejecutores o reintentos usan misma aprobación para el mismo efecto sensible. | Como máximo un efecto acreditado; el otro reconoce resultado/pendiente o conflicto, sin doble consumo; parte ya ejecutada no se repite. | SPEC-FR-HA-004, SPEC-FR-CONC-002. |",
+      "sourceTasksRow": "| **AC-055** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H0-011], [TSK-H5-007] | [TSK-H0-012], [TSK-H5-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Como máximo un efecto acreditado; el otro reconoce resultado/pendiente o conflicto, sin doble consumo; parte ya ejecutada no se repite.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-056",
+      "family": "PT-09",
+      "sourceSpecRow": "| AC-056 | IA intenta aprobarse, usar plantilla sensible sin revisión, sustituir Acceptance/Provider Confirmation o emitir factura con aprobación interna. | Todos rechazados en su parte dependiente; IA solo prepara y Human Approval no crea acuerdo del cliente, confirmación del proveedor ni dispensa P16. | SPEC-FR-HA-001/005, SPEC-FR-ACC-005, SPEC-FR-SEC-007. |",
+      "sourceTasksRow": "| **AC-056** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H0-011], [TSK-H2-007], [TSK-H3-013] | [TSK-H0-012], [TSK-H2-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Todos rechazados en su parte dependiente; IA solo prepara y Human Approval no crea acuerdo del cliente, confirmación del proveedor ni dispensa P16.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-057",
+      "family": "PT-09",
+      "sourceSpecRow": "| AC-057 | Timeout después de intentar reembolso/envío sensible; se pide reintento incluso manual. | Resultado incierto, intento conservado; no fracaso/éxito supuestos ni repetición peligrosa. Verificar efecto previo y guardas antes de repetir; si no verificable, sigue pendiente. | SPEC-FR-ERR-002, SPEC-FR-HA-003–004. |",
+      "sourceTasksRow": "| **AC-057** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-007], [TSK-H5-009], [TSK-H4-015] | [TSK-H5-008], [TSK-H5-010], [TSK-H4-016], [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Resultado incierto, intento conservado; no fracaso/éxito supuestos ni repetición peligrosa. Verificar efecto previo y guardas antes de repetir; si no verificable, sigue pendiente.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-058",
+      "family": "PT-10",
+      "sourceSpecRow": "| AC-058 | Booking Finalizada pero factura/fianza/devolución siguen pendientes. | Finalización real conservada; Economic Closure y cierre conjunto no resueltos por finalizar. | SPEC-FR-BOOK-005, SPEC-FR-CLOSE-001–003. |",
+      "sourceTasksRow": "| **AC-058** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-013], [TSK-H4-022] | [TSK-H5-014] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-014 indicada a continuación; restantes alcances conservan su estado.  **Evidencia local H4-023 EJECUTADA:** [matriz28](matrix-TSK-H4-023.md), SHA `f99de8bad495c86021e91730bb69af81f69e44ec`; alcance asignado local, AC-058/H5-014 y E2E-01/H6-001 integrales futuros conservados. **Evidencia H5-014 local/aislada:** [matriz independiente](matrix-TSK-H5-014.md), alcance de evaluación y rechazo de inferencias PASS; tramos conjuntos H5-015/016 y H6 siguen pendientes. |",
+      "expected": "Finalización real conservada; Economic Closure y cierre conjunto no resueltos por finalizar.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-059",
+      "family": "PT-10",
+      "sourceSpecRow": "| AC-059 | Comercial resuelto, operación pendiente y economía resuelta; después se acreditan las partes operativas restantes. | Evaluaciones independientes; solo después de resolver las tres con criterios aplicables puede declararse Closed / Historical; dimensión sin requisitos exige evaluación explícita. | SPEC-FR-CLOSE-001–003. |",
+      "sourceTasksRow": "| **AC-059** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-013], [TSK-H5-015] | [TSK-H5-014], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-014 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-014 local/aislada:** [matriz independiente](matrix-TSK-H5-014.md), alcance de evaluación y rechazo de inferencias PASS; tramos conjuntos H5-015/016 pendientes en aquel antecedente; resultado H5-016 actual indicado a continuación; H6 pendiente. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+      "expected": "Evaluaciones independientes; solo después de resolver las tres con criterios aplicables puede declararse Closed / Historical; dimensión sin requisitos exige evaluación explícita.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-060",
+      "family": "PT-10",
+      "sourceSpecRow": "| AC-060 | Crítica Abierta/En gestión, con y sin justificación del Administrador; además hay devolución debida pendiente. | Sin justificación bloquea cierre; con justificación solo salva ese bloqueo admisible, pero devolución/otra incidencia económica sigue bloqueando economía. | SPEC-FR-CLOSE-002–003, SPEC-FR-COORD-006. |",
+      "sourceTasksRow": "| **AC-060** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H4-003], [TSK-H5-013], [TSK-H5-015] | [TSK-H4-004], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-016 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+      "expected": "Sin justificación bloquea cierre; con justificación solo salva ese bloqueo admisible, pero devolución/otra incidencia económica sigue bloqueando economía.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-061",
+      "family": "PT-10",
+      "sourceSpecRow": "| AC-061 | Tras cierre conjunto aparece nueva discrepancia material de pago. | Reabre evaluación económica y retira cierre conjunto actual; conserva cierre previo/causa, sin modificar ejecución comercial/operativa por inferencia. | SPEC-FR-CLOSE-004. |",
+      "sourceTasksRow": "| **AC-061** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-015] | [TSK-H5-016], [TSK-H6-007] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-016 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+      "expected": "Reabre evaluación económica y retira cierre conjunto actual; conserva cierre previo/causa, sin modificar ejecución comercial/operativa por inferencia.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-066",
+      "family": "PT-12",
+      "sourceSpecRow": "| AC-066 | External Event equivalente llega dos veces o fuera de orden; misma clave llega con importe distinto; dos hechos similares sin ID fiable. | Primero reutiliza resultado sin doble efecto, antiguo no sobrescribe actual; contenido distinto es conflicto; sin ID se revisa sin deduplicar por semejanza. | SPEC-FR-IDEMP-001–004, SPEC-FR-INT-001–002, SPEC-NFR-006. |",
+      "sourceTasksRow": "| **AC-066** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-009], [TSK-H0-009] | [TSK-H5-010] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Primero reutiliza resultado sin doble efecto, antiguo no sobrescribe actual; contenido distinto es conflicto; sin ID se revisa sin deduplicar por semejanza.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-067",
+      "family": "PT-12",
+      "sourceSpecRow": "| AC-067 | Dos operaciones leen v1: una fija versión/modifica dato; otra intenta aceptar/aplicar basándose en v1 obsoleta. | Detecta cambio material y conflicto/revisión, sin overwrite; versión histórica permanece; no aceptación de contenido sustituido silenciosamente. | SPEC-FR-CONC-001–002, SPEC-NFR-007. |",
+      "sourceTasksRow": "| **AC-067** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-009], [TSK-H2-003], [TSK-H2-007], [TSK-H4-011] | [TSK-H2-004], [TSK-H2-008], [TSK-H4-012], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Detecta cambio material y conflicto/revisión, sin overwrite; versión histórica permanece; no aceptación de contenido sustituido silenciosamente.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-068",
+      "family": "PT-12",
+      "sourceSpecRow": "| AC-068 | Falla unidad interna durante creación Booking, conciliación o registro de intención asociada. | O quedan juntos hecho/vínculos/historia/resultado/intención requeridos o no se confirma esa unidad; sin Booking incompleta ni porciones incoherentes. Preparación previa válida no finge conversión. | SPEC-FR-CONC-003–004, SPEC-NFR-008. |",
+      "sourceTasksRow": "| **AC-068** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-009], [TSK-H2-009], [TSK-H3-005] | [TSK-H0-010], [TSK-H2-010], [TSK-H3-006], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "O quedan juntos hecho/vínculos/historia/resultado/intención requeridos o no se confirma esa unidad; sin Booking incompleta ni porciones incoherentes. Preparación previa válida no finge conversión.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-069",
+      "family": "PT-12",
+      "sourceSpecRow": "| AC-069 | Dos ejecutores reclaman mismo trabajo persistido; uno cae antes/después de contactar proveedor. | No dos efectos; trabajo/intentos identificados y reanudables; después del contacto se verifica resultado antes de reenviar. | SPEC-FR-CONC-005, SPEC-FR-ERR-002. |",
+      "sourceTasksRow": "| **AC-069** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-007] | [TSK-H5-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "No dos efectos; trabajo/intentos identificados y reanudables; después del contacto se verifica resultado antes de reenviar.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-071",
+      "family": "PT-12",
+      "sourceSpecRow": "| AC-071 | Canal/fuente externa indisponible durante operación de S1 y trabajo independiente de S2. | S1 dependiente pendiente, S2 puede continuar; intención interna no prueba entrega; sustitución conserva originales/referencias y significado del Core. | SPEC-FR-INT-001/003–005, SPEC-FR-CONC-004, SPEC-NFR-011. |",
+      "sourceTasksRow": "| **AC-071** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-009] | [TSK-H5-010] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "S1 dependiente pendiente, S2 puede continuar; intención interna no prueba entrega; sustitución conserva originales/referencias y significado del Core.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-072",
+      "family": "PT-12",
+      "sourceSpecRow": "| AC-072 | Se presentan ocho casos: sin permiso; versión cambiada; dato ausente; timeout tras efecto; fallo técnico confirmado sin efecto; fuente caída; identidad ambigua; documento externo contradictorio. | Se distinguen E1–E8, causa/alcance/estado conocido y siguiente revisión; excepción técnica con resultado desconocido sigue E4 para el efecto, sin bloqueo indiscriminado. | SPEC-FR-ERR-001–002, SPEC-NFR-014. |",
+      "sourceTasksRow": "| **AC-072** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-003], [TSK-H5-017] | [TSK-H0-004], [TSK-H5-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Se distinguen E1–E8, causa/alcance/estado conocido y siguiente revisión; excepción técnica con resultado desconocido sigue E4 para el efecto, sin bloqueo indiscriminado.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-073",
+      "family": "PT-12",
+      "sourceSpecRow": "| AC-073 | Restauración de punto anterior a pago/envío ya ejecutado externamente; objeto privado aún ausente. | Automatismos sensibles suspendidos hasta conciliar efecto externo; no pago/envío duplicado ni original declarado recuperado; objetivos RPO/RTO siguen pendientes, sin cifras inventadas. | SPEC-FR-IDEMP-002, SPEC-FR-HIST-004, SPEC-NFR-005. |",
+      "sourceTasksRow": "| **AC-073** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H6-014], [TSK-H0-009], [TSK-H1-015], [TSK-H5-007] | [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Automatismos sensibles suspendidos hasta conciliar efecto externo; no pago/envío duplicado ni original declarado recuperado; objetivos RPO/RTO siguen pendientes, sin cifras inventadas.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "NO EJECUTADA"
+    },
+    {
+      "id": "AC-074",
+      "family": "PT-12",
+      "sourceSpecRow": "| AC-074 | Carga de objeto logra binario pero falla metadata, o existe referencia sin objeto; se solicita documento por tercero con URL conocida. | Estado de conservación exacto y reparación trazable; no evidencia completa ni acceso por referencia conocida; no atomicidad externa simulada. | SPEC-FR-HIST-003–004, SPEC-FR-SEC-005. |",
+      "sourceTasksRow": "| **AC-074** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H1-015] | [TSK-H1-016], [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Estado de conservación exacto y reparación trazable; no evidencia completa ni acceso por referencia conocida; no atomicidad externa simulada.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    },
+    {
+      "id": "AC-077",
+      "family": "PT-12",
+      "sourceSpecRow": "| AC-077 | Llega discrepancia Avaibook y se intenta crear/modificar/cancelar allí. | Consulta/referencia solo si capacidad verificada; toda escritura excluida/rechazada, discrepancia revisada sin cambiar silenciosamente CRM. | SPEC-FR-INT-006. |",
+      "sourceTasksRow": "| **AC-077** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-009] | [TSK-H5-010] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+      "expected": "Consulta/referencia solo si capacidad verificada; toda escritura excluida/rechazada, discrepancia revisada sin cambiar silenciosamente CRM.",
+      "observedProvenance": "inherited independent audit 649565d2; no new integrated execution",
+      "localState": "SATISFACTORIA"
+    }
+  ],
+  "relatedTasksAssignments": 187,
+  "assignmentLedger": "tests/fixtures/h5-019/normative-sources.json",
+  "assignmentLedgerSha256": "4d39366ecde92a04a0ad4de5760ba82f01ccdcb87a2ed951b939a833e35fe506",
+  "scope": "Tasks2.1-2.3,4.6,6,7; Plan9-12; B06-B10,C01-C06,T08-T10; no global family closure"
+}

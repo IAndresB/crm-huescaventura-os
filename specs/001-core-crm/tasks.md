@@ -1,5 +1,13 @@
 # Tasks — SPEC 001 Core CRM
 
+## Cierre vigente H5-019 y H5 — exclusivamente local/aislado, 2026-10-18
+
+**Decisión del director D01–D03:** aceptado el candidato sucesor H5-019 de sello SHA-256 `31fd4ac89aea684f2155a4365cb5870a0c0163838cbfd543d2ad98d0db1ea619`, auditado independientemente PASS con sello `9f35bae29b5a152c3520b36f723be57cd606c8cf9b2cc30f2ca80e88038b9915`. **TSK-H5-019 y H5 global COMPLETED exclusivamente local/aislado.** [Recibo de aceptación](acceptance-TSK-H5-019.md), [cierre consolidado](closure-TSK-H5-019.md), [manifiesto de publicación aún no autorizada](../../tests/fixtures/h5-019-acceptance/publication-manifest.json). Las fichas H5-011/013/015 incorporan anotaciones vigentes sin borrar sus estados históricos. DM-PENDING-005 OPEN; H6 NOT STARTED; Hosted/Production NO ACREDITADOS. AC-073 y los demás tramos H6 pendientes no se declaran completados. D04 no autoriza git add, commit, push ni despliegue. La publicación sigue pendiente de decisión posterior y verificación remota.
+
+## Antecedentes publicados conservados
+
+Los apartados siguientes registran las decisiones y estados de sus momentos; las anotaciones vigentes de cada ficha y el cierre anterior gobiernan el estado actual.
+
 ## Cierre autorizado H5-017/H5-018 — candidato G
 
 **TSK-H5-017 y TSK-H5-018 COMPLETED, exclusivamente local/aislado — 2026-10-17.** El director acepta técnicamente G (D01), autoriza las 341 rutas exactas con los metadatos locales revisados (D02), el archivo histórico D de 90.706.957 bytes en Git normal (D03) y un único commit y un único push normal del conjunto final verificado (D04). Esta resolución expresa sustituye la negativa anterior a D02; no modifica las normas de negocio.
@@ -2036,6 +2044,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-011 — Consultar timeline, calendario y salidas por finalidad
 
+- [x] **Estado vigente: COMPLETED exclusivamente local/aislado.** Implementación publicada en `f063879d203330adb57d7e8fef3607ae796f52d5`; comprobación/cierre [H5-012](closure-TSK-H5-012.md) publicados en `b8f4fc9db033de54bcdc01c5f7554647d02f11aa`. La [reconciliación H5-019](reconciliation-TSK-H5-019.md) y la auditoría independiente original H5-019 acreditan el producto actual; DM-PENDING-005 y H6-007/017 siguen pendientes en sus ámbitos. La línea original que sigue es el estado histórico de la ficha antes de esas publicaciones y se conserva literalmente.
 - [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Proyecciones reconstruibles con permisos de originales y alcance, sin caché compartida de expedientes/sesiones.
 - **Fuentes exactas:** Plan §§6.5, 8, 11.2; SPEC-FR-HIST-006, SPEC-FR-COORD-008, SPEC-FR-SEC-003, SPEC-FR-SEC-006, SPEC-FR-SEC-007, SPEC-FR-INT-005, AC-062, AC-065, AC-075, AC-076, AC-081, D020. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-011.
@@ -2071,6 +2080,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-013 — Evaluar los tres cierres con fundamentos actuales
 
+- [x] **Estado vigente: COMPLETED exclusivamente local/aislado.** Tres evaluaciones verificadas por [H5-014](evidence-TSK-H5-014.md) sobre el candidato corregido y publicadas en `ff0ad6c6e505914f31eb15d56725179c9f065426`; [reconciliación](reconciliation-TSK-H5-019.md) y regresión independiente H5-019 sobre el producto vigente. El 2678 histórico conserva completo2675/2678 más retest, sin presentarse como un completo limpio. H6-007/016 y obligaciones reales siguen pendientes. La línea original que sigue conserva el estado histórico de prepublicación.
 - [ ] **Ejecución: IN PROGRESS — candidato corregido con aceptación técnica humana condicionada; prepublicación READY TO PUBLISH local/aislado y publicación pendiente.** [Control final de publicación](prepublication-TSK-H5-013-014.md). Los resultados de implementación siguientes pertenecen al candidato original; la auditoría posterior acredita el corregido. Evidencia: [evidence-TSK-H5-013.md](evidence-TSK-H5-013.md), matriz y defectos asociados. PostgreSQL2628/2628; focal final28/28; unitarias197/197; health1/1 separado. Sin commit/push/deploy. **Auditoría H5-014 PASS sobre candidato corregido; original FAIL conservado.** [Informe independiente](evidence-TSK-H5-014.md). Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Commercial/Operational/Economic Closure dentro de Booking, cada una Pendiente/Resuelto y criterio No aplica justificado.
 - **Fuentes exactas:** Plan §§7.2–7.3, 9; SPEC-FR-CLOSE-001, SPEC-FR-CLOSE-002, AC-058, AC-059, AC-060. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-013.
@@ -2106,6 +2116,7 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-015 — Cerrar conjuntamente y reabrir bajo concurrencia
 
+- [x] **Estado vigente: COMPLETED exclusivamente local/aislado.** El candidato corregido obtuvo PASS en [H5-016](evidence-TSK-H5-016.md) y se publicó en `9649a2773530ea8a43237b4e1f2034f80e34136f`; la [reconciliación](reconciliation-TSK-H5-019.md) y la auditoría H5-019 contrastan la versión publicada actual. El FAIL del candidato original, los resultados antiguos y H6-007/016 conservan su ámbito. La línea original que sigue es el antecedente de prepublicación y se preserva literalmente.
 - [ ] **Ejecución: IN PROGRESS. Evidencia: candidato corregido local/aislado auditado PASS por H5-016, aceptación técnica preliminar y prepublicación controlada (2026-10-16); publicación pendiente.** Hito: H5. Tipo: implementación.
 - **Objetivo y alcance:** Condición Cerrada/Histórico y reapertura fundada de dimensión; raíz común entre cierre y hechos que invalidan fundamentos.
 - **Fuentes exactas:** Plan §§7.2–7.3, 9–10; SPEC-FR-CLOSE-003, SPEC-FR-CLOSE-004, SPEC-FR-CONC-002, AC-046, AC-059, AC-060, AC-061, AC-062. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-015.
@@ -2174,17 +2185,18 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H5-019 — Registrar cierre integrado de capacidades Core
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H5. Tipo: documentación/evidencia.
+- [x] **Ejecución: COMPLETED exclusivamente local/aislado por D01–D03. Evidencia: [cierre consolidado](closure-TSK-H5-019.md), [matriz final](matrix-TSK-H5-019-corrective.md), [recibo del director](acceptance-TSK-H5-019.md).** Hito: H5. Tipo: documentación/evidencia.
+- **Secuencia acreditada:** consolidación original y primera auditoría independiente PASS con AI-019-01/02/03; correctivo de instrumentos y reconciliación; segunda auditoría independiente PASS sobre sello `31fd4ac89aea684f2155a4365cb5870a0c0163838cbfd543d2ad98d0db1ea619`, sello auditor `9f35bae29b5a152c3520b36f723be57cd606c8cf9b2cc30f2ca80e88038b9915`; aceptación técnica D01 y cierre documental D02. 19 dependencias; 26 AC,25 SAT locales, AC-073 NO EJECUTADA/H6-015; cero materiales abiertos detectados. AI-019-01/02 CLOSED y AI-019-03 RECONCILED. PostgreSQL2945, health1, integración3, temporalidad14 y V-MIG/V-DAT68(2) pertenecen al candidato original y su primera auditoría; el sucesor repitió puertas y unitarias208/208, sin otra regresión de negocio. Sin PASS global de PT ni publicación por D04.
 - **Objetivo y alcance:** Evidencia integrada de seguimiento, supervisión, fronteras, proyecciones y cierres.
 - **Fuentes exactas:** Plan §§9–12; Plan §9 (resultado y salida del hito); correspondencias específicas de §6. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H5-019.
 - **Bloques, contratos y unidades:** B06/B07/B08/B09/B10; C01–C06; T08/T09/T10.
 - **Entregable previsto:** Informe propuesto de hito y limitaciones de contratos. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H4-024], [TSK-H5-001], [TSK-H5-002], [TSK-H5-003], [TSK-H5-004], [TSK-H5-005], [TSK-H5-006], [TSK-H5-007], [TSK-H5-008], [TSK-H5-009], [TSK-H5-010], [TSK-H5-011], [TSK-H5-012], [TSK-H5-013], [TSK-H5-014], [TSK-H5-015], [TSK-H5-016], [TSK-H5-017], [TSK-H5-018]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H4 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** No aceptación de acceso real/Production; conectores permanecen excluidos. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Consolidar pruebas PT-08/PT-09/PT-10/PT-12 y revisar referencias cruzadas a capacidades incorporadas antes de H5.
+- **Bloqueo localizado / condición para levantarlo:** No aceptación de acceso real/Production; conectores permanecen excluidos. El detalle de evidencia/decisión y puerta está en §7; no altera el cierre exclusivamente local ni acredita el uso real.
+- **Acción ejecutada localmente:** Consolidadas PT-08/PT-09/PT-10/PT-12 y contrastadas las referencias cruzadas con las capacidades H0–H5; los tramos H6 permanecen NO EJECUTADOS.
 - **Salida observable:** H0–H5 acreditados en su alcance verificable, pendientes localizados y candidato preparado para validación H6.
 - **Verificación y esperado:** No admitir fuente cubierta solo por mención o mock de integridad; historial/idempotencia deben existir desde primer efecto. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, esperado/observado por caso/ID y pruebas reales aplicables de §2.2. **SATISFACTORIA en alcance local/aislado:** [matriz de26 AC](matrix-TSK-H5-019-corrective.md), [dependencias19](dependencies-TSK-H5-019.md), [cierre](closure-TSK-H5-019.md). AC-073/H6-015 NO EJECUTADA; otras verificaciones H6 y Production permanecen pendientes.
 - **Paralelismo y restricciones:** La recopilación parcial puede acompañar trabajo independiente; el cierre espera todas sus dependencias. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08/T09/T10 conservan atomicidad y revisión conjunta.
 
 ### 4.7. H6 — Validación y preparación de entrega
