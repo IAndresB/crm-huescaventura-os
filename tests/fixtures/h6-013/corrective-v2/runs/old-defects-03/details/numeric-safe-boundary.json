@@ -1,0 +1,88 @@
+{
+  "expected": {
+    "id": "safe-boundary",
+    "column": "v",
+    "a": "9007199254740991",
+    "b": "9007199254740992",
+    "equal": false
+  },
+  "serverBefore": "9007199254740991",
+  "serverAfter": "9007199254740992",
+  "before": {
+    "crm_private.identity_v2_probe": {
+      "columns": [
+        "id",
+        "v",
+        "n",
+        "j",
+        "txt"
+      ],
+      "count": 2,
+      "sha256": "3a4bd1929c17cc806706ed5efb50536e18dc11bf14d64e65d6fa9d539dbb1652"
+    }
+  },
+  "after": {
+    "crm_private.identity_v2_probe": {
+      "columns": [
+        "id",
+        "v",
+        "n",
+        "j",
+        "txt"
+      ],
+      "count": 2,
+      "sha256": "60562a8f53fceab9f45579037043387a0a5397ca97708fd309caeb24875cd570"
+    }
+  },
+  "factsBefore": {
+    "crm_private.identity_v2_probe": [
+      {
+        "value": {
+          "j": [
+            true,
+            null
+          ],
+          "n": 1,
+          "v": -1,
+          "id": 2,
+          "txt": "synthetic-second"
+        }
+      },
+      {
+        "value": {
+          "j": {},
+          "n": 0,
+          "v": 9007199254740991,
+          "id": 1,
+          "txt": "synthetic"
+        }
+      }
+    ]
+  },
+  "factsAfter": {
+    "crm_private.identity_v2_probe": [
+      {
+        "value": {
+          "j": [
+            true,
+            null
+          ],
+          "n": 1,
+          "v": -1,
+          "id": 2,
+          "txt": "synthetic-second"
+        }
+      },
+      {
+        "value": {
+          "j": {},
+          "n": 0,
+          "v": 9007199254740992,
+          "id": 1,
+          "txt": "synthetic"
+        }
+      }
+    ]
+  },
+  "restoration": "transaction rolled back after capture"
+}

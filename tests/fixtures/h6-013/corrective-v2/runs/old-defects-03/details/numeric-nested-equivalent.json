@@ -1,0 +1,100 @@
+{
+  "expected": {
+    "id": "nested-equivalent",
+    "column": "j",
+    "a": "{\"x\":1.20,\"y\":[0.00,-2.00]}",
+    "b": "{\"y\":[-0,-2e0],\"x\":12e-1}",
+    "equal": true
+  },
+  "serverBefore": "{\"x\": 1.20, \"y\": [0.00, -2.00]}",
+  "serverAfter": "{\"x\": 1.2, \"y\": [0, -2]}",
+  "before": {
+    "crm_private.identity_v2_probe": {
+      "columns": [
+        "id",
+        "v",
+        "n",
+        "j",
+        "txt"
+      ],
+      "count": 2,
+      "sha256": "4aea93287419c0fce0c2d438557677b9880230eb04808349a05680924832614b"
+    }
+  },
+  "after": {
+    "crm_private.identity_v2_probe": {
+      "columns": [
+        "id",
+        "v",
+        "n",
+        "j",
+        "txt"
+      ],
+      "count": 2,
+      "sha256": "4aea93287419c0fce0c2d438557677b9880230eb04808349a05680924832614b"
+    }
+  },
+  "factsBefore": {
+    "crm_private.identity_v2_probe": [
+      {
+        "value": {
+          "j": [
+            true,
+            null
+          ],
+          "n": 1,
+          "v": -1,
+          "id": 2,
+          "txt": "synthetic-second"
+        }
+      },
+      {
+        "value": {
+          "j": {
+            "x": 1.2,
+            "y": [
+              0,
+              -2
+            ]
+          },
+          "n": 0,
+          "v": 0,
+          "id": 1,
+          "txt": "synthetic"
+        }
+      }
+    ]
+  },
+  "factsAfter": {
+    "crm_private.identity_v2_probe": [
+      {
+        "value": {
+          "j": [
+            true,
+            null
+          ],
+          "n": 1,
+          "v": -1,
+          "id": 2,
+          "txt": "synthetic-second"
+        }
+      },
+      {
+        "value": {
+          "j": {
+            "x": 1.2,
+            "y": [
+              0,
+              -2
+            ]
+          },
+          "n": 0,
+          "v": 0,
+          "id": 1,
+          "txt": "synthetic"
+        }
+      }
+    ]
+  },
+  "restoration": "transaction rolled back after capture"
+}

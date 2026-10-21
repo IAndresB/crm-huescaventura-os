@@ -1,0 +1,12 @@
+import json,pathlib,subprocess,datetime,hashlib,sys
+O=pathlib.Path(__file__).parent;plan=json.loads((O/'replica-plan.json').read_text());P=pathlib.Path(plan['replica']);W=pathlib.Path(plan['workspace']);env=plan['environment'];label,kind=sys.argv[1:3];D=O/'h6-013'/label;D.mkdir(parents=True)
+commands={'fixture':['node','--experimental-strip-types','scripts/check-h6-013-v2-fixture.ts'],'controls':['node','--test','--experimental-strip-types','tests/integration/postgres-h6-013-v2-controls.test.ts'],'h1':['node','--test','--experimental-strip-types','tests/integration/postgres-h6-013-h1-preservation.test.ts'],'negatives':['node','--test','--experimental-strip-types','tests/integration/postgres-h6-013-negatives.test.ts'],'cross':['node','scripts/test-postgres.mjs','postgres-h6-013-migration.test.ts'],'units':['node','--test','--experimental-strip-types',*[str(x.relative_to(P)) for x in sorted((P/'tests').glob('*.test.ts'))]],'typegen':['node','node_modules/next/dist/bin/next','typegen'],'typecheck':['node','node_modules/typescript/bin/tsc','--noEmit'],'lint':['node','scripts/check-boundaries.mjs'],'build':['node','node_modules/next/dist/bin/next','build']}
+for key in ['H6013_V2_DIR','H6013_H1_DIR','H6013_NEGATIVE_DIR','H6013_CAPTURE_DIR']:env[key]=str(D/'details')
+env['H6013_H1_RESOURCE']=str(O/'h6-013/h1-v2/details/resource.json')
+env['H6013_FIXTURE_OUTPUT']=str(D/'fixture-numeric-values.json')
+inputs={str(p.relative_to(P)):hashlib.sha256(p.read_bytes()).hexdigest() for pattern in ['tests/h6-013*','scripts/check-h6-013-v2-fixture.ts','tests/support/h6-013*','tests/integration/postgres-h6-013*','tests/fixtures/h6-013/corrective-v2/expected*'] for p in P.glob(pattern) if p.is_file()}
+record={'startedUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'argv':commands[kind],'cwd':str(P),'inputs':inputs,'sandbox':str(W/'sandbox.sb'),'network':'only localhost and Unix sockets; private HOME/TMP; no real credentials'}
+(D/'start.json').write_text(json.dumps(record,indent=2)+'\n')
+with (D/'stdout.log').open('x') as out,(D/'stderr.log').open('x') as err:r=subprocess.run(['sandbox-exec','-f',str(W/'sandbox.sb'),*commands[kind]],cwd=P,env=env,stdout=out,stderr=err)
+record.update(endedUtc=datetime.datetime.now(datetime.timezone.utc).isoformat(),exitCode=r.returncode)
+record['logs']={f:hashlib.sha256((D/f).read_bytes()).hexdigest() for f in ['stdout.log','stderr.log']};(D/'status.json').write_text(json.dumps(record,indent=2)+'\n');print(label,r.returncode,flush=True)

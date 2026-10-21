@@ -1,0 +1,891 @@
+{
+  "base": "8a5f1408777b81b760a02646fa414a34dc17983e",
+  "count": 68,
+  "orderedSetSha256": "139c5cfb7bbfb94e18739e82af6f7d7eec0f7c4fb30ca39e5bc575611b945941",
+  "migrations": [
+    {
+      "ordinal": 1,
+      "path": "supabase/migrations/202609150000_h0_m01_roles.sql",
+      "sha256": "b80cae6d88fb2a3dfea504293fbc2b87ea5766a5e0b5436a05062be0a76f387e",
+      "bytes": 921,
+      "package": "0",
+      "authority": "cluster-bootstrap",
+      "header": [
+        "-- H0-M01 bootstrap: run only with local cluster authority, never as runtime.",
+        "do $$",
+        "begin"
+      ]
+    },
+    {
+      "ordinal": 2,
+      "path": "supabase/migrations/202609150001_h0_m01_context.sql",
+      "sha256": "42f3a225708c3c73beee06837477528da25f59b13f73b01ce382de21eebd44b3",
+      "bytes": 3063,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-M01 database migration: execute as crm_h0_migration, never as runtime.",
+        "do $$",
+        "begin"
+      ]
+    },
+    {
+      "ordinal": 3,
+      "path": "supabase/migrations/202609160000_h0_f1_authorities.sql",
+      "sha256": "d8a93d5b43f49fea63df02989bb1ac61a918b726bebabad7b4818d61be33d5de",
+      "bytes": 1114,
+      "package": "0",
+      "authority": "cluster-bootstrap",
+      "header": [
+        "-- Forward from H0-M01. Administrative role bootstrap; never runtime traffic.",
+        "-- Requires CREATEROLE and authority to grant the newly created roles, not SUPERUSER.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 4,
+      "path": "supabase/migrations/202609160001_h0_f1_capabilities.sql",
+      "sha256": "9edccd04ecd53c917005585cf675e96c607759b7d9db0face90db7cd633ea7c3",
+      "bytes": 11632,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- Forward hardening. Apply as crm_h0_migration after the authority bootstrap.",
+        "-- No key, audience or generation is provisioned by this migration.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 5,
+      "path": "supabase/migrations/202609250000_h0_m02_unit_history.sql",
+      "sha256": "35df65cac631c42669472f7382f2dbd36c5529b78c083aff30245fdefa9ee0f7",
+      "bytes": 20967,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-M02: durable internal-unit state, history, result and external intent.",
+        "-- Forward only from H0-M01 + F1. No commercial schema and no provider effect.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 6,
+      "path": "supabase/migrations/202609260000_h0_m03_authorities.sql",
+      "sha256": "cd80130df5e2d44acdda5008eb6f7d8f635d876003277a57a154c6675c8e584b",
+      "bytes": 1034,
+      "package": "0",
+      "authority": "cluster-bootstrap",
+      "header": [
+        "-- H0-M03 forward role bootstrap. Run as the authorized local cluster role,",
+        "-- never as crm_h0_runtime. No credential or human identity is provisioned here.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 7,
+      "path": "supabase/migrations/202609260001_h0_m03_actor_session_access.sql",
+      "sha256": "4b9767833e28268c609a0ecf4ef6b7e983e2940231acaec8b10ba9ab84df60a4",
+      "bytes": 23821,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-M03 forward from H0-M02. F2 is independent of F1; no Auth provider is installed.",
+        "-- All human rows and keys start empty. Apply only as crm_h0_migration.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 8,
+      "path": "supabase/migrations/202609260002_h0_m03_revoke_all_authority_fix.sql",
+      "sha256": "943ad2130d3276dfee42e943b32a5414f49e6be53021a9aa6ef7cd2185128ae0",
+      "bytes": 4513,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-006-F01: only a live initiating human session can invalidate all sessions.",
+        "-- Forward migration; H0-M03 published definitions remain historical and intact.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 9,
+      "path": "supabase/migrations/202609260003_h0_m03_f2_expiry_revalidation_fix.sql",
+      "sha256": "c27d785eb04fceb6450b76d5b87ad2a210083f158aea80397af89a687499ad98",
+      "bytes": 12311,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-006-F02: an initially valid F2 must still be valid after lock waits and",
+        "-- before a protected unit can commit. Historical H0-M03/F01 migrations remain intact.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 10,
+      "path": "supabase/migrations/202609270000_h0_m04_human_approval.sql",
+      "sha256": "a84df7f26adc7375a15ad1b9712a7457e244b2c1ef3553ac25b858cd9633dcb2",
+      "bytes": 23347,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-M04: exact internal approval and part reservation. Forward-only.",
+        "-- H0-M02 remains the durable operation/history/result/intent ledger.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 11,
+      "path": "supabase/migrations/202609270001_h0_m04_f2_unit_revalidation_fix.sql",
+      "sha256": "4f74bcd7a72da8a2bfe68b52d0cddc83713bad94391705ae79ff96a818f3f1c7",
+      "bytes": 2911,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-012-F01: keep the ORIGINAL human authority live through the M04/M02 unit.",
+        "-- The three-argument M02 executor remains the technical interface. Human M04",
+        "-- composition uses this narrow overload, including on an idempotent replay."
+      ]
+    },
+    {
+      "ordinal": 12,
+      "path": "supabase/migrations/202609270002_h0_m04_m02_authority_partition_fix.sql",
+      "sha256": "32c2f2e422108adcf44932192cd9da8def3ab052a55e2f571005a6b09e7c533b",
+      "bytes": 4942,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-012-F02: make the final human guard mandatory at the SQL boundary.",
+        "-- The published M02 body is moved, not rewritten; public interfaces partition",
+        "-- signed technical purpose from the reserved human-unit purpose."
+      ]
+    },
+    {
+      "ordinal": 13,
+      "path": "supabase/migrations/202609270003_h0_m04_evidence_revalidation_fix.sql",
+      "sha256": "80644d746b03afce35573df9ac48859f64ba86a93baf3956bcd760d8f047b3e9",
+      "bytes": 10723,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- F03: authenticated current evidence, not caller assertions. Forward only.",
+        "begin;",
+        "do $$ begin"
+      ]
+    },
+    {
+      "ordinal": 14,
+      "path": "supabase/migrations/20260927231932_h0_m04_f04_transaction_commit_guard.sql",
+      "sha256": "bc78d7a0672de2dedd10a76e6f6845267c1b02b8dfa19cef863f4feac873650d",
+      "bytes": 1265,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-012-F04: close an evidence-backed unit in the same server message as",
+        "-- its final evidence check. A deferred constraint may be fired early with",
+        "-- SET CONSTRAINTS; the explicit final function remains the last check and"
+      ]
+    },
+    {
+      "ordinal": 15,
+      "path": "supabase/migrations/20260928193107_h0_m04_tte_authorities.sql",
+      "sha256": "747cc553e75a7075328e5d260026e96f6a019d2e603f57acf69291a7bf3695ea",
+      "bytes": 204,
+      "package": "0",
+      "authority": "cluster-bootstrap",
+      "header": [
+        "-- D039 / H0-012-F05. Authorized local cluster bootstrap; no password or membership.",
+        "begin;",
+        "create role crm_h0_ha_tx login nosuperuser nocreatedb nocreaterole noinherit nobypassrls noreplication;"
+      ]
+    },
+    {
+      "ordinal": 16,
+      "path": "supabase/migrations/20260928193111_h0_m04_tte_boundary.sql",
+      "sha256": "568e322cb3026e90f442ccfbaa167dc724b6dc14d0de51a3549470323a38ed7a",
+      "bytes": 3764,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- D039 / H0-012-F05. Closed login/capability mapping and exclusive HA entrypoints.",
+        "begin;",
+        "do $$ begin"
+      ]
+    },
+    {
+      "ordinal": 17,
+      "path": "supabase/migrations/20260928223934_h0_m05_global_access_revocation.sql",
+      "sha256": "cfeb9fc74d3e7640966773cd1e95354249a7a11e8dd91c2c55fc8ccc6475933a",
+      "bytes": 13351,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-M05: durable Core-wide revocation and explicit Auth coordination state.",
+        "-- No Auth provider, token, user or secret is provisioned by this migration.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 18,
+      "path": "supabase/migrations/20260929000000_h0_m06_access_recovery.sql",
+      "sha256": "704efa623e281c37bf6032eefdf286c02700c64ab6446ccc11cb7289aad629fc",
+      "bytes": 15050,
+      "package": "0",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H0-M06: isolated recovery gate. No provider, address, factor or secret is stored.",
+        "-- Forward only; previous actor, session, epoch and historical rows remain intact.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 19,
+      "path": "supabase/migrations/202609290001_h1_contextual_identities.sql",
+      "sha256": "f93b3ef87f75c3ee8b229d2f76d8255a0f004b23813a26e444e3e0e72ff2cb14",
+      "bytes": 28939,
+      "package": "1",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H1-001: local identity records and contextual designations. Forward only.",
+        "-- H0 F1/F2 remain the admission authority; no real personal data is migrated.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 20,
+      "path": "supabase/migrations/202609290002_h1_merge_archive_codes.sql",
+      "sha256": "db58cdaa641ccf92c9fb7aa5c32ff27b9ce0bbd34cdd2e321d7cf33f394af798",
+      "bytes": 18711,
+      "package": "1",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H1-003: human identity resolution and append-only annual code ledger.",
+        "begin;",
+        "do $$ begin"
+      ]
+    },
+    {
+      "ordinal": 21,
+      "path": "supabase/migrations/202609290003_h1_catalog_versions.sql",
+      "sha256": "6a7a3360e8840d7ad10bb0cc268d35410b87edf3e600c4389b0e4c2382d25350",
+      "bytes": 22906,
+      "package": "1",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H1-005: local, structural catalog revisions and exact applied references.",
+        "begin;",
+        "do $$ begin"
+      ]
+    },
+    {
+      "ordinal": 22,
+      "path": "supabase/migrations/202609290004_h1_commercial_rules.sql",
+      "sha256": "9aba006c13e59449630e3e1f9b1fd04f01eba1e6aa1c4efc244ec3fbb8e9de38",
+      "bytes": 31275,
+      "package": "1",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H1-007: local structural commercial configuration. No monetary engine or real catalog values.",
+        "begin;",
+        "do $$ begin"
+      ]
+    },
+    {
+      "ordinal": 23,
+      "path": "supabase/migrations/202609300001_h1_evidence_communications.sql",
+      "sha256": "8a773c60aa7e022cb30a3b26a680abacc9ebde1f42b37e340185195011ec38d2",
+      "bytes": 21098,
+      "package": "1",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H1-013: immutable local B07 records and context links. No Storage objects or connectors.",
+        "begin;",
+        "do $$ begin"
+      ]
+    },
+    {
+      "ordinal": 24,
+      "path": "supabase/migrations/20260930170533_h1_private_object_conservation.sql",
+      "sha256": "c380e0d357ce8da779418b94623ee636a727619e8f5bc85a33afca2b8e0c09bb",
+      "bytes": 13821,
+      "package": "1",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H1-015: Core metadata and recoverable conservation; no hosted/Storage DDL.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then"
+      ]
+    },
+    {
+      "ordinal": 25,
+      "path": "supabase/migrations/20260930185257_h1_pending_business_tasks.sql",
+      "sha256": "83590124eb3e85372076eb95e6a0b5aa3def76c8d6db61a6e5487281d509dc55",
+      "bytes": 11598,
+      "package": "1",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H1-017: pending business work, not scheduler/Execution Record/Notification.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'TASK_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501'; end if; end $$;"
+      ]
+    },
+    {
+      "ordinal": 26,
+      "path": "supabase/migrations/20261001081941_h2_commercial_progress.sql",
+      "sha256": "a0ac4480391209653b031bfb610c537e55fa40dc7261adbe707e93c1d2122b7e",
+      "bytes": 22811,
+      "package": "2",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H2-001 only. No Proposal/Version, Acceptance, Booking or external effects.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'COMMERCIAL_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501'; end if; end $$;"
+      ]
+    },
+    {
+      "ordinal": 27,
+      "path": "supabase/migrations/20261001115235_h2_proposal_versions.sql",
+      "sha256": "d98c7d5844bdb7ae09a6324787d85c46a14eca1a22fa84cd44a073f5facfefe3",
+      "bytes": 28157,
+      "package": "2",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H2-003 only: preparation, immutable versions, manual commercial price. No send/Acceptance.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'PROPOSAL_MIGRATION_AUTHORITY_REQUIRED';end if;end $$;"
+      ]
+    },
+    {
+      "ordinal": 28,
+      "path": "supabase/migrations/20261001150357_h2_offer_lifecycle.sql",
+      "sha256": "77190038dd85a287fcbf9e42011dea3813dbddaba5e911ccb4347b724da716ab",
+      "bytes": 23283,
+      "package": "2",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H2-005: immutable issuance, act reviews and B07 references. No external effect or Acceptance.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'OFFER_MIGRATION_AUTHORITY_REQUIRED';end if;end $$;"
+      ]
+    },
+    {
+      "ordinal": 29,
+      "path": "supabase/migrations/20261001172433_h2_exact_acceptance.sql",
+      "sha256": "8ee31e652c43a795de0b8122f52a105ae9ea6570b7502fcf392590abb86625b7",
+      "bytes": 25553,
+      "package": "2",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H2-007 / T02. Exact immutable Acceptance, explicit verification and error rectification.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'ACCEPTANCE_MIGRATION_AUTHORITY_REQUIRED';end if;end $$;"
+      ]
+    },
+    {
+      "ordinal": 30,
+      "path": "supabase/migrations/20261001200941_h2_booking_conversion.sql",
+      "sha256": "9c229b6938f504b1c486d3b76f27ea7b8c597d7feba20b697a036db0806de9ab",
+      "bytes": 22462,
+      "package": "2",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H2-009: immutable initial Booking baseline; T03 only, no operation/economy modules.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'BOOKING_MIGRATION_AUTHORITY_REQUIRED';end if;end $$;"
+      ]
+    },
+    {
+      "ordinal": 31,
+      "path": "supabase/migrations/20261002233922_h3_expected_obligations.sql",
+      "sha256": "62be52879e1c86a010be084157423e1fe8cadfcab524713e3508d96734d6faf2",
+      "bytes": 24958,
+      "package": "3",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H3-001/002 only. Obligation is not a movement. Existing F1/F2 narrow API pattern.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'OBLIGATION_MIGRATION_AUTHORITY_REQUIRED';end if;end $$;"
+      ]
+    },
+    {
+      "ordinal": 32,
+      "path": "supabase/migrations/20261003093202_h3_customer_payment_reconciliation.sql",
+      "sha256": "db0c2a3642e45c6b88d773d68b1b3ad2cbbd4eaef975d54001c9baf6abaa8060",
+      "bytes": 29548,
+      "package": "3",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H3-003/004: movements, receipt facts and correspondence acts, not allocation/Refund.",
+        "-- Existing F1/F2 narrow API pattern. No runtime CRUD or new human roles.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 33,
+      "path": "supabase/migrations/20261003110048_h3_payment_allocation_funds.sql",
+      "sha256": "c70589c4a8fb9ff55f987b278a41d38bc7d3588b4f1a551399e5c6a6b58035f5",
+      "bytes": 43930,
+      "package": "3",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H3-005/006. Internal portions and use, never a bank output/Refund/Provider Payment.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'ALLOCATION_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 34,
+      "path": "supabase/migrations/20261004161012_h3_provider_invoice_documentary.sql",
+      "sha256": "443f5b6a082ab6289beea7bf11d410b13f80be0a4634093d405149379c2937e8",
+      "bytes": 24042,
+      "package": "3",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H3-007/008: external client-addressed documentary lifecycle. No fiscal or payment effect.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'INVOICE_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 35,
+      "path": "supabase/migrations/20261004175435_h3_managed_client_funds_documentary.sql",
+      "sha256": "41b5eea0a24df9407e484805a5413904bc0e6bffe90a69848db5b9cb8107fa44",
+      "bytes": 33067,
+      "package": "3",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H3-009/010: D013 coordination only. No productive Provider Payment or fiscal capability.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'SUPLIDO_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 36,
+      "path": "supabase/migrations/20261004185628_h3_provider_payment_accredited_outgoing.sql",
+      "sha256": "7e843641649a07fbbd019ae3db010ae6898838ec4b686086d404f0a4cec52bcf",
+      "bytes": 44146,
+      "package": "3",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H3-011/012. Local record of an already occurred outgoing movement. No bank execution.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'PROVIDER_PAYMENT_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 37,
+      "path": "supabase/migrations/20261004201022_h3_own_economics_fee_cost_promotion_tarari.sql",
+      "sha256": "066e31debade3e987f45aa2d809c71f7716cb263716ea214ab086922a0859dee",
+      "bytes": 17050,
+      "package": "3",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H3-013/014: own economy only; no fund/payment/fiscal effect. H1 exact engine owns calculation in trusted C02.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'OWN_ECONOMICS_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 38,
+      "path": "supabase/migrations/20261004213420_h4_document_requirements.sql",
+      "sha256": "29dc20ba673073daa5a6b9493c55c9ee26a7db1e1fd96204f697b4a728f5e352",
+      "bytes": 25548,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-001/002 only: configured rules, applied requirements, B07 links and explicit reviews.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'REQUIREMENT_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 39,
+      "path": "supabase/migrations/20261004231359_h4_incidents.sql",
+      "sha256": "5333331d902de9b2e720572778b230442b29e62708480c447b67d96216057225",
+      "bytes": 22299,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-003/004: Incident, explicit reviews and localized impact. No closure/refund engine.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'INCIDENT_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 40,
+      "path": "supabase/migrations/20261005055658_h4_availability_evidence.sql",
+      "sha256": "5428fa5b4140da5916f71d643fb50980d2363fd176b4f8871a2fb7e9bc7207b2",
+      "bytes": 27129,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-005/006: historical availability and scoped usable coverage; no firm confirmation.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'AVAILABILITY_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 41,
+      "path": "supabase/migrations/20261005141534_h4_capacity_holds.sql",
+      "sha256": "1512cbe0619c8fb35d915f052e381d6977437bc2e2fffdc119623b0954591de7",
+      "bytes": 33464,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-007/008. Manual credited temporal commitments; no external executor/firm reservation.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'HOLD_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 42,
+      "path": "supabase/migrations/20261005161912_h4_provider_confirmation.sql",
+      "sha256": "908967e6157c541a46fc132f56e83290df245b495265e4c765966d8d0cd5d876",
+      "bytes": 34565,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-009/010 only: immutable supplier/internal facts and localized service coverage.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'CONFIRMATION_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 43,
+      "path": "supabase/migrations/20261005202444_h4_operational_modification.sql",
+      "sha256": "c068c4922616dc1e762acc94efdd734564254c430448995947b447da1d88f53d",
+      "bytes": 69548,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-011/012: operational versions on retained H2 identities, not a second Booking.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'MODIFICATION_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 44,
+      "path": "supabase/migrations/20261005215404_h4_modification_counterparty.sql",
+      "sha256": "077b415c5c04f014fefb36aa752ae02ac5d8e87344628ddefa5bf0b32f4ce3b1",
+      "bytes": 37585,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-012-F16: current requester relationship and effect-specific source coverage.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'MODIFICATION_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 45,
+      "path": "supabase/migrations/20261005223726_h4_cancellation_right.sql",
+      "sha256": "01dd5f2264ea2d848cf77716ea8a988c2f83b1e6f7c57bb4479093e3cb4a8c36",
+      "bytes": 47497,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-013/014. Contractual determination before obligations/funds. No Refund execution.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'CANCELLATION_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 46,
+      "path": "supabase/migrations/20261006001131_h4_refund_partial_portions.sql",
+      "sha256": "a2e25385040424689bc8a79152c7011c139559559c6804b80b3c5797d5b15fbf",
+      "bytes": 41077,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-015/016. Manual accredited Refund facts; no bank dispatch, no alternate fund ledger.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'REFUND_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 47,
+      "path": "supabase/migrations/20261006065228_h4_refund_uncertain_partial_progress.sql",
+      "sha256": "90f585a202ef274a7aa01a36e51f251334714e2ec4647c658fc9d4f0ace2be50",
+      "bytes": 26373,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- F23: preserve original attempt portion; only independently verified fragments leave uncertainty.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'REFUND_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 48,
+      "path": "supabase/migrations/20261006133716_h4_deposit_guarantee_custody.sql",
+      "sha256": "5557235111e71eae8d797eab272ce9c6ff83def547883c6b6757dbd2e0a56ec1",
+      "bytes": 38286,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-017/018 guarantee facts and custody. No bank execution and no new fund ledger.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'DEPOSIT_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 49,
+      "path": "supabase/migrations/20261006152658_h4_joint_funds_compatible_actor_admission.sql",
+      "sha256": "044eac4ec7d18b8243589e6ba89cb73770dffa857523329b9f5870806c01533c",
+      "bytes": 1135,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H4-019 F06. Preserve the fully evolved current admission body, including",
+        "-- operation/purpose expansions applied by H1/H2/H3/H4 forward migrations.",
+        "-- D038 §§13–16: compatible actor admission, exclusive session/epoch."
+      ]
+    },
+    {
+      "ordinal": 50,
+      "path": "supabase/migrations/20261006175137_h4_booking_preparation_confirmation.sql",
+      "sha256": "60028bc121c0288eb490758c671e08506c7ad4d6440c22707572c53670002d65",
+      "bytes": 42779,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- TSK-H4-020/021 only. Append-only evaluations; ordinary facts remain authoritative.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'BOOKING_PREPARATION_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 51,
+      "path": "supabase/migrations/20261006225826_h4_booking_preparation_cancelled_origin.sql",
+      "sha256": "be359d25003fed7d51d575d0717fe7efbceaa9c7ad6f2b476c672ba5d1a135b1",
+      "bytes": 11341,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- Corrective H4-020/021-F23. Existing Modification cancellation wins current phase.",
+        "-- Only two declared function bodies adapted; original50 migrations, OID/signatures/owners/ACL/config retained.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 52,
+      "path": "supabase/migrations/20261006233358_h4_operational_reality.sql",
+      "sha256": "cc5d2f8cab9f37bc2636532c834f74c1d4dc735ed59de7e0e2039dc65c7b10bb",
+      "bytes": 43578,
+      "package": "4",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- TSK-H4-022/023 only: actual facts, current phase and existing cancellations.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration'then raise exception 'REALITY_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 53,
+      "path": "supabase/migrations/20261007180001_h5_task_lifecycle.sql",
+      "sha256": "75fd09bcd844edc42f19320391d3045863e464f959f47b41e91f78a4918a1f3a",
+      "bytes": 7385,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-001: extend the existing B07 Task, retaining its H1 identity and history.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'TASK_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501'; end if; end $$;"
+      ]
+    },
+    {
+      "ordinal": 54,
+      "path": "supabase/migrations/20261007193441_h5_alert_notifications.sql",
+      "sha256": "1e9379d4b5eed2c12120e9d9020616aa47dda88bcaaa58e35b8817a2f8d8b053",
+      "bytes": 16440,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-003/004: internal D016 intent only. No external executor, scheduler or email.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'ALERT_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501'; end if; end $$;"
+      ]
+    },
+    {
+      "ordinal": 55,
+      "path": "supabase/migrations/20261007230734_h5_communication_review.sql",
+      "sha256": "f6b47fbfa260318b2af2fc48b9aab7b4ba2a431e6f44837d48f027d45fd00ab0",
+      "bytes": 23869,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-005/006. Additive composition/provenance; existing B07 records, HA and Task stay authoritative.",
+        "begin;",
+        "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'COMM_MIGRATION_AUTHORITY_REQUIRED';end if;end $$;"
+      ]
+    },
+    {
+      "ordinal": 56,
+      "path": "supabase/migrations/20261008143617_h5_persisted_work_recovery.sql",
+      "sha256": "53cc3c66bc5f6ea6488caefcb86da574f5fa2affb2cb451367a1665205b635a9",
+      "bytes": 29315,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-007/008: durable work state; HA/M02, B07 operations/history and Task stay authoritative.",
+        "-- No scheduler, provider, retry count, backoff or operating lease default.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 57,
+      "path": "supabase/migrations/20261008192000_h5_external_event_receipts.sql",
+      "sha256": "9675d862492b8ba0c035199476e47f38bf3deaca845c0dc47d0133cff99418ee",
+      "bytes": 11626,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-009: normalize event receipt/correlation on top of canonical B07 records.",
+        "-- Manual/test doubles only; this migration installs no transport or provider connector.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 58,
+      "path": "supabase/migrations/20261014003559_h5_authorized_projections.sql",
+      "sha256": "c49c60fb7a384d7985b02414117826b83e89545347611e11dcb69b10208441e2",
+      "bytes": 12507,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-011 C01: reconstructible authorized reads; no new business state or table.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'PROJECTION_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 59,
+      "path": "supabase/migrations/20261015172843_h5_calendar_current_nights.sql",
+      "sha256": "0d6baa6546ba404330973f3a770c605cb7127836acc6a9375b0d89c8f1726760",
+      "bytes": 12610,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-012-F01: calendar nights use the existing operational view; history retains accepted nights.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'PROJECTION_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 60,
+      "path": "supabase/migrations/20261015180420_h5_projection_canonical_revisions.sql",
+      "sha256": "847499b0bd9298067825a57d02b17de1379d9b6a49d933c26250237fe1efc5a8",
+      "bytes": 13887,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-012-F02: project existing hold/documentary revisions, retaining current state and history.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'PROJECTION_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 61,
+      "path": "supabase/migrations/20261015190418_h5_calendar_night_operational_state.sql",
+      "sha256": "7a1e3b3daf988ecf7b769d98b321e742752636fc6fa1f61062c960b2bd13da03",
+      "bytes": 15323,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-012-F03: retain current night and ancestor operational states from existing canonical scopes.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration' then raise exception 'PROJECTION_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 62,
+      "path": "supabase/migrations/20261015204955_h5_booking_closure_assessments.sql",
+      "sha256": "b514b8c99409e2d71e9abe493df9bcf0c630541fb0899ec54d3d9ae6bc0d253e",
+      "bytes": 28954,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- TSK-H5-013: independent assessments inside Booking; no joint close/reopen.",
+        "begin;",
+        "do $$begin if current_user <> 'crm_h0_migration' then raise exception 'CLOSURE_MIGRATION_AUTHORITY_REQUIRED'; end if; end$$;"
+      ]
+    },
+    {
+      "ordinal": 63,
+      "path": "supabase/migrations/20261015233307_h5_joint_closure_reopening.sql",
+      "sha256": "a58cb35c5a6fad3c78580377218bc6e8839bdeb0ac62cbe68cfd3919e38043b0",
+      "bytes": 17599,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- TSK-H5-015: explicit joint closure and durable material invalidation.",
+        "-- Reuses H5-013 evaluators. Historical migrations and assessments are immutable.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 64,
+      "path": "supabase/migrations/20261016142812_h5_protected_diagnostics.sql",
+      "sha256": "d0074d82800cd51805c63be61cdfab6e392750d147884b62294e8cb12e5e3063",
+      "bytes": 26778,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-017: private technical locator, never a business attestation.",
+        "-- Forward only from63. No retention, deletion, scheduler or retry policy.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 65,
+      "path": "supabase/migrations/20261016174248_h5_diagnostic_context_reference_fix.sql",
+      "sha256": "ff33bbe69239226f043a352379ad088556f78557943532110fd15638c479cdb0",
+      "bytes": 26383,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-017/H5-018 Block C F01/F02. Forward from64; history and ACL stay intact.",
+        "begin;",
+        "do $$begin if current_user<>'crm_h0_migration'then raise exception 'DIAGNOSTIC_MIGRATION_AUTHORITY_REQUIRED';end if;end$$;"
+      ]
+    },
+    {
+      "ordinal": 66,
+      "path": "supabase/migrations/20261016192425_h5_diagnostic_temporal_trace.sql",
+      "sha256": "dff04069aac713b87cd07b82e69d7ca5811a9ef1290dd6599605dd1eced1600c",
+      "bytes": 4602,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-018-2-F01: keep authorized historical request provenance after work revision.",
+        "-- Forward66. No data rewrite, new object, privilege, policy or business transition.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 67,
+      "path": "supabase/migrations/20261016220850_h5_diagnostic_owned_references.sql",
+      "sha256": "45ee62b013979f09b1145b6fa3ad096f88f676bc2170f48e245b7df2ca8c28a5",
+      "bytes": 28282,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-018-3-F01/F02. Forward67: canonical execution ownership and typed parent history.",
+        "-- Only three existing function bodies change. No row rewrite, object or privilege added.",
+        "begin;"
+      ]
+    },
+    {
+      "ordinal": 68,
+      "path": "supabase/migrations/20261017004525_h5_diagnostic_version_provenance_replay.sql",
+      "sha256": "69f8bdddb1acd5fbef1d2154ae81d16a6ecc1a0f5ed34783a99c11dbb83e9563",
+      "bytes": 30457,
+      "package": "5",
+      "authority": "crm_h0_migration",
+      "header": [
+        "-- H5-018-4-F01/F02. Forward68: version-scoped provenance and authorized exact replay.",
+        "-- Three existing function bodies only; no row rewrite, object, grant or policy change.",
+        "begin;"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,311 @@
+{
+  "createdUtc": "2026-10-19T23:37:40.099128+00:00",
+  "base": "8a5f1408777b81b760a02646fa414a34dc17983e",
+  "tree": "758e871c7ad621dcbdb69516cccd175e529dbd6e",
+  "custodyReceipt": {
+    "path": "/Users/andres/Documents/CRM_HUESCAVENTURA_AUDIT_CUSTODY/H6-013-precorrectivo-20261019T233427Z/custody-receipt.json",
+    "sha256": "d5475c0f6e73fe372478844e6743b89d967d06deca8a2374232ca3af8fd712ac"
+  },
+  "normative": [
+    "Tasks 2.2 V-MIG/V-DAT/V-NEG/V-EVI",
+    "Tasks 2.3,6,7 and TSK-H6-013",
+    "Plan 5.4,10.1,11.4",
+    "SPEC-FR-HIST-002",
+    "AC-079",
+    "P13",
+    "G4"
+  ],
+  "securityExpected": "inputs/expected-definers.json",
+  "negativeControls": [
+    "unsafe owner on previously omitted crm_ha function",
+    "search_path=public",
+    "search_path=pg_temp,pg_catalog",
+    "missing function search_path",
+    "incomplete four-schema inventory",
+    "unexpected SECURITY DEFINER outside CRM schemas",
+    "unexpected ordinary execute grant"
+  ],
+  "H1": {
+    "origins": [
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25
+    ],
+    "mandatoryOrigins": [
+      19,
+      20,
+      21,
+      22
+    ],
+    "additionalRationale": "18->19 integrates H0 into H1; 23->24 and 24->25 inherited count-only predecessor checks; 25->26 integrates H1 into H2. These adjacent transitions are within H6-013 preservation scope.",
+    "expected": "All original columns and rows byte-equivalent on legitimate SQL. New fields permitted solely as defined by official SQL. No prior-value transformation is prescribed for these eight steps.",
+    "fixtureValues": {
+      "probe": "SYNTHETIC H6 corrective preserved",
+      "contact": "SYNTHETIC H6 contact A",
+      "catalog": "SYNTHETIC H6 service",
+      "tariff": {
+        "label": "SYNTHETIC H6 tariff",
+        "price_state": "unknown",
+        "cost_state": "unknown"
+      },
+      "documentRef": "synthetic-h6013-original",
+      "objectState": "prepared",
+      "taskState": "pending"
+    },
+    "controls": [
+      "same row count with altered original value",
+      "deleted original row",
+      "changed existing relationship"
+    ],
+    "requiredChecks": [
+      "full old-column snapshot",
+      "real old primary/foreign keys",
+      "retained identity and relationships",
+      "explicit new-field defaults",
+      "RLS and ordinary privileges",
+      "actual FK and UNIQUE rejection",
+      "rollback injected SQL before COMMIT then original retry"
+    ],
+    "migrations": [
+      {
+        "ordinal": 18,
+        "path": "supabase/migrations/20260929000000_h0_m06_access_recovery.sql",
+        "sha256": "704efa623e281c37bf6032eefdf286c02700c64ab6446ccc11cb7289aad629fc",
+        "bytes": 15050,
+        "package": "0",
+        "authority": "crm_h0_migration",
+        "header": [
+          "-- H0-M06: isolated recovery gate. No provider, address, factor or secret is stored.",
+          "-- Forward only; previous actor, session, epoch and historical rows remain intact.",
+          "begin;"
+        ]
+      },
+      {
+        "ordinal": 19,
+        "path": "supabase/migrations/202609290001_h1_contextual_identities.sql",
+        "sha256": "f93b3ef87f75c3ee8b229d2f76d8255a0f004b23813a26e444e3e0e72ff2cb14",
+        "bytes": 28939,
+        "package": "1",
+        "authority": "crm_h0_migration",
+        "header": [
+          "-- H1-001: local identity records and contextual designations. Forward only.",
+          "-- H0 F1/F2 remain the admission authority; no real personal data is migrated.",
+          "begin;"
+        ]
+      },
+      {
+        "ordinal": 20,
+        "path": "supabase/migrations/202609290002_h1_merge_archive_codes.sql",
+        "sha256": "db58cdaa641ccf92c9fb7aa5c32ff27b9ce0bbd34cdd2e321d7cf33f394af798",
+        "bytes": 18711,
+        "package": "1",
+        "authority": "crm_h0_migration",
+        "header": [
+          "-- H1-003: human identity resolution and append-only annual code ledger.",
+          "begin;",
+          "do $$ begin"
+        ]
+      },
+      {
+        "ordinal": 21,
+        "path": "supabase/migrations/202609290003_h1_catalog_versions.sql",
+        "sha256": "6a7a3360e8840d7ad10bb0cc268d35410b87edf3e600c4389b0e4c2382d25350",
+        "bytes": 22906,
+        "package": "1",
+        "authority": "crm_h0_migration",
+        "header": [
+          "-- H1-005: local, structural catalog revisions and exact applied references.",
+          "begin;",
+          "do $$ begin"
+        ]
+      },
+      {
+        "ordinal": 22,
+        "path": "supabase/migrations/202609290004_h1_commercial_rules.sql",
+        "sha256": "9aba006c13e59449630e3e1f9b1fd04f01eba1e6aa1c4efc244ec3fbb8e9de38",
+        "bytes": 31275,
+        "package": "1",
+        "authority": "crm_h0_migration",
+        "header": [
+          "-- H1-007: local structural commercial configuration. No monetary engine or real catalog values.",
+          "begin;",
+          "do $$ begin"
+        ]
+      },
+      {
+        "ordinal": 23,
+        "path": "supabase/migrations/202609300001_h1_evidence_communications.sql",
+        "sha256": "8a773c60aa7e022cb30a3b26a680abacc9ebde1f42b37e340185195011ec38d2",
+        "bytes": 21098,
+        "package": "1",
+        "authority": "crm_h0_migration",
+        "header": [
+          "-- H1-013: immutable local B07 records and context links. No Storage objects or connectors.",
+          "begin;",
+          "do $$ begin"
+        ]
+      },
+      {
+        "ordinal": 24,
+        "path": "supabase/migrations/20260930170533_h1_private_object_conservation.sql",
+        "sha256": "c380e0d357ce8da779418b94623ee636a727619e8f5bc85a33afca2b8e0c09bb",
+        "bytes": 13821,
+        "package": "1",
+        "authority": "crm_h0_migration",
+        "header": [
+          "-- H1-015: Core metadata and recoverable conservation; no hosted/Storage DDL.",
+          "begin;",
+          "do $$ begin if current_user<>'crm_h0_migration' then"
+        ]
+      },
+      {
+        "ordinal": 25,
+        "path": "supabase/migrations/20260930185257_h1_pending_business_tasks.sql",
+        "sha256": "83590124eb3e85372076eb95e6a0b5aa3def76c8d6db61a6e5487281d509dc55",
+        "bytes": 11598,
+        "package": "1",
+        "authority": "crm_h0_migration",
+        "header": [
+          "-- H1-017: pending business work, not scheduler/Execution Record/Notification.",
+          "begin;",
+          "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'TASK_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501'; end if; end $$;"
+        ]
+      },
+      {
+        "ordinal": 26,
+        "path": "supabase/migrations/20261001081941_h2_commercial_progress.sql",
+        "sha256": "a0ac4480391209653b031bfb610c537e55fa40dc7261adbe707e93c1d2122b7e",
+        "bytes": 22811,
+        "package": "2",
+        "authority": "crm_h0_migration",
+        "header": [
+          "-- H2-001 only. No Proposal/Version, Acceptance, Booking or external effects.",
+          "begin;",
+          "do $$ begin if current_user<>'crm_h0_migration' then raise exception 'COMMERCIAL_MIGRATION_AUTHORITY_REQUIRED' using errcode='42501'; end if; end $$;"
+        ]
+      }
+    ],
+    "originsProvenance": [
+      {
+        "schemaPrefix": 18,
+        "matchingSourceCommit": "8c29421b1e66e230c82c311df814f05065d3355c",
+        "filesInThatCommit": 18,
+        "wholeGitTreeIsExactSchemaVersion": true,
+        "allPrefixBytesVerified": true,
+        "classification": "exact versioned SQL prefix in authentic Git tree",
+        "prefixSetSha256": "a72134fa8a66f8e8b0cccd3c4efe55468fed7c85aebef2c19e854493eb49fccf"
+      },
+      {
+        "schemaPrefix": 19,
+        "matchingSourceCommit": "bb259a9278727a60f14f1f22bfc1a1c85872a631",
+        "filesInThatCommit": 19,
+        "wholeGitTreeIsExactSchemaVersion": true,
+        "allPrefixBytesVerified": true,
+        "classification": "exact versioned SQL prefix in authentic Git tree",
+        "prefixSetSha256": "e3bc5f487e1eb7cd4ed6b39716fef9ac439c60c9ee8db919c2b3cd9816da6c28"
+      },
+      {
+        "schemaPrefix": 20,
+        "matchingSourceCommit": "5a9d545ce4e29a1359ed431ebb409766df080d95",
+        "filesInThatCommit": 20,
+        "wholeGitTreeIsExactSchemaVersion": true,
+        "allPrefixBytesVerified": true,
+        "classification": "exact versioned SQL prefix in authentic Git tree",
+        "prefixSetSha256": "c63f9d755fd63d5efa08d2570d3bf12eea04cad1758e56c76d15391781b694d6"
+      },
+      {
+        "schemaPrefix": 21,
+        "matchingSourceCommit": "4e4aae9b523863766438e45d7018524c69ed1e97",
+        "filesInThatCommit": 21,
+        "wholeGitTreeIsExactSchemaVersion": true,
+        "allPrefixBytesVerified": true,
+        "classification": "exact versioned SQL prefix in authentic Git tree",
+        "prefixSetSha256": "3906f185b7ad7c38f970e87954b8da5fc610b6105e05d6e1753fd0f4ad68a035"
+      },
+      {
+        "schemaPrefix": 22,
+        "matchingSourceCommit": "f4d51d21b7abe8801975a2bf60e4237eeed5e4c9",
+        "filesInThatCommit": 22,
+        "wholeGitTreeIsExactSchemaVersion": true,
+        "allPrefixBytesVerified": true,
+        "classification": "exact versioned SQL prefix in authentic Git tree",
+        "prefixSetSha256": "e25a99b81966e6db2b24d08f3841fed0edf345134827769c613a97553aa1404e"
+      },
+      {
+        "schemaPrefix": 23,
+        "matchingSourceCommit": "f4725aa3372193730065e3838c1e81518b0dc681",
+        "filesInThatCommit": 23,
+        "wholeGitTreeIsExactSchemaVersion": true,
+        "allPrefixBytesVerified": true,
+        "classification": "exact versioned SQL prefix in authentic Git tree",
+        "prefixSetSha256": "014c0fc50df137e29481187ee3d7a9142d4a70bb556cf42426730f7bb8064722"
+      },
+      {
+        "schemaPrefix": 24,
+        "matchingSourceCommit": "818171bbbc912ce116548c3626ea3ba899e98ec1",
+        "filesInThatCommit": 24,
+        "wholeGitTreeIsExactSchemaVersion": true,
+        "allPrefixBytesVerified": true,
+        "classification": "exact versioned SQL prefix in authentic Git tree",
+        "prefixSetSha256": "d00a29c019f28cb783cb5b975d2a28e9c1ee0633ab193301c1fd8b5b5a63e1d2"
+      },
+      {
+        "schemaPrefix": 25,
+        "matchingSourceCommit": "4f287c2ad02ac21c8f56bd9a979f24e102d0c975",
+        "filesInThatCommit": 25,
+        "wholeGitTreeIsExactSchemaVersion": true,
+        "allPrefixBytesVerified": true,
+        "classification": "exact versioned SQL prefix in authentic Git tree",
+        "prefixSetSha256": "6e1154c15a47fe1688cebaa4e7bc7cd8a2fe6304cceea8a7fa3238e6a16e07f3"
+      },
+      {
+        "schemaPrefix": 26,
+        "matchingSourceCommit": "6aba8be5dfffdca46c355b405314fb261643869b",
+        "filesInThatCommit": 26,
+        "wholeGitTreeIsExactSchemaVersion": true,
+        "allPrefixBytesVerified": true,
+        "classification": "exact versioned SQL prefix in authentic Git tree",
+        "prefixSetSha256": "d3c538c89226391725e6bac12bfc521652382d40cc18073f9d0915706a74372b"
+      }
+    ]
+  },
+  "originalExpectedUntouched": [
+    {
+      "path": "specs/001-core-crm/expected-TSK-H6-013.md",
+      "sha256": "2933ea98587883d835c5f5ef1ed1e12c04e91dcb5ebe525a2b78bf7dfcca289d"
+    },
+    {
+      "path": "specs/001-core-crm/expected-TSK-H6-013-v2.md",
+      "sha256": "fcaa02c20e2ed4879ebdd66e15d5ce703d13cb78282e32636d9302b18500dd4c"
+    },
+    {
+      "path": "tests/fixtures/h6-013/expected-seal.json",
+      "sha256": "56ed052ce96eb4989c4fc40b14577c05f164d4f25b7d605112f99b528d52052d"
+    },
+    {
+      "path": "tests/fixtures/h6-013/expected-seal-v2.json",
+      "sha256": "cca7c814f216a228723add7543d16989aa91d33355dd630364f6fd037fda8893"
+    },
+    {
+      "path": "tests/fixtures/h6-013/expected-seal-v3.json",
+      "sha256": "109a67c75934ca2ccaa6855e20a0e03b0884c13d2d26e02e44c635a97272fbc8"
+    },
+    {
+      "path": "tests/fixtures/h6-013/candidate-manifest.json",
+      "sha256": "64bd0caf4f307404f325d9351c9545a60473cf24827b3cbda1d31aad1ff8f0fa"
+    },
+    {
+      "path": "tests/fixtures/h6-013/candidate-seal.json",
+      "sha256": "36b54b4dc27b424ca0c69d453b9d970474aa7ae0d835b83ea6f68618d8e2a384"
+    },
+    {
+      "path": "tests/fixtures/h6-013/final-readback.json",
+      "sha256": "149cb16f5faa152fbb2c98aee90fd37811d0074831c82267b8429e08eed1cabf"
+    }
+  ]
+}

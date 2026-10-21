@@ -1,0 +1,247 @@
+{
+  "version": "H6-013-corrective-v2",
+  "preparedUtc": "2026-10-20T16:29:58.626467+00:00",
+  "base": "8a5f1408777b81b760a02646fa414a34dc17983e",
+  "sources": {
+    "docs/DECISIONS.md": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe",
+    "docs/architecture.md": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117",
+    "docs/business-rules.md": "ab2504153a32ef9abfaec45efa5ee6846fc9ebcd8b5c244877d0d633ebfcbc07",
+    "docs/constitution.md": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a",
+    "docs/domain-model.md": "f9fafbb715ca57ef843d673af3a475847b4bcae6c37c0469552430c2a8558ddf",
+    "docs/state-machines.md": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240",
+    "specs/001-core-crm/plan.md": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e",
+    "specs/001-core-crm/spec.md": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747",
+    "specs/001-core-crm/tasks.md": "72c970477eb86bfa3932dcbf0df4f1d15f64d7a7f18c78272322d2c6cd786d5f"
+  },
+  "basis": [
+    "Tasks 2.2 V-MIG: preserve all identifiers, relations, snapshots, history, amounts, portions and permissions",
+    "Tasks 2.3: no false-positive closure",
+    "Plan 10.1: independent exact expected; preserve failures",
+    "AUD2-H6013-01/02: reproducible counterexamples; no product changes"
+  ],
+  "searchPath": [
+    "pg_catalog",
+    "pg_temp"
+  ],
+  "securityCases": [
+    {
+      "id": "valid-lower",
+      "config": [
+        "search_path=pg_catalog, pg_temp"
+      ],
+      "accept": true,
+      "effective": "pg_catalog, pg_temp"
+    },
+    {
+      "id": "valid-upper",
+      "config": [
+        "SEARCH_PATH=pg_catalog, pg_temp"
+      ],
+      "accept": true,
+      "effective": "pg_catalog, pg_temp"
+    },
+    {
+      "id": "valid-mixed",
+      "config": [
+        "sEaRcH_pAtH=pg_catalog, pg_temp"
+      ],
+      "accept": true,
+      "effective": "pg_catalog, pg_temp"
+    },
+    {
+      "id": "public",
+      "config": [
+        "search_path=public"
+      ],
+      "accept": false,
+      "effective": "public"
+    },
+    {
+      "id": "additional",
+      "config": [
+        "search_path=pg_catalog, public, pg_temp"
+      ],
+      "accept": false,
+      "effective": "pg_catalog, public, pg_temp"
+    },
+    {
+      "id": "reverse",
+      "config": [
+        "search_path=pg_temp, pg_catalog"
+      ],
+      "accept": false,
+      "effective": "pg_temp, pg_catalog"
+    },
+    {
+      "id": "missing",
+      "config": [],
+      "accept": false
+    },
+    {
+      "id": "same-case-duplicate",
+      "config": [
+        "search_path=pg_catalog, pg_temp",
+        "search_path=public"
+      ],
+      "accept": false,
+      "effective": "public"
+    },
+    {
+      "id": "mixed-case-duplicate",
+      "config": [
+        "search_path=pg_catalog, pg_temp",
+        "SEARCH_PATH=public"
+      ],
+      "accept": false,
+      "effective": "public"
+    },
+    {
+      "id": "mixed-reverse-duplicate",
+      "config": [
+        "SeArCh_PaTh=public",
+        "search_path=pg_catalog, pg_temp"
+      ],
+      "accept": false,
+      "effective": "pg_catalog, pg_temp"
+    },
+    {
+      "id": "same-value-duplicate",
+      "config": [
+        "search_path=pg_catalog, pg_temp",
+        "Search_Path=pg_catalog, pg_temp"
+      ],
+      "accept": false,
+      "effective": "pg_catalog, pg_temp"
+    }
+  ],
+  "numericCases": [
+    {
+      "id": "unsafe-unit",
+      "column": "v",
+      "a": "9007199254740992",
+      "b": "9007199254740993",
+      "equal": false
+    },
+    {
+      "id": "negative-unsafe-unit",
+      "column": "v",
+      "a": "-9007199254740992",
+      "b": "-9007199254740993",
+      "equal": false
+    },
+    {
+      "id": "safe-unit",
+      "column": "v",
+      "a": "42",
+      "b": "43",
+      "equal": false
+    },
+    {
+      "id": "safe-boundary",
+      "column": "v",
+      "a": "9007199254740991",
+      "b": "9007199254740992",
+      "equal": false
+    },
+    {
+      "id": "bigint-extremes",
+      "column": "v",
+      "a": "-9223372036854775808",
+      "b": "9223372036854775807",
+      "equal": false
+    },
+    {
+      "id": "decimal-exact",
+      "column": "n",
+      "a": "12345678901234567890.000000000000000001",
+      "b": "12345678901234567890.000000000000000002",
+      "equal": false
+    },
+    {
+      "id": "decimal-format",
+      "column": "n",
+      "a": "1.00",
+      "b": "1.0000",
+      "equal": true
+    },
+    {
+      "id": "negative-zero",
+      "column": "n",
+      "a": "-0.000",
+      "b": "0",
+      "equal": true
+    },
+    {
+      "id": "null-present",
+      "column": "n",
+      "a": null,
+      "b": "0",
+      "equal": false
+    },
+    {
+      "id": "nested-bigint",
+      "column": "j",
+      "a": "{\"x\":[9007199254740992,{\"n\":1.20}]}",
+      "b": "{\"x\":[9007199254740993,{\"n\":1.20}]}",
+      "equal": false
+    },
+    {
+      "id": "nested-equivalent",
+      "column": "j",
+      "a": "{\"x\":1.20,\"y\":[0.00,-2.00]}",
+      "b": "{\"y\":[-0,-2e0],\"x\":12e-1}",
+      "equal": true
+    },
+    {
+      "id": "nested-types",
+      "column": "j",
+      "a": "{\"x\":1}",
+      "b": "{\"x\":\"1\"}",
+      "equal": false
+    },
+    {
+      "id": "nested-null",
+      "column": "j",
+      "a": "{\"x\":null}",
+      "b": "{}",
+      "equal": false
+    },
+    {
+      "id": "unchanged",
+      "column": "v",
+      "a": "9007199254740993",
+      "b": "9007199254740993",
+      "equal": true
+    }
+  ],
+  "canonicalPolicy": "JSONB semantics: exact coefficient/exponent, normalized decimal scale and signed zero; tagged JSON primitive/container types, sorted object keys and canonical rows, preserved array order/multiplicity; selected SQL column types included. Raw JSON is server-normalized as in existing comparator. No comparison through IEEE754 Number.",
+  "originalFixture": {
+    "source": "second-independent/fixture-numeric-precision.json",
+    "numericValues": 55,
+    "unsafeValues": 0,
+    "maxIntegerMagnitude": 2026,
+    "tables": 53
+  },
+  "coverage": {
+    "H1Edges": [
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "longOrigins": [
+      26,
+      30,
+      33,
+      52,
+      63
+    ],
+    "longTransitions": 136,
+    "definersAtCurrentCandidate": 132,
+    "countsAreFixtureObservationsNotUniversalNorms": true
+  }
+}

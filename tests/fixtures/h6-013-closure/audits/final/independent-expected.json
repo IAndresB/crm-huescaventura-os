@@ -1,0 +1,176 @@
+{
+  "createdUtc": "2026-10-20T17:57:14.937070+00:00",
+  "basis": "Tasks V-MIG/V-DAT/V-EVI; approved preservation and exact version identity. PostgreSQL typed equality and EXCEPT ALL provide independent oracles; no candidate helper used to calculate expectations.",
+  "search": [
+    [
+      "valid-uppercase",
+      [
+        "SEARCH_PATH=pg_catalog, pg_temp"
+      ],
+      true
+    ],
+    [
+      "valid-mixed-with-unrelated-equals",
+      [
+        "application_name=a=b",
+        "SeArCh_PaTh=pg_catalog, pg_temp"
+      ],
+      true
+    ],
+    [
+      "original-defect",
+      [
+        "search_path=pg_catalog, pg_temp",
+        "SEARCH_PATH=public"
+      ],
+      false
+    ],
+    [
+      "triple-ambiguous",
+      [
+        "SEARCH_PATH=public",
+        "search_path=pg_catalog, pg_temp",
+        "Search_Path=pg_catalog, pg_temp"
+      ],
+      false
+    ],
+    [
+      "samecase-duplicate",
+      [
+        "search_path=pg_catalog, pg_temp",
+        "search_path=pg_catalog, pg_temp"
+      ],
+      false
+    ],
+    [
+      "reversed",
+      [
+        "SEARCH_PATH=pg_temp, pg_catalog"
+      ],
+      false
+    ],
+    [
+      "additional",
+      [
+        "sEARCH_pATH=pg_catalog, public, pg_temp"
+      ],
+      false
+    ],
+    [
+      "user-path",
+      [
+        "search_path=\"$user\", public"
+      ],
+      false
+    ],
+    [
+      "missing",
+      [
+        "application_name=auditor"
+      ],
+      false
+    ],
+    [
+      "empty",
+      [
+        "search_path="
+      ],
+      false
+    ]
+  ],
+  "jsonPairs": [
+    [
+      "9007199254740992",
+      "9007199254740993"
+    ],
+    [
+      "-9007199254740992",
+      "-9007199254740993"
+    ],
+    [
+      "9223372036854775806",
+      "9223372036854775807"
+    ],
+    [
+      "-9223372036854775808",
+      "-9223372036854775807"
+    ],
+    [
+      "1.000000000000000000001",
+      "1.000000000000000000002"
+    ],
+    [
+      "1.20000",
+      "12e-1"
+    ],
+    [
+      "-0.00",
+      "0"
+    ],
+    [
+      "1e400",
+      "10e399"
+    ],
+    [
+      "1e-1000",
+      "0"
+    ],
+    [
+      "{\"a\":[9007199254740992,{\"b\":2.100}]}",
+      "{\"a\":[9007199254740993,{\"b\":2.1}]}"
+    ],
+    [
+      "{\"x\":1.0,\"y\":[true,null]}",
+      "{\"y\":[true,null],\"x\":1}"
+    ],
+    [
+      "1",
+      "\"1e0\""
+    ],
+    [
+      "1",
+      "[\"number\",\"1e0\"]"
+    ],
+    [
+      "1",
+      "{\"value\":\"1e0\"}"
+    ],
+    [
+      "[1,1]",
+      "[1]"
+    ],
+    [
+      "[1,2]",
+      "[2,1]"
+    ],
+    [
+      "{\"x\":null}",
+      "{}"
+    ],
+    [
+      "null",
+      "\"null\""
+    ],
+    [
+      "{\"__proto__\":1.0}",
+      "{\"__proto__\":1}"
+    ],
+    [
+      "{\"x\":1,\"x\":2}",
+      "{\"x\":2}"
+    ]
+  ],
+  "mutations": {
+    "positive-bigint": false,
+    "negative-bigint": false,
+    "decimal-exact": false,
+    "nested-json": false,
+    "null-present": false,
+    "json-null-present": false,
+    "reference-valid": false,
+    "same-count-duplicate-row": false,
+    "row-order": true,
+    "decimal-scale": true
+  },
+  "restoration": "After every transaction, independent typed multiset must equal the baseline; all own clusters stopped."
+}

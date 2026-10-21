@@ -1,0 +1,1620 @@
+{
+  "from": 20,
+  "to": 21,
+  "after": {
+    "crm_f1.consumption": {
+      "columns": [
+        "generation",
+        "database_oid",
+        "xid",
+        "capability_id",
+        "expires_us"
+      ],
+      "columnTypes": [
+        "text",
+        "oid",
+        "xid8",
+        "text",
+        "bigint"
+      ],
+      "count": 0,
+      "sha256": "26781a1d57f38227a9ffcc8088b8f00ea0e754d21f59d1228ff6377beca5b36c"
+    },
+    "crm_f1.keys": {
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ],
+      "columnTypes": [
+        "text",
+        "bytea",
+        "text",
+        "text",
+        "text[]",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "1ab35d895ca96a7670ddc1a2fe5b70281e33e1f448c49bf8f0e6bebecd7b8138"
+    },
+    "crm_f2.keys": {
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ],
+      "columnTypes": [
+        "text",
+        "bytea",
+        "text",
+        "text",
+        "text[]",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "08485923b402832991d6ef2751a3928dd8c059dc40173e4e7c108d08e430cff1"
+    },
+    "crm_ha.command_receipts": {
+      "columns": [
+        "command_id",
+        "command_fingerprint",
+        "command_name",
+        "proposal_id",
+        "decision_id",
+        "reservation_id",
+        "attempt_id",
+        "state",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "44751df7e62428ffe803a1232faf0fdc19ed99a5e5c5bf58a9fcd4e8c9c7505e"
+    },
+    "crm_ha.decisions": {
+      "columns": [
+        "decision_id",
+        "proposal_id",
+        "material_fingerprint",
+        "decision",
+        "reason",
+        "actor_id",
+        "session_id",
+        "decided_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "146f607203e516080a1637452fb86d0658fe9f1e01720aa341d956f3ba696d6f"
+    },
+    "crm_ha.events": {
+      "columns": [
+        "event_id",
+        "proposal_id",
+        "reservation_id",
+        "attempt_id",
+        "event_kind",
+        "actor_kind",
+        "actor_identity",
+        "recorded_at",
+        "details_fingerprint"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "225ec317774132e7e0cab40bbbdd2b3925fefe053d73bec58684fc98fcd56f76"
+    },
+    "crm_ha.evidence_revalidations": {
+      "columns": [
+        "command_id",
+        "proposal_id",
+        "part_id",
+        "command_fingerprint",
+        "reference",
+        "fingerprint",
+        "checked_us",
+        "source_valid_until_us",
+        "approved_until_us",
+        "effective_until_us",
+        "verifier_identity",
+        "verifier_kind",
+        "context_scope",
+        "created_xid",
+        "recorded_at",
+        "outcome"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "bigint",
+        "bigint",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "xid8",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "8e6dba8206e7bfc1573a1379aa76d75cb97a14a98058661853bf8d36ba635da3"
+    },
+    "crm_ha.parts": {
+      "columns": [
+        "proposal_id",
+        "part_id",
+        "material_fingerprint",
+        "material_payload"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "bytea"
+      ],
+      "count": 0,
+      "sha256": "fca720433be5238f52a2be5d179237bf2516c1c9b27b5dbc6bfeac176866352a"
+    },
+    "crm_ha.proposals": {
+      "columns": [
+        "proposal_id",
+        "material_fingerprint",
+        "material_payload",
+        "proposer_kind",
+        "proposer_actor",
+        "scope",
+        "created_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "bytea",
+        "text",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "45d6bb866aa14349cd8432993d1a690f1cda110c69f40048b1dfa8f247e77953"
+    },
+    "crm_ha.reservations": {
+      "columns": [
+        "reservation_id",
+        "proposal_id",
+        "decision_id",
+        "part_id",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "state",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "58c8f076b0a24c211ff2c4e6ed8a99e1f82d9520e4f9ebfb20c8c79e29010728"
+    },
+    "crm_private.access_probe": {
+      "columns": [
+        "probe_id",
+        "context_scope",
+        "public_value",
+        "private_value"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 1,
+      "sha256": "809556605532c9d49bb4000aaaea9911667aff3a8ffd3ff7bb145fe18a6d6349"
+    },
+    "crm_private.access_recoveries": {
+      "columns": [
+        "recovery_id",
+        "actor_id",
+        "auth_subject",
+        "recovery_kind",
+        "admin_scope",
+        "previous_generation",
+        "access_generation",
+        "started_at",
+        "auth_state",
+        "auth_recorded_at",
+        "completed_at",
+        "password_ready",
+        "totp_verified",
+        "new_factor_enrolled",
+        "old_factor_revoked",
+        "new_paper_copy_verified"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "bigint",
+        "bigint",
+        "timestamp with time zone",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean",
+        "boolean",
+        "boolean",
+        "boolean",
+        "boolean"
+      ],
+      "count": 0,
+      "sha256": "b66537e02d7dcea66c489f6f098175735d494f7b52bf4fa6390bbdad2170f8a3"
+    },
+    "crm_private.crm_actors": {
+      "columns": [
+        "actor_id",
+        "singleton",
+        "auth_subject",
+        "admin_scope",
+        "enabled",
+        "access_generation",
+        "access_state",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "boolean",
+        "uuid",
+        "text",
+        "boolean",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "43ba8ad2eaa4b0bd76c09521e9e2026cbcd740ed0e9e82dcea84dc3a27061340"
+    },
+    "crm_private.crm_sessions": {
+      "columns": [
+        "session_id",
+        "actor_id",
+        "auth_subject",
+        "access_generation",
+        "created_at",
+        "revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "a94045da007238262bc20807142ecf48a8aec725f98c6cd9a46510c392d8c753"
+    },
+    "crm_private.external_effect_records": {
+      "columns": [
+        "record_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "effect_id",
+        "stage",
+        "intent_id",
+        "attempt_id",
+        "destination_reference",
+        "content_version",
+        "content_fingerprint",
+        "outcome",
+        "result_reference",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8e18393a659df09b3c7455fccd996bc9d02a95ec60c6bd1fcfc25a89a81ee0a1"
+    },
+    "crm_private.global_access_revocation_attempts": {
+      "columns": [
+        "attempt_id",
+        "revocation_id",
+        "attempt_number",
+        "outcome",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "integer",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b1fd009d0f5dcf4a2e803ad3f0b8472fb8a6816a54fd0f676060c0af2825715a"
+    },
+    "crm_private.global_access_revocations": {
+      "columns": [
+        "revocation_id",
+        "actor_id",
+        "auth_subject",
+        "initiating_session_id",
+        "previous_access_generation",
+        "access_generation",
+        "admin_scope",
+        "core_revoked_at",
+        "auth_state",
+        "auth_attempt_count",
+        "last_auth_attempt_at",
+        "auth_revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "integer",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "67d4d5ce43a2f3b3aa0ee6535d004fde9faac33e70285866cda53c6e511c7f79"
+    },
+    "crm_private.identification_epochs": {
+      "columns": [
+        "epoch_id",
+        "session_id",
+        "identified_at",
+        "last_human_activity_at",
+        "full_password",
+        "full_mfa",
+        "access_state",
+        "current_epoch",
+        "closed_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean",
+        "boolean",
+        "text",
+        "boolean",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "1150aaf07df67c79641f364d006b02cd21d97928bf720ec4ea5fb869e4235378"
+    },
+    "crm_private.identity_code_counters": {
+      "columns": [
+        "code_kind",
+        "code_year",
+        "last_serial"
+      ],
+      "columnTypes": [
+        "text",
+        "integer",
+        "bigint"
+      ],
+      "count": 1,
+      "sha256": "cb40c2890747557d9072fc0961e8b3425f88531f7eaa670ac4b4b280e584fa25"
+    },
+    "crm_private.identity_codes": {
+      "columns": [
+        "code_id",
+        "operation_id",
+        "code_kind",
+        "target_id",
+        "admin_scope",
+        "code_year",
+        "serial_number",
+        "human_code",
+        "assigned_at",
+        "source_ref",
+        "evidence_ref",
+        "actor_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "integer",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "uuid"
+      ],
+      "count": 1,
+      "sha256": "b28f295fd5a4f5b94465125d02bff9f2c74d7cef6f08bc070e044a81ed298791"
+    },
+    "crm_private.identity_contexts": {
+      "columns": [
+        "context_id",
+        "context_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "verified",
+        "version",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "dc9239cc942c5a062670e93bb307b5a4c4031ae1c56fa165d927fd7e2418c5f0"
+    },
+    "crm_private.identity_designations": {
+      "columns": [
+        "designation_id",
+        "context_id",
+        "party_id",
+        "party_kind",
+        "role_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "verified",
+        "recorded_by",
+        "effective_at",
+        "recorded_at",
+        "ended_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "e6e9e1d3bac7774543d0b7e9904aee8e8f0608894b17f1df383ac022e6e5b016"
+    },
+    "crm_private.identity_entities": {
+      "columns": [
+        "identity_id",
+        "identity_kind",
+        "admin_scope",
+        "context_id",
+        "display_name",
+        "given_name",
+        "family_name",
+        "email",
+        "phone",
+        "group_type",
+        "estimated_size",
+        "confirmed_size",
+        "size_source",
+        "source_ref",
+        "evidence_ref",
+        "identity_verified",
+        "version",
+        "created_at",
+        "updated_at",
+        "archived_at",
+        "merged_into_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "integer",
+        "integer",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid"
+      ],
+      "count": 3,
+      "sha256": "3c54a49735156fe30e9a14dff3480afa368531b53967c7ec631e62589fc8de6a"
+    },
+    "crm_private.identity_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "context_id",
+        "related_id",
+        "subject_kind",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "happened_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 8,
+      "sha256": "299aa78aaa971203b1870c328c282a62aaafebce2183081cd9318975285ac207"
+    },
+    "crm_private.identity_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "material_fingerprint",
+        "action_kind",
+        "result_ref",
+        "resulting_version",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 8,
+      "sha256": "fb9c699682dbd6a04422a67e1544ea02ffa21826bd1cb0175a6b0ee16c909774"
+    },
+    "crm_private.identity_organization_contacts": {
+      "columns": [
+        "link_id",
+        "organization_id",
+        "organization_kind",
+        "contact_id",
+        "contact_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "dcb2589b48412f762bdf6cb15118d7ede219e59c06df5ae019e0e1d3a18edc55"
+    },
+    "crm_private.unit_attempts": {
+      "columns": [
+        "attempt_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "attempt_kind",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "fc78445fd208658299b75dc8495040da091014ec217a4dfed75f4e1c3f56d3a0"
+    },
+    "crm_private.unit_history": {
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "fact_kind",
+        "before_value",
+        "after_value",
+        "reason",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "actor_id",
+        "actor_kind",
+        "evidence_state"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "3b0c84aedc708d22bccd99b990eb61b346098778e75cbc0c51149946bc358de6"
+    },
+    "crm_private.unit_operations": {
+      "columns": [
+        "operation_id",
+        "operation_class",
+        "root_id",
+        "context_scope",
+        "material_fingerprint",
+        "actor_id",
+        "actor_kind",
+        "purpose",
+        "cause",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "expected_version",
+        "resulting_version",
+        "initial_attempt_id",
+        "effect_id",
+        "intent_id"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "bigint",
+        "bigint",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "9319d04ca1669df10c06af79beb21cf47f73ebaed43a2390097a21c731f6ceeb"
+    },
+    "crm_private.unit_results": {
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "result_state",
+        "resulting_version",
+        "after_value",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "fixed_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "d7eb7722d11cda4769e23e6a7a52c5e6e838920c3a4b36700ee3e0ee3412b644"
+    },
+    "crm_private.unit_roots": {
+      "columns": [
+        "root_id",
+        "context_scope",
+        "version",
+        "current_value",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "512d46182bd9d8618bbf85eb09b3e1aae282f4fa57f644040835638c0d678666"
+    }
+  },
+  "businessValuesAndRelations": {
+    "crm_private.identity_code_counters": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"code_kind\",[\"string\",\"OP\"]],[\"code_year\",[\"number\",\"2026e0\"]],[\"last_serial\",[\"number\",\"1e0\"]]]]]]]"
+    ],
+    "crm_private.identity_codes": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"assigned_at\",[\"string\",\"2026-10-20T18:35:09.068044+02:00\"]],[\"code_id\",[\"string\",\"d168fb65-1f65-4e2a-a54d-b1ab58bb1a5b\"]],[\"code_kind\",[\"string\",\"OP\"]],[\"code_year\",[\"number\",\"2026e0\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"human_code\",[\"string\",\"OP-2026-0001\"]],[\"operation_id\",[\"string\",\"d168fb65-1f65-4e2a-a54d-b1ab58bb1a5b\"]],[\"serial_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"target_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]]]]]]]"
+    ],
+    "crm_private.identity_contexts": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"context_kind\",[\"string\",\"opportunity\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.239+02:00\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"verified\",[\"boolean\",true]],[\"version\",[\"number\",\"1e0\"]]]]]]]"
+    ],
+    "crm_private.identity_designations": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"designation_id\",[\"string\",\"fb48bd7c-f4f8-470b-b399-6d563c0d5239\"]],[\"effective_at\",[\"null\"]],[\"ended_at\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"party_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"party_kind\",[\"string\",\"contact\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.241667+02:00\"]],[\"recorded_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"role_kind\",[\"string\",\"primary_contact\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"verified\",[\"boolean\",true]]]]]]]"
+    ],
+    "crm_private.identity_entities": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"archived_at\",[\"null\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.230902+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact A\"]],[\"email\",[\"string\",\"synthetic@example.invalid\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"merged_into_id\",[\"null\"]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.230902+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"archived_at\",[\"string\",\"2026-10-20T18:35:09.070649+02:00\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact B\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"merged_into_id\",[\"null\"]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:09.070649+02:00\"]],[\"version\",[\"number\",\"1e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"archived_at\",[\"null\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.236824+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 organization\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"identity_kind\",[\"string\",\"organization\"]],[\"identity_verified\",[\"boolean\",true]],[\"merged_into_id\",[\"null\"]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.236824+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]]]]"
+    ],
+    "crm_private.identity_history": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"contact_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"contact_kind\",[\"string\",\"contact\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"link_id\",[\"string\",\"40c8670f-890e-4901-9247-44e3ee0ab9c4\"]],[\"organization_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"organization_kind\",[\"string\",\"organization\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.244865+02:00\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"96431918-ba69-43d9-837d-78ac21194b37\"]],[\"operation_id\",[\"string\",\"96431918-ba69-43d9-837d-78ac21194b37\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.245255+02:00\"]],[\"related_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"40c8670f-890e-4901-9247-44e3ee0ab9c4\"]],[\"subject_kind\",[\"string\",\"link_organization_contact\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"designation_id\",[\"string\",\"fb48bd7c-f4f8-470b-b399-6d563c0d5239\"]],[\"effective_at\",[\"null\"]],[\"ended_at\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"party_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"party_kind\",[\"string\",\"contact\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.241667+02:00\"]],[\"recorded_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"role_kind\",[\"string\",\"primary_contact\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"verified\",[\"boolean\",true]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"c9d7164d-9dbc-46e7-b90e-f056dd4ab941\"]],[\"operation_id\",[\"string\",\"c9d7164d-9dbc-46e7-b90e-f056dd4ab941\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.242106+02:00\"]],[\"related_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"fb48bd7c-f4f8-470b-b399-6d563c0d5239\"]],[\"subject_kind\",[\"string\",\"designate\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"context_kind\",[\"string\",\"opportunity\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.239+02:00\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"verified\",[\"boolean\",true]],[\"version\",[\"number\",\"0e0\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"1255d595-0c11-4925-907a-c8a8aad31fbd\"]],[\"operation_id\",[\"string\",\"1255d595-0c11-4925-907a-c8a8aad31fbd\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.239309+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"subject_kind\",[\"string\",\"create_context\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"archived_at\",[\"string\",\"2026-10-20T18:35:09.070649+02:00\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact B\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"merged_into_id\",[\"null\"]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:09.070649+02:00\"]],[\"version\",[\"number\",\"1e0\"]]]]],[\"before_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"archived_at\",[\"null\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact B\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"merged_into_id\",[\"null\"]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]],[\"context_id\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"e289b1e9-a035-4556-b4e2-73fa23881081\"]],[\"operation_id\",[\"string\",\"e289b1e9-a035-4556-b4e2-73fa23881081\"]],[\"reason\",[\"string\",\"synthetic-archive\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:09.070786+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"subject_kind\",[\"string\",\"archive\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.230902+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact A\"]],[\"email\",[\"string\",\"synthetic@example.invalid\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.230902+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"5c8fd5fb-002e-4af1-aa16-a526891040f6\"]],[\"operation_id\",[\"string\",\"5c8fd5fb-002e-4af1-aa16-a526891040f6\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.231536+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"subject_kind\",[\"string\",\"create_entity\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact B\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"a5ebe3eb-b093-4d02-baa9-d898bfe3dd96\"]],[\"operation_id\",[\"string\",\"a5ebe3eb-b093-4d02-baa9-d898bfe3dd96\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.234669+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"subject_kind\",[\"string\",\"create_entity\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.236824+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 organization\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"identity_kind\",[\"string\",\"organization\"]],[\"identity_verified\",[\"boolean\",true]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.236824+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"315a700e-ebb9-4f47-8daf-57a9d186bcd7\"]],[\"operation_id\",[\"string\",\"315a700e-ebb9-4f47-8daf-57a9d186bcd7\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.236955+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"subject_kind\",[\"string\",\"create_entity\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"assigned_at\",[\"string\",\"2026-10-20T18:35:09.068044+02:00\"]],[\"code_kind\",[\"string\",\"OP\"]],[\"code_year\",[\"number\",\"2026e0\"]],[\"human_code\",[\"string\",\"OP-2026-0001\"]],[\"target_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"d168fb65-1f65-4e2a-a54d-b1ab58bb1a5b\"]],[\"operation_id\",[\"string\",\"d168fb65-1f65-4e2a-a54d-b1ab58bb1a5b\"]],[\"reason\",[\"string\",\"synthetic-code\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:09.068811+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"subject_kind\",[\"string\",\"assign_code\"]]]]]]]"
+    ],
+    "crm_private.identity_operations": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"archive\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"12f7fe83f162546c5817a916bc6b4342b14f3cd850e159e993545a60f4f7b042\"]],[\"operation_id\",[\"string\",\"e289b1e9-a035-4556-b4e2-73fa23881081\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:09.070733+02:00\"]],[\"result_ref\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"resulting_version\",[\"number\",\"1e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"assign_code\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"f7daadeee28591094ef9d4c26f3b876398ade27b708d6e06177396944dec992c\"]],[\"operation_id\",[\"string\",\"d168fb65-1f65-4e2a-a54d-b1ab58bb1a5b\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:09.06845+02:00\"]],[\"result_ref\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_context\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"9703c2c936a1c237867a2829a5c674595e1af6bc5296f9e06fb731bf12363ed6\"]],[\"operation_id\",[\"string\",\"1255d595-0c11-4925-907a-c8a8aad31fbd\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.239236+02:00\"]],[\"result_ref\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_entity\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"0fa1842dc6a1b9c5a237f6959709f13c7674186aefed78c1d1bd87639e7029cd\"]],[\"operation_id\",[\"string\",\"315a700e-ebb9-4f47-8daf-57a9d186bcd7\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.236901+02:00\"]],[\"result_ref\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_entity\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"6efee211dec3a0b6c9071eab9d807219f3fdaa3a0dc2f422f181a57671491aaa\"]],[\"operation_id\",[\"string\",\"a5ebe3eb-b093-4d02-baa9-d898bfe3dd96\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.234589+02:00\"]],[\"result_ref\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_entity\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"bf1eda9a4592ae7910a5872275910ed16606ce9bea62a1f1d21c332195f6f160\"]],[\"operation_id\",[\"string\",\"5c8fd5fb-002e-4af1-aa16-a526891040f6\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.23129+02:00\"]],[\"result_ref\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"designate\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"1a35bd7d4e5231530f86c739fcb4d5bae008d060148757e88c9875fc1d58709c\"]],[\"operation_id\",[\"string\",\"c9d7164d-9dbc-46e7-b90e-f056dd4ab941\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.242054+02:00\"]],[\"result_ref\",[\"string\",\"fb48bd7c-f4f8-470b-b399-6d563c0d5239\"]],[\"resulting_version\",[\"number\",\"1e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"link_organization_contact\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"f1a774275470e49885f75a1bf6a21cf5bec565c9a55a1d7695f463f11faba143\"]],[\"operation_id\",[\"string\",\"96431918-ba69-43d9-837d-78ac21194b37\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.245199+02:00\"]],[\"result_ref\",[\"string\",\"40c8670f-890e-4901-9247-44e3ee0ab9c4\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]"
+    ],
+    "crm_private.identity_organization_contacts": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"contact_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"contact_kind\",[\"string\",\"contact\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"link_id\",[\"string\",\"40c8670f-890e-4901-9247-44e3ee0ab9c4\"]],[\"organization_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"organization_kind\",[\"string\",\"organization\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.244865+02:00\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]]]]]]]"
+    ]
+  },
+  "equal": true,
+  "permissions": [
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_f1.consumption",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_f1.keys",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_f2.keys",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_ha.command_receipts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_ha.decisions",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_ha.events",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_ha.evidence_revalidations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_ha.parts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_ha.proposals",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_ha.reservations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.access_probe",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.access_recoveries",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.catalog_applications",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.catalog_history",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.catalog_items",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.catalog_operations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.catalog_revisions",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.crm_actors",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.crm_sessions",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.external_effect_records",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.global_access_revocation_attempts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.global_access_revocations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.identification_epochs",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.identity_code_counters",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.identity_codes",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.identity_contexts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.identity_designations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.identity_entities",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.identity_history",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.identity_operations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.identity_organization_contacts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.unit_attempts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.unit_history",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.unit_operations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.unit_results",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_runtime",
+      "table": "crm_private.unit_roots",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_f1.consumption",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_f1.keys",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_f2.keys",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_ha.command_receipts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_ha.decisions",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_ha.events",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_ha.evidence_revalidations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_ha.parts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_ha.proposals",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_ha.reservations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.access_probe",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.access_recoveries",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.catalog_applications",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.catalog_history",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.catalog_items",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.catalog_operations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.catalog_revisions",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.crm_actors",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.crm_sessions",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.external_effect_records",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.global_access_revocation_attempts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.global_access_revocations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.identification_epochs",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.identity_code_counters",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.identity_codes",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.identity_contexts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.identity_designations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.identity_entities",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.identity_history",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.identity_operations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.identity_organization_contacts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.unit_attempts",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.unit_history",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.unit_operations",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.unit_results",
+      "code": "42501"
+    },
+    {
+      "role": "crm_h0_ha_tx",
+      "table": "crm_private.unit_roots",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_f1.consumption",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_f1.keys",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_f2.keys",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_ha.command_receipts",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_ha.decisions",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_ha.events",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_ha.evidence_revalidations",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_ha.parts",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_ha.proposals",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_ha.reservations",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.access_probe",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.access_recoveries",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.catalog_applications",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.catalog_history",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.catalog_items",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.catalog_operations",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.catalog_revisions",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.crm_actors",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.crm_sessions",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.external_effect_records",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.global_access_revocation_attempts",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.global_access_revocations",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.identification_epochs",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.identity_code_counters",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.identity_codes",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.identity_contexts",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.identity_designations",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.identity_entities",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.identity_history",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.identity_operations",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.identity_organization_contacts",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.unit_attempts",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.unit_history",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.unit_operations",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.unit_results",
+      "code": "42501"
+    },
+    {
+      "role": "anon",
+      "table": "crm_private.unit_roots",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_f1.consumption",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_f1.keys",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_f2.keys",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_ha.command_receipts",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_ha.decisions",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_ha.events",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_ha.evidence_revalidations",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_ha.parts",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_ha.proposals",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_ha.reservations",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.access_probe",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.access_recoveries",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.catalog_applications",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.catalog_history",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.catalog_items",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.catalog_operations",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.catalog_revisions",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.crm_actors",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.crm_sessions",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.external_effect_records",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.global_access_revocation_attempts",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.global_access_revocations",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.identification_epochs",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.identity_code_counters",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.identity_codes",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.identity_contexts",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.identity_designations",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.identity_entities",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.identity_history",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.identity_operations",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.identity_organization_contacts",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.unit_attempts",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.unit_history",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.unit_operations",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.unit_results",
+      "code": "42501"
+    },
+    {
+      "role": "authenticated",
+      "table": "crm_private.unit_roots",
+      "code": "42501"
+    }
+  ],
+  "rollbackRetry": true,
+  "controlsRestored": true,
+  "oldConstraintsPreserved": true
+}

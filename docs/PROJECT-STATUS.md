@@ -1,5 +1,13 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+## Estado vigente H6-013 — cierre local/aislado, 2026-10-20
+
+**TSK-H6-013: COMPLETED — local/aislado. Evidencia SATISFACTORIA; aceptación técnica del director tras auditoría independiente final PASS. Publicación PENDIENTE DE AUTORIZACIÓN.** [Aceptación](../specs/001-core-crm/acceptance-TSK-H6-013.md), [cierre consolidado](../specs/001-core-crm/closure-TSK-H6-013.md), [inventario propuesto y dependencias de publicación](../specs/001-core-crm/publication-TSK-H6-013.md). Candidato V2: manifiesto SHA-256 `34442d96a59c492771d65ff4bf19c6aa8961192dbcf9b7621d6276bdb61a0c06`; auditoría final: manifiesto `976e6358193b9a7f4f5b0bf7940d7105e87b3dc8028c00ac8c719546e6fcf947`.
+
+H0–H5 conservados. **H6 global NO COMPLETADO; las otras 17 tareas H6 permanecen NOT STARTED, incluida H6-014. DM-PENDING-005 OPEN. Hosted/Production NO ACREDITADOS.** El cierre acredita únicamente las 13 asignaciones locales de H6-013; no satisface globalmente fuentes compartidas con otras tareas. El siguiente paso autorizado es revisar este cierre y su propuesta; commit, push, ramas, tags, despliegue y continuidad H6 requieren autorización posterior. **STOP.**
+
+Los apartados anteriores de H5 que siguen se conservan íntegros como antecedentes de sus fechas. Sus referencias a H6 NOT STARTED no sustituyen el estado H6-013 vigente de esta cabecera; las demás tareas y decisiones mantienen su estado.
+
 ## Cierre vigente H5-019 / H5 — exclusivamente local/aislado, 2026-10-18
 
 **D01–D03 del director:** aceptación técnica del candidato H5-019 sucesor SHA-256 `31fd4ac89aea684f2155a4365cb5870a0c0163838cbfd543d2ad98d0db1ea619` y de la auditoría independiente PASS SHA-256 `9f35bae29b5a152c3520b36f723be57cd606c8cf9b2cc30f2ca80e88038b9915`. **TSK-H5-019 y H5 global COMPLETED exclusivamente local/aislado.** [Recibo](../specs/001-core-crm/acceptance-TSK-H5-019.md), [cierre](../specs/001-core-crm/closure-TSK-H5-019.md), [manifiesto propuesto](../tests/fixtures/h5-019-acceptance/publication-manifest.json). 19 dependencias y25/26 AC locales acreditados; AC-073 NO EJECUTADA/H6-015. AI-019-01/02 CLOSED, AI-019-03 RECONCILED. Estados históricos H5-011/013/015 preservados y reconciliados en Tasks. DM-PENDING-005 OPEN, H6 NOT STARTED; Hosted/Production NO ACREDITADOS. **D04: publicación pendiente de autorización expresa; no existe commit/push nuevo probado.**

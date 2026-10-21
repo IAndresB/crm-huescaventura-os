@@ -1,0 +1,117 @@
+{
+  "scope": "New corrective instruments only; no product change",
+  "incidents": [
+    {
+      "attempt": "attempt-01",
+      "class": "environment",
+      "cause": "macOS canonical /private/var path did not match the sandbox writable /var path",
+      "correction": "Use an explicit /private/tmp workspace",
+      "expectedChanged": false,
+      "historyPreserved": true
+    },
+    {
+      "attempt": "attempt-02",
+      "class": "environment",
+      "cause": "pnpm automatic dependency reinstall and writable SQLite store under a changed HOME were rejected by isolation",
+      "correction": "Clone the store into the private workspace and preserve installed workspace settings; disable implicit installs for quality scripts",
+      "expectedChanged": false,
+      "historyPreserved": true,
+      "interruption": "Own pre-test processes stopped; no PostgreSQL test began"
+    },
+    {
+      "attempt": "attempt-03",
+      "class": "environment",
+      "cause": "Offline pnpm11 supply-chain checks requested uncached public registry metadata; dependency installation incomplete",
+      "correction": "Private store and network-enabled installer only; PostgreSQL test execution remained network-isolated",
+      "expectedChanged": false,
+      "historyPreserved": true
+    },
+    {
+      "attempt": "attempt-04",
+      "class": "environment",
+      "cause": "Installed-workspace include flags dev/production were initially interpreted as install-mode settings; development dependencies skipped",
+      "correction": "Exclude include flags from workspace settings and pass --prod=false explicitly",
+      "expectedChanged": false,
+      "historyPreserved": true
+    },
+    {
+      "attempt": "attempt-05/06",
+      "class": "instrument-types",
+      "cause": "TypeScript7 inferred optional undefined keys in heterogeneous catalogue fixture definitions; initial cast did not remove that inferred union. Snapshot accumulator lacked a declared element type.",
+      "correction": "Explicit fixture element and snapshot types, with unchanged runtime values and assertions",
+      "expectedChanged": false,
+      "historyPreserved": true
+    },
+    {
+      "attempt": "attempt-03-regression",
+      "class": "environment",
+      "cause": "Private npm cache lacked pinned CLI metadata; after cache preparation, native CLI used text output because sanitized environment omitted agent identification",
+      "correction": "Public pinned cache preparation; native CLI AI_AGENT=codex context verified against explicit --output-format json on a separate cluster; repeat affected complete phases",
+      "expectedChanged": false,
+      "historicalTestsChanged": false,
+      "historyPreserved": true
+    },
+    {
+      "attempt": "CLI-format-probe-01",
+      "class": "fixture",
+      "cause": "Empty PostgreSQL probe lacked anon/authenticated roles needed by the official advisor queries",
+      "correction": "New probe02 creates those roles in its own synthetic cluster; original probe01 remains available",
+      "expectedChanged": false,
+      "historyPreserved": true
+    },
+    {
+      "attempt": "attempt-10",
+      "class": "expired-historical-fixture",
+      "cause": "UTC rollover made the hardcoded external fact 2026-10-20T00:00Z earlier than the wall-clock default action. Original test therefore no longer expressed its future-fact negative precondition.",
+      "observed": "phase15 2750 PASS /1 FAIL; full original fixture results retained",
+      "productChange": false,
+      "historicalSourceChange": false,
+      "correction": "Source-pinned H6-only fixture adapter passes supported options.at only for the original F12 scope, restoring action before external fact. Paired before/after real-PG controls prove exact chronological rule. No global clock replacement or assertion changes.",
+      "expectedSupplement": "expected-temporal.json / expected-temporal-seal.json created before paired controls and adjusted replay",
+      "historyPreserved": true
+    },
+    {
+      "attempt": "attempt-16",
+      "class": "source-capture-extension",
+      "cause": "The initial corrective collector archived .ts/.py but omitted the new .mjs hook source.",
+      "correction": "Source collector extended to .mjs for future runs. Exact executing private-replica hook read back during the run at 00:22:02Z, before the scoped F12 marker, and compared byte for byte with current candidate. Additional evidence is explicitly during-run, not claimed as pre-start.",
+      "evidence": "runs/attempt-16/extra-hook-source-readback.json",
+      "expectedChanged": false,
+      "historicalSourceChange": false,
+      "historyPreserved": true
+    },
+    {
+      "attempt": "attempt-16",
+      "class": "evidence-collection",
+      "cause": "Two during-run hook source attestations had the same relative name and different timestamps/text. The ordinary collector refused replacement, leaving collection partial. Both attestations are retained separately, with identical hook content hash.",
+      "correction": "Verified collection replay without overwriting either attestation; every private-replica output copied/read back by SHA-256. Original outer driver FAIL remains retained.",
+      "testResultExit": 0,
+      "outerDriverExit": 1,
+      "evidence": "runs/attempt-16/collection-recovery.json",
+      "expectedChanged": false,
+      "historyPreserved": true
+    },
+    {
+      "attempt": "preseal-readback",
+      "class": "custody-metadata-only",
+      "cause": "18 empty auditor logs in the previous durable copy had mode0600 versus recorded0644. Content/type/size all matched. Metadata ctimes are later than the pre-corrective receipt; cause not established. Candidate-original9658 descriptors remain exact.",
+      "correction": "New durable recovery supplement copies these18 from still-available auditor originals, checking the previously sealed inventory. Prior custody and receipt are not overwritten. Full53211-file reconstruction now uses53193 prior copies plus18 exact supplemental copies.",
+      "evidence": "custody-mode-recovery.json",
+      "productChange": false,
+      "previousCandidateChanged": false,
+      "contentLoss": false,
+      "historyPreserved": true
+    },
+    {
+      "attempt": "preseal-readback-repeat",
+      "class": "custody-metadata-complete-recovery",
+      "cause": "One additional empty prior-copy auditor log was observed with0600 rather than0644. No bytes, types or sizes changed; the cause remains unestablished. The original auditor sources still match all53211 frozen descriptors.",
+      "correction": "New durable full auditor TAR archive created from those authentic sources; all53211 names/types/modes/sizes/content hashes verified against the pre-corrective sealed inventory by reading the archive. This preserves exact recoverable modes independently of extracted-file mode normalization. Earlier custody and18-file supplement retained.",
+      "evidence": "custody-full-auditor-recovery.json",
+      "expectedChanged": false,
+      "contentLoss": false,
+      "historyPreserved": true
+    }
+  ],
+  "updatedUtc": "2026-10-20T00:35:49.246970+00:00"
+}

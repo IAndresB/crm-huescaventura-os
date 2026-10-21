@@ -1,0 +1,77 @@
+{
+  "reviewedUtc": "2026-10-20T16:46:11.692987+00:00",
+  "changedFromV1": {
+    "tests/integration/postgres-h6-013-migration.test.ts": {
+      "before": {
+        "bytes": 10412,
+        "mode": "0o644",
+        "sha256": "08b304887fc34178d300d3926bc83dd058ee0a8e94836c93d39867fa76256bfe",
+        "type": "file"
+      },
+      "after": {
+        "type": "file",
+        "mode": "0o644",
+        "bytes": 9773,
+        "sha256": "bd9b0c6a05e12566b0a523c53b460dc32d4c2e0ad9461d9fbc4c03f4e623f197"
+      }
+    },
+    "tests/support/h6-013-preservation.ts": {
+      "before": {
+        "bytes": 2475,
+        "mode": "0o644",
+        "sha256": "b2defc65033a02becc3b7e4794db7fecf3b7c31ac0ca8e9ff202636935525265",
+        "type": "file"
+      },
+      "after": {
+        "type": "file",
+        "mode": "0o644",
+        "bytes": 4907,
+        "sha256": "8e3c730c4de25228de14a70efe0fbca0abe88b351e5abae72a81694b10df5262"
+      }
+    },
+    "tests/support/h6-013-security.ts": {
+      "before": {
+        "bytes": 2646,
+        "mode": "0o644",
+        "sha256": "352c4e18a44f1356e0fcb517b60895775b88743571bae53714aa8b10824d0c25",
+        "type": "file"
+      },
+      "after": {
+        "type": "file",
+        "mode": "0o644",
+        "bytes": 2984,
+        "sha256": "414813bf48cccae26370b645c16f27bd2aa661958fa86b91be3963de88ffea8a"
+      }
+    }
+  },
+  "allOtherV1PathsPreserved": 15534,
+  "ignoredFilesUnchanged": 11263,
+  "successfulExecutionSourcesStillExact": [
+    "corrected-final",
+    "h1-v2",
+    "security-v2",
+    "cross-v2",
+    "unit-v2-final",
+    "typecheck-01",
+    "types-generation",
+    "lint-v2",
+    "build-v2",
+    "fixture-55"
+  ],
+  "criticalChecks": [
+    "All relevant GUC names case-fold before counting, full value policy, no schema allow-list change",
+    "Text OID bypasses JSONB driver parser; number token source required; no numeric value converted to Number",
+    "Canonical tags distinguish number/string/array/object; exact coefficient/exponent; decimals normalize scale and signed zero",
+    "SQL types and SQL NULL mask enter hashes; array order/multiplicity preserved; sorted canonical rows",
+    "Both H1 snapshot/businessFacts and all five long routes use the corrected helper",
+    "Positive equivalence cases and deliberate changes use the same final tests on V1 and V2",
+    "All output paths are new; process return codes and log hashes retained; no historical FAIL replaced"
+  ],
+  "scope": "Only instrument causes authorized by AUD2-01/02 and documentary custody reconciliation03; no product issue demonstrated",
+  "limitations": [
+    "No universal claim outside actual PostgreSQL types/projections exercised",
+    "JSON columns retain former JSONB projection semantics, not lexical source formatting",
+    "Numeric context requires pinned Node24; absence is an explicit error, never a fallback to Number",
+    "Local timestamps/hashes are not external timestamping or WORM"
+  ]
+}

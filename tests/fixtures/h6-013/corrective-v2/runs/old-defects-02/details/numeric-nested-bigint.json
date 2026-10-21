@@ -1,0 +1,88 @@
+{
+  "expected": {
+    "id": "nested-bigint",
+    "column": "j",
+    "a": "{\"x\":[9007199254740992,{\"n\":1.20}]}",
+    "b": "{\"x\":[9007199254740993,{\"n\":1.20}]}",
+    "equal": false
+  },
+  "serverBefore": "\"{\\\"x\\\":[9007199254740992,{\\\"n\\\":1.20}]}\"",
+  "serverAfter": "\"{\\\"x\\\":[9007199254740993,{\\\"n\\\":1.20}]}\"",
+  "before": {
+    "crm_private.identity_v2_probe": {
+      "columns": [
+        "id",
+        "v",
+        "n",
+        "j",
+        "txt"
+      ],
+      "count": 2,
+      "sha256": "863e731b968c6ee56a60248863078f3563f73cfde64017fdaea7d1c8d92b3ace"
+    }
+  },
+  "after": {
+    "crm_private.identity_v2_probe": {
+      "columns": [
+        "id",
+        "v",
+        "n",
+        "j",
+        "txt"
+      ],
+      "count": 2,
+      "sha256": "d9e944c20ea6207dbfacfcf07a7065ff35804e07c2dd6082291793ea557d7aa2"
+    }
+  },
+  "factsBefore": {
+    "crm_private.identity_v2_probe": [
+      {
+        "value": {
+          "j": "{\"x\":[9007199254740992,{\"n\":1.20}]}",
+          "n": 0,
+          "v": 0,
+          "id": 1,
+          "txt": "synthetic"
+        }
+      },
+      {
+        "value": {
+          "j": [
+            true,
+            null
+          ],
+          "n": 1,
+          "v": -1,
+          "id": 2,
+          "txt": "synthetic-second"
+        }
+      }
+    ]
+  },
+  "factsAfter": {
+    "crm_private.identity_v2_probe": [
+      {
+        "value": {
+          "j": "{\"x\":[9007199254740993,{\"n\":1.20}]}",
+          "n": 0,
+          "v": 0,
+          "id": 1,
+          "txt": "synthetic"
+        }
+      },
+      {
+        "value": {
+          "j": [
+            true,
+            null
+          ],
+          "n": 1,
+          "v": -1,
+          "id": 2,
+          "txt": "synthetic-second"
+        }
+      }
+    ]
+  },
+  "restoration": "transaction rolled back after capture"
+}

@@ -1,0 +1,6212 @@
+{
+  "expectedSha256": "9f063150198b539c7133502fc917a373de5b0819ca2ea82ee2ea7f4150fd3652",
+  "startedUtc": "2026-10-20T18:01:14.061Z",
+  "search": [
+    {
+      "id": "valid-uppercase",
+      "config": [
+        "SEARCH_PATH=pg_catalog, pg_temp"
+      ],
+      "accept": true,
+      "effective": "pg_catalog, pg_temp",
+      "rejection": null,
+      "v1accept": null
+    },
+    {
+      "id": "valid-mixed-with-unrelated-equals",
+      "config": [
+        "application_name=a=b",
+        "SeArCh_PaTh=pg_catalog, pg_temp"
+      ],
+      "accept": true,
+      "effective": "pg_catalog, pg_temp",
+      "rejection": null,
+      "v1accept": null
+    },
+    {
+      "id": "original-defect",
+      "config": [
+        "search_path=pg_catalog, pg_temp",
+        "SEARCH_PATH=public"
+      ],
+      "accept": false,
+      "effective": "public",
+      "rejection": "DEFINER_SEARCH_PATH_MISSING_OR_AMBIGUOUS:audit_outside.path()\n\n2 !== 1\n",
+      "v1accept": true
+    },
+    {
+      "id": "triple-ambiguous",
+      "config": [
+        "SEARCH_PATH=public",
+        "search_path=pg_catalog, pg_temp",
+        "Search_Path=pg_catalog, pg_temp"
+      ],
+      "accept": false,
+      "effective": "pg_catalog, pg_temp",
+      "rejection": "DEFINER_SEARCH_PATH_MISSING_OR_AMBIGUOUS:audit_outside.path()\n\n3 !== 1\n",
+      "v1accept": null
+    },
+    {
+      "id": "samecase-duplicate",
+      "config": [
+        "search_path=pg_catalog, pg_temp",
+        "search_path=pg_catalog, pg_temp"
+      ],
+      "accept": false,
+      "effective": "pg_catalog, pg_temp",
+      "rejection": "DEFINER_SEARCH_PATH_MISSING_OR_AMBIGUOUS:audit_outside.path()\n\n2 !== 1\n",
+      "v1accept": null
+    },
+    {
+      "id": "reversed",
+      "config": [
+        "SEARCH_PATH=pg_temp, pg_catalog"
+      ],
+      "accept": false,
+      "effective": "pg_temp, pg_catalog",
+      "rejection": "DEFINER_SEARCH_PATH_UNSAFE:audit_outside.path()\n+ actual - expected\n\n  [\n+   'pg_temp',\n    'pg_catalog',\n-   'pg_temp'\n  ]\n",
+      "v1accept": null
+    },
+    {
+      "id": "additional",
+      "config": [
+        "sEARCH_pATH=pg_catalog, public, pg_temp"
+      ],
+      "accept": false,
+      "effective": "pg_catalog, public, pg_temp",
+      "rejection": "DEFINER_SEARCH_PATH_UNSAFE:audit_outside.path()\n+ actual - expected\n\n  [\n    'pg_catalog',\n+   'public',\n    'pg_temp'\n  ]\n",
+      "v1accept": null
+    },
+    {
+      "id": "user-path",
+      "config": [
+        "search_path=\"$user\", public"
+      ],
+      "accept": false,
+      "effective": "\"$user\", public",
+      "rejection": "DEFINER_SEARCH_PATH_UNSAFE:audit_outside.path()\n+ actual - expected\n\n  [\n+   '\"$user\"',\n+   'public'\n-   'pg_catalog',\n-   'pg_temp'\n  ]\n",
+      "v1accept": null
+    },
+    {
+      "id": "missing",
+      "config": [
+        "application_name=auditor"
+      ],
+      "accept": false,
+      "effective": "\"$user\", public",
+      "rejection": "DEFINER_SEARCH_PATH_MISSING_OR_AMBIGUOUS:audit_outside.path()\n\n0 !== 1\n",
+      "v1accept": null
+    },
+    {
+      "id": "empty",
+      "config": [
+        "search_path="
+      ],
+      "accept": false,
+      "effective": "",
+      "rejection": "DEFINER_SEARCH_PATH_UNSAFE:audit_outside.path()\n+ actual - expected\n\n  [\n+   ''\n-   'pg_catalog',\n-   'pg_temp'\n  ]\n",
+      "v1accept": null
+    }
+  ],
+  "json": [
+    {
+      "a": "9007199254740992",
+      "b": "9007199254740993",
+      "sqlEqual": false,
+      "sha256a": "46a2ea2650ec2850c7c1edb0012989cf0da6d9efd15c8fc2883b46ee98d483bf",
+      "sha256b": "7293d380b4c2943e2dd7ad2e733aa0186f78e811bd78fb13ab06a73589116f6c"
+    },
+    {
+      "a": "-9007199254740992",
+      "b": "-9007199254740993",
+      "sqlEqual": false,
+      "sha256a": "03ca23de65d07cb5d57cff7234c452f96d95f90eddf99dab66d3bfbe8508c4f9",
+      "sha256b": "af21e777ae6312f8e430c19156037edd1a46ecf1b38e966ac041d25e783fdcde"
+    },
+    {
+      "a": "9223372036854775806",
+      "b": "9223372036854775807",
+      "sqlEqual": false,
+      "sha256a": "707f9aeb461af0321c36dcb9055a381637c8b8302668192f877aba8633c364cb",
+      "sha256b": "cf1a481eb7dd9f76fd8af8149cda8b04eb18454f8e971a5d372c00d5c1496b5b"
+    },
+    {
+      "a": "-9223372036854775808",
+      "b": "-9223372036854775807",
+      "sqlEqual": false,
+      "sha256a": "3e0da0e0c40256ab579f74d707e91a89c21b9cdbe4454581f5114e9b26fba066",
+      "sha256b": "74a722ea65772b4da643ca70d3057a8aacd3667c0c32e3b222c77e64c0881df0"
+    },
+    {
+      "a": "1.000000000000000000001",
+      "b": "1.000000000000000000002",
+      "sqlEqual": false,
+      "sha256a": "a090c91664aeee8adbb0eef770d7c3f2b756a76c303f6ac005e8da5f7ccca26f",
+      "sha256b": "6887a34ccf07afc9bc3bd90f0f7b5c3374c68f2898210b111bbe755f3ece5e2c"
+    },
+    {
+      "a": "1.20000",
+      "b": "12e-1",
+      "sqlEqual": true,
+      "sha256a": "9b7c6069a4b5c9d7fa9abb977bf9ceab8d489adc80d88bbefcd6e112ea89d826",
+      "sha256b": "9b7c6069a4b5c9d7fa9abb977bf9ceab8d489adc80d88bbefcd6e112ea89d826"
+    },
+    {
+      "a": "-0.00",
+      "b": "0",
+      "sqlEqual": true,
+      "sha256a": "181ce95875e9bbba0d627fc5995b973d7991bf69d1fb0d1a760b814fa98333b5",
+      "sha256b": "181ce95875e9bbba0d627fc5995b973d7991bf69d1fb0d1a760b814fa98333b5"
+    },
+    {
+      "a": "1e400",
+      "b": "10e399",
+      "sqlEqual": true,
+      "sha256a": "7152d70f67a19122add9d783dbf5ef30b7c62ec258fe24167e2e235ffc9830f8",
+      "sha256b": "7152d70f67a19122add9d783dbf5ef30b7c62ec258fe24167e2e235ffc9830f8"
+    },
+    {
+      "a": "1e-1000",
+      "b": "0",
+      "sqlEqual": false,
+      "sha256a": "d2c335e37b3d67d77324dca0b1f9ca2f4012593848bf2d62d76474114d419284",
+      "sha256b": "181ce95875e9bbba0d627fc5995b973d7991bf69d1fb0d1a760b814fa98333b5"
+    },
+    {
+      "a": "{\"a\":[9007199254740992,{\"b\":2.100}]}",
+      "b": "{\"a\":[9007199254740993,{\"b\":2.1}]}",
+      "sqlEqual": false,
+      "sha256a": "7738849970308e6f1c7480b1e81bb1fabb0a626ac553a30f2438e6e86f0c627b",
+      "sha256b": "6436cd457b159a1e6c6a9116125dcfba4f5c1100f2d0d667d2ecc99864ab3c87"
+    },
+    {
+      "a": "{\"x\":1.0,\"y\":[true,null]}",
+      "b": "{\"y\":[true,null],\"x\":1}",
+      "sqlEqual": true,
+      "sha256a": "a39f4d894fff64d6439980174a9e10422f13eec7be74b6714c9c408a3f3540e3",
+      "sha256b": "a39f4d894fff64d6439980174a9e10422f13eec7be74b6714c9c408a3f3540e3"
+    },
+    {
+      "a": "1",
+      "b": "\"1e0\"",
+      "sqlEqual": false,
+      "sha256a": "c9e488d30fa161f85c563f2a1452984a5962d50dd87c96c71249759e59430797",
+      "sha256b": "009d5ee31ad02237618753234306bb56ae1f070918b9943daa90263c3324b5ae"
+    },
+    {
+      "a": "1",
+      "b": "[\"number\",\"1e0\"]",
+      "sqlEqual": false,
+      "sha256a": "c9e488d30fa161f85c563f2a1452984a5962d50dd87c96c71249759e59430797",
+      "sha256b": "6be6278fd8671030ccb89bdd9195dad2fe5ad96ef960e9e272ddea3919cbd20e"
+    },
+    {
+      "a": "1",
+      "b": "{\"value\":\"1e0\"}",
+      "sqlEqual": false,
+      "sha256a": "c9e488d30fa161f85c563f2a1452984a5962d50dd87c96c71249759e59430797",
+      "sha256b": "3aad30fe8b005b36a8aa78375501c2160542f3f2e8327bfe011bf302d695a757"
+    },
+    {
+      "a": "[1,1]",
+      "b": "[1]",
+      "sqlEqual": false,
+      "sha256a": "f63ce569f5e9cfcf0effc0166efa9efa38a457e24506ac8773f89b8c345ad034",
+      "sha256b": "85ebd300039f9f8dca0000c1e5846cc55d4dc180f24b003fb98d06c4e505855d"
+    },
+    {
+      "a": "[1,2]",
+      "b": "[2,1]",
+      "sqlEqual": false,
+      "sha256a": "6878a3c9e45163542743d85586cf8b6f967056d200c61f91753da214f9209433",
+      "sha256b": "37d7cbbe49b4c78300af6eb0ee2eef99b3fb9e26788dfe959a49c9b741d91ee6"
+    },
+    {
+      "a": "{\"x\":null}",
+      "b": "{}",
+      "sqlEqual": false,
+      "sha256a": "b6728e30bdde6164d886a622016b2f285d39efdd26382cc3ce700856436a2033",
+      "sha256b": "51d865c4d0211f7540b0b6bbd76c09de62cf66b70ec13707b1c783257bc4d927"
+    },
+    {
+      "a": "null",
+      "b": "\"null\"",
+      "sqlEqual": false,
+      "sha256a": "53b41ab0dae62befcb8708620b6d14794a24fedad6c24c03dd01e51fa698ff0b",
+      "sha256b": "f2aa28b7b5935c67fd548d9c5aef37e7048e0b631ba0c4c1e37af5a1ad87b367"
+    },
+    {
+      "a": "{\"__proto__\":1.0}",
+      "b": "{\"__proto__\":1}",
+      "sqlEqual": true,
+      "sha256a": "9a4eab19654f02d78009a759a0ca92eb96d7cb545a7686b4910e2bd52040d25a",
+      "sha256b": "9a4eab19654f02d78009a759a0ca92eb96d7cb545a7686b4910e2bd52040d25a"
+    },
+    {
+      "a": "{\"x\":1,\"x\":2}",
+      "b": "{\"x\":2}",
+      "sqlEqual": true,
+      "sha256a": "a93b63e081fbb3061ff1a1b316752a3a90dfa48e32a2832735bfe00a64235814",
+      "sha256b": "a93b63e081fbb3061ff1a1b316752a3a90dfa48e32a2832735bfe00a64235814"
+    }
+  ],
+  "mutations": [
+    {
+      "id": "positive-bigint",
+      "sql": "update crm_private.identity_audit_precision set version=9007199254740993 where id=1",
+      "typedMultisetEqual": false,
+      "before": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "after": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "e5f836afc2927f3a3fb9860c810c953145ef60f42a46dc503e05eb5c62996004"
+        }
+      },
+      "v1Equal": true
+    },
+    {
+      "id": "negative-bigint",
+      "sql": "update crm_private.identity_audit_precision set version=-9007199254740993 where id=2",
+      "typedMultisetEqual": false,
+      "before": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "after": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "ef7dbcd84695a1876f503c6659f30e8058d31ac3285088ab00d371099e111449"
+        }
+      },
+      "v1Equal": true
+    },
+    {
+      "id": "decimal-exact",
+      "sql": "update crm_private.identity_audit_precision set amount=1.000000000000000000002 where id=1",
+      "typedMultisetEqual": false,
+      "before": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "after": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "8208124827b4707eb6e1697f6722957fe2f95f1610778d24b944fb805b518e9c"
+        }
+      },
+      "v1Equal": true
+    },
+    {
+      "id": "nested-json",
+      "sql": "update crm_private.identity_audit_precision set document='{\"x\":[9007199254740993]}' where id=1",
+      "typedMultisetEqual": false,
+      "before": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "after": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "75edf8af314a5c68a9e5e76e23c98b82c93fcb0a12c17c1777029c9ec67280e5"
+        }
+      },
+      "v1Equal": true
+    },
+    {
+      "id": "null-present",
+      "sql": "update crm_private.identity_audit_precision set label='' where id=1",
+      "typedMultisetEqual": false,
+      "before": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "after": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "dc86ac77e9ab9684406f677ace95f95d20a128c03876dcf7aedaf410f56bddcf"
+        }
+      },
+      "v1Equal": false
+    },
+    {
+      "id": "json-null-present",
+      "sql": "update crm_private.identity_audit_precision set document='null'::jsonb where id=2",
+      "typedMultisetEqual": false,
+      "before": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "after": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "fa6a9e76ba52c8c03f4d45c526a58800c4dad1df09adf046e33c52c8329bfff3"
+        }
+      },
+      "v1Equal": true
+    },
+    {
+      "id": "reference-valid",
+      "sql": "update crm_private.identity_audit_precision set ref='00000000-0000-0000-0000-000000000002' where id=1",
+      "typedMultisetEqual": false,
+      "before": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "after": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "90361367a78cacfa57a648e84df52079a164133e0643944ad80090ff4d081a7c"
+        }
+      },
+      "v1Equal": false
+    },
+    {
+      "id": "same-count-duplicate-row",
+      "sql": "delete from crm_private.identity_audit_precision where id=2;insert into crm_private.identity_audit_precision select * from crm_private.identity_audit_precision where id=1",
+      "typedMultisetEqual": false,
+      "before": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "after": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "15537b842e881636bb0b536e8a0c6ae1e812045f8afdd9820b458d3a0bf0914b"
+        }
+      },
+      "v1Equal": false
+    },
+    {
+      "id": "row-order",
+      "sql": "delete from crm_private.identity_audit_precision;insert into crm_private.identity_audit_precision select * from audit_outside.original order by id desc",
+      "typedMultisetEqual": true,
+      "before": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "after": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "v1Equal": true
+    },
+    {
+      "id": "decimal-scale",
+      "sql": "update crm_private.identity_audit_precision set amount=1.2 where id=2",
+      "typedMultisetEqual": true,
+      "before": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "after": {
+        "crm_private.identity_audit_precision": {
+          "columns": [
+            "id",
+            "ref",
+            "version",
+            "amount",
+            "document",
+            "label"
+          ],
+          "columnTypes": [
+            "integer",
+            "uuid",
+            "bigint",
+            "numeric",
+            "jsonb",
+            "text"
+          ],
+          "count": 2,
+          "sha256": "48f07236e53b5780471d58298af7e69db34d1725b68956e0f54678525d586fbc"
+        }
+      },
+      "v1Equal": true
+    }
+  ],
+  "native": [
+    {
+      "name": "initdb",
+      "args": [
+        "-D",
+        "/private/tmp/h6013-final-audit-8f_a6_5a/tmp/auditor-own-G7sjlj/data",
+        "--username=bootstrap",
+        "--auth-local=trust",
+        "--auth-host=reject",
+        "--no-locale",
+        "--encoding=UTF8"
+      ],
+      "status": 0,
+      "stdout": "The files belonging to this database system will be owned by user \"andres\".\nThis user must also own the server process.\n\nThe database cluster will be initialized with locale \"C\".\nThe default text search configuration will be set to \"english\".\n\nData page checksums are disabled.\n\ncreating directory /private/tmp/h6013-final-audit-8f_a6_5a/tmp/auditor-own-G7sjlj/data ... ok\ncreating subdirectories ... ok\nselecting dynamic shared memory implementation ... posix\nselecting default \"max_connections\" ... 100\nselecting default \"shared_buffers\" ... 128MB\nselecting default time zone ... Europe/Madrid\ncreating configuration files ... ok\nrunning bootstrap script ... ok\nperforming post-bootstrap initialization ... ok\nsyncing data to disk ... ok\n\nSuccess. You can now start the database server using:\n\n    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /private/tmp/h6013-final-audit-8f_a6_5a/tmp/auditor-own-G7sjlj/data -l logfile start\n\n",
+      "stderr": ""
+    },
+    {
+      "name": "pg_ctl",
+      "args": [
+        "-D",
+        "/private/tmp/h6013-final-audit-8f_a6_5a/tmp/auditor-own-G7sjlj/data",
+        "-l",
+        "/private/tmp/h6013-final-audit-8f_a6_5a/tmp/auditor-own-G7sjlj/server.log",
+        "-o",
+        "-k /private/tmp/h6013-final-audit-8f_a6_5a/tmp/auditor-own-G7sjlj/s -h '' -p 61418",
+        "-w",
+        "start"
+      ],
+      "status": 0,
+      "stdout": "waiting for server to start.... done\nserver started\n",
+      "stderr": ""
+    },
+    {
+      "name": "pg_ctl",
+      "args": [
+        "-D",
+        "/private/tmp/h6013-final-audit-8f_a6_5a/tmp/auditor-own-G7sjlj/data",
+        "-m",
+        "fast",
+        "-w",
+        "stop"
+      ],
+      "status": 0,
+      "stdout": "waiting for server to shut down.... done\nserver stopped\n",
+      "stderr": ""
+    }
+  ],
+  "migrations": [
+    {
+      "path": "supabase/migrations/202609150000_h0_m01_roles.sql",
+      "sha256": "b80cae6d88fb2a3dfea504293fbc2b87ea5766a5e0b5436a05062be0a76f387e"
+    },
+    {
+      "path": "supabase/migrations/202609150001_h0_m01_context.sql",
+      "sha256": "42f3a225708c3c73beee06837477528da25f59b13f73b01ce382de21eebd44b3"
+    },
+    {
+      "path": "supabase/migrations/202609160000_h0_f1_authorities.sql",
+      "sha256": "d8a93d5b43f49fea63df02989bb1ac61a918b726bebabad7b4818d61be33d5de"
+    },
+    {
+      "path": "supabase/migrations/202609160001_h0_f1_capabilities.sql",
+      "sha256": "9edccd04ecd53c917005585cf675e96c607759b7d9db0face90db7cd633ea7c3"
+    },
+    {
+      "path": "supabase/migrations/202609250000_h0_m02_unit_history.sql",
+      "sha256": "35df65cac631c42669472f7382f2dbd36c5529b78c083aff30245fdefa9ee0f7"
+    },
+    {
+      "path": "supabase/migrations/202609260000_h0_m03_authorities.sql",
+      "sha256": "cd80130df5e2d44acdda5008eb6f7d8f635d876003277a57a154c6675c8e584b"
+    },
+    {
+      "path": "supabase/migrations/202609260001_h0_m03_actor_session_access.sql",
+      "sha256": "4b9767833e28268c609a0ecf4ef6b7e983e2940231acaec8b10ba9ab84df60a4"
+    },
+    {
+      "path": "supabase/migrations/202609260002_h0_m03_revoke_all_authority_fix.sql",
+      "sha256": "943ad2130d3276dfee42e943b32a5414f49e6be53021a9aa6ef7cd2185128ae0"
+    },
+    {
+      "path": "supabase/migrations/202609260003_h0_m03_f2_expiry_revalidation_fix.sql",
+      "sha256": "c27d785eb04fceb6450b76d5b87ad2a210083f158aea80397af89a687499ad98"
+    },
+    {
+      "path": "supabase/migrations/202609270000_h0_m04_human_approval.sql",
+      "sha256": "a84df7f26adc7375a15ad1b9712a7457e244b2c1ef3553ac25b858cd9633dcb2"
+    },
+    {
+      "path": "supabase/migrations/202609270001_h0_m04_f2_unit_revalidation_fix.sql",
+      "sha256": "4f74bcd7a72da8a2bfe68b52d0cddc83713bad94391705ae79ff96a818f3f1c7"
+    },
+    {
+      "path": "supabase/migrations/202609270002_h0_m04_m02_authority_partition_fix.sql",
+      "sha256": "32c2f2e422108adcf44932192cd9da8def3ab052a55e2f571005a6b09e7c533b"
+    },
+    {
+      "path": "supabase/migrations/202609270003_h0_m04_evidence_revalidation_fix.sql",
+      "sha256": "80644d746b03afce35573df9ac48859f64ba86a93baf3956bcd760d8f047b3e9"
+    },
+    {
+      "path": "supabase/migrations/20260927231932_h0_m04_f04_transaction_commit_guard.sql",
+      "sha256": "bc78d7a0672de2dedd10a76e6f6845267c1b02b8dfa19cef863f4feac873650d"
+    },
+    {
+      "path": "supabase/migrations/20260928193107_h0_m04_tte_authorities.sql",
+      "sha256": "747cc553e75a7075328e5d260026e96f6a019d2e603f57acf69291a7bf3695ea"
+    },
+    {
+      "path": "supabase/migrations/20260928193111_h0_m04_tte_boundary.sql",
+      "sha256": "568e322cb3026e90f442ccfbaa167dc724b6dc14d0de51a3549470323a38ed7a"
+    },
+    {
+      "path": "supabase/migrations/20260928223934_h0_m05_global_access_revocation.sql",
+      "sha256": "cfeb9fc74d3e7640966773cd1e95354249a7a11e8dd91c2c55fc8ccc6475933a"
+    },
+    {
+      "path": "supabase/migrations/20260929000000_h0_m06_access_recovery.sql",
+      "sha256": "704efa623e281c37bf6032eefdf286c02700c64ab6446ccc11cb7289aad629fc"
+    },
+    {
+      "path": "supabase/migrations/202609290001_h1_contextual_identities.sql",
+      "sha256": "f93b3ef87f75c3ee8b229d2f76d8255a0f004b23813a26e444e3e0e72ff2cb14"
+    },
+    {
+      "path": "supabase/migrations/202609290002_h1_merge_archive_codes.sql",
+      "sha256": "db58cdaa641ccf92c9fb7aa5c32ff27b9ce0bbd34cdd2e321d7cf33f394af798"
+    },
+    {
+      "path": "supabase/migrations/202609290003_h1_catalog_versions.sql",
+      "sha256": "6a7a3360e8840d7ad10bb0cc268d35410b87edf3e600c4389b0e4c2382d25350"
+    },
+    {
+      "path": "supabase/migrations/202609290004_h1_commercial_rules.sql",
+      "sha256": "9aba006c13e59449630e3e1f9b1fd04f01eba1e6aa1c4efc244ec3fbb8e9de38"
+    },
+    {
+      "path": "supabase/migrations/202609300001_h1_evidence_communications.sql",
+      "sha256": "8a773c60aa7e022cb30a3b26a680abacc9ebde1f42b37e340185195011ec38d2"
+    },
+    {
+      "path": "supabase/migrations/20260930170533_h1_private_object_conservation.sql",
+      "sha256": "c380e0d357ce8da779418b94623ee636a727619e8f5bc85a33afca2b8e0c09bb"
+    },
+    {
+      "path": "supabase/migrations/20260930185257_h1_pending_business_tasks.sql",
+      "sha256": "83590124eb3e85372076eb95e6a0b5aa3def76c8d6db61a6e5487281d509dc55"
+    },
+    {
+      "path": "supabase/migrations/20261001081941_h2_commercial_progress.sql",
+      "sha256": "a0ac4480391209653b031bfb610c537e55fa40dc7261adbe707e93c1d2122b7e"
+    },
+    {
+      "path": "supabase/migrations/20261001115235_h2_proposal_versions.sql",
+      "sha256": "d98c7d5844bdb7ae09a6324787d85c46a14eca1a22fa84cd44a073f5facfefe3"
+    },
+    {
+      "path": "supabase/migrations/20261001150357_h2_offer_lifecycle.sql",
+      "sha256": "77190038dd85a287fcbf9e42011dea3813dbddaba5e911ccb4347b724da716ab"
+    },
+    {
+      "path": "supabase/migrations/20261001172433_h2_exact_acceptance.sql",
+      "sha256": "8ee31e652c43a795de0b8122f52a105ae9ea6570b7502fcf392590abb86625b7"
+    },
+    {
+      "path": "supabase/migrations/20261001200941_h2_booking_conversion.sql",
+      "sha256": "9c229b6938f504b1c486d3b76f27ea7b8c597d7feba20b697a036db0806de9ab"
+    },
+    {
+      "path": "supabase/migrations/20261002233922_h3_expected_obligations.sql",
+      "sha256": "62be52879e1c86a010be084157423e1fe8cadfcab524713e3508d96734d6faf2"
+    },
+    {
+      "path": "supabase/migrations/20261003093202_h3_customer_payment_reconciliation.sql",
+      "sha256": "db0c2a3642e45c6b88d773d68b1b3ad2cbbd4eaef975d54001c9baf6abaa8060"
+    },
+    {
+      "path": "supabase/migrations/20261003110048_h3_payment_allocation_funds.sql",
+      "sha256": "c70589c4a8fb9ff55f987b278a41d38bc7d3588b4f1a551399e5c6a6b58035f5"
+    },
+    {
+      "path": "supabase/migrations/20261004161012_h3_provider_invoice_documentary.sql",
+      "sha256": "443f5b6a082ab6289beea7bf11d410b13f80be0a4634093d405149379c2937e8"
+    },
+    {
+      "path": "supabase/migrations/20261004175435_h3_managed_client_funds_documentary.sql",
+      "sha256": "41b5eea0a24df9407e484805a5413904bc0e6bffe90a69848db5b9cb8107fa44"
+    },
+    {
+      "path": "supabase/migrations/20261004185628_h3_provider_payment_accredited_outgoing.sql",
+      "sha256": "7e843641649a07fbbd019ae3db010ae6898838ec4b686086d404f0a4cec52bcf"
+    },
+    {
+      "path": "supabase/migrations/20261004201022_h3_own_economics_fee_cost_promotion_tarari.sql",
+      "sha256": "066e31debade3e987f45aa2d809c71f7716cb263716ea214ab086922a0859dee"
+    },
+    {
+      "path": "supabase/migrations/20261004213420_h4_document_requirements.sql",
+      "sha256": "29dc20ba673073daa5a6b9493c55c9ee26a7db1e1fd96204f697b4a728f5e352"
+    },
+    {
+      "path": "supabase/migrations/20261004231359_h4_incidents.sql",
+      "sha256": "5333331d902de9b2e720572778b230442b29e62708480c447b67d96216057225"
+    },
+    {
+      "path": "supabase/migrations/20261005055658_h4_availability_evidence.sql",
+      "sha256": "5428fa5b4140da5916f71d643fb50980d2363fd176b4f8871a2fb7e9bc7207b2"
+    },
+    {
+      "path": "supabase/migrations/20261005141534_h4_capacity_holds.sql",
+      "sha256": "1512cbe0619c8fb35d915f052e381d6977437bc2e2fffdc119623b0954591de7"
+    },
+    {
+      "path": "supabase/migrations/20261005161912_h4_provider_confirmation.sql",
+      "sha256": "908967e6157c541a46fc132f56e83290df245b495265e4c765966d8d0cd5d876"
+    },
+    {
+      "path": "supabase/migrations/20261005202444_h4_operational_modification.sql",
+      "sha256": "c068c4922616dc1e762acc94efdd734564254c430448995947b447da1d88f53d"
+    },
+    {
+      "path": "supabase/migrations/20261005215404_h4_modification_counterparty.sql",
+      "sha256": "077b415c5c04f014fefb36aa752ae02ac5d8e87344628ddefa5bf0b32f4ce3b1"
+    },
+    {
+      "path": "supabase/migrations/20261005223726_h4_cancellation_right.sql",
+      "sha256": "01dd5f2264ea2d848cf77716ea8a988c2f83b1e6f7c57bb4479093e3cb4a8c36"
+    },
+    {
+      "path": "supabase/migrations/20261006001131_h4_refund_partial_portions.sql",
+      "sha256": "a2e25385040424689bc8a79152c7011c139559559c6804b80b3c5797d5b15fbf"
+    },
+    {
+      "path": "supabase/migrations/20261006065228_h4_refund_uncertain_partial_progress.sql",
+      "sha256": "90f585a202ef274a7aa01a36e51f251334714e2ec4647c658fc9d4f0ace2be50"
+    },
+    {
+      "path": "supabase/migrations/20261006133716_h4_deposit_guarantee_custody.sql",
+      "sha256": "5557235111e71eae8d797eab272ce9c6ff83def547883c6b6757dbd2e0a56ec1"
+    },
+    {
+      "path": "supabase/migrations/20261006152658_h4_joint_funds_compatible_actor_admission.sql",
+      "sha256": "044eac4ec7d18b8243589e6ba89cb73770dffa857523329b9f5870806c01533c"
+    },
+    {
+      "path": "supabase/migrations/20261006175137_h4_booking_preparation_confirmation.sql",
+      "sha256": "60028bc121c0288eb490758c671e08506c7ad4d6440c22707572c53670002d65"
+    },
+    {
+      "path": "supabase/migrations/20261006225826_h4_booking_preparation_cancelled_origin.sql",
+      "sha256": "be359d25003fed7d51d575d0717fe7efbceaa9c7ad6f2b476c672ba5d1a135b1"
+    },
+    {
+      "path": "supabase/migrations/20261006233358_h4_operational_reality.sql",
+      "sha256": "cc5d2f8cab9f37bc2636532c834f74c1d4dc735ed59de7e0e2039dc65c7b10bb"
+    },
+    {
+      "path": "supabase/migrations/20261007180001_h5_task_lifecycle.sql",
+      "sha256": "75fd09bcd844edc42f19320391d3045863e464f959f47b41e91f78a4918a1f3a"
+    },
+    {
+      "path": "supabase/migrations/20261007193441_h5_alert_notifications.sql",
+      "sha256": "1e9379d4b5eed2c12120e9d9020616aa47dda88bcaaa58e35b8817a2f8d8b053"
+    },
+    {
+      "path": "supabase/migrations/20261007230734_h5_communication_review.sql",
+      "sha256": "f6b47fbfa260318b2af2fc48b9aab7b4ba2a431e6f44837d48f027d45fd00ab0"
+    },
+    {
+      "path": "supabase/migrations/20261008143617_h5_persisted_work_recovery.sql",
+      "sha256": "53cc3c66bc5f6ea6488caefcb86da574f5fa2affb2cb451367a1665205b635a9"
+    },
+    {
+      "path": "supabase/migrations/20261008192000_h5_external_event_receipts.sql",
+      "sha256": "9675d862492b8ba0c035199476e47f38bf3deaca845c0dc47d0133cff99418ee"
+    },
+    {
+      "path": "supabase/migrations/20261014003559_h5_authorized_projections.sql",
+      "sha256": "c49c60fb7a384d7985b02414117826b83e89545347611e11dcb69b10208441e2"
+    },
+    {
+      "path": "supabase/migrations/20261015172843_h5_calendar_current_nights.sql",
+      "sha256": "0d6baa6546ba404330973f3a770c605cb7127836acc6a9375b0d89c8f1726760"
+    },
+    {
+      "path": "supabase/migrations/20261015180420_h5_projection_canonical_revisions.sql",
+      "sha256": "847499b0bd9298067825a57d02b17de1379d9b6a49d933c26250237fe1efc5a8"
+    },
+    {
+      "path": "supabase/migrations/20261015190418_h5_calendar_night_operational_state.sql",
+      "sha256": "7a1e3b3daf988ecf7b769d98b321e742752636fc6fa1f61062c960b2bd13da03"
+    },
+    {
+      "path": "supabase/migrations/20261015204955_h5_booking_closure_assessments.sql",
+      "sha256": "b514b8c99409e2d71e9abe493df9bcf0c630541fb0899ec54d3d9ae6bc0d253e"
+    },
+    {
+      "path": "supabase/migrations/20261015233307_h5_joint_closure_reopening.sql",
+      "sha256": "a58cb35c5a6fad3c78580377218bc6e8839bdeb0ac62cbe68cfd3919e38043b0"
+    },
+    {
+      "path": "supabase/migrations/20261016142812_h5_protected_diagnostics.sql",
+      "sha256": "d0074d82800cd51805c63be61cdfab6e392750d147884b62294e8cb12e5e3063"
+    },
+    {
+      "path": "supabase/migrations/20261016174248_h5_diagnostic_context_reference_fix.sql",
+      "sha256": "ff33bbe69239226f043a352379ad088556f78557943532110fd15638c479cdb0"
+    },
+    {
+      "path": "supabase/migrations/20261016192425_h5_diagnostic_temporal_trace.sql",
+      "sha256": "dff04069aac713b87cd07b82e69d7ca5811a9ef1290dd6599605dd1eced1600c"
+    },
+    {
+      "path": "supabase/migrations/20261016220850_h5_diagnostic_owned_references.sql",
+      "sha256": "45ee62b013979f09b1145b6fa3ad096f88f676bc2170f48e245b7df2ca8c28a5"
+    },
+    {
+      "path": "supabase/migrations/20261017004525_h5_diagnostic_version_provenance_replay.sql",
+      "sha256": "69f8bdddb1acd5fbef1d2154ae81d16a6ecc1a0f5ed34783a99c11dbb83e9563"
+    }
+  ],
+  "catalog": {
+    "global": [
+      {
+        "signature": "crm_api.acceptance_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.acceptance_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.allocation_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.allocation_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.apply_probe_batch(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.availability_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.availability_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b03_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b03_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b07_alert_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b07_alert_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b07_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b07_communication_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b07_communication_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b07_object_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b07_object_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b07_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b07_task_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b07_task_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b08_ha_finalize(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b08_work_apply(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b08_work_finalize(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b08_work_lock(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b08_work_probe(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b08_work_probe_material(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b08_work_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.b09_external_event_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.begin_access_recovery(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.booking_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.booking_preparation_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.booking_preparation_finalize(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.booking_preparation_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.booking_preparation_sensitive(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.booking_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.cancellation_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.cancellation_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.catalog_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.catalog_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.closure_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.closure_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.commercial_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.commercial_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.commit_internal_unit(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.complete_access_recovery(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.confirmation_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.confirmation_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.deposit_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.deposit_finalize(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.deposit_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.deposit_sensitive_determine(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.establish_session(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.f2_lookup(uuid,uuid)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.f2_lookup_revoke_all_authority(uuid,uuid)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.h0_m04_evidence_replay(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.h0_m04_finalize_evidence(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.h0_m04_read_proposal(bytea,bytea,bytea,bytea,bytea,text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.h0_m04_revalidate_evidence(bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.h5_diagnostic_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.h5_diagnostic_record(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.h5_projection_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.hold_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.hold_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.human_apply_probe_batch(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.human_read_probe(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.identity_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.identity_candidates(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.identity_code_lookup(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.identity_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.identity_resolve(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.incident_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.incident_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.invoice_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.invoice_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.modification_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.obligation_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.obligation_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.offer_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.offer_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.own_economics_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.own_economics_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.own_economics_sources(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.payment_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.payment_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.proposal_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.proposal_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.proposal_sources(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.provider_payment_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.provider_payment_finalize(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.provider_payment_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.provider_payment_sensitive_schedule(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.provision_actor_mapping(uuid,uuid,text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.read_probe(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.reality_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.reality_finalize(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.reality_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.reality_sensitive(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.record_global_auth_revocation_outcome(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.record_recovery_auth_outcome(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.recovery_lookup(uuid)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.recovery_status(uuid)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.refund_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.refund_finalize(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.refund_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.refund_sensitive_authorize(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.reidentify_session(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.requirement_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.requirement_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.revoke_all_sessions(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.revoke_session(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.set_actor_enabled(uuid,boolean,text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.start_global_access_revocation(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.suplido_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_api.suplido_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_f1.row_allows(text,text,text,text)",
+        "schema": "crm_f1",
+        "owner": "crm_h0_verifier",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_f1.unit_row_allows(text,text)",
+        "schema": "crm_f1",
+        "owner": "crm_h0_verifier",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_f1.verify(bytea,bytea,bytea,text)",
+        "schema": "crm_f1",
+        "owner": "crm_h0_verifier",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_f1.verify_envelope(bytea,bytea,bytea,text,text,text)",
+        "schema": "crm_f1",
+        "owner": "crm_h0_verifier",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_f1.verify_unit(bytea,bytea,bytea)",
+        "schema": "crm_f1",
+        "owner": "crm_h0_verifier",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_f2.admit(bytea,bytea,bytea,text,text)",
+        "schema": "crm_f2",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_f2.verify(bytea,bytea,bytea,text,text,text)",
+        "schema": "crm_f2",
+        "owner": "crm_h0_f2_verifier",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_ha.check_evidence_at_end(text)",
+        "schema": "crm_ha",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_ha.effect_record_allows(text,text,text,text,text,text,text)",
+        "schema": "crm_ha",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_ha.evidence_commit_guard()",
+        "schema": "crm_ha",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_internal.commit_internal_unit_core(bytea,bytea,bytea)",
+        "schema": "crm_internal",
+        "owner": "crm_h0_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_private.booking_preparation_writer()",
+        "schema": "crm_private",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_private.closure_invalidation_booking_preparation_writer()",
+        "schema": "crm_private",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_private.closure_invalidation_closure_writer()",
+        "schema": "crm_private",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      },
+      {
+        "signature": "crm_private.closure_writer()",
+        "schema": "crm_private",
+        "owner": "crm_h0_f2_executor",
+        "rolsuper": false,
+        "rolbypassrls": false,
+        "rolcanlogin": false,
+        "rolcreaterole": false,
+        "rolcreatedb": false,
+        "rolreplication": false,
+        "proconfig": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "public_execute": false
+      }
+    ],
+    "actual": [
+      {
+        "signature": "crm_api.acceptance_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.acceptance_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.allocation_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.allocation_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.apply_probe_batch(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_executor=X/crm_h0_executor",
+          "crm_h0_runtime=X/crm_h0_executor",
+          "crm_h0_f2_executor=X/crm_h0_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.availability_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.availability_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b03_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b03_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b07_alert_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b07_alert_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b07_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b07_communication_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b07_communication_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b07_object_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b07_object_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b07_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b07_task_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b07_task_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b08_ha_finalize(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b08_work_apply(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b08_work_finalize(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b08_work_lock(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b08_work_probe(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b08_work_probe_material(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b08_work_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.b09_external_event_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.begin_access_recovery(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.booking_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.booking_preparation_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.booking_preparation_finalize(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.booking_preparation_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.booking_preparation_sensitive(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.booking_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.cancellation_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.cancellation_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.catalog_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.catalog_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.closure_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.closure_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.commercial_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.commercial_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.commit_internal_unit(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_executor=X/crm_h0_executor",
+          "crm_h0_runtime=X/crm_h0_executor",
+          "crm_h0_ha_tx=X/crm_h0_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.commit_internal_unit(bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.complete_access_recovery(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.confirmation_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.confirmation_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.deposit_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.deposit_finalize(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.deposit_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.deposit_sensitive_determine(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.establish_session(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.f2_lookup(uuid,uuid)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.f2_lookup_revoke_all_authority(uuid,uuid)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.h0_m04_command(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.h0_m04_evidence_replay(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.h0_m04_finalize_evidence(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.h0_m04_read_proposal(bytea,bytea,bytea,bytea,bytea,text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.h0_m04_revalidate_evidence(bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.h5_diagnostic_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.h5_diagnostic_record(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.h5_projection_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.hold_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.hold_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.human_apply_probe_batch(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.human_read_probe(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.identity_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.identity_candidates(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.identity_code_lookup(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.identity_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.identity_resolve(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.incident_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.incident_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.invoice_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.invoice_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.modification_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.obligation_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.obligation_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.offer_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.offer_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.own_economics_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.own_economics_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.own_economics_sources(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.payment_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.payment_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.proposal_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.proposal_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.proposal_sources(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.provider_payment_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.provider_payment_finalize(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.provider_payment_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.provider_payment_sensitive_schedule(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.provision_actor_mapping(uuid,uuid,text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_migration=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.read_probe(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_executor=X/crm_h0_executor",
+          "crm_h0_runtime=X/crm_h0_executor",
+          "crm_h0_f2_executor=X/crm_h0_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.reality_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.reality_finalize(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.reality_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.reality_sensitive(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.record_global_auth_revocation_outcome(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.record_recovery_auth_outcome(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.recovery_lookup(uuid)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.recovery_status(uuid)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.refund_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.refund_finalize(text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.refund_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.refund_sensitive_authorize(bytea,bytea,bytea,bytea,bytea,jsonb)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_ha_tx=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": true,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.reidentify_session(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.requirement_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.requirement_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.revoke_all_sessions(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.revoke_session(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.set_actor_enabled(uuid,boolean,text)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_migration=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.start_global_access_revocation(bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.suplido_apply(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_api.suplido_read(bytea,bytea,bytea,bytea,bytea)",
+        "schema": "crm_api",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_runtime=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": true,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_f1.row_allows(text,text,text,text)",
+        "schema": "crm_f1",
+        "owner": "crm_h0_verifier",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_verifier=X/crm_h0_verifier",
+          "crm_h0_executor=X/crm_h0_verifier"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_f1.unit_row_allows(text,text)",
+        "schema": "crm_f1",
+        "owner": "crm_h0_verifier",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_verifier=X/crm_h0_verifier",
+          "crm_h0_executor=X/crm_h0_verifier"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_f1.verify(bytea,bytea,bytea,text)",
+        "schema": "crm_f1",
+        "owner": "crm_h0_verifier",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_verifier=X/crm_h0_verifier",
+          "crm_h0_executor=X/crm_h0_verifier",
+          "crm_h0_f2_executor=X/crm_h0_verifier"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_f1.verify_envelope(bytea,bytea,bytea,text,text,text)",
+        "schema": "crm_f1",
+        "owner": "crm_h0_verifier",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_verifier=X/crm_h0_verifier",
+          "crm_h0_f2_executor=X/crm_h0_verifier"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_f1.verify_unit(bytea,bytea,bytea)",
+        "schema": "crm_f1",
+        "owner": "crm_h0_verifier",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_verifier=X/crm_h0_verifier",
+          "crm_h0_executor=X/crm_h0_verifier",
+          "crm_h0_f2_executor=X/crm_h0_verifier"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_f2.admit(bytea,bytea,bytea,text,text)",
+        "schema": "crm_f2",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_f2.verify(bytea,bytea,bytea,text,text,text)",
+        "schema": "crm_f2",
+        "owner": "crm_h0_f2_verifier",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_verifier=X/crm_h0_f2_verifier",
+          "crm_h0_f2_executor=X/crm_h0_f2_verifier"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_ha.check_evidence_at_end(text)",
+        "schema": "crm_ha",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_ha.effect_record_allows(text,text,text,text,text,text,text)",
+        "schema": "crm_ha",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_ha.evidence_commit_guard()",
+        "schema": "crm_ha",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_internal.commit_internal_unit_core(bytea,bytea,bytea)",
+        "schema": "crm_internal",
+        "owner": "crm_h0_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_executor=X/crm_h0_executor",
+          "crm_h0_f2_executor=X/crm_h0_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_private.booking_preparation_writer()",
+        "schema": "crm_private",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_migration=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_private.closure_invalidation_booking_preparation_writer()",
+        "schema": "crm_private",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_migration=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_private.closure_invalidation_closure_writer()",
+        "schema": "crm_private",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_migration=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      },
+      {
+        "signature": "crm_private.closure_writer()",
+        "schema": "crm_private",
+        "owner": "crm_h0_f2_executor",
+        "super": false,
+        "bypass": false,
+        "login": false,
+        "createRole": false,
+        "createDb": false,
+        "config": [
+          "search_path=pg_catalog, pg_temp"
+        ],
+        "acl": [
+          "crm_h0_f2_executor=X/crm_h0_f2_executor",
+          "crm_h0_migration=X/crm_h0_f2_executor"
+        ],
+        "ordinaryExecute": {
+          "tte": false,
+          "anon": false,
+          "runtime": false,
+          "authenticated": false
+        }
+      }
+    ],
+    "membership": [
+      {
+        "ordinary": "anon",
+        "owner": "crm_h0_executor",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "anon",
+        "owner": "crm_h0_f2_executor",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "anon",
+        "owner": "crm_h0_f2_verifier",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "anon",
+        "owner": "crm_h0_verifier",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "authenticated",
+        "owner": "crm_h0_executor",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "authenticated",
+        "owner": "crm_h0_f2_executor",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "authenticated",
+        "owner": "crm_h0_f2_verifier",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "authenticated",
+        "owner": "crm_h0_verifier",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "crm_h0_ha_tx",
+        "owner": "crm_h0_executor",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "crm_h0_ha_tx",
+        "owner": "crm_h0_f2_executor",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "crm_h0_ha_tx",
+        "owner": "crm_h0_f2_verifier",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "crm_h0_ha_tx",
+        "owner": "crm_h0_verifier",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "crm_h0_runtime",
+        "owner": "crm_h0_executor",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "crm_h0_runtime",
+        "owner": "crm_h0_f2_executor",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "crm_h0_runtime",
+        "owner": "crm_h0_f2_verifier",
+        "member": false,
+        "can_set": false
+      },
+      {
+        "ordinary": "crm_h0_runtime",
+        "owner": "crm_h0_verifier",
+        "member": false,
+        "can_set": false
+      }
+    ],
+    "complete": true
+  },
+  "unexpected": {
+    "signature": "audit_outside.path()",
+    "globalCount": 133,
+    "rejected": true
+  },
+  "restored": true,
+  "pass": true,
+  "resource": {
+    "temp": "/private/tmp/h6013-final-audit-8f_a6_5a/tmp/auditor-own-G7sjlj",
+    "unixSocket": "/private/tmp/h6013-final-audit-8f_a6_5a/tmp/auditor-own-G7sjlj/s",
+    "stopped": true
+  },
+  "finishedUtc": "2026-10-20T18:01:16.621Z"
+}

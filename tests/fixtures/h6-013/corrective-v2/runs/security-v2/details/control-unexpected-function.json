@@ -1,0 +1,8 @@
+{
+  "id": "unexpected-function",
+  "mutation": "create schema h6013_unexpected;create function h6013_unexpected.probe() returns integer language sql security definer set search_path=pg_catalog,pg_temp as 'select 1'",
+  "examined": 133,
+  "rejection": "DEFINER_INVENTORY_MISMATCH\n+ actual - expected\n... Skipped lines\n\n  [\n    'crm_api.acceptance_apply(bytea,bytea,bytea,bytea,bytea)',\n    'crm_api.acceptance_read(bytea,bytea,bytea,bytea,bytea)',\n    'crm_api.allocation_apply(bytea,bytea,bytea,bytea,bytea)',\n    'crm_api.allocation_read(bytea,bytea,bytea,bytea,bytea)',\n...\n    'crm_private.closure_writer()',\n+   'h6013_unexpected.probe()'\n  ]\n",
+  "restored": true,
+  "pass": true
+}

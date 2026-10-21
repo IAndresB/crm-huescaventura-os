@@ -1,0 +1,99 @@
+{
+  "expected": "Direct access and fake/absent capability denied after full68, forged GUC does not authorize, runtime cannot SET ROLE migration.",
+  "denied": [
+    {
+      "user": "crm_h0_runtime",
+      "q": "select * from crm_private.access_probe",
+      "code": "42501"
+    },
+    {
+      "user": "crm_h0_runtime",
+      "q": "update crm_private.access_probe set public_value='tampered'",
+      "code": "42501"
+    },
+    {
+      "user": "crm_h0_runtime",
+      "q": "delete from crm_private.unit_history",
+      "code": "42501"
+    },
+    {
+      "user": "crm_h0_runtime",
+      "q": "set role crm_h0_migration",
+      "code": "42501"
+    },
+    {
+      "user": "crm_h0_ha_tx",
+      "q": "select * from crm_private.access_probe",
+      "code": "42501"
+    },
+    {
+      "user": "crm_h0_ha_tx",
+      "q": "update crm_private.access_probe set public_value='tampered'",
+      "code": "42501"
+    },
+    {
+      "user": "crm_h0_ha_tx",
+      "q": "delete from crm_private.unit_history",
+      "code": "42501"
+    },
+    {
+      "user": "crm_h0_ha_tx",
+      "q": "set role crm_h0_migration",
+      "code": "42501"
+    },
+    {
+      "user": "anon",
+      "q": "select * from crm_private.access_probe",
+      "code": "42501"
+    },
+    {
+      "user": "anon",
+      "q": "update crm_private.access_probe set public_value='tampered'",
+      "code": "42501"
+    },
+    {
+      "user": "anon",
+      "q": "delete from crm_private.unit_history",
+      "code": "42501"
+    },
+    {
+      "user": "anon",
+      "q": "set role crm_h0_migration",
+      "code": "42501"
+    },
+    {
+      "user": "authenticated",
+      "q": "select * from crm_private.access_probe",
+      "code": "42501"
+    },
+    {
+      "user": "authenticated",
+      "q": "update crm_private.access_probe set public_value='tampered'",
+      "code": "42501"
+    },
+    {
+      "user": "authenticated",
+      "q": "delete from crm_private.unit_history",
+      "code": "42501"
+    },
+    {
+      "user": "authenticated",
+      "q": "set role crm_h0_migration",
+      "code": "42501"
+    },
+    {
+      "user": "crm_h0_runtime",
+      "context": "absent",
+      "code": "42501",
+      "message": "F1_DENIED"
+    },
+    {
+      "user": "crm_h0_runtime",
+      "context": "forged",
+      "code": "42501",
+      "message": "F1_DENIED"
+    }
+  ],
+  "forgedSessionGucsDenied": true,
+  "originalsPreserved": true
+}

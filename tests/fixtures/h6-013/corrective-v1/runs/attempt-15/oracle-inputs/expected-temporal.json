@@ -1,0 +1,19 @@
+{
+  "createdUtc": "2026-10-20T00:16:32.476726+00:00",
+  "classification": "Ordinary regression fixture expiry, discovered after UTC rollover; no product defect demonstrated",
+  "sourceFiles": {
+    "tests/integration/postgres-h4-006-scope-reproducer.test.ts": "e4585c24a949003a2775d69f774372fd2342148aefe2b2154b8d5ea9620a28c6",
+    "tests/support/h4-availability-fixtures.ts": "88b2a6aa8a8dbc93c5a7930a9888d1cae1a1a787572c18f7b435346de09adf0d",
+    "supabase/migrations/20261005055658_h4_availability_evidence.sql": "5428fa5b4140da5916f71d643fb50980d2363fd176b4f8871a2fb7e9bc7207b2"
+  },
+  "reason": "Historical F12 hardcodes external fact 2026-10-20T00:00Z but defaults domain action to wall-clock now; after that instant the fact is earlier than action, so rejection is no longer required. Preserve that failed run.",
+  "criterion": "A fact later than the domain action cannot validate that earlier action. A fact preceding an otherwise valid action is not rejected by chronology. SQL chronological guards and historical negative criterion remain unchanged.",
+  "beforeAt": "2026-10-19T23:59:00.000Z",
+  "factAt": "2026-10-20T00:00:00.000Z",
+  "afterAt": "2026-10-20T00:01:00.000Z",
+  "historicalFixtureScope": "crm_h4006_f12-synthetic",
+  "expectedBefore": "AVAILABILITY_CHRONOLOGY_REQUIRED:E3 and identical availability state/history",
+  "expectedAfter": "authorized verified availability and usable assessment",
+  "hookScope": "Only the original F12 fixture scope called from postgres-h4-006-scope-reproducer.test.ts; pass supported options.at. No Date/global clock replacement, no historical source edits, no modified assertions.",
+  "priorFailure": "runs/attempt-10/regression-phase-15.stdout.log"
+}

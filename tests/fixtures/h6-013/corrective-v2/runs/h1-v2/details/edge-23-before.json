@@ -1,0 +1,3831 @@
+{
+  "from": 22,
+  "to": 23,
+  "ids": {
+    "a": "4d729e67-0e63-47f2-b2e3-e9f1e288d942",
+    "b": "87cb1fba-edff-41ec-8056-30f481c3f4bb",
+    "organization": "32f48d75-93d7-4014-8781-8d0668540fed",
+    "context": "ed1371b4-50f0-4a4e-9880-c025f41ee1ed",
+    "designation": "fb48bd7c-f4f8-470b-b399-6d563c0d5239",
+    "link": "40c8670f-890e-4901-9247-44e3ee0ab9c4",
+    "catalog": "ea5b6c4d-2606-47e1-90ff-1dc13f52cb48",
+    "tariff": "fafa205a-872d-42b6-b7c3-3d9bef2ac2d3",
+    "document": "49a68ec0-0b0f-4c05-b793-e2521e992181",
+    "object": "a17e7dc4-4c68-48d3-9e92-8147dec1694a",
+    "root": "56b62451-5f9e-45c9-8021-9c95a03a72c4",
+    "task": "c792fb77-1ccc-452b-8ba0-0bd1268f5b0f",
+    "unit": "1652d167-9206-4361-b92b-1d375a35f767",
+    "basis": "3cd79891-c59b-4732-a0f6-b42955e4f597",
+    "serviceRevision": "914187e1-1d59-4e6c-a785-3b87d15d0453",
+    "unitRevision": "b6377892-e0aa-4dba-a6d3-b5ffee3c30a9",
+    "basisRevision": "6d95b5b3-8e0a-4edb-8572-b27401b4793f"
+  },
+  "columns": [
+    {
+      "schema": "crm_f1",
+      "name": "consumption",
+      "columns": [
+        "generation",
+        "database_oid",
+        "xid",
+        "capability_id",
+        "expires_us"
+      ]
+    },
+    {
+      "schema": "crm_f1",
+      "name": "keys",
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ]
+    },
+    {
+      "schema": "crm_f2",
+      "name": "keys",
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "command_receipts",
+      "columns": [
+        "command_id",
+        "command_fingerprint",
+        "command_name",
+        "proposal_id",
+        "decision_id",
+        "reservation_id",
+        "attempt_id",
+        "state",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "decisions",
+      "columns": [
+        "decision_id",
+        "proposal_id",
+        "material_fingerprint",
+        "decision",
+        "reason",
+        "actor_id",
+        "session_id",
+        "decided_at"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "events",
+      "columns": [
+        "event_id",
+        "proposal_id",
+        "reservation_id",
+        "attempt_id",
+        "event_kind",
+        "actor_kind",
+        "actor_identity",
+        "recorded_at",
+        "details_fingerprint"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "evidence_revalidations",
+      "columns": [
+        "command_id",
+        "proposal_id",
+        "part_id",
+        "command_fingerprint",
+        "reference",
+        "fingerprint",
+        "checked_us",
+        "source_valid_until_us",
+        "approved_until_us",
+        "effective_until_us",
+        "verifier_identity",
+        "verifier_kind",
+        "context_scope",
+        "created_xid",
+        "recorded_at",
+        "outcome"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "parts",
+      "columns": [
+        "proposal_id",
+        "part_id",
+        "material_fingerprint",
+        "material_payload"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "proposals",
+      "columns": [
+        "proposal_id",
+        "material_fingerprint",
+        "material_payload",
+        "proposer_kind",
+        "proposer_actor",
+        "scope",
+        "created_at"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "reservations",
+      "columns": [
+        "reservation_id",
+        "proposal_id",
+        "decision_id",
+        "part_id",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "state",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "access_probe",
+      "columns": [
+        "probe_id",
+        "context_scope",
+        "public_value",
+        "private_value"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "access_recoveries",
+      "columns": [
+        "recovery_id",
+        "actor_id",
+        "auth_subject",
+        "recovery_kind",
+        "admin_scope",
+        "previous_generation",
+        "access_generation",
+        "started_at",
+        "auth_state",
+        "auth_recorded_at",
+        "completed_at",
+        "password_ready",
+        "totp_verified",
+        "new_factor_enrolled",
+        "old_factor_revoked",
+        "new_paper_copy_verified"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "catalog_applications",
+      "columns": [
+        "application_id",
+        "subject_ref",
+        "admin_scope",
+        "applied_revisions",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "catalog_history",
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "admin_scope",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "catalog_items",
+      "columns": [
+        "item_id",
+        "item_kind",
+        "admin_scope",
+        "parent_id",
+        "related_id",
+        "party_id",
+        "party_kind",
+        "source_ref",
+        "evidence_ref",
+        "created_by",
+        "created_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "catalog_operations",
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "material_fingerprint",
+        "action_kind",
+        "result_ref",
+        "result_version",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "catalog_revisions",
+      "columns": [
+        "revision_id",
+        "item_id",
+        "admin_scope",
+        "revision_number",
+        "definition",
+        "parent_revision_id",
+        "related_revision_id",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "commercial_applications",
+      "columns": [
+        "application_id",
+        "subject_ref",
+        "admin_scope",
+        "applied_revisions",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "commercial_history",
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "admin_scope",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "commercial_items",
+      "columns": [
+        "item_id",
+        "item_kind",
+        "admin_scope",
+        "catalog_item_id",
+        "origin_custom_revision_id",
+        "source_ref",
+        "evidence_ref",
+        "created_by",
+        "created_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "commercial_operations",
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result_ref",
+        "result_version",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "commercial_revisions",
+      "columns": [
+        "revision_id",
+        "item_id",
+        "admin_scope",
+        "revision_number",
+        "definition",
+        "base_currency",
+        "catalog_snapshot",
+        "validity_kind",
+        "valid_from",
+        "valid_until",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "crm_actors",
+      "columns": [
+        "actor_id",
+        "singleton",
+        "auth_subject",
+        "admin_scope",
+        "enabled",
+        "access_generation",
+        "access_state",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "crm_sessions",
+      "columns": [
+        "session_id",
+        "actor_id",
+        "auth_subject",
+        "access_generation",
+        "created_at",
+        "revoked_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "external_effect_records",
+      "columns": [
+        "record_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "effect_id",
+        "stage",
+        "intent_id",
+        "attempt_id",
+        "destination_reference",
+        "content_version",
+        "content_fingerprint",
+        "outcome",
+        "result_reference",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "global_access_revocation_attempts",
+      "columns": [
+        "attempt_id",
+        "revocation_id",
+        "attempt_number",
+        "outcome",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "global_access_revocations",
+      "columns": [
+        "revocation_id",
+        "actor_id",
+        "auth_subject",
+        "initiating_session_id",
+        "previous_access_generation",
+        "access_generation",
+        "admin_scope",
+        "core_revoked_at",
+        "auth_state",
+        "auth_attempt_count",
+        "last_auth_attempt_at",
+        "auth_revoked_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "identification_epochs",
+      "columns": [
+        "epoch_id",
+        "session_id",
+        "identified_at",
+        "last_human_activity_at",
+        "full_password",
+        "full_mfa",
+        "access_state",
+        "current_epoch",
+        "closed_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "identity_code_counters",
+      "columns": [
+        "code_kind",
+        "code_year",
+        "last_serial"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "identity_codes",
+      "columns": [
+        "code_id",
+        "operation_id",
+        "code_kind",
+        "target_id",
+        "admin_scope",
+        "code_year",
+        "serial_number",
+        "human_code",
+        "assigned_at",
+        "source_ref",
+        "evidence_ref",
+        "actor_id"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "identity_contexts",
+      "columns": [
+        "context_id",
+        "context_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "verified",
+        "version",
+        "created_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "identity_designations",
+      "columns": [
+        "designation_id",
+        "context_id",
+        "party_id",
+        "party_kind",
+        "role_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "verified",
+        "recorded_by",
+        "effective_at",
+        "recorded_at",
+        "ended_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "identity_entities",
+      "columns": [
+        "identity_id",
+        "identity_kind",
+        "admin_scope",
+        "context_id",
+        "display_name",
+        "given_name",
+        "family_name",
+        "email",
+        "phone",
+        "group_type",
+        "estimated_size",
+        "confirmed_size",
+        "size_source",
+        "source_ref",
+        "evidence_ref",
+        "identity_verified",
+        "version",
+        "created_at",
+        "updated_at",
+        "archived_at",
+        "merged_into_id"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "identity_history",
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "context_id",
+        "related_id",
+        "subject_kind",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "happened_at",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "identity_operations",
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "material_fingerprint",
+        "action_kind",
+        "result_ref",
+        "resulting_version",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "identity_organization_contacts",
+      "columns": [
+        "link_id",
+        "organization_id",
+        "organization_kind",
+        "contact_id",
+        "contact_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "unit_attempts",
+      "columns": [
+        "attempt_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "attempt_kind",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "unit_history",
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "fact_kind",
+        "before_value",
+        "after_value",
+        "reason",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "actor_id",
+        "actor_kind",
+        "evidence_state"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "unit_operations",
+      "columns": [
+        "operation_id",
+        "operation_class",
+        "root_id",
+        "context_scope",
+        "material_fingerprint",
+        "actor_id",
+        "actor_kind",
+        "purpose",
+        "cause",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "expected_version",
+        "resulting_version",
+        "initial_attempt_id",
+        "effect_id",
+        "intent_id"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "unit_results",
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "result_state",
+        "resulting_version",
+        "after_value",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "fixed_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "unit_roots",
+      "columns": [
+        "root_id",
+        "context_scope",
+        "version",
+        "current_value",
+        "created_at",
+        "updated_at"
+      ]
+    }
+  ],
+  "rows": {
+    "crm_f1.consumption": {
+      "columns": [
+        "generation",
+        "database_oid",
+        "xid",
+        "capability_id",
+        "expires_us"
+      ],
+      "columnTypes": [
+        "text",
+        "oid",
+        "xid8",
+        "text",
+        "bigint"
+      ],
+      "count": 0,
+      "sha256": "26781a1d57f38227a9ffcc8088b8f00ea0e754d21f59d1228ff6377beca5b36c"
+    },
+    "crm_f1.keys": {
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ],
+      "columnTypes": [
+        "text",
+        "bytea",
+        "text",
+        "text",
+        "text[]",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "1ab35d895ca96a7670ddc1a2fe5b70281e33e1f448c49bf8f0e6bebecd7b8138"
+    },
+    "crm_f2.keys": {
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ],
+      "columnTypes": [
+        "text",
+        "bytea",
+        "text",
+        "text",
+        "text[]",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "08485923b402832991d6ef2751a3928dd8c059dc40173e4e7c108d08e430cff1"
+    },
+    "crm_ha.command_receipts": {
+      "columns": [
+        "command_id",
+        "command_fingerprint",
+        "command_name",
+        "proposal_id",
+        "decision_id",
+        "reservation_id",
+        "attempt_id",
+        "state",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "44751df7e62428ffe803a1232faf0fdc19ed99a5e5c5bf58a9fcd4e8c9c7505e"
+    },
+    "crm_ha.decisions": {
+      "columns": [
+        "decision_id",
+        "proposal_id",
+        "material_fingerprint",
+        "decision",
+        "reason",
+        "actor_id",
+        "session_id",
+        "decided_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "146f607203e516080a1637452fb86d0658fe9f1e01720aa341d956f3ba696d6f"
+    },
+    "crm_ha.events": {
+      "columns": [
+        "event_id",
+        "proposal_id",
+        "reservation_id",
+        "attempt_id",
+        "event_kind",
+        "actor_kind",
+        "actor_identity",
+        "recorded_at",
+        "details_fingerprint"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "225ec317774132e7e0cab40bbbdd2b3925fefe053d73bec58684fc98fcd56f76"
+    },
+    "crm_ha.evidence_revalidations": {
+      "columns": [
+        "command_id",
+        "proposal_id",
+        "part_id",
+        "command_fingerprint",
+        "reference",
+        "fingerprint",
+        "checked_us",
+        "source_valid_until_us",
+        "approved_until_us",
+        "effective_until_us",
+        "verifier_identity",
+        "verifier_kind",
+        "context_scope",
+        "created_xid",
+        "recorded_at",
+        "outcome"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "bigint",
+        "bigint",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "xid8",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "8e6dba8206e7bfc1573a1379aa76d75cb97a14a98058661853bf8d36ba635da3"
+    },
+    "crm_ha.parts": {
+      "columns": [
+        "proposal_id",
+        "part_id",
+        "material_fingerprint",
+        "material_payload"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "bytea"
+      ],
+      "count": 0,
+      "sha256": "fca720433be5238f52a2be5d179237bf2516c1c9b27b5dbc6bfeac176866352a"
+    },
+    "crm_ha.proposals": {
+      "columns": [
+        "proposal_id",
+        "material_fingerprint",
+        "material_payload",
+        "proposer_kind",
+        "proposer_actor",
+        "scope",
+        "created_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "bytea",
+        "text",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "45d6bb866aa14349cd8432993d1a690f1cda110c69f40048b1dfa8f247e77953"
+    },
+    "crm_ha.reservations": {
+      "columns": [
+        "reservation_id",
+        "proposal_id",
+        "decision_id",
+        "part_id",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "state",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "58c8f076b0a24c211ff2c4e6ed8a99e1f82d9520e4f9ebfb20c8c79e29010728"
+    },
+    "crm_private.access_probe": {
+      "columns": [
+        "probe_id",
+        "context_scope",
+        "public_value",
+        "private_value"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 1,
+      "sha256": "809556605532c9d49bb4000aaaea9911667aff3a8ffd3ff7bb145fe18a6d6349"
+    },
+    "crm_private.access_recoveries": {
+      "columns": [
+        "recovery_id",
+        "actor_id",
+        "auth_subject",
+        "recovery_kind",
+        "admin_scope",
+        "previous_generation",
+        "access_generation",
+        "started_at",
+        "auth_state",
+        "auth_recorded_at",
+        "completed_at",
+        "password_ready",
+        "totp_verified",
+        "new_factor_enrolled",
+        "old_factor_revoked",
+        "new_paper_copy_verified"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "bigint",
+        "bigint",
+        "timestamp with time zone",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean",
+        "boolean",
+        "boolean",
+        "boolean",
+        "boolean"
+      ],
+      "count": 0,
+      "sha256": "b66537e02d7dcea66c489f6f098175735d494f7b52bf4fa6390bbdad2170f8a3"
+    },
+    "crm_private.catalog_applications": {
+      "columns": [
+        "application_id",
+        "subject_ref",
+        "admin_scope",
+        "applied_revisions",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "663376e8cf8363abc2d20b6f9dc2255af9850904842578d6422cfc73cb1cf7c3"
+    },
+    "crm_private.catalog_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "admin_scope",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 6,
+      "sha256": "56212a024fcd20b323fb4fd1cdfb06d4be9c2faded9d93ecb4780eb85228943b"
+    },
+    "crm_private.catalog_items": {
+      "columns": [
+        "item_id",
+        "item_kind",
+        "admin_scope",
+        "parent_id",
+        "related_id",
+        "party_id",
+        "party_kind",
+        "source_ref",
+        "evidence_ref",
+        "created_by",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 3,
+      "sha256": "4ba838aad542e29ddb3603662bae2cb94bf504a6fa96b3139a753c2f53428749"
+    },
+    "crm_private.catalog_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "material_fingerprint",
+        "action_kind",
+        "result_ref",
+        "result_version",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 6,
+      "sha256": "d6072ddc2897c0ae0f010932baf2986eb988b125e94aa6ae6f12e9ca2af32bfd"
+    },
+    "crm_private.catalog_revisions": {
+      "columns": [
+        "revision_id",
+        "item_id",
+        "admin_scope",
+        "revision_number",
+        "definition",
+        "parent_revision_id",
+        "related_revision_id",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 3,
+      "sha256": "2672618e48c25905d7e4faab7fd20d6243c483c5d90964040a0fbefe1b17e397"
+    },
+    "crm_private.commercial_applications": {
+      "columns": [
+        "application_id",
+        "subject_ref",
+        "admin_scope",
+        "applied_revisions",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "663376e8cf8363abc2d20b6f9dc2255af9850904842578d6422cfc73cb1cf7c3"
+    },
+    "crm_private.commercial_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "admin_scope",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 2,
+      "sha256": "8ecba46f969213e3083c88b9535e34934853b3b9633a876a81682f94bd5d2ffd"
+    },
+    "crm_private.commercial_items": {
+      "columns": [
+        "item_id",
+        "item_kind",
+        "admin_scope",
+        "catalog_item_id",
+        "origin_custom_revision_id",
+        "source_ref",
+        "evidence_ref",
+        "created_by",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "5d01b46463bd0ae2e8387fed7d0397d96d66c91dd85b6f6b219e6dd699aaf4f6"
+    },
+    "crm_private.commercial_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result_ref",
+        "result_version",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 2,
+      "sha256": "cc50f3da506313cac450200687407f335fd224e1c35013c0f81e64bcf2515483"
+    },
+    "crm_private.commercial_revisions": {
+      "columns": [
+        "revision_id",
+        "item_id",
+        "admin_scope",
+        "revision_number",
+        "definition",
+        "base_currency",
+        "catalog_snapshot",
+        "validity_kind",
+        "valid_from",
+        "valid_until",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "jsonb",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "143fb264c6d1184ebb42659fe871d31d723dd9cf2435fcd5e4a1e37cb58d5f29"
+    },
+    "crm_private.crm_actors": {
+      "columns": [
+        "actor_id",
+        "singleton",
+        "auth_subject",
+        "admin_scope",
+        "enabled",
+        "access_generation",
+        "access_state",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "boolean",
+        "uuid",
+        "text",
+        "boolean",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "43ba8ad2eaa4b0bd76c09521e9e2026cbcd740ed0e9e82dcea84dc3a27061340"
+    },
+    "crm_private.crm_sessions": {
+      "columns": [
+        "session_id",
+        "actor_id",
+        "auth_subject",
+        "access_generation",
+        "created_at",
+        "revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "a94045da007238262bc20807142ecf48a8aec725f98c6cd9a46510c392d8c753"
+    },
+    "crm_private.external_effect_records": {
+      "columns": [
+        "record_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "effect_id",
+        "stage",
+        "intent_id",
+        "attempt_id",
+        "destination_reference",
+        "content_version",
+        "content_fingerprint",
+        "outcome",
+        "result_reference",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8e18393a659df09b3c7455fccd996bc9d02a95ec60c6bd1fcfc25a89a81ee0a1"
+    },
+    "crm_private.global_access_revocation_attempts": {
+      "columns": [
+        "attempt_id",
+        "revocation_id",
+        "attempt_number",
+        "outcome",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "integer",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b1fd009d0f5dcf4a2e803ad3f0b8472fb8a6816a54fd0f676060c0af2825715a"
+    },
+    "crm_private.global_access_revocations": {
+      "columns": [
+        "revocation_id",
+        "actor_id",
+        "auth_subject",
+        "initiating_session_id",
+        "previous_access_generation",
+        "access_generation",
+        "admin_scope",
+        "core_revoked_at",
+        "auth_state",
+        "auth_attempt_count",
+        "last_auth_attempt_at",
+        "auth_revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "integer",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "67d4d5ce43a2f3b3aa0ee6535d004fde9faac33e70285866cda53c6e511c7f79"
+    },
+    "crm_private.identification_epochs": {
+      "columns": [
+        "epoch_id",
+        "session_id",
+        "identified_at",
+        "last_human_activity_at",
+        "full_password",
+        "full_mfa",
+        "access_state",
+        "current_epoch",
+        "closed_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean",
+        "boolean",
+        "text",
+        "boolean",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "97ac0d80080fa1877ef73b06015e9c9dd17172ad4ecec8e6dcddefd6124f5534"
+    },
+    "crm_private.identity_code_counters": {
+      "columns": [
+        "code_kind",
+        "code_year",
+        "last_serial"
+      ],
+      "columnTypes": [
+        "text",
+        "integer",
+        "bigint"
+      ],
+      "count": 1,
+      "sha256": "cb40c2890747557d9072fc0961e8b3425f88531f7eaa670ac4b4b280e584fa25"
+    },
+    "crm_private.identity_codes": {
+      "columns": [
+        "code_id",
+        "operation_id",
+        "code_kind",
+        "target_id",
+        "admin_scope",
+        "code_year",
+        "serial_number",
+        "human_code",
+        "assigned_at",
+        "source_ref",
+        "evidence_ref",
+        "actor_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "integer",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "uuid"
+      ],
+      "count": 1,
+      "sha256": "b28f295fd5a4f5b94465125d02bff9f2c74d7cef6f08bc070e044a81ed298791"
+    },
+    "crm_private.identity_contexts": {
+      "columns": [
+        "context_id",
+        "context_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "verified",
+        "version",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "dc9239cc942c5a062670e93bb307b5a4c4031ae1c56fa165d927fd7e2418c5f0"
+    },
+    "crm_private.identity_designations": {
+      "columns": [
+        "designation_id",
+        "context_id",
+        "party_id",
+        "party_kind",
+        "role_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "verified",
+        "recorded_by",
+        "effective_at",
+        "recorded_at",
+        "ended_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "e6e9e1d3bac7774543d0b7e9904aee8e8f0608894b17f1df383ac022e6e5b016"
+    },
+    "crm_private.identity_entities": {
+      "columns": [
+        "identity_id",
+        "identity_kind",
+        "admin_scope",
+        "context_id",
+        "display_name",
+        "given_name",
+        "family_name",
+        "email",
+        "phone",
+        "group_type",
+        "estimated_size",
+        "confirmed_size",
+        "size_source",
+        "source_ref",
+        "evidence_ref",
+        "identity_verified",
+        "version",
+        "created_at",
+        "updated_at",
+        "archived_at",
+        "merged_into_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "integer",
+        "integer",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid"
+      ],
+      "count": 3,
+      "sha256": "3c54a49735156fe30e9a14dff3480afa368531b53967c7ec631e62589fc8de6a"
+    },
+    "crm_private.identity_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "context_id",
+        "related_id",
+        "subject_kind",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "happened_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 8,
+      "sha256": "299aa78aaa971203b1870c328c282a62aaafebce2183081cd9318975285ac207"
+    },
+    "crm_private.identity_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "material_fingerprint",
+        "action_kind",
+        "result_ref",
+        "resulting_version",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 8,
+      "sha256": "fb9c699682dbd6a04422a67e1544ea02ffa21826bd1cb0175a6b0ee16c909774"
+    },
+    "crm_private.identity_organization_contacts": {
+      "columns": [
+        "link_id",
+        "organization_id",
+        "organization_kind",
+        "contact_id",
+        "contact_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "dcb2589b48412f762bdf6cb15118d7ede219e59c06df5ae019e0e1d3a18edc55"
+    },
+    "crm_private.unit_attempts": {
+      "columns": [
+        "attempt_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "attempt_kind",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "fc78445fd208658299b75dc8495040da091014ec217a4dfed75f4e1c3f56d3a0"
+    },
+    "crm_private.unit_history": {
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "fact_kind",
+        "before_value",
+        "after_value",
+        "reason",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "actor_id",
+        "actor_kind",
+        "evidence_state"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "3b0c84aedc708d22bccd99b990eb61b346098778e75cbc0c51149946bc358de6"
+    },
+    "crm_private.unit_operations": {
+      "columns": [
+        "operation_id",
+        "operation_class",
+        "root_id",
+        "context_scope",
+        "material_fingerprint",
+        "actor_id",
+        "actor_kind",
+        "purpose",
+        "cause",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "expected_version",
+        "resulting_version",
+        "initial_attempt_id",
+        "effect_id",
+        "intent_id"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "bigint",
+        "bigint",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "9319d04ca1669df10c06af79beb21cf47f73ebaed43a2390097a21c731f6ceeb"
+    },
+    "crm_private.unit_results": {
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "result_state",
+        "resulting_version",
+        "after_value",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "fixed_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "d7eb7722d11cda4769e23e6a7a52c5e6e838920c3a4b36700ee3e0ee3412b644"
+    },
+    "crm_private.unit_roots": {
+      "columns": [
+        "root_id",
+        "context_scope",
+        "version",
+        "current_value",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "512d46182bd9d8618bbf85eb09b3e1aae282f4fa57f644040835638c0d678666"
+    }
+  },
+  "businessValuesAndRelations": {
+    "crm_private.catalog_applications": [],
+    "crm_private.catalog_history": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:09.981798+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"item_kind\",[\"string\",\"service\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"before_state\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"history_id\",[\"string\",\"07548ea9-2d0b-4a85-b17e-8a0106d1ac58\"]],[\"operation_id\",[\"string\",\"07548ea9-2d0b-4a85-b17e-8a0106d1ac58\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:09.982316+02:00\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:10.017247+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]],[\"item_kind\",[\"string\",\"unit\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"before_state\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"history_id\",[\"string\",\"61bc8cfe-40f4-41ee-bf46-630ae5f808fe\"]],[\"operation_id\",[\"string\",\"61bc8cfe-40f4-41ee-bf46-630ae5f808fe\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.017388+02:00\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:10.02147+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]],[\"item_kind\",[\"string\",\"pricing_form\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"before_state\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"history_id\",[\"string\",\"a8b4fde0-d652-47a7-b343-8e1725865510\"]],[\"operation_id\",[\"string\",\"a8b4fde0-d652-47a7-b343-8e1725865510\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.021597+02:00\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"after_state\",[\"object\",[[\"item\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:09.981798+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"item_kind\",[\"string\",\"service\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"revision\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"name\",[\"string\",\"SYNTHETIC H6 service\"]],[\"nature\",[\"string\",\"internal\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.014404+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"914187e1-1d59-4e6c-a785-3b87d15d0453\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]]]]],[\"before_state\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"history_id\",[\"string\",\"914187e1-1d59-4e6c-a785-3b87d15d0453\"]],[\"operation_id\",[\"string\",\"914187e1-1d59-4e6c-a785-3b87d15d0453\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.0148+02:00\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"after_state\",[\"object\",[[\"item\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:10.017247+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]],[\"item_kind\",[\"string\",\"unit\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"revision\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"definition\",[\"string\",\"A participant\"]],[\"name\",[\"string\",\"SYNTHETIC Person\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.019345+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"b6377892-e0aa-4dba-a6d3-b5ffee3c30a9\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]]]]],[\"before_state\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"history_id\",[\"string\",\"b6377892-e0aa-4dba-a6d3-b5ffee3c30a9\"]],[\"operation_id\",[\"string\",\"b6377892-e0aa-4dba-a6d3-b5ffee3c30a9\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.019511+02:00\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"after_state\",[\"object\",[[\"item\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:10.02147+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]],[\"item_kind\",[\"string\",\"pricing_form\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"revision\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"definition\",[\"string\",\"Person basis\"]],[\"name\",[\"string\",\"SYNTHETIC Per person\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.02432+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"6d95b5b3-8e0a-4edb-8572-b27401b4793f\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]]]]],[\"before_state\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"history_id\",[\"string\",\"6d95b5b3-8e0a-4edb-8572-b27401b4793f\"]],[\"operation_id\",[\"string\",\"6d95b5b3-8e0a-4edb-8572-b27401b4793f\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.024532+02:00\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]]]]]]]"
+    ],
+    "crm_private.catalog_items": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:09.981798+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"item_kind\",[\"string\",\"service\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:10.017247+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]],[\"item_kind\",[\"string\",\"unit\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:10.02147+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]],[\"item_kind\",[\"string\",\"pricing_form\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]]]]"
+    ],
+    "crm_private.catalog_operations": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_item\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"38c9f287295f6c90f78b437f1c37a7dd881da52a2fd250af2966245c1a11165b\"]],[\"operation_id\",[\"string\",\"61bc8cfe-40f4-41ee-bf46-630ae5f808fe\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.01734+02:00\"]],[\"result_ref\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]],[\"result_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_item\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"6e426f95fe34f84e2e88b9fcd1a90ebb440342d7806ab8e93bc033617b405140\"]],[\"operation_id\",[\"string\",\"07548ea9-2d0b-4a85-b17e-8a0106d1ac58\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:09.982152+02:00\"]],[\"result_ref\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"result_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_item\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"f8ed1041433608126519ec2c90119870c2de17e974739765cca43692eb978c9d\"]],[\"operation_id\",[\"string\",\"a8b4fde0-d652-47a7-b343-8e1725865510\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.021552+02:00\"]],[\"result_ref\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]],[\"result_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"publish_version\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"85e4d707a72a166a4a622c845d100fdcfb48cd142701d9b2734d0ae90a3554d6\"]],[\"operation_id\",[\"string\",\"914187e1-1d59-4e6c-a785-3b87d15d0453\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.014751+02:00\"]],[\"result_ref\",[\"string\",\"914187e1-1d59-4e6c-a785-3b87d15d0453\"]],[\"result_version\",[\"number\",\"1e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"publish_version\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"b85d22ca6872ef2bca0724c9f43153b60b5480e48d5e95dfed768d4638423b18\"]],[\"operation_id\",[\"string\",\"b6377892-e0aa-4dba-a6d3-b5ffee3c30a9\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.019467+02:00\"]],[\"result_ref\",[\"string\",\"b6377892-e0aa-4dba-a6d3-b5ffee3c30a9\"]],[\"result_version\",[\"number\",\"1e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"publish_version\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"eb53c6913b4244c045b2621e006cdab13538579e9d5aca5f0e8f054b9f07600c\"]],[\"operation_id\",[\"string\",\"6d95b5b3-8e0a-4edb-8572-b27401b4793f\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.024459+02:00\"]],[\"result_ref\",[\"string\",\"6d95b5b3-8e0a-4edb-8572-b27401b4793f\"]],[\"result_version\",[\"number\",\"1e0\"]]]]]]]"
+    ],
+    "crm_private.catalog_revisions": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"definition\",[\"string\",\"A participant\"]],[\"name\",[\"string\",\"SYNTHETIC Person\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.019345+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"b6377892-e0aa-4dba-a6d3-b5ffee3c30a9\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"definition\",[\"string\",\"Person basis\"]],[\"name\",[\"string\",\"SYNTHETIC Per person\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.02432+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"6d95b5b3-8e0a-4edb-8572-b27401b4793f\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"name\",[\"string\",\"SYNTHETIC H6 service\"]],[\"nature\",[\"string\",\"internal\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.014404+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"914187e1-1d59-4e6c-a785-3b87d15d0453\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]]]]"
+    ],
+    "crm_private.commercial_applications": [],
+    "crm_private.commercial_history": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"catalog_item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:11.210026+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"fafa205a-872d-42b6-b7c3-3d9bef2ac2d3\"]],[\"item_kind\",[\"string\",\"tariff\"]],[\"origin_custom_revision_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"before_state\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"history_id\",[\"string\",\"a0facef0-e52f-475a-9c5b-e1ed0e8d85c2\"]],[\"operation_id\",[\"string\",\"a0facef0-e52f-475a-9c5b-e1ed0e8d85c2\"]],[\"reason\",[\"string\",\"synthetic-tariff\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:11.210877+02:00\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"fafa205a-872d-42b6-b7c3-3d9bef2ac2d3\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"after_state\",[\"object\",[[\"item\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"catalog_item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:11.210026+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"fafa205a-872d-42b6-b7c3-3d9bef2ac2d3\"]],[\"item_kind\",[\"string\",\"tariff\"]],[\"origin_custom_revision_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"revision\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"base_currency\",[\"string\",\"EUR\"]],[\"catalog_snapshot\",[\"array\",[[\"object\",[[\"item\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:09.981798+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"item_kind\",[\"string\",\"service\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"revision\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"name\",[\"string\",\"SYNTHETIC H6 service\"]],[\"nature\",[\"string\",\"internal\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.014404+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"914187e1-1d59-4e6c-a785-3b87d15d0453\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"role\",[\"string\",\"scope\"]]]],[\"object\",[[\"item\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:10.017247+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]],[\"item_kind\",[\"string\",\"unit\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"revision\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"definition\",[\"string\",\"A participant\"]],[\"name\",[\"string\",\"SYNTHETIC Person\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.019345+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"b6377892-e0aa-4dba-a6d3-b5ffee3c30a9\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"role\",[\"string\",\"unit\"]]]],[\"object\",[[\"item\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:10.02147+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]],[\"item_kind\",[\"string\",\"pricing_form\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"revision\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"definition\",[\"string\",\"Person basis\"]],[\"name\",[\"string\",\"SYNTHETIC Per person\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.02432+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"6d95b5b3-8e0a-4edb-8572-b27401b4793f\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"role\",[\"string\",\"pricing_form\"]]]]]]],[\"definition\",[\"object\",[[\"cost_state\",[\"string\",\"unknown\"]],[\"label\",[\"string\",\"SYNTHETIC H6 tariff\"]],[\"price_state\",[\"string\",\"unknown\"]],[\"pricing_form_revision_id\",[\"string\",\"6d95b5b3-8e0a-4edb-8572-b27401b4793f\"]],[\"unit_revision_id\",[\"string\",\"b6377892-e0aa-4dba-a6d3-b5ffee3c30a9\"]],[\"vat_treatment\",[\"string\",\"unknown\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"fafa205a-872d-42b6-b7c3-3d9bef2ac2d3\"]],[\"reason\",[\"string\",\"synthetic-tariff\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:11.216957+02:00\"]],[\"revision_id\",[\"string\",\"ce403802-f2d9-4dc1-83e0-a437e93f663f\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"valid_from\",[\"null\"]],[\"valid_until\",[\"null\"]],[\"validity_kind\",[\"string\",\"unknown\"]]]]]]]],[\"before_state\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"history_id\",[\"string\",\"ce403802-f2d9-4dc1-83e0-a437e93f663f\"]],[\"operation_id\",[\"string\",\"ce403802-f2d9-4dc1-83e0-a437e93f663f\"]],[\"reason\",[\"string\",\"synthetic-tariff\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:11.217497+02:00\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"fafa205a-872d-42b6-b7c3-3d9bef2ac2d3\"]]]]]]]"
+    ],
+    "crm_private.commercial_items": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"catalog_item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:11.210026+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"fafa205a-872d-42b6-b7c3-3d9bef2ac2d3\"]],[\"item_kind\",[\"string\",\"tariff\"]],[\"origin_custom_revision_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]]]]"
+    ],
+    "crm_private.commercial_operations": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"fingerprint\",[\"string\",\"03a79707280019fc23a7f25dbca6c37db7c3cf5614ffbc9b0d70b0f96145518f\"]],[\"operation_id\",[\"string\",\"a0facef0-e52f-475a-9c5b-e1ed0e8d85c2\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:11.210672+02:00\"]],[\"result_ref\",[\"string\",\"fafa205a-872d-42b6-b7c3-3d9bef2ac2d3\"]],[\"result_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"fingerprint\",[\"string\",\"97184dea2288ed28bb121af23acbdc5d2ef253d88ce99d9458663d14295cc59b\"]],[\"operation_id\",[\"string\",\"ce403802-f2d9-4dc1-83e0-a437e93f663f\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:11.217375+02:00\"]],[\"result_ref\",[\"string\",\"ce403802-f2d9-4dc1-83e0-a437e93f663f\"]],[\"result_version\",[\"number\",\"1e0\"]]]]]]]"
+    ],
+    "crm_private.commercial_revisions": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"base_currency\",[\"string\",\"EUR\"]],[\"catalog_snapshot\",[\"array\",[[\"object\",[[\"item\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:09.981798+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"item_kind\",[\"string\",\"service\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"revision\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"name\",[\"string\",\"SYNTHETIC H6 service\"]],[\"nature\",[\"string\",\"internal\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"ea5b6c4d-2606-47e1-90ff-1dc13f52cb48\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.014404+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"914187e1-1d59-4e6c-a785-3b87d15d0453\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"role\",[\"string\",\"scope\"]]]],[\"object\",[[\"item\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:10.017247+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]],[\"item_kind\",[\"string\",\"unit\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"revision\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"definition\",[\"string\",\"A participant\"]],[\"name\",[\"string\",\"SYNTHETIC Person\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"1652d167-9206-4361-b92b-1d375a35f767\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.019345+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"b6377892-e0aa-4dba-a6d3-b5ffee3c30a9\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"role\",[\"string\",\"unit\"]]]],[\"object\",[[\"item\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:10.02147+02:00\"]],[\"created_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]],[\"item_kind\",[\"string\",\"pricing_form\"]],[\"parent_id\",[\"null\"]],[\"party_id\",[\"null\"]],[\"party_kind\",[\"null\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"revision\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"definition\",[\"object\",[[\"definition\",[\"string\",\"Person basis\"]],[\"name\",[\"string\",\"SYNTHETIC Per person\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"3cd79891-c59b-4732-a0f6-b42955e4f597\"]],[\"parent_revision_id\",[\"null\"]],[\"reason\",[\"string\",\"synthetic-catalog\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:10.02432+02:00\"]],[\"related_revision_id\",[\"null\"]],[\"revision_id\",[\"string\",\"6d95b5b3-8e0a-4edb-8572-b27401b4793f\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]]]]],[\"role\",[\"string\",\"pricing_form\"]]]]]]],[\"definition\",[\"object\",[[\"cost_state\",[\"string\",\"unknown\"]],[\"label\",[\"string\",\"SYNTHETIC H6 tariff\"]],[\"price_state\",[\"string\",\"unknown\"]],[\"pricing_form_revision_id\",[\"string\",\"6d95b5b3-8e0a-4edb-8572-b27401b4793f\"]],[\"unit_revision_id\",[\"string\",\"b6377892-e0aa-4dba-a6d3-b5ffee3c30a9\"]],[\"vat_treatment\",[\"string\",\"unknown\"]]]]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"item_id\",[\"string\",\"fafa205a-872d-42b6-b7c3-3d9bef2ac2d3\"]],[\"reason\",[\"string\",\"synthetic-tariff\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:11.216957+02:00\"]],[\"revision_id\",[\"string\",\"ce403802-f2d9-4dc1-83e0-a437e93f663f\"]],[\"revision_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"valid_from\",[\"null\"]],[\"valid_until\",[\"null\"]],[\"validity_kind\",[\"string\",\"unknown\"]]]]]]]"
+    ],
+    "crm_private.identity_code_counters": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"code_kind\",[\"string\",\"OP\"]],[\"code_year\",[\"number\",\"2026e0\"]],[\"last_serial\",[\"number\",\"1e0\"]]]]]]]"
+    ],
+    "crm_private.identity_codes": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"assigned_at\",[\"string\",\"2026-10-20T18:35:09.068044+02:00\"]],[\"code_id\",[\"string\",\"d168fb65-1f65-4e2a-a54d-b1ab58bb1a5b\"]],[\"code_kind\",[\"string\",\"OP\"]],[\"code_year\",[\"number\",\"2026e0\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"human_code\",[\"string\",\"OP-2026-0001\"]],[\"operation_id\",[\"string\",\"d168fb65-1f65-4e2a-a54d-b1ab58bb1a5b\"]],[\"serial_number\",[\"number\",\"1e0\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"target_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]]]]]]]"
+    ],
+    "crm_private.identity_contexts": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"context_kind\",[\"string\",\"opportunity\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.239+02:00\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"verified\",[\"boolean\",true]],[\"version\",[\"number\",\"1e0\"]]]]]]]"
+    ],
+    "crm_private.identity_designations": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"designation_id\",[\"string\",\"fb48bd7c-f4f8-470b-b399-6d563c0d5239\"]],[\"effective_at\",[\"null\"]],[\"ended_at\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"party_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"party_kind\",[\"string\",\"contact\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.241667+02:00\"]],[\"recorded_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"role_kind\",[\"string\",\"primary_contact\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"verified\",[\"boolean\",true]]]]]]]"
+    ],
+    "crm_private.identity_entities": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"archived_at\",[\"null\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.230902+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact A\"]],[\"email\",[\"string\",\"synthetic@example.invalid\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"merged_into_id\",[\"null\"]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.230902+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"archived_at\",[\"string\",\"2026-10-20T18:35:09.070649+02:00\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact B\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"merged_into_id\",[\"null\"]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:09.070649+02:00\"]],[\"version\",[\"number\",\"1e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"archived_at\",[\"null\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.236824+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 organization\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"identity_kind\",[\"string\",\"organization\"]],[\"identity_verified\",[\"boolean\",true]],[\"merged_into_id\",[\"null\"]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.236824+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]]]]"
+    ],
+    "crm_private.identity_history": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"contact_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"contact_kind\",[\"string\",\"contact\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"link_id\",[\"string\",\"40c8670f-890e-4901-9247-44e3ee0ab9c4\"]],[\"organization_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"organization_kind\",[\"string\",\"organization\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.244865+02:00\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"96431918-ba69-43d9-837d-78ac21194b37\"]],[\"operation_id\",[\"string\",\"96431918-ba69-43d9-837d-78ac21194b37\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.245255+02:00\"]],[\"related_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"40c8670f-890e-4901-9247-44e3ee0ab9c4\"]],[\"subject_kind\",[\"string\",\"link_organization_contact\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"designation_id\",[\"string\",\"fb48bd7c-f4f8-470b-b399-6d563c0d5239\"]],[\"effective_at\",[\"null\"]],[\"ended_at\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"party_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"party_kind\",[\"string\",\"contact\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.241667+02:00\"]],[\"recorded_by\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"role_kind\",[\"string\",\"primary_contact\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"verified\",[\"boolean\",true]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"c9d7164d-9dbc-46e7-b90e-f056dd4ab941\"]],[\"operation_id\",[\"string\",\"c9d7164d-9dbc-46e7-b90e-f056dd4ab941\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.242106+02:00\"]],[\"related_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"fb48bd7c-f4f8-470b-b399-6d563c0d5239\"]],[\"subject_kind\",[\"string\",\"designate\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"context_kind\",[\"string\",\"opportunity\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.239+02:00\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"verified\",[\"boolean\",true]],[\"version\",[\"number\",\"0e0\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"1255d595-0c11-4925-907a-c8a8aad31fbd\"]],[\"operation_id\",[\"string\",\"1255d595-0c11-4925-907a-c8a8aad31fbd\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.239309+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"subject_kind\",[\"string\",\"create_context\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"archived_at\",[\"string\",\"2026-10-20T18:35:09.070649+02:00\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact B\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"merged_into_id\",[\"null\"]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:09.070649+02:00\"]],[\"version\",[\"number\",\"1e0\"]]]]],[\"before_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"archived_at\",[\"null\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact B\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"merged_into_id\",[\"null\"]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]],[\"context_id\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"e289b1e9-a035-4556-b4e2-73fa23881081\"]],[\"operation_id\",[\"string\",\"e289b1e9-a035-4556-b4e2-73fa23881081\"]],[\"reason\",[\"string\",\"synthetic-archive\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:09.070786+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"subject_kind\",[\"string\",\"archive\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.230902+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact A\"]],[\"email\",[\"string\",\"synthetic@example.invalid\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.230902+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"5c8fd5fb-002e-4af1-aa16-a526891040f6\"]],[\"operation_id\",[\"string\",\"5c8fd5fb-002e-4af1-aa16-a526891040f6\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.231536+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"subject_kind\",[\"string\",\"create_entity\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 contact B\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"identity_kind\",[\"string\",\"contact\"]],[\"identity_verified\",[\"boolean\",true]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.234372+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"a5ebe3eb-b093-4d02-baa9-d898bfe3dd96\"]],[\"operation_id\",[\"string\",\"a5ebe3eb-b093-4d02-baa9-d898bfe3dd96\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.234669+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"subject_kind\",[\"string\",\"create_entity\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"confirmed_size\",[\"null\"]],[\"context_id\",[\"null\"]],[\"created_at\",[\"string\",\"2026-10-20T18:35:08.236824+02:00\"]],[\"display_name\",[\"string\",\"SYNTHETIC H6 organization\"]],[\"email\",[\"null\"]],[\"estimated_size\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"family_name\",[\"null\"]],[\"given_name\",[\"null\"]],[\"group_type\",[\"null\"]],[\"identity_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"identity_kind\",[\"string\",\"organization\"]],[\"identity_verified\",[\"boolean\",true]],[\"phone\",[\"null\"]],[\"size_source\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"updated_at\",[\"string\",\"2026-10-20T18:35:08.236824+02:00\"]],[\"version\",[\"number\",\"0e0\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"315a700e-ebb9-4f47-8daf-57a9d186bcd7\"]],[\"operation_id\",[\"string\",\"315a700e-ebb9-4f47-8daf-57a9d186bcd7\"]],[\"reason\",[\"string\",\"synthetic-preservation\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.236955+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]],[\"subject_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"subject_kind\",[\"string\",\"create_entity\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",true],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",true],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"after_state\",[\"object\",[[\"assigned_at\",[\"string\",\"2026-10-20T18:35:09.068044+02:00\"]],[\"code_kind\",[\"string\",\"OP\"]],[\"code_year\",[\"number\",\"2026e0\"]],[\"human_code\",[\"string\",\"OP-2026-0001\"]],[\"target_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]]]]],[\"before_state\",[\"null\"]],[\"context_id\",[\"null\"]],[\"evidence_ref\",[\"string\",\"synthetic\"]],[\"happened_at\",[\"null\"]],[\"history_id\",[\"string\",\"d168fb65-1f65-4e2a-a54d-b1ab58bb1a5b\"]],[\"operation_id\",[\"string\",\"d168fb65-1f65-4e2a-a54d-b1ab58bb1a5b\"]],[\"reason\",[\"string\",\"synthetic-code\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:09.068811+02:00\"]],[\"related_id\",[\"null\"]],[\"source_ref\",[\"string\",\"synthetic\"]],[\"subject_id\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"subject_kind\",[\"string\",\"assign_code\"]]]]]]]"
+    ],
+    "crm_private.identity_operations": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"archive\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"12f7fe83f162546c5817a916bc6b4342b14f3cd850e159e993545a60f4f7b042\"]],[\"operation_id\",[\"string\",\"e289b1e9-a035-4556-b4e2-73fa23881081\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:09.070733+02:00\"]],[\"result_ref\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"resulting_version\",[\"number\",\"1e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"assign_code\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"f7daadeee28591094ef9d4c26f3b876398ade27b708d6e06177396944dec992c\"]],[\"operation_id\",[\"string\",\"d168fb65-1f65-4e2a-a54d-b1ab58bb1a5b\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:09.06845+02:00\"]],[\"result_ref\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_context\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"9703c2c936a1c237867a2829a5c674595e1af6bc5296f9e06fb731bf12363ed6\"]],[\"operation_id\",[\"string\",\"1255d595-0c11-4925-907a-c8a8aad31fbd\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.239236+02:00\"]],[\"result_ref\",[\"string\",\"ed1371b4-50f0-4a4e-9880-c025f41ee1ed\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_entity\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"0fa1842dc6a1b9c5a237f6959709f13c7674186aefed78c1d1bd87639e7029cd\"]],[\"operation_id\",[\"string\",\"315a700e-ebb9-4f47-8daf-57a9d186bcd7\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.236901+02:00\"]],[\"result_ref\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_entity\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"6efee211dec3a0b6c9071eab9d807219f3fdaa3a0dc2f422f181a57671491aaa\"]],[\"operation_id\",[\"string\",\"a5ebe3eb-b093-4d02-baa9-d898bfe3dd96\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.234589+02:00\"]],[\"result_ref\",[\"string\",\"87cb1fba-edff-41ec-8056-30f481c3f4bb\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"create_entity\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"bf1eda9a4592ae7910a5872275910ed16606ce9bea62a1f1d21c332195f6f160\"]],[\"operation_id\",[\"string\",\"5c8fd5fb-002e-4af1-aa16-a526891040f6\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.23129+02:00\"]],[\"result_ref\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"designate\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"1a35bd7d4e5231530f86c739fcb4d5bae008d060148757e88c9875fc1d58709c\"]],[\"operation_id\",[\"string\",\"c9d7164d-9dbc-46e7-b90e-f056dd4ab941\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.242054+02:00\"]],[\"result_ref\",[\"string\",\"fb48bd7c-f4f8-470b-b399-6d563c0d5239\"]],[\"resulting_version\",[\"number\",\"1e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"action_kind\",[\"string\",\"link_organization_contact\"]],[\"actor_id\",[\"string\",\"b11f631b-779b-41e8-927b-97f8614b1b24\"]],[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"material_fingerprint\",[\"string\",\"f1a774275470e49885f75a1bf6a21cf5bec565c9a55a1d7695f463f11faba143\"]],[\"operation_id\",[\"string\",\"96431918-ba69-43d9-837d-78ac21194b37\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.245199+02:00\"]],[\"result_ref\",[\"string\",\"40c8670f-890e-4901-9247-44e3ee0ab9c4\"]],[\"resulting_version\",[\"number\",\"0e0\"]]]]]]]"
+    ],
+    "crm_private.identity_organization_contacts": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"admin_scope\",[\"string\",\"h6013-corrective-synthetic\"]],[\"contact_id\",[\"string\",\"4d729e67-0e63-47f2-b2e3-e9f1e288d942\"]],[\"contact_kind\",[\"string\",\"contact\"]],[\"evidence_ref\",[\"string\",\"synthetic-reviewed\"]],[\"link_id\",[\"string\",\"40c8670f-890e-4901-9247-44e3ee0ab9c4\"]],[\"organization_id\",[\"string\",\"32f48d75-93d7-4014-8781-8d0668540fed\"]],[\"organization_kind\",[\"string\",\"organization\"]],[\"recorded_at\",[\"string\",\"2026-10-20T18:35:08.244865+02:00\"]],[\"source_ref\",[\"string\",\"synthetic-h6013\"]]]]]]]"
+    ]
+  },
+  "constraints": [
+    {
+      "relation": "crm_f1.consumption",
+      "conname": "consumption_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (generation, database_oid, xid, capability_id)"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_audience_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((audience <> ''::text))"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((valid_until > valid_from))"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((generation <> ''::text))"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (key_id)"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_purposes_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((cardinality(purposes) > 0))"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_secret_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((octet_length(secret) = 32))"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_audience_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((audience <> ''::text))"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((valid_until > valid_from))"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((generation <> ''::text))"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (key_id)"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_purposes_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((cardinality(purposes) > 0))"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_secret_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((octet_length(secret) = 32))"
+    },
+    {
+      "relation": "crm_ha.command_receipts",
+      "conname": "command_receipts_command_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((command_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.command_receipts",
+      "conname": "command_receipts_command_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((command_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.command_receipts",
+      "conname": "command_receipts_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (command_id)"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_decision_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((decision = ANY (ARRAY['approved'::text, 'rejected'::text])))"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_decision_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((decision_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (decision_id)"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_proposal_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (proposal_id) REFERENCES crm_ha.proposals(proposal_id)"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_proposal_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (proposal_id)"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_actor_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((actor_kind = ANY (ARRAY['human'::text, 'technical'::text])))"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_details_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((details_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_event_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((event_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_event_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((event_kind = ANY (ARRAY['proposed'::text, 'approved'::text, 'rejected'::text, 'reserved'::text, 'attempted'::text, 'succeeded'::text, 'failed-known'::text, 'uncertain'::text, 'reconciled-succeeded'::text, 'reconciled-failed'::text])))"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (event_id)"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_proposal_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (proposal_id) REFERENCES crm_ha.proposals(proposal_id)"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((checked_us < effective_until_us))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((effective_until_us = LEAST(source_valid_until_us, approved_until_us)))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_command_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((command_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_command_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (command_id) REFERENCES crm_ha.reservations(reservation_id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_command_id_fkey1",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (command_id) REFERENCES crm_ha.command_receipts(command_id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_command_id_fkey2",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (command_id) REFERENCES crm_private.unit_operations(operation_id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_outcome_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((outcome = 'verified'::text))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (command_id)"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_proposal_id_part_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (proposal_id, part_id) REFERENCES crm_ha.parts(proposal_id, part_id)"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_reference_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((octet_length(reference) >= 1) AND (octet_length(reference) <= 16384)))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_verifier_identity_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((verifier_identity ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_verifier_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((verifier_kind ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "h0_m04_evidence_commit_guard",
+      "contype": "t",
+      "convalidated": true,
+      "definition": "TRIGGER DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "relation": "crm_ha.parts",
+      "conname": "parts_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.parts",
+      "conname": "parts_material_payload_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((octet_length(material_payload) <= 16384))"
+    },
+    {
+      "relation": "crm_ha.parts",
+      "conname": "parts_part_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((part_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.parts",
+      "conname": "parts_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (proposal_id, part_id)"
+    },
+    {
+      "relation": "crm_ha.parts",
+      "conname": "parts_proposal_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (proposal_id) REFERENCES crm_ha.proposals(proposal_id)"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_material_payload_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((octet_length(material_payload) <= 16384))"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (proposal_id)"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_proposal_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((proposal_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_proposer_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((proposer_kind = ANY (ARRAY['human'::text, 'ai'::text])))"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((scope <> ''::text))"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_decision_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (decision_id) REFERENCES crm_ha.decisions(decision_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_decision_id_part_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (decision_id, part_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_effect_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (effect_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_intent_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (intent_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (reservation_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_proposal_id_part_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (proposal_id, part_id) REFERENCES crm_ha.parts(proposal_id, part_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_reservation_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((reservation_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((state = ANY (ARRAY['reserved'::text, 'attempting'::text, 'uncertain'::text, 'consumed'::text])))"
+    },
+    {
+      "relation": "crm_private.access_probe",
+      "conname": "access_probe_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (probe_id)"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_auth_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((auth_state = ANY (ARRAY['pending'::text, 'revoked'::text, 'failed'::text, 'uncertain'::text])))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_generation = (previous_generation + 1)))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((((auth_state = 'pending'::text) AND (auth_recorded_at IS NULL)) OR ((auth_state <> 'pending'::text) AND (auth_recorded_at IS NOT NULL))))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_check2",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((completed_at IS NULL) OR (auth_state = 'revoked'::text)))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (recovery_id)"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_previous_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((previous_generation > 0))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_recovery_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((recovery_kind = ANY (ARRAY['password'::text, 'break_glass'::text])))"
+    },
+    {
+      "relation": "crm_private.catalog_applications",
+      "conname": "catalog_applications_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.catalog_applications",
+      "conname": "catalog_applications_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.catalog_applications",
+      "conname": "catalog_applications_applied_revisions_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((jsonb_typeof(applied_revisions) = 'array'::text) AND (jsonb_array_length(applied_revisions) > 0)))"
+    },
+    {
+      "relation": "crm_private.catalog_applications",
+      "conname": "catalog_applications_evidence_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((evidence_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.catalog_applications",
+      "conname": "catalog_applications_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (application_id)"
+    },
+    {
+      "relation": "crm_private.catalog_applications",
+      "conname": "catalog_applications_reason_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((reason <> ''::text))"
+    },
+    {
+      "relation": "crm_private.catalog_applications",
+      "conname": "catalog_applications_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.catalog_history",
+      "conname": "catalog_history_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.catalog_history",
+      "conname": "catalog_history_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.catalog_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.catalog_history",
+      "conname": "catalog_history_operation_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (operation_id)"
+    },
+    {
+      "relation": "crm_private.catalog_history",
+      "conname": "catalog_history_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (history_id)"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((party_id IS NULL) = (party_kind IS NULL)))"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((parent_id IS NULL) OR (parent_id <> item_id)))"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_check2",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((related_id IS NULL) OR (related_id <> item_id)))"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_created_by_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_evidence_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((evidence_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_item_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((item_kind = ANY (ARRAY['service'::text, 'variant'::text, 'category'::text, 'attribute'::text, 'audience'::text, 'unit'::text, 'pricing_form'::text, 'provider'::text, 'offering'::text, 'category_assignment'::text, 'attribute_assignment'::text, 'audience_recommendation'::text, 'unit_assignment'::text, 'pricing_form_assignment'::text])))"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_parent_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (parent_id) REFERENCES crm_private.catalog_items(item_id)"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_party_id_party_kind_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (party_id, party_kind) REFERENCES crm_private.identity_entities(identity_id, identity_kind)"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_party_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((party_kind = ANY (ARRAY['contact'::text, 'organization'::text])))"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (item_id)"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_related_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (related_id) REFERENCES crm_private.catalog_items(item_id)"
+    },
+    {
+      "relation": "crm_private.catalog_items",
+      "conname": "catalog_items_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.catalog_operations",
+      "conname": "catalog_operations_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.catalog_operations",
+      "conname": "catalog_operations_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_private.catalog_operations",
+      "conname": "catalog_operations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (operation_id)"
+    },
+    {
+      "relation": "crm_private.catalog_operations",
+      "conname": "catalog_operations_result_version_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((result_version >= 0))"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_definition_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((jsonb_typeof(definition) = 'object'::text))"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_evidence_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((evidence_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_item_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (item_id) REFERENCES crm_private.catalog_items(item_id)"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_item_id_revision_number_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (item_id, revision_number)"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_parent_revision_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (parent_revision_id) REFERENCES crm_private.catalog_revisions(revision_id)"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (revision_id)"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_reason_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((reason <> ''::text))"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_related_revision_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (related_revision_id) REFERENCES crm_private.catalog_revisions(revision_id)"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_revision_number_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((revision_number > 0))"
+    },
+    {
+      "relation": "crm_private.catalog_revisions",
+      "conname": "catalog_revisions_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_applications",
+      "conname": "commercial_applications_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.commercial_applications",
+      "conname": "commercial_applications_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_applications",
+      "conname": "commercial_applications_applied_revisions_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((jsonb_typeof(applied_revisions) = 'array'::text) AND (jsonb_array_length(applied_revisions) > 0)))"
+    },
+    {
+      "relation": "crm_private.commercial_applications",
+      "conname": "commercial_applications_evidence_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((evidence_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_applications",
+      "conname": "commercial_applications_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (application_id)"
+    },
+    {
+      "relation": "crm_private.commercial_applications",
+      "conname": "commercial_applications_reason_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((reason <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_applications",
+      "conname": "commercial_applications_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_history",
+      "conname": "commercial_history_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.commercial_history",
+      "conname": "commercial_history_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.commercial_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.commercial_history",
+      "conname": "commercial_history_operation_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (operation_id)"
+    },
+    {
+      "relation": "crm_private.commercial_history",
+      "conname": "commercial_history_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (history_id)"
+    },
+    {
+      "relation": "crm_private.commercial_items",
+      "conname": "commercial_items_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_items",
+      "conname": "commercial_items_catalog_item_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (catalog_item_id) REFERENCES crm_private.catalog_items(item_id)"
+    },
+    {
+      "relation": "crm_private.commercial_items",
+      "conname": "commercial_items_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((origin_custom_revision_id IS NULL) OR (item_kind = 'pack'::text)))"
+    },
+    {
+      "relation": "crm_private.commercial_items",
+      "conname": "commercial_items_created_by_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (created_by) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.commercial_items",
+      "conname": "commercial_items_evidence_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((evidence_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_items",
+      "conname": "commercial_items_item_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((item_kind = ANY (ARRAY['tariff'::text, 'pack'::text, 'custom_pack'::text, 'promotion'::text, 'capacity_rule'::text, 'eligibility_rule'::text, 'document_requirement'::text])))"
+    },
+    {
+      "relation": "crm_private.commercial_items",
+      "conname": "commercial_items_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (item_id)"
+    },
+    {
+      "relation": "crm_private.commercial_items",
+      "conname": "commercial_items_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_items",
+      "conname": "commercial_origin_fk",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (origin_custom_revision_id) REFERENCES crm_private.commercial_revisions(revision_id)"
+    },
+    {
+      "relation": "crm_private.commercial_operations",
+      "conname": "commercial_operations_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.commercial_operations",
+      "conname": "commercial_operations_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_private.commercial_operations",
+      "conname": "commercial_operations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (operation_id)"
+    },
+    {
+      "relation": "crm_private.commercial_operations",
+      "conname": "commercial_operations_result_version_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((result_version >= 0))"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_base_currency_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((base_currency = 'EUR'::text))"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_catalog_snapshot_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((jsonb_typeof(catalog_snapshot) = 'array'::text))"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((validity_kind = 'unknown'::text) = ((valid_from IS NULL) AND (valid_until IS NULL))))"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_definition_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((jsonb_typeof(definition) = 'object'::text))"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_evidence_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((evidence_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_item_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (item_id) REFERENCES crm_private.commercial_items(item_id)"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_item_id_revision_number_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (item_id, revision_number)"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (revision_id)"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_reason_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((reason <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_revision_number_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((revision_number > 0))"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.commercial_revisions",
+      "conname": "commercial_revisions_validity_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((validity_kind = ANY (ARRAY['unknown'::text, 'civil_date'::text, 'instant'::text])))"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_access_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_generation > 0))"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_access_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_state = ANY (ARRAY['ready'::text, 'enrollment_required'::text, 'recovery_in_progress'::text, 'reidentification_required'::text])))"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_auth_subject_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (auth_subject)"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (actor_id)"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_singleton_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (singleton)"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_singleton_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (singleton)"
+    },
+    {
+      "relation": "crm_private.crm_sessions",
+      "conname": "crm_sessions_access_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_generation > 0))"
+    },
+    {
+      "relation": "crm_private.crm_sessions",
+      "conname": "crm_sessions_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.crm_sessions",
+      "conname": "crm_sessions_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (session_id)"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((((stage = 'intent'::text) AND (intent_id IS NOT NULL) AND (attempt_id IS NULL) AND (destination_reference IS NOT NULL) AND (content_version IS NOT NULL) AND (content_fingerprint IS NOT NULL) AND (outcome IS NULL) AND (result_reference IS NULL)) OR ((stage = 'attempt'::text) AND (intent_id IS NOT NULL) AND (attempt_id IS NOT NULL) AND (outcome IS NULL) AND (result_reference IS NULL)) OR ((stage = 'result'::text) AND (intent_id IS NOT NULL) AND (attempt_id IS NOT NULL) AND (outcome IS NOT NULL) AND (result_reference IS NOT NULL)) OR ((stage = 'uncertain'::text) AND (intent_id IS NOT NULL) AND (attempt_id IS NOT NULL) AND (outcome IS NULL) AND (result_reference IS NULL))))"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_content_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((content_fingerprint IS NULL) OR (content_fingerprint ~ '^[0-9a-f]{64}$'::text)))"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.unit_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_outcome_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((outcome IS NULL) OR (outcome = ANY (ARRAY['succeeded'::text, 'failed'::text]))))"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (record_id)"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_stage_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((stage = ANY (ARRAY['intent'::text, 'attempt'::text, 'result'::text, 'uncertain'::text])))"
+    },
+    {
+      "relation": "crm_private.global_access_revocation_attempts",
+      "conname": "global_access_revocation_attem_revocation_id_attempt_number_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (revocation_id, attempt_number)"
+    },
+    {
+      "relation": "crm_private.global_access_revocation_attempts",
+      "conname": "global_access_revocation_attempts_attempt_number_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((attempt_number > 0))"
+    },
+    {
+      "relation": "crm_private.global_access_revocation_attempts",
+      "conname": "global_access_revocation_attempts_outcome_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((outcome = ANY (ARRAY['revoked'::text, 'failed'::text, 'uncertain'::text])))"
+    },
+    {
+      "relation": "crm_private.global_access_revocation_attempts",
+      "conname": "global_access_revocation_attempts_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (attempt_id)"
+    },
+    {
+      "relation": "crm_private.global_access_revocation_attempts",
+      "conname": "global_access_revocation_attempts_revocation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (revocation_id) REFERENCES crm_private.global_access_revocations(revocation_id)"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_actor_id_access_generation_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (actor_id, access_generation)"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_auth_attempt_count_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((auth_attempt_count >= 0))"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_auth_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((auth_state = ANY (ARRAY['pending'::text, 'revoked'::text, 'failed'::text, 'uncertain'::text])))"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_generation = (previous_access_generation + 1)))"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((((auth_state = 'pending'::text) AND (auth_attempt_count = 0) AND (last_auth_attempt_at IS NULL) AND (auth_revoked_at IS NULL)) OR ((auth_state = ANY (ARRAY['failed'::text, 'uncertain'::text])) AND (auth_attempt_count > 0) AND (last_auth_attempt_at IS NOT NULL) AND (auth_revoked_at IS NULL)) OR ((auth_state = 'revoked'::text) AND (auth_attempt_count > 0) AND (last_auth_attempt_at IS NOT NULL) AND (auth_revoked_at IS NOT NULL))))"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_initiating_session_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (initiating_session_id) REFERENCES crm_private.crm_sessions(session_id)"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (revocation_id)"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_previous_access_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((previous_access_generation > 0))"
+    },
+    {
+      "relation": "crm_private.identification_epochs",
+      "conname": "identification_epochs_access_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_state = ANY (ARRAY['ready'::text, 'enrollment_required'::text, 'recovery_in_progress'::text, 'reidentification_required'::text])))"
+    },
+    {
+      "relation": "crm_private.identification_epochs",
+      "conname": "identification_epochs_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((last_human_activity_at >= identified_at))"
+    },
+    {
+      "relation": "crm_private.identification_epochs",
+      "conname": "identification_epochs_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((current_epoch AND (closed_at IS NULL)) OR ((NOT current_epoch) AND (closed_at IS NOT NULL))))"
+    },
+    {
+      "relation": "crm_private.identification_epochs",
+      "conname": "identification_epochs_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (epoch_id)"
+    },
+    {
+      "relation": "crm_private.identification_epochs",
+      "conname": "identification_epochs_session_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (session_id) REFERENCES crm_private.crm_sessions(session_id)"
+    },
+    {
+      "relation": "crm_private.identity_code_counters",
+      "conname": "identity_code_counters_code_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((code_kind = ANY (ARRAY['OP'::text, 'PR'::text, 'RES'::text, 'INC'::text])))"
+    },
+    {
+      "relation": "crm_private.identity_code_counters",
+      "conname": "identity_code_counters_code_year_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((code_year >= 2000) AND (code_year <= 9999)))"
+    },
+    {
+      "relation": "crm_private.identity_code_counters",
+      "conname": "identity_code_counters_last_serial_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((last_serial > 0))"
+    },
+    {
+      "relation": "crm_private.identity_code_counters",
+      "conname": "identity_code_counters_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (code_kind, code_year)"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((human_code = ((((code_kind || '-'::text) || (code_year)::text) || '-'::text) || lpad((serial_number)::text, GREATEST(4, length((serial_number)::text)), '0'::text))))"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_code_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((code_kind = ANY (ARRAY['OP'::text, 'PR'::text, 'RES'::text, 'INC'::text])))"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_code_kind_code_year_serial_number_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (code_kind, code_year, serial_number)"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_code_kind_target_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (code_kind, target_id)"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_code_year_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((code_year >= 2000) AND (code_year <= 9999)))"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_evidence_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((evidence_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_human_code_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (human_code)"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.identity_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_operation_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (operation_id)"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (code_id)"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_serial_number_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((serial_number > 0))"
+    },
+    {
+      "relation": "crm_private.identity_codes",
+      "conname": "identity_codes_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_contexts",
+      "conname": "identity_contexts_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_contexts",
+      "conname": "identity_contexts_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((NOT verified) OR (evidence_ref IS NOT NULL)))"
+    },
+    {
+      "relation": "crm_private.identity_contexts",
+      "conname": "identity_contexts_context_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((context_kind = ANY (ARRAY['opportunity'::text, 'booking'::text])))"
+    },
+    {
+      "relation": "crm_private.identity_contexts",
+      "conname": "identity_contexts_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (context_id)"
+    },
+    {
+      "relation": "crm_private.identity_contexts",
+      "conname": "identity_contexts_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_contexts",
+      "conname": "identity_contexts_version_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((version >= 0))"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((((role_kind = 'primary_contact'::text) AND (party_kind = 'contact'::text)) OR ((role_kind = ANY (ARRAY['client'::text, 'payer'::text])) AND (party_kind = ANY (ARRAY['contact'::text, 'organization'::text]))) OR ((role_kind = 'participant'::text) AND (party_kind = ANY (ARRAY['contact'::text, 'group'::text])))))"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((ended_at IS NULL) OR (ended_at >= recorded_at)))"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_check2",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((NOT verified) OR (evidence_ref IS NOT NULL)))"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_check3",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((role_kind <> 'primary_contact'::text) OR verified))"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_context_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (context_id) REFERENCES crm_private.identity_contexts(context_id)"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_party_id_party_kind_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (party_id, party_kind) REFERENCES crm_private.identity_entities(identity_id, identity_kind)"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (designation_id)"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_recorded_by_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (recorded_by) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_role_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((role_kind = ANY (ARRAY['primary_contact'::text, 'client'::text, 'payer'::text, 'participant'::text])))"
+    },
+    {
+      "relation": "crm_private.identity_designations",
+      "conname": "identity_designations_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((identity_kind = 'group'::text) = (context_id IS NOT NULL)))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((NOT identity_verified) OR (evidence_ref IS NOT NULL)))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_check2",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((identity_kind = 'contact'::text) OR ((given_name IS NULL) AND (family_name IS NULL) AND (email IS NULL) AND (phone IS NULL))))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_check3",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((identity_kind = 'group'::text) OR ((group_type IS NULL) AND (estimated_size IS NULL) AND (confirmed_size IS NULL) AND (size_source IS NULL))))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_check4",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((((estimated_size IS NULL) AND (confirmed_size IS NULL)) OR (size_source IS NOT NULL)))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_confirmed_size_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((confirmed_size >= 0))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_context_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (context_id) REFERENCES crm_private.identity_contexts(context_id)"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_estimated_size_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((estimated_size >= 0))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_identity_id_identity_kind_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (identity_id, identity_kind)"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_identity_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((identity_kind = ANY (ARRAY['contact'::text, 'organization'::text, 'group'::text])))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_merged_into_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (merged_into_id) REFERENCES crm_private.identity_entities(identity_id)"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (identity_id)"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_entities_version_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((version >= 0))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_merge_archived",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((merged_into_id IS NULL) OR (archived_at IS NOT NULL)))"
+    },
+    {
+      "relation": "crm_private.identity_entities",
+      "conname": "identity_no_self_merge",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((merged_into_id IS NULL) OR (merged_into_id <> identity_id)))"
+    },
+    {
+      "relation": "crm_private.identity_history",
+      "conname": "identity_history_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.identity_history",
+      "conname": "identity_history_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.identity_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.identity_history",
+      "conname": "identity_history_operation_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (operation_id)"
+    },
+    {
+      "relation": "crm_private.identity_history",
+      "conname": "identity_history_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (history_id)"
+    },
+    {
+      "relation": "crm_private.identity_operations",
+      "conname": "identity_operations_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.identity_operations",
+      "conname": "identity_operations_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_private.identity_operations",
+      "conname": "identity_operations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (operation_id)"
+    },
+    {
+      "relation": "crm_private.identity_operations",
+      "conname": "identity_operations_resulting_version_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((resulting_version >= 0))"
+    },
+    {
+      "relation": "crm_private.identity_organization_contacts",
+      "conname": "identity_organization_contact_organization_id_organization_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (organization_id, organization_kind) REFERENCES crm_private.identity_entities(identity_id, identity_kind)"
+    },
+    {
+      "relation": "crm_private.identity_organization_contacts",
+      "conname": "identity_organization_contacts_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_organization_contacts",
+      "conname": "identity_organization_contacts_contact_id_contact_kind_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (contact_id, contact_kind) REFERENCES crm_private.identity_entities(identity_id, identity_kind)"
+    },
+    {
+      "relation": "crm_private.identity_organization_contacts",
+      "conname": "identity_organization_contacts_contact_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((contact_kind = 'contact'::text))"
+    },
+    {
+      "relation": "crm_private.identity_organization_contacts",
+      "conname": "identity_organization_contacts_evidence_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((evidence_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.identity_organization_contacts",
+      "conname": "identity_organization_contacts_organization_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((organization_kind = 'organization'::text))"
+    },
+    {
+      "relation": "crm_private.identity_organization_contacts",
+      "conname": "identity_organization_contacts_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (link_id)"
+    },
+    {
+      "relation": "crm_private.identity_organization_contacts",
+      "conname": "identity_organization_contacts_source_ref_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((source_ref <> ''::text))"
+    },
+    {
+      "relation": "crm_private.unit_attempts",
+      "conname": "unit_attempts_attempt_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((attempt_kind = ANY (ARRAY['initial'::text, 'replay'::text])))"
+    },
+    {
+      "relation": "crm_private.unit_attempts",
+      "conname": "unit_attempts_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.unit_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_attempts",
+      "conname": "unit_attempts_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (attempt_id)"
+    },
+    {
+      "relation": "crm_private.unit_history",
+      "conname": "unit_history_actor_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((actor_kind = 'technical'::text))"
+    },
+    {
+      "relation": "crm_private.unit_history",
+      "conname": "unit_history_evidence_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((evidence_state = ANY (ARRAY['none'::text, 'candidate'::text])))"
+    },
+    {
+      "relation": "crm_private.unit_history",
+      "conname": "unit_history_fact_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((fact_kind = 'technical-state-change'::text))"
+    },
+    {
+      "relation": "crm_private.unit_history",
+      "conname": "unit_history_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.unit_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_history",
+      "conname": "unit_history_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_actor_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((actor_kind = 'technical'::text))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((resulting_version = (expected_version + 1)))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_expected_version_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((expected_version >= 0))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_operation_class_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((operation_class = 'technical-state-change'::text))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_operation_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((operation_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_root_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (root_id) REFERENCES crm_private.unit_roots(root_id)"
+    },
+    {
+      "relation": "crm_private.unit_results",
+      "conname": "unit_results_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_private.unit_results",
+      "conname": "unit_results_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.unit_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_results",
+      "conname": "unit_results_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_results",
+      "conname": "unit_results_result_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((result_state = 'applied'::text))"
+    },
+    {
+      "relation": "crm_private.unit_roots",
+      "conname": "unit_roots_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (root_id)"
+    },
+    {
+      "relation": "crm_private.unit_roots",
+      "conname": "unit_roots_root_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((root_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_private.unit_roots",
+      "conname": "unit_roots_version_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((version >= 0))"
+    }
+  ],
+  "sqlSha256": "8a773c60aa7e022cb30a3b26a680abacc9ebde1f42b37e340185195011ec38d2",
+  "recordedBeforeApply": true
+}

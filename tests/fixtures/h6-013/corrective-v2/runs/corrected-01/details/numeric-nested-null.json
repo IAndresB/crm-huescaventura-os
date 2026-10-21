@@ -1,0 +1,64 @@
+{
+  "expected": {
+    "id": "nested-null",
+    "column": "j",
+    "a": "{\"x\":null}",
+    "b": "{}",
+    "equal": false
+  },
+  "serverBefore": "\"{\\\"x\\\":null}\"",
+  "serverAfter": "\"{}\"",
+  "before": {
+    "crm_private.identity_v2_probe": {
+      "columns": [
+        "id",
+        "v",
+        "n",
+        "j",
+        "txt"
+      ],
+      "columnTypes": [
+        "integer",
+        "bigint",
+        "numeric",
+        "jsonb",
+        "text"
+      ],
+      "count": 2,
+      "sha256": "91f482384e55212af742676ff1014dde9598e53c4630c059352cbe4e21c16ae0"
+    }
+  },
+  "after": {
+    "crm_private.identity_v2_probe": {
+      "columns": [
+        "id",
+        "v",
+        "n",
+        "j",
+        "txt"
+      ],
+      "columnTypes": [
+        "integer",
+        "bigint",
+        "numeric",
+        "jsonb",
+        "text"
+      ],
+      "count": 2,
+      "sha256": "d270c0330f3e47df8b2577d39d24a7cb95ba4cf05c3b45e43f7d5a8d5ddfd3d2"
+    }
+  },
+  "factsBefore": {
+    "crm_private.identity_v2_probe": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"id\",[\"number\",\"1e0\"]],[\"j\",[\"string\",\"{\\\"x\\\":null}\"]],[\"n\",[\"number\",\"0e0\"]],[\"txt\",[\"string\",\"synthetic\"]],[\"v\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"id\",[\"number\",\"2e0\"]],[\"j\",[\"array\",[[\"boolean\",true],[\"null\"]]]],[\"n\",[\"number\",\"1e0\"]],[\"txt\",[\"string\",\"synthetic-second\"]],[\"v\",[\"number\",\"-1e0\"]]]]]]]"
+    ]
+  },
+  "factsAfter": {
+    "crm_private.identity_v2_probe": [
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"id\",[\"number\",\"1e0\"]],[\"j\",[\"string\",\"{}\"]],[\"n\",[\"number\",\"0e0\"]],[\"txt\",[\"string\",\"synthetic\"]],[\"v\",[\"number\",\"0e0\"]]]]]]]",
+      "[\"object\",[[\"sqlNulls\",[\"array\",[[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false],[\"boolean\",false]]]],[\"values\",[\"object\",[[\"id\",[\"number\",\"2e0\"]],[\"j\",[\"array\",[[\"boolean\",true],[\"null\"]]]],[\"n\",[\"number\",\"1e0\"]],[\"txt\",[\"string\",\"synthetic-second\"]],[\"v\",[\"number\",\"-1e0\"]]]]]]]"
+    ]
+  },
+  "restoration": "transaction rolled back after capture"
+}

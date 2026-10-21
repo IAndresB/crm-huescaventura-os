@@ -1,0 +1,56 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-OkvkE4/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-OkvkE4/data -l logfile start
+
+waiting for server to start.... done
+server started
+H6-013 B02 {"origin":26,"destination":68,"edges":42,"allOriginalColumnsPreserved":true,"currentAdapterCompatibility":true}
+✔ H6-013 B02 authentic26 identity and contextual relation through each27–68 (8003.4485ms)
+H6-013 B03 {"origin":30,"destination":68,"edges":38,"allOriginalColumnsPreserved":true,"currentAdapterCompatibility":true}
+✔ H6-013 B03 authentic30 accepted snapshot Booking identity history through31–68 (9623.521125ms)
+H6-013 B04 {"origin":33,"destination":68,"edges":35,"allOriginalColumnsPreserved":true,"currentAdapterCompatibility":true}
+✔ H6-013 B04 authentic33 exact money and assigned consumed portions through34–68 (6130.70375ms)
+✖ H6-013 B05 authentic52 preparation and economic facts through53–68 (2743.791292ms)
+H6-013 B06 {"origin":63,"destination":68,"edges":5,"allOriginalColumnsPreserved":true,"currentAdapterCompatibility":true}
+✔ H6-013 B06 authentic63 joint three closures and immutable history through64–68 (7472.709541ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 34326.425917
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6-013-migration.test.ts:79:1
+✖ H6-013 B05 authentic52 preparation and economic facts through53–68 (2743.791292ms)
+  Error: REALITY_DENIED
+      at H4022OperationalRealityAdapter.call (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h6013-app-52-8Pn5yT/src/infrastructure/postgres/h4-operational-reality-adapter.ts:22:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H4022OperationalRealityAdapter.read (file:///private/var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-h6013-app-52-8Pn5yT/src/infrastructure/postgres/h4-operational-reality-adapter.ts:25:128)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h6-013-migration.test.ts:81:125)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+waiting for server to shut down.... done
+server stopped

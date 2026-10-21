@@ -1,0 +1,349 @@
+▶ H6 V2 exact numeric content and case-insensitive effective configuration
+  ✔ configuration valid-lower (6.893042ms)
+  ✖ configuration valid-upper (3.084458ms)
+  ✖ configuration valid-mixed (2.420042ms)
+  ✔ configuration public (2.804ms)
+  ✔ configuration additional (3.392375ms)
+  ✔ configuration reverse (2.304333ms)
+  ✔ configuration missing (2.130834ms)
+  ✔ configuration same-case-duplicate (1.788167ms)
+  ✖ configuration mixed-case-duplicate (1.478625ms)
+  ✖ configuration mixed-reverse-duplicate (1.409708ms)
+  ✖ configuration same-value-duplicate (1.287666ms)
+  ✔ unexpected function outside original schemas and unsafe owner (2.720667ms)
+  ✖ numeric unsafe-unit (2.303709ms)
+  ✖ numeric negative-unsafe-unit (1.649709ms)
+  ✔ numeric safe-unit (1.68025ms)
+  ✔ numeric safe-boundary (1.3325ms)
+  ✔ numeric bigint-extremes (1.394208ms)
+  ✖ numeric decimal-exact (1.070125ms)
+  ✔ numeric decimal-format (5.428125ms)
+  ✔ numeric negative-zero (1.408542ms)
+  ✔ numeric null-present (1.782416ms)
+  ✖ numeric nested-bigint (1.133958ms)
+  ✔ numeric nested-equivalent (1.332583ms)
+  ✔ numeric nested-types (1.441875ms)
+  ✔ numeric nested-null (1.283583ms)
+  ✔ numeric unchanged (1.438583ms)
+  ✖ stable row order and SQL type distinction (3.656167ms)
+✖ H6 V2 exact numeric content and case-insensitive effective configuration (1016.71625ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 17
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1150.961875
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:39:49
+✖ configuration valid-upper (3.084458ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: DEFINER_SEARCH_PATH_MISSING_OR_AMBIGUOUS:crm_audit_v2.path()\n' +
+    '\n' +
+    '0 !== 1\n'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:41:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:39:41)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: DEFINER_SEARCH_PATH_MISSING_OR_AMBIGUOUS:crm_audit_v2.path()
+    
+    0 !== 1
+    
+        at verifyDefiners (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/support/h6-013-security.ts:35:10)
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:46:17
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:41:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:39:41),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:39:49
+✖ configuration valid-mixed (2.420042ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: DEFINER_SEARCH_PATH_MISSING_OR_AMBIGUOUS:crm_audit_v2.path()\n' +
+    '\n' +
+    '0 !== 1\n'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:41:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:39:41)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: DEFINER_SEARCH_PATH_MISSING_OR_AMBIGUOUS:crm_audit_v2.path()
+    
+    0 !== 1
+    
+        at verifyDefiners (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/support/h6-013-security.ts:35:10)
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:46:17
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:41:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:39:41),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:39:49
+✖ configuration mixed-case-duplicate (1.478625ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: Missing expected exception.'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:41:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:39:41)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: Missing expected exception.
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:47:17
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:41:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:39:41)
+        at async Test.run (node:internal/test_runner/test:1409:7),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:39:49
+✖ configuration mixed-reverse-duplicate (1.409708ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: Missing expected exception.'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:41:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:39:41)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: Missing expected exception.
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:47:17
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:41:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:39:41)
+        at async Test.run (node:internal/test_runner/test:1409:7),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:39:49
+✖ configuration same-value-duplicate (1.287666ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: Missing expected exception.'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:41:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:39:41)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: Missing expected exception.
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:47:17
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:41:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:39:41)
+        at async Test.run (node:internal/test_runner/test:1409:7),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:69:48
+✖ numeric unsafe-unit (2.303709ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: Missing expected exception.'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:70:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:69:40)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: Missing expected exception.
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:79:17
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:70:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:69:40)
+        at async Test.run (node:internal/test_runner/test:1409:7),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:69:48
+✖ numeric negative-unsafe-unit (1.649709ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: Missing expected exception.'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:70:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:69:40)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: Missing expected exception.
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:79:17
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:70:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:69:40)
+        at async Test.run (node:internal/test_runner/test:1409:7),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:69:48
+✖ numeric decimal-exact (1.070125ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: Missing expected exception.'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:70:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:69:40)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: Missing expected exception.
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:79:17
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:70:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:69:40)
+        at async Test.run (node:internal/test_runner/test:1409:7),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:69:48
+✖ numeric nested-bigint (1.133958ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: Missing expected exception.'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:70:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:69:40)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: Missing expected exception.
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:79:17
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:70:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:69:40)
+        at async Test.run (node:internal/test_runner/test:1409:7),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:85:11
+✖ stable row order and SQL type distinction (3.656167ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: Missing expected exception.'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:86:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:85:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: Missing expected exception.
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:92:12
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:86:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:85:3)
+        at async Test.run (node:internal/test_runner/test:1409:7),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

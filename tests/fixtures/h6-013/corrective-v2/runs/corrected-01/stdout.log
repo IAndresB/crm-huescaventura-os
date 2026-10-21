@@ -1,0 +1,98 @@
+▶ H6 V2 exact numeric content and case-insensitive effective configuration
+  ✔ configuration valid-lower (4.200375ms)
+  ✔ configuration valid-upper (2.5005ms)
+  ✔ configuration valid-mixed (1.814125ms)
+  ✔ configuration public (2.317417ms)
+  ✔ configuration additional (2.444583ms)
+  ✔ configuration reverse (1.7975ms)
+  ✔ configuration missing (1.989375ms)
+  ✔ configuration same-case-duplicate (1.614916ms)
+  ✔ configuration mixed-case-duplicate (1.71825ms)
+  ✔ configuration mixed-reverse-duplicate (1.92475ms)
+  ✔ configuration same-value-duplicate (1.678917ms)
+  ✔ unexpected function outside original schemas and unsafe owner (2.949291ms)
+  ✔ numeric unsafe-unit (2.761666ms)
+  ✔ numeric negative-unsafe-unit (1.890583ms)
+  ✔ numeric safe-unit (1.882084ms)
+  ✔ numeric safe-boundary (5.487709ms)
+  ✔ numeric bigint-extremes (1.762125ms)
+  ✔ numeric decimal-exact (1.815375ms)
+  ✔ numeric decimal-format (1.960125ms)
+  ✔ numeric negative-zero (1.621042ms)
+  ✔ numeric null-present (1.662417ms)
+  ✔ numeric nested-bigint (1.997459ms)
+  ✖ numeric nested-equivalent (1.728875ms)
+  ✔ numeric nested-types (3.023708ms)
+  ✔ numeric nested-null (1.649333ms)
+  ✔ numeric unchanged (1.444792ms)
+  ✔ stable row order and SQL type distinction (3.903709ms)
+✖ H6 V2 exact numeric content and case-insensitive effective configuration (1002.552334ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 26
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1140.598708
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:69:48
+✖ numeric nested-equivalent (1.728875ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /V2_ROLLBACK/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: H6013_ORIGINAL_CONTENT_CHANGED\n' +
+    '+ actual - expected\n' +
+    '... Skipped lines\n' +
+    '\n' +
+    '  {\n' +
+    "    'crm_private.identity_v2_probe': {\n" +
+    '      columnTypes: [\n' +
+    "        'integer',\n" +
+    "        'bigint',\n" +
+    '...\n' +
+    '      count: 2,\n' +
+    "+     sha256: 'a2eba342b8b9f235fe1488db9c64bc573d5ed23e0e2c88312d7b48a9a641242f'\n" +
+    "-     sha256: 'bc1295037ab2e910560f6469e6496941c5b2b89c6880eb8a12d10e68fac6037f'\n" +
+    '    }\n' +
+    '  }\n'
+  
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:70:4)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:69:40)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: H6013_ORIGINAL_CONTENT_CHANGED
+    + actual - expected
+    ... Skipped lines
+    
+      {
+        'crm_private.identity_v2_probe': {
+          columnTypes: [
+            'integer',
+            'bigint',
+    ...
+          count: 2,
+    +     sha256: 'a2eba342b8b9f235fe1488db9c64bc573d5ed23e0e2c88312d7b48a9a641242f'
+    -     sha256: 'bc1295037ab2e910560f6469e6496941c5b2b89c6880eb8a12d10e68fac6037f'
+        }
+      }
+    
+        at verifyPreserved (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/support/h6-013-preservation.ts:70:85)
+        at file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:78:17
+        at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+        at async scope (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:260:18)
+        at async sql.begin (file:///private/tmp/h6013-v2-v1ybktxk/repo/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:243:14)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:70:4)
+        at async Test.run (node:internal/test_runner/test:1409:7)
+        at async TestContext.<anonymous> (file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:69:40),
+    expected: /V2_ROLLBACK/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

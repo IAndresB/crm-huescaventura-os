@@ -1,0 +1,1904 @@
+{
+  "from": 18,
+  "to": 19,
+  "ids": {
+    "a": "4d729e67-0e63-47f2-b2e3-e9f1e288d942",
+    "b": "87cb1fba-edff-41ec-8056-30f481c3f4bb",
+    "organization": "32f48d75-93d7-4014-8781-8d0668540fed",
+    "context": "ed1371b4-50f0-4a4e-9880-c025f41ee1ed",
+    "designation": "fb48bd7c-f4f8-470b-b399-6d563c0d5239",
+    "link": "40c8670f-890e-4901-9247-44e3ee0ab9c4",
+    "catalog": "ea5b6c4d-2606-47e1-90ff-1dc13f52cb48",
+    "tariff": "fafa205a-872d-42b6-b7c3-3d9bef2ac2d3",
+    "document": "49a68ec0-0b0f-4c05-b793-e2521e992181",
+    "object": "a17e7dc4-4c68-48d3-9e92-8147dec1694a",
+    "root": "56b62451-5f9e-45c9-8021-9c95a03a72c4",
+    "task": "c792fb77-1ccc-452b-8ba0-0bd1268f5b0f",
+    "unit": "1652d167-9206-4361-b92b-1d375a35f767",
+    "basis": "3cd79891-c59b-4732-a0f6-b42955e4f597",
+    "serviceRevision": "",
+    "unitRevision": "",
+    "basisRevision": ""
+  },
+  "columns": [
+    {
+      "schema": "crm_f1",
+      "name": "consumption",
+      "columns": [
+        "generation",
+        "database_oid",
+        "xid",
+        "capability_id",
+        "expires_us"
+      ]
+    },
+    {
+      "schema": "crm_f1",
+      "name": "keys",
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ]
+    },
+    {
+      "schema": "crm_f2",
+      "name": "keys",
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "command_receipts",
+      "columns": [
+        "command_id",
+        "command_fingerprint",
+        "command_name",
+        "proposal_id",
+        "decision_id",
+        "reservation_id",
+        "attempt_id",
+        "state",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "decisions",
+      "columns": [
+        "decision_id",
+        "proposal_id",
+        "material_fingerprint",
+        "decision",
+        "reason",
+        "actor_id",
+        "session_id",
+        "decided_at"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "events",
+      "columns": [
+        "event_id",
+        "proposal_id",
+        "reservation_id",
+        "attempt_id",
+        "event_kind",
+        "actor_kind",
+        "actor_identity",
+        "recorded_at",
+        "details_fingerprint"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "evidence_revalidations",
+      "columns": [
+        "command_id",
+        "proposal_id",
+        "part_id",
+        "command_fingerprint",
+        "reference",
+        "fingerprint",
+        "checked_us",
+        "source_valid_until_us",
+        "approved_until_us",
+        "effective_until_us",
+        "verifier_identity",
+        "verifier_kind",
+        "context_scope",
+        "created_xid",
+        "recorded_at",
+        "outcome"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "parts",
+      "columns": [
+        "proposal_id",
+        "part_id",
+        "material_fingerprint",
+        "material_payload"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "proposals",
+      "columns": [
+        "proposal_id",
+        "material_fingerprint",
+        "material_payload",
+        "proposer_kind",
+        "proposer_actor",
+        "scope",
+        "created_at"
+      ]
+    },
+    {
+      "schema": "crm_ha",
+      "name": "reservations",
+      "columns": [
+        "reservation_id",
+        "proposal_id",
+        "decision_id",
+        "part_id",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "state",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "access_probe",
+      "columns": [
+        "probe_id",
+        "context_scope",
+        "public_value",
+        "private_value"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "access_recoveries",
+      "columns": [
+        "recovery_id",
+        "actor_id",
+        "auth_subject",
+        "recovery_kind",
+        "admin_scope",
+        "previous_generation",
+        "access_generation",
+        "started_at",
+        "auth_state",
+        "auth_recorded_at",
+        "completed_at",
+        "password_ready",
+        "totp_verified",
+        "new_factor_enrolled",
+        "old_factor_revoked",
+        "new_paper_copy_verified"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "crm_actors",
+      "columns": [
+        "actor_id",
+        "singleton",
+        "auth_subject",
+        "admin_scope",
+        "enabled",
+        "access_generation",
+        "access_state",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "crm_sessions",
+      "columns": [
+        "session_id",
+        "actor_id",
+        "auth_subject",
+        "access_generation",
+        "created_at",
+        "revoked_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "external_effect_records",
+      "columns": [
+        "record_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "effect_id",
+        "stage",
+        "intent_id",
+        "attempt_id",
+        "destination_reference",
+        "content_version",
+        "content_fingerprint",
+        "outcome",
+        "result_reference",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "global_access_revocation_attempts",
+      "columns": [
+        "attempt_id",
+        "revocation_id",
+        "attempt_number",
+        "outcome",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "global_access_revocations",
+      "columns": [
+        "revocation_id",
+        "actor_id",
+        "auth_subject",
+        "initiating_session_id",
+        "previous_access_generation",
+        "access_generation",
+        "admin_scope",
+        "core_revoked_at",
+        "auth_state",
+        "auth_attempt_count",
+        "last_auth_attempt_at",
+        "auth_revoked_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "identification_epochs",
+      "columns": [
+        "epoch_id",
+        "session_id",
+        "identified_at",
+        "last_human_activity_at",
+        "full_password",
+        "full_mfa",
+        "access_state",
+        "current_epoch",
+        "closed_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "unit_attempts",
+      "columns": [
+        "attempt_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "attempt_kind",
+        "recorded_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "unit_history",
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "fact_kind",
+        "before_value",
+        "after_value",
+        "reason",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "actor_id",
+        "actor_kind",
+        "evidence_state"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "unit_operations",
+      "columns": [
+        "operation_id",
+        "operation_class",
+        "root_id",
+        "context_scope",
+        "material_fingerprint",
+        "actor_id",
+        "actor_kind",
+        "purpose",
+        "cause",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "expected_version",
+        "resulting_version",
+        "initial_attempt_id",
+        "effect_id",
+        "intent_id"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "unit_results",
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "result_state",
+        "resulting_version",
+        "after_value",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "fixed_at"
+      ]
+    },
+    {
+      "schema": "crm_private",
+      "name": "unit_roots",
+      "columns": [
+        "root_id",
+        "context_scope",
+        "version",
+        "current_value",
+        "created_at",
+        "updated_at"
+      ]
+    }
+  ],
+  "rows": {
+    "crm_f1.consumption": {
+      "columns": [
+        "generation",
+        "database_oid",
+        "xid",
+        "capability_id",
+        "expires_us"
+      ],
+      "columnTypes": [
+        "text",
+        "oid",
+        "xid8",
+        "text",
+        "bigint"
+      ],
+      "count": 0,
+      "sha256": "26781a1d57f38227a9ffcc8088b8f00ea0e754d21f59d1228ff6377beca5b36c"
+    },
+    "crm_f1.keys": {
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ],
+      "columnTypes": [
+        "text",
+        "bytea",
+        "text",
+        "text",
+        "text[]",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "1ab35d895ca96a7670ddc1a2fe5b70281e33e1f448c49bf8f0e6bebecd7b8138"
+    },
+    "crm_f2.keys": {
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ],
+      "columnTypes": [
+        "text",
+        "bytea",
+        "text",
+        "text",
+        "text[]",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "08485923b402832991d6ef2751a3928dd8c059dc40173e4e7c108d08e430cff1"
+    },
+    "crm_ha.command_receipts": {
+      "columns": [
+        "command_id",
+        "command_fingerprint",
+        "command_name",
+        "proposal_id",
+        "decision_id",
+        "reservation_id",
+        "attempt_id",
+        "state",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "44751df7e62428ffe803a1232faf0fdc19ed99a5e5c5bf58a9fcd4e8c9c7505e"
+    },
+    "crm_ha.decisions": {
+      "columns": [
+        "decision_id",
+        "proposal_id",
+        "material_fingerprint",
+        "decision",
+        "reason",
+        "actor_id",
+        "session_id",
+        "decided_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "146f607203e516080a1637452fb86d0658fe9f1e01720aa341d956f3ba696d6f"
+    },
+    "crm_ha.events": {
+      "columns": [
+        "event_id",
+        "proposal_id",
+        "reservation_id",
+        "attempt_id",
+        "event_kind",
+        "actor_kind",
+        "actor_identity",
+        "recorded_at",
+        "details_fingerprint"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "225ec317774132e7e0cab40bbbdd2b3925fefe053d73bec58684fc98fcd56f76"
+    },
+    "crm_ha.evidence_revalidations": {
+      "columns": [
+        "command_id",
+        "proposal_id",
+        "part_id",
+        "command_fingerprint",
+        "reference",
+        "fingerprint",
+        "checked_us",
+        "source_valid_until_us",
+        "approved_until_us",
+        "effective_until_us",
+        "verifier_identity",
+        "verifier_kind",
+        "context_scope",
+        "created_xid",
+        "recorded_at",
+        "outcome"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "bigint",
+        "bigint",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "xid8",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "8e6dba8206e7bfc1573a1379aa76d75cb97a14a98058661853bf8d36ba635da3"
+    },
+    "crm_ha.parts": {
+      "columns": [
+        "proposal_id",
+        "part_id",
+        "material_fingerprint",
+        "material_payload"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "bytea"
+      ],
+      "count": 0,
+      "sha256": "fca720433be5238f52a2be5d179237bf2516c1c9b27b5dbc6bfeac176866352a"
+    },
+    "crm_ha.proposals": {
+      "columns": [
+        "proposal_id",
+        "material_fingerprint",
+        "material_payload",
+        "proposer_kind",
+        "proposer_actor",
+        "scope",
+        "created_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "bytea",
+        "text",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "45d6bb866aa14349cd8432993d1a690f1cda110c69f40048b1dfa8f247e77953"
+    },
+    "crm_ha.reservations": {
+      "columns": [
+        "reservation_id",
+        "proposal_id",
+        "decision_id",
+        "part_id",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "state",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "58c8f076b0a24c211ff2c4e6ed8a99e1f82d9520e4f9ebfb20c8c79e29010728"
+    },
+    "crm_private.access_probe": {
+      "columns": [
+        "probe_id",
+        "context_scope",
+        "public_value",
+        "private_value"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 1,
+      "sha256": "809556605532c9d49bb4000aaaea9911667aff3a8ffd3ff7bb145fe18a6d6349"
+    },
+    "crm_private.access_recoveries": {
+      "columns": [
+        "recovery_id",
+        "actor_id",
+        "auth_subject",
+        "recovery_kind",
+        "admin_scope",
+        "previous_generation",
+        "access_generation",
+        "started_at",
+        "auth_state",
+        "auth_recorded_at",
+        "completed_at",
+        "password_ready",
+        "totp_verified",
+        "new_factor_enrolled",
+        "old_factor_revoked",
+        "new_paper_copy_verified"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "bigint",
+        "bigint",
+        "timestamp with time zone",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean",
+        "boolean",
+        "boolean",
+        "boolean",
+        "boolean"
+      ],
+      "count": 0,
+      "sha256": "b66537e02d7dcea66c489f6f098175735d494f7b52bf4fa6390bbdad2170f8a3"
+    },
+    "crm_private.crm_actors": {
+      "columns": [
+        "actor_id",
+        "singleton",
+        "auth_subject",
+        "admin_scope",
+        "enabled",
+        "access_generation",
+        "access_state",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "boolean",
+        "uuid",
+        "text",
+        "boolean",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "43ba8ad2eaa4b0bd76c09521e9e2026cbcd740ed0e9e82dcea84dc3a27061340"
+    },
+    "crm_private.crm_sessions": {
+      "columns": [
+        "session_id",
+        "actor_id",
+        "auth_subject",
+        "access_generation",
+        "created_at",
+        "revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "a94045da007238262bc20807142ecf48a8aec725f98c6cd9a46510c392d8c753"
+    },
+    "crm_private.external_effect_records": {
+      "columns": [
+        "record_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "effect_id",
+        "stage",
+        "intent_id",
+        "attempt_id",
+        "destination_reference",
+        "content_version",
+        "content_fingerprint",
+        "outcome",
+        "result_reference",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8e18393a659df09b3c7455fccd996bc9d02a95ec60c6bd1fcfc25a89a81ee0a1"
+    },
+    "crm_private.global_access_revocation_attempts": {
+      "columns": [
+        "attempt_id",
+        "revocation_id",
+        "attempt_number",
+        "outcome",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "integer",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b1fd009d0f5dcf4a2e803ad3f0b8472fb8a6816a54fd0f676060c0af2825715a"
+    },
+    "crm_private.global_access_revocations": {
+      "columns": [
+        "revocation_id",
+        "actor_id",
+        "auth_subject",
+        "initiating_session_id",
+        "previous_access_generation",
+        "access_generation",
+        "admin_scope",
+        "core_revoked_at",
+        "auth_state",
+        "auth_attempt_count",
+        "last_auth_attempt_at",
+        "auth_revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "integer",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "67d4d5ce43a2f3b3aa0ee6535d004fde9faac33e70285866cda53c6e511c7f79"
+    },
+    "crm_private.identification_epochs": {
+      "columns": [
+        "epoch_id",
+        "session_id",
+        "identified_at",
+        "last_human_activity_at",
+        "full_password",
+        "full_mfa",
+        "access_state",
+        "current_epoch",
+        "closed_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean",
+        "boolean",
+        "text",
+        "boolean",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "c6e890c53d14becae8557de3f9139cf447a1316db47df668e93929b503c87f32"
+    },
+    "crm_private.unit_attempts": {
+      "columns": [
+        "attempt_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "attempt_kind",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "fc78445fd208658299b75dc8495040da091014ec217a4dfed75f4e1c3f56d3a0"
+    },
+    "crm_private.unit_history": {
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "fact_kind",
+        "before_value",
+        "after_value",
+        "reason",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "actor_id",
+        "actor_kind",
+        "evidence_state"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "3b0c84aedc708d22bccd99b990eb61b346098778e75cbc0c51149946bc358de6"
+    },
+    "crm_private.unit_operations": {
+      "columns": [
+        "operation_id",
+        "operation_class",
+        "root_id",
+        "context_scope",
+        "material_fingerprint",
+        "actor_id",
+        "actor_kind",
+        "purpose",
+        "cause",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "expected_version",
+        "resulting_version",
+        "initial_attempt_id",
+        "effect_id",
+        "intent_id"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "bigint",
+        "bigint",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "9319d04ca1669df10c06af79beb21cf47f73ebaed43a2390097a21c731f6ceeb"
+    },
+    "crm_private.unit_results": {
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "result_state",
+        "resulting_version",
+        "after_value",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "fixed_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "d7eb7722d11cda4769e23e6a7a52c5e6e838920c3a4b36700ee3e0ee3412b644"
+    },
+    "crm_private.unit_roots": {
+      "columns": [
+        "root_id",
+        "context_scope",
+        "version",
+        "current_value",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "512d46182bd9d8618bbf85eb09b3e1aae282f4fa57f644040835638c0d678666"
+    }
+  },
+  "businessValuesAndRelations": {},
+  "constraints": [
+    {
+      "relation": "crm_f1.consumption",
+      "conname": "consumption_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (generation, database_oid, xid, capability_id)"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_audience_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((audience <> ''::text))"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((valid_until > valid_from))"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((generation <> ''::text))"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (key_id)"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_purposes_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((cardinality(purposes) > 0))"
+    },
+    {
+      "relation": "crm_f1.keys",
+      "conname": "keys_secret_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((octet_length(secret) = 32))"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_audience_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((audience <> ''::text))"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((valid_until > valid_from))"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((generation <> ''::text))"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (key_id)"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_purposes_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((cardinality(purposes) > 0))"
+    },
+    {
+      "relation": "crm_f2.keys",
+      "conname": "keys_secret_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((octet_length(secret) = 32))"
+    },
+    {
+      "relation": "crm_ha.command_receipts",
+      "conname": "command_receipts_command_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((command_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.command_receipts",
+      "conname": "command_receipts_command_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((command_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.command_receipts",
+      "conname": "command_receipts_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (command_id)"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_decision_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((decision = ANY (ARRAY['approved'::text, 'rejected'::text])))"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_decision_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((decision_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (decision_id)"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_proposal_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (proposal_id) REFERENCES crm_ha.proposals(proposal_id)"
+    },
+    {
+      "relation": "crm_ha.decisions",
+      "conname": "decisions_proposal_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (proposal_id)"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_actor_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((actor_kind = ANY (ARRAY['human'::text, 'technical'::text])))"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_details_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((details_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_event_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((event_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_event_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((event_kind = ANY (ARRAY['proposed'::text, 'approved'::text, 'rejected'::text, 'reserved'::text, 'attempted'::text, 'succeeded'::text, 'failed-known'::text, 'uncertain'::text, 'reconciled-succeeded'::text, 'reconciled-failed'::text])))"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (event_id)"
+    },
+    {
+      "relation": "crm_ha.events",
+      "conname": "events_proposal_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (proposal_id) REFERENCES crm_ha.proposals(proposal_id)"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((checked_us < effective_until_us))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((effective_until_us = LEAST(source_valid_until_us, approved_until_us)))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_command_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((command_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_command_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (command_id) REFERENCES crm_ha.reservations(reservation_id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_command_id_fkey1",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (command_id) REFERENCES crm_ha.command_receipts(command_id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_command_id_fkey2",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (command_id) REFERENCES crm_private.unit_operations(operation_id) DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_outcome_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((outcome = 'verified'::text))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (command_id)"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_proposal_id_part_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (proposal_id, part_id) REFERENCES crm_ha.parts(proposal_id, part_id)"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_reference_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((octet_length(reference) >= 1) AND (octet_length(reference) <= 16384)))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_verifier_identity_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((verifier_identity ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "evidence_revalidations_verifier_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((verifier_kind ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.evidence_revalidations",
+      "conname": "h0_m04_evidence_commit_guard",
+      "contype": "t",
+      "convalidated": true,
+      "definition": "TRIGGER DEFERRABLE INITIALLY DEFERRED"
+    },
+    {
+      "relation": "crm_ha.parts",
+      "conname": "parts_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.parts",
+      "conname": "parts_material_payload_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((octet_length(material_payload) <= 16384))"
+    },
+    {
+      "relation": "crm_ha.parts",
+      "conname": "parts_part_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((part_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.parts",
+      "conname": "parts_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (proposal_id, part_id)"
+    },
+    {
+      "relation": "crm_ha.parts",
+      "conname": "parts_proposal_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (proposal_id) REFERENCES crm_ha.proposals(proposal_id)"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_material_payload_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((octet_length(material_payload) <= 16384))"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (proposal_id)"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_proposal_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((proposal_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_proposer_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((proposer_kind = ANY (ARRAY['human'::text, 'ai'::text])))"
+    },
+    {
+      "relation": "crm_ha.proposals",
+      "conname": "proposals_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((scope <> ''::text))"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_decision_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (decision_id) REFERENCES crm_ha.decisions(decision_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_decision_id_part_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (decision_id, part_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_effect_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (effect_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_intent_id_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (intent_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (reservation_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_proposal_id_part_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (proposal_id, part_id) REFERENCES crm_ha.parts(proposal_id, part_id)"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_reservation_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((reservation_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_ha.reservations",
+      "conname": "reservations_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((state = ANY (ARRAY['reserved'::text, 'attempting'::text, 'uncertain'::text, 'consumed'::text])))"
+    },
+    {
+      "relation": "crm_private.access_probe",
+      "conname": "access_probe_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (probe_id)"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_auth_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((auth_state = ANY (ARRAY['pending'::text, 'revoked'::text, 'failed'::text, 'uncertain'::text])))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_generation = (previous_generation + 1)))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((((auth_state = 'pending'::text) AND (auth_recorded_at IS NULL)) OR ((auth_state <> 'pending'::text) AND (auth_recorded_at IS NOT NULL))))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_check2",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((completed_at IS NULL) OR (auth_state = 'revoked'::text)))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (recovery_id)"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_previous_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((previous_generation > 0))"
+    },
+    {
+      "relation": "crm_private.access_recoveries",
+      "conname": "access_recoveries_recovery_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((recovery_kind = ANY (ARRAY['password'::text, 'break_glass'::text])))"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_access_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_generation > 0))"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_access_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_state = ANY (ARRAY['ready'::text, 'enrollment_required'::text, 'recovery_in_progress'::text, 'reidentification_required'::text])))"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_auth_subject_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (auth_subject)"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (actor_id)"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_singleton_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (singleton)"
+    },
+    {
+      "relation": "crm_private.crm_actors",
+      "conname": "crm_actors_singleton_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (singleton)"
+    },
+    {
+      "relation": "crm_private.crm_sessions",
+      "conname": "crm_sessions_access_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_generation > 0))"
+    },
+    {
+      "relation": "crm_private.crm_sessions",
+      "conname": "crm_sessions_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.crm_sessions",
+      "conname": "crm_sessions_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (session_id)"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((((stage = 'intent'::text) AND (intent_id IS NOT NULL) AND (attempt_id IS NULL) AND (destination_reference IS NOT NULL) AND (content_version IS NOT NULL) AND (content_fingerprint IS NOT NULL) AND (outcome IS NULL) AND (result_reference IS NULL)) OR ((stage = 'attempt'::text) AND (intent_id IS NOT NULL) AND (attempt_id IS NOT NULL) AND (outcome IS NULL) AND (result_reference IS NULL)) OR ((stage = 'result'::text) AND (intent_id IS NOT NULL) AND (attempt_id IS NOT NULL) AND (outcome IS NOT NULL) AND (result_reference IS NOT NULL)) OR ((stage = 'uncertain'::text) AND (intent_id IS NOT NULL) AND (attempt_id IS NOT NULL) AND (outcome IS NULL) AND (result_reference IS NULL))))"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_content_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((content_fingerprint IS NULL) OR (content_fingerprint ~ '^[0-9a-f]{64}$'::text)))"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.unit_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_outcome_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((outcome IS NULL) OR (outcome = ANY (ARRAY['succeeded'::text, 'failed'::text]))))"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (record_id)"
+    },
+    {
+      "relation": "crm_private.external_effect_records",
+      "conname": "external_effect_records_stage_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((stage = ANY (ARRAY['intent'::text, 'attempt'::text, 'result'::text, 'uncertain'::text])))"
+    },
+    {
+      "relation": "crm_private.global_access_revocation_attempts",
+      "conname": "global_access_revocation_attem_revocation_id_attempt_number_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (revocation_id, attempt_number)"
+    },
+    {
+      "relation": "crm_private.global_access_revocation_attempts",
+      "conname": "global_access_revocation_attempts_attempt_number_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((attempt_number > 0))"
+    },
+    {
+      "relation": "crm_private.global_access_revocation_attempts",
+      "conname": "global_access_revocation_attempts_outcome_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((outcome = ANY (ARRAY['revoked'::text, 'failed'::text, 'uncertain'::text])))"
+    },
+    {
+      "relation": "crm_private.global_access_revocation_attempts",
+      "conname": "global_access_revocation_attempts_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (attempt_id)"
+    },
+    {
+      "relation": "crm_private.global_access_revocation_attempts",
+      "conname": "global_access_revocation_attempts_revocation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (revocation_id) REFERENCES crm_private.global_access_revocations(revocation_id)"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_actor_id_access_generation_key",
+      "contype": "u",
+      "convalidated": true,
+      "definition": "UNIQUE (actor_id, access_generation)"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_actor_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (actor_id) REFERENCES crm_private.crm_actors(actor_id)"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_admin_scope_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((admin_scope <> ''::text))"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_auth_attempt_count_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((auth_attempt_count >= 0))"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_auth_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((auth_state = ANY (ARRAY['pending'::text, 'revoked'::text, 'failed'::text, 'uncertain'::text])))"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_generation = (previous_access_generation + 1)))"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((((auth_state = 'pending'::text) AND (auth_attempt_count = 0) AND (last_auth_attempt_at IS NULL) AND (auth_revoked_at IS NULL)) OR ((auth_state = ANY (ARRAY['failed'::text, 'uncertain'::text])) AND (auth_attempt_count > 0) AND (last_auth_attempt_at IS NOT NULL) AND (auth_revoked_at IS NULL)) OR ((auth_state = 'revoked'::text) AND (auth_attempt_count > 0) AND (last_auth_attempt_at IS NOT NULL) AND (auth_revoked_at IS NOT NULL))))"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_initiating_session_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (initiating_session_id) REFERENCES crm_private.crm_sessions(session_id)"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (revocation_id)"
+    },
+    {
+      "relation": "crm_private.global_access_revocations",
+      "conname": "global_access_revocations_previous_access_generation_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((previous_access_generation > 0))"
+    },
+    {
+      "relation": "crm_private.identification_epochs",
+      "conname": "identification_epochs_access_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((access_state = ANY (ARRAY['ready'::text, 'enrollment_required'::text, 'recovery_in_progress'::text, 'reidentification_required'::text])))"
+    },
+    {
+      "relation": "crm_private.identification_epochs",
+      "conname": "identification_epochs_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((last_human_activity_at >= identified_at))"
+    },
+    {
+      "relation": "crm_private.identification_epochs",
+      "conname": "identification_epochs_check1",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK (((current_epoch AND (closed_at IS NULL)) OR ((NOT current_epoch) AND (closed_at IS NOT NULL))))"
+    },
+    {
+      "relation": "crm_private.identification_epochs",
+      "conname": "identification_epochs_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (epoch_id)"
+    },
+    {
+      "relation": "crm_private.identification_epochs",
+      "conname": "identification_epochs_session_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (session_id) REFERENCES crm_private.crm_sessions(session_id)"
+    },
+    {
+      "relation": "crm_private.unit_attempts",
+      "conname": "unit_attempts_attempt_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((attempt_kind = ANY (ARRAY['initial'::text, 'replay'::text])))"
+    },
+    {
+      "relation": "crm_private.unit_attempts",
+      "conname": "unit_attempts_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.unit_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_attempts",
+      "conname": "unit_attempts_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (attempt_id)"
+    },
+    {
+      "relation": "crm_private.unit_history",
+      "conname": "unit_history_actor_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((actor_kind = 'technical'::text))"
+    },
+    {
+      "relation": "crm_private.unit_history",
+      "conname": "unit_history_evidence_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((evidence_state = ANY (ARRAY['none'::text, 'candidate'::text])))"
+    },
+    {
+      "relation": "crm_private.unit_history",
+      "conname": "unit_history_fact_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((fact_kind = 'technical-state-change'::text))"
+    },
+    {
+      "relation": "crm_private.unit_history",
+      "conname": "unit_history_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.unit_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_history",
+      "conname": "unit_history_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_actor_kind_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((actor_kind = 'technical'::text))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((resulting_version = (expected_version + 1)))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_expected_version_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((expected_version >= 0))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_operation_class_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((operation_class = 'technical-state-change'::text))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_operation_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((operation_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_operations",
+      "conname": "unit_operations_root_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (root_id) REFERENCES crm_private.unit_roots(root_id)"
+    },
+    {
+      "relation": "crm_private.unit_results",
+      "conname": "unit_results_material_fingerprint_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((material_fingerprint ~ '^[0-9a-f]{64}$'::text))"
+    },
+    {
+      "relation": "crm_private.unit_results",
+      "conname": "unit_results_operation_id_fkey",
+      "contype": "f",
+      "convalidated": true,
+      "definition": "FOREIGN KEY (operation_id) REFERENCES crm_private.unit_operations(operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_results",
+      "conname": "unit_results_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (operation_id)"
+    },
+    {
+      "relation": "crm_private.unit_results",
+      "conname": "unit_results_result_state_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((result_state = 'applied'::text))"
+    },
+    {
+      "relation": "crm_private.unit_roots",
+      "conname": "unit_roots_pkey",
+      "contype": "p",
+      "convalidated": true,
+      "definition": "PRIMARY KEY (root_id)"
+    },
+    {
+      "relation": "crm_private.unit_roots",
+      "conname": "unit_roots_root_id_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((root_id ~ '^[a-z][a-z0-9-]{0,127}$'::text))"
+    },
+    {
+      "relation": "crm_private.unit_roots",
+      "conname": "unit_roots_version_check",
+      "contype": "c",
+      "convalidated": true,
+      "definition": "CHECK ((version >= 0))"
+    }
+  ],
+  "sqlSha256": "f93b3ef87f75c3ee8b229d2f76d8255a0f004b23813a26e444e3e0e72ff2cb14",
+  "recordedBeforeApply": true
+}

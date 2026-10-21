@@ -1,0 +1,937 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-PwRU5z/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-PwRU5z/data -l logfile start
+
+waiting for server to start.... done
+server started
+H6-013 B02 {"origin":26,"destination":68,"edges":42,"allOriginalColumnsPreserved":true,"currentAdapterCompatibility":true}
+✔ H6-013 B02 authentic26 identity and contextual relation through each27–68 (2565.21025ms)
+✖ H6-013 B03 authentic30 accepted snapshot Booking identity history through31–68 (3056.554166ms)
+✖ H6-013 B04 authentic33 exact money and assigned consumed portions through34–68 (2037.5215ms)
+H6-013 B05 {"origin":52,"destination":68,"edges":16,"allOriginalColumnsPreserved":true,"currentAdapterCompatibility":true}
+✔ H6-013 B05 authentic52 preparation and economic facts through53–68 (2342.999875ms)
+H6-013 B06 {"origin":63,"destination":68,"edges":5,"allOriginalColumnsPreserved":true,"currentAdapterCompatibility":true}
+✔ H6-013 B06 authentic63 joint three closures and immutable history through64–68 (3939.865ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 3
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14158.300709
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6-013-migration.test.ts:51:1
+✖ H6-013 B03 authentic30 accepted snapshot Booking identity history through31–68 (3056.554166ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      booking: {
+        acceptance_id: '6a23b101-6e42-4f88-9c7a-4fb334d4118e',
+        actor_id: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4',
+        admin_scope: 'h6013_booking-synthetic',
+  ...
+      },
+  +   closureAssessments: {
+  +     assessments: {},
+  +     bookingId: '517cf912-4cbb-4e5b-b1bb-e2b5598b11b7',
+  +     history: [],
+  +     inputs: {
+  +       agreement: {
+  +         acceptanceId: '6a23b101-6e42-4f88-9c7a-4fb334d4118e',
+  +         chain: {
+  +           acceptance: {
+  +             acceptance_id: '6a23b101-6e42-4f88-9c7a-4fb334d4118e',
+  +             accepter_id: 'b70cd0b1-c077-459c-926a-e3acd2bb9e6b',
+  +             actor_id: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4',
+  +             admin_scope: 'h6013_booking-synthetic',
+  +             authority_evidence_id: '199ea547-32e5-43e2-b716-10f4557642e2',
+  +             channel: 'phone',
+  +             communication_id: null,
+  +             content_snapshot: {
+  +               modalities: [
+  +                 {
+  +                   conditions: 'synthetic exact',
+  +                   definitive: true,
+  +                   finalPersonPrice: '100.01',
+  +                   id: 'f542655e-196c-4329-8c8e-69ad31d7d40c',
+  +                   independent: true,
+  +                   lines: [
+  +                     {
+  +                       costMaterial: true,
+  +                       date: '2026-10-20',
+  +                       datePending: false,
+  +                       id: '1a92c184-8b86-4eca-b59d-3f5d197be402',
+  +                       included: true,
+  +                       independent: true,
+  +                       priceBasis: 'fixed',
+  +                       quantity: '1',
+  +                       selectable: true,
+  +                       serviceRevisionId: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                       sourceRef: 'synthetic quantity',
+  +                       tariffRevisionId: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                       unitRevisionId: '4599c52a-f795-427f-9441-2c46bfdc0a6f'
+  +                     }
+  +                   ],
+  +                   manualReason: 'human synthetic',
+  +                   name: 'A',
+  +                   participants: 10,
+  +                   selectable: true
+  +                 },
+  +                 {
+  +                   conditions: 'synthetic exact',
+  +                   definitive: true,
+  +                   finalPersonPrice: '100.01',
+  +                   id: 'b4f3b7ca-f2b2-4ab9-9c8e-ac658c0d8862',
+  +                   independent: true,
+  +                   lines: [
+  +                     {
+  +                       costMaterial: true,
+  +                       date: '2026-10-20',
+  +                       datePending: false,
+  +                       id: '8477a6b0-ab69-45ce-8f0d-7e53ff7dab47',
+  +                       included: true,
+  +                       independent: true,
+  +                       priceBasis: 'fixed',
+  +                       quantity: '1',
+  +                       selectable: true,
+  +                       serviceRevisionId: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                       sourceRef: 'synthetic quantity',
+  +                       tariffRevisionId: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                       unitRevisionId: '4599c52a-f795-427f-9441-2c46bfdc0a6f'
+  +                     }
+  +                   ],
+  +                   manualReason: 'human synthetic',
+  +                   name: 'B',
+  +                   participants: 10,
+  +                   selectable: true
+  +                 }
+  +               ],
+  +               pending: [],
+  +               scope: 'H2 exact synthetic scope',
+  +               terms: {
+  +                 sourceRef: 'synthetic retained terms',
+  +                 text: 'Existing synthetic conditions; no mandate',
+  +                 version: 'H2-T1'
+  +               }
+  +             },
+  +             coverage: 'H2 exact synthetic scope',
+  +             designation_id: '5f4b3d56-ed66-4c88-9dde-d3bc8a528e98',
+  +             evidence_id: '484e7690-c662-418c-81d7-bdccb8f99a48',
+  +             occurred_at: '2026-10-19T23:27:42.566+02:00',
+  +             opportunity_id: '8cdab35b-f979-45b8-ba99-db2024722a14',
+  +             proposal_id: '533a3547-ccb5-4976-9e67-7632ebcae046',
+  +             recorded_at: '2026-10-19T23:27:42.573041+02:00',
+  +             source_ref: 'synthetic exact act',
+  +             terms: {
+  +               sourceRef: 'synthetic retained terms',
+  +               text: 'Existing synthetic conditions; no mandate',
+  +               version: 'H2-T1'
+  +             },
+  +             version_id: 'ed1bc8f9-3fb4-4d01-b46d-6358565da938'
+  +           },
+  +           opportunity: {
+  +             admin_scope: 'h6013_booking-synthetic',
+  +             created_at: '2026-10-19T23:27:42.530192+02:00',
+  +             creation_material: {
+  +               commercialPossible: true,
+  +               contact: {
+  +                 address: 'synthetic-client',
+  +                 channel: 'manual',
+  +                 sourceRef: 'synthetic-check',
+  +                 valid: true
+  +               },
+  +               need: 'synthetic-event',
+  +               pending: [
+  +                 'date',
+  +                 'participants',
+  +                 'services',
+  +                 'budget'
+  +               ]
+  +             },
+  +             lead_id: null,
+  +             loss_reason: null,
+  +             material: {
+  +               commercialPossible: true,
+  +               contact: {
+  +                 address: 'synthetic-client',
+  +                 channel: 'manual',
+  +                 sourceRef: 'synthetic-check',
+  +                 valid: true
+  +               },
+  +               need: 'synthetic-event',
+  +               pending: [
+  +                 'date',
+  +                 'participants',
+  +                 'services',
+  +                 'budget'
+  +               ]
+  +             },
+  +             opportunity_id: '8cdab35b-f979-45b8-ba99-db2024722a14',
+  +             previous_state: null,
+  +             responsible_actor: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4',
+  +             revision: 3,
+  +             source_ref: 'synthetic-origin',
+  +             state: 'Aceptada / Ganada',
+  +             updated_at: '2026-10-19T23:27:42.583891+02:00'
+  +           },
+  +           verification: {
+  +             acceptance_id: '6a23b101-6e42-4f88-9c7a-4fb334d4118e',
+  +             actor_id: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4',
+  +             admin_scope: 'h6013_booking-synthetic',
+  +             commercial_before: {
+  +               admin_scope: 'h6013_booking-synthetic',
+  +               created_at: '2026-10-19T23:27:42.530192+02:00',
+  +               creation_material: {
+  +                 commercialPossible: true,
+  +                 contact: {
+  +                   address: 'synthetic-client',
+  +                   channel: 'manual',
+  +                   sourceRef: 'synthetic-check',
+  +                   valid: true
+  +                 },
+  +                 need: 'synthetic-event',
+  +                 pending: [
+  +                   'date',
+  +                   'participants',
+  +                   'services',
+  +                   'budget'
+  +                 ]
+  +               },
+  +               lead_id: null,
+  +               loss_reason: null,
+  +               material: {
+  +                 commercialPossible: true,
+  +                 contact: {
+  +                   address: 'synthetic-client',
+  +                   channel: 'manual',
+  +                   sourceRef: 'synthetic-check',
+  +                   valid: true
+  +                 },
+  +                 need: 'synthetic-event',
+  +                 pending: [
+  +                   'date',
+  +                   'participants',
+  +                   'services',
+  +                   'budget'
+  +                 ]
+  +               },
+  +               opportunity_id: '8cdab35b-f979-45b8-ba99-db2024722a14',
+  +               previous_state: null,
+  +               responsible_actor: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4',
+  +               revision: 2,
+  +               source_ref: 'synthetic-origin',
+  +               state: 'Propuesta en preparación',
+  +               updated_at: '2026-10-19T23:27:42.543367+02:00'
+  +             },
+  +             material: {
+  +               acceptanceId: '6a23b101-6e42-4f88-9c7a-4fb334d4118e',
+  +               action: 'verify',
+  +               at: '2026-10-19T21:27:42.566Z',
+  +               coverage: 'H2 exact synthetic scope',
+  +               expectedOpportunityRevision: 2,
+  +               expectedRevision: 4,
+  +               operationId: '30b10d12-f8f0-4578-8d38-f5d313655b25',
+  +               opportunityId: '8cdab35b-f979-45b8-ba99-db2024722a14',
+  +               proposalId: '533a3547-ccb5-4976-9e67-7632ebcae046',
+  +               reason: 'synthetic decision',
+  +               reviewEvidence: {
+  +                 availability: '9bff0dc0-a4e3-462e-923a-ce510d7940d6',
+  +                 capacity: 'cf350d4a-952c-41ec-9370-33c702dfde7a',
+  +                 conditions: '8e86276b-9f9b-4709-9137-596a8e91b367',
+  +                 prices: '06e7c948-5cd0-43f7-9190-018a557899d8'
+  +               },
+  +               sourceRef: 'synthetic exact act',
+  +               versionId: 'ed1bc8f9-3fb4-4d01-b46d-6358565da938',
+  +               won: true
+  +             },
+  +             recorded_at: '2026-10-19T23:27:42.583381+02:00',
+  +             verification_id: '30b10d12-f8f0-4578-8d38-f5d313655b25',
+  +             won: true
+  +           },
+  +           version: {
+  +             actor_id: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4',
+  +             admin_scope: 'h6013_booking-synthetic',
+  +             content: {
+  +               modalities: [
+  +                 {
+  +                   conditions: 'synthetic exact',
+  +                   definitive: true,
+  +                   finalPersonPrice: '100.01',
+  +                   id: 'f542655e-196c-4329-8c8e-69ad31d7d40c',
+  +                   independent: true,
+  +                   lines: [
+  +                     {
+  +                       costMaterial: true,
+  +                       date: '2026-10-20',
+  +                       datePending: false,
+  +                       id: '1a92c184-8b86-4eca-b59d-3f5d197be402',
+  +                       included: true,
+  +                       independent: true,
+  +                       priceBasis: 'fixed',
+  +                       quantity: '1',
+  +                       selectable: true,
+  +                       serviceRevisionId: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                       sourceRef: 'synthetic quantity',
+  +                       tariffRevisionId: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                       unitRevisionId: '4599c52a-f795-427f-9441-2c46bfdc0a6f'
+  +                     }
+  +                   ],
+  +                   manualReason: 'human synthetic',
+  +                   name: 'A',
+  +                   participants: 10,
+  +                   selectable: true
+  +                 },
+  +                 {
+  +                   conditions: 'synthetic exact',
+  +                   definitive: true,
+  +                   finalPersonPrice: '100.01',
+  +                   id: 'b4f3b7ca-f2b2-4ab9-9c8e-ac658c0d8862',
+  +                   independent: true,
+  +                   lines: [
+  +                     {
+  +                       costMaterial: true,
+  +                       date: '2026-10-20',
+  +                       datePending: false,
+  +                       id: '8477a6b0-ab69-45ce-8f0d-7e53ff7dab47',
+  +                       included: true,
+  +                       independent: true,
+  +                       priceBasis: 'fixed',
+  +                       quantity: '1',
+  +                       selectable: true,
+  +                       serviceRevisionId: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                       sourceRef: 'synthetic quantity',
+  +                       tariffRevisionId: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                       unitRevisionId: '4599c52a-f795-427f-9441-2c46bfdc0a6f'
+  +                     }
+  +                   ],
+  +                   manualReason: 'human synthetic',
+  +                   name: 'B',
+  +                   participants: 10,
+  +                   selectable: true
+  +                 }
+  +               ],
+  +               pending: [],
+  +               scope: 'H2 exact synthetic scope',
+  +               terms: {
+  +                 sourceRef: 'synthetic retained terms',
+  +                 text: 'Existing synthetic conditions; no mandate',
+  +                 version: 'H2-T1'
+  +               }
+  +             },
+  +             economics: [
+  +               {
+  +                 blockers: [],
+  +                 calculated: '90.00',
+  +                 calculation: {
+  +                   algorithmVersion: 'h1-money-d023-d028-d029-v1',
+  +                   input: {
+  +                     components: [
+  +                       {
+  +                         amount: '900.00',
+  +                         quantity: '1'
+  +                       }
+  +                     ],
+  +                     kind: 'composition',
+  +                     participants: 10
+  +                   },
+  +                   output: {
+  +                     algorithmVersion: 'h1-money-d023-d028-d029-v1',
+  +                     amount: '90.00',
+  +                     difference: {
+  +                       decimal: '0',
+  +                       denominator: '1',
+  +                       numerator: '0'
+  +                     },
+  +                     exact: {
+  +                       decimal: '90',
+  +                       denominator: '1',
+  +                       numerator: '90'
+  +                     },
+  +                     trace: {
+  +                       calculationRef: 'f542655e-196c-4329-8c8e-69ad31d7d40c',
+  +                       configurationVersions: [
+  +                         {
+  +                           id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                           kind: 'service',
+  +                           version: '1'
+  +                         },
+  +                         {
+  +                           id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                           kind: 'unit',
+  +                           version: '1'
+  +                         },
+  +                         {
+  +                           id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                           kind: 'tariff',
+  +                           version: '1'
+  +                         }
+  +                       ],
+  +                       reason: 'human synthetic',
+  +                       sourceRef: 'synthetic retained terms'
+  +                     }
+  +                   },
+  +                   trace: {
+  +                     calculationRef: 'f542655e-196c-4329-8c8e-69ad31d7d40c',
+  +                     configurationVersions: [
+  +                       {
+  +                         id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                         kind: 'service',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                         kind: 'unit',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                         kind: 'tariff',
+  +                         version: '1'
+  +                       }
+  +                     ],
+  +                     reason: 'human synthetic',
+  +                     sourceRef: 'synthetic retained terms'
+  +                   }
+  +                 },
+  +                 components: [
+  +                   {
+  +                     amount: '900.00',
+  +                     cost: '700.00',
+  +                     costState: 'confirmed',
+  +                     lineId: '1a92c184-8b86-4eca-b59d-3f5d197be402',
+  +                     priceState: 'confirmed',
+  +                     quantity: '1'
+  +                   }
+  +                 ],
+  +                 difference: '10.01',
+  +                 final: '100.01',
+  +                 finalCalculation: {
+  +                   algorithmVersion: 'h1-money-d023-d028-d029-v1',
+  +                   input: {
+  +                     finalPersonPrice: '100.01',
+  +                     kind: 'per_person',
+  +                     participations: 10
+  +                   },
+  +                   output: {
+  +                     algorithmVersion: 'h1-money-d023-d028-d029-v1',
+  +                     amount: '1000.10',
+  +                     difference: {
+  +                       decimal: '0',
+  +                       denominator: '1',
+  +                       numerator: '0'
+  +                     },
+  +                     exact: {
+  +                       decimal: '1000.1',
+  +                       denominator: '10',
+  +                       numerator: '10001'
+  +                     },
+  +                     trace: {
+  +                       calculationRef: 'f542655e-196c-4329-8c8e-69ad31d7d40c',
+  +                       configurationVersions: [
+  +                         {
+  +                           id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                           kind: 'service',
+  +                           version: '1'
+  +                         },
+  +                         {
+  +                           id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                           kind: 'unit',
+  +                           version: '1'
+  +                         },
+  +                         {
+  +                           id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                           kind: 'tariff',
+  +                           version: '1'
+  +                         }
+  +                       ],
+  +                       reason: 'human synthetic',
+  +                       sourceRef: 'synthetic retained terms'
+  +                     }
+  +                   },
+  +                   trace: {
+  +                     calculationRef: 'f542655e-196c-4329-8c8e-69ad31d7d40c',
+  +                     configurationVersions: [
+  +                       {
+  +                         id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                         kind: 'service',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                         kind: 'unit',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                         kind: 'tariff',
+  +                         version: '1'
+  +                       }
+  +                     ],
+  +                     reason: 'human synthetic',
+  +                     sourceRef: 'synthetic retained terms'
+  +                   }
+  +                 },
+  +                 manual: {
+  +                   actorRef: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4',
+  +                   calculated: '90.00',
+  +                   final: '100.01',
+  +                   reason: 'human synthetic',
+  +                   recordedAt: '2026-10-19T21:27:42.537Z',
+  +                   trace: {
+  +                     calculationRef: 'f542655e-196c-4329-8c8e-69ad31d7d40c',
+  +                     configurationVersions: [
+  +                       {
+  +                         id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                         kind: 'service',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                         kind: 'unit',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                         kind: 'tariff',
+  +                         version: '1'
+  +                       }
+  +                     ],
+  +                     reason: 'human synthetic',
+  +                     sourceRef: 'synthetic retained terms'
+  +                   }
+  +                 },
+  +                 modalityId: 'f542655e-196c-4329-8c8e-69ad31d7d40c'
+  +               },
+  +               {
+  +                 blockers: [],
+  +                 calculated: '90.00',
+  +                 calculation: {
+  +                   algorithmVersion: 'h1-money-d023-d028-d029-v1',
+  +                   input: {
+  +                     components: [
+  +                       {
+  +                         amount: '900.00',
+  +                         quantity: '1'
+  +                       }
+  +                     ],
+  +                     kind: 'composition',
+  +                     participants: 10
+  +                   },
+  +                   output: {
+  +                     algorithmVersion: 'h1-money-d023-d028-d029-v1',
+  +                     amount: '90.00',
+  +                     difference: {
+  +                       decimal: '0',
+  +                       denominator: '1',
+  +                       numerator: '0'
+  +                     },
+  +                     exact: {
+  +                       decimal: '90',
+  +                       denominator: '1',
+  +                       numerator: '90'
+  +                     },
+  +                     trace: {
+  +                       calculationRef: 'b4f3b7ca-f2b2-4ab9-9c8e-ac658c0d8862',
+  +                       configurationVersions: [
+  +                         {
+  +                           id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                           kind: 'service',
+  +                           version: '1'
+  +                         },
+  +                         {
+  +                           id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                           kind: 'unit',
+  +                           version: '1'
+  +                         },
+  +                         {
+  +                           id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                           kind: 'tariff',
+  +                           version: '1'
+  +                         }
+  +                       ],
+  +                       reason: 'human synthetic',
+  +                       sourceRef: 'synthetic retained terms'
+  +                     }
+  +                   },
+  +                   trace: {
+  +                     calculationRef: 'b4f3b7ca-f2b2-4ab9-9c8e-ac658c0d8862',
+  +                     configurationVersions: [
+  +                       {
+  +                         id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                         kind: 'service',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                         kind: 'unit',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                         kind: 'tariff',
+  +                         version: '1'
+  +                       }
+  +                     ],
+  +                     reason: 'human synthetic',
+  +                     sourceRef: 'synthetic retained terms'
+  +                   }
+  +                 },
+  +                 components: [
+  +                   {
+  +                     amount: '900.00',
+  +                     cost: '700.00',
+  +                     costState: 'confirmed',
+  +                     lineId: '8477a6b0-ab69-45ce-8f0d-7e53ff7dab47',
+  +                     priceState: 'confirmed',
+  +                     quantity: '1'
+  +                   }
+  +                 ],
+  +                 difference: '10.01',
+  +                 final: '100.01',
+  +                 finalCalculation: {
+  +                   algorithmVersion: 'h1-money-d023-d028-d029-v1',
+  +                   input: {
+  +                     finalPersonPrice: '100.01',
+  +                     kind: 'per_person',
+  +                     participations: 10
+  +                   },
+  +                   output: {
+  +                     algorithmVersion: 'h1-money-d023-d028-d029-v1',
+  +                     amount: '1000.10',
+  +                     difference: {
+  +                       decimal: '0',
+  +                       denominator: '1',
+  +                       numerator: '0'
+  +                     },
+  +                     exact: {
+  +                       decimal: '1000.1',
+  +                       denominator: '10',
+  +                       numerator: '10001'
+  +                     },
+  +                     trace: {
+  +                       calculationRef: 'b4f3b7ca-f2b2-4ab9-9c8e-ac658c0d8862',
+  +                       configurationVersions: [
+  +                         {
+  +                           id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                           kind: 'service',
+  +                           version: '1'
+  +                         },
+  +                         {
+  +                           id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                           kind: 'unit',
+  +                           version: '1'
+  +                         },
+  +                         {
+  +                           id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                           kind: 'tariff',
+  +                           version: '1'
+  +                         }
+  +                       ],
+  +                       reason: 'human synthetic',
+  +                       sourceRef: 'synthetic retained terms'
+  +                     }
+  +                   },
+  +                   trace: {
+  +                     calculationRef: 'b4f3b7ca-f2b2-4ab9-9c8e-ac658c0d8862',
+  +                     configurationVersions: [
+  +                       {
+  +                         id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                         kind: 'service',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                         kind: 'unit',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                         kind: 'tariff',
+  +                         version: '1'
+  +                       }
+  +                     ],
+  +                     reason: 'human synthetic',
+  +                     sourceRef: 'synthetic retained terms'
+  +                   }
+  +                 },
+  +                 manual: {
+  +                   actorRef: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4',
+  +                   calculated: '90.00',
+  +                   final: '100.01',
+  +                   reason: 'human synthetic',
+  +                   recordedAt: '2026-10-19T21:27:42.537Z',
+  +                   trace: {
+  +                     calculationRef: 'b4f3b7ca-f2b2-4ab9-9c8e-ac658c0d8862',
+  +                     configurationVersions: [
+  +                       {
+  +                         id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                         kind: 'service',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                         kind: 'unit',
+  +                         version: '1'
+  +                       },
+  +                       {
+  +                         id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                         kind: 'tariff',
+  +                         version: '1'
+  +                       }
+  +                     ],
+  +                     reason: 'human synthetic',
+  +                     sourceRef: 'synthetic retained terms'
+  +                   }
+  +                 },
+  +                 modalityId: 'b4f3b7ca-f2b2-4ab9-9c8e-ac658c0d8862'
+  +               }
+  +             ],
+  +             pending: [],
+  +             preparation_id: 'aadf202f-e903-49b3-9e96-a88a35b4952d',
+  +             proposal_id: '533a3547-ccb5-4976-9e67-7632ebcae046',
+  +             reason: 'synthetic',
+  +             recorded_at: '2026-10-19T23:27:42.547408+02:00',
+  +             replaces_version_id: null,
+  +             scope: 'H2 exact synthetic scope',
+  +             source_ref: 'synthetic',
+  +             sources: [
+  +               {
+  +                 definition: {
+  +                   name: 'H2 SYNTHETIC service',
+  +                   nature: 'external'
+  +                 },
+  +                 id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +                 kind: 'service',
+  +                 sourceRef: 'synthetic-catalog',
+  +                 version: '1'
+  +               },
+  +               {
+  +                 definition: {
+  +                   definition: 'fixed group',
+  +                   name: 'SYNTHETIC group'
+  +                 },
+  +                 id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                 kind: 'unit',
+  +                 sourceRef: 'synthetic-catalog',
+  +                 version: '1'
+  +               },
+  +               {
+  +                 definition: {
+  +                   amount: '900.00',
+  +                   cost_amount: '700.00',
+  +                   cost_state: 'confirmed',
+  +                   label: 'synthetic',
+  +                   price_state: 'confirmed',
+  +                   pricing_form_revision_id: '4b342e2c-f1b1-42d4-b3c1-d40c55ed741b',
+  +                   unit_revision_id: '4599c52a-f795-427f-9441-2c46bfdc0a6f',
+  +                   vat_treatment: 'included'
+  +                 },
+  +                 id: '7deb8086-7ff2-4173-b13e-2ccb6beefe5d',
+  +                 kind: 'tariff',
+  +                 sourceRef: 'synthetic-commercial',
+  +                 version: '1'
+  +               }
+  +             ],
+  +             terms_source: 'synthetic retained terms',
+  +             terms_text: 'Existing synthetic conditions; no mandate',
+  +             terms_version: 'H2-T1',
+  +             version_id: 'ed1bc8f9-3fb4-4d01-b46d-6358565da938',
+  +             version_number: 1
+  +           }
+  +         },
+  +         terms: {
+  +           sourceRef: 'synthetic retained terms',
+  +           text: 'Existing synthetic conditions; no mandate',
+  +           version: 'H2-T1'
+  +         },
+  +         verificationId: '30b10d12-f8f0-4578-8d38-f5d313655b25',
+  +         versionId: 'ed1bc8f9-3fb4-4d01-b46d-6358565da938'
+  +       },
+  +       bookingId: '517cf912-4cbb-4e5b-b1bb-e2b5598b11b7',
+  +       cancellations: [],
+  +       deposits: [],
+  +       incidents: [],
+  +       invoices: [],
+  +       modifications: [],
+  +       ownEconomics: [],
+  +       realityPending: [],
+  +       refunds: [],
+  +       requirements: [],
+  +       schedules: [],
+  +       scopes: [
+  +         {
+  +           cancellationApplied: false,
+  +           cancelled: '0',
+  +           contracted: '1',
+  +           contributionId: null,
+  +           current: '1',
+  +           dimension: 'quantity',
+  +           nightId: null,
+  +           performed: '0',
+  +           remaining: '1',
+  +           resolved: false,
+  +           serviceId: 'eb20d307-9c96-4c13-8518-d4ac518ef18a'
+  +         },
+  +         {
+  +           cancellationApplied: false,
+  +           cancelled: '0',
+  +           contracted: '1',
+  +           contributionId: null,
+  +           current: '1',
+  +           dimension: 'quantity',
+  +           nightId: null,
+  +           performed: '0',
+  +           remaining: '1',
+  +           resolved: false,
+  +           serviceId: 'f6a817bc-6442-4566-afe7-5df67739cbd9'
+  +         }
+  +       ],
+  +       services: [
+  +         {
+  +           admin_scope: 'h6013_booking-synthetic',
+  +           applied: {
+  +             contributions: [
+  +               {
+  +                 attendees: 10,
+  +                 certainty: 'estimated',
+  +                 id: 'eb435cb0-4482-4cdc-9b48-219953950e44',
+  +                 lineId: '8477a6b0-ab69-45ce-8f0d-7e53ff7dab47',
+  +                 modalityId: 'b4f3b7ca-f2b2-4ab9-9c8e-ac658c0d8862',
+  +                 quantity: '1'
+  +               }
+  +             ],
+  +             id: 'eb20d307-9c96-4c13-8518-d4ac518ef18a',
+  +             nature: 'external',
+  +             nights: [],
+  +             place: null,
+  +             provider: null,
+  +             schedule: null,
+  +             serviceRevisionId: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +             variant: null
+  +           },
+  +           booking_id: '517cf912-4cbb-4e5b-b1bb-e2b5598b11b7',
+  +           nature: 'external',
+  +           revision: 1,
+  +           service_id: 'eb20d307-9c96-4c13-8518-d4ac518ef18a',
+  +           service_revision_id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +           state: 'Pendiente'
+  +         },
+  +         {
+  +           admin_scope: 'h6013_booking-synthetic',
+  +           applied: {
+  +             contributions: [
+  +               {
+  +                 attendees: 10,
+  +                 certainty: 'estimated',
+  +                 id: '924e72fc-cf37-4602-8aab-da74d3d0ebf5',
+  +                 lineId: '1a92c184-8b86-4eca-b59d-3f5d197be402',
+  +                 modalityId: 'f542655e-196c-4329-8c8e-69ad31d7d40c',
+  +                 quantity: '1'
+  +               }
+  +             ],
+  +             id: 'f6a817bc-6442-4566-afe7-5df67739cbd9',
+  +             nature: 'external',
+  +             nights: [],
+  +             place: null,
+  +             provider: null,
+  +             schedule: null,
+  +             serviceRevisionId: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +             variant: null
+  +           },
+  +           booking_id: '517cf912-4cbb-4e5b-b1bb-e2b5598b11b7',
+  +           nature: 'external',
+  +           revision: 1,
+  +           service_id: 'f6a817bc-6442-4566-afe7-5df67739cbd9',
+  +           service_revision_id: '4d74915e-265d-4dce-9e9a-1ac5bb2c5ff7',
+  +           state: 'Pendiente'
+  +         }
+  +       ],
+  +       suplidos: []
+  +     },
+  +     material: '90564042dbd67f675f76705f6769ceb1a7a9420c0e902780695af00c5a0cf282',
+  +     revision: 0
+  +   },
+      code: 'RES-2026-0001',
+      history: [
+        {
+          actor_id: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4',
+          admin_scope: 'h6013_booking-synthetic',
+  
+      at file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h6-013-migration.test.ts:55:44
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async upgrade (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h6-013-migration.test.ts:35:3)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h6-013-migration.test.ts:55:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { code: 'RES-2026-0001', booking: { state: 'Pendiente de preparación', terms: [Object], detail: [Object], actor_id: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4', coverage: 'H2 exact synthetic scope', revision: 1, booking_id: '517cf912-4cbb-4e5b-b1bb-e2b5598b11b7', source_ref: 'H2009 SYNTHETIC booking origin', version_id: 'ed1bc8f9-3fb4-4d01-b46d-6358565da938', admin_scope: 'h6013_booking-synthetic', evidence_id: 'ed34b85b-e241-4c65-bff8-044d854d5333', proposal_id: '533a3547-ccb5-4976-9e67-7632ebcae046', recorded_at: '2026-10-19T23:27:42.590718+02:00', acceptance_id: '6a23b101-6e42-4f88-9c7a-4fb334d4118e', chain_snapshot: [Object], opportunity_id: '8cdab35b-f979-45b8-ba99-db2024722a14', verification_id: '30b10d12-f8f0-4578-8d38-f5d313655b25', responsible_actor: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4', effect_fingerprint: 'a65d16f657d2d463c6283beedc13c77f9060e6125fbe18745a41812d6a884068' }, history: [ [Object] ], closureAssessments: { inputs: [Object], history: [], material: '90564042dbd67f675f76705f6769ceb1a7a9420c0e902780695af00c5a0cf282', revision: 0, bookingId: '517cf912-4cbb-4e5b-b1bb-e2b5598b11b7', assessments: {} } },
+    expected: { code: 'RES-2026-0001', booking: { state: 'Pendiente de preparación', terms: [Object], detail: [Object], actor_id: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4', coverage: 'H2 exact synthetic scope', revision: 1, booking_id: '517cf912-4cbb-4e5b-b1bb-e2b5598b11b7', source_ref: 'H2009 SYNTHETIC booking origin', version_id: 'ed1bc8f9-3fb4-4d01-b46d-6358565da938', admin_scope: 'h6013_booking-synthetic', evidence_id: 'ed34b85b-e241-4c65-bff8-044d854d5333', proposal_id: '533a3547-ccb5-4976-9e67-7632ebcae046', recorded_at: '2026-10-19T23:27:42.590718+02:00', acceptance_id: '6a23b101-6e42-4f88-9c7a-4fb334d4118e', chain_snapshot: [Object], opportunity_id: '8cdab35b-f979-45b8-ba99-db2024722a14', verification_id: '30b10d12-f8f0-4578-8d38-f5d313655b25', responsible_actor: '7b872044-e0ef-4c4e-9eda-ea322de3aaf4', effect_fingerprint: 'a65d16f657d2d463c6283beedc13c77f9060e6125fbe18745a41812d6a884068' }, history: [ [Object] ] },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-013-migration.test.ts:58:1
+✖ H6-013 B04 authentic33 exact money and assigned consumed portions through34–68 (2037.5215ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      acts: [
+        {
+          act_id: '79970e86-ce13-4c8f-9f28-75ed0ad90578',
+          actor_id: '4d732d53-ddb9-4e7a-9240-d024ca049cc1',
+  ...
+        consumed: '25.00',
+  +     externalReturned: '0.00',
+  +     netAfterReturned: '500.00',
+  -     externalReturned: null,
+        planned: '0.00',
+        received: '500.00',
+  +     refundReserved: '0.00',
+        representedReturned: '0.00',
+        suspended: '0.00',
+        suspendedAssigned: '0.00',
+        suspendedConsumed: '0.00',
+        unassigned: '375.00',
+  
+      at file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h6-013-migration.test.ts:61:70
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async upgrade (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h6-013-migration.test.ts:35:3)
+      at async TestContext.<anonymous> (file:///Users/andres/Developer/crm-huescaventura-os/tests/integration/postgres-h6-013-migration.test.ts:61:29)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { acts: [ [Object], [Object] ], history: [ [Object], [Object] ], summary: { planned: '0.00', assigned: '125.00', consumed: '25.00', received: '500.00', available: '375.00', byPurpose: [Object], suspended: '0.00', unassigned: '375.00', refundReserved: '0.00', usableAssigned: '125.00', usableConsumed: '25.00', algorithmVersion: 'h1-money-d023-d028-d029-v1', externalReturned: '0.00', netAfterReturned: '500.00', suspendedAssigned: '0.00', suspendedConsumed: '0.00', representedReturned: '0.00', verifiedCorrespondence: '500.00' }, coverage: [ [Object], [Object] ], revision: 6, allocations: [ [Object] ], distributions: [], paymentRevision: 4 },
+    expected: { acts: [ [Object], [Object] ], history: [ [Object], [Object] ], summary: { planned: '0.00', assigned: '125.00', consumed: '25.00', received: '500.00', available: '375.00', byPurpose: [Object], suspended: '0.00', unassigned: '375.00', usableAssigned: '125.00', usableConsumed: '25.00', algorithmVersion: 'h1-money-d023-d028-d029-v1', externalReturned: null, suspendedAssigned: '0.00', suspendedConsumed: '0.00', representedReturned: '0.00', verifiedCorrespondence: '500.00' }, coverage: [ [Object], [Object] ], revision: 6, allocations: [ [Object] ], distributions: [], paymentRevision: 4 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+waiting for server to shut down.... done
+server stopped

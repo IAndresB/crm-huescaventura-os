@@ -1,0 +1,6985 @@
+{
+  "caseId": "B02",
+  "origin": 26,
+  "from": 40,
+  "to": 41,
+  "sqlSha256": "1512cbe0619c8fb35d915f052e381d6977437bc2e2fffdc119623b0954591de7",
+  "expected": "all preexisting rows and original columns byte-equivalent; new columns permitted only via official expansion",
+  "before": {
+    "crm_f1.consumption": {
+      "columns": [
+        "generation",
+        "database_oid",
+        "xid",
+        "capability_id",
+        "expires_us"
+      ],
+      "columnTypes": [
+        "text",
+        "oid",
+        "xid8",
+        "text",
+        "bigint"
+      ],
+      "count": 0,
+      "sha256": "26781a1d57f38227a9ffcc8088b8f00ea0e754d21f59d1228ff6377beca5b36c"
+    },
+    "crm_f1.keys": {
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ],
+      "columnTypes": [
+        "text",
+        "bytea",
+        "text",
+        "text",
+        "text[]",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "610495d6b080b67c155842798f5d2c3aafa1ebc8bd444800868c1b287d2a606f"
+    },
+    "crm_f2.keys": {
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ],
+      "columnTypes": [
+        "text",
+        "bytea",
+        "text",
+        "text",
+        "text[]",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "0a1c808ca82fd7304d76ffdfdb69463b387c85456592d4a37d3c13d199926608"
+    },
+    "crm_ha.command_receipts": {
+      "columns": [
+        "command_id",
+        "command_fingerprint",
+        "command_name",
+        "proposal_id",
+        "decision_id",
+        "reservation_id",
+        "attempt_id",
+        "state",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "44751df7e62428ffe803a1232faf0fdc19ed99a5e5c5bf58a9fcd4e8c9c7505e"
+    },
+    "crm_ha.decisions": {
+      "columns": [
+        "decision_id",
+        "proposal_id",
+        "material_fingerprint",
+        "decision",
+        "reason",
+        "actor_id",
+        "session_id",
+        "decided_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "146f607203e516080a1637452fb86d0658fe9f1e01720aa341d956f3ba696d6f"
+    },
+    "crm_ha.events": {
+      "columns": [
+        "event_id",
+        "proposal_id",
+        "reservation_id",
+        "attempt_id",
+        "event_kind",
+        "actor_kind",
+        "actor_identity",
+        "recorded_at",
+        "details_fingerprint"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "225ec317774132e7e0cab40bbbdd2b3925fefe053d73bec58684fc98fcd56f76"
+    },
+    "crm_ha.evidence_revalidations": {
+      "columns": [
+        "command_id",
+        "proposal_id",
+        "part_id",
+        "command_fingerprint",
+        "reference",
+        "fingerprint",
+        "checked_us",
+        "source_valid_until_us",
+        "approved_until_us",
+        "effective_until_us",
+        "verifier_identity",
+        "verifier_kind",
+        "context_scope",
+        "created_xid",
+        "recorded_at",
+        "outcome"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "bigint",
+        "bigint",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "xid8",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "8e6dba8206e7bfc1573a1379aa76d75cb97a14a98058661853bf8d36ba635da3"
+    },
+    "crm_ha.parts": {
+      "columns": [
+        "proposal_id",
+        "part_id",
+        "material_fingerprint",
+        "material_payload"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "bytea"
+      ],
+      "count": 0,
+      "sha256": "fca720433be5238f52a2be5d179237bf2516c1c9b27b5dbc6bfeac176866352a"
+    },
+    "crm_ha.proposals": {
+      "columns": [
+        "proposal_id",
+        "material_fingerprint",
+        "material_payload",
+        "proposer_kind",
+        "proposer_actor",
+        "scope",
+        "created_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "bytea",
+        "text",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "45d6bb866aa14349cd8432993d1a690f1cda110c69f40048b1dfa8f247e77953"
+    },
+    "crm_ha.reservations": {
+      "columns": [
+        "reservation_id",
+        "proposal_id",
+        "decision_id",
+        "part_id",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "state",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "58c8f076b0a24c211ff2c4e6ed8a99e1f82d9520e4f9ebfb20c8c79e29010728"
+    },
+    "crm_private.access_probe": {
+      "columns": [
+        "probe_id",
+        "context_scope",
+        "public_value",
+        "private_value"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "69e6962c904e0fc7454178730544db17900a1e50537d0ca206b83d7d121c41b6"
+    },
+    "crm_private.access_recoveries": {
+      "columns": [
+        "recovery_id",
+        "actor_id",
+        "auth_subject",
+        "recovery_kind",
+        "admin_scope",
+        "previous_generation",
+        "access_generation",
+        "started_at",
+        "auth_state",
+        "auth_recorded_at",
+        "completed_at",
+        "password_ready",
+        "totp_verified",
+        "new_factor_enrolled",
+        "old_factor_revoked",
+        "new_paper_copy_verified"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "bigint",
+        "bigint",
+        "timestamp with time zone",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean",
+        "boolean",
+        "boolean",
+        "boolean",
+        "boolean"
+      ],
+      "count": 0,
+      "sha256": "b66537e02d7dcea66c489f6f098175735d494f7b52bf4fa6390bbdad2170f8a3"
+    },
+    "crm_private.b03_acceptance_history": {
+      "columns": [
+        "history_id",
+        "admin_scope",
+        "before_data",
+        "after_data",
+        "normative_ids",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "11fd2fc44576beb2766aaa878bbe6aa39694945072456005648bb9c72a95e2bf"
+    },
+    "crm_private.b03_acceptance_operations": {
+      "columns": [
+        "operation_id",
+        "acceptance_id",
+        "proposal_id",
+        "version_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "action",
+        "event",
+        "result",
+        "source_ref",
+        "reason",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "544ac9078f05cba50c9e24021b11fac3f3b367ca671bcecd50e8deec701f36f5"
+    },
+    "crm_private.b03_acceptance_rectifications": {
+      "columns": [
+        "rectification_id",
+        "acceptance_id",
+        "admin_scope",
+        "actor_id",
+        "evidence_id",
+        "reason",
+        "reevaluation",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8427525f365fddd38be885fbd1b077bf1634a3e3fb07bd0ae422f2ad8a366b77"
+    },
+    "crm_private.b03_acceptance_verifications": {
+      "columns": [
+        "verification_id",
+        "acceptance_id",
+        "admin_scope",
+        "actor_id",
+        "material",
+        "won",
+        "commercial_before",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "jsonb",
+        "boolean",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "e808732fdd571302d37ba442ca46774beae4000c1126c940bead8016c89e9399"
+    },
+    "crm_private.b03_acceptances": {
+      "columns": [
+        "acceptance_id",
+        "proposal_id",
+        "opportunity_id",
+        "version_id",
+        "admin_scope",
+        "accepter_id",
+        "designation_id",
+        "channel",
+        "coverage",
+        "terms",
+        "content_snapshot",
+        "evidence_id",
+        "authority_evidence_id",
+        "communication_id",
+        "occurred_at",
+        "actor_id",
+        "source_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "5a371d2c11f6e93e54a1c0401d8f180455fc72710c305a3bee78d570a3f1cc86"
+    },
+    "crm_private.b03_history": {
+      "columns": [
+        "history_id",
+        "subject_id",
+        "admin_scope",
+        "before_state",
+        "after_state",
+        "event",
+        "normative_ids",
+        "reason",
+        "source_ref",
+        "actor_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "1419b56dd713a5d2920d1bd5ebf486aa5376ff80a95f00ea37927702f44fdd76"
+    },
+    "crm_private.b03_leads": {
+      "columns": [
+        "lead_id",
+        "admin_scope",
+        "source_ref",
+        "responsible_actor",
+        "material",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "f41ea9d935978cccfc63f871f39de062afddf8afeb71f87b7c5f68a601f452ab"
+    },
+    "crm_private.b03_offer_history": {
+      "columns": [
+        "history_id",
+        "admin_scope",
+        "before_data",
+        "after_data",
+        "normative_ids",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "11fd2fc44576beb2766aaa878bbe6aa39694945072456005648bb9c72a95e2bf"
+    },
+    "crm_private.b03_offer_issuances": {
+      "columns": [
+        "version_id",
+        "admin_scope",
+        "issued_at",
+        "effective_until",
+        "issuance",
+        "evidence_id",
+        "actor_id",
+        "source_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "0c5410b2ca90a16eb50cf98f73e04c54e5afa54f32750925bd1dc723fd33cac4"
+    },
+    "crm_private.b03_offer_operations": {
+      "columns": [
+        "operation_id",
+        "proposal_id",
+        "version_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "action",
+        "coverage",
+        "occurred_at",
+        "event",
+        "result",
+        "source_ref",
+        "reason",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "dcfd34c69e731bd33951071a4b90d772523a038f224ac86e6f8ba5ee7126d8f8"
+    },
+    "crm_private.b03_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "03fe4aaa7af598f8ef91ced41b1c2900c88e29d2715daf481618682793895e36"
+    },
+    "crm_private.b03_opportunities": {
+      "columns": [
+        "opportunity_id",
+        "lead_id",
+        "admin_scope",
+        "source_ref",
+        "responsible_actor",
+        "material",
+        "creation_material",
+        "state",
+        "previous_state",
+        "loss_reason",
+        "revision",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "64aaa0034aa4632ed1ed82bb5315a6be5838a1921f5d330a8b97ab30501f5d65"
+    },
+    "crm_private.b03_preparations": {
+      "columns": [
+        "preparation_id",
+        "proposal_id",
+        "admin_scope",
+        "revision",
+        "content",
+        "economics",
+        "sources",
+        "base_version_id",
+        "reviewed",
+        "source_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "boolean",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "865d7f21c6cfba8961bb234ba761374df40e7d220abfe5e0b707848dd797674b"
+    },
+    "crm_private.b03_proposal_history": {
+      "columns": [
+        "history_id",
+        "proposal_id",
+        "admin_scope",
+        "before_data",
+        "after_data",
+        "event",
+        "normative_ids",
+        "actor_id",
+        "source_ref",
+        "reason",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "de00a1616e2d2f1d26e68ea2f3b57cd9166e46a62bb1a4f22f68fe0dda4471eb"
+    },
+    "crm_private.b03_proposal_lines": {
+      "columns": [
+        "version_id",
+        "modality_id",
+        "line_id",
+        "service_revision_id",
+        "unit_revision_id",
+        "tariff_revision_id",
+        "quantity",
+        "included",
+        "independent",
+        "selectable",
+        "service_date",
+        "date_pending",
+        "price_basis",
+        "cost_material",
+        "source_ref",
+        "estimate_rule_evidence_id",
+        "eligibility_evidence_id",
+        "admin_scope"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "numeric",
+        "boolean",
+        "boolean",
+        "boolean",
+        "date",
+        "boolean",
+        "text",
+        "boolean",
+        "text",
+        "uuid",
+        "uuid",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "6e7d853b18785120cf15fc9aef686f3a5a06f1e0dbb702ca16c995b5c2331e98"
+    },
+    "crm_private.b03_proposal_modalities": {
+      "columns": [
+        "version_id",
+        "modality_id",
+        "name",
+        "participants",
+        "independent",
+        "selectable",
+        "pack_revision_id",
+        "conditions",
+        "final_person_price",
+        "definitive",
+        "admin_scope"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "boolean",
+        "boolean",
+        "uuid",
+        "text",
+        "numeric",
+        "boolean",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "2aa76334bc766d4f097bb1985be13d95b1f0ee06b4e699656b9322f5c17b1e5a"
+    },
+    "crm_private.b03_proposal_operations": {
+      "columns": [
+        "operation_id",
+        "proposal_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result_ref",
+        "action",
+        "source_ref",
+        "reason",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "dd2282996bce3060b80200d8401be03a9cbe3caed678404c9e8562f43be754d6"
+    },
+    "crm_private.b03_proposal_versions": {
+      "columns": [
+        "version_id",
+        "proposal_id",
+        "preparation_id",
+        "version_number",
+        "admin_scope",
+        "scope",
+        "terms_version",
+        "terms_text",
+        "terms_source",
+        "pending",
+        "content",
+        "economics",
+        "sources",
+        "replaces_version_id",
+        "reason",
+        "source_ref",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "0981a5681a6d454d8ec08727ac9b1cc58d2a6e98c81818cc47a16855e8d7cd69"
+    },
+    "crm_private.b03_proposals": {
+      "columns": [
+        "proposal_id",
+        "opportunity_id",
+        "admin_scope",
+        "revision",
+        "last_version_number",
+        "source_ref",
+        "actor_id",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "bigint",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8a8a2307c63edb64e7df880acee4a9f96530cb8e80cf0141813751a5d0d75208"
+    },
+    "crm_private.b04_assignments": {
+      "columns": [
+        "participant_id",
+        "service_id",
+        "night_id",
+        "admin_scope",
+        "necessity",
+        "evidence_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "73487e16af20f9e076341e747f4152e178c57423678882d1e0acb69eda01a620"
+    },
+    "crm_private.b04_availability": {
+      "columns": [
+        "availability_id",
+        "booking_id",
+        "admin_scope",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "ad304e7e020c3f2e465b0e05808c36a34a3016f6ac65389bd37a8eda258766c0"
+    },
+    "crm_private.b04_availability_operations": {
+      "columns": [
+        "operation_id",
+        "availability_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b04_availability_revisions": {
+      "columns": [
+        "availability_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "source_ref",
+        "reason",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b04_bookings": {
+      "columns": [
+        "booking_id",
+        "opportunity_id",
+        "acceptance_id",
+        "verification_id",
+        "proposal_id",
+        "version_id",
+        "admin_scope",
+        "actor_id",
+        "responsible_actor",
+        "state",
+        "revision",
+        "coverage",
+        "terms",
+        "chain_snapshot",
+        "detail",
+        "effect_fingerprint",
+        "evidence_id",
+        "source_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "text",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "187e5fbb43ac4d0e3ab16b75c236b9da57df2774e97a93e8d182c9fa492e2973"
+    },
+    "crm_private.b04_contributions": {
+      "columns": [
+        "contribution_id",
+        "booking_id",
+        "service_id",
+        "modality_id",
+        "version_id",
+        "line_id",
+        "admin_scope",
+        "quantity",
+        "attendees",
+        "certainty",
+        "unit_revision_id",
+        "source_snapshot"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "numeric",
+        "bigint",
+        "text",
+        "uuid",
+        "jsonb"
+      ],
+      "count": 0,
+      "sha256": "894b451e0c0dcfea4f1a67ba40cd81c2592f2aa807d8e4828b0495e5dff5606e"
+    },
+    "crm_private.b04_history": {
+      "columns": [
+        "history_id",
+        "booking_id",
+        "admin_scope",
+        "actor_id",
+        "source_ref",
+        "reason",
+        "before_data",
+        "after_data",
+        "normative_ids",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "a5a693f8be6e09f0d255a3f47b752116b77c0e1e2a27ecc01c7fb9d2bc3f5345"
+    },
+    "crm_private.b04_modalities": {
+      "columns": [
+        "booking_id",
+        "modality_id",
+        "version_id",
+        "admin_scope",
+        "snapshot"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb"
+      ],
+      "count": 0,
+      "sha256": "20fc9661695daed7954c52d24cad8ed8bc4653f670c099a9c6178a996787c79f"
+    },
+    "crm_private.b04_night_occupancies": {
+      "columns": [
+        "night_id",
+        "contribution_id",
+        "admin_scope"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "c57fe00f17cdcc6b639ff63d3e83b3aea0ff62e30dea622d9ef7cb7ace9e612b"
+    },
+    "crm_private.b04_nights": {
+      "columns": [
+        "night_id",
+        "service_id",
+        "admin_scope",
+        "night_date"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "date"
+      ],
+      "count": 0,
+      "sha256": "fb81a76348c6c0a7458a976278b8b78772319c955609e06c77ed9cc301901b76"
+    },
+    "crm_private.b04_operations": {
+      "columns": [
+        "operation_id",
+        "booking_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "event",
+        "result",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "db29753b47f84aa6ed1875a665910bcac02582838f1573c11ab92fc1270bdd7c"
+    },
+    "crm_private.b04_participants": {
+      "columns": [
+        "participant_id",
+        "booking_id",
+        "admin_scope",
+        "name",
+        "contact_id",
+        "evidence_id",
+        "source_ref"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "ed3e40df514a3483538d98036b78d3437dcbdc02fffa366d840c356fd4f4fcc3"
+    },
+    "crm_private.b04_services": {
+      "columns": [
+        "service_id",
+        "booking_id",
+        "admin_scope",
+        "state",
+        "revision",
+        "service_revision_id",
+        "nature",
+        "applied"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "bigint",
+        "uuid",
+        "text",
+        "jsonb"
+      ],
+      "count": 0,
+      "sha256": "f08aa246f67f6678071b36bcedefb9cda0fdc9c21d1736f35920172259d04605"
+    },
+    "crm_private.b05_allocation_acts": {
+      "columns": [
+        "act_id",
+        "operation_id",
+        "allocation_id",
+        "payment_id",
+        "admin_scope",
+        "kind",
+        "start_amount",
+        "signed_amount",
+        "original_act_id",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "reason",
+        "source_ref",
+        "evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "numeric",
+        "numeric",
+        "uuid",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "80065fd91d31fdb04fa49fdd28cbd996c86688ba3ba7f700c6f64b942f1b0f1a"
+    },
+    "crm_private.b05_allocation_revisions": {
+      "columns": [
+        "allocation_id",
+        "revision",
+        "admin_scope",
+        "snapshot",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8480803e26771630cac555896d9c07939f59be921520079abe8bf78d6687824d"
+    },
+    "crm_private.b05_allocations": {
+      "columns": [
+        "allocation_id",
+        "payment_id",
+        "reconciliation_id",
+        "admin_scope",
+        "booking_id",
+        "purpose",
+        "destination_ref",
+        "schedule_id",
+        "slot",
+        "service_id",
+        "start_amount",
+        "amount",
+        "original_allocation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "numeric",
+        "numeric",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "5a50cdcf8976d3da29353a7a5bdaa0a840ed3c6dc24f9a3375a26515182e1076"
+    },
+    "crm_private.b05_coverage_evaluations": {
+      "columns": [
+        "evaluation_id",
+        "schedule_id",
+        "slot",
+        "schedule_revision",
+        "admin_scope",
+        "snapshot",
+        "actor_id",
+        "cause_kind",
+        "cause_ref",
+        "cause_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "text",
+        "jsonb",
+        "uuid",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "c81c0085de00bd613ccbb3eae1c303652a9755fec7e231cb4a33ab5b9eb5079b"
+    },
+    "crm_private.b05_customer_payments": {
+      "columns": [
+        "payment_id",
+        "admin_scope",
+        "detected_data",
+        "detection_fingerprint",
+        "evidence_id",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "jsonb",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "cc003a6e04fcfdbaaa5ec176d057230e1692de5f878bd16b68efc7f8ad73cb62"
+    },
+    "crm_private.b05_expected_payments": {
+      "columns": [
+        "schedule_id",
+        "slot",
+        "admin_scope",
+        "amount",
+        "due"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "numeric",
+        "jsonb"
+      ],
+      "count": 0,
+      "sha256": "e5b48fe26699f71b2e636b21ee6b68a30b3555bd781546115d459d3d289c3968"
+    },
+    "crm_private.b05_fund_distributions": {
+      "columns": [
+        "distribution_id",
+        "payment_id",
+        "admin_scope",
+        "operation_id",
+        "original_distribution_id",
+        "calculation",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "9b67486c81ebb216d8a9bff8aa58227a407883035a9794b23fd5f5ddf4fb200f"
+    },
+    "crm_private.b05_fund_history": {
+      "columns": [
+        "history_id",
+        "payment_id",
+        "admin_scope",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "reason",
+        "source_ref",
+        "evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "ec4b3d11b924183ce35f2d9fe52f8eae178beda4297be98e49a45ae9d40f79de"
+    },
+    "crm_private.b05_fund_operations": {
+      "columns": [
+        "operation_id",
+        "payment_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "event",
+        "result",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "db29753b47f84aa6ed1875a665910bcac02582838f1573c11ab92fc1270bdd7c"
+    },
+    "crm_private.b05_fund_revisions": {
+      "columns": [
+        "payment_id",
+        "revision",
+        "payment_revision",
+        "admin_scope",
+        "snapshot",
+        "actor_id",
+        "cause_kind",
+        "cause_ref",
+        "cause_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "bigint",
+        "text",
+        "jsonb",
+        "uuid",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "a7da9f85b64152ae885d2c7352c58ed913da6488037d552fcc8a76068f730ae5"
+    },
+    "crm_private.b05_invoice_documents": {
+      "columns": [
+        "document_id",
+        "object_version_id",
+        "invoice_id",
+        "admin_scope",
+        "material",
+        "original_document_id",
+        "operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "uuid",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "6295d3bd7da1e19f797f86869f3e1e08a1aa505b8aa5d1c41bf04e0fa015720f"
+    },
+    "crm_private.b05_invoice_operations": {
+      "columns": [
+        "operation_id",
+        "invoice_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b05_invoice_revisions": {
+      "columns": [
+        "invoice_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "reason",
+        "source_ref",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b05_movement_keys": {
+      "columns": [
+        "source_ref",
+        "external_id",
+        "payment_id",
+        "admin_scope"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "uuid",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "1934559e73371a3a02d6bad5c641b3fb943274a2cc8fab6771e54f003e09414e"
+    },
+    "crm_private.b05_obligation_adjustments": {
+      "columns": [
+        "adjustment_id",
+        "schedule_id",
+        "slot",
+        "revision",
+        "admin_scope",
+        "before_data",
+        "after_data",
+        "difference",
+        "actor_id",
+        "cause",
+        "source_ref",
+        "evidence_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "text",
+        "jsonb",
+        "jsonb",
+        "numeric",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "c02314775994caa1d348a4526daddff0d06d8bd7b567a95997f1217684633cc0"
+    },
+    "crm_private.b05_obligation_history": {
+      "columns": [
+        "history_id",
+        "booking_id",
+        "admin_scope",
+        "actor_id",
+        "before_data",
+        "after_data",
+        "source_ref",
+        "reason",
+        "evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "c848433709522a885d4b1f9248aded26579acb5a6747ddb7ac4a4e845201fab9"
+    },
+    "crm_private.b05_obligation_operations": {
+      "columns": [
+        "operation_id",
+        "booking_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "event",
+        "result",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "db29753b47f84aa6ed1875a665910bcac02582838f1573c11ab92fc1270bdd7c"
+    },
+    "crm_private.b05_own_economic_components": {
+      "columns": [
+        "economy_id",
+        "revision",
+        "component_id",
+        "kind",
+        "admin_scope",
+        "material"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "jsonb"
+      ],
+      "count": 0,
+      "sha256": "352a7e2e295695e0471a8a16661f34870e7f4273766036c1504edb0c177f7f06"
+    },
+    "crm_private.b05_own_economic_operations": {
+      "columns": [
+        "operation_id",
+        "economy_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "input_material",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "a82af387137be69d947d29af4841e4a0f3453ec66424ee4b6659c311f8259fe7"
+    },
+    "crm_private.b05_own_economic_revisions": {
+      "columns": [
+        "economy_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "reason",
+        "source_ref",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "eff6da7e382520a6473be73e5b4e53b5ad4c91d71e1476ced7eebb44ed9bfe27"
+    },
+    "crm_private.b05_own_economies": {
+      "columns": [
+        "economy_id",
+        "booking_id",
+        "scope_ref",
+        "admin_scope",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "018d93b9a019d37dc5df2c916808b1ab545715224225f1b253ba0a687f7a5d6c"
+    },
+    "crm_private.b05_payment_history": {
+      "columns": [
+        "history_id",
+        "payment_id",
+        "admin_scope",
+        "actor_id",
+        "before_data",
+        "after_data",
+        "reason",
+        "source_ref",
+        "evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "c848433709522a885d4b1f9248aded26579acb5a6747ddb7ac4a4e845201fab9"
+    },
+    "crm_private.b05_payment_operations": {
+      "columns": [
+        "operation_id",
+        "payment_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "event",
+        "result",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "db29753b47f84aa6ed1875a665910bcac02582838f1573c11ab92fc1270bdd7c"
+    },
+    "crm_private.b05_payment_policies": {
+      "columns": [
+        "policy_id",
+        "version",
+        "admin_scope",
+        "rule",
+        "selectors",
+        "actor_id",
+        "source_ref",
+        "reason",
+        "evidence_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "text",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "e53de34861d839da52615185270434060536a3b45d8df9eca6299e52cf9a9520"
+    },
+    "crm_private.b05_payment_receipts": {
+      "columns": [
+        "payment_id",
+        "admin_scope",
+        "fact",
+        "actor_id",
+        "evidence_id",
+        "source_evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "baaaa14b8ddb92ecc40e357306f5647ff101daab7f5f5fb9dadf83d760ef4031"
+    },
+    "crm_private.b05_payment_revisions": {
+      "columns": [
+        "payment_id",
+        "revision",
+        "admin_scope",
+        "snapshot",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8480803e26771630cac555896d9c07939f59be921520079abe8bf78d6687824d"
+    },
+    "crm_private.b05_payment_schedules": {
+      "columns": [
+        "schedule_id",
+        "booking_id",
+        "admin_scope",
+        "scope_kind",
+        "scope_id",
+        "policy_id",
+        "policy_version",
+        "actor_id",
+        "effect_fingerprint",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "bigint",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "4bc9f6768e25edec561e024a178849ab28cb6657e16bee01dce1fdac2c9e969f"
+    },
+    "crm_private.b05_provider_invoices": {
+      "columns": [
+        "invoice_id",
+        "booking_id",
+        "admin_scope",
+        "need_key",
+        "basis",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "4830903afb4e99fec11f74f10f9ad54947c28f4bb10279cedfd9d5d262cd2144"
+    },
+    "crm_private.b05_provider_outgoing_correspondences": {
+      "columns": [
+        "movement_id",
+        "admin_scope",
+        "portions",
+        "consumption_act_ids",
+        "amount",
+        "source_ref",
+        "evidence_id",
+        "actor_id",
+        "occurred_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "numeric",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "1592749cee5d4f68c268836686aa4aa6dfda50c60d804440a6941ae8bf171611"
+    },
+    "crm_private.b05_provider_outgoing_movements": {
+      "columns": [
+        "movement_id",
+        "provider_payment_id",
+        "admin_scope",
+        "identity_source",
+        "external_id",
+        "material",
+        "operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "e531d1a71b181d4b5a5a294b224c757f023e64d0b2b4762d68666f9142e9dd9e"
+    },
+    "crm_private.b05_provider_payment_corrections": {
+      "columns": [
+        "correction_id",
+        "original_movement_id",
+        "admin_scope",
+        "operation_id",
+        "signed_original",
+        "signed_adjustment",
+        "source_ref",
+        "reason",
+        "evidence_id",
+        "actor_id",
+        "occurred_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "numeric",
+        "numeric",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "ea908202012028fe46f370cc9fdadb5c0dbdc2ab05060425cedee34c448b922a"
+    },
+    "crm_private.b05_provider_payment_operations": {
+      "columns": [
+        "operation_id",
+        "provider_payment_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b05_provider_payment_revisions": {
+      "columns": [
+        "provider_payment_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "source_ref",
+        "reason",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b05_provider_payments": {
+      "columns": [
+        "provider_payment_id",
+        "booking_id",
+        "service_id",
+        "provider_id",
+        "admin_scope",
+        "suplido_id",
+        "basis",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "305b5a40328374fc82169b2f66fcf0f980d3f8c33dcbfc9a1e14dd35addb6a2f"
+    },
+    "crm_private.b05_reconciliation_acts": {
+      "columns": [
+        "act_id",
+        "reconciliation_id",
+        "payment_id",
+        "admin_scope",
+        "action",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "reason",
+        "source_ref",
+        "evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "0a78f819e64df0e8db2c6784819206d76e854c1c4fb721f869c5cdf41e05f282"
+    },
+    "crm_private.b05_reconciliations": {
+      "columns": [
+        "reconciliation_id",
+        "payment_id",
+        "admin_scope",
+        "booking_id",
+        "schedule_id",
+        "slot"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "891548d14196dd27d305ec9b25d6c160988517938d50dfb73a4ea43e56ef1902"
+    },
+    "crm_private.b05_schedule_revisions": {
+      "columns": [
+        "schedule_id",
+        "revision",
+        "admin_scope",
+        "snapshot",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8480803e26771630cac555896d9c07939f59be921520079abe8bf78d6687824d"
+    },
+    "crm_private.b05_suplido_operations": {
+      "columns": [
+        "operation_id",
+        "suplido_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b05_suplido_revisions": {
+      "columns": [
+        "suplido_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "reason",
+        "source_ref",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b05_suplidos": {
+      "columns": [
+        "suplido_id",
+        "booking_id",
+        "service_id",
+        "admin_scope",
+        "basis",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "530242d6831b3901d33bd295dbfdeb077f1513279f52aef6fd962297905d6d8e"
+    },
+    "crm_private.b07_document_rules": {
+      "columns": [
+        "rule_id",
+        "version",
+        "admin_scope",
+        "definition",
+        "evidence_id"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "d1a919e1a2983f61b0b447c3199e918855e30479baa04d9cc28c9e3eb18a8010"
+    },
+    "crm_private.b07_evidence_object_bindings": {
+      "columns": [
+        "evidence_id",
+        "version_id",
+        "admin_scope",
+        "linked_by",
+        "linked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b4a469c117aa2fbee22355dfcea9ea714b125dc75739246c42390b6a0a168b88"
+    },
+    "crm_private.b07_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "admin_scope",
+        "action_kind",
+        "before_state",
+        "after_state",
+        "reason",
+        "source_ref",
+        "occurred_at",
+        "recorded_at",
+        "actor_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "fd0cca6248a1f788373facd39fe5f239f1391409b810c3845f37726c3802c2a5"
+    },
+    "crm_private.b07_incident_operations": {
+      "columns": [
+        "operation_id",
+        "incident_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b07_incident_revisions": {
+      "columns": [
+        "incident_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "source_ref",
+        "reason",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b07_incidents": {
+      "columns": [
+        "incident_id",
+        "booking_id",
+        "admin_scope",
+        "initial_operation_id",
+        "code_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "c21782bc1868bc271796743bf970679fd8019acaf12e07987520cbe1e3205d2d"
+    },
+    "crm_private.b07_links": {
+      "columns": [
+        "link_id",
+        "record_id",
+        "admin_scope",
+        "context_kind",
+        "context_id",
+        "coverage",
+        "source_ref",
+        "linked_by",
+        "linked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "015711c9a128485b83aeee778cfd196c5caf755f46bb3a2eb46ec36a38164cac"
+    },
+    "crm_private.b07_object_orphans": {
+      "columns": [
+        "private_ref",
+        "admin_scope",
+        "state",
+        "source_ref",
+        "recorded_by",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "090c4a59604ef93ff71a06c5b27e506c93248db9b4d1aa2b067e0942919bf254"
+    },
+    "crm_private.b07_object_versions": {
+      "columns": [
+        "version_id",
+        "root_id",
+        "version_number",
+        "predecessor_id",
+        "document_id",
+        "admin_scope",
+        "purpose",
+        "source_ref",
+        "private_ref",
+        "expected_digest",
+        "expected_size",
+        "expected_media",
+        "observed_digest",
+        "observed_size",
+        "observed_media",
+        "state",
+        "revision",
+        "prepared_at",
+        "observed_at",
+        "linked_at",
+        "recorded_by"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "integer",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "text",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "11c98d09d113359e380c84805c9649d9aa1ca9fe26e028d21e18a654394f1de5"
+    },
+    "crm_private.b07_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "03fe4aaa7af598f8ef91ced41b1c2900c88e29d2715daf481618682793895e36"
+    },
+    "crm_private.b07_pending_tasks": {
+      "columns": [
+        "task_id",
+        "admin_scope",
+        "identity_version",
+        "identity_key",
+        "identity",
+        "material",
+        "state",
+        "responsible_actor",
+        "revision",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b537fa7ebcc8edc3d002ab7730550c5e3ec29cab96c72f309ec401719f7be44f"
+    },
+    "crm_private.b07_records": {
+      "columns": [
+        "record_id",
+        "record_kind",
+        "admin_scope",
+        "material",
+        "source_ref",
+        "purpose",
+        "occurred_at",
+        "recorded_at",
+        "recorded_by",
+        "original_id",
+        "corrects_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid",
+        "uuid",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "96a9b27d4a6891f9b8bcaaf16757418ffa0d01c4593855295041070b4b23c067"
+    },
+    "crm_private.b07_requirement_documents": {
+      "columns": [
+        "requirement_id",
+        "document_id",
+        "object_version_id",
+        "admin_scope",
+        "material",
+        "operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "530242d6831b3901d33bd295dbfdeb077f1513279f52aef6fd962297905d6d8e"
+    },
+    "crm_private.b07_requirement_operations": {
+      "columns": [
+        "operation_id",
+        "requirement_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b07_requirement_revisions": {
+      "columns": [
+        "requirement_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "source_ref",
+        "reason",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b07_requirements": {
+      "columns": [
+        "requirement_id",
+        "booking_id",
+        "admin_scope",
+        "initial_basis",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "2401950f45821e054219d11d26f884f2101f1ee937dc95ec65344036273c7fcd"
+    },
+    "crm_private.catalog_applications": {
+      "columns": [
+        "application_id",
+        "subject_ref",
+        "admin_scope",
+        "applied_revisions",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "663376e8cf8363abc2d20b6f9dc2255af9850904842578d6422cfc73cb1cf7c3"
+    },
+    "crm_private.catalog_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "admin_scope",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "d1e1b350236c336261d00d56e50aa20bc5c5bcacc8443131923333d1aac39190"
+    },
+    "crm_private.catalog_items": {
+      "columns": [
+        "item_id",
+        "item_kind",
+        "admin_scope",
+        "parent_id",
+        "related_id",
+        "party_id",
+        "party_kind",
+        "source_ref",
+        "evidence_ref",
+        "created_by",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b1a6f3e35cc356487a5c25ae4be5ab9eacf641c7bb612f5ec75ead62cda2442e"
+    },
+    "crm_private.catalog_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "material_fingerprint",
+        "action_kind",
+        "result_ref",
+        "result_version",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8a9fa07aada648e8bb707ae3fc6c9b11aef22b608e7b644d8e7034b99e58c7ad"
+    },
+    "crm_private.catalog_revisions": {
+      "columns": [
+        "revision_id",
+        "item_id",
+        "admin_scope",
+        "revision_number",
+        "definition",
+        "parent_revision_id",
+        "related_revision_id",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "6e7cef0470e9433eb33ee958d63d29ea5c1d3ede7b80487df2d0fd874a2b781c"
+    },
+    "crm_private.commercial_applications": {
+      "columns": [
+        "application_id",
+        "subject_ref",
+        "admin_scope",
+        "applied_revisions",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "663376e8cf8363abc2d20b6f9dc2255af9850904842578d6422cfc73cb1cf7c3"
+    },
+    "crm_private.commercial_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "admin_scope",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "d1e1b350236c336261d00d56e50aa20bc5c5bcacc8443131923333d1aac39190"
+    },
+    "crm_private.commercial_items": {
+      "columns": [
+        "item_id",
+        "item_kind",
+        "admin_scope",
+        "catalog_item_id",
+        "origin_custom_revision_id",
+        "source_ref",
+        "evidence_ref",
+        "created_by",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "659d45ad3286de2c1d584d0b9d190bb7f5fb1e78a8fc23821dba24657aec4e8d"
+    },
+    "crm_private.commercial_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result_ref",
+        "result_version",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8b95c06a2545f2847e8432b23c1b3910d85ae00729940035450d4bfea3d834e4"
+    },
+    "crm_private.commercial_revisions": {
+      "columns": [
+        "revision_id",
+        "item_id",
+        "admin_scope",
+        "revision_number",
+        "definition",
+        "base_currency",
+        "catalog_snapshot",
+        "validity_kind",
+        "valid_from",
+        "valid_until",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "jsonb",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "e7cdd9f25ee724ebcfe38dd5d607ffbe2d250169ff97df4ad533deb4b9c400b8"
+    },
+    "crm_private.crm_actors": {
+      "columns": [
+        "actor_id",
+        "singleton",
+        "auth_subject",
+        "admin_scope",
+        "enabled",
+        "access_generation",
+        "access_state",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "boolean",
+        "uuid",
+        "text",
+        "boolean",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "8e538124811aaf0a3d78e82f69681874b0cc9d5fa78cef661422f1d8c7f76b96"
+    },
+    "crm_private.crm_sessions": {
+      "columns": [
+        "session_id",
+        "actor_id",
+        "auth_subject",
+        "access_generation",
+        "created_at",
+        "revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "304e26d7dea3a82f6a88d9c7192ecfd81836b07a4ec846a5e70aaee8c6bb99af"
+    },
+    "crm_private.external_effect_records": {
+      "columns": [
+        "record_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "effect_id",
+        "stage",
+        "intent_id",
+        "attempt_id",
+        "destination_reference",
+        "content_version",
+        "content_fingerprint",
+        "outcome",
+        "result_reference",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8e18393a659df09b3c7455fccd996bc9d02a95ec60c6bd1fcfc25a89a81ee0a1"
+    },
+    "crm_private.global_access_revocation_attempts": {
+      "columns": [
+        "attempt_id",
+        "revocation_id",
+        "attempt_number",
+        "outcome",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "integer",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b1fd009d0f5dcf4a2e803ad3f0b8472fb8a6816a54fd0f676060c0af2825715a"
+    },
+    "crm_private.global_access_revocations": {
+      "columns": [
+        "revocation_id",
+        "actor_id",
+        "auth_subject",
+        "initiating_session_id",
+        "previous_access_generation",
+        "access_generation",
+        "admin_scope",
+        "core_revoked_at",
+        "auth_state",
+        "auth_attempt_count",
+        "last_auth_attempt_at",
+        "auth_revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "integer",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "67d4d5ce43a2f3b3aa0ee6535d004fde9faac33e70285866cda53c6e511c7f79"
+    },
+    "crm_private.identification_epochs": {
+      "columns": [
+        "epoch_id",
+        "session_id",
+        "identified_at",
+        "last_human_activity_at",
+        "full_password",
+        "full_mfa",
+        "access_state",
+        "current_epoch",
+        "closed_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean",
+        "boolean",
+        "text",
+        "boolean",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "3e1e3ed8b52ccb533bb545d33efb92429e54c0dacc9ee501e0f04e134b7aa09d"
+    },
+    "crm_private.identity_code_counters": {
+      "columns": [
+        "code_kind",
+        "code_year",
+        "last_serial"
+      ],
+      "columnTypes": [
+        "text",
+        "integer",
+        "bigint"
+      ],
+      "count": 0,
+      "sha256": "11dd96239c9f090570379add844690d1549c8ac5fb9424f993639f54b13bb426"
+    },
+    "crm_private.identity_codes": {
+      "columns": [
+        "code_id",
+        "operation_id",
+        "code_kind",
+        "target_id",
+        "admin_scope",
+        "code_year",
+        "serial_number",
+        "human_code",
+        "assigned_at",
+        "source_ref",
+        "evidence_ref",
+        "actor_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "integer",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "707f94af8b69527086e3ce08e97f2e090f0fc90f42530ea6a8ad9187e9cbb4a3"
+    },
+    "crm_private.identity_contexts": {
+      "columns": [
+        "context_id",
+        "context_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "verified",
+        "version",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "7ac9bad7c0473d6fefdf56b0fbb43dce72df58d638d149b8ae07a04e790892bf"
+    },
+    "crm_private.identity_designations": {
+      "columns": [
+        "designation_id",
+        "context_id",
+        "party_id",
+        "party_kind",
+        "role_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "verified",
+        "recorded_by",
+        "effective_at",
+        "recorded_at",
+        "ended_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "4fb33532bf6f391cddf1418d15633ade3f0557349577cbf573e3c495e62fc698"
+    },
+    "crm_private.identity_entities": {
+      "columns": [
+        "identity_id",
+        "identity_kind",
+        "admin_scope",
+        "context_id",
+        "display_name",
+        "given_name",
+        "family_name",
+        "email",
+        "phone",
+        "group_type",
+        "estimated_size",
+        "confirmed_size",
+        "size_source",
+        "source_ref",
+        "evidence_ref",
+        "identity_verified",
+        "version",
+        "created_at",
+        "updated_at",
+        "archived_at",
+        "merged_into_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "integer",
+        "integer",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid"
+      ],
+      "count": 1,
+      "sha256": "9f6dbd160cd2b2d2565eb6c365e0bc5fb187fa8fb4b470d21f40dd77fdc03508"
+    },
+    "crm_private.identity_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "context_id",
+        "related_id",
+        "subject_kind",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "happened_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 3,
+      "sha256": "8f12d3c51989e0e7298d59a7d4ddc97106f94d18ec63e5cf118624be1af6d128"
+    },
+    "crm_private.identity_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "material_fingerprint",
+        "action_kind",
+        "result_ref",
+        "resulting_version",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 3,
+      "sha256": "cae96698de96ad226a3e80f98689bcb160b642602a6596d6dedf38e99c06cf34"
+    },
+    "crm_private.identity_organization_contacts": {
+      "columns": [
+        "link_id",
+        "organization_id",
+        "organization_kind",
+        "contact_id",
+        "contact_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b7fbd65ee606dedc2753e3d7e4a3e9ea3ca3c4027f7dcb30a605117aea28a29c"
+    },
+    "crm_private.unit_attempts": {
+      "columns": [
+        "attempt_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "attempt_kind",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "fc78445fd208658299b75dc8495040da091014ec217a4dfed75f4e1c3f56d3a0"
+    },
+    "crm_private.unit_history": {
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "fact_kind",
+        "before_value",
+        "after_value",
+        "reason",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "actor_id",
+        "actor_kind",
+        "evidence_state"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "3b0c84aedc708d22bccd99b990eb61b346098778e75cbc0c51149946bc358de6"
+    },
+    "crm_private.unit_operations": {
+      "columns": [
+        "operation_id",
+        "operation_class",
+        "root_id",
+        "context_scope",
+        "material_fingerprint",
+        "actor_id",
+        "actor_kind",
+        "purpose",
+        "cause",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "expected_version",
+        "resulting_version",
+        "initial_attempt_id",
+        "effect_id",
+        "intent_id"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "bigint",
+        "bigint",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "9319d04ca1669df10c06af79beb21cf47f73ebaed43a2390097a21c731f6ceeb"
+    },
+    "crm_private.unit_results": {
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "result_state",
+        "resulting_version",
+        "after_value",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "fixed_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "d7eb7722d11cda4769e23e6a7a52c5e6e838920c3a4b36700ee3e0ee3412b644"
+    },
+    "crm_private.unit_roots": {
+      "columns": [
+        "root_id",
+        "context_scope",
+        "version",
+        "current_value",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "512d46182bd9d8618bbf85eb09b3e1aae282f4fa57f644040835638c0d678666"
+    }
+  },
+  "after": {
+    "crm_f1.consumption": {
+      "columns": [
+        "generation",
+        "database_oid",
+        "xid",
+        "capability_id",
+        "expires_us"
+      ],
+      "columnTypes": [
+        "text",
+        "oid",
+        "xid8",
+        "text",
+        "bigint"
+      ],
+      "count": 0,
+      "sha256": "26781a1d57f38227a9ffcc8088b8f00ea0e754d21f59d1228ff6377beca5b36c"
+    },
+    "crm_f1.keys": {
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ],
+      "columnTypes": [
+        "text",
+        "bytea",
+        "text",
+        "text",
+        "text[]",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "610495d6b080b67c155842798f5d2c3aafa1ebc8bd444800868c1b287d2a606f"
+    },
+    "crm_f2.keys": {
+      "columns": [
+        "key_id",
+        "secret",
+        "audience",
+        "generation",
+        "purposes",
+        "enabled",
+        "valid_from",
+        "valid_until"
+      ],
+      "columnTypes": [
+        "text",
+        "bytea",
+        "text",
+        "text",
+        "text[]",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "0a1c808ca82fd7304d76ffdfdb69463b387c85456592d4a37d3c13d199926608"
+    },
+    "crm_ha.command_receipts": {
+      "columns": [
+        "command_id",
+        "command_fingerprint",
+        "command_name",
+        "proposal_id",
+        "decision_id",
+        "reservation_id",
+        "attempt_id",
+        "state",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "44751df7e62428ffe803a1232faf0fdc19ed99a5e5c5bf58a9fcd4e8c9c7505e"
+    },
+    "crm_ha.decisions": {
+      "columns": [
+        "decision_id",
+        "proposal_id",
+        "material_fingerprint",
+        "decision",
+        "reason",
+        "actor_id",
+        "session_id",
+        "decided_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "146f607203e516080a1637452fb86d0658fe9f1e01720aa341d956f3ba696d6f"
+    },
+    "crm_ha.events": {
+      "columns": [
+        "event_id",
+        "proposal_id",
+        "reservation_id",
+        "attempt_id",
+        "event_kind",
+        "actor_kind",
+        "actor_identity",
+        "recorded_at",
+        "details_fingerprint"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "225ec317774132e7e0cab40bbbdd2b3925fefe053d73bec58684fc98fcd56f76"
+    },
+    "crm_ha.evidence_revalidations": {
+      "columns": [
+        "command_id",
+        "proposal_id",
+        "part_id",
+        "command_fingerprint",
+        "reference",
+        "fingerprint",
+        "checked_us",
+        "source_valid_until_us",
+        "approved_until_us",
+        "effective_until_us",
+        "verifier_identity",
+        "verifier_kind",
+        "context_scope",
+        "created_xid",
+        "recorded_at",
+        "outcome"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "bigint",
+        "bigint",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "xid8",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "8e6dba8206e7bfc1573a1379aa76d75cb97a14a98058661853bf8d36ba635da3"
+    },
+    "crm_ha.parts": {
+      "columns": [
+        "proposal_id",
+        "part_id",
+        "material_fingerprint",
+        "material_payload"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "bytea"
+      ],
+      "count": 0,
+      "sha256": "fca720433be5238f52a2be5d179237bf2516c1c9b27b5dbc6bfeac176866352a"
+    },
+    "crm_ha.proposals": {
+      "columns": [
+        "proposal_id",
+        "material_fingerprint",
+        "material_payload",
+        "proposer_kind",
+        "proposer_actor",
+        "scope",
+        "created_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "bytea",
+        "text",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "45d6bb866aa14349cd8432993d1a690f1cda110c69f40048b1dfa8f247e77953"
+    },
+    "crm_ha.reservations": {
+      "columns": [
+        "reservation_id",
+        "proposal_id",
+        "decision_id",
+        "part_id",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "state",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "58c8f076b0a24c211ff2c4e6ed8a99e1f82d9520e4f9ebfb20c8c79e29010728"
+    },
+    "crm_private.access_probe": {
+      "columns": [
+        "probe_id",
+        "context_scope",
+        "public_value",
+        "private_value"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "69e6962c904e0fc7454178730544db17900a1e50537d0ca206b83d7d121c41b6"
+    },
+    "crm_private.access_recoveries": {
+      "columns": [
+        "recovery_id",
+        "actor_id",
+        "auth_subject",
+        "recovery_kind",
+        "admin_scope",
+        "previous_generation",
+        "access_generation",
+        "started_at",
+        "auth_state",
+        "auth_recorded_at",
+        "completed_at",
+        "password_ready",
+        "totp_verified",
+        "new_factor_enrolled",
+        "old_factor_revoked",
+        "new_paper_copy_verified"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "bigint",
+        "bigint",
+        "timestamp with time zone",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean",
+        "boolean",
+        "boolean",
+        "boolean",
+        "boolean"
+      ],
+      "count": 0,
+      "sha256": "b66537e02d7dcea66c489f6f098175735d494f7b52bf4fa6390bbdad2170f8a3"
+    },
+    "crm_private.b03_acceptance_history": {
+      "columns": [
+        "history_id",
+        "admin_scope",
+        "before_data",
+        "after_data",
+        "normative_ids",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "11fd2fc44576beb2766aaa878bbe6aa39694945072456005648bb9c72a95e2bf"
+    },
+    "crm_private.b03_acceptance_operations": {
+      "columns": [
+        "operation_id",
+        "acceptance_id",
+        "proposal_id",
+        "version_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "action",
+        "event",
+        "result",
+        "source_ref",
+        "reason",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "544ac9078f05cba50c9e24021b11fac3f3b367ca671bcecd50e8deec701f36f5"
+    },
+    "crm_private.b03_acceptance_rectifications": {
+      "columns": [
+        "rectification_id",
+        "acceptance_id",
+        "admin_scope",
+        "actor_id",
+        "evidence_id",
+        "reason",
+        "reevaluation",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8427525f365fddd38be885fbd1b077bf1634a3e3fb07bd0ae422f2ad8a366b77"
+    },
+    "crm_private.b03_acceptance_verifications": {
+      "columns": [
+        "verification_id",
+        "acceptance_id",
+        "admin_scope",
+        "actor_id",
+        "material",
+        "won",
+        "commercial_before",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "jsonb",
+        "boolean",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "e808732fdd571302d37ba442ca46774beae4000c1126c940bead8016c89e9399"
+    },
+    "crm_private.b03_acceptances": {
+      "columns": [
+        "acceptance_id",
+        "proposal_id",
+        "opportunity_id",
+        "version_id",
+        "admin_scope",
+        "accepter_id",
+        "designation_id",
+        "channel",
+        "coverage",
+        "terms",
+        "content_snapshot",
+        "evidence_id",
+        "authority_evidence_id",
+        "communication_id",
+        "occurred_at",
+        "actor_id",
+        "source_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "5a371d2c11f6e93e54a1c0401d8f180455fc72710c305a3bee78d570a3f1cc86"
+    },
+    "crm_private.b03_history": {
+      "columns": [
+        "history_id",
+        "subject_id",
+        "admin_scope",
+        "before_state",
+        "after_state",
+        "event",
+        "normative_ids",
+        "reason",
+        "source_ref",
+        "actor_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "1419b56dd713a5d2920d1bd5ebf486aa5376ff80a95f00ea37927702f44fdd76"
+    },
+    "crm_private.b03_leads": {
+      "columns": [
+        "lead_id",
+        "admin_scope",
+        "source_ref",
+        "responsible_actor",
+        "material",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "f41ea9d935978cccfc63f871f39de062afddf8afeb71f87b7c5f68a601f452ab"
+    },
+    "crm_private.b03_offer_history": {
+      "columns": [
+        "history_id",
+        "admin_scope",
+        "before_data",
+        "after_data",
+        "normative_ids",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "11fd2fc44576beb2766aaa878bbe6aa39694945072456005648bb9c72a95e2bf"
+    },
+    "crm_private.b03_offer_issuances": {
+      "columns": [
+        "version_id",
+        "admin_scope",
+        "issued_at",
+        "effective_until",
+        "issuance",
+        "evidence_id",
+        "actor_id",
+        "source_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "0c5410b2ca90a16eb50cf98f73e04c54e5afa54f32750925bd1dc723fd33cac4"
+    },
+    "crm_private.b03_offer_operations": {
+      "columns": [
+        "operation_id",
+        "proposal_id",
+        "version_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "action",
+        "coverage",
+        "occurred_at",
+        "event",
+        "result",
+        "source_ref",
+        "reason",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "dcfd34c69e731bd33951071a4b90d772523a038f224ac86e6f8ba5ee7126d8f8"
+    },
+    "crm_private.b03_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "03fe4aaa7af598f8ef91ced41b1c2900c88e29d2715daf481618682793895e36"
+    },
+    "crm_private.b03_opportunities": {
+      "columns": [
+        "opportunity_id",
+        "lead_id",
+        "admin_scope",
+        "source_ref",
+        "responsible_actor",
+        "material",
+        "creation_material",
+        "state",
+        "previous_state",
+        "loss_reason",
+        "revision",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "64aaa0034aa4632ed1ed82bb5315a6be5838a1921f5d330a8b97ab30501f5d65"
+    },
+    "crm_private.b03_preparations": {
+      "columns": [
+        "preparation_id",
+        "proposal_id",
+        "admin_scope",
+        "revision",
+        "content",
+        "economics",
+        "sources",
+        "base_version_id",
+        "reviewed",
+        "source_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "boolean",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "865d7f21c6cfba8961bb234ba761374df40e7d220abfe5e0b707848dd797674b"
+    },
+    "crm_private.b03_proposal_history": {
+      "columns": [
+        "history_id",
+        "proposal_id",
+        "admin_scope",
+        "before_data",
+        "after_data",
+        "event",
+        "normative_ids",
+        "actor_id",
+        "source_ref",
+        "reason",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "de00a1616e2d2f1d26e68ea2f3b57cd9166e46a62bb1a4f22f68fe0dda4471eb"
+    },
+    "crm_private.b03_proposal_lines": {
+      "columns": [
+        "version_id",
+        "modality_id",
+        "line_id",
+        "service_revision_id",
+        "unit_revision_id",
+        "tariff_revision_id",
+        "quantity",
+        "included",
+        "independent",
+        "selectable",
+        "service_date",
+        "date_pending",
+        "price_basis",
+        "cost_material",
+        "source_ref",
+        "estimate_rule_evidence_id",
+        "eligibility_evidence_id",
+        "admin_scope"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "numeric",
+        "boolean",
+        "boolean",
+        "boolean",
+        "date",
+        "boolean",
+        "text",
+        "boolean",
+        "text",
+        "uuid",
+        "uuid",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "6e7d853b18785120cf15fc9aef686f3a5a06f1e0dbb702ca16c995b5c2331e98"
+    },
+    "crm_private.b03_proposal_modalities": {
+      "columns": [
+        "version_id",
+        "modality_id",
+        "name",
+        "participants",
+        "independent",
+        "selectable",
+        "pack_revision_id",
+        "conditions",
+        "final_person_price",
+        "definitive",
+        "admin_scope"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "boolean",
+        "boolean",
+        "uuid",
+        "text",
+        "numeric",
+        "boolean",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "2aa76334bc766d4f097bb1985be13d95b1f0ee06b4e699656b9322f5c17b1e5a"
+    },
+    "crm_private.b03_proposal_operations": {
+      "columns": [
+        "operation_id",
+        "proposal_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result_ref",
+        "action",
+        "source_ref",
+        "reason",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "dd2282996bce3060b80200d8401be03a9cbe3caed678404c9e8562f43be754d6"
+    },
+    "crm_private.b03_proposal_versions": {
+      "columns": [
+        "version_id",
+        "proposal_id",
+        "preparation_id",
+        "version_number",
+        "admin_scope",
+        "scope",
+        "terms_version",
+        "terms_text",
+        "terms_source",
+        "pending",
+        "content",
+        "economics",
+        "sources",
+        "replaces_version_id",
+        "reason",
+        "source_ref",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "0981a5681a6d454d8ec08727ac9b1cc58d2a6e98c81818cc47a16855e8d7cd69"
+    },
+    "crm_private.b03_proposals": {
+      "columns": [
+        "proposal_id",
+        "opportunity_id",
+        "admin_scope",
+        "revision",
+        "last_version_number",
+        "source_ref",
+        "actor_id",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "bigint",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8a8a2307c63edb64e7df880acee4a9f96530cb8e80cf0141813751a5d0d75208"
+    },
+    "crm_private.b04_assignments": {
+      "columns": [
+        "participant_id",
+        "service_id",
+        "night_id",
+        "admin_scope",
+        "necessity",
+        "evidence_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "73487e16af20f9e076341e747f4152e178c57423678882d1e0acb69eda01a620"
+    },
+    "crm_private.b04_availability": {
+      "columns": [
+        "availability_id",
+        "booking_id",
+        "admin_scope",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "ad304e7e020c3f2e465b0e05808c36a34a3016f6ac65389bd37a8eda258766c0"
+    },
+    "crm_private.b04_availability_operations": {
+      "columns": [
+        "operation_id",
+        "availability_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b04_availability_revisions": {
+      "columns": [
+        "availability_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "source_ref",
+        "reason",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b04_bookings": {
+      "columns": [
+        "booking_id",
+        "opportunity_id",
+        "acceptance_id",
+        "verification_id",
+        "proposal_id",
+        "version_id",
+        "admin_scope",
+        "actor_id",
+        "responsible_actor",
+        "state",
+        "revision",
+        "coverage",
+        "terms",
+        "chain_snapshot",
+        "detail",
+        "effect_fingerprint",
+        "evidence_id",
+        "source_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "text",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "187e5fbb43ac4d0e3ab16b75c236b9da57df2774e97a93e8d182c9fa492e2973"
+    },
+    "crm_private.b04_contributions": {
+      "columns": [
+        "contribution_id",
+        "booking_id",
+        "service_id",
+        "modality_id",
+        "version_id",
+        "line_id",
+        "admin_scope",
+        "quantity",
+        "attendees",
+        "certainty",
+        "unit_revision_id",
+        "source_snapshot"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "numeric",
+        "bigint",
+        "text",
+        "uuid",
+        "jsonb"
+      ],
+      "count": 0,
+      "sha256": "894b451e0c0dcfea4f1a67ba40cd81c2592f2aa807d8e4828b0495e5dff5606e"
+    },
+    "crm_private.b04_history": {
+      "columns": [
+        "history_id",
+        "booking_id",
+        "admin_scope",
+        "actor_id",
+        "source_ref",
+        "reason",
+        "before_data",
+        "after_data",
+        "normative_ids",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "a5a693f8be6e09f0d255a3f47b752116b77c0e1e2a27ecc01c7fb9d2bc3f5345"
+    },
+    "crm_private.b04_modalities": {
+      "columns": [
+        "booking_id",
+        "modality_id",
+        "version_id",
+        "admin_scope",
+        "snapshot"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb"
+      ],
+      "count": 0,
+      "sha256": "20fc9661695daed7954c52d24cad8ed8bc4653f670c099a9c6178a996787c79f"
+    },
+    "crm_private.b04_night_occupancies": {
+      "columns": [
+        "night_id",
+        "contribution_id",
+        "admin_scope"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "c57fe00f17cdcc6b639ff63d3e83b3aea0ff62e30dea622d9ef7cb7ace9e612b"
+    },
+    "crm_private.b04_nights": {
+      "columns": [
+        "night_id",
+        "service_id",
+        "admin_scope",
+        "night_date"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "date"
+      ],
+      "count": 0,
+      "sha256": "fb81a76348c6c0a7458a976278b8b78772319c955609e06c77ed9cc301901b76"
+    },
+    "crm_private.b04_operations": {
+      "columns": [
+        "operation_id",
+        "booking_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "event",
+        "result",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "db29753b47f84aa6ed1875a665910bcac02582838f1573c11ab92fc1270bdd7c"
+    },
+    "crm_private.b04_participants": {
+      "columns": [
+        "participant_id",
+        "booking_id",
+        "admin_scope",
+        "name",
+        "contact_id",
+        "evidence_id",
+        "source_ref"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "ed3e40df514a3483538d98036b78d3437dcbdc02fffa366d840c356fd4f4fcc3"
+    },
+    "crm_private.b04_services": {
+      "columns": [
+        "service_id",
+        "booking_id",
+        "admin_scope",
+        "state",
+        "revision",
+        "service_revision_id",
+        "nature",
+        "applied"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "bigint",
+        "uuid",
+        "text",
+        "jsonb"
+      ],
+      "count": 0,
+      "sha256": "f08aa246f67f6678071b36bcedefb9cda0fdc9c21d1736f35920172259d04605"
+    },
+    "crm_private.b05_allocation_acts": {
+      "columns": [
+        "act_id",
+        "operation_id",
+        "allocation_id",
+        "payment_id",
+        "admin_scope",
+        "kind",
+        "start_amount",
+        "signed_amount",
+        "original_act_id",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "reason",
+        "source_ref",
+        "evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "numeric",
+        "numeric",
+        "uuid",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "80065fd91d31fdb04fa49fdd28cbd996c86688ba3ba7f700c6f64b942f1b0f1a"
+    },
+    "crm_private.b05_allocation_revisions": {
+      "columns": [
+        "allocation_id",
+        "revision",
+        "admin_scope",
+        "snapshot",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8480803e26771630cac555896d9c07939f59be921520079abe8bf78d6687824d"
+    },
+    "crm_private.b05_allocations": {
+      "columns": [
+        "allocation_id",
+        "payment_id",
+        "reconciliation_id",
+        "admin_scope",
+        "booking_id",
+        "purpose",
+        "destination_ref",
+        "schedule_id",
+        "slot",
+        "service_id",
+        "start_amount",
+        "amount",
+        "original_allocation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "numeric",
+        "numeric",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "5a50cdcf8976d3da29353a7a5bdaa0a840ed3c6dc24f9a3375a26515182e1076"
+    },
+    "crm_private.b05_coverage_evaluations": {
+      "columns": [
+        "evaluation_id",
+        "schedule_id",
+        "slot",
+        "schedule_revision",
+        "admin_scope",
+        "snapshot",
+        "actor_id",
+        "cause_kind",
+        "cause_ref",
+        "cause_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "text",
+        "jsonb",
+        "uuid",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "c81c0085de00bd613ccbb3eae1c303652a9755fec7e231cb4a33ab5b9eb5079b"
+    },
+    "crm_private.b05_customer_payments": {
+      "columns": [
+        "payment_id",
+        "admin_scope",
+        "detected_data",
+        "detection_fingerprint",
+        "evidence_id",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "jsonb",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "cc003a6e04fcfdbaaa5ec176d057230e1692de5f878bd16b68efc7f8ad73cb62"
+    },
+    "crm_private.b05_expected_payments": {
+      "columns": [
+        "schedule_id",
+        "slot",
+        "admin_scope",
+        "amount",
+        "due"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "numeric",
+        "jsonb"
+      ],
+      "count": 0,
+      "sha256": "e5b48fe26699f71b2e636b21ee6b68a30b3555bd781546115d459d3d289c3968"
+    },
+    "crm_private.b05_fund_distributions": {
+      "columns": [
+        "distribution_id",
+        "payment_id",
+        "admin_scope",
+        "operation_id",
+        "original_distribution_id",
+        "calculation",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "9b67486c81ebb216d8a9bff8aa58227a407883035a9794b23fd5f5ddf4fb200f"
+    },
+    "crm_private.b05_fund_history": {
+      "columns": [
+        "history_id",
+        "payment_id",
+        "admin_scope",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "reason",
+        "source_ref",
+        "evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "ec4b3d11b924183ce35f2d9fe52f8eae178beda4297be98e49a45ae9d40f79de"
+    },
+    "crm_private.b05_fund_operations": {
+      "columns": [
+        "operation_id",
+        "payment_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "event",
+        "result",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "db29753b47f84aa6ed1875a665910bcac02582838f1573c11ab92fc1270bdd7c"
+    },
+    "crm_private.b05_fund_revisions": {
+      "columns": [
+        "payment_id",
+        "revision",
+        "payment_revision",
+        "admin_scope",
+        "snapshot",
+        "actor_id",
+        "cause_kind",
+        "cause_ref",
+        "cause_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "bigint",
+        "text",
+        "jsonb",
+        "uuid",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "a7da9f85b64152ae885d2c7352c58ed913da6488037d552fcc8a76068f730ae5"
+    },
+    "crm_private.b05_invoice_documents": {
+      "columns": [
+        "document_id",
+        "object_version_id",
+        "invoice_id",
+        "admin_scope",
+        "material",
+        "original_document_id",
+        "operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "uuid",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "6295d3bd7da1e19f797f86869f3e1e08a1aa505b8aa5d1c41bf04e0fa015720f"
+    },
+    "crm_private.b05_invoice_operations": {
+      "columns": [
+        "operation_id",
+        "invoice_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b05_invoice_revisions": {
+      "columns": [
+        "invoice_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "reason",
+        "source_ref",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b05_movement_keys": {
+      "columns": [
+        "source_ref",
+        "external_id",
+        "payment_id",
+        "admin_scope"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "uuid",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "1934559e73371a3a02d6bad5c641b3fb943274a2cc8fab6771e54f003e09414e"
+    },
+    "crm_private.b05_obligation_adjustments": {
+      "columns": [
+        "adjustment_id",
+        "schedule_id",
+        "slot",
+        "revision",
+        "admin_scope",
+        "before_data",
+        "after_data",
+        "difference",
+        "actor_id",
+        "cause",
+        "source_ref",
+        "evidence_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "text",
+        "jsonb",
+        "jsonb",
+        "numeric",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "c02314775994caa1d348a4526daddff0d06d8bd7b567a95997f1217684633cc0"
+    },
+    "crm_private.b05_obligation_history": {
+      "columns": [
+        "history_id",
+        "booking_id",
+        "admin_scope",
+        "actor_id",
+        "before_data",
+        "after_data",
+        "source_ref",
+        "reason",
+        "evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "c848433709522a885d4b1f9248aded26579acb5a6747ddb7ac4a4e845201fab9"
+    },
+    "crm_private.b05_obligation_operations": {
+      "columns": [
+        "operation_id",
+        "booking_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "event",
+        "result",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "db29753b47f84aa6ed1875a665910bcac02582838f1573c11ab92fc1270bdd7c"
+    },
+    "crm_private.b05_own_economic_components": {
+      "columns": [
+        "economy_id",
+        "revision",
+        "component_id",
+        "kind",
+        "admin_scope",
+        "material"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "jsonb"
+      ],
+      "count": 0,
+      "sha256": "352a7e2e295695e0471a8a16661f34870e7f4273766036c1504edb0c177f7f06"
+    },
+    "crm_private.b05_own_economic_operations": {
+      "columns": [
+        "operation_id",
+        "economy_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "input_material",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "a82af387137be69d947d29af4841e4a0f3453ec66424ee4b6659c311f8259fe7"
+    },
+    "crm_private.b05_own_economic_revisions": {
+      "columns": [
+        "economy_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "reason",
+        "source_ref",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "eff6da7e382520a6473be73e5b4e53b5ad4c91d71e1476ced7eebb44ed9bfe27"
+    },
+    "crm_private.b05_own_economies": {
+      "columns": [
+        "economy_id",
+        "booking_id",
+        "scope_ref",
+        "admin_scope",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "018d93b9a019d37dc5df2c916808b1ab545715224225f1b253ba0a687f7a5d6c"
+    },
+    "crm_private.b05_payment_history": {
+      "columns": [
+        "history_id",
+        "payment_id",
+        "admin_scope",
+        "actor_id",
+        "before_data",
+        "after_data",
+        "reason",
+        "source_ref",
+        "evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "c848433709522a885d4b1f9248aded26579acb5a6747ddb7ac4a4e845201fab9"
+    },
+    "crm_private.b05_payment_operations": {
+      "columns": [
+        "operation_id",
+        "payment_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "event",
+        "result",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "db29753b47f84aa6ed1875a665910bcac02582838f1573c11ab92fc1270bdd7c"
+    },
+    "crm_private.b05_payment_policies": {
+      "columns": [
+        "policy_id",
+        "version",
+        "admin_scope",
+        "rule",
+        "selectors",
+        "actor_id",
+        "source_ref",
+        "reason",
+        "evidence_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "text",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "e53de34861d839da52615185270434060536a3b45d8df9eca6299e52cf9a9520"
+    },
+    "crm_private.b05_payment_receipts": {
+      "columns": [
+        "payment_id",
+        "admin_scope",
+        "fact",
+        "actor_id",
+        "evidence_id",
+        "source_evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "baaaa14b8ddb92ecc40e357306f5647ff101daab7f5f5fb9dadf83d760ef4031"
+    },
+    "crm_private.b05_payment_revisions": {
+      "columns": [
+        "payment_id",
+        "revision",
+        "admin_scope",
+        "snapshot",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8480803e26771630cac555896d9c07939f59be921520079abe8bf78d6687824d"
+    },
+    "crm_private.b05_payment_schedules": {
+      "columns": [
+        "schedule_id",
+        "booking_id",
+        "admin_scope",
+        "scope_kind",
+        "scope_id",
+        "policy_id",
+        "policy_version",
+        "actor_id",
+        "effect_fingerprint",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "bigint",
+        "uuid",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "4bc9f6768e25edec561e024a178849ab28cb6657e16bee01dce1fdac2c9e969f"
+    },
+    "crm_private.b05_provider_invoices": {
+      "columns": [
+        "invoice_id",
+        "booking_id",
+        "admin_scope",
+        "need_key",
+        "basis",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "4830903afb4e99fec11f74f10f9ad54947c28f4bb10279cedfd9d5d262cd2144"
+    },
+    "crm_private.b05_provider_outgoing_correspondences": {
+      "columns": [
+        "movement_id",
+        "admin_scope",
+        "portions",
+        "consumption_act_ids",
+        "amount",
+        "source_ref",
+        "evidence_id",
+        "actor_id",
+        "occurred_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "numeric",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "1592749cee5d4f68c268836686aa4aa6dfda50c60d804440a6941ae8bf171611"
+    },
+    "crm_private.b05_provider_outgoing_movements": {
+      "columns": [
+        "movement_id",
+        "provider_payment_id",
+        "admin_scope",
+        "identity_source",
+        "external_id",
+        "material",
+        "operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "e531d1a71b181d4b5a5a294b224c757f023e64d0b2b4762d68666f9142e9dd9e"
+    },
+    "crm_private.b05_provider_payment_corrections": {
+      "columns": [
+        "correction_id",
+        "original_movement_id",
+        "admin_scope",
+        "operation_id",
+        "signed_original",
+        "signed_adjustment",
+        "source_ref",
+        "reason",
+        "evidence_id",
+        "actor_id",
+        "occurred_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "numeric",
+        "numeric",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "ea908202012028fe46f370cc9fdadb5c0dbdc2ab05060425cedee34c448b922a"
+    },
+    "crm_private.b05_provider_payment_operations": {
+      "columns": [
+        "operation_id",
+        "provider_payment_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b05_provider_payment_revisions": {
+      "columns": [
+        "provider_payment_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "source_ref",
+        "reason",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b05_provider_payments": {
+      "columns": [
+        "provider_payment_id",
+        "booking_id",
+        "service_id",
+        "provider_id",
+        "admin_scope",
+        "suplido_id",
+        "basis",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "305b5a40328374fc82169b2f66fcf0f980d3f8c33dcbfc9a1e14dd35addb6a2f"
+    },
+    "crm_private.b05_reconciliation_acts": {
+      "columns": [
+        "act_id",
+        "reconciliation_id",
+        "payment_id",
+        "admin_scope",
+        "action",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "reason",
+        "source_ref",
+        "evidence_id",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "0a78f819e64df0e8db2c6784819206d76e854c1c4fb721f869c5cdf41e05f282"
+    },
+    "crm_private.b05_reconciliations": {
+      "columns": [
+        "reconciliation_id",
+        "payment_id",
+        "admin_scope",
+        "booking_id",
+        "schedule_id",
+        "slot"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "891548d14196dd27d305ec9b25d6c160988517938d50dfb73a4ea43e56ef1902"
+    },
+    "crm_private.b05_schedule_revisions": {
+      "columns": [
+        "schedule_id",
+        "revision",
+        "admin_scope",
+        "snapshot",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "jsonb",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8480803e26771630cac555896d9c07939f59be921520079abe8bf78d6687824d"
+    },
+    "crm_private.b05_suplido_operations": {
+      "columns": [
+        "operation_id",
+        "suplido_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b05_suplido_revisions": {
+      "columns": [
+        "suplido_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "reason",
+        "source_ref",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b05_suplidos": {
+      "columns": [
+        "suplido_id",
+        "booking_id",
+        "service_id",
+        "admin_scope",
+        "basis",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "530242d6831b3901d33bd295dbfdeb077f1513279f52aef6fd962297905d6d8e"
+    },
+    "crm_private.b07_document_rules": {
+      "columns": [
+        "rule_id",
+        "version",
+        "admin_scope",
+        "definition",
+        "evidence_id"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "d1a919e1a2983f61b0b447c3199e918855e30479baa04d9cc28c9e3eb18a8010"
+    },
+    "crm_private.b07_evidence_object_bindings": {
+      "columns": [
+        "evidence_id",
+        "version_id",
+        "admin_scope",
+        "linked_by",
+        "linked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b4a469c117aa2fbee22355dfcea9ea714b125dc75739246c42390b6a0a168b88"
+    },
+    "crm_private.b07_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "admin_scope",
+        "action_kind",
+        "before_state",
+        "after_state",
+        "reason",
+        "source_ref",
+        "occurred_at",
+        "recorded_at",
+        "actor_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "fd0cca6248a1f788373facd39fe5f239f1391409b810c3845f37726c3802c2a5"
+    },
+    "crm_private.b07_incident_operations": {
+      "columns": [
+        "operation_id",
+        "incident_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b07_incident_revisions": {
+      "columns": [
+        "incident_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "source_ref",
+        "reason",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b07_incidents": {
+      "columns": [
+        "incident_id",
+        "booking_id",
+        "admin_scope",
+        "initial_operation_id",
+        "code_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "c21782bc1868bc271796743bf970679fd8019acaf12e07987520cbe1e3205d2d"
+    },
+    "crm_private.b07_links": {
+      "columns": [
+        "link_id",
+        "record_id",
+        "admin_scope",
+        "context_kind",
+        "context_id",
+        "coverage",
+        "source_ref",
+        "linked_by",
+        "linked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "015711c9a128485b83aeee778cfd196c5caf755f46bb3a2eb46ec36a38164cac"
+    },
+    "crm_private.b07_object_orphans": {
+      "columns": [
+        "private_ref",
+        "admin_scope",
+        "state",
+        "source_ref",
+        "recorded_by",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "090c4a59604ef93ff71a06c5b27e506c93248db9b4d1aa2b067e0942919bf254"
+    },
+    "crm_private.b07_object_versions": {
+      "columns": [
+        "version_id",
+        "root_id",
+        "version_number",
+        "predecessor_id",
+        "document_id",
+        "admin_scope",
+        "purpose",
+        "source_ref",
+        "private_ref",
+        "expected_digest",
+        "expected_size",
+        "expected_media",
+        "observed_digest",
+        "observed_size",
+        "observed_media",
+        "state",
+        "revision",
+        "prepared_at",
+        "observed_at",
+        "linked_at",
+        "recorded_by"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "integer",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "text",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "11c98d09d113359e380c84805c9649d9aa1ca9fe26e028d21e18a654394f1de5"
+    },
+    "crm_private.b07_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "03fe4aaa7af598f8ef91ced41b1c2900c88e29d2715daf481618682793895e36"
+    },
+    "crm_private.b07_pending_tasks": {
+      "columns": [
+        "task_id",
+        "admin_scope",
+        "identity_version",
+        "identity_key",
+        "identity",
+        "material",
+        "state",
+        "responsible_actor",
+        "revision",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b537fa7ebcc8edc3d002ab7730550c5e3ec29cab96c72f309ec401719f7be44f"
+    },
+    "crm_private.b07_records": {
+      "columns": [
+        "record_id",
+        "record_kind",
+        "admin_scope",
+        "material",
+        "source_ref",
+        "purpose",
+        "occurred_at",
+        "recorded_at",
+        "recorded_by",
+        "original_id",
+        "corrects_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid",
+        "uuid",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "96a9b27d4a6891f9b8bcaaf16757418ffa0d01c4593855295041070b4b23c067"
+    },
+    "crm_private.b07_requirement_documents": {
+      "columns": [
+        "requirement_id",
+        "document_id",
+        "object_version_id",
+        "admin_scope",
+        "material",
+        "operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "530242d6831b3901d33bd295dbfdeb077f1513279f52aef6fd962297905d6d8e"
+    },
+    "crm_private.b07_requirement_operations": {
+      "columns": [
+        "operation_id",
+        "requirement_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result",
+        "result_revision",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "41ea04c7d9278d39bded705d0f9496cc6a6009165d0424f195a4f0cb04a3c7a8"
+    },
+    "crm_private.b07_requirement_revisions": {
+      "columns": [
+        "requirement_id",
+        "revision",
+        "admin_scope",
+        "operation_id",
+        "action_kind",
+        "event",
+        "before_data",
+        "after_data",
+        "actor_id",
+        "evidence_id",
+        "source_ref",
+        "reason",
+        "occurred_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "text",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "126a16b6a6b0db5952149e8dbb2fa50a7ba86a418813eadf4b40f12e4a8b89da"
+    },
+    "crm_private.b07_requirements": {
+      "columns": [
+        "requirement_id",
+        "booking_id",
+        "admin_scope",
+        "initial_basis",
+        "initial_operation_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "2401950f45821e054219d11d26f884f2101f1ee937dc95ec65344036273c7fcd"
+    },
+    "crm_private.catalog_applications": {
+      "columns": [
+        "application_id",
+        "subject_ref",
+        "admin_scope",
+        "applied_revisions",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "663376e8cf8363abc2d20b6f9dc2255af9850904842578d6422cfc73cb1cf7c3"
+    },
+    "crm_private.catalog_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "admin_scope",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "d1e1b350236c336261d00d56e50aa20bc5c5bcacc8443131923333d1aac39190"
+    },
+    "crm_private.catalog_items": {
+      "columns": [
+        "item_id",
+        "item_kind",
+        "admin_scope",
+        "parent_id",
+        "related_id",
+        "party_id",
+        "party_kind",
+        "source_ref",
+        "evidence_ref",
+        "created_by",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b1a6f3e35cc356487a5c25ae4be5ab9eacf641c7bb612f5ec75ead62cda2442e"
+    },
+    "crm_private.catalog_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "material_fingerprint",
+        "action_kind",
+        "result_ref",
+        "result_version",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8a9fa07aada648e8bb707ae3fc6c9b11aef22b608e7b644d8e7034b99e58c7ad"
+    },
+    "crm_private.catalog_revisions": {
+      "columns": [
+        "revision_id",
+        "item_id",
+        "admin_scope",
+        "revision_number",
+        "definition",
+        "parent_revision_id",
+        "related_revision_id",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "jsonb",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "6e7cef0470e9433eb33ee958d63d29ea5c1d3ede7b80487df2d0fd874a2b781c"
+    },
+    "crm_private.commercial_applications": {
+      "columns": [
+        "application_id",
+        "subject_ref",
+        "admin_scope",
+        "applied_revisions",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "663376e8cf8363abc2d20b6f9dc2255af9850904842578d6422cfc73cb1cf7c3"
+    },
+    "crm_private.commercial_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "admin_scope",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "d1e1b350236c336261d00d56e50aa20bc5c5bcacc8443131923333d1aac39190"
+    },
+    "crm_private.commercial_items": {
+      "columns": [
+        "item_id",
+        "item_kind",
+        "admin_scope",
+        "catalog_item_id",
+        "origin_custom_revision_id",
+        "source_ref",
+        "evidence_ref",
+        "created_by",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "659d45ad3286de2c1d584d0b9d190bb7f5fb1e78a8fc23821dba24657aec4e8d"
+    },
+    "crm_private.commercial_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "fingerprint",
+        "result_ref",
+        "result_version",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8b95c06a2545f2847e8432b23c1b3910d85ae00729940035450d4bfea3d834e4"
+    },
+    "crm_private.commercial_revisions": {
+      "columns": [
+        "revision_id",
+        "item_id",
+        "admin_scope",
+        "revision_number",
+        "definition",
+        "base_currency",
+        "catalog_snapshot",
+        "validity_kind",
+        "valid_from",
+        "valid_until",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "bigint",
+        "jsonb",
+        "text",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "e7cdd9f25ee724ebcfe38dd5d607ffbe2d250169ff97df4ad533deb4b9c400b8"
+    },
+    "crm_private.crm_actors": {
+      "columns": [
+        "actor_id",
+        "singleton",
+        "auth_subject",
+        "admin_scope",
+        "enabled",
+        "access_generation",
+        "access_state",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "boolean",
+        "uuid",
+        "text",
+        "boolean",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "8e538124811aaf0a3d78e82f69681874b0cc9d5fa78cef661422f1d8c7f76b96"
+    },
+    "crm_private.crm_sessions": {
+      "columns": [
+        "session_id",
+        "actor_id",
+        "auth_subject",
+        "access_generation",
+        "created_at",
+        "revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "304e26d7dea3a82f6a88d9c7192ecfd81836b07a4ec846a5e70aaee8c6bb99af"
+    },
+    "crm_private.external_effect_records": {
+      "columns": [
+        "record_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "effect_id",
+        "stage",
+        "intent_id",
+        "attempt_id",
+        "destination_reference",
+        "content_version",
+        "content_fingerprint",
+        "outcome",
+        "result_reference",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "8e18393a659df09b3c7455fccd996bc9d02a95ec60c6bd1fcfc25a89a81ee0a1"
+    },
+    "crm_private.global_access_revocation_attempts": {
+      "columns": [
+        "attempt_id",
+        "revocation_id",
+        "attempt_number",
+        "outcome",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "integer",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b1fd009d0f5dcf4a2e803ad3f0b8472fb8a6816a54fd0f676060c0af2825715a"
+    },
+    "crm_private.global_access_revocations": {
+      "columns": [
+        "revocation_id",
+        "actor_id",
+        "auth_subject",
+        "initiating_session_id",
+        "previous_access_generation",
+        "access_generation",
+        "admin_scope",
+        "core_revoked_at",
+        "auth_state",
+        "auth_attempt_count",
+        "last_auth_attempt_at",
+        "auth_revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "bigint",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "integer",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "67d4d5ce43a2f3b3aa0ee6535d004fde9faac33e70285866cda53c6e511c7f79"
+    },
+    "crm_private.identification_epochs": {
+      "columns": [
+        "epoch_id",
+        "session_id",
+        "identified_at",
+        "last_human_activity_at",
+        "full_password",
+        "full_mfa",
+        "access_state",
+        "current_epoch",
+        "closed_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean",
+        "boolean",
+        "text",
+        "boolean",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "3e1e3ed8b52ccb533bb545d33efb92429e54c0dacc9ee501e0f04e134b7aa09d"
+    },
+    "crm_private.identity_code_counters": {
+      "columns": [
+        "code_kind",
+        "code_year",
+        "last_serial"
+      ],
+      "columnTypes": [
+        "text",
+        "integer",
+        "bigint"
+      ],
+      "count": 0,
+      "sha256": "11dd96239c9f090570379add844690d1549c8ac5fb9424f993639f54b13bb426"
+    },
+    "crm_private.identity_codes": {
+      "columns": [
+        "code_id",
+        "operation_id",
+        "code_kind",
+        "target_id",
+        "admin_scope",
+        "code_year",
+        "serial_number",
+        "human_code",
+        "assigned_at",
+        "source_ref",
+        "evidence_ref",
+        "actor_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "integer",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "707f94af8b69527086e3ce08e97f2e090f0fc90f42530ea6a8ad9187e9cbb4a3"
+    },
+    "crm_private.identity_contexts": {
+      "columns": [
+        "context_id",
+        "context_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "verified",
+        "version",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "7ac9bad7c0473d6fefdf56b0fbb43dce72df58d638d149b8ae07a04e790892bf"
+    },
+    "crm_private.identity_designations": {
+      "columns": [
+        "designation_id",
+        "context_id",
+        "party_id",
+        "party_kind",
+        "role_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "verified",
+        "recorded_by",
+        "effective_at",
+        "recorded_at",
+        "ended_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 1,
+      "sha256": "4fb33532bf6f391cddf1418d15633ade3f0557349577cbf573e3c495e62fc698"
+    },
+    "crm_private.identity_entities": {
+      "columns": [
+        "identity_id",
+        "identity_kind",
+        "admin_scope",
+        "context_id",
+        "display_name",
+        "given_name",
+        "family_name",
+        "email",
+        "phone",
+        "group_type",
+        "estimated_size",
+        "confirmed_size",
+        "size_source",
+        "source_ref",
+        "evidence_ref",
+        "identity_verified",
+        "version",
+        "created_at",
+        "updated_at",
+        "archived_at",
+        "merged_into_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "integer",
+        "integer",
+        "text",
+        "text",
+        "text",
+        "boolean",
+        "bigint",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid"
+      ],
+      "count": 1,
+      "sha256": "9f6dbd160cd2b2d2565eb6c365e0bc5fb187fa8fb4b470d21f40dd77fdc03508"
+    },
+    "crm_private.identity_history": {
+      "columns": [
+        "history_id",
+        "operation_id",
+        "subject_id",
+        "context_id",
+        "related_id",
+        "subject_kind",
+        "before_state",
+        "after_state",
+        "source_ref",
+        "evidence_ref",
+        "reason",
+        "actor_id",
+        "happened_at",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "jsonb",
+        "text",
+        "text",
+        "text",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 3,
+      "sha256": "8f12d3c51989e0e7298d59a7d4ddc97106f94d18ec63e5cf118624be1af6d128"
+    },
+    "crm_private.identity_operations": {
+      "columns": [
+        "operation_id",
+        "admin_scope",
+        "actor_id",
+        "material_fingerprint",
+        "action_kind",
+        "result_ref",
+        "resulting_version",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "uuid",
+        "bigint",
+        "timestamp with time zone"
+      ],
+      "count": 3,
+      "sha256": "cae96698de96ad226a3e80f98689bcb160b642602a6596d6dedf38e99c06cf34"
+    },
+    "crm_private.identity_organization_contacts": {
+      "columns": [
+        "link_id",
+        "organization_id",
+        "organization_kind",
+        "contact_id",
+        "contact_kind",
+        "admin_scope",
+        "source_ref",
+        "evidence_ref",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "b7fbd65ee606dedc2753e3d7e4a3e9ea3ca3c4027f7dcb30a605117aea28a29c"
+    },
+    "crm_private.unit_attempts": {
+      "columns": [
+        "attempt_id",
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "attempt_kind",
+        "recorded_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "fc78445fd208658299b75dc8495040da091014ec217a4dfed75f4e1c3f56d3a0"
+    },
+    "crm_private.unit_history": {
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "fact_kind",
+        "before_value",
+        "after_value",
+        "reason",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "actor_id",
+        "actor_kind",
+        "evidence_state"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "3b0c84aedc708d22bccd99b990eb61b346098778e75cbc0c51149946bc358de6"
+    },
+    "crm_private.unit_operations": {
+      "columns": [
+        "operation_id",
+        "operation_class",
+        "root_id",
+        "context_scope",
+        "material_fingerprint",
+        "actor_id",
+        "actor_kind",
+        "purpose",
+        "cause",
+        "source",
+        "happened_at",
+        "recorded_at",
+        "expected_version",
+        "resulting_version",
+        "initial_attempt_id",
+        "effect_id",
+        "intent_id"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "bigint",
+        "bigint",
+        "text",
+        "text",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "9319d04ca1669df10c06af79beb21cf47f73ebaed43a2390097a21c731f6ceeb"
+    },
+    "crm_private.unit_results": {
+      "columns": [
+        "operation_id",
+        "root_id",
+        "context_scope",
+        "result_state",
+        "resulting_version",
+        "after_value",
+        "material_fingerprint",
+        "effect_id",
+        "intent_id",
+        "fixed_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "d7eb7722d11cda4769e23e6a7a52c5e6e838920c3a4b36700ee3e0ee3412b644"
+    },
+    "crm_private.unit_roots": {
+      "columns": [
+        "root_id",
+        "context_scope",
+        "version",
+        "current_value",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "text",
+        "text",
+        "bigint",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "512d46182bd9d8618bbf85eb09b3e1aae282f4fa57f644040835638c0d678666"
+    }
+  },
+  "equal": true
+}

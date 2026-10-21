@@ -1,5 +1,13 @@
 # Tasks — SPEC 001 Core CRM
 
+## Estado vigente H6-013 — cierre local/aislado, 2026-10-20
+
+**TSK-H6-013: COMPLETED — local/aislado. Evidencia SATISFACTORIA; aceptación técnica del director tras auditoría independiente final PASS. Publicación PENDIENTE DE AUTORIZACIÓN.** [Aceptación](acceptance-TSK-H6-013.md), [cierre consolidado](closure-TSK-H6-013.md), [inventario propuesto y dependencias de publicación](publication-TSK-H6-013.md). Candidato V2: manifiesto SHA-256 `34442d96a59c492771d65ff4bf19c6aa8961192dbcf9b7621d6276bdb61a0c06`; auditoría final: manifiesto `976e6358193b9a7f4f5b0bf7940d7105e87b3dc8028c00ac8c719546e6fcf947`.
+
+H0–H5 conservados. **H6 global NO COMPLETADO; las otras 17 tareas H6 permanecen NOT STARTED, incluida H6-014. DM-PENDING-005 OPEN. Hosted/Production NO ACREDITADOS.** El cierre acredita únicamente las 13 asignaciones locales de H6-013; no satisface globalmente fuentes compartidas con otras tareas. El siguiente paso autorizado es revisar este cierre y su propuesta; commit, push, ramas, tags, despliegue y continuidad H6 requieren autorización posterior. **STOP.**
+
+Los apartados anteriores de H5 que siguen se conservan íntegros como antecedentes de sus fechas. Sus referencias a H6 NOT STARTED no sustituyen el estado H6-013 vigente de esta cabecera; las demás tareas y decisiones mantienen su estado.
+
 ## Cierre vigente H5-019 y H5 — exclusivamente local/aislado, 2026-10-18
 
 **Decisión del director D01–D03:** aceptado el candidato sucesor H5-019 de sello SHA-256 `31fd4ac89aea684f2155a4365cb5870a0c0163838cbfd543d2ad98d0db1ea619`, auditado independientemente PASS con sello `9f35bae29b5a152c3520b36f723be57cd606c8cf9b2cc30f2ca80e88038b9915`. **TSK-H5-019 y H5 global COMPLETED exclusivamente local/aislado.** [Recibo de aceptación](acceptance-TSK-H5-019.md), [cierre consolidado](closure-TSK-H5-019.md), [manifiesto de publicación aún no autorizada](../../tests/fixtures/h5-019-acceptance/publication-manifest.json). Las fichas H5-011/013/015 incorporan anotaciones vigentes sin borrar sus estados históricos. DM-PENDING-005 OPEN; H6 NOT STARTED; Hosted/Production NO ACREDITADOS. AC-073 y los demás tramos H6 pendientes no se declaran completados. D04 no autoriza git add, commit, push ni despliegue. La publicación sigue pendiente de decisión posterior y verificación remota.
@@ -2409,7 +2417,9 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H6-013 — Verificar cadena completa de migraciones vacía y actualización
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H6. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED — local/aislado. Evidencia: SATISFACTORIA. Publicación pendiente.** Hito: H6. Tipo: comprobación.
+- **Cierre vigente autorizado el 2026-10-20:** [aceptación](acceptance-TSK-H6-013.md) y [consolidación de las 13 filas](closure-TSK-H6-013.md). Auditoría final PASS y candidato V2 íntegro; sin nuevos tests funcionales en este cierre.
+- **Lectura histórica de la ficha:** los requisitos y textos de planificación siguientes se preservan literalmente. Sus referencias iniciales a NOT STARTED/NO EJECUTADA describen la ficha aprobada antes de ejecutar; el estado vigente es el de esta anotación. No cambian criterios, dependencias ni asignaciones de §6.
 - **Objetivo y alcance:** Compatibilidad aplicación/esquema y conservación de identidades, snapshots, porciones, historia y permisos de todos los paquetes.
 - **Fuentes exactas:** Plan §§5.4, 10.1, 11.4; SPEC-FR-HIST-002, AC-079. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H6-013.
 - **Bloques, contratos y unidades:** B01–B10; C03; T01–T11.

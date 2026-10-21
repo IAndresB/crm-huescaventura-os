@@ -1,0 +1,48 @@
+[
+  {
+    "id": "AUD2-H6013-01",
+    "severity": "MENOR",
+    "source": "tests/support/h6-013-security.ts:34",
+    "case": "Ambiguous differently-cased GUC configuration",
+    "expected": "Exactly one effective search_path, pg_catalog then pg_temp; reject ambiguity",
+    "observed": "proconfig [search_path=pg_catalog, pg_temp, SEARCH_PATH=public] accepted by verifier; PostgreSQL effective value public",
+    "proof": "independent-security-result.json",
+    "scope": "Requires privileged direct catalogue mutation; normal ALTER FUNCTION canonicalizes the name and is correctly rejected. No actual candidate function has this configuration. No demonstrated ordinary-user escalation.",
+    "resolution": "Normalize GUC parameter identity before counting and validating complete settings; reject duplicate effective names; add real PG control. No product change.",
+    "additionalAuthorization": "Required to modify the candidate; current audit is read-only."
+  },
+  {
+    "id": "AUD2-H6013-02",
+    "severity": "MENOR",
+    "source": "tests/support/h6-013-preservation.ts:16",
+    "case": "Bigint exact-content collision through JSON/JavaScript Number",
+    "expected": "Any preexisting version/content change detected independently of row count",
+    "observed": "identity_entities.version 9007199254740992 -> 9007199254740993 produces identical snapshot hash and businessFacts; PostgreSQL text values are different",
+    "proof": "independent-preservation-result.json",
+    "scope": "Valid PostgreSQL bigint values, beyond JavaScript exact integer range. Existing reproduced H1 fixture:55 numeric values, zero unsafe values, largest integer2026; no current fixture loss or product mutation shown. Same serialization pattern also occurs in the original cross-upgrade instrument.",
+    "resolution": "Preserve exact PostgreSQL textual serialization or use a lossless numeric parser before hashing/comparing; add boundary-value control, repeat affected conservation tests. No product change.",
+    "additionalAuthorization": "Required to modify instruments; current audit is read-only."
+  },
+  {
+    "id": "AUD2-H6013-03",
+    "severity": "MENOR",
+    "source": "external first custody candidate-original/ and auditor-original/",
+    "case": "Current custody mode drift after original receipt",
+    "expected": "Recover original contents and original types/modes/sizes; report deviations accurately",
+    "observed": "20 candidate and98 auditor empty logs now0600 versus0644, rather than reported0/19; contents/types/sizes unchanged. Changes predate this audit. Full archive has53211 exact members including all9658 original candidate files under replica/.",
+    "proof": "custody-verification.json and custody-drift-details.json",
+    "resolution": "Append an updated custody reconciliation referencing the complete recovery TAR for both original sets; preserve earlier receipts and discrepancies. Do not overwrite or claim WORM.",
+    "additionalAuthorization": "Required for any new candidate/custody corrective supplement; none applied."
+  },
+  {
+    "id": "AUD2-H6013-04",
+    "severity": "OBSERVACION",
+    "source": "tests/fixtures/h6-013/corrective-v1/runs/attempt-16/",
+    "case": "Historical collection failure and during-run hook capture",
+    "expected": "Distinguish process test exit from outer collection exit and identify effective source",
+    "observed": "Tests2751/pass andprocess0;outercollector1.33recovered source/destination files match. Hook readbacks during-run cannot establish per-case wall-clock load history. Independent full phase15 with pre-start source hashes passes2751/process0 and collection completes.",
+    "proof": "results-reconstruction.json, runs/phase15.status.json, replica-plan.json",
+    "resolution": "Retain historical failure/attestations and independent rerun. Continue pre-start .mjs capture and unique receipt names; no retroactive claim.",
+    "additionalAuthorization": "No further change necessary for independent reproduction; any publication is separately authorized."
+  }
+]

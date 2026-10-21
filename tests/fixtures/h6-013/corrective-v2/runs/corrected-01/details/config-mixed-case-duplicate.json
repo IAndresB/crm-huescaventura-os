@@ -1,0 +1,38 @@
+{
+  "expected": {
+    "id": "mixed-case-duplicate",
+    "config": [
+      "search_path=pg_catalog, pg_temp",
+      "SEARCH_PATH=public"
+    ],
+    "accept": false,
+    "effective": "public"
+  },
+  "observed": [
+    {
+      "signature": "crm_audit_v2.path()",
+      "schema": "crm_audit_v2",
+      "owner": "v2_owner",
+      "super": false,
+      "bypass": false,
+      "login": false,
+      "createRole": false,
+      "createDb": false,
+      "config": [
+        "search_path=pg_catalog, pg_temp",
+        "SEARCH_PATH=public"
+      ],
+      "acl": [
+        "v2_owner=X/v2_owner"
+      ],
+      "ordinaryExecute": {
+        "tte": false,
+        "anon": false,
+        "runtime": false,
+        "authenticated": false
+      }
+    }
+  ],
+  "effective": "public",
+  "detected": true
+}

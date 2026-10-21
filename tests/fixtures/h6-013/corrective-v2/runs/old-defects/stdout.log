@@ -1,0 +1,40 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+file:///private/tmp/h6013-v2-v1ybktxk/repo/tests/integration/postgres-h6-013-v2-controls.test.ts:61
+    await tx.unsafe('alter function crm_audit_v2.path() owner to bootstrap');
+    assert.throws(()=>verifyDefiners((await discoverDefiners(tx)).filter(f=>f.schema==='crm_audit_v2'),policy),/DEFINER_OWNER/);
+                                      ^^^^^
+    await save('unexpected-owner',{unexpectedSignature:'another_v2.extra()',discovered:actual.map(f=>f.signature),inventoryRejected:true,unsafeOwnerRejected:true});
+
+SyntaxError [ERR_INVALID_TYPESCRIPT_SYNTAX]: await isn't allowed in non-async function
+    at parseTypeScript (node:internal/modules/typescript:72:36)
+    at processTypeScriptCode (node:internal/modules/typescript:146:42)
+    at stripTypeScriptModuleTypes (node:internal/modules/typescript:215:22)
+    at ModuleLoader.<anonymous> (node:internal/modules/esm/translators:680:29)
+    at #translate (node:internal/modules/esm/loader:438:20)
+    at afterLoad (node:internal/modules/esm/loader:506:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:511:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)
+    at afterResolve (node:internal/modules/esm/loader:611:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12) {
+  code: 'ERR_INVALID_TYPESCRIPT_SYNTAX'
+}
+
+Node.js v24.21.0
+✖ tests/integration/postgres-h6-013-v2-controls.test.ts (91.518083ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 102.195709
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6-013-v2-controls.test.ts:1:1
+✖ tests/integration/postgres-h6-013-v2-controls.test.ts (91.518083ms)
+  'test failed'
