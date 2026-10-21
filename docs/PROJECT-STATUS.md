@@ -1,5 +1,13 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+## Estado vigente H6-014 — cierre documental local/aislado, 2026-10-21
+
+**TSK-H6-014: COMPLETED exclusivamente local/aislado. Inventario y procedimiento preparados; aceptación técnica del director y auditoría independiente r3 PASS. Custodia externa y publicación PENDIENTES DE AUTORIZACIÓN.** [Aceptación](../specs/001-core-crm/acceptance-TSK-H6-014.md), [cierre consolidado](../specs/001-core-crm/closure-TSK-H6-014.md), [propuesta exacta de custodia y publicación](../specs/001-core-crm/publication-TSK-H6-014.md). Manifiesto r3 SHA-256 `1352361f1bf22ffb3670d8a7f36ca15b583ccf11bef9d6c4bd0d94adf1b7c065`; informe independiente SHA-256 `3e610a7c2e276a33cc262d2818691a31429b73120a0db70c51dc2932ecf33f88`.
+
+Cinco hallazgos corregidos; ningún defecto material abierto en la preparación. Expected original preservado. **Restauración integrada NO EJECUTADA; AC-073 global NO ACREDITADO; Hosted/Production NO ACREDITADOS. ARCH-PENDING-002 y DM-PENDING-005 OPEN. H6 global IN PROGRESS.** H0–H5 y H6-013 conservan sus cierres locales; las otras 16 tareas H6 mantienen su estado NOT STARTED. No se inicia H6-015.
+
+Las entradas siguientes conservan los estados y autorizaciones de sus fechas como antecedentes; sus menciones a H6-014 pendiente o a H6 NOT STARTED no sustituyen este cierre vigente. Los STOP r1/r2 y sus candidatos siguen íntegros. Siguiente puerta: evaluación y autorización independiente de custodia/publicación; sin staging, commit, push, subida a Drive ni despliegue. **STOP.**
+
 ## Estado vigente H6-013 — cierre local/aislado, 2026-10-20
 
 **TSK-H6-013: COMPLETED — local/aislado. Evidencia SATISFACTORIA; aceptación técnica del director tras auditoría independiente final PASS. Publicación PENDIENTE DE AUTORIZACIÓN.** [Aceptación](../specs/001-core-crm/acceptance-TSK-H6-013.md), [cierre consolidado](../specs/001-core-crm/closure-TSK-H6-013.md), [inventario propuesto y dependencias de publicación](../specs/001-core-crm/publication-TSK-H6-013.md). Candidato V2: manifiesto SHA-256 `34442d96a59c492771d65ff4bf19c6aa8961192dbcf9b7621d6276bdb61a0c06`; auditoría final: manifiesto `976e6358193b9a7f4f5b0bf7940d7105e87b3dc8028c00ac8c719546e6fcf947`.

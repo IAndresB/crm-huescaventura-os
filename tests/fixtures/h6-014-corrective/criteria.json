@@ -1,0 +1,481 @@
+{
+  "schema": "h6-014-corrective-criteria-v1",
+  "scope": "M1/m1 preparation only; additional instrument criteria, no normative changes",
+  "original_expected_sha256": "aaab43534e34e4256406ef413167e409784d307253a3cf22be2708c7037554f1",
+  "baseline_sha256": "8233383e1ac6ce44f595acaee771af75c5e314476fd7093bec6032eaad478bdb",
+  "contract": {
+    "mechanism": "postgres17-custom-archive-create",
+    "global_scope": "globals-only-no-role-passwords",
+    "global_policy": "new-exclusive-cluster-default-tablespaces-only",
+    "name_policy": "source-equals-archive-equals-destination",
+    "maintenance_policy": "rename-only-empty-initdb-postgres-before-import",
+    "maintenance_name_pattern": "^h6015_maint_[a-z0-9_]{1,40}$",
+    "archive_target_must_not_exist": true,
+    "create_transaction": "none-exit-on-error-discard-failed-destination",
+    "owner_acl_settings": "archive-defaults-no-suppression",
+    "property_snapshot_sql_sha256": "2d31aa842bf246642ffb36c7964e57c0b582972c85011a43d17a32177672fab5",
+    "equivalence_fields": [
+      "database",
+      "owner",
+      "acl-grantor-grantee-privilege-grant-option",
+      "database-settings",
+      "role-in-database-settings"
+    ],
+    "core_public_connect_temp": "source-and-destination-denied",
+    "post_restore_gate": "private-exact-snapshot-equality-and-independent-effective-privilege-review",
+    "runtime_evidence": "NO EJECUTADA; required in authorized H6-015",
+    "resume_on_exit_zero": false
+  },
+  "commands": {
+    "capture-globals": [
+      "$H6015_BIN/pg_dumpall",
+      "--host=$H6015_SOURCE_SOCKET",
+      "--port=$H6015_SOURCE_PORT",
+      "--username=$H6015_SOURCE_BOOTSTRAP",
+      "--no-password",
+      "--globals-only",
+      "--no-role-passwords",
+      "--file=$H6015_PRIVATE_DIR/globals.sql",
+      ">/dev/null",
+      "2>&1"
+    ],
+    "capture-database": [
+      "$H6015_BIN/pg_dump",
+      "--host=$H6015_SOURCE_SOCKET",
+      "--port=$H6015_SOURCE_PORT",
+      "--username=$H6015_SOURCE_BOOTSTRAP",
+      "--no-password",
+      "--dbname=$H6015_SOURCE_DB",
+      "--format=custom",
+      "--no-publications",
+      "--no-subscriptions",
+      "--file=$H6015_PRIVATE_DIR/database.dump",
+      ">/dev/null",
+      "2>&1"
+    ],
+    "source-properties": [
+      "$H6015_BIN/psql",
+      "-X",
+      "--host=$H6015_SOURCE_SOCKET",
+      "--port=$H6015_SOURCE_PORT",
+      "--username=$H6015_SOURCE_BOOTSTRAP",
+      "--no-password",
+      "--dbname=$H6015_SOURCE_DB",
+      "--set=ON_ERROR_STOP=1",
+      "--tuples-only",
+      "--no-align",
+      "--file=$H6015_PRIVATE_DIR/database-properties.sql",
+      ">$H6015_PRIVATE_DIR/source-properties.json",
+      "2>/dev/null"
+    ],
+    "init-cluster": [
+      "$H6015_BIN/initdb",
+      "--pgdata=$H6015_DEST_DATA",
+      "--username=$H6015_DEST_BOOTSTRAP",
+      "--auth=trust",
+      "--encoding=$H6015_ENCODING",
+      "--locale-provider=libc",
+      "--lc-collate=$H6015_LC_COLLATE",
+      "--lc-ctype=$H6015_LC_CTYPE",
+      ">/dev/null",
+      "2>&1"
+    ],
+    "start-cluster": [
+      "$H6015_BIN/pg_ctl",
+      "-D",
+      "$H6015_DEST_DATA",
+      "-l",
+      "/dev/null",
+      "-o",
+      "-k '$H6015_DEST_SOCKET' -h '' -p $H6015_DEST_PORT",
+      "-w",
+      "start",
+      ">/dev/null",
+      "2>&1"
+    ],
+    "reserve-maintenance": [
+      "$H6015_BIN/psql",
+      "-X",
+      "--host=$H6015_DEST_SOCKET",
+      "--port=$H6015_DEST_PORT",
+      "--username=$H6015_DEST_BOOTSTRAP",
+      "--no-password",
+      "--dbname=template1",
+      "--set=ON_ERROR_STOP=1",
+      "--command=ALTER DATABASE postgres RENAME TO $H6015_MAINT_DB",
+      ">/dev/null",
+      "2>&1"
+    ],
+    "restore-globals": [
+      "$H6015_BIN/psql",
+      "-X",
+      "--host=$H6015_DEST_SOCKET",
+      "--port=$H6015_DEST_PORT",
+      "--username=$H6015_DEST_BOOTSTRAP",
+      "--no-password",
+      "--dbname=$H6015_MAINT_DB",
+      "--set=ON_ERROR_STOP=1",
+      "--single-transaction",
+      "--file=$H6015_PRIVATE_DIR/globals.sql",
+      ">/dev/null",
+      "2>&1"
+    ],
+    "restore-database": [
+      "$H6015_BIN/pg_restore",
+      "--host=$H6015_DEST_SOCKET",
+      "--port=$H6015_DEST_PORT",
+      "--username=$H6015_DEST_BOOTSTRAP",
+      "--no-password",
+      "--dbname=$H6015_MAINT_DB",
+      "--create",
+      "--exit-on-error",
+      "$H6015_PRIVATE_DIR/database.dump",
+      ">/dev/null",
+      "2>&1"
+    ],
+    "destination-properties": [
+      "$H6015_BIN/psql",
+      "-X",
+      "--host=$H6015_DEST_SOCKET",
+      "--port=$H6015_DEST_PORT",
+      "--username=$H6015_DEST_BOOTSTRAP",
+      "--no-password",
+      "--dbname=$H6015_DEST_DB",
+      "--set=ON_ERROR_STOP=1",
+      "--tuples-only",
+      "--no-align",
+      "--file=$H6015_PRIVATE_DIR/database-properties.sql",
+      ">$H6015_PRIVATE_DIR/destination-properties.json",
+      "2>/dev/null"
+    ],
+    "compare-properties": [
+      "/usr/bin/cmp",
+      "-s",
+      "$H6015_PRIVATE_DIR/source-properties.json",
+      "$H6015_PRIVATE_DIR/destination-properties.json"
+    ]
+  },
+  "command_order": [
+    "capture-globals",
+    "capture-database",
+    "source-properties",
+    "init-cluster",
+    "start-cluster",
+    "reserve-maintenance",
+    "restore-globals",
+    "restore-database",
+    "destination-properties",
+    "compare-properties"
+  ],
+  "snapshot_sql": "WITH db AS (\n  SELECT oid, datname, datdba, datacl FROM pg_database\n  WHERE datname = current_database()\n), acl_rows AS (\n  SELECT jsonb_build_array(pg_get_userbyid(a.grantor),\n    CASE WHEN a.grantee = 0 THEN NULL ELSE pg_get_userbyid(a.grantee) END,\n    a.privilege_type, a.is_grantable) AS item\n  FROM db CROSS JOIN LATERAL\n    aclexplode(COALESCE(db.datacl, acldefault('d', db.datdba))) AS a\n), settings_rows AS (\n  SELECT jsonb_build_array(\n    CASE WHEN s.setrole = 0 THEN NULL ELSE pg_get_userbyid(s.setrole) END,\n    setting) AS item\n  FROM db JOIN pg_db_role_setting AS s ON s.setdatabase = db.oid\n  CROSS JOIN LATERAL unnest(s.setconfig) AS setting\n)\nSELECT jsonb_build_object(\n  'database', db.datname,\n  'owner', pg_get_userbyid(db.datdba),\n  'acl', COALESCE((SELECT jsonb_agg(item ORDER BY item::text COLLATE \"C\") FROM acl_rows), '[]'::jsonb),\n  'settings', COALESCE((SELECT jsonb_agg(item ORDER BY item::text COLLATE \"C\") FROM settings_rows), '[]'::jsonb)\n) FROM db;\n",
+  "availability_registry": {
+    "R01": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "68 migraciones oficiales",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/fixtures/h6-013/migrations.json",
+          "limitation": "Instalación/upgrade históricos; no backup operativo"
+        },
+        {
+          "name": "Dump de datos del futuro punto H6-015",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Este paquete no contiene database.dump",
+          "limitation": "Ausencia limitada al paquete H6-014; no se ha buscado todo el Mac ni Hosted"
+        }
+      ]
+    },
+    "R02": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "Snapshots y comparador histórico",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/support/h6-013-preservation.ts",
+          "limitation": "Filtra crm%; no cubre auth/storage ni globals"
+        },
+        {
+          "name": "Copia integral del punto futuro",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Paquete H6-014",
+          "limitation": "Se materializa únicamente en ensayo autorizado"
+        }
+      ]
+    },
+    "R03": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "Adapter y pruebas de conservación",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/infrastructure/postgres/h1-object-adapter.ts",
+          "limitation": "Código y evidencia histórica, no servicio iniciado"
+        },
+        {
+          "name": "Copia de bytes y metadata del punto H6-015",
+          "availability": "NO DETERMINADO",
+          "evidence": "Sin inventario del servicio futuro",
+          "limitation": "Storage usa base/backend separados en runner local"
+        }
+      ]
+    },
+    "R04": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "Core y Auth sintético de ensayo",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/application/verified-auth.ts y tests/integration/synthetic-auth-fixture.ts",
+          "limitation": "No prueba identidad/MFA de proveedor"
+        },
+        {
+          "name": "Adaptador real Auth/propietario de este recorrido",
+          "availability": "NO DISPONIBLE",
+          "evidence": "src/server/human-postgres-composition.ts: comentarios de ausencia",
+          "limitation": "No se afirma indisponibilidad del servicio Supabase"
+        }
+      ]
+    },
+    "R05": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "Coordinador y contrato de revocación",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/infrastructure/postgres/h0-013-adapter.ts",
+          "limitation": "Pruebas locales heredadas; no ensayo restore"
+        },
+        {
+          "name": "Testigo de revocaciones posteriores para el nuevo corte",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Paquete H6-014",
+          "limitation": "Se construirá antes de la futura restauración, sin derivarlo del destino restaurado"
+        }
+      ]
+    },
+    "R06": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "Config y composición",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/server/config.ts y src/server/postgres-composition.ts",
+          "limitation": "No equivale a variables reales configuradas"
+        },
+        {
+          "name": "Configuración protegida de futuro ensayo",
+          "availability": "NO DETERMINADO",
+          "evidence": "No se han leído archivos de credenciales",
+          "limitation": "Sin parámetros productivos inventados"
+        }
+      ]
+    },
+    "R07": {
+      "availability": "NO DETERMINADO",
+      "assets": [
+        {
+          "name": "Definición de claves y separación de autoridades",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "SQL F1/F2 y composiciones",
+          "limitation": "Existencia de columna secret no prueba disponibilidad del valor"
+        },
+        {
+          "name": "Escrow recuperable del nuevo ensayo",
+          "availability": "NO DETERMINADO",
+          "evidence": "Ningún valor o ubicación privada inspeccionados",
+          "limitation": "No asumir password de rol en backup; no rotar automáticamente"
+        }
+      ]
+    },
+    "R08": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "Constraints y comparadores",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/support/h6-013-preservation.ts",
+          "limitation": "No ejecutar ahora queries"
+        },
+        {
+          "name": "Validación del destino restaurado",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Futura H6-015",
+          "limitation": "No se ha creado destino"
+        }
+      ]
+    },
+    "R09": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "Persistencia/idempotencia actual",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/infrastructure/postgres/persisted-work-executor.ts",
+          "limitation": "Un mock o receipt no acredita efecto externo"
+        },
+        {
+          "name": "Estado externo independiente del nuevo punto",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Futura H6-015",
+          "limitation": "No se genera aquí"
+        }
+      ]
+    },
+    "R10": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "Aprobación/reserva por contrato",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/infrastructure/postgres/human-approval-executor.ts",
+          "limitation": "Aprobación no es ejecución externa"
+        },
+        {
+          "name": "Acreditación de restore de HA",
+          "availability": "NO DISPONIBLE",
+          "evidence": "H6-015 pendiente",
+          "limitation": "No se libera reserva al restaurar"
+        }
+      ]
+    },
+    "R11": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "Barrera W41",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/integration/postgres-h5-008.test.ts",
+          "limitation": "Simula recuerdo externo, no restaura base"
+        },
+        {
+          "name": "Ejecutor y doble del nuevo ensayo",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Paquete H6-014",
+          "limitation": "No se ejecutan procesos nuevos"
+        }
+      ]
+    },
+    "R12": {
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "assets": [
+        {
+          "name": "Roles/ACL y evidencia H6-013",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "supabase/migrations y tests/hosted/README.md",
+          "limitation": "Hosted H0 parcial no equivale a 68 migraciones Hosted"
+        },
+        {
+          "name": "Recuperación de passwords de roles",
+          "availability": "NO DETERMINADO",
+          "evidence": "Fuera de los artefactos de evidencia",
+          "limitation": "No incluir pg_authid ni valores en manifiestos"
+        }
+      ]
+    },
+    "R13": {
+      "availability": "NO DISPONIBLE",
+      "assets": [
+        {
+          "name": "Contrato de verificador independiente",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/application/work-result-verification.ts",
+          "limitation": "Solo simulated, no proveedor real"
+        },
+        {
+          "name": "Testigo t0/t1 de nuevo ensayo",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Paquete H6-014",
+          "limitation": "Su materialización y prueba requieren H6-015"
+        }
+      ]
+    },
+    "R14": {
+      "availability": "DISPONIBLE Y ACREDITADO",
+      "assets": [
+        {
+          "name": "39940 versionados y 14954 excluidos",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/fixtures/h6-014/preflight.json",
+          "limitation": "Huella local; no WORM"
+        },
+        {
+          "name": "Custodia oficial Drive existente",
+          "availability": "CAPACIDAD DOCUMENTADA",
+          "evidence": "tests/fixtures/h6-013-drive-custody/custody-readback.json",
+          "limitation": "No nueva consulta o subida en esta ejecución; no confundir con copia CRM"
+        }
+      ]
+    },
+    "R15": {
+      "availability": "DISPONIBLE Y ACREDITADO",
+      "assets": [
+        {
+          "name": "Herramientas PostgreSQL 17.11 y Node",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/fixtures/h6-014/preflight.json",
+          "limitation": "No servicios iniciados"
+        },
+        {
+          "name": "Storage local preparado para el nuevo ensayo",
+          "availability": "NO DETERMINADO",
+          "evidence": "scripts/test-postgres.mjs",
+          "limitation": "Commit fijado; no se ha construido ni iniciado runtime"
+        }
+      ]
+    }
+  },
+  "operational_backups_accredited": false,
+  "extra_outputs": [
+    "tests/fixtures/h6-014-corrective/original-candidate.tar.gz",
+    "tests/fixtures/h6-014-corrective/authorization.txt",
+    "tests/fixtures/h6-014-corrective/baseline.json",
+    "tests/fixtures/h6-014-corrective/criteria.json",
+    "tests/fixtures/h6-014-corrective/criteria-seal.json",
+    "tests/fixtures/h6-014-corrective/results.json",
+    "specs/001-core-crm/corrective-TSK-H6-014-M1-m1.md",
+    "tests/fixtures/h6-014-corrective/manifest.json"
+  ],
+  "technical_sources": {
+    "pg_dump": "https://www.postgresql.org/docs/17/app-pgdump.html",
+    "pg_dumpall": "https://www.postgresql.org/docs/17/app-pg-dumpall.html",
+    "pg_restore": "https://www.postgresql.org/docs/17/app-pgrestore.html",
+    "createdb": "https://www.postgresql.org/docs/17/app-createdb.html",
+    "create_database": "https://www.postgresql.org/docs/17/sql-createdatabase.html",
+    "alter_database": "https://www.postgresql.org/docs/17/sql-alterdatabase.html"
+  },
+  "countertests_expected": [
+    "original-M1",
+    "long-no-owner",
+    "short-no-owner",
+    "no-acl",
+    "short-no-acl",
+    "missing-create",
+    "create-in-transaction",
+    "wrong-maintenance",
+    "unmarked-command",
+    "name-remapping",
+    "missing-property-query",
+    "invented-R02-backup",
+    "changed-main-availability",
+    "capacity-promoted-to-backup",
+    "inventory-contract-conflict",
+    "disabled-comparison",
+    "lost-witness",
+    "corrective-criteria-tamper",
+    "owner-drift",
+    "public-connect",
+    "public-temp",
+    "database-setting-loss",
+    "role-database-setting-loss",
+    "grant-option-drift",
+    "name-drift",
+    "equal-properties",
+    "acl-order-only"
+  ],
+  "limits": [
+    "No DB or SQL execution",
+    "Pure checks enforce a reviewed bounded command/SQL model; not arbitrary shell or natural-language semantics",
+    "Catalog equivalence is specified and countertested with synthetic values; actual original/restored catalog required in H6-015"
+  ]
+}

@@ -1,0 +1,1095 @@
+{
+  "schema": "h6-014-inventory-v1",
+  "task": "TSK-H6-014",
+  "base_commit": "07808f7d441452a8a2f251306824de3f8520b490",
+  "responsible_human": "Andrés",
+  "technical_executor": "ChatGPT Work",
+  "scope": "Fuentes y capacidades de preparación local/aislada; ninguna restauración ejecutada.",
+  "resource_labels_are_instrumentation": true,
+  "resources": [
+    {
+      "id": "R01",
+      "name": "Datos canónicos y versiones",
+      "owner": "Supabase/Core; Andrés",
+      "authority": "Migrador/administrador de copia solo para captura; runtime ordinario para validación de negocio",
+      "origin": "Cadena SQL y modelos CRM del commit base; origen sintético futuro por identificar",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Copia lógica custom de cada base sintética quiescente, con owners/ACL y esquema+datos. SQL versionado identifica la estructura; un dump nuevo quedará en área protegida. Correctivo M1: globals-only protegido por cluster; archive custom con propiedades de base y recibo de nombres idénticos.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "Capacidad de copia lógica disponible; ningún dump de datos restaurable creado o acreditado por H6-014.",
+      "assets": [
+        {
+          "name": "68 migraciones oficiales",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/fixtures/h6-013/migrations.json",
+          "limitation": "Instalación/upgrade históricos; no backup operativo",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Dump de datos del futuro punto H6-015",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Este paquete no contiene database.dump",
+          "limitation": "Ausencia limitada al paquete H6-014; no se ha buscado todo el Mac ni Hosted",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S05: restaurar roles y archivo completo en base nueva vacía, conservar owners/ACL y validar todas las relaciones. No repetir migraciones sobre el dump ya final. Aplicar database_recovery: pg_restore --create conectado a mantenimiento aislado, sin -1 ni precrear la base; igualdad privada de owner/ACL/GUC de base y rol-en-base antes de acceso. PUBLIC CONNECT/TEMPORARY denegados en Core.",
+      "dependencies": [
+        "R06",
+        "R07",
+        "R08",
+        "R12",
+        "R15"
+      ],
+      "integrity_checks": [
+        "SHA-256 y tamaño del archivo; punto, versiones, encoding y extensiones documentados",
+        "Identidades, versiones, importes/porciones exactos y referencias conservados"
+      ],
+      "risks": [
+        "Una copia de esquema no recupera hechos",
+        "No aplicar rol runtime como autoridad de restore"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "tests/fixtures/h6-013/migrations.json",
+          "line": 4,
+          "sha256": "8c35ccfbe37abb07d928e1a3a3023fa0dd8f97dea6e568f097aa788e0136c09d"
+        },
+        {
+          "path": "src/infrastructure/postgres/h2-booking-adapter.ts",
+          "line": 6,
+          "sha256": "b0f46e3c4d26d929f5922c82d58a10d7f2c58b2785e316ccc45f856a877206bb"
+        }
+      ],
+      "procedure_steps": [
+        "S03",
+        "S04",
+        "S05",
+        "S09"
+      ]
+    },
+    {
+      "id": "R02",
+      "name": "Historia, snapshots y resultados",
+      "owner": "Core; Andrés",
+      "authority": "Owner/migrador de custodia y contratos C03/C04 para los hechos",
+      "origin": "unit_history/unit_results, versiones de catálogo/propuesta, Acceptance y snapshots del Core",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Captura en el mismo corte/dump que R01; hashes exactos de datos en memoria, sin publicar filas sensibles.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "Conservación durante migraciones acreditada; restauración de datos no ejecutada.",
+      "assets": [
+        {
+          "name": "Snapshots y comparador histórico",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/support/h6-013-preservation.ts",
+          "limitation": "Filtra crm%; no cubre auth/storage ni globals",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Copia integral del punto futuro",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Paquete H6-014",
+          "limitation": "Se materializa únicamente en ensayo autorizado",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "Restaurar con R01; verificar historial e identificadores exactos. Separar hechos de negocio inmutables de las nuevas operaciones de seguridad posteriores al restore.",
+      "dependencies": [
+        "R01",
+        "R08",
+        "R09"
+      ],
+      "integrity_checks": [
+        "Comparación exacta antes/después con tipos, SQL NULL, precisión y multiplicidad",
+        "Correcciones/historia anteriores intactas"
+      ],
+      "risks": [
+        "Igualar respuestas JSON como Number puede perder precisión",
+        "No exigir que nuevos eventos de revocación desaparezcan para igualar una foto antigua"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "tests/support/h6-013-preservation.ts",
+          "line": 55,
+          "sha256": "8e3c730c4de25228de14a70efe0fbca0abe88b351e5abae72a81694b10df5262"
+        },
+        {
+          "path": "supabase/migrations/202609250000_h0_m02_unit_history.sql",
+          "line": 53,
+          "sha256": "35df65cac631c42669472f7382f2dbd36c5529b78c083aff30245fdefa9ee0f7"
+        }
+      ],
+      "procedure_steps": [
+        "S04",
+        "S05",
+        "S09"
+      ]
+    },
+    {
+      "id": "R03",
+      "name": "Objetos y metadatos de Storage",
+      "owner": "B07 y servicio Storage aislado; Andrés",
+      "authority": "Credencial privada server-only de Storage y contrato C04; ninguna URL conocida confiere permiso",
+      "origin": "b07_object_versions/bindings/orphans en Core; metadata y bytes del Storage de prueba en recurso/base propios",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Inventariar cada root/private_ref con digest/tamaño/media y estado; copiar bytes y metadata Storage en corte coordinado separado del dump Core. Native file backend local o API privada solo del ensayo autorizado.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "Adapter y ensayos históricos reales disponibles; servicio/copia de objetos del nuevo ensayo no determinados.",
+      "assets": [
+        {
+          "name": "Adapter y pruebas de conservación",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/infrastructure/postgres/h1-object-adapter.ts",
+          "limitation": "Código y evidencia histórica, no servicio iniciado",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Copia de bytes y metadata del punto H6-015",
+          "availability": "NO DETERMINADO",
+          "evidence": "Sin inventario del servicio futuro",
+          "limitation": "Storage usa base/backend separados en runner local",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S08: recuperar backend y metadata en su Storage privado, comprobar bytes con metadata y descargar mediante H1015ObjectAdapter. Ausencia/corrupción produce missing/revisión; nunca declarar original recuperado. R2-A04: metadata PostgreSQL Storage usa variante S05 Storage, archivo completo --create sin listas ni provisión crm_crypto; owner/ACL/GUC propios y recibo de catálogo previo. No aplicar la receta Core.",
+      "dependencies": [
+        "R01",
+        "R04",
+        "R06",
+        "R07"
+      ],
+      "integrity_checks": [
+        "Digest SHA-256, tamaño y media",
+        "Reautorización antes y después de descarga; huérfanos y referencias sin objeto enumerados"
+      ],
+      "risks": [
+        "Backup de PostgreSQL Core no incluye bytes de Storage",
+        "No simular transacción distribuida entre blob y registro"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "src/infrastructure/storage/private-storage.ts",
+          "line": 4,
+          "sha256": "a17d958ae4a4480160891df5ba0ade6c05001265f354893fdac9e87d250a72b1"
+        },
+        {
+          "path": "src/infrastructure/postgres/h1-object-adapter.ts",
+          "line": 89,
+          "sha256": "5fc5b73269e5ab616a820fb39296f2a0321a936ef4132dcb4277008c53b0bea3"
+        },
+        {
+          "path": "tests/integration/postgres-h1-016.test.ts",
+          "line": 138,
+          "sha256": "e9277b7f0538f4b280cb3137b866d08f70b75602848647aee988b4c98191472d"
+        },
+        {
+          "path": "scripts/test-postgres.mjs",
+          "line": 43,
+          "sha256": "4d8b0361ea277e18298f1a4413c288ccf710a54e480111484c2db398a59dd2f4"
+        }
+      ],
+      "procedure_steps": [
+        "S03",
+        "S04",
+        "S08",
+        "S09",
+        "S10"
+      ]
+    },
+    {
+      "id": "R04",
+      "name": "Auth, actores y sesiones",
+      "owner": "Auth identifica; CRM Actor autoriza; Andrés",
+      "authority": "AuthVerificationPort del servidor; F2 y habilitación vigente del actor",
+      "origin": "crm_actors/crm_sessions/identification_epochs; puerto Auth externo al Core",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Core en R01; Auth sintético con pruebas nuevas y registro de identidades fuera del rollback. En Hosted, backup/configuración Auth requieren mecanismo específico no acreditado.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "Mecanismos Core y doble sintético inspeccionados; adaptador Auth real del proyecto no disponible en estos componentes.",
+      "assets": [
+        {
+          "name": "Core y Auth sintético de ensayo",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/application/verified-auth.ts y tests/integration/synthetic-auth-fixture.ts",
+          "limitation": "No prueba identidad/MFA de proveedor",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Adaptador real Auth/propietario de este recorrido",
+          "availability": "NO DISPONIBLE",
+          "evidence": "src/server/human-postgres-composition.ts: comentarios de ausencia",
+          "limitation": "No se afirma indisponibilidad del servicio Supabase",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S07: mantener Auth proveedor fuera del punto restaurado, crear identificación nueva de prueba, preservar actor/subject/contexto y estado habilitado. No habilitar un actor deshabilitado o recuperación incompleta.",
+      "dependencies": [
+        "R05",
+        "R06",
+        "R07",
+        "R12"
+      ],
+      "integrity_checks": [
+        "Subject/actor/scope exactos",
+        "Contraseña+MFA verificadas por el puerto de ensayo, sin secretos en evidencia",
+        "Ninguna sesión vieja reutilizada como autoridad de reentrada"
+      ],
+      "risks": [
+        "Restaurar CRM Actor no restaura Auth real",
+        "Copiar proofs en memoria no recupera identidad proveedor"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "src/application/verified-auth.ts",
+          "line": 16,
+          "sha256": "17ed80ce21d14fd35d34f55e432eca30ba5fa1b7c0d28f07d3d9f044a75293a8"
+        },
+        {
+          "path": "src/server/human-postgres-composition.ts",
+          "line": 13,
+          "sha256": "2c051cdd5f0c69e9318c3f75c765798b8636c51f64653a3e5daaef4310ed4da5"
+        },
+        {
+          "path": "tests/integration/synthetic-auth-fixture.ts",
+          "line": 4,
+          "sha256": "e36442aa041edb47f93b9551817af803901c613a4df2907b5d5fdaf2ad7eeccf"
+        }
+      ],
+      "procedure_steps": [
+        "S03",
+        "S06",
+        "S07",
+        "S11"
+      ]
+    },
+    {
+      "id": "R05",
+      "name": "Sesiones revocadas y generaciones",
+      "owner": "B01/Core y Auth; Andrés",
+      "authority": "H0013GlobalAccessRevocationAdapter y AuthGlobalRevocationPort; no DML administrativo ad hoc",
+      "origin": "global_access_revocations/attempts, crm_sessions, access_generation y epochs, más testigo posterior externo al dump",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Capturar inventario sin tokens de sesiones/generaciones/revocaciones del corte y posteriores. Guardar el testigo fuera del recurso restaurado, con identidad y cobertura explícitas.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "Revocación contractual acreditada históricamente; testigo posterior específico aún no creado.",
+      "assets": [
+        {
+          "name": "Coordinador y contrato de revocación",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/infrastructure/postgres/h0-013-adapter.ts",
+          "limitation": "Pruebas locales heredadas; no ensayo restore",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Testigo de revocaciones posteriores para el nuevo corte",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Paquete H6-014",
+          "limitation": "Se construirá antes de la futura restauración, sin derivarlo del destino restaurado",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S07: identificación nueva de control en cuarentena; revokeAll por contrato existente, incluida emisora, por cada actor autorizado habilitado; exigir status completed y auth revoked. Luego identificación nueva distinta; probar rechazo de todas las sesiones del corte/testigo. Si actor no permite contrato o Auth incierto, no habilitarlo ni abrir acceso.",
+      "dependencies": [
+        "R04",
+        "R07",
+        "R13"
+      ],
+      "integrity_checks": [
+        "Ninguna sesión del corte/testigo acepta lectura, mutación, replay u objeto",
+        "Generación cambia mediante contrato existente; epochs viejos no autorizan",
+        "Revisor registra resultado sin tokens"
+      ],
+      "risks": [
+        "Restauración antigua puede borrar revocación posterior",
+        "Incremento de generación del Core no sustituye revocación Auth",
+        "No asumir que limpiar cookies revoca JWT"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "src/infrastructure/postgres/h0-013-adapter.ts",
+          "line": 142,
+          "sha256": "4a2f2ca73bb8e1ecfead0d558fb5671433cada307c3adb7c96e32f754f577560"
+        },
+        {
+          "path": "src/application/global-access-revocation.ts",
+          "line": 7,
+          "sha256": "5e59dd24b15be6acb45de47e0a62a03ea2745bf18e7874a1dcdf5dfa6fef7c14"
+        },
+        {
+          "path": "tests/integration/postgres-h0-014.test.ts",
+          "line": 123,
+          "sha256": "2f19dbc13e83f9298f59bb6ee068b4ccdc535fa642cda96134a4caf402258dc8"
+        }
+      ],
+      "procedure_steps": [
+        "S03",
+        "S07",
+        "S09",
+        "S11"
+      ]
+    },
+    {
+      "id": "R06",
+      "name": "Configuración",
+      "owner": "B01/B08/Storage; Andrés",
+      "authority": "Composición servidor y gestión protegida del entorno",
+      "origin": "CRM_ENV/CRM_ALLOWED_ORIGINS, versiones, composición F1/F2/TTE, Storage backend y parámetros de trabajos",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Conservar configuración no secreta versionada y recibo del ensayo; referencias protegidas para valores sensibles; exportar definiciones de automatismo con ejecutor detenido.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "Código y parámetros requeridos conocidos; configuración del nuevo recurso no materializada.",
+      "assets": [
+        {
+          "name": "Config y composición",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/server/config.ts y src/server/postgres-composition.ts",
+          "limitation": "No equivale a variables reales configuradas",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Configuración protegida de futuro ensayo",
+          "availability": "NO DETERMINADO",
+          "evidence": "No se han leído archivos de credenciales",
+          "limitation": "Sin parámetros productivos inventados",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S06: validar versiones y ambiente development aislado; cargar solo referencias autorizadas, no iniciar workers/scheduler ni conectores; parámetro material ausente mantiene función dependiente inactiva.",
+      "dependencies": [
+        "R07",
+        "R12",
+        "R15"
+      ],
+      "integrity_checks": [
+        "Lockfile y commit exactos; valores no secretos compatibles",
+        "Pool TTE exclusivo, finalidad/login/audience/generation coherentes"
+      ],
+      "risks": [
+        "Valores operativos no aprobados",
+        "No se invoca next build/typegen en H6-014"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "src/server/config.ts",
+          "line": 1,
+          "sha256": "11e3af57d35392ba4557cfbd4f2be3f438df9002709f79c42581f379d2d5f8de"
+        },
+        {
+          "path": "src/server/postgres-composition.ts",
+          "line": 9,
+          "sha256": "71c9fb6b0f78145c9d71149f0456d0668c61f77a60deeb48a22c0860d7f00bd3"
+        },
+        {
+          "path": "package.json",
+          "line": 9,
+          "sha256": "135c5c52046f92d70fa6c77c9e5fc9014a7e24fa2d6d20867b0e325de490cb3c"
+        }
+      ],
+      "procedure_steps": [
+        "S01",
+        "S02",
+        "S06",
+        "S11"
+      ]
+    },
+    {
+      "id": "R07",
+      "name": "Credenciales y claves protegidas",
+      "owner": "Andrés como custodio de secretos; B01 como consumidor",
+      "authority": "Custodio protegido del entorno; runtime sin SELECT general a claves; migrador separado",
+      "origin": "crm_f1.keys/crm_f2.keys y credenciales runtime/TTE/Storage/Auth; medios de acceso D025/D031",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Dump lógico integral contiene datos secret y queda protegido fuera de Git/Drive. Escrow de claves del ensayo y passwords de roles separado; evidencia contiene solo identificadores y resultados redactados.",
+      "availability": "NO DETERMINADO",
+      "availability_scope": "No se ha inspeccionado ni acreditado escrow, credenciales o backups reales; solo se verifica su necesidad técnica.",
+      "assets": [
+        {
+          "name": "Definición de claves y separación de autoridades",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "SQL F1/F2 y composiciones",
+          "limitation": "Existencia de columna secret no prueba disponibilidad del valor",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Escrow recuperable del nuevo ensayo",
+          "availability": "NO DETERMINADO",
+          "evidence": "Ningún valor o ubicación privada inspeccionados",
+          "limitation": "No asumir password de rol en backup; no rotar automáticamente",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S06: recuperar solo por custodio autorizado en fichero protegido o memoria, sin stdout/logs/contexto IA. Comprobar coherencia keyId/audience/generation y F1 != F2 sin imprimir material. Ausencia impide el paso dependiente. Recuperación real de cuenta/segundo factor sigue H6-009/010/011. D037.5/D038: renovar generación ambiental F1/F2 y provisión protegida antes de cualquier capability; conservar filas antiguas deshabilitadas. access_generation del actor no sustituye esta puerta.",
+      "dependencies": [
+        "R04",
+        "R06",
+        "R12"
+      ],
+      "integrity_checks": [
+        "Owners/ACL impiden acceso SQL a claves al rol ordinario",
+        "No valores secretos en artefactos, logs o argumentos",
+        "Todos los payloads de backup se tratan como protegidos, no evidencia publicable"
+      ],
+      "risks": [
+        "F1/F2 secret viaja en un dump aunque se omitan role passwords",
+        "Archivo con modo 0600 no garantiza cifrado, custodia o recuperación",
+        "No restaurar o rotar seguridad aprobada por instrucciones nuevas"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "supabase/migrations/202609160001_h0_f1_capabilities.sql",
+          "line": 34,
+          "sha256": "9edccd04ecd53c917005585cf675e96c607759b7d9db0face90db7cd633ea7c3"
+        },
+        {
+          "path": "supabase/migrations/202609260001_h0_m03_actor_session_access.sql",
+          "line": 55,
+          "sha256": "4b9767833e28268c609a0ecf4ef6b7e983e2940231acaec8b10ba9ab84df60a4"
+        },
+        {
+          "path": "specs/001-core-crm/evidence-TSK-H0-015.md",
+          "line": 14,
+          "sha256": "b2eaf17d64864b79cb3c80c3b9cd91e31b286162ea4b8ccf728661ed00b16a76"
+        }
+      ],
+      "procedure_steps": [
+        "S01",
+        "S04",
+        "S06",
+        "S07"
+      ]
+    },
+    {
+      "id": "R08",
+      "name": "Referencias e integridad",
+      "owner": "Módulos propietarios del dominio; Andrés",
+      "authority": "C03 e integridad PostgreSQL bajo owner/migrador; lectura ordinaria autorizada",
+      "origin": "PK/FK/constraints, identidades, versiones, vínculos, porciones y referencias externas",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Esquema y datos completos de R01/R02 más manifest de objetos/referencias; no copia selectiva que omita dependencias.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "Restricciones estáticas y evidencia de cadena conservadas; integridad del futuro destino por ejecutar.",
+      "assets": [
+        {
+          "name": "Constraints y comparadores",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/support/h6-013-preservation.ts",
+          "limitation": "No ejecutar ahora queries",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Validación del destino restaurado",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Futura H6-015",
+          "limitation": "No se ha creado destino",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S09: cotejar relaciones/valores y restricciones completas, separar referencias externas no recuperables de ausencia indebida; no arreglar inconsistencias borrando evidencia.",
+      "dependencies": [
+        "R01",
+        "R02",
+        "R03",
+        "R12"
+      ],
+      "integrity_checks": [
+        "Mismos IDs y relaciones; restricciones presentes/validadas",
+        "Bigint/decimal exactos, SQL NULL y multiplicidad preservados"
+      ],
+      "risks": [
+        "Huérfanos por omitir tablas",
+        "OID físico puede cambiar en cluster nuevo; comparar identidad lógica/definición, no exigir OID numérico histórico"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "tests/support/h6-013-preservation.ts",
+          "line": 71,
+          "sha256": "8e3c730c4de25228de14a70efe0fbca0abe88b351e5abae72a81694b10df5262"
+        },
+        {
+          "path": "specs/001-core-crm/closure-TSK-H6-013.md",
+          "line": 17,
+          "sha256": "aee0428281edaae0bb79c8165e4edebc317c35e9584250091ee40a7645317a93"
+        }
+      ],
+      "procedure_steps": [
+        "S05",
+        "S08",
+        "S09"
+      ]
+    },
+    {
+      "id": "R09",
+      "name": "Idempotencia",
+      "owner": "B01/B08/B09; Andrés",
+      "authority": "C03/C05 y T08/T09 con identidad operación/efecto",
+      "origin": "unit_operations/results/attempts, external_effect_records, b08_command_results y recibos de eventos",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Mismo corte transaccional que datos; retener identidad material/recibos y cotejar testigo externo posterior.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "Implementación y regresiones históricas disponibles; recuperación temporal integrada pendiente.",
+      "assets": [
+        {
+          "name": "Persistencia/idempotencia actual",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/infrastructure/postgres/persisted-work-executor.ts",
+          "limitation": "Un mock o receipt no acredita efecto externo",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Estado externo independiente del nuevo punto",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Futura H6-015",
+          "limitation": "No se genera aquí",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S10: equivalencia reutiliza resultado autorizado; contenido distinto conflicto; ausencia de recibo después de rollback no prueba ausencia del efecto. Fuente incierta mantiene reserva y revisión sin nuevo envío.",
+      "dependencies": [
+        "R10",
+        "R11",
+        "R13"
+      ],
+      "integrity_checks": [
+        "Misma identidad de efecto, parte, destinatario y versión",
+        "Replay reautorizado; no doble resultado económico o contacto"
+      ],
+      "risks": [
+        "Exactly-once externo no prometido",
+        "No restablecer claves de idempotencia para forzar repetición"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "src/infrastructure/postgres/persisted-work-executor.ts",
+          "line": 80,
+          "sha256": "8285e190186749ef2118bfe73e70ff1d373bc4e70b503b29ee860eba6c030ed2"
+        },
+        {
+          "path": "src/application/contracts.ts",
+          "line": 144,
+          "sha256": "fa05f5400015423d541d5703271c4402ae7979eed3e5a87db4f61b004510022c"
+        }
+      ],
+      "procedure_steps": [
+        "S05",
+        "S09",
+        "S10",
+        "S11"
+      ]
+    },
+    {
+      "id": "R10",
+      "name": "Aprobaciones y reservas",
+      "owner": "B08/HA; Andrés aprueba",
+      "authority": "TTE/D039, C03, aprobación exacta y unidades T08/T09",
+      "origin": "crm_ha.proposals/parts/decisions/reservations/events/command_receipts y revalidaciones",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Incluir todo en R01; mantener vínculos a b08 y ledger M02; no reseed de decisiones.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "Tablas y contratos implementados; su restore integrado no ejecutado.",
+      "assets": [
+        {
+          "name": "Aprobación/reserva por contrato",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/infrastructure/postgres/human-approval-executor.ts",
+          "limitation": "Aprobación no es ejecución externa",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Acreditación de restore de HA",
+          "availability": "NO DISPONIBLE",
+          "evidence": "H6-015 pendiente",
+          "limitation": "No se libera reserva al restaurar",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S09-S10: aprobación histórica se preserva; aplicabilidad actual se revalida. Retirada/expirada no se reactiva; resultado incierto mantiene reserva hasta fuente autorizada.",
+      "dependencies": [
+        "R02",
+        "R09",
+        "R11",
+        "R13"
+      ],
+      "integrity_checks": [
+        "Correspondencia exacta proposal/part/material/version/recipient",
+        "Reservas y eventos intactos; ningún resume reaprobará material"
+      ],
+      "risks": [
+        "Aplicabilidad obsoleta tras punto restaurado",
+        "Borrar reserva puede duplicar efecto"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "supabase/migrations/202609270000_h0_m04_human_approval.sql",
+          "line": 50,
+          "sha256": "a84df7f26adc7375a15ad1b9712a7457e244b2c1ef3553ac25b858cd9633dcb2"
+        },
+        {
+          "path": "src/infrastructure/postgres/human-approval-executor.ts",
+          "line": 7,
+          "sha256": "40e9712f75bdedf92abb450415bad60df6de0e0209d740be656411b9a054dde7"
+        }
+      ],
+      "procedure_steps": [
+        "S05",
+        "S09",
+        "S10",
+        "S11"
+      ]
+    },
+    {
+      "id": "R11",
+      "name": "Ejecuciones, intentos y resultados externos",
+      "owner": "B08/B09; responsable humano conservado en definición",
+      "authority": "Ejecutor limitado; verificador de efectos/resultados fuera de transacción y TTE",
+      "origin": "b08_definitions/executions/parts/attempts/command_results y registros de resultado externo",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Persistir definición/versiones, control, intentos, leases/generaciones y referencias. Capturar doble externo con estado propio en otro recurso fuera del rollback.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "Código y W41 disponibles; ningún scheduler/conector real acreditado.",
+      "assets": [
+        {
+          "name": "Barrera W41",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/integration/postgres-h5-008.test.ts",
+          "limitation": "Simula recuerdo externo, no restaura base",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Ejecutor y doble del nuevo ensayo",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Paquete H6-014",
+          "limitation": "No se ejecutan procesos nuevos",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S10: detener claims/starts; cotejar cada intento posterior. contacted/uncertain conservan incertidumbre. succeeded exige evidencia exacta; failed solo admite reintento seguro y autorización vigente.",
+      "dependencies": [
+        "R09",
+        "R10",
+        "R13"
+      ],
+      "integrity_checks": [
+        "Generación vigente del intento; respuesta tardía pertenece a su intento",
+        "Pause/stop/resume no borran historia ni autorizan repetir"
+      ],
+      "risks": [
+        "Lease vencido no prueba que no ocurrió efecto",
+        "No existe evidencia aquí de interruptor global de recuperación ya implementado: cuarentena es de infraestructura/proceso"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "src/domain/persisted-work.ts",
+          "line": 7,
+          "sha256": "de8b85735b5b155bc07935ab24af6c4cd65cb3fe241c89155d57c59d049f0986"
+        },
+        {
+          "path": "src/application/work-result-verification.ts",
+          "line": 26,
+          "sha256": "d93e7359f881ada95a5be3e49403a874ae4b1c186dba6edb9c1112836d421009"
+        },
+        {
+          "path": "tests/integration/postgres-h5-008.test.ts",
+          "line": 153,
+          "sha256": "f91187641881d6a85633b2b63ef7b7759a66523b83bf6e3ce845fa4c216e2ad0"
+        }
+      ],
+      "procedure_steps": [
+        "S02",
+        "S05",
+        "S09",
+        "S10",
+        "S11"
+      ]
+    },
+    {
+      "id": "R12",
+      "name": "Roles, propietarios, ACL, RLS y extensiones",
+      "owner": "B01 y administración de entorno; Andrés",
+      "authority": "Cluster bootstrap/migrador distintos de runtime/TTE; no superuser ordinario",
+      "origin": "Roles globales, memberships, owners, grants, FORCE RLS, SECURITY DEFINER/search_path, pgcrypto y collations",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Inventario de atributos y globals-only --no-role-passwords para cluster nuevo exclusivamente sintético; globals.sql igualmente protegido. Owners/ACL en archivo completo. Extensiones/versiones se comprueban sin mover pgcrypto. Correctivo M1: globals-only protegido por cluster; archive custom con propiedades de base y recibo de nombres idénticos.",
+      "availability": "CAPACIDAD DOCUMENTADA",
+      "availability_scope": "SQL oficial e inventarios de seguridad disponibles; variantes Hosted limitadas.",
+      "assets": [
+        {
+          "name": "Roles/ACL y evidencia H6-013",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "supabase/migrations y tests/hosted/README.md",
+          "limitation": "Hosted H0 parcial no equivale a 68 migraciones Hosted",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Recuperación de passwords de roles",
+          "availability": "NO DETERMINADO",
+          "evidence": "Fuera de los artefactos de evidencia",
+          "limitation": "No incluir pg_authid ni valores en manifiestos",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S05: crear roles del origen sintético en cluster nuevo con bootstrap distinto; restaurar con owner/ACL originales, sin --no-owner ni --no-privileges. Revisar globals.sql en área protegida y no reproducirlo en cluster compartido. Comparar privilegios antes de abrir acceso. Aplicar database_recovery: pg_restore --create conectado a mantenimiento aislado, sin -1 ni precrear la base; igualdad privada de owner/ACL/GUC de base y rol-en-base antes de acceso. PUBLIC CONNECT/TEMPORARY denegados en Core. A02 SOLO Core: restore por particiones TOC completas; schema crypto, provisión pgcrypto como crm_h0_migration 1.3 y resto. Owner extensión/CRM exacto; miembros nativos solo equivalencia builtin OID10 acotada y verificada por catálogo. Storage usa globals propios y la variante de archivo completo; roles/ACL exactos de su fuente.",
+      "dependencies": [
+        "R06",
+        "R07",
+        "R15"
+      ],
+      "integrity_checks": [
+        "Atributos, memberships y cadenas EXECUTE limitados",
+        "FORCE RLS, owners, search_path y firmas exactas por nombre",
+        "No tablas/funciones omitidas por filtro de esquemas"
+      ],
+      "risks": [
+        "Un dump de base no incluye roles globales",
+        "Globals-only puede incluir configuración sensible aunque omita passwords",
+        "No aplicar variantes Hosted al entorno local ni viceversa"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "tests/hosted/README.md",
+          "line": 15,
+          "sha256": "22ca1ef2c71e3726fabb30e617c823728fb702695615a313378f5bd6ff5c8489"
+        },
+        {
+          "path": "tests/support/h6-013-security.ts",
+          "line": 4,
+          "sha256": "414813bf48cccae26370b645c16f27bd2aa661958fa86b91be3963de88ffea8a"
+        },
+        {
+          "path": "supabase/migrations/202609150000_h0_m01_roles.sql",
+          "line": 2,
+          "sha256": "b80cae6d88fb2a3dfea504293fbc2b87ea5766a5e0b5436a05062be0a76f387e"
+        }
+      ],
+      "procedure_steps": [
+        "S01",
+        "S04",
+        "S05",
+        "S09"
+      ]
+    },
+    {
+      "id": "R13",
+      "name": "Testigo independiente posterior al punto recuperado",
+      "owner": "Fuente externa simulada independiente; Andrés",
+      "authority": "WorkResultVerifier y registro independiente de revocación; autoridad distinta del destino restaurado",
+      "origin": "Estado persistente de prueba fuera del recurso al que se aplicará rollback",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Registrar corte, hechos posteriores, IDs de efecto/intento/sesión, evidencia, completitud y punto final. Crear antes de restaurar, sin derivarlo del destino.",
+      "availability": "NO DISPONIBLE",
+      "availability_scope": "No existe un testigo temporal del nuevo ensayo dentro del paquete H6-014.",
+      "assets": [
+        {
+          "name": "Contrato de verificador independiente",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "src/application/work-result-verification.ts",
+          "limitation": "Solo simulated, no proveedor real",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Testigo t0/t1 de nuevo ensayo",
+          "availability": "NO DISPONIBLE",
+          "evidence": "Paquete H6-014",
+          "limitation": "Su materialización y prueba requieren H6-015",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "S03/S10: cargar testigo preservado y consultar el doble fuera de transacción. Si no hay fuente o cobertura suficiente, resultado desconocido y cuarentena; no inferir no-efecto de un lookup vacío incompleto.",
+      "dependencies": [
+        "R04",
+        "R05",
+        "R09",
+        "R11"
+      ],
+      "integrity_checks": [
+        "Origen, corte, hash y completitud del testigo separados",
+        "Doble no se restaura a t0 junto con el Core"
+      ],
+      "risks": [
+        "Restaurar ambos lados elimina el oráculo de efecto previo",
+        "Un recuerdo en memoria perdido tras caída no es testigo durable"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "src/application/work-result-verification.ts",
+          "line": 11,
+          "sha256": "d93e7359f881ada95a5be3e49403a874ae4b1c186dba6edb9c1112836d421009"
+        },
+        {
+          "path": "tests/integration/postgres-h5-008.test.ts",
+          "line": 156,
+          "sha256": "f91187641881d6a85633b2b63ef7b7759a66523b83bf6e3ce845fa4c216e2ad0"
+        }
+      ],
+      "procedure_steps": [
+        "S03",
+        "S04",
+        "S07",
+        "S10",
+        "S12"
+      ]
+    },
+    {
+      "id": "R14",
+      "name": "Fuentes y evidencia técnica histórica",
+      "owner": "GitHub documentación/código; Andrés custodio",
+      "authority": "Constitución P02; evidencia local y custodia oficial del proyecto",
+      "origin": "Commit base, expected/fixtures históricos y recibos de custodia H6-013",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Referencias por commit/hash; preservación byte a byte de versionados y 14954 excluidos; entrega de evidencias futura por tarea solo autorizada.",
+      "availability": "DISPONIBLE Y ACREDITADO",
+      "availability_scope": "Fuentes y recibos locales verificables; no nueva auditoría de descarga masiva ni backup CRM.",
+      "assets": [
+        {
+          "name": "39940 versionados y 14954 excluidos",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/fixtures/h6-014/preflight.json",
+          "limitation": "Huella local; no WORM",
+          "evidence_class": "repository-source",
+          "operational_backup": false
+        },
+        {
+          "name": "Custodia oficial Drive existente",
+          "availability": "CAPACIDAD DOCUMENTADA",
+          "evidence": "tests/fixtures/h6-013-drive-custody/custody-readback.json",
+          "limitation": "No nueva consulta o subida en esta ejecución; no confundir con copia CRM",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "Leer referencias y custodias mediante permisos correspondientes, comparar identidades. Nunca extraer sobre evidencias históricas ni tratar TAR documental como dump restaurable de negocio.",
+      "dependencies": [
+        "R15"
+      ],
+      "integrity_checks": [
+        "Árbol/commit/hashes/modos y conjunto de rutas",
+        "Expected nuevo sellado antes de inventario/procedimiento y separados de observado"
+      ],
+      "risks": [
+        "Copias externas requieren acceso y disponibilidad futura",
+        "Etiquetas históricas publicación pendiente no cambian alcance aprobado"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "specs/001-core-crm/closure-TSK-H6-013.md",
+          "line": 100,
+          "sha256": "aee0428281edaae0bb79c8165e4edebc317c35e9584250091ee40a7645317a93"
+        },
+        {
+          "path": "tests/fixtures/h6-013-drive-custody/custody-readback.json",
+          "line": 2,
+          "sha256": "04c7eacc960d0b757123841f2b956258c83df0c48101e483373e35982b65b526"
+        }
+      ],
+      "procedure_steps": [
+        "S01",
+        "S04",
+        "S13"
+      ]
+    },
+    {
+      "id": "R15",
+      "name": "Herramientas locales de copia y comprobación",
+      "owner": "Herramientas locales; Andrés",
+      "authority": "Ejecutor técnico autorizado; ayuda/versiones sin conexión",
+      "origin": "Postgres.app 17.11 y Node 24.21.0; Python de comprobaciones puras",
+      "destination": "Recurso nuevo y exclusivo local/aislado de una futura H6-015 autorizada; ningún destino operativo existente.",
+      "copy_mechanism": "Rutas/versiones y flags registrados en preflight; ayuda es capacidad, no resultado de dump/restore.",
+      "availability": "DISPONIBLE Y ACREDITADO",
+      "availability_scope": "Binarios comprobados con --version y --help; no arrancan servicios ni se conectan a base.",
+      "assets": [
+        {
+          "name": "Herramientas PostgreSQL 17.11 y Node",
+          "availability": "DISPONIBLE Y ACREDITADO",
+          "evidence": "tests/fixtures/h6-014/preflight.json",
+          "limitation": "No servicios iniciados",
+          "evidence_class": "installed-tool",
+          "operational_backup": false
+        },
+        {
+          "name": "Storage local preparado para el nuevo ensayo",
+          "availability": "NO DETERMINADO",
+          "evidence": "scripts/test-postgres.mjs",
+          "limitation": "Commit fijado; no se ha construido ni iniciado runtime",
+          "evidence_class": "not-accredited",
+          "operational_backup": false
+        }
+      ],
+      "recovery": "Resolver ruta absoluta de binarios, comprobar versiones contra fuente y formato de archivo. El verificador puro se ejecuta con python3 -B; no importará dependencias de suites con efectos.",
+      "dependencies": [
+        "R06"
+      ],
+      "integrity_checks": [
+        "Flags en ayuda instalada; formato custom compatible",
+        "Fuente Storage fijada en runner antes de una futura instalación autorizada"
+      ],
+      "risks": [
+        "No confundir pnpm test:postgres con verificación pura",
+        "No ejecutar build/typegen sobre árbol histórico"
+      ],
+      "execution_responsible": "ChatGPT Work o tercero técnico expresamente autorizado por Andrés",
+      "verification_responsible": "Ejecutor: comprobación interna; revisor independiente solo tras nueva autorización; Andrés acepta.",
+      "references": [
+        {
+          "path": "scripts/test-postgres.mjs",
+          "line": 11,
+          "sha256": "4d8b0361ea277e18298f1a4413c288ccf710a54e480111484c2db398a59dd2f4"
+        },
+        {
+          "path": "scripts/run-h6-013-corrective.py",
+          "line": 65,
+          "sha256": "f24da1ff03756a81c0112066383551b5123686bea06375e6d8d4f6bee5544b9b"
+        }
+      ],
+      "procedure_steps": [
+        "S01",
+        "S04",
+        "S05",
+        "S13"
+      ]
+    }
+  ],
+  "claims": {
+    "integrated_restore": false,
+    "AC-073_global": false,
+    "hosted": false,
+    "production": false,
+    "task_closed": false,
+    "independent_audit": false
+  },
+  "pending": {
+    "ARCH-PENDING-002": "OPEN/PENDING",
+    "DM-PENDING-005": "OPEN"
+  },
+  "future_required_inputs": [
+    "Autorización específica H6-015 y dependencias H6-006/H6-008 satisfechas",
+    "Origen/destino sintéticos exclusivos con responsables y autoridades",
+    "Corte consistente y copias íntegramente identificadas",
+    "Secretos del ensayo recuperables mediante custodio protegido",
+    "Testigo externo posterior y revocaciones fuera del rollback"
+  ],
+  "database_recovery": {
+    "mechanism": "postgres17-custom-archive-create",
+    "global_scope": "globals-only-no-role-passwords",
+    "global_policy": "new-exclusive-cluster-default-tablespaces-only",
+    "name_policy": "source-equals-archive-equals-destination",
+    "maintenance_policy": "rename-only-empty-initdb-postgres-before-import",
+    "maintenance_name_pattern": "^h6015_maint_[a-z0-9_]{1,40}$",
+    "archive_target_must_not_exist": true,
+    "create_transaction": "none-exit-on-error-discard-failed-destination",
+    "owner_acl_settings": "resource-specific-core-partitioned-storage-complete-archive",
+    "property_snapshot_sql_sha256": "2d31aa842bf246642ffb36c7964e57c0b582972c85011a43d17a32177672fab5",
+    "equivalence_fields": [
+      "database",
+      "owner",
+      "acl-grantor-grantee-privilege-grant-option",
+      "database-settings",
+      "role-in-database-settings"
+    ],
+    "core_public_connect_temp": "source-and-destination-denied",
+    "post_restore_gate": "private-exact-snapshot-equality-and-independent-effective-privilege-review",
+    "runtime_evidence": "NO EJECUTADA; required in authorized H6-015",
+    "resume_on_exit_zero": false,
+    "extension_create_is_not_owner_restore": true
+  },
+  "environment_generation_recovery": {
+    "normative_source": "docs/DECISIONS.md D037.5 and D038.6",
+    "stage": "S06-before-S07-any-capability-or-service",
+    "authority": "protected-administrative-provisioning-never-runtime",
+    "distinct_from_actor_access_generation": true,
+    "fresh_F1_F2_generation_keys": true,
+    "all_restored_enabled_keys_disabled_retained": true,
+    "protected_parameterized_transaction": true,
+    "new_signers_only_after_commit_and_readback": true,
+    "old_capabilities_and_old_generation_denied": true,
+    "failure_keeps_quarantine": true,
+    "observed_state": "NO EJECUTADA"
+  },
+  "extension_recovery": {
+    "name": "pgcrypto",
+    "schema": "crm_crypto",
+    "version": "1.3",
+    "extension_owner": "crm_h0_migration",
+    "phases": [
+      "database",
+      "crypto-schema",
+      "provision-extension",
+      "content"
+    ],
+    "partition_complete_disjoint": true,
+    "bootstrap_member_equivalence": "only-non-definer-C-functions-pgcrypto-members-default-ACL-owner-OID10-to-OID10",
+    "crm_owners_acl_no_normalization": true,
+    "source_receipt_and_independent_catalog_check_required": true,
+    "observed_state": "NO EJECUTADA",
+    "resource_kind": "core"
+  },
+  "storage_database_recovery": {
+    "resource_kind": "storage",
+    "source_runner": "scripts/test-postgres.mjs",
+    "upstream_commit": "5def1dfc15ab7f08fe271c7d1e70542424524e4e",
+    "database": "postgres",
+    "owner": "postgres",
+    "archive_policy": "full-custom-create-no-use-list",
+    "globals_once_per_cluster": true,
+    "crm_extension_recipe_applicable": false,
+    "nonbuiltin_extensions": "must-be-absent-or-stop-unreviewed-variant",
+    "platform_baseline": "builtin-initdb-objects-independent-platform-proof-not-restored-CRM-objects",
+    "catalog_and_effective_privileges": "source-destination-exact-no-core-PUBLIC-assumption",
+    "actual_catalog_receipt_required": true,
+    "observed_state": "NO EJECUTADA"
+  }
+}

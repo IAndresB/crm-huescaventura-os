@@ -1,0 +1,2364 @@
+{
+  "schema": "h6-014-run-history-v1",
+  "runs": [
+    {
+      "schema": "h6-014-verification-v1",
+      "task": "TSK-H6-014",
+      "checked_utc": "2026-10-21T16:42:31.122363+00:00",
+      "base_commit": "07808f7d441452a8a2f251306824de3f8520b490",
+      "base_tree": "f2482423116e9d09313edbc7d63bd397a92bddc8",
+      "verifier_sha256": "df9f9463f8f309a25979c87d9eaa22ec7c31cc7df31679dfff53a5dd6160687d",
+      "expected_sha256": "aaab43534e34e4256406ef413167e409784d307253a3cf22be2708c7037554f1",
+      "positive_checks": [
+        {
+          "id": "P01",
+          "expected": "Las fuentes y las seis asignaciones coinciden con la base aprobada.",
+          "result": "PASS"
+        },
+        {
+          "id": "P02",
+          "expected": "Los once recursos obligatorios y cuatro soportes técnicos tienen una ficha única.",
+          "result": "PASS"
+        },
+        {
+          "id": "P03",
+          "expected": "Cada ficha identifica autoridad, origen/destino, copia, recuperación, dependencias, integridad, riesgos y responsables.",
+          "result": "PASS"
+        },
+        {
+          "id": "P04",
+          "expected": "Solo se usan las cuatro clasificaciones autorizadas, con alcance y evidencia; copia operativa no inferida.",
+          "result": "PASS"
+        },
+        {
+          "id": "P05",
+          "expected": "Referencias del inventario y matriz son locales, existentes, sin traversal ni enlaces temporales.",
+          "result": "PASS"
+        },
+        {
+          "id": "P06",
+          "expected": "Los pasos S01-S13 siguen preparación, recuperación, seguridad, conciliación, medición y evidencia.",
+          "result": "PASS"
+        },
+        {
+          "id": "P07",
+          "expected": "Cuarentena de red, accesos y efectos desde antes de restaurar hasta decisión explícita; no reanudación automática.",
+          "result": "PASS"
+        },
+        {
+          "id": "P08",
+          "expected": "Corte consistente de base(s) y objetos con escritores detenidos; testigo posterior fuera del rollback.",
+          "result": "PASS"
+        },
+        {
+          "id": "P09",
+          "expected": "Volcado con F1/F2 se trata como secreto; roles y passwords separados, owner/ACL conservados.",
+          "result": "PASS"
+        },
+        {
+          "id": "P10",
+          "expected": "Identificación nueva y revocación global por contrato existente antes de acceso; fallo mantiene cuarentena.",
+          "result": "PASS"
+        },
+        {
+          "id": "P11",
+          "expected": "Storage se recupera separado; ausencia, corrupción y huérfanos no constan íntegros.",
+          "result": "PASS"
+        },
+        {
+          "id": "P12",
+          "expected": "Aprobaciones, reservas e incertidumbre conservadas; conciliar fuente independiente antes de repetir o reanudar.",
+          "result": "PASS"
+        },
+        {
+          "id": "P13",
+          "expected": "Se definen pérdida por hechos y duración observadas, con desconocidos; ningún objetivo/cadencia/coste productivo.",
+          "result": "PASS"
+        },
+        {
+          "id": "P14",
+          "expected": "Exactamente seis filas de Tasks, vinculadas con recursos, pasos, comprobaciones y evidencia.",
+          "result": "PASS"
+        },
+        {
+          "id": "P15",
+          "expected": "Solo preparación local sintética; restauración, AC-073 integral, Hosted/Production y cierre no acreditados.",
+          "result": "PASS"
+        },
+        {
+          "id": "P16",
+          "expected": "Artefactos nuevos sin credenciales serializadas, JWT, claves privadas, URLs temporales ni DSN con contraseña.",
+          "result": "PASS"
+        },
+        {
+          "id": "P17",
+          "expected": "39940 versionados, índice, 68 migraciones y 14954 históricos excluidos permanecen idénticos.",
+          "result": "PASS"
+        },
+        {
+          "id": "P18",
+          "expected": "Expected previo y autorización identificados por SHA-256; no se reescriben para obtener PASS.",
+          "result": "PASS"
+        },
+        {
+          "id": "P19",
+          "expected": "Herramientas solo comprobadas con --version/--help; no se acredita disponibilidad de copias o servicios.",
+          "result": "PASS"
+        },
+        {
+          "id": "P20",
+          "expected": "Cada mutación prevista debe rechazarse por la causa esperada, sin escribir fixtures negativos.",
+          "result": "PASS"
+        },
+        {
+          "id": "P21",
+          "expected": "Pasos con entradas, acciones, salida observable y condición de parada; comandos y contratos existentes.",
+          "result": "PASS"
+        },
+        {
+          "id": "P22",
+          "expected": "ARCH-PENDING-002/DM-PENDING-005 abiertos; auditoría independiente, cierre y publicación pendientes.",
+          "result": "PASS"
+        }
+      ],
+      "counterexamples": [
+        {
+          "id": "N01",
+          "mutation": "omit-resource",
+          "expected_error": "INVENTORY_COVERAGE",
+          "observed_errors": [
+            "INVENTORY_COVERAGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N02",
+          "mutation": "duplicate-resource",
+          "expected_error": "INVENTORY_COVERAGE",
+          "observed_errors": [
+            "INVENTORY_COVERAGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N03",
+          "mutation": "unknown-availability",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N04",
+          "mutation": "unproved-backup",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N05",
+          "mutation": "missing-revocation-gate",
+          "expected_error": "SESSION_SAFETY",
+          "observed_errors": [
+            "SESSION_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N06",
+          "mutation": "automatic-resume",
+          "expected_error": "EXTERNAL_SAFETY",
+          "observed_errors": [
+            "EXTERNAL_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N07",
+          "mutation": "lost-uncertainty",
+          "expected_error": "EXTERNAL_SAFETY",
+          "observed_errors": [
+            "EXTERNAL_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N08",
+          "mutation": "source-tamper",
+          "expected_error": "SOURCE_IDENTITY",
+          "observed_errors": [
+            "SOURCE_IDENTITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N09",
+          "mutation": "normative-row-tamper",
+          "expected_error": "NORMATIVE_MATRIX",
+          "observed_errors": [
+            "NORMATIVE_MATRIX"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N10",
+          "mutation": "path-traversal",
+          "expected_error": "REFERENCES",
+          "observed_errors": [
+            "REFERENCES"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N11",
+          "mutation": "integrated-credit",
+          "expected_error": "SCOPE",
+          "observed_errors": [
+            "SCOPE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N12",
+          "mutation": "invented-rpo",
+          "expected_error": "MEASUREMENT",
+          "observed_errors": [
+            "MEASUREMENT"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N13",
+          "mutation": "storage-omission",
+          "expected_error": "OBJECT_SAFETY",
+          "observed_errors": [
+            "OBJECT_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N14",
+          "mutation": "jwt-material",
+          "expected_error": "SECRET",
+          "observed_errors": [
+            "SECRET"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N15",
+          "mutation": "private-key-material",
+          "expected_error": "SECRET",
+          "observed_errors": [
+            "SECRET"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N16",
+          "mutation": "dsn-password",
+          "expected_error": "SECRET",
+          "observed_errors": [
+            "SECRET"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N17",
+          "mutation": "expected-tamper",
+          "expected_error": "EXPECTED_SEAL",
+          "observed_errors": [
+            "EXPECTED_SEAL"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N18",
+          "mutation": "manifest-tamper",
+          "expected_error": "MANIFEST",
+          "observed_errors": [
+            "MANIFEST"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        }
+      ],
+      "errors": [],
+      "document_checks": {
+        "errors": [],
+        "shell_blocks_parsed_not_executed": 3,
+        "relative_links_checked": 10,
+        "existing_exports_checked": 4
+      },
+      "candidate_revision": "H6-014-M1-m1",
+      "original_candidate": {
+        "errors": [],
+        "files_reconstructible": 11,
+        "archive_sha256": "c598b992fc1017f1770111c61542bb1fdb3f79c390092a73499a772ecdbf3c30",
+        "original_manifest_sha256": "5dea28d050d8c8fb194cdc03929baaf3a3196a058204d26c8025520ae7990db4",
+        "original_results_untouched": true
+      },
+      "supplemental_criteria_sha256": "82a270c5c100fcddad9eb1374487e784e0f9fa830a661fc6f43d5146806c6f5e",
+      "corrective_tests": [
+        {
+          "id": "original-M1",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "AVAILABILITY",
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "long-no-owner",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "short-no-owner",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "no-acl",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "short-no-acl",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-create",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "create-in-transaction",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "wrong-maintenance",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "unmarked-command",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "name-remapping",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-property-query",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "invented-R02-backup",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "changed-main-availability",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "capacity-promoted-to-backup",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "inventory-contract-conflict",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "disabled-comparison",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "lost-witness",
+          "expected_error": "SOURCE_CUT",
+          "observed_errors": [
+            "SOURCE_CUT"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "corrective-criteria-tamper",
+          "expected_error": "CORRECTIVE_CRITERIA",
+          "observed_errors": [
+            "CORRECTIVE_CRITERIA"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "owner-drift",
+          "expected_error": "DATABASE_OWNER",
+          "observed_errors": [
+            "DATABASE_OWNER"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "public-connect",
+          "expected_error": "PUBLIC_DATABASE_PRIVILEGE",
+          "observed_errors": [
+            "DATABASE_ACL",
+            "PUBLIC_DATABASE_PRIVILEGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "public-temp",
+          "expected_error": "PUBLIC_DATABASE_PRIVILEGE",
+          "observed_errors": [
+            "DATABASE_ACL",
+            "PUBLIC_DATABASE_PRIVILEGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "database-setting-loss",
+          "expected_error": "DATABASE_SETTINGS",
+          "observed_errors": [
+            "DATABASE_SETTINGS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "role-database-setting-loss",
+          "expected_error": "ROLE_DATABASE_SETTINGS",
+          "observed_errors": [
+            "ROLE_DATABASE_SETTINGS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "grant-option-drift",
+          "expected_error": "DATABASE_ACL",
+          "observed_errors": [
+            "DATABASE_ACL"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "name-drift",
+          "expected_error": "DATABASE_NAME",
+          "observed_errors": [
+            "DATABASE_NAME"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "equal-properties",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "acl-order-only",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-name-guard",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-fail-fast",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "unquoted-connection",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "unmodeled-command",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        }
+      ],
+      "protected": {
+        "tracked": {
+          "count": 39940,
+          "bytes": 731158616,
+          "descriptor_set_sha256": "dd16c5b99a7e1de7b4834c8d834fdca015b54957e65b6153479a4fdb1db58e46"
+        },
+        "historical_excluded": {
+          "count": 14954,
+          "bytes": 172003534,
+          "descriptor_set_sha256": "c87051517945709193252ae22a82c5dc599748304241523317b91f1fc4c33ca1"
+        },
+        "index_sha256": "f7b9958b53c78a669678bdad47dbfe8a24b768dc337e3063b75aa4d92ba8633b",
+        "unchanged": true,
+        "unexpected_new_paths": [],
+        "migrations": 68
+      },
+      "result": "PASS",
+      "claims": {
+        "integrated_restore": false,
+        "AC-073_global": false,
+        "hosted": false,
+        "production": false,
+        "task_closed": false,
+        "independent_audit": false
+      },
+      "limits": [
+        "Verificación estática y contrapruebas en memoria; no valida ejecución PostgreSQL/Auth/Storage.",
+        "La revisión de contenido es del ejecutor, no auditoría independiente.",
+        "Sellado horario local, sin reloj externo ni WORM.",
+        "Disponibilidad de backups/PITR y escrow real no acreditada.",
+        "Estructura, referencias y reglas explícitas; no prueba semántica completa del lenguaje natural ni ejecución de comandos del procedimiento."
+      ],
+      "previous_report_sha256": null
+    },
+    {
+      "schema": "h6-014-verification-v1",
+      "task": "TSK-H6-014",
+      "checked_utc": "2026-10-21T17:24:20.801924+00:00",
+      "base_commit": "07808f7d441452a8a2f251306824de3f8520b490",
+      "base_tree": "f2482423116e9d09313edbc7d63bd397a92bddc8",
+      "verifier_sha256": "36ceab0f68147c6999e904f5a3d1456e4eff3629320e67b12b798d405961d47a",
+      "expected_sha256": "aaab43534e34e4256406ef413167e409784d307253a3cf22be2708c7037554f1",
+      "positive_checks": [
+        {
+          "id": "P01",
+          "expected": "Las fuentes y las seis asignaciones coinciden con la base aprobada.",
+          "result": "PASS"
+        },
+        {
+          "id": "P02",
+          "expected": "Los once recursos obligatorios y cuatro soportes técnicos tienen una ficha única.",
+          "result": "PASS"
+        },
+        {
+          "id": "P03",
+          "expected": "Cada ficha identifica autoridad, origen/destino, copia, recuperación, dependencias, integridad, riesgos y responsables.",
+          "result": "PASS"
+        },
+        {
+          "id": "P04",
+          "expected": "Solo se usan las cuatro clasificaciones autorizadas, con alcance y evidencia; copia operativa no inferida.",
+          "result": "PASS"
+        },
+        {
+          "id": "P05",
+          "expected": "Referencias del inventario y matriz son locales, existentes, sin traversal ni enlaces temporales.",
+          "result": "PASS"
+        },
+        {
+          "id": "P06",
+          "expected": "Los pasos S01-S13 siguen preparación, recuperación, seguridad, conciliación, medición y evidencia.",
+          "result": "PASS"
+        },
+        {
+          "id": "P07",
+          "expected": "Cuarentena de red, accesos y efectos desde antes de restaurar hasta decisión explícita; no reanudación automática.",
+          "result": "PASS"
+        },
+        {
+          "id": "P08",
+          "expected": "Corte consistente de base(s) y objetos con escritores detenidos; testigo posterior fuera del rollback.",
+          "result": "PASS"
+        },
+        {
+          "id": "P09",
+          "expected": "Volcado con F1/F2 se trata como secreto; roles y passwords separados, owner/ACL conservados.",
+          "result": "PASS"
+        },
+        {
+          "id": "P10",
+          "expected": "Identificación nueva y revocación global por contrato existente antes de acceso; fallo mantiene cuarentena.",
+          "result": "PASS"
+        },
+        {
+          "id": "P11",
+          "expected": "Storage se recupera separado; ausencia, corrupción y huérfanos no constan íntegros.",
+          "result": "PASS"
+        },
+        {
+          "id": "P12",
+          "expected": "Aprobaciones, reservas e incertidumbre conservadas; conciliar fuente independiente antes de repetir o reanudar.",
+          "result": "PASS"
+        },
+        {
+          "id": "P13",
+          "expected": "Se definen pérdida por hechos y duración observadas, con desconocidos; ningún objetivo/cadencia/coste productivo.",
+          "result": "PASS"
+        },
+        {
+          "id": "P14",
+          "expected": "Exactamente seis filas de Tasks, vinculadas con recursos, pasos, comprobaciones y evidencia.",
+          "result": "PASS"
+        },
+        {
+          "id": "P15",
+          "expected": "Solo preparación local sintética; restauración, AC-073 integral, Hosted/Production y cierre no acreditados.",
+          "result": "PASS"
+        },
+        {
+          "id": "P16",
+          "expected": "Artefactos nuevos sin credenciales serializadas, JWT, claves privadas, URLs temporales ni DSN con contraseña.",
+          "result": "PASS"
+        },
+        {
+          "id": "P17",
+          "expected": "39940 versionados, índice, 68 migraciones y 14954 históricos excluidos permanecen idénticos.",
+          "result": "PASS"
+        },
+        {
+          "id": "P18",
+          "expected": "Expected previo y autorización identificados por SHA-256; no se reescriben para obtener PASS.",
+          "result": "PASS"
+        },
+        {
+          "id": "P19",
+          "expected": "Herramientas solo comprobadas con --version/--help; no se acredita disponibilidad de copias o servicios.",
+          "result": "PASS"
+        },
+        {
+          "id": "P20",
+          "expected": "Cada mutación prevista debe rechazarse por la causa esperada, sin escribir fixtures negativos.",
+          "result": "PASS"
+        },
+        {
+          "id": "P21",
+          "expected": "Pasos con entradas, acciones, salida observable y condición de parada; comandos y contratos existentes.",
+          "result": "PASS"
+        },
+        {
+          "id": "P22",
+          "expected": "ARCH-PENDING-002/DM-PENDING-005 abiertos; auditoría independiente, cierre y publicación pendientes.",
+          "result": "PASS"
+        }
+      ],
+      "counterexamples": [
+        {
+          "id": "N01",
+          "mutation": "omit-resource",
+          "expected_error": "INVENTORY_COVERAGE",
+          "observed_errors": [
+            "INVENTORY_COVERAGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N02",
+          "mutation": "duplicate-resource",
+          "expected_error": "INVENTORY_COVERAGE",
+          "observed_errors": [
+            "INVENTORY_COVERAGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N03",
+          "mutation": "unknown-availability",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N04",
+          "mutation": "unproved-backup",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N05",
+          "mutation": "missing-revocation-gate",
+          "expected_error": "SESSION_SAFETY",
+          "observed_errors": [
+            "SESSION_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N06",
+          "mutation": "automatic-resume",
+          "expected_error": "EXTERNAL_SAFETY",
+          "observed_errors": [
+            "EXTERNAL_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N07",
+          "mutation": "lost-uncertainty",
+          "expected_error": "EXTERNAL_SAFETY",
+          "observed_errors": [
+            "EXTERNAL_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N08",
+          "mutation": "source-tamper",
+          "expected_error": "SOURCE_IDENTITY",
+          "observed_errors": [
+            "SOURCE_IDENTITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N09",
+          "mutation": "normative-row-tamper",
+          "expected_error": "NORMATIVE_MATRIX",
+          "observed_errors": [
+            "NORMATIVE_MATRIX"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N10",
+          "mutation": "path-traversal",
+          "expected_error": "REFERENCES",
+          "observed_errors": [
+            "REFERENCES"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N11",
+          "mutation": "integrated-credit",
+          "expected_error": "SCOPE",
+          "observed_errors": [
+            "SCOPE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N12",
+          "mutation": "invented-rpo",
+          "expected_error": "MEASUREMENT",
+          "observed_errors": [
+            "MEASUREMENT"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N13",
+          "mutation": "storage-omission",
+          "expected_error": "OBJECT_SAFETY",
+          "observed_errors": [
+            "OBJECT_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N14",
+          "mutation": "jwt-material",
+          "expected_error": "SECRET",
+          "observed_errors": [
+            "SECRET"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N15",
+          "mutation": "private-key-material",
+          "expected_error": "SECRET",
+          "observed_errors": [
+            "SECRET"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N16",
+          "mutation": "dsn-password",
+          "expected_error": "SECRET",
+          "observed_errors": [
+            "SECRET"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N17",
+          "mutation": "expected-tamper",
+          "expected_error": "EXPECTED_SEAL",
+          "observed_errors": [
+            "EXPECTED_SEAL"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N18",
+          "mutation": "manifest-tamper",
+          "expected_error": "MANIFEST",
+          "observed_errors": [
+            "MANIFEST"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        }
+      ],
+      "errors": [],
+      "document_checks": {
+        "errors": [],
+        "shell_blocks_parsed_not_executed": 3,
+        "relative_links_checked": 11,
+        "existing_exports_checked": 4
+      },
+      "candidate_revision": "H6-014-M1-m1-r2",
+      "revision_criteria_sha256": "e9d933b93a1b29e9761cc0b6081ba4ffce23bd59ca8624c545ecb86c422b5fc3",
+      "input_sha256": {
+        "specs/001-core-crm/procedure-TSK-H6-014.md": "4cb4d157d75ce52658c09ec134e50742489f6f66cd06481f5b165f0b6550e681",
+        "specs/001-core-crm/inventory-TSK-H6-014.json": "15ea2c522f5680ce4b1d3eb670f24782a048c0a1ff6873a4bd8535de3e9ed8db",
+        "specs/001-core-crm/matrix-TSK-H6-014.json": "28fda4bd594d4a7a12b48db46c897d8f3e07618e2a4b27487147f7c561f54f77"
+      },
+      "original_candidate": {
+        "errors": [],
+        "files_reconstructible": 11,
+        "archive_sha256": "c598b992fc1017f1770111c61542bb1fdb3f79c390092a73499a772ecdbf3c30",
+        "original_manifest_sha256": "5dea28d050d8c8fb194cdc03929baaf3a3196a058204d26c8025520ae7990db4",
+        "original_results_untouched": true
+      },
+      "supplemental_criteria_sha256": "82a270c5c100fcddad9eb1374487e784e0f9fa830a661fc6f43d5146806c6f5e",
+      "corrective_tests": [
+        {
+          "id": "original-M1",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "AVAILABILITY",
+            "ENVIRONMENT_RENEWAL",
+            "EXTENSION_RECOVERY",
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "long-no-owner",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "short-no-owner",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "no-acl",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "short-no-acl",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-create",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "create-in-transaction",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "wrong-maintenance",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "unmarked-command",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "name-remapping",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-property-query",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "invented-R02-backup",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "changed-main-availability",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "capacity-promoted-to-backup",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "inventory-contract-conflict",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "disabled-comparison",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "lost-witness",
+          "expected_error": "SOURCE_CUT",
+          "observed_errors": [
+            "SOURCE_CUT"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "corrective-criteria-tamper",
+          "expected_error": "CORRECTIVE_CRITERIA",
+          "observed_errors": [
+            "CORRECTIVE_CRITERIA"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "owner-drift",
+          "expected_error": "DATABASE_OWNER",
+          "observed_errors": [
+            "DATABASE_OWNER"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "public-connect",
+          "expected_error": "PUBLIC_DATABASE_PRIVILEGE",
+          "observed_errors": [
+            "DATABASE_ACL",
+            "PUBLIC_DATABASE_PRIVILEGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "public-temp",
+          "expected_error": "PUBLIC_DATABASE_PRIVILEGE",
+          "observed_errors": [
+            "DATABASE_ACL",
+            "PUBLIC_DATABASE_PRIVILEGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "database-setting-loss",
+          "expected_error": "DATABASE_SETTINGS",
+          "observed_errors": [
+            "DATABASE_SETTINGS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "role-database-setting-loss",
+          "expected_error": "ROLE_DATABASE_SETTINGS",
+          "observed_errors": [
+            "ROLE_DATABASE_SETTINGS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "grant-option-drift",
+          "expected_error": "DATABASE_ACL",
+          "observed_errors": [
+            "DATABASE_ACL"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "name-drift",
+          "expected_error": "DATABASE_NAME",
+          "observed_errors": [
+            "DATABASE_NAME"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "equal-properties",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "acl-order-only",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-name-guard",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-fail-fast",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "unquoted-connection",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "unmodeled-command",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-disable-errexit",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-enable-xtrace",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-disable-nounset",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-disable-pipefail",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-relax-umask",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "restored-environment-generation",
+          "expected_error": "ENVIRONMENT_RENEWAL",
+          "observed_errors": [
+            "ENVIRONMENT_RENEWAL"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "extension-as-bootstrap",
+          "expected_error": "EXTENSION_RECOVERY",
+          "observed_errors": [
+            "EXTENSION_RECOVERY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "generation-renewal-positive",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "generation-renewal-omitted",
+          "expected_error": "ENVIRONMENT_RENEWAL",
+          "observed_errors": [
+            "ENVIRONMENT_RENEWAL"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "extension-builtin-correspondence",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "extension-owner-drift",
+          "expected_error": "EXTENSION_OWNER_VERSION",
+          "observed_errors": [
+            "EXTENSION_OWNER_VERSION"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "extension-definer-mapping-denied",
+          "expected_error": "EXTENSION_MEMBER_AUTHORITY",
+          "observed_errors": [
+            "EXTENSION_MEMBER_AUTHORITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "extension-bootstrap-unproved",
+          "expected_error": "EXTENSION_BOOTSTRAP",
+          "observed_errors": [
+            "EXTENSION_BOOTSTRAP"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "toc-complete-disjoint",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "toc-missing-database",
+          "expected_error": "TOC_REJECTED",
+          "observed_errors": [
+            "TOC_REJECTED"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "toc-duplicate-id",
+          "expected_error": "TOC_REJECTED",
+          "observed_errors": [
+            "TOC_REJECTED"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        }
+      ],
+      "protected": {
+        "tracked": {
+          "count": 39940,
+          "bytes": 731158616,
+          "descriptor_set_sha256": "dd16c5b99a7e1de7b4834c8d834fdca015b54957e65b6153479a4fdb1db58e46"
+        },
+        "historical_excluded": {
+          "count": 14954,
+          "bytes": 172003534,
+          "descriptor_set_sha256": "c87051517945709193252ae22a82c5dc599748304241523317b91f1fc4c33ca1"
+        },
+        "index_sha256": "f7b9958b53c78a669678bdad47dbfe8a24b768dc337e3063b75aa4d92ba8633b",
+        "unchanged": true,
+        "unexpected_new_paths": [],
+        "migrations": 68
+      },
+      "result": "PASS",
+      "claims": {
+        "integrated_restore": false,
+        "AC-073_global": false,
+        "hosted": false,
+        "production": false,
+        "task_closed": false,
+        "independent_audit": false
+      },
+      "limits": [
+        "Verificación estática y contrapruebas en memoria; no valida ejecución PostgreSQL/Auth/Storage.",
+        "La revisión de contenido es del ejecutor, no auditoría independiente.",
+        "Sellado horario local, sin reloj externo ni WORM.",
+        "Disponibilidad de backups/PITR y escrow real no acreditada.",
+        "Estructura, referencias y reglas explícitas; no prueba semántica completa del lenguaje natural ni ejecución de comandos del procedimiento."
+      ],
+      "previous_report_sha256": "4a1458777d6aa5164d41954b0706b0bdd6880e092b97edf8bf49d1c436156956"
+    },
+    {
+      "schema": "h6-014-verification-v1",
+      "task": "TSK-H6-014",
+      "checked_utc": "2026-10-21T17:42:04.767784+00:00",
+      "base_commit": "07808f7d441452a8a2f251306824de3f8520b490",
+      "base_tree": "f2482423116e9d09313edbc7d63bd397a92bddc8",
+      "verifier_sha256": "cb05fcb127c5738bafb3f1ed30137c03c9cb250d0f7b153aeb77e5b6ce8fc6dd",
+      "expected_sha256": "aaab43534e34e4256406ef413167e409784d307253a3cf22be2708c7037554f1",
+      "positive_checks": [
+        {
+          "id": "P01",
+          "expected": "Las fuentes y las seis asignaciones coinciden con la base aprobada.",
+          "result": "PASS"
+        },
+        {
+          "id": "P02",
+          "expected": "Los once recursos obligatorios y cuatro soportes técnicos tienen una ficha única.",
+          "result": "PASS"
+        },
+        {
+          "id": "P03",
+          "expected": "Cada ficha identifica autoridad, origen/destino, copia, recuperación, dependencias, integridad, riesgos y responsables.",
+          "result": "PASS"
+        },
+        {
+          "id": "P04",
+          "expected": "Solo se usan las cuatro clasificaciones autorizadas, con alcance y evidencia; copia operativa no inferida.",
+          "result": "PASS"
+        },
+        {
+          "id": "P05",
+          "expected": "Referencias del inventario y matriz son locales, existentes, sin traversal ni enlaces temporales.",
+          "result": "PASS"
+        },
+        {
+          "id": "P06",
+          "expected": "Los pasos S01-S13 siguen preparación, recuperación, seguridad, conciliación, medición y evidencia.",
+          "result": "PASS"
+        },
+        {
+          "id": "P07",
+          "expected": "Cuarentena de red, accesos y efectos desde antes de restaurar hasta decisión explícita; no reanudación automática.",
+          "result": "PASS"
+        },
+        {
+          "id": "P08",
+          "expected": "Corte consistente de base(s) y objetos con escritores detenidos; testigo posterior fuera del rollback.",
+          "result": "PASS"
+        },
+        {
+          "id": "P09",
+          "expected": "Volcado con F1/F2 se trata como secreto; roles y passwords separados, owner/ACL conservados.",
+          "result": "PASS"
+        },
+        {
+          "id": "P10",
+          "expected": "Identificación nueva y revocación global por contrato existente antes de acceso; fallo mantiene cuarentena.",
+          "result": "PASS"
+        },
+        {
+          "id": "P11",
+          "expected": "Storage se recupera separado; ausencia, corrupción y huérfanos no constan íntegros.",
+          "result": "PASS"
+        },
+        {
+          "id": "P12",
+          "expected": "Aprobaciones, reservas e incertidumbre conservadas; conciliar fuente independiente antes de repetir o reanudar.",
+          "result": "PASS"
+        },
+        {
+          "id": "P13",
+          "expected": "Se definen pérdida por hechos y duración observadas, con desconocidos; ningún objetivo/cadencia/coste productivo.",
+          "result": "PASS"
+        },
+        {
+          "id": "P14",
+          "expected": "Exactamente seis filas de Tasks, vinculadas con recursos, pasos, comprobaciones y evidencia.",
+          "result": "PASS"
+        },
+        {
+          "id": "P15",
+          "expected": "Solo preparación local sintética; restauración, AC-073 integral, Hosted/Production y cierre no acreditados.",
+          "result": "PASS"
+        },
+        {
+          "id": "P16",
+          "expected": "Artefactos nuevos sin credenciales serializadas, JWT, claves privadas, URLs temporales ni DSN con contraseña.",
+          "result": "PASS"
+        },
+        {
+          "id": "P17",
+          "expected": "39940 versionados, índice, 68 migraciones y 14954 históricos excluidos permanecen idénticos.",
+          "result": "PASS"
+        },
+        {
+          "id": "P18",
+          "expected": "Expected previo y autorización identificados por SHA-256; no se reescriben para obtener PASS.",
+          "result": "PASS"
+        },
+        {
+          "id": "P19",
+          "expected": "Herramientas solo comprobadas con --version/--help; no se acredita disponibilidad de copias o servicios.",
+          "result": "PASS"
+        },
+        {
+          "id": "P20",
+          "expected": "Cada mutación prevista debe rechazarse por la causa esperada, sin escribir fixtures negativos.",
+          "result": "PASS"
+        },
+        {
+          "id": "P21",
+          "expected": "Pasos con entradas, acciones, salida observable y condición de parada; comandos y contratos existentes.",
+          "result": "PASS"
+        },
+        {
+          "id": "P22",
+          "expected": "ARCH-PENDING-002/DM-PENDING-005 abiertos; auditoría independiente, cierre y publicación pendientes.",
+          "result": "PASS"
+        }
+      ],
+      "counterexamples": [
+        {
+          "id": "N01",
+          "mutation": "omit-resource",
+          "expected_error": "INVENTORY_COVERAGE",
+          "observed_errors": [
+            "INVENTORY_COVERAGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N02",
+          "mutation": "duplicate-resource",
+          "expected_error": "INVENTORY_COVERAGE",
+          "observed_errors": [
+            "INVENTORY_COVERAGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N03",
+          "mutation": "unknown-availability",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N04",
+          "mutation": "unproved-backup",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N05",
+          "mutation": "missing-revocation-gate",
+          "expected_error": "SESSION_SAFETY",
+          "observed_errors": [
+            "SESSION_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N06",
+          "mutation": "automatic-resume",
+          "expected_error": "EXTERNAL_SAFETY",
+          "observed_errors": [
+            "EXTERNAL_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N07",
+          "mutation": "lost-uncertainty",
+          "expected_error": "EXTERNAL_SAFETY",
+          "observed_errors": [
+            "EXTERNAL_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N08",
+          "mutation": "source-tamper",
+          "expected_error": "SOURCE_IDENTITY",
+          "observed_errors": [
+            "SOURCE_IDENTITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N09",
+          "mutation": "normative-row-tamper",
+          "expected_error": "NORMATIVE_MATRIX",
+          "observed_errors": [
+            "NORMATIVE_MATRIX"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N10",
+          "mutation": "path-traversal",
+          "expected_error": "REFERENCES",
+          "observed_errors": [
+            "REFERENCES"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N11",
+          "mutation": "integrated-credit",
+          "expected_error": "SCOPE",
+          "observed_errors": [
+            "SCOPE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N12",
+          "mutation": "invented-rpo",
+          "expected_error": "MEASUREMENT",
+          "observed_errors": [
+            "MEASUREMENT"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N13",
+          "mutation": "storage-omission",
+          "expected_error": "OBJECT_SAFETY",
+          "observed_errors": [
+            "OBJECT_SAFETY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N14",
+          "mutation": "jwt-material",
+          "expected_error": "SECRET",
+          "observed_errors": [
+            "SECRET"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N15",
+          "mutation": "private-key-material",
+          "expected_error": "SECRET",
+          "observed_errors": [
+            "SECRET"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N16",
+          "mutation": "dsn-password",
+          "expected_error": "SECRET",
+          "observed_errors": [
+            "SECRET"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N17",
+          "mutation": "expected-tamper",
+          "expected_error": "EXPECTED_SEAL",
+          "observed_errors": [
+            "EXPECTED_SEAL"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "N18",
+          "mutation": "manifest-tamper",
+          "expected_error": "MANIFEST",
+          "observed_errors": [
+            "MANIFEST"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        }
+      ],
+      "errors": [],
+      "document_checks": {
+        "errors": [],
+        "shell_blocks_parsed_not_executed": 5,
+        "relative_links_checked": 11,
+        "existing_exports_checked": 4
+      },
+      "candidate_revision": "H6-014-M1-m1-r3",
+      "revision_criteria_sha256": "9cf7d7e0017e7031be2f8660b1d89060082d68d2a398b5b1facb9007cc915cad",
+      "input_sha256": {
+        "specs/001-core-crm/procedure-TSK-H6-014.md": "906cf7a451d0c85f6d5bc0ff91ce776ef9cec786d896a3620b7019cfc667ba70",
+        "specs/001-core-crm/inventory-TSK-H6-014.json": "01bfab40b8c6c7a1244ed8e3d58dbf91cab821ca87f16f0868bb1cbf48693907",
+        "specs/001-core-crm/matrix-TSK-H6-014.json": "28fda4bd594d4a7a12b48db46c897d8f3e07618e2a4b27487147f7c561f54f77"
+      },
+      "original_candidate": {
+        "errors": [],
+        "files_reconstructible": 11,
+        "archive_sha256": "c598b992fc1017f1770111c61542bb1fdb3f79c390092a73499a772ecdbf3c30",
+        "original_manifest_sha256": "5dea28d050d8c8fb194cdc03929baaf3a3196a058204d26c8025520ae7990db4",
+        "original_results_untouched": true
+      },
+      "supplemental_criteria_sha256": "82a270c5c100fcddad9eb1374487e784e0f9fa830a661fc6f43d5146806c6f5e",
+      "corrective_tests": [
+        {
+          "id": "original-M1",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "AVAILABILITY",
+            "ENVIRONMENT_RENEWAL",
+            "EXTENSION_RECOVERY",
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "long-no-owner",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "short-no-owner",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "no-acl",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "short-no-acl",
+          "expected_error": "RECOVERY_OPTIONS",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_OPTIONS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-create",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "create-in-transaction",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "wrong-maintenance",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "unmarked-command",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "name-remapping",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-property-query",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "invented-R02-backup",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "changed-main-availability",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "capacity-promoted-to-backup",
+          "expected_error": "AVAILABILITY",
+          "observed_errors": [
+            "AVAILABILITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "inventory-contract-conflict",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "disabled-comparison",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "lost-witness",
+          "expected_error": "SOURCE_CUT",
+          "observed_errors": [
+            "SOURCE_CUT"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "corrective-criteria-tamper",
+          "expected_error": "CORRECTIVE_CRITERIA",
+          "observed_errors": [
+            "CORRECTIVE_CRITERIA"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "owner-drift",
+          "expected_error": "DATABASE_OWNER",
+          "observed_errors": [
+            "DATABASE_OWNER"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "public-connect",
+          "expected_error": "PUBLIC_DATABASE_PRIVILEGE",
+          "observed_errors": [
+            "DATABASE_ACL",
+            "PUBLIC_DATABASE_PRIVILEGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "public-temp",
+          "expected_error": "PUBLIC_DATABASE_PRIVILEGE",
+          "observed_errors": [
+            "DATABASE_ACL",
+            "PUBLIC_DATABASE_PRIVILEGE"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "database-setting-loss",
+          "expected_error": "DATABASE_SETTINGS",
+          "observed_errors": [
+            "DATABASE_SETTINGS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "role-database-setting-loss",
+          "expected_error": "ROLE_DATABASE_SETTINGS",
+          "observed_errors": [
+            "ROLE_DATABASE_SETTINGS"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "grant-option-drift",
+          "expected_error": "DATABASE_ACL",
+          "observed_errors": [
+            "DATABASE_ACL"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "name-drift",
+          "expected_error": "DATABASE_NAME",
+          "observed_errors": [
+            "DATABASE_NAME"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "equal-properties",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "acl-order-only",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-name-guard",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "missing-fail-fast",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "unquoted-connection",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "unmodeled-command",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-disable-errexit",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-enable-xtrace",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-disable-nounset",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-disable-pipefail",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-relax-umask",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "restored-environment-generation",
+          "expected_error": "ENVIRONMENT_RENEWAL",
+          "observed_errors": [
+            "ENVIRONMENT_RENEWAL"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "extension-as-bootstrap",
+          "expected_error": "EXTENSION_RECOVERY",
+          "observed_errors": [
+            "EXTENSION_RECOVERY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "generation-renewal-positive",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "generation-renewal-omitted",
+          "expected_error": "ENVIRONMENT_RENEWAL",
+          "observed_errors": [
+            "ENVIRONMENT_RENEWAL"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "extension-builtin-correspondence",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "extension-owner-drift",
+          "expected_error": "EXTENSION_OWNER_VERSION",
+          "observed_errors": [
+            "EXTENSION_OWNER_VERSION"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "extension-definer-mapping-denied",
+          "expected_error": "EXTENSION_MEMBER_AUTHORITY",
+          "observed_errors": [
+            "EXTENSION_MEMBER_AUTHORITY"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "extension-bootstrap-unproved",
+          "expected_error": "EXTENSION_BOOTSTRAP",
+          "observed_errors": [
+            "EXTENSION_BOOTSTRAP"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "toc-complete-disjoint",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "toc-missing-database",
+          "expected_error": "TOC_REJECTED",
+          "observed_errors": [
+            "TOC_REJECTED"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "toc-duplicate-id",
+          "expected_error": "TOC_REJECTED",
+          "observed_errors": [
+            "TOC_REJECTED"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "storage-complete-without-core-objects",
+          "expected_error": null,
+          "observed_errors": [],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "core-rejects-storage-toc",
+          "expected_error": "TOC_REJECTED",
+          "observed_errors": [
+            "TOC_REJECTED"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "storage-rejects-core-toc",
+          "expected_error": "TOC_REJECTED",
+          "observed_errors": [
+            "TOC_REJECTED"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "storage-rejects-added-extension",
+          "expected_error": "TOC_REJECTED",
+          "observed_errors": [
+            "TOC_REJECTED"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "storage-rejects-wrong-owner",
+          "expected_error": "TOC_REJECTED",
+          "observed_errors": [
+            "TOC_REJECTED"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "storage-rejects-wrong-name",
+          "expected_error": "TOC_REJECTED",
+          "observed_errors": [
+            "TOC_REJECTED"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "storage-missing-create",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "storage-create-in-transaction",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING",
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "storage-partial-archive",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-name-guard-1",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-name-guard-2",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-name-guard-3",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-name-guard-4",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-name-guard-5",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "late-maintenance-guard",
+          "expected_error": "RECOVERY_BINDING",
+          "observed_errors": [
+            "RECOVERY_BINDING"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        },
+        {
+          "id": "storage-core-contract-conflict",
+          "expected_error": "RECOVERY_MECHANISM",
+          "observed_errors": [
+            "RECOVERY_MECHANISM"
+          ],
+          "result": "PASS",
+          "in_memory_only": true
+        }
+      ],
+      "protected": {
+        "tracked": {
+          "count": 39940,
+          "bytes": 731158616,
+          "descriptor_set_sha256": "dd16c5b99a7e1de7b4834c8d834fdca015b54957e65b6153479a4fdb1db58e46"
+        },
+        "historical_excluded": {
+          "count": 14954,
+          "bytes": 172003534,
+          "descriptor_set_sha256": "c87051517945709193252ae22a82c5dc599748304241523317b91f1fc4c33ca1"
+        },
+        "index_sha256": "f7b9958b53c78a669678bdad47dbfe8a24b768dc337e3063b75aa4d92ba8633b",
+        "unchanged": true,
+        "unexpected_new_paths": [],
+        "migrations": 68
+      },
+      "result": "PASS",
+      "claims": {
+        "integrated_restore": false,
+        "AC-073_global": false,
+        "hosted": false,
+        "production": false,
+        "task_closed": false,
+        "independent_audit": false
+      },
+      "limits": [
+        "Verificación estática y contrapruebas en memoria; no valida ejecución PostgreSQL/Auth/Storage.",
+        "La revisión de contenido es del ejecutor, no auditoría independiente.",
+        "Sellado horario local, sin reloj externo ni WORM.",
+        "Disponibilidad de backups/PITR y escrow real no acreditada.",
+        "Estructura, referencias y reglas explícitas; no prueba semántica completa del lenguaje natural ni ejecución de comandos del procedimiento."
+      ],
+      "previous_report_sha256": "7b1c01c1a90fc29bb0399d547abb69f15fce143ef7079f0e80e0d6f7421f4593"
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+CRM HUESCAVENTURA OS — CORRECTIVO FOCAL H6-014-M1/m1
+
+Actúa como arquitecto de recuperación PostgreSQL, ingeniero de seguridad y responsable de calidad técnica.
+
+1. MISIÓN
+
+Corregir los dos hallazgos de la auditoría independiente de TSK-H6-014:
+
+M1 — MAYOR: el procedimiento no recupera correctamente los privilegios y la configuración específicos de la base de datos.
+
+m1 — MENOR: el verificador documental presenta puntos ciegos ante opciones de restauración incompatibles y afirmaciones de disponibilidad no acreditadas.
+
+La intervención está autorizada exclusivamente para corregir estos defectos y verificar el resultado en local/aislado.
+
+No está autorizado el cierre formal ni la publicación.
+
+2. BASE Y PRESERVACIÓN
+
+Repositorio:
+
+/Users/andres/Developer/crm-huescaventura-os
+
+Rama: main.
+
+Commit base:
+
+07808f7d441452a8a2f251306824de3f8520b490
+
+Expected original:
+
+aaab43534e34e4256406ef413167e409784d307253a3cf22be2708c7037554f1
+
+Manifiesto original:
+
+5dea28d050d8c8fb194cdc03929baaf3a3196a058204d26c8025520ae7990db4
+
+Antes de modificar:
+
+1. Verifica identidad Git y remoto.
+2. Identifica los once archivos del candidato.
+3. Comprueba sus hashes y tamaños.
+4. Confirma que el expected original permanece intacto.
+5. Identifica las 14.954 evidencias históricas excluidas.
+6. Establece una referencia verificable del candidato auditado.
+
+Preserva el candidato anterior y sus resultados como evidencia histórica.
+
+No sobrescribas los resultados de auditoría ni alteres expected sellados.
+
+Si necesitas modificar un archivo del candidato, conserva previamente su versión auditada mediante una copia identificada por hash o un mecanismo equivalente que permita reconstruir exactamente el estado anterior.
+
+Evita duplicaciones masivas.
+
+3. CORRECCIÓN M1
+
+Investiga la semántica exacta de PostgreSQL 17 para:
+
+* pg_dump.
+* pg_dumpall --globals-only.
+* pg_restore.
+* pg_restore --create.
+* createdb.
+* Propietarios.
+* Privilegios de base.
+* ALTER DATABASE ... SET.
+* ALTER ROLE ... IN DATABASE ... SET.
+* Correspondencia entre nombres de origen y destino.
+* Compatibilidad con transacciones y restauración aislada.
+
+Consulta la documentación oficial y el comportamiento documentado de las herramientas instaladas.
+
+No presupongas que añadir --create resuelve por sí solo el problema.
+
+Resultado exigido
+
+Define una secuencia que permita recuperar correctamente:
+
+1. Roles y autoridades globales.
+2. Propietario de la base.
+3. Privilegios específicos de la base.
+4. Configuración específica de la base.
+5. Configuración específica de roles dentro de la base.
+6. Objetos, esquemas, permisos y datos internos.
+7. Correspondencia segura entre nombre archivado y destino autorizado.
+
+La solución debe respetar:
+
+* Aislamiento del destino.
+* Identidad de la fuente.
+* Restricciones de seguridad.
+* Ausencia de DDL improvisado.
+* Tratamiento protegido de secretos.
+* Compatibilidad con PostgreSQL 17.
+* Parada segura ante errores.
+* Comprobación posterior de permisos.
+
+Presta especial atención a la revocación de privilegios de PUBLIC definida en:
+
+supabase/migrations/202609150001_h0_m01_context.sql
+
+No aceptes una secuencia que permita que un restore aparentemente satisfactorio deje CONNECT o TEMPORARY concedidos indebidamente.
+
+Documenta cómo se comprobará la equivalencia entre los privilegios originales y los restaurados.
+
+4. CORRECCIÓN m1
+
+Revisa:
+
+scripts/verify-h6-014-preparation.py
+
+Refuerza los controles para detectar, como mínimo:
+
+* Uso indebido de --no-owner.
+* Omisión del mecanismo de recuperación de propiedades de base.
+* Afirmaciones falsas sobre backups disponibles.
+* Confusión entre capacidad documentada y copia acreditada.
+* Contradicciones entre procedimiento, inventario y expected.
+
+Evita crear un verificador basado únicamente en buscar palabras o banderas.
+
+Cuando una propiedad no pueda verificarse semánticamente mediante análisis puro, exige evidencia estructurada y una comprobación independiente apropiada.
+
+Añade contrapruebas que demuestren que los defectos originales se detectan.
+
+No modifiques el expected original para adaptar los resultados.
+
+5. ALCANCE DE CAMBIOS
+
+Puedes modificar, cuando esté justificado:
+
+* procedure-TSK-H6-014.md.
+* inventory-TSK-H6-014.json.
+* verify-h6-014-preparation.py.
+* Referencias estrictamente relacionadas con M1/m1.
+* Nuevas evidencias del correctivo.
+
+Conserva las versiones auditadas.
+
+No modifiques:
+
+* Normativa aprobada.
+* Decisiones arquitectónicas.
+* Migraciones.
+* Contratos de producto.
+* Expected original.
+* Evidencias históricas.
+* Datos reales.
+* Recursos Hosted/Production.
+
+Si detectas que la corrección requiere ampliar el alcance, presenta diagnóstico y alternativas antes de realizar esos cambios.
+
+6. VERIFICACIÓN EFICIENTE
+
+Ejecuta únicamente verificaciones proporcionadas:
+
+1. Sintaxis y coherencia de comandos.
+2. Semántica documentada de PostgreSQL 17.
+3. Cobertura de privilegios y configuración.
+4. Contrapruebas específicas de M1.
+5. Contrapruebas específicas de m1.
+6. Verificador completo de preparación.
+7. Integridad del paquete correctivo.
+8. Preservación de expected y evidencias históricas.
+
+Puedes corregir autónomamente problemas detectados y repetir las verificaciones afectadas.
+
+No ejecutes:
+
+* Restauración integrada.
+* Migraciones.
+* Suites PostgreSQL generales.
+* Builds.
+* Pruebas sobre datos persistentes.
+* H6-015.
+
+Si una comprobación nueva puede realizarse en memoria o mediante análisis estático, prioriza esa vía.
+
+7. EVIDENCIA DEL CORRECTIVO
+
+Genera evidencia compacta que identifique:
+
+* Candidato auditado original.
+* Hallazgos M1/m1.
+* Archivos modificados.
+* Cambios realizados.
+* Justificación técnica.
+* Expected preservado.
+* Resultados anteriores.
+* Nuevas verificaciones.
+* Contrapruebas.
+* Hashes de las versiones finales.
+* Limitaciones pendientes.
+
+No presentes resultados anteriores como si hubieran sido obtenidos con el nuevo candidato.
+
+No sobrescribas el manifiesto histórico sin preservar su identidad y contenido.
+
+Si se requiere un manifiesto nuevo, identifica claramente la relación entre ambos.
+
+8. AUTONOMÍA
+
+Investiga y resuelve autónomamente los problemas técnicos dentro de este alcance.
+
+Si una primera solución no supera las verificaciones, identifica la causa, corrige y vuelve a probar.
+
+No solicites confirmaciones por incidencias menores.
+
+Ante una decisión normativa o de seguridad no autorizada, detén únicamente la parte afectada y presenta alternativas.
+
+9. INFORME FINAL
+
+Entrega:
+
+A. Resultado: PASS / PASS CON RESERVAS / STOP.
+
+B. Identidad: Git, expected y candidato original.
+
+C. Diagnóstico M1: causa y mecanismo correcto.
+
+D. Corrección M1: secuencia propuesta y justificación.
+
+E. Corrección m1: controles y contrapruebas.
+
+F. Cambios: archivos y hashes.
+
+G. Verificaciones: expected, observado y resultados.
+
+H. Preservación: candidato original, expected y evidencias anteriores.
+
+I. Riesgos pendientes: distinguir preparación de restauración integrada.
+
+J. Propuesta de revisión independiente: comprobaciones focales necesarias.
+
+10. STOP
+
+Al finalizar:
+
+* Conserva el correctivo local.
+* No crees commits.
+* No publiques.
+* No subas evidencias a Drive.
+* No declares H6-014 COMPLETED.
+* No inicies H6-015.
+
+Entrega el candidato corregido para evaluación del director.
+
+STOP obligatorio antes de auditoría independiente, cierre o publicación.
