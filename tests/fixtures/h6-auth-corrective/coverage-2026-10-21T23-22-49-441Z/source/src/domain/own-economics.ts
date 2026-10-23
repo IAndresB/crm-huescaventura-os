@@ -1,0 +1,55 @@
+import {captureCalculation,moneyDifference,selectManualFinalPrice,MONEY_ALGORITHM_VERSION,type CalculationInput,type MoneyTrace} from './exact-money.ts';
+import {assessApprovedPromotion} from './commercial-rules.ts';
+import {canonicalCommercial} from './commercial-progress.ts';
+export type EconomicPhase='expected'|'confirmed'|'real';
+export interface OwnRule {readonly id:string;readonly version:string;readonly mechanism:'fixed'|'per_person'|'per_booking'|'variable';readonly sourceRef:string;readonly approvalEvidenceId:string;}
+export interface OwnFact {readonly input:CalculationInput|null;readonly sourceRef:string;readonly version:string;readonly vat:'included'|'excluded'|'unknown';readonly tax:Readonly<{base:string;tax:string;total:string;sourceRef:string}>|null;}
+export interface OwnComponent {readonly id:string;readonly serviceId:string;readonly unitRevisionId:string;readonly pricingFormRevisionId:string;readonly rule:OwnRule;readonly phases:Readonly<Record<EconomicPhase,OwnFact>>;}
+export interface OwnEconomicsInput {readonly fees:readonly OwnComponent[];readonly costs:readonly OwnComponent[];readonly promotion:Readonly<{revisionId:string;audience:'despedida'|'other'|'unknown';objectiveEligibility:'verified_eligible'|'ineligible'|'unknown';packComplete:boolean;lodgingIncluded:boolean;activityIncluded:boolean;restaurantIncluded:boolean;tarariDrinksIncluded:number;honoreeModalityId:string|null}>|null;readonly tarari:readonly Readonly<{id:string;serviceId:string;unitRevisionId:string;pricingFormRevisionId:string;kind:'included2'|'extra25'|'extra50'}>[];}
+export interface EconomicSource {readonly booking:Record<string,unknown>;readonly modalities:readonly Readonly<{modality_id:string;snapshot:{participants:number;finalPersonPrice:string;id:string;name:string}}> [];readonly services:readonly Readonly<{service_id:string;nature:string}>[];readonly versions:readonly Readonly<{id:string;kind:string;definition:Record<string,unknown>;version:string}>[];}
+export interface OwnEconomicsCommand {readonly operationId:string;readonly economyId:string;readonly bookingId:string;readonly scope:string;readonly expectedRevision:number;readonly expectedBookingRevision:number;readonly at:string;readonly sourceRef:string;readonly reason:string;readonly evidenceId:string;readonly input:OwnEconomicsInput;}
+export interface OwnEconomicsView {readonly id:string;readonly bookingId:string;readonly scope:string;readonly revision:number;readonly input:OwnEconomicsInput;readonly computed:ReturnType<typeof calculateOwnEconomics>;readonly actorId:string;readonly at:string;readonly history:readonly unknown[];}
+const required=(v:unknown):v is string=>typeof v==='string'&&!!v.trim()&&v.trim()===v;
+function insist(test:unknown):asserts test {if(!test)throw new Error('OWN_ECONOMICS_INPUT_INVALID');}
+function shape(o:unknown,keys:readonly string[]){insist(o!==null&&typeof o==='object'&&!Array.isArray(o)&&canonicalCommercial(Object.keys(o).sort())===canonicalCommercial([...keys].sort()));}
+const phases:readonly EconomicPhase[]=['expected','confirmed','real'];
+export function ownReferences(i:OwnEconomicsInput):string[]{return [...new Set([...i.fees,...i.costs,...i.tarari].flatMap(c=>[c.unitRevisionId,c.pricingFormRevisionId]).concat(i.promotion?[i.promotion.revisionId]:[]))];}
+export function calculateOwnEconomics(input:OwnEconomicsInput,sources:EconomicSource,actor:string,at:string,reason:string,sourceRef:string){
+ shape(input,['fees','costs','promotion','tarari']);for(const a of [input.fees,input.costs,input.tarari])insist(Array.isArray(a));insist(input.fees.length>0&&input.costs.length>0&&required(actor)&&required(reason)&&required(sourceRef));
+ const ids=new Set<string>();
+ const versions=sources.versions;
+ const refs=(c:{serviceId:string;unitRevisionId:string;pricingFormRevisionId:string})=>{insist(sources.services.some(s=>s.service_id===c.serviceId));for(const [id,kind] of [[c.unitRevisionId,'unit'],[c.pricingFormRevisionId,'pricing_form']])insist(versions.some(v=>v.id===id&&v.kind===kind));};
+ const trace=(id:string,version:string):MoneyTrace=>({sourceRef,calculationRef:id,configurationVersions:[...versions.map(v=>({id:v.id,kind:v.kind,version:v.version})),{id,kind:'own_economic_rule',version}],reason});
+ const component=(c:OwnComponent)=>{shape(c,['id','serviceId','unitRevisionId','pricingFormRevisionId','rule','phases']);insist(required(c.id)&&!ids.has(c.id));ids.add(c.id);refs(c);
+  shape(c.rule,['id','version','mechanism','sourceRef','approvalEvidenceId']);for(const k of ['id','version','sourceRef','approvalEvidenceId'] as const)insist(required(c.rule[k]));insist(['fixed','per_person','per_booking','variable'].includes(c.rule.mechanism));shape(c.phases,phases);
+  const out={} as Record<EconomicPhase,{amount:string|null;fact:OwnFact;calculation:ReturnType<typeof captureCalculation>|null}>;
+  for(const p of phases){const f=c.phases[p];shape(f,['input','sourceRef','version','vat','tax']);insist(required(f.sourceRef)&&required(f.version)&&['included','excluded','unknown'].includes(f.vat));
+   if(f.tax!==null){shape(f.tax,['base','tax','total','sourceRef']);insist(f.vat!=='unknown'&&required(f.tax.sourceRef));for(const value of [f.tax.base,f.tax.tax,f.tax.total])insist(typeof value==='string'&&/^\d+\.\d{2}$/.test(value));insist(moneyDifference(f.tax.total,f.tax.base)===f.tax.tax);}
+   if(f.input!==null){const kinds={fixed:['materialize','fixed'],per_person:['per_person'],per_booking:['materialize'],variable:['percentage','composition']}[c.rule.mechanism];insist(kinds.includes(f.input.kind));
+    if(f.input.kind==='materialize')shape(f.input,['kind','value']);else if(f.input.kind==='per_person')shape(f.input,['kind','finalPersonPrice','participations']);else if(f.input.kind==='percentage')shape(f.input,['kind','base','percent']);else if(f.input.kind==='fixed')shape(f.input,['kind','total','previousParticipants','currentParticipants']);else if(f.input.kind==='composition') {shape(f.input,['kind','components','participants']);for(const x of f.input.components)shape(x,['amount','quantity']);}
+   }
+   const calc=f.input===null?null:captureCalculation(f.input,trace(c.rule.id,c.rule.version));let amount:string|null=null;
+   if(calc){const result=calc.output;amount=typeof result==='string'?result:'applied' in result?result.applied.amount:'amount' in result?result.amount:null;insist(amount!==null);}
+   out[p]={amount,fact:structuredClone(f),calculation:calc};
+  }return {component:structuredClone(c),phases:out};
+ };
+ const fees=input.fees.map(component),costs=input.costs.map(component);
+ const tarari=input.tarari.map(t=>{shape(t,['id','serviceId','unitRevisionId','pricingFormRevisionId','kind']);insist(required(t.id)&&!ids.has(t.id));ids.add(t.id);refs(t);insist(sources.services.some(s=>s.service_id===t.serviceId&&s.nature==='internal'));insist(['included2','extra25','extra50'].includes(t.kind));
+  const included=t.kind==='included2',qty=included?2:t.kind==='extra25'?25:50,price=included?'15.00':t.kind==='extra25'?'7.00':'6.50';
+  const calc=captureCalculation(included?{kind:'materialize',value:price}:{kind:'per_person',finalPersonPrice:price,participations:qty},trace('BR-TAR-'+t.kind,'approved-initial-v1'));
+  return {...t,quantity:qty,commercial:(calc.output as {amount:string}).amount,cost:included?'3.80':null,costPhases:{expected:included?'3.80':null,confirmed:null,real:null},definitiveProfit:null,calculation:calc,configurationVersion:'approved-initial-v1',configurationSource:included?'BR-TAR-002':'BR-TAR-003',nature:'internal',provider:null,suplido:null,internalInvoice:null};
+ });
+ const totalAttendees=sources.modalities.reduce((n,m)=>{insist(Number.isSafeInteger(m.snapshot.participants)&&m.snapshot.participants>0);return n+m.snapshot.participants;},0);
+ let promotion:{status:string;amount:string|null;realAttendees:number;payers:number;modalityId:string|null;blockers:readonly string[];calculation:ReturnType<typeof captureCalculation>|null}|null=null;
+ if(input.promotion){const p=input.promotion;shape(p,['revisionId','audience','objectiveEligibility','packComplete','lodgingIncluded','activityIncluded','restaurantIncluded','tarariDrinksIncluded','honoreeModalityId']);insist(versions.some(v=>v.id===p.revisionId&&v.kind==='promotion'&&v.definition.policy==='novio_gratis'));insist(['despedida','other','unknown'].includes(p.audience)&&['verified_eligible','ineligible','unknown'].includes(p.objectiveEligibility));for(const b of [p.packComplete,p.lodgingIncluded,p.activityIncluded,p.restaurantIncluded])insist(typeof b==='boolean');insist(Number.isSafeInteger(p.tarariDrinksIncluded)&&p.tarariDrinksIncluded>=0);
+  const m=sources.modalities.find(m=>m.modality_id===p.honoreeModalityId);insist(p.honoreeModalityId===null||!!m);const price=m?.snapshot.finalPersonPrice;
+  const assessment=assessApprovedPromotion({...p,totalAttendees,honoreeModalityFinalPersonPriceVerified:typeof price==='string'&&/^\d+\.\d{2}$/.test(price)});
+  const pending=assessment.blockers.length===1&&assessment.blockers[0]==='HONOREE_MODALITY_PRICE_UNVERIFIED';const calc=assessment.applicable?captureCalculation({kind:'materialize',value:price!},trace(p.revisionId,versions.find(v=>v.id===p.revisionId)!.version)):null;
+  promotion={status:assessment.applicable?'applied':pending?'pending':'ineligible',amount:calc?(calc.output as {amount:string}).amount:null,realAttendees:totalAttendees,payers:totalAttendees-(assessment.applicable?1:0),modalityId:p.honoreeModalityId,blockers:assessment.blockers,calculation:calc};
+ }
+ const totals={} as Record<EconomicPhase,{fee:string|null;cost:string|null;profit:string|null;definitive:boolean;unknown:readonly string[]}>;
+ const sum=(a:readonly (string|null)[])=>a.some(x=>x===null)?null:a.reduce<string>((n,x)=>moneyDifference(n,moneyDifference('0.00',x!)),'0.00');
+ for(const p of phases){const unknown=[...fees.filter(x=>x.phases[p].amount===null).map(x=>'fee:'+x.component.id),...costs.filter(x=>x.phases[p].amount===null).map(x=>'cost:'+x.component.id),...tarari.filter(x=>x.costPhases[p]===null).map(x=>'cost:'+x.id)];const fee=sum(fees.map(x=>x.phases[p].amount)),cost=sum([...costs.map(x=>x.phases[p].amount),...tarari.map(x=>x.costPhases[p])]);totals[p]={fee,cost,profit:fee!==null&&cost!==null?moneyDifference(fee,cost):null,definitive:p==='real'&&unknown.length===0,unknown};}
+ return {algorithmVersion:MONEY_ALGORITHM_VERSION,currency:'EUR',fees,costs,tarari,promotion,totals,bookingSource:structuredClone(sources.booking),modalities:structuredClone(sources.modalities),serviceQuantitiesPreserved:true,providerDebtsChanged:false,fiscalValidation:false,mandateInferred:false,commercialPriceChanged:false};
+}
+export function ownClientProjection(s:OwnEconomicsView){return {bookingId:s.bookingId,modalities:s.computed.modalities.map(m=>({id:m.modality_id,name:m.snapshot.name,participants:m.snapshot.participants,finalPersonPrice:m.snapshot.finalPersonPrice})),promotion:s.computed.promotion?{status:s.computed.promotion.status,amount:s.computed.promotion.amount}:null};}

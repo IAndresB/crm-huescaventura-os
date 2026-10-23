@@ -1,0 +1,23 @@
+{
+  "scope": "read-only inspection of previously cached pinned public source; no Auth execution",
+  "archiveSha256": "ca50f741e115d970f89d0e6ffe4c75f6ce8cdff7bcfde98c23e862597beee79c",
+  "sourceCommit": "4eee58f296d9698a1c2c0ae14d7a0b379c7622d3",
+  "members": [
+    {
+      "path": "supabase-auth-4eee58f/cmd/root_cmd.go",
+      "sha256": "f34168215f44a044e3c838694a7282faa508cd5c0596bd533a437a972bf9eeaf",
+      "bytes": 1913
+    },
+    {
+      "path": "supabase-auth-4eee58f/cmd/serve_cmd.go",
+      "sha256": "86a19a36523bb568c9853eeedf01ac34a9bb3d9ce80b9599d38defe325526ff7",
+      "bytes": 5870
+    },
+    {
+      "path": "supabase-auth-4eee58f/cmd/migrate_cmd.go",
+      "sha256": "9a80dde9aba8e9b3a8d42d2abde5d931f87d5372b31196063967ff326f84acc5",
+      "bytes": 2673
+    }
+  ],
+  "finding": "root command migrates then serves; serve subcommand calls serve directly; serve creates internal apiworker. Migrations scanned contained no CREATE EXTENSION; actual restore catalogue still requires future check."
+}

@@ -1,0 +1,311 @@
+{
+  "baseCommit": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "createdAt": "2026-10-21T22:17:35.412097+00:00",
+  "sources": [
+    {
+      "path": "docs/constitution.md",
+      "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+    },
+    {
+      "path": "docs/product.md",
+      "sha256": "1c1473069ad3932e059fd0888eff4b61419b46849332031c9dd7c437886fd7cc"
+    },
+    {
+      "path": "docs/business-rules.md",
+      "sha256": "ab2504153a32ef9abfaec45efa5ee6846fc9ebcd8b5c244877d0d633ebfcbc07"
+    },
+    {
+      "path": "docs/domain-model.md",
+      "sha256": "f9fafbb715ca57ef843d673af3a475847b4bcae6c37c0469552430c2a8558ddf"
+    },
+    {
+      "path": "docs/state-machines.md",
+      "sha256": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "sha256": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe"
+    },
+    {
+      "path": "specs/001-core-crm/spec.md",
+      "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+    },
+    {
+      "path": "specs/001-core-crm/plan.md",
+      "sha256": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e"
+    },
+    {
+      "path": "specs/001-core-crm/tasks.md",
+      "sha256": "bb73b357c3ff5de5b14952166580c1a6c3f8212407123f5ef148bee97cfff9d6"
+    }
+  ],
+  "tasks": {
+    "TSK-H6-006": {
+      "definitionStartLine": 2307,
+      "definition": "#### TSK-H6-006 — Verificar E2E-06: Efecto sensible incierto\n\n- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H6. Tipo: comprobación.\n- **Objetivo y alcance:** Approval exacta → intención/intento → timeout/caída → conciliación → continuación segura.\n- **Fuentes exactas:** Plan §§9–10.1; SPEC §9; SPEC-FR-HA-003, SPEC-FR-CONC-005, SPEC-FR-ERR-002, AC-057. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H6-006.\n- **Bloques, contratos y unidades:** B01–B10; C01–C06; T08/T09.\n- **Entregable previsto:** Casos y evidencia propuestos de recorrido Core. Áreas propuestas, no creadas; véase §2.1.\n- **Dependencias y precondiciones:** [TSK-H5-019]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H5 está incluida expresamente.\n- **Bloqueo localizado / condición para levantarlo:** Datos sintéticos y dobles externos; no requiere UI ni conector; acceso real permanece bloqueado. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.\n- **Acción futura:** Usar doble con estado propio que ejecuta antes de perder respuesta; reiniciar ejecutor y recibir respuesta tardía, con persistencia real aislada.\n- **Salida observable:** Incertidumbre conserva reserva, no reenvío ciego ni doble efecto; respuesta pertenece a su intento y ejecutor obsoleto no sobrescribe resultado nuevo.\n- **Verificación y esperado:** Incertidumbre conserva reserva, no reenvío ciego ni doble efecto; respuesta pertenece a su intento y ejecutor obsoleto no sobrescribe resultado nuevo. En cada efecto comprobar guardas, permisos, historia y repetición aplicables. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.\n- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.\n- **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08/T09 conservan atomicidad y revisión conjunta.",
+      "assignments": [
+        {
+          "line": 2719,
+          "id": "SPEC-FR-HA-003",
+          "verbatim": "| **SPEC-FR-HA-003** — [spec.md](spec.md), § 16. Human Approval | [TSK-H0-011], [TSK-H5-007] | [TSK-H0-012], [TSK-H5-008], [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2730,
+          "id": "SPEC-FR-CONC-005",
+          "verbatim": "| **SPEC-FR-CONC-005** — [spec.md](spec.md), § 18. Concurrency and Consistency | [TSK-H5-007] | [TSK-H5-008], [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2733,
+          "id": "SPEC-FR-ERR-002",
+          "verbatim": "| **SPEC-FR-ERR-002** — [spec.md](spec.md), § 19. Errors, Revalidation and Uncertainty | [TSK-H5-007], [TSK-H5-009] | [TSK-H5-008], [TSK-H5-010], [TSK-H6-006], [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2808,
+          "id": "AC-057",
+          "verbatim": "| **AC-057** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H5-007], [TSK-H5-009], [TSK-H4-015] | [TSK-H5-008], [TSK-H5-010], [TSK-H4-016], [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3063,
+          "id": "SM-HA-03",
+          "verbatim": "| **SM-HA-03** — [state-machines.md](../../docs/state-machines.md), § 14.3. Human Approval | [TSK-H0-011], [TSK-H5-007] | [TSK-H0-012], [TSK-H5-008], [TSK-H6-006] | V-SM positivo: SM-HA-03 · Aprobación aplicable; evento «Ejecutar/validar hecho» → Ejecución/resultado vinculado, o fallo/incertidumbre. Efectos exigidos: Solo el hecho acreditado produce transición. No fabricar éxito ni repetir efectos dudosos.. Negativo: retirar/incumplir cada guarda material «Todas las guardas de la máquina pertinente y evidencia del resultado real», además de G1–G6 pertinentes; aplicar rechazo/pendiente y conservación según §2.2. |"
+        },
+        {
+          "line": 3144,
+          "id": "P15",
+          "verbatim": "| **P15** — [constitution.md](../../docs/constitution.md), § P15. IA supervisada en la primera fase | [TSK-H0-011], [TSK-H5-005], [TSK-H5-007] | [TSK-H0-012], [TSK-H5-006], [TSK-H5-008], [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3172,
+          "id": "PLAN-B09",
+          "verbatim": "| **PLAN-B09** — [plan.md](plan.md), § 4. Bloques, componentes y responsabilidades | [TSK-H5-009] | [TSK-H5-010], [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3178,
+          "id": "PLAN-C05",
+          "verbatim": "| **PLAN-C05** — [plan.md](plan.md), § 7.1. Contrato común de aplicación | [TSK-H0-011], [TSK-H5-007], [TSK-H5-009], [TSK-H5-005] | [TSK-H0-012], [TSK-H5-008], [TSK-H5-010], [TSK-H5-006], [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3204,
+          "id": "PT-09",
+          "verbatim": "| **PT-09** — [plan.md](plan.md), § 10.2. Familias de pruebas y los 92 criterios | [TSK-H0-011], [TSK-H5-007] | [TSK-H0-012], [TSK-H5-008], [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3214,
+          "id": "E2E-06",
+          "verbatim": "| **E2E-06** — [spec.md](spec.md), § 9. Core End-to-End Scenarios | [TSK-H0-011], [TSK-H5-007], [TSK-H5-005], [TSK-H5-009] | [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3254,
+          "id": "E4",
+          "verbatim": "| **E4** — [spec.md](spec.md), § 19. Errors, Revalidation and Uncertainty | [TSK-H5-007], [TSK-H5-009] | [TSK-H5-008], [TSK-H5-010], [TSK-H6-006] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        }
+      ]
+    },
+    "TSK-H6-008": {
+      "definitionStartLine": 2341,
+      "definition": "#### TSK-H6-008 — Verificar sesiones y revocación en superficies Core completas\n\n- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H6. Tipo: comprobación.\n- **Objetivo y alcance:** PLAN-AUTH-002/003/006 sobre lecturas, mutaciones, resultado idempotente, proyecciones, acceso directo y objetos integrados.\n- **Fuentes exactas:** Plan §§6.3–6.5, 9–10; SPEC-FR-SEC-001, SPEC-FR-SEC-002, SPEC-FR-SEC-004, SPEC-FR-SEC-005, AC-064, AC-080, PLAN-AUTH-002, PLAN-AUTH-003, PLAN-AUTH-006, D025, D026. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H6-008.\n- **Bloques, contratos y unidades:** B01/B07/B08/B10; C01–C06; T08.\n- **Entregable previsto:** Evidencia propuesta por superficie/dispositivo/versión. Áreas propuestas, no creadas; véase §2.1.\n- **Dependencias y precondiciones:** [TSK-H5-019], [TSK-H0-006], [TSK-H0-014], [TSK-H1-016], [TSK-H5-012]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H5 está incluida expresamente.\n- **Bloqueo localizado / condición para levantarlo:** PLAN-PENDING-003 no impide este ensayo aislado; el ensayo aporta evidencia para levantar bloqueo de acceso real. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.\n- **Acción futura:** Repetir matriz de límites y revocación con aplicación completa, conexiones reales y reloj controlado; comprobar origen e interacción humana en servidor.\n- **Salida observable:** Todas las superficies rechazan sesiones previas inválidas sin filtración; no se acredita solo con SDK o mock.\n- **Verificación y esperado:** 7días por sesión independiente y30 absoluto; refresh/polling/jobs no cuentan; límites antes de actividad; contraseña+TOTP cuando corresponde. Revocar desde otro dispositivo incluye emisora, JWT/URL vigentes, peticiones concurrentes y respuesta tardía; recuperación incompleta/actor inhabilitado siempre denegados. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.\n- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.\n- **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T08 conservan atomicidad y revisión conjunta.",
+      "assignments": [
+        {
+          "line": 2734,
+          "id": "SPEC-FR-SEC-001",
+          "verbatim": "| **SPEC-FR-SEC-001** — [spec.md](spec.md), § 20. Security, Privacy and Authorization | [TSK-H0-005], [TSK-H0-007] | [TSK-H0-006], [TSK-H0-008], [TSK-H6-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2735,
+          "id": "SPEC-FR-SEC-002",
+          "verbatim": "| **SPEC-FR-SEC-002** — [spec.md](spec.md), § 20. Security, Privacy and Authorization | [TSK-H0-007] | [TSK-H0-008], [TSK-H0-006], [TSK-H6-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2737,
+          "id": "SPEC-FR-SEC-004",
+          "verbatim": "| **SPEC-FR-SEC-004** — [spec.md](spec.md), § 20. Security, Privacy and Authorization | [TSK-H0-005], [TSK-H0-016] | [TSK-H0-006], [TSK-H0-017], [TSK-H6-008], [TSK-H6-009], [TSK-H6-010], [TSK-H6-011] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2738,
+          "id": "SPEC-FR-SEC-005",
+          "verbatim": "| **SPEC-FR-SEC-005** — [spec.md](spec.md), § 20. Security, Privacy and Authorization | [TSK-H0-003], [TSK-H0-005], [TSK-H0-007], [TSK-H1-015] | [TSK-H0-004], [TSK-H0-008], [TSK-H1-016], [TSK-H6-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2815,
+          "id": "AC-064",
+          "verbatim": "| **AC-064** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-005], [TSK-H0-007] | [TSK-H0-006], [TSK-H0-008], [TSK-H6-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2831,
+          "id": "AC-080",
+          "verbatim": "| **AC-080** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-005], [TSK-H0-016] | [TSK-H0-006], [TSK-H6-008], [TSK-H6-009] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2845,
+          "id": "SPEC-NFR-002",
+          "verbatim": "| **SPEC-NFR-002** — [spec.md](spec.md), § 25. Non-Functional Requirements | [TSK-H0-005], [TSK-H0-007], [TSK-H1-015] | [TSK-H0-008], [TSK-H6-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2913,
+          "id": "DM-INV-050",
+          "verbatim": "| **DM-INV-050** — [domain-model.md](../../docs/domain-model.md), § 14. Invariants — Invariantes del dominio | [TSK-H0-005], [TSK-H0-007], [TSK-H5-011] | [TSK-H6-008], [TSK-H0-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3102,
+          "id": "SM-FORB-29",
+          "verbatim": "| **SM-FORB-29** — [state-machines.md](../../docs/state-machines.md), § 17. Forbidden transitions — Transiciones prohibidas | [TSK-H0-005], [TSK-H0-007], [TSK-H5-011], [TSK-H1-015] | [TSK-H0-008], [TSK-H6-008], [TSK-H6-017] | V-NEG: intentar «Rol previsto/relación comercial → permiso activo; timeline → divulgación de economía/datos personales no autorizados»; impedir la transición/inferencia y conservar hechos/historia. V-NEG: AC-064, AC-065, AC-082. Intentar inferencia/transición prohibida de SM §17; debe rechazarse sin efecto indebido. |"
+        },
+        {
+          "line": 3115,
+          "id": "ARCH-DEC-004",
+          "verbatim": "| **ARCH-DEC-004** — [architecture.md](../../docs/architecture.md), § 17. ARCH-DEC — Decisiones arquitectónicas aprobadas | [TSK-H0-005], [TSK-H0-007], [TSK-H0-013] | [TSK-H0-006], [TSK-H0-008], [TSK-H0-014], [TSK-H6-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3121,
+          "id": "ARCH-DEC-010",
+          "verbatim": "| **ARCH-DEC-010** — [architecture.md](../../docs/architecture.md), § 17. ARCH-DEC — Decisiones arquitectónicas aprobadas | [TSK-H1-015] | [TSK-H1-016], [TSK-H6-015], [TSK-H6-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3139,
+          "id": "P10",
+          "verbatim": "| **P10** — [constitution.md](../../docs/constitution.md), § P10. Seguridad y privacidad desde el diseño | [TSK-H0-005], [TSK-H0-007], [TSK-H1-015], [TSK-H5-011] | [TSK-H6-008], [TSK-H0-008], [TSK-H1-016], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3156,
+          "id": "PLAN-DEC-002",
+          "verbatim": "| **PLAN-DEC-002** — [plan.md](plan.md), § 3.2. PLAN-DEC — decisiones técnicas APPROVED | [TSK-H0-007], [TSK-H0-009] | [TSK-H0-008], [TSK-H0-010], [TSK-H6-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3161,
+          "id": "PLAN-DEC-007",
+          "verbatim": "| **PLAN-DEC-007** — [plan.md](plan.md), § 3.2. PLAN-DEC — decisiones técnicas APPROVED | [TSK-H0-005], [TSK-H0-007], [TSK-H0-013], [TSK-H0-015], [TSK-H0-016] | [TSK-H0-006], [TSK-H0-008], [TSK-H0-014], [TSK-H0-017], [TSK-H6-008], [TSK-H6-009], [TSK-H6-010], [TSK-H6-011] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3164,
+          "id": "PLAN-B01",
+          "verbatim": "| **PLAN-B01** — [plan.md](plan.md), § 4. Bloques, componentes y responsabilidades | [TSK-H0-003], [TSK-H0-005], [TSK-H0-007], [TSK-H0-013], [TSK-H0-016] | [TSK-H0-004], [TSK-H0-006], [TSK-H0-008], [TSK-H0-014], [TSK-H0-017], [TSK-H6-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3174,
+          "id": "PLAN-C01",
+          "verbatim": "| **PLAN-C01** — [plan.md](plan.md), § 7.1. Contrato común de aplicación | [TSK-H0-005], [TSK-H0-007], [TSK-H1-015], [TSK-H5-011] | [TSK-H0-006], [TSK-H0-008], [TSK-H1-016], [TSK-H5-012], [TSK-H6-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3206,
+          "id": "PT-11",
+          "verbatim": "| **PT-11** — [plan.md](plan.md), § 10.2. Familias de pruebas y los 92 criterios | [TSK-H0-003], [TSK-H0-005], [TSK-H0-007], [TSK-H0-013], [TSK-H0-016], [TSK-H1-015], [TSK-H5-017], [TSK-H3-007] | [TSK-H0-004], [TSK-H6-008], [TSK-H6-009], [TSK-H6-010], [TSK-H6-011], [TSK-H0-008], [TSK-H1-016], [TSK-H5-018], [TSK-H3-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3235,
+          "id": "PLAN-AUTH-002",
+          "verbatim": "| **PLAN-AUTH-002** — [plan.md](plan.md), § 6.4. Recuperación y comprobaciones antes del acceso real | [TSK-H0-005] | [TSK-H0-006], [TSK-H6-008] | Aplicación de D026 por sesión/dispositivo, señales humanas y medición fiable en servidor. — Pruebas con refresh/polling sin uso, uso en iPhone sin prolongar la sesión inactiva de Mac/iPad, retorno tras 7 días y máximo de 30 días, todos con contraseña + TOTP cuando corresponda. |"
+        },
+        {
+          "line": 3236,
+          "id": "PLAN-AUTH-003",
+          "verbatim": "| **PLAN-AUTH-003** — [plan.md](plan.md), § 6.4. Recuperación y comprobaciones antes del acceso real | [TSK-H0-013], [TSK-H1-015] | [TSK-H0-014], [TSK-H1-016], [TSK-H6-008] | Revocación de todas las sesiones desde otro dispositivo, JWT aún no expirado, concurrencia y accesos a objetos/directos. — Sesiones previas denegadas efectivamente en Core, incluida la emisora, y nueva identificación; sin éxito ficticio ante fallo parcial. |"
+        },
+        {
+          "line": 3239,
+          "id": "PLAN-AUTH-006",
+          "verbatim": "| **PLAN-AUTH-006** — [plan.md](plan.md), § 6.4. Recuperación y comprobaciones antes del acceso real | [TSK-H0-005], [TSK-H0-007], [TSK-H0-016] | [TSK-H0-006], [TSK-H0-008], [TSK-H0-017], [TSK-H6-008], [TSK-H6-011] | Enrolamiento/recuperación incompletos, actor inhabilitado, ausencia de registro público y permisos/MFA en servidor/datos. — Sin acceso a expedientes antes de cumplir los requisitos; recuperación o nueva clave no omiten TOTP ni reactivan sesiones revocadas. |"
+        },
+        {
+          "line": 3278,
+          "id": "D015",
+          "verbatim": "| **D015** — [DECISIONS.md](../../docs/DECISIONS.md), § D015 — Un único usuario operativo en V1 y roles futuros | [TSK-H0-005], [TSK-H0-007] | [TSK-H0-006], [TSK-H0-008], [TSK-H6-008] | Único Administrador; roles futuros excluidos. |"
+        },
+        {
+          "line": 3288,
+          "id": "D025",
+          "verbatim": "| **D025** — [DECISIONS.md](../../docs/DECISIONS.md), § D025 — Acceso del Administrador y recuperación | [TSK-H0-005], [TSK-H0-013], [TSK-H0-015], [TSK-H0-016] | [TSK-H0-006], [TSK-H0-014], [TSK-H0-017], [TSK-H6-008], [TSK-H6-009] | Política de acceso aprobada; capacidad no acreditada. |"
+        },
+        {
+          "line": 3289,
+          "id": "D026",
+          "verbatim": "| **D026** — [DECISIONS.md](../../docs/DECISIONS.md), § D026 — Inactividad independiente por sesión/dispositivo | [TSK-H0-005] | [TSK-H0-006], [TSK-H6-008] | 30 días absolutos y 7 de inactividad por sesión; uso humano validado antes de renovar actividad. |"
+        }
+      ]
+    },
+    "TSK-H6-015": {
+      "definitionStartLine": 2464,
+      "definition": "#### TSK-H6-015 — Restaurar en aislamiento y conciliar antes de reanudar\n\n- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H6. Tipo: comprobación.\n- **Objetivo y alcance:** Restauración coherente de inventario y efectos posteriores al punto recuperado, sin reactivar sesiones ni repetir efectos externos.\n- **Fuentes exactas:** Plan §§10.1, 11.3; SPEC-FR-HIST-004, SPEC-FR-IDEMP-002, SPEC-FR-ERR-002, AC-073, AC-074. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H6-015.\n- **Bloques, contratos y unidades:** B01/B05/B07/B08/B09/B10; C01/C03/C04/C05; T05/T07/T08/T09.\n- **Entregable previsto:** Acta propuesta de restauración, mediciones observadas y conciliación con dobles. Áreas propuestas, no creadas; véase §2.1.\n- **Dependencias y precondiciones:** [TSK-H5-019], [TSK-H6-014], [TSK-H6-006], [TSK-H6-008]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H5 está incluida expresamente.\n- **Bloqueo localizado / condición para levantarlo:** Puede aportar evidencia con ARCH-PENDING-002 pendiente; no acredita objetivos Production aún no acordados. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.\n- **Acción futura:** Restaurar copias de prueba en recurso aislado, verificar objetos/metadatos/historia/porciones y conciliar estado externo simulado antes de reanudar trabajos.\n- **Salida observable:** Integridad y conciliación verificadas, pérdidas/tiempos observados y límites documentados; ninguna garantía Production deducida de mediciones.\n- **Verificación y esperado:** Pago/envío ocurrido tras punto restaurado no se repite; objeto ausente no consta recuperado; reservas/aprobaciones pendientes no se liberan por restaurar. Sesión previamente revocada no revive; recuperación protegida de configuración/credenciales sin volcar secretos. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.\n- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.\n- **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T05/T07/T08/T09 conservan atomicidad y revisión conjunta.",
+      "assignments": [
+        {
+          "line": 2706,
+          "id": "SPEC-FR-HIST-004",
+          "verbatim": "| **SPEC-FR-HIST-004** — [spec.md](spec.md), § 14. Versions, Snapshots, History and Evidence | [TSK-H1-015] | [TSK-H1-016], [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2723,
+          "id": "SPEC-FR-IDEMP-002",
+          "verbatim": "| **SPEC-FR-IDEMP-002** — [spec.md](spec.md), § 17. Idempotency and Duplicate Prevention | [TSK-H0-009], [TSK-H1-017], [TSK-H3-005], [TSK-H4-015], [TSK-H4-017], [TSK-H5-007], [TSK-H5-003] | [TSK-H0-010], [TSK-H1-018], [TSK-H2-010], [TSK-H4-019], [TSK-H5-008], [TSK-H5-004], [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2733,
+          "id": "SPEC-FR-ERR-002",
+          "verbatim": "| **SPEC-FR-ERR-002** — [spec.md](spec.md), § 19. Errors, Revalidation and Uncertainty | [TSK-H5-007], [TSK-H5-009] | [TSK-H5-008], [TSK-H5-010], [TSK-H6-006], [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2824,
+          "id": "AC-073",
+          "verbatim": "| **AC-073** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H6-014], [TSK-H0-009], [TSK-H1-015], [TSK-H5-007] | [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2825,
+          "id": "AC-074",
+          "verbatim": "| **AC-074** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H1-015] | [TSK-H1-016], [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2848,
+          "id": "SPEC-NFR-005",
+          "verbatim": "| **SPEC-NFR-005** — [spec.md](spec.md), § 25. Non-Functional Requirements | [TSK-H6-014] | [TSK-H6-013], [TSK-H6-015], [TSK-H6-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 2857,
+          "id": "SPEC-NFR-014",
+          "verbatim": "| **SPEC-NFR-014** — [spec.md](spec.md), § 25. Non-Functional Requirements | [TSK-H0-003], [TSK-H5-007], [TSK-H5-009], [TSK-H5-017] | [TSK-H0-004], [TSK-H5-008], [TSK-H5-010], [TSK-H5-018], [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3100,
+          "id": "SM-FORB-27",
+          "verbatim": "| **SM-FORB-27** — [state-machines.md](../../docs/state-machines.md), § 17. Forbidden transitions — Transiciones prohibidas | [TSK-H0-009], [TSK-H3-005], [TSK-H0-011], [TSK-H5-007], [TSK-H5-009] | [TSK-H4-019], [TSK-H0-012], [TSK-H5-008], [TSK-H5-010], [TSK-H5-018], [TSK-H6-015] | V-NEG: intentar «Fallo/resultado incierto → éxito o reintento sensible sin comprobar efecto previo; repetición → duplicado económico»; impedir la transición/inferencia y conservar hechos/historia. V-NEG: AC-027, AC-055, AC-057, AC-066, AC-069, AC-070, AC-071, AC-072, AC-073. Intentar inferencia/transición prohibida de SM §17; debe rechazarse sin efecto indebido. |"
+        },
+        {
+          "line": 3121,
+          "id": "ARCH-DEC-010",
+          "verbatim": "| **ARCH-DEC-010** — [architecture.md](../../docs/architecture.md), § 17. ARCH-DEC — Decisiones arquitectónicas aprobadas | [TSK-H1-015] | [TSK-H1-016], [TSK-H6-015], [TSK-H6-008] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3128,
+          "id": "ARCH-DEC-017",
+          "verbatim": "| **ARCH-DEC-017** — [architecture.md](../../docs/architecture.md), § 17. ARCH-DEC — Decisiones arquitectónicas aprobadas | [TSK-H0-001], [TSK-H0-003], [TSK-H0-002], [TSK-H6-014] | [TSK-H0-004], [TSK-H6-013], [TSK-H6-015], [TSK-H6-012] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3142,
+          "id": "P13",
+          "verbatim": "| **P13** — [constitution.md](../../docs/constitution.md), § P13. Evolución de base de datos mediante migraciones | [TSK-H0-002], [TSK-H0-009], [TSK-H6-014] | [TSK-H6-013], [TSK-H6-015] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3162,
+          "id": "PLAN-DEC-008",
+          "verbatim": "| **PLAN-DEC-008** — [plan.md](plan.md), § 3.2. PLAN-DEC — decisiones técnicas APPROVED | [TSK-H0-002] | [TSK-H1-010], [TSK-H0-008], [TSK-H6-016], [TSK-H6-015], [TSK-H5-010], [TSK-H6-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3173,
+          "id": "PLAN-B10",
+          "verbatim": "| **PLAN-B10** — [plan.md](plan.md), § 4. Bloques, componentes y responsabilidades | [TSK-H0-001], [TSK-H0-002], [TSK-H6-014], [TSK-H6-018] | [TSK-H6-012], [TSK-H6-013], [TSK-H6-015], [TSK-H6-016], [TSK-H6-017], [TSK-H6-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3207,
+          "id": "PT-12",
+          "verbatim": "| **PT-12** — [plan.md](plan.md), § 10.2. Familias de pruebas y los 92 criterios | [TSK-H0-009], [TSK-H2-009], [TSK-H3-005], [TSK-H1-015], [TSK-H5-007], [TSK-H5-009], [TSK-H6-014] | [TSK-H0-010], [TSK-H2-010], [TSK-H3-006], [TSK-H1-016], [TSK-H5-008], [TSK-H5-010], [TSK-H6-015], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+        },
+        {
+          "line": 3280,
+          "id": "D017",
+          "verbatim": "| **D017** — [DECISIONS.md](../../docs/DECISIONS.md), § D017 — Identidades, documentación e historial recuperable | [TSK-H1-001], [TSK-H1-003], [TSK-H1-013], [TSK-H1-015] | [TSK-H1-002], [TSK-H1-004], [TSK-H1-014], [TSK-H1-016], [TSK-H6-015] | Contexto, archivo e historia recuperable. |"
+        }
+      ]
+    }
+  }
+}

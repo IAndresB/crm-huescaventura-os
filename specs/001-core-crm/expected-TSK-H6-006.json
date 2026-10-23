@@ -1,0 +1,88 @@
+{
+  "task": "TSK-H6-006",
+  "baseCommit": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "createdBeforeObservedAt": "2026-10-21T22:17:35.412097+00:00",
+  "authority": "Decisión expresa del director en esta conversación, 2026-10-22. Alcance local/aislado sintético; sin publicación.",
+  "normativeSourceLock": "tests/fixtures/h6-local-validation/normative-source-lock.json",
+  "independence": "Expected derivados de normativa, antes de instrumentar/observar. Fixtures y salidas no son oráculo. Revisión separada por instrumentos no equivale a auditor humano/agente independiente.",
+  "cases": [
+    {
+      "id": "E01",
+      "scenario": "Approval exacta, dos partes, efecto del doble persistido y caída real del hijo antes de devolver respuesta",
+      "expected": "Reinicio observa contacted; recover conserva uncertain y reserva; claim/resume no reenvían; fuente propia acredita solo parte1; late result y replay consumen una vez; parte2 continúa sin repetir parte1."
+    },
+    {
+      "id": "E02",
+      "scenario": "Caída antes del contacto y sustitución de lease",
+      "expected": "Reclamación posterior crea nueva generación; ejecutor/resultado antiguo no actúa; intento e historia anteriores conservados."
+    },
+    {
+      "id": "E03",
+      "scenario": "Contacto sin hecho verificable; indisponibilidad o resultado ambiguo",
+      "expected": "Permanece incierto y reservado. Resultado inventado, revisión humana, espera o resume no habilitan repetir."
+    },
+    {
+      "id": "E04",
+      "scenario": "Resultado con identidad de ejecución/intento/resultado discordante",
+      "expected": "Denegar sin consumir; evidencia exacta posterior concilia; resultado contradictorio no sobrescribe hecho acreditado."
+    },
+    {
+      "id": "E05",
+      "scenario": "Fallo acreditado seguido de sucesor exitoso y respuesta tardía antigua",
+      "expected": "El sucesor puede continuar tras comprobar efecto; el resultado viejo no sobrescribe el nuevo ni duplica efecto."
+    },
+    {
+      "id": "E06",
+      "scenario": "Invalidación individual de versión, contenido, destinatario, ámbito, importe, condiciones y efecto aprobados; retirada de aprobación",
+      "expected": "Cada cambio material impide contacto/reserva con aprobación vieja; historia de aprobación se conserva."
+    },
+    {
+      "id": "E07",
+      "scenario": "Sin autoridad, copia falsificada, actor inhabilitado, contexto/purpose incorrecto, SQL directo",
+      "expected": "Denegación real de lectura/mutación/replay; actores ordinarios no owner/BYPASSRLS; ninguna lectura privada ni escritura directa."
+    },
+    {
+      "id": "E08",
+      "scenario": "Fallo real antes/durante escritura y al commit de claim/start/result",
+      "expected": "Efecto interno, reservas, historia, resultado e intención se revierten juntos; reintento equivalente seguro."
+    },
+    {
+      "id": "E09",
+      "scenario": "Dos ejecutores y recover frente a respuesta tardía en ambos órdenes y solapamiento real",
+      "expected": "Una reclamación/contacto aplicable; locks y conexiones distintos observados; conciliación única sin perder historia."
+    },
+    {
+      "id": "E10",
+      "scenario": "Respuesta PostgreSQL de COMMIT perdida",
+      "expected": "Resultado durable reconocido por misma identidad; contenido distinto en misma identidad es conflicto; ninguna reinspección/contacto duplicado."
+    },
+    {
+      "id": "E11",
+      "scenario": "Canal no disponible o fuente declara efecto previo succeeded/uncertain",
+      "expected": "Start denegado antes de contacto; no inferir none por excepción o ausencia de fuente."
+    },
+    {
+      "id": "E12",
+      "scenario": "Pausa/parada/revisión y reanudación con trabajo incierto",
+      "expected": "Control no borra intentos ni libera incertidumbre; respuesta tardía acreditada se conserva sin reactivar trabajo parado."
+    },
+    {
+      "id": "E13",
+      "scenario": "Historia e independencia de dimensiones",
+      "expected": "Aprobación, ejecutor, intento, parte y resultado enlazados; acto simulado no acredita envío/pago real ni cambia por inferencia hechos comerciales/económicos."
+    }
+  ],
+  "assignmentIds": [
+    "SPEC-FR-HA-003",
+    "SPEC-FR-CONC-005",
+    "SPEC-FR-ERR-002",
+    "AC-057",
+    "SM-HA-03",
+    "P15",
+    "PLAN-B09",
+    "PLAN-C05",
+    "PT-09",
+    "E2E-06",
+    "E4"
+  ]
+}

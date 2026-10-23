@@ -1,0 +1,42 @@
+--- postgres-h5-008.test.ts
++++ postgres-h6-006-regression.test.ts
+@@ -1,8 +1,10 @@
++// H6 regression on full approved chain; historical test remains unchanged.
++// Source postgres-h5-008.test.ts SHA256 f91187641881d6a85633b2b63ef7b7759a66523b83bf6e3ce845fa4c216e2ad0
+ import {before,after,afterEach,test} from 'node:test';
+ import assert from 'node:assert/strict';
+-import {isolatedWork,workFixture,secondWorkActor,write} from '../support/h5-work-isolated.ts';
++import {isolatedWork,workFixture,secondWorkActor,write} from '../support/h6-current-isolated.ts';
+ let h:Awaited<ReturnType<typeof isolatedWork>>;
+-before(async()=>{h=await isolatedWork('crm_h5008',59008);});after(async()=>{await h?.close();});afterEach(async()=>{await h?.closeExecutors();});
++before(async()=>{h=await isolatedWork('crm_h6006_regression',59607);});after(async()=>{await h?.close();});afterEach(async()=>{await h?.closeExecutors();});
+ test('W01 W02 W11 W43 definition claim exact HA start result',async()=>{
+  const f=await workFixture(h);await f.run(f.definition);const c=f.claim() as any,r=await f.run(c);assert.equal(r.state,'claimed');assert.equal((await f.see())!.parts[0].state,'claimed');
+  await f.run(f.start(c,r.generation!));assert.equal((await f.see())!.parts[0].state,'contacted');await f.run(f.prove(c.attemptId));const snapshot=(await f.see())!;assert.equal(snapshot.parts[0].state,'succeeded');
+@@ -112,7 +114,7 @@
+  for(const role of ['crm_h0_runtime','crm_h0_ha_tx','anon','authenticated']){const sql=h.connect(role);await assert.rejects(sql.unsafe(`select * from crm_private.${table}`));await assert.rejects(sql.unsafe(`delete from crm_private.${table}`));await assert.rejects(sql.unsafe(`update crm_private.${table} set admin_scope='foreign'`));await sql.end({timeout:1});}
+  await h.admin.begin(async tx=>{await tx.unsafe('set local role crm_h0_f2_owner');assert.equal((await tx.unsafe(`select count(*)::int n from crm_private.${table}`))[0]!.n,0);});}
+  await assert.rejects(h.runtime.unsafe('select crm_api.b08_work_apply(null,null,null,null,null,null)'));
+- const general=h.executor('synthetic-executor-a',{databaseUrl:'postgresql://crm_h0_runtime@127.0.0.1:59008/crm_h5008'});await assert.rejects(f.run(f.claim(),general));
++ const general=h.executor('synthetic-executor-a',{databaseUrl:'postgresql://crm_h0_runtime@127.0.0.1:59607/crm_h6006_regression'});await assert.rejects(f.run(f.claim(),general));
+  const roles=await h.admin`select rolname,rolsuper,rolbypassrls from pg_roles where rolname in ('crm_h0_runtime','crm_h0_ha_tx','crm_h0_f2_owner','crm_h0_f2_executor')`;assert.ok(roles.every(x=>!x.rolsuper&&!x.rolbypassrls));await capture('security',{tables,roles,snapshot:await f.see()});
+ });
+ test('W37 W38 W40 persistent failure uses existing CRM alert and unavailable WhatsApp with pending parameters',async()=>{
+@@ -187,7 +189,7 @@
+ for(const phase of ['before_contact','during_contact','after_effect'])test(`W02 W04 W05 W06 W09 W42 real child process crash ${phase} and restart`,async()=>{
+  const {mkdtemp,rm}=await import('node:fs/promises'),{tmpdir}=await import('node:os'),{join}=await import('node:path'),{spawnSync}=await import('node:child_process');
+  const directory=await mkdtemp(join(tmpdir(),'crm-work-simulated-provider-')),providerFile=join(directory,'fact.json');const f=await workFixture(h);await f.run(f.definition);
+- const config={databaseUrl:'postgresql://crm_h0_ha_tx@127.0.0.1:59008/crm_h5008',ssl:false,capability:{...h.f1,key:Array.from(h.f1.key)},humanAuthorization:{...h.f2,key:Array.from(h.f2.key)},executorId:'synthetic-executor-a'};
++ const config={databaseUrl:'postgresql://crm_h0_ha_tx@127.0.0.1:59607/crm_h6006_regression',ssl:false,capability:{...h.f1,key:Array.from(h.f1.key)},humanAuthorization:{...h.f2,key:Array.from(h.f2.key)},executorId:'synthetic-executor-a'};
+  const runChild=(mode:string,command?:unknown,fact?:unknown)=>{const r=spawnSync(process.execPath,['--experimental-strip-types','tests/support/h5-work-restart.ts'],{input:JSON.stringify({mode,command,fact,providerFile,config,auth:{subject:h.subject,sessionId:h.sessionId,passwordVerified:true,mfaVerified:true},executionId:f.executionId,context:f.context}),encoding:'utf8',timeout:15000});assert.equal(r.error,undefined);return {status:r.status,stderr:r.stderr,data:r.stdout.trim()?JSON.parse(r.stdout):null};};
+  try{
+  const c=f.claim()as any;let generation:number;
+@@ -210,7 +212,7 @@
+ });
+ test('W30 W47 real PostgreSQL COMMIT acknowledgement withheld by simulated wire fault; identity recovers durable result',async()=>{
+  const {commitResponseLoss}=await import('../support/h5-work-response-loss.ts');const {WorkCommitUncertainError}=await import('../../src/infrastructure/postgres/persisted-work-executor.ts');
+- const f=await workFixture(h);await f.run(f.definition);const c=f.claim()as any,r=await f.run(c);await f.run(f.start(c,r.generation!));const proof=f.prove(c.attemptId),relay=await commitResponseLoss(59008),w=h.executor('synthetic-executor-a',{databaseUrl:`postgresql://crm_h0_ha_tx@127.0.0.1:${relay.port}/crm_h5008`});
++ const f=await workFixture(h);await f.run(f.definition);const c=f.claim()as any,r=await f.run(c);await f.run(f.start(c,r.generation!));const proof=f.prove(c.attemptId),relay=await commitResponseLoss(59607),w=h.executor('synthetic-executor-a',{databaseUrl:`postgresql://crm_h0_ha_tx@127.0.0.1:${relay.port}/crm_h6006_regression`});
+  try{await assert.rejects(f.run(proof,w),e=>e instanceof WorkCommitUncertainError&&e.operationId===proof.operationId);assert.equal(relay.dropped(),true);assert.equal((await f.see())!.parts[0].state,'succeeded');const checks=h.inspections();assert.equal((await f.run(proof,w)).replayed,true);assert.equal(h.inspections(),checks);await capture('commit-response-loss',{withheldRealServerCommitAck:true,simulatedWireFault:true,recoveredByIdentity:true,snapshot:await f.see()});}finally{await w.close();await relay.close();}
+ });
+ for(const order of [0,1])test(`W45 real version/content change versus start order ${order}`,async()=>{

@@ -1,0 +1,15 @@
+--- postgres-h5-009.test.ts
++++ postgres-h6-006-boundary.test.ts
+@@ -1,9 +1,10 @@
++// H6 regression on full chain; historical source SHA256 566524d8b4550e6dad8a99ad6003baad787b16f9842827a97699fa9f7cdeafa2
+ import {after,afterEach,before,test} from "node:test";
+ import assert from "node:assert/strict";
+ import {randomUUID as uid} from "node:crypto";
+-import {boundaryFixture,isolatedBoundaries,read,write} from "../support/h5-boundary-isolated.ts";
++import {boundaryFixture,isolatedBoundaries,read,write} from "../support/h6-current-isolated.ts";
+ let h:Awaited<ReturnType<typeof isolatedBoundaries>>;
+-before(async()=>{h=await isolatedBoundaries("crm_h5009",59109);});
++before(async()=>{h=await isolatedBoundaries("crm_h6006_boundary",59609);});
+ after(async()=>{await h?.close();});
+ afterEach(async()=>{await h?.closeExecutors();});
+ const material=async(x:Awaited<ReturnType<typeof boundaryFixture>>,recordId:string)=>h.observer`select record_kind,material,occurred_at from crm_private.b07_records where record_id=${recordId}::uuid`;

@@ -1,0 +1,44 @@
+"""Read-only Git preflight and pre-observation oracle; writes only new H6-013 files."""
+import hashlib,json,pathlib,re,subprocess,datetime
+ROOT=pathlib.Path(__file__).resolve().parents[1]
+BASE='8a5f1408777b81b760a02646fa414a34dc17983e';TREE='758e871c7ad621dcbdb69516cccd175e529dbd6e'
+def git(*args):return subprocess.check_output(['git',*args],cwd=ROOT)
+def sha(b):return hashlib.sha256(b).hexdigest()
+def save(p,v):
+ p=ROOT/p;p.parent.mkdir(parents=True,exist_ok=True)
+ with p.open('x') as f:f.write(v if isinstance(v,str) else json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+assert git('rev-parse','HEAD').decode().strip()==BASE
+assert git('rev-parse','HEAD^{tree}').decode().strip()==TREE
+assert not git('diff','--name-only') and not git('diff','--cached','--name-only')
+paths=git('ls-tree','-r','--name-only',BASE).decode().splitlines()
+source=['docs/constitution.md','docs/DECISIONS.md','docs/architecture.md','docs/domain-model.md','docs/state-machines.md','docs/business-rules.md','specs/001-core-crm/spec.md','specs/001-core-crm/plan.md','specs/001-core-crm/tasks.md']
+contents={p:git('show',BASE+':'+p) for p in source}
+for p,b in contents.items():assert (ROOT/p).read_bytes()==b
+rows=[{'line':i,'literal':s,'id':re.search(r'\*\*(.*?)\*\*',s).group(1)} for i,s in enumerate(contents[source[-1]].decode().splitlines(),1) if s.startswith('| **') and '[TSK-H6-013]' in s]
+assert len(rows)==13
+migrations=[]
+for p in sorted(x for x in paths if x.startswith('supabase/migrations/') and x.endswith('.sql')):
+ b=git('show',BASE+':'+p);assert (ROOT/p).read_bytes()==b
+ text=b.decode();migrations.append({'ordinal':len(migrations)+1,'path':p,'sha256':sha(b),'bytes':len(b),'package':re.search(r'_h(\d)_',p).group(1),'authority':'cluster-bootstrap' if p.endswith('_authorities.sql') or p.endswith('_roles.sql') else 'crm_h0_migration','header':text.splitlines()[:3]})
+files={p:{'sha256':sha((ROOT/p).read_bytes()),'bytes':(ROOT/p).stat().st_size} for p in paths}
+base={'base':BASE,'tree':TREE,'branch':git('branch','--show-current').decode().strip(),'statusBefore':git('status','--porcelain=v2','--branch').decode(),'index':git('write-tree').decode().strip(),'createdUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'files':files}
+save('tests/fixtures/h6-013/base-inventory.json',base)
+save('tests/fixtures/h6-013/migrations.json',{'base':BASE,'count':len(migrations),'orderedSetSha256':sha(''.join(f"{m['sha256']}  {m['path']}\n" for m in migrations).encode()),'migrations':migrations})
+save('tests/fixtures/h6-013/normative-rows.json',rows)
+# Structural oracle extracted from versioned DDL, never from an installed database.
+tables=set();functions=set()
+for m in migrations:
+ s=(ROOT/m['path']).read_text()
+ tables.update(re.findall(r'create\s+table\s+(?:if\s+not\s+exists\s+)?(crm\w*\.\w+)',s,re.I))
+ functions.update(re.findall(r'create\s+(?:or\s+replace\s+)?function\s+(crm\w*\.\w+)\s*\(',s,re.I))
+save('tests/fixtures/h6-013/expected-structure.json',{'source':'Static CREATE statements in official SQL; lower-bound structural oracle, not a catalog learned from observed DB','tables':sorted(x.lower() for x in tables),'functions':sorted(x.lower() for x in functions)})
+expected='''# TSK-H6-013 — expected anterior a observación\n\nBase exclusiva `'''+BASE+'''`, árbol `'''+TREE+'''`. Autoriza únicamente ensayos locales sintéticos. No se modifica Tasks ni normas; H6-013 queda candidato a revisión, sin aceptación unilateral.\n\nFuentes: los nueve documentos normativos están identificados por SHA-256 en `base-inventory.json`; extracción literal de las 13 filas en `normative-rows.json`. Constitución P10–P13/P18, Plan 5.4/10.1/11.4 y Tasks 2.2–2.3/6/7 gobiernan el resultado. Los expected históricos permanecen intactos. Inventario estructural independiente: análisis estático del SQL autorizado, nunca catálogo observado convertido en expected.\n\n| Caso | Expected previo y fuente |\n|---|---|\n| A01/A02 | Dos clústeres nuevos aplican exactamente la cadena ordenada identificada; misma estructura normalizada; todo objeto esperado presente. P13, V-MIG. |\n| A03 | Repetir una migración no introduce duplicados: o rechazo transaccional o resultado idéntico. No se presume idempotencia universal de DDL. |\n| B01 | Hecho sintético anterior H0 access_probe sobrevive cada migración posterior exactamente. Fixture auténtico H0-010. |\n| B02 | Desde esquema26: identidades y relaciones reales del fixture H1 sobreviven27–68. |\n| B03 | Desde30: Booking, Acceptance, versiones y términos fijados sobreviven31–68; mismos IDs/relaciones/snapshots/historia. Fixture `h2-booking-fixtures.ts`. |\n| B04 | Desde33: recepción/conciliación/asignación de porciones reales del fixture histórico sobreviven34–68, importes exactos. Fixture `h3-allocation-fixtures.ts`. |\n| B05 | Desde52: hechos anteriores de preparación conservados53–68; expansión53 solo añade last_closure nulo en Task, no altera columnas anteriores. |\n| B06 | Desde63: tres cierres y su historia conservados64–68; fixture auténtico jointFixture. |\n| B07 | Desde67: diagnósticos/trabajo anteriores conservados68, replay reautorizado y mismos ACL/OID; suite histórica S6 y Q/V de migración. |\n| C01 | Runtime/HA son logins distintos del migrador: NO superuser/BYPASSRLS/CREATEROLE/CREATEDB ni escalada al migrador; propietarios internos NOLOGIN. Plan6.5/V-DAT. |\n| C02 | Tablas protegidas RLS+FORCE RLS; sin lectura/escritura directa runtime; llamadas sin contexto/falsificadas y actor inhabilitado rechazadas; contexto no migra entre operaciones. Suites H0 y ensayo directo. |\n| C03 | UPDATE/DELETE sobre historia y objetos fijados rechazados por identidad ordinaria y sin datos cambiados. G4/HIST-002/DM-INV-028/051. |\n| D01 | Fallo SQL inyectado antes de COMMIT revierte catálogo/datos sin estado híbrido; reintento hacia delante converge. Instrumentación solo en memoria/copia de ensayo, SQL oficial intacto. |\n| D02 | Incompatibilidad/constraint: rechazo real preserva datos, nunca DELETE/relajación para pasar. Suites históricas y ensayo FK/UNIQUE. |\n| D03 | Dependencia fuera de orden rechazada; estado parcialmente aplicado solo en clúster desechable, recuperación explícita. No fingir que aplicación rollback revierte esquema. |\n| E01 | Regresión seleccionada oficial H5-019 en réplica íntegra; assertions originales sin editar. Pruebas heredadas/repetidas no se suman como nuevas. |\n| E02 | Compatibilidad aplicación/esquema por versiones concretas: solo la versión/adapter realmente ejecutado puede acreditarse. Las combinaciones no ejecutadas quedan NO ACREDITADAS y bloquean PASS si exigibles. |\n| E03 | Evidencia recuperable con hashes, logs originales y verificación de toda ruta base; cero cambios históricos. V-EVI/NFR-015. |\n\nLos casos nuevos se ejecutarán tras sellar este archivo; un error del instrumento se registra antes de corregirlo. No se modifica un expected tras observar para hacerlo pasar. Una suite histórica con fixture corregido usa su hook oficial explícito; no convierte un FAIL histórico en PASS. El éxito de una instalación vacía no acredita por sí solo una actualización con datos.\n\nSPEC-NFR-005/PLAN-B10: alcance de migración y recuperación transaccional; ensayo integral de restauración de objetos/servicios, RPO/RTO y procedimiento corresponden a H6-014/015, no iniciados. Hosted/Production no acreditados; DM-PENDING-005 OPEN.\n'''
+save('specs/001-core-crm/expected-TSK-H6-013.md',expected)
+mapping={'SPEC-FR-HIST-002':'B03–B07/C03','AC-079':'A01/A02/C01/E03','SPEC-NFR-004':'A01/A02/E03','SPEC-NFR-005':'D01/D03; límite H6-014/015','SPEC-NFR-012':'B02–B07/C03','SPEC-NFR-015':'E02/E03','DM-INV-028':'B03/B04/C03','DM-INV-051':'B02/C03','ARCH-DEC-017':'A01/A02/E03','P13':'A01–A03/D01–D03','PLAN-DEC-003':'B02–B07','PLAN-B10':'A–E; límites H6 posteriores','G4':'B02–B07/C03'}
+# Every literal source ID must have a verification mapping.
+matrix='# TSK-H6-013 — matriz normativa previa\n\nExtraída directamente del commit oficial. Estado previo: NO EJECUTADA. El resultado por fila se publicará en evidence-TSK-H6-013.md.\n\n| ID / línea Tasks | Verificación asignada |\n|---|---|\n'
+for r in rows:matrix+=f"| {r['id']} / {r['line']} | {mapping[r['id']]} |\n"
+save('specs/001-core-crm/matrix-TSK-H6-013.md',matrix)
+seal={p:sha((ROOT/p).read_bytes()) for p in ['specs/001-core-crm/expected-TSK-H6-013.md','specs/001-core-crm/matrix-TSK-H6-013.md','tests/fixtures/h6-013/expected-structure.json','tests/fixtures/h6-013/normative-rows.json','tests/fixtures/h6-013/migrations.json']}
+save('tests/fixtures/h6-013/expected-seal.json',{'createdUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'sha256':seal})
+print(json.dumps({'base':BASE,'tree':TREE,'trackedFiles':len(files),'migrations':len(migrations),'rows':[r['id'] for r in rows],'staticTables':len(tables),'staticFunctions':len(functions),'seal':seal},indent=2))

@@ -1,0 +1,120 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /tmp/crm-h6-local-88000049e448/crm-private-storage-test-kuBYJn/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /tmp/crm-h6-local-88000049e448/crm-private-storage-test-kuBYJn/data -l logfile start
+
+waiting for server to start.... done
+server started
+F06 current authority chain applied through 20261006152658_h4_joint_funds_compatible_actor_admission.sql after historical boundary 202609260003_h0_m03_f2_expiry_revalidation_fix.sql
+✔ H0-006 N11: revoked session cannot invoke global revocation through server F2 issuance (1683.80725ms)
+ℹ {"revokedSessionDeniedForCore":true,"globalRevocationDenied":true,"generationBefore":"1","generationAfter":"1","otherSessionStillAuthorized":true}
+✔ H0-006 R22: independent predecessor upgrade, rollback and reapply (929.360375ms)
+✔ H0-006 R07/R18: F2 expiry while waiting for actor lock must deny establishment (31005.406625ms)
+ℹ {"initialValidControl":true,"initialExpiredControlDenied":true,"sawLockWait":true,"releasedAfterExpiry":true,"accepted":false,"code":"42501","sessions":0,"epochs":0,"created_after_expiry":null,"coreAllowed":false}
+▶ H0-006 third execution: independent actor, lookup and M2 controls
+  ✔ R03 generic lookup is metadata, not authority; revoke-all lookup requires live session (5.119375ms)
+  ✔ R03 revoke-all lookup rejects revoked, stale, old epoch, disabled and 7/30 expiry (4.974125ms)
+  ✔ R04 M2 SQL cannot create an actor, session, epoch or mutate authority (7.066125ms)
+  ✔ R05/R20 independently signed F2 and F1 are both necessary and scope-bound (6.08325ms)
+  ✔ R06 independent 25-field framing rejects mutation and malformed input (15.38075ms)
+  ✔ R07 a valid capability cannot cross transactions or backends (12.015333ms)
+  ✔ R08 plain GUC and reused pooled connection grant no authority (2.032375ms)
+  ✔ R09 key custody and exact key lifecycle fail closed (5.931125ms)
+  ✔ R10 singleton mapping cannot be duplicated or changed by runtime (0.731708ms)
+  ✔ R11 session, subject and epoch must match current coherent rows (1.608875ms)
+  ✔ R12 unverified Auth, incomplete MFA and unclassified interaction deny (0.925792ms)
+  ✔ R13/R14 elapsed 7/30-day limits deny at equality before activity update (5.869ms)
+  ✔ R02 pre-issued authority loses to a committed revocation (11.72875ms)
+  ✔ R15 two devices keep independent activity and reidentify without history rewrite (7.915333ms)
+  ✔ R19 failed Core operation rolls back F2 activity and F1 consumption (5.73675ms)
+  ✔ R21 roles, SECURITY DEFINER and FORCE RLS remain effective (2.169833ms)
+  ✔ R18 F02 six independently issued operations deny after a real actor-lock expiry (30149.345291ms)
+  ✔ R18 a short real lock wait may continue while F2 remains valid (227.723875ms)
+  ✔ R18 F2 also expires while waiting on session and epoch locks (60282.652167ms)
+  ✔ R17 disable, recovery and enrollment deny; re-enable does not revive old generation (52.03775ms)
+  ✔ R23 a committed global revocation stays effective after response loss (5.735708ms)
+  ✔ R16 revoke-one/global are scoped and generation overflow fails closed (10.124584ms)
+✔ H0-006 third execution: independent actor, lookup and M2 controls (91732.352292ms)
+ℹ {"f02SixBlocked":true,"postLockClockAfterExpiry":true,"sixDeniedWithoutPartialEffect":true}
+✔ H0-014 R01-R04/R13/R16/R18: global closure is durable, includes emitter and permits only new identification (1548.334417ms)
+✔ H0-014 R05-R08: every partial Auth outcome leaves Core denied and never reports success (30.726208ms)
+✔ H0-014 R09: concurrent global closures serialize and coordinate Auth once (5.756542ms)
+✔ H0-014 R10: an already-authorized Core operation may finish before later revocation (61.448ms)
+✔ H0-014 R11: revocation that holds actor first defeats an in-flight old Core request (54.579292ms)
+✔ H0-014 R12/R14/R15: revoked, disabled, stale and non-human routes cannot revive activity (13.053792ms)
+✔ H0-014 R17/R20/R21: ACL, capability binding and TTE partition deny indirect authority (10.120416ms)
+✔ H0-014 R19: independent predecessor upgrade is atomic and preserves D039 objects (124.858375ms)
+✔ R01-R04/R08: independent conservation oracle and durable replay (1213.689625ms)
+✔ R05: real same-path corruption and media mismatch are not conserved (150.606542ms)
+✔ R10/R11/R13: independently signed foreign scope and generic JWT cannot access (33.50675ms)
+✔ R06/R07/R15/R17: real upload survives internal rollback and repair/orphan retains bytes (76.971ms)
+✔ R09/R10/R16: all five concurrency surfaces and retained original (143.328958ms)
+✔ R11-R14: actual signed URL remains technically valid; Core access is reauthorized (3604.47475ms)
+✔ R18/R19: forced RLS, narrow grants and migration rollback/reapply (194.782583ms)
+✔ H6-008 S01 S02 S06: idle7 across sixteen Core surfaces (1781.303209ms)
+ℹ {"invalid":"idle7","positiveControls":16,"denied":["commercial.read","commercial.mutate","commercial.replay","work.read","work.replay","evidence.read","projection.timeline","projection.calendar","projection.query","projection.search","projection.export","projection.document","projection.ai_context","object.metadata","object.download","object.replay"],"durableStateUnchanged":true,"auth":"synthetic-port"}
+✔ H6-008 S01 S02 S06: absolute30 across sixteen Core surfaces (156.290875ms)
+ℹ {"invalid":"absolute30","positiveControls":16,"denied":["commercial.read","commercial.mutate","commercial.replay","work.read","work.replay","evidence.read","projection.timeline","projection.calendar","projection.query","projection.search","projection.export","projection.document","projection.ai_context","object.metadata","object.download","object.replay"],"durableStateUnchanged":true,"auth":"synthetic-port"}
+✔ H6-008 S01 S02 S06: revoked-one across sixteen Core surfaces (175.750708ms)
+ℹ {"invalid":"revoked-one","positiveControls":16,"denied":["commercial.read","commercial.mutate","commercial.replay","work.read","work.replay","evidence.read","projection.timeline","projection.calendar","projection.query","projection.search","projection.export","projection.document","projection.ai_context","object.metadata","object.download","object.replay"],"durableStateUnchanged":true,"auth":"synthetic-port"}
+✔ H6-008 S01 S02 S06: disabled across sixteen Core surfaces (122.101125ms)
+ℹ {"invalid":"disabled","positiveControls":16,"denied":["commercial.read","commercial.mutate","commercial.replay","work.read","work.replay","evidence.read","projection.timeline","projection.calendar","projection.query","projection.search","projection.export","projection.document","projection.ai_context","object.metadata","object.download","object.replay"],"durableStateUnchanged":true,"auth":"synthetic-port"}
+✔ H6-008 S01 S02 S06: recovery across sixteen Core surfaces (121.698125ms)
+ℹ {"invalid":"recovery","positiveControls":16,"denied":["commercial.read","commercial.mutate","commercial.replay","work.read","work.replay","evidence.read","projection.timeline","projection.calendar","projection.query","projection.search","projection.export","projection.document","projection.ai_context","object.metadata","object.download","object.replay"],"durableStateUnchanged":true,"auth":"synthetic-port"}
+✔ H6-008 S01 S02 S06: enrollment across sixteen Core surfaces (117.030584ms)
+ℹ {"invalid":"enrollment","positiveControls":16,"denied":["commercial.read","commercial.mutate","commercial.replay","work.read","work.replay","evidence.read","projection.timeline","projection.calendar","projection.query","projection.search","projection.export","projection.document","projection.ai_context","object.metadata","object.download","object.replay"],"durableStateUnchanged":true,"auth":"synthetic-port"}
+✔ H6-008 S01 S02 S06: missing-mfa across sixteen Core surfaces (136.966375ms)
+ℹ {"invalid":"missing-mfa","positiveControls":16,"denied":["commercial.read","commercial.mutate","commercial.replay","work.read","work.replay","evidence.read","projection.timeline","projection.calendar","projection.query","projection.search","projection.export","projection.document","projection.ai_context","object.metadata","object.download","object.replay"],"durableStateUnchanged":true,"auth":"synthetic-port"}
+✔ H6-008 S01 S02 S06: unmapped across sixteen Core surfaces (134.341167ms)
+ℹ {"invalid":"unmapped","positiveControls":16,"denied":["commercial.read","commercial.mutate","commercial.replay","work.read","work.replay","evidence.read","projection.timeline","projection.calendar","projection.query","projection.search","projection.export","projection.document","projection.ai_context","object.metadata","object.download","object.replay"],"durableStateUnchanged":true,"auth":"synthetic-port"}
+✔ H6-008 S01 S02 S06: forged across sixteen Core surfaces (116.175459ms)
+ℹ {"invalid":"forged","positiveControls":16,"denied":["commercial.read","commercial.mutate","commercial.replay","work.read","work.replay","evidence.read","projection.timeline","projection.calendar","projection.query","projection.search","projection.export","projection.document","projection.ai_context","object.metadata","object.download","object.replay"],"durableStateUnchanged":true,"auth":"synthetic-port"}
+✔ H6-008 S01 S02 S06: missing across sixteen Core surfaces (120.319416ms)
+ℹ {"invalid":"missing","positiveControls":16,"denied":["commercial.read","commercial.mutate","commercial.replay","work.read","work.replay","evidence.read","projection.timeline","projection.calendar","projection.query","projection.search","projection.export","projection.document","projection.ai_context","object.metadata","object.download","object.replay"],"durableStateUnchanged":true,"auth":"synthetic-port"}
+✔ H6-008 S02 S03: controlled time boundaries, per-device activity, opaque human signal and password/TOTP (119.392083ms)
+ℹ 6 exact microsecond boundary checks; passive and forged signals rejected; device A/B independent. Real HTTP origin and real Auth still pending.
+✔ H6-008 S04 S05: global closure revoked includes issuer across all surfaces (166.193291ms)
+ℹ {"outcome":"revoked","status":"completed","deniedOldSurfaces":32,"newSyntheticIdentification":true,"realAuthAccredited":false}
+✔ H6-008 S04 S05: global closure failed includes issuer across all surfaces (160.205541ms)
+ℹ {"outcome":"failed","status":"partial","deniedOldSurfaces":32,"newSyntheticIdentification":true,"realAuthAccredited":false}
+✔ H6-008 S04 S05: global closure uncertain includes issuer across all surfaces (153.183459ms)
+ℹ {"outcome":"uncertain","status":"partial","deniedOldSurfaces":32,"newSyntheticIdentification":true,"realAuthAccredited":false}
+✔ H6-008 S04 S05: global closure throw includes issuer across all surfaces (163.493875ms)
+ℹ {"outcome":"throw","status":"partial","deniedOldSurfaces":32,"newSyntheticIdentification":true,"realAuthAccredited":false}
+✔ H6-008 S07: direct SQL roles and known private object path, still-live locally signed JWT (8566.159708ms)
+ℹ {"directSqlAttempts":1376,"tables":172,"roles":4,"privatePathDenied":true,"syntheticUnexpiredJwtDenied":true,"realAuthAccredited":false}
+✔ H6-008 S08: actual Storage bytes arrive after global closure; final Core authorization denies release (171.307459ms)
+ℹ {"realStorageReadCompleted":true,"revocationCommittedBeforeRelease":true,"bytesReleased":false,"auth":"synthetic-port"}
+✔ H6-008 S09: real projection/revocation overlap; revocationFirst=false (203.694917ms)
+ℹ {"revocationFirst":false,"first":[{"pid":5140,"wait_event_type":"Lock","blockers":[5139]}],"second":[{"pid":5142,"wait_event_type":"Lock","blockers":[5140]}],"earlierAuthorizedReadAllowed":true,"postClosureDenied":true}
+✔ H6-008 S09: real projection/revocation overlap; revocationFirst=true (195.642125ms)
+ℹ {"revocationFirst":true,"first":[{"pid":5145,"wait_event_type":"Lock","blockers":[5144]}],"second":[{"pid":5147,"wait_event_type":"Lock","blockers":[5145]}],"earlierAuthorizedReadAllowed":false,"postClosureDenied":true}
+﹣ H6-008 S10: real Auth/provider and HTTP ingress remain unaccredited (0.094416ms) # No production AuthVerificationPort/ingress adapter is implemented in the approved base; no real credentials or Hosted access authorized.
+ℹ tests 61
+ℹ suites 0
+ℹ pass 60
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 125514.2775
+waiting for server to shut down.... done
+server stopped

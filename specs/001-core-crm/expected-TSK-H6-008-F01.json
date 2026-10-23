@@ -1,0 +1,27 @@
+{
+  "task": "TSK-H6-008",
+  "revision": "F01 corrective",
+  "frozenAt": "2026-10-21T23:12:50.946781+00:00",
+  "sources": [
+    "Plan §6.3: carreras con nuevas identificaciones; resultado anterior tardío no vuelve válida sesión",
+    "D038 §13–16 generación vigente y admisión atómica"
+  ],
+  "cases": [
+    {
+      "id": "F01a",
+      "expected": "Login con identidad/password/TOTP verificados antes del cierre global no adopta generación nueva al reanudar establish; Core no accesible aun si logout Auth falla503."
+    },
+    {
+      "id": "F01b",
+      "expected": "La generación se captura antes de completar TOTP y se exige en la unidad PostgreSQL existente, no solo en un Map o instancia de servidor."
+    },
+    {
+      "id": "F01c",
+      "expected": "Si establish confirma primero y revocación después, cualquier handle/respuesta tardía de aquella sesión carece de acceso Core; nueva identificación posterior con password y TOTP sí funciona."
+    },
+    {
+      "id": "F01d",
+      "expected": "Dos instancias independientes comparten la barrera durable de generación: revocación en B rechaza identificación pendiente de A; no se alteran normative/expected anteriores ni FAIL R1."
+    }
+  ]
+}

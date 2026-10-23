@@ -1,0 +1,3495 @@
+{
+  "count": 110,
+  "distinctSqlNames": 105,
+  "sourceInventory": "public-human-adapter-inventory.json",
+  "liveSqlSnapshot": "live-sql-functions.json",
+  "reviewScope": "Source-read mapping of every human public entrypoint; SQL lists include conditional auxiliary paths, not assertion that every input executes all paths. All dynamic observations remain separately identified.",
+  "rows": [
+    {
+      "entrypoint": "H0005PostgresAdapter.establish",
+      "file": "src/infrastructure/postgres/h0-005-adapter.ts",
+      "line": 71,
+      "category": "session-management-not-ordinary-core-matrix",
+      "reviewedSqlPaths": [
+        {
+          "name": "establish_session",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "3522c19733bbd0413bf1beb6b365247a38bdc513b0ca96bf8bff2508472b283f",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Use specific lifecycle expectations; do not require all management functions to behave like data reads at idle/expiry. F01 generation race belongs here. Recovery/actor administration use separately approved authorities.",
+      "matrixCoverage": "auth-lifecycle-tested"
+    },
+    {
+      "entrypoint": "H0005PostgresAdapter.reidentify",
+      "file": "src/infrastructure/postgres/h0-005-adapter.ts",
+      "line": 94,
+      "category": "session-management-not-ordinary-core-matrix",
+      "reviewedSqlPaths": [
+        {
+          "name": "reidentify_session",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "6f11fe8d41a52ef09a1a060ae1452e9aa0660751a171d7de03f1d233f2baea58",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Use specific lifecycle expectations; do not require all management functions to behave like data reads at idle/expiry. F01 generation race belongs here. Recovery/actor administration use separately approved authorities.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0005PostgresAdapter.revokeOne",
+      "file": "src/infrastructure/postgres/h0-005-adapter.ts",
+      "line": 115,
+      "category": "session-management-not-ordinary-core-matrix",
+      "reviewedSqlPaths": [
+        {
+          "name": "revoke_session",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "30f814cebafb5fcc6accafc0303129dbf870c1139b6c96078fd44c99a8333bc7",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Use specific lifecycle expectations; do not require all management functions to behave like data reads at idle/expiry. F01 generation race belongs here. Recovery/actor administration use separately approved authorities.",
+      "matrixCoverage": "auth-lifecycle-tested"
+    },
+    {
+      "entrypoint": "H0005PostgresAdapter.revokeAll",
+      "file": "src/infrastructure/postgres/h0-005-adapter.ts",
+      "line": 129,
+      "category": "session-management-not-ordinary-core-matrix",
+      "reviewedSqlPaths": [
+        {
+          "name": "revoke_all_sessions",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "2c36a34bbe090121d9cf456a6f1ee56aa3650be37910001bf96abdf14922d714",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Use specific lifecycle expectations; do not require all management functions to behave like data reads at idle/expiry. F01 generation race belongs here. Recovery/actor administration use separately approved authorities.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0005PostgresAdapter.readCoreProbe",
+      "file": "src/infrastructure/postgres/h0-005-adapter.ts",
+      "line": 162,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "human_read_probe",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "3593416c374afabc246ec6d6ea790416618a5792d79e5d83e21c1e3a03701289",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0005PostgresAdapter.applyCoreProbe",
+      "file": "src/infrastructure/postgres/h0-005-adapter.ts",
+      "line": 189,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "human_apply_probe_batch",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "1c882c4ad1a414bbb12601bd7a2335a787e236e724320ee18a070da4220a22da",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0011PostgresAdapter.propose",
+      "file": "src/infrastructure/postgres/h0-011-adapter.ts",
+      "line": 292,
+      "category": "tte-human-approval-command",
+      "reviewedSqlPaths": [
+        {
+          "name": "h0_m04_command",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "1c8e704d9b4867a2d4f098e1f5d67c00a4bd8b28f188a2caf6a51e57d2b8be5d",
+              "directAdmit": true,
+              "admitDefinitionLine": 22,
+              "condition": "Only propose/decide/reserve branch is human; its admit precedes command receipt replay"
+            }
+          ]
+        },
+        {
+          "name": "commit_internal_unit",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "59cbb18eacdd38320650854243da24b46e23f8935fe03ee53b2917523ff6f7f8",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            },
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "8beb38657ea078ea698891712244d291ee4bcf68b655c5f949a477b3d5dcbae1",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_finalize_evidence",
+          "variants": [
+            {
+              "arguments": "command_key text",
+              "runtimeExecute": false,
+              "definitionSha256": "667c9ec24ec6803d79a60a0a0ecefccdb1cab54267e767a20b8c6b41e6912535",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require human action tag propose/decide/reserve, 6-argument commit overload, issuer login crm_h0_ha_tx and existing finalization invariants. Replay probe is technical and does not itself authorize a result; command+ledger re-admit the old proof before replay can return.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0011PostgresAdapter.decide",
+      "file": "src/infrastructure/postgres/h0-011-adapter.ts",
+      "line": 299,
+      "category": "tte-human-approval-command",
+      "reviewedSqlPaths": [
+        {
+          "name": "h0_m04_command",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "1c8e704d9b4867a2d4f098e1f5d67c00a4bd8b28f188a2caf6a51e57d2b8be5d",
+              "directAdmit": true,
+              "admitDefinitionLine": 22,
+              "condition": "Only propose/decide/reserve branch is human; its admit precedes command receipt replay"
+            }
+          ]
+        },
+        {
+          "name": "commit_internal_unit",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "59cbb18eacdd38320650854243da24b46e23f8935fe03ee53b2917523ff6f7f8",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            },
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "8beb38657ea078ea698891712244d291ee4bcf68b655c5f949a477b3d5dcbae1",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_finalize_evidence",
+          "variants": [
+            {
+              "arguments": "command_key text",
+              "runtimeExecute": false,
+              "definitionSha256": "667c9ec24ec6803d79a60a0a0ecefccdb1cab54267e767a20b8c6b41e6912535",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require human action tag propose/decide/reserve, 6-argument commit overload, issuer login crm_h0_ha_tx and existing finalization invariants. Replay probe is technical and does not itself authorize a result; command+ledger re-admit the old proof before replay can return.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0011PostgresAdapter.reserve",
+      "file": "src/infrastructure/postgres/h0-011-adapter.ts",
+      "line": 328,
+      "category": "tte-human-approval-command",
+      "reviewedSqlPaths": [
+        {
+          "name": "h0_m04_command",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "1c8e704d9b4867a2d4f098e1f5d67c00a4bd8b28f188a2caf6a51e57d2b8be5d",
+              "directAdmit": true,
+              "admitDefinitionLine": 22,
+              "condition": "Only propose/decide/reserve branch is human; its admit precedes command receipt replay"
+            }
+          ]
+        },
+        {
+          "name": "commit_internal_unit",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "59cbb18eacdd38320650854243da24b46e23f8935fe03ee53b2917523ff6f7f8",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            },
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "8beb38657ea078ea698891712244d291ee4bcf68b655c5f949a477b3d5dcbae1",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_finalize_evidence",
+          "variants": [
+            {
+              "arguments": "command_key text",
+              "runtimeExecute": false,
+              "definitionSha256": "667c9ec24ec6803d79a60a0a0ecefccdb1cab54267e767a20b8c6b41e6912535",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_evidence_replay",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "d59bf3a7fc572e9c7c87af47a4b5e8260d77ffdd14142ded8c31434b70ecf4ee",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_revalidate_evidence",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "a2179beee46754cd40f1f87cc95c55df0903123e640b1e953987316e3a5dea4e",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require human action tag propose/decide/reserve, 6-argument commit overload, issuer login crm_h0_ha_tx and existing finalization invariants. Replay probe is technical and does not itself authorize a result; command+ledger re-admit the old proof before replay can return.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0011PostgresAdapter.scheduleProviderPayment",
+      "file": "src/infrastructure/postgres/h0-011-adapter.ts",
+      "line": 334,
+      "category": "tte-human-approval-command",
+      "reviewedSqlPaths": [
+        {
+          "name": "h0_m04_command",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "1c8e704d9b4867a2d4f098e1f5d67c00a4bd8b28f188a2caf6a51e57d2b8be5d",
+              "directAdmit": true,
+              "admitDefinitionLine": 22,
+              "condition": "Only propose/decide/reserve branch is human; its admit precedes command receipt replay"
+            }
+          ]
+        },
+        {
+          "name": "commit_internal_unit",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "59cbb18eacdd38320650854243da24b46e23f8935fe03ee53b2917523ff6f7f8",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            },
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "8beb38657ea078ea698891712244d291ee4bcf68b655c5f949a477b3d5dcbae1",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_finalize_evidence",
+          "variants": [
+            {
+              "arguments": "command_key text",
+              "runtimeExecute": false,
+              "definitionSha256": "667c9ec24ec6803d79a60a0a0ecefccdb1cab54267e767a20b8c6b41e6912535",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_evidence_replay",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "d59bf3a7fc572e9c7c87af47a4b5e8260d77ffdd14142ded8c31434b70ecf4ee",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_revalidate_evidence",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "a2179beee46754cd40f1f87cc95c55df0903123e640b1e953987316e3a5dea4e",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "provider_payment_sensitive_schedule",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, a jsonb",
+              "runtimeExecute": false,
+              "definitionSha256": "54b011b25a7d320b2a5b1e2a2550c387087b19512f4dea9cad6de4aa265964a5",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "provider_payment_finalize",
+          "variants": [
+            {
+              "arguments": "command_id text",
+              "runtimeExecute": false,
+              "definitionSha256": "cd8bbae20e32712de424b2db3ef52f59dd5f1b20a16d7e09c90b830e1196ad97",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require human action tag propose/decide/reserve, 6-argument commit overload, issuer login crm_h0_ha_tx and existing finalization invariants. Replay probe is technical and does not itself authorize a result; command+ledger re-admit the old proof before replay can return.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0011PostgresAdapter.authorizeRefund",
+      "file": "src/infrastructure/postgres/h0-011-adapter.ts",
+      "line": 342,
+      "category": "tte-human-approval-command",
+      "reviewedSqlPaths": [
+        {
+          "name": "h0_m04_command",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "1c8e704d9b4867a2d4f098e1f5d67c00a4bd8b28f188a2caf6a51e57d2b8be5d",
+              "directAdmit": true,
+              "admitDefinitionLine": 22,
+              "condition": "Only propose/decide/reserve branch is human; its admit precedes command receipt replay"
+            }
+          ]
+        },
+        {
+          "name": "commit_internal_unit",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "59cbb18eacdd38320650854243da24b46e23f8935fe03ee53b2917523ff6f7f8",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            },
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "8beb38657ea078ea698891712244d291ee4bcf68b655c5f949a477b3d5dcbae1",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_finalize_evidence",
+          "variants": [
+            {
+              "arguments": "command_key text",
+              "runtimeExecute": false,
+              "definitionSha256": "667c9ec24ec6803d79a60a0a0ecefccdb1cab54267e767a20b8c6b41e6912535",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_evidence_replay",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "d59bf3a7fc572e9c7c87af47a4b5e8260d77ffdd14142ded8c31434b70ecf4ee",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_revalidate_evidence",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "a2179beee46754cd40f1f87cc95c55df0903123e640b1e953987316e3a5dea4e",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "refund_sensitive_authorize",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, a jsonb",
+              "runtimeExecute": false,
+              "definitionSha256": "2188c2011aa10e6fa1d3ee4bcd5604a50bf89a89a981f5c164be6a8339f1f31a",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "refund_finalize",
+          "variants": [
+            {
+              "arguments": "command_id text",
+              "runtimeExecute": false,
+              "definitionSha256": "9598b60c25c779cdd29ae0312294ce9ccbaa926377345afc1fdc10be5d0267a3",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require human action tag propose/decide/reserve, 6-argument commit overload, issuer login crm_h0_ha_tx and existing finalization invariants. Replay probe is technical and does not itself authorize a result; command+ledger re-admit the old proof before replay can return.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0011PostgresAdapter.evaluateBookingPreparation",
+      "file": "src/infrastructure/postgres/h0-011-adapter.ts",
+      "line": 347,
+      "category": "tte-human-approval-command",
+      "reviewedSqlPaths": [
+        {
+          "name": "h0_m04_command",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "1c8e704d9b4867a2d4f098e1f5d67c00a4bd8b28f188a2caf6a51e57d2b8be5d",
+              "directAdmit": true,
+              "admitDefinitionLine": 22,
+              "condition": "Only propose/decide/reserve branch is human; its admit precedes command receipt replay"
+            }
+          ]
+        },
+        {
+          "name": "commit_internal_unit",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "59cbb18eacdd38320650854243da24b46e23f8935fe03ee53b2917523ff6f7f8",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            },
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "8beb38657ea078ea698891712244d291ee4bcf68b655c5f949a477b3d5dcbae1",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_finalize_evidence",
+          "variants": [
+            {
+              "arguments": "command_key text",
+              "runtimeExecute": false,
+              "definitionSha256": "667c9ec24ec6803d79a60a0a0ecefccdb1cab54267e767a20b8c6b41e6912535",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_evidence_replay",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "d59bf3a7fc572e9c7c87af47a4b5e8260d77ffdd14142ded8c31434b70ecf4ee",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_revalidate_evidence",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "a2179beee46754cd40f1f87cc95c55df0903123e640b1e953987316e3a5dea4e",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "booking_preparation_sensitive",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, a jsonb",
+              "runtimeExecute": false,
+              "definitionSha256": "4cc2558d4a28b270fe9291eee91d5f8f0064717cf2378f75024ad30f781c612c",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "booking_preparation_finalize",
+          "variants": [
+            {
+              "arguments": "command_id text",
+              "runtimeExecute": false,
+              "definitionSha256": "fd27bccab406fc3f4fdefba1a62d5118b5a0a2daf248567b9f627f67949bc2a9",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require human action tag propose/decide/reserve, 6-argument commit overload, issuer login crm_h0_ha_tx and existing finalization invariants. Replay probe is technical and does not itself authorize a result; command+ledger re-admit the old proof before replay can return.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0011PostgresAdapter.recordReality",
+      "file": "src/infrastructure/postgres/h0-011-adapter.ts",
+      "line": 351,
+      "category": "tte-human-approval-command",
+      "reviewedSqlPaths": [
+        {
+          "name": "h0_m04_command",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "1c8e704d9b4867a2d4f098e1f5d67c00a4bd8b28f188a2caf6a51e57d2b8be5d",
+              "directAdmit": true,
+              "admitDefinitionLine": 22,
+              "condition": "Only propose/decide/reserve branch is human; its admit precedes command receipt replay"
+            }
+          ]
+        },
+        {
+          "name": "commit_internal_unit",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "59cbb18eacdd38320650854243da24b46e23f8935fe03ee53b2917523ff6f7f8",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            },
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "8beb38657ea078ea698891712244d291ee4bcf68b655c5f949a477b3d5dcbae1",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_finalize_evidence",
+          "variants": [
+            {
+              "arguments": "command_key text",
+              "runtimeExecute": false,
+              "definitionSha256": "667c9ec24ec6803d79a60a0a0ecefccdb1cab54267e767a20b8c6b41e6912535",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_evidence_replay",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "d59bf3a7fc572e9c7c87af47a4b5e8260d77ffdd14142ded8c31434b70ecf4ee",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_revalidate_evidence",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "a2179beee46754cd40f1f87cc95c55df0903123e640b1e953987316e3a5dea4e",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "reality_sensitive",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, a jsonb",
+              "runtimeExecute": false,
+              "definitionSha256": "4253bf38b032dc25dbceb6977a83453afb165f48c4329c0e6f7696072453fbd5",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "reality_finalize",
+          "variants": [
+            {
+              "arguments": "command_id text",
+              "runtimeExecute": false,
+              "definitionSha256": "344577a8a61568d5d555c3c5715c98adf9536daec3d96b0a8770a43a3b89aaff",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require human action tag propose/decide/reserve, 6-argument commit overload, issuer login crm_h0_ha_tx and existing finalization invariants. Replay probe is technical and does not itself authorize a result; command+ledger re-admit the old proof before replay can return.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0011PostgresAdapter.determineDeposit",
+      "file": "src/infrastructure/postgres/h0-011-adapter.ts",
+      "line": 356,
+      "category": "tte-human-approval-command",
+      "reviewedSqlPaths": [
+        {
+          "name": "h0_m04_command",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "1c8e704d9b4867a2d4f098e1f5d67c00a4bd8b28f188a2caf6a51e57d2b8be5d",
+              "directAdmit": true,
+              "admitDefinitionLine": 22,
+              "condition": "Only propose/decide/reserve branch is human; its admit precedes command receipt replay"
+            }
+          ]
+        },
+        {
+          "name": "commit_internal_unit",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "59cbb18eacdd38320650854243da24b46e23f8935fe03ee53b2917523ff6f7f8",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            },
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "8beb38657ea078ea698891712244d291ee4bcf68b655c5f949a477b3d5dcbae1",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_finalize_evidence",
+          "variants": [
+            {
+              "arguments": "command_key text",
+              "runtimeExecute": false,
+              "definitionSha256": "667c9ec24ec6803d79a60a0a0ecefccdb1cab54267e767a20b8c6b41e6912535",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_evidence_replay",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "d59bf3a7fc572e9c7c87af47a4b5e8260d77ffdd14142ded8c31434b70ecf4ee",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_revalidate_evidence",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "a2179beee46754cd40f1f87cc95c55df0903123e640b1e953987316e3a5dea4e",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "deposit_sensitive_determine",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, a jsonb",
+              "runtimeExecute": false,
+              "definitionSha256": "278017be53fa8f1ccc12afe7e00c653228e9fa237df9e4ca6f50a5c42640471a",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "deposit_finalize",
+          "variants": [
+            {
+              "arguments": "command_id text",
+              "runtimeExecute": false,
+              "definitionSha256": "243bf093459bcb36d6d6b26987b92860815c1876a78d3bb3e9bc34a116198ccf",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require human action tag propose/decide/reserve, 6-argument commit overload, issuer login crm_h0_ha_tx and existing finalization invariants. Replay probe is technical and does not itself authorize a result; command+ledger re-admit the old proof before replay can return.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0011PostgresAdapter.readProposal",
+      "file": "src/infrastructure/postgres/h0-011-adapter.ts",
+      "line": 385,
+      "category": "tte-human-approval-read",
+      "reviewedSqlPaths": [
+        {
+          "name": "h0_m04_read_proposal",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, p bytea, s bytea, q bytea, proposal_key text",
+              "runtimeExecute": false,
+              "definitionSha256": "c27296cb0d97e786fa38f46292964a0fb5815bf2cfa74f9c6d57082e8620d7ba",
+              "directAdmit": true,
+              "admitDefinitionLine": 14,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H0013GlobalAccessRevocationAdapter.revokeAll",
+      "file": "src/infrastructure/postgres/h0-013-adapter.ts",
+      "line": 142,
+      "category": "session-management-not-ordinary-core-matrix",
+      "reviewedSqlPaths": [
+        {
+          "name": "start_global_access_revocation",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "0d36bd931b7a8cc52d84efde00aba9cf440e6415f591b998dc1c2f2ac3621fc2",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "record_global_auth_revocation_outcome",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "4e70544caa44956f33feb826c7929e94104a0a494a1d43c1538dd23016520676",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Use specific lifecycle expectations; do not require all management functions to behave like data reads at idle/expiry. F01 generation race belongs here. Recovery/actor administration use separately approved authorities.",
+      "matrixCoverage": "auth-lifecycle-tested"
+    },
+    {
+      "entrypoint": "H1005CatalogAdapter.apply",
+      "file": "src/infrastructure/postgres/h1-catalog-adapter.ts",
+      "line": 76,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "catalog_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "b24f63ee747fb85a2a197256116772c1e4d6d1fa4dae5f3249407d1f2173c811",
+              "directAdmit": true,
+              "admitDefinitionLine": 16,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1005CatalogAdapter.read",
+      "file": "src/infrastructure/postgres/h1-catalog-adapter.ts",
+      "line": 106,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "catalog_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "22eae307b8f57ceba081f4505e24af6ef99a2a02a7dd74a098bb16cbc7291571",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1007CommercialAdapter.apply",
+      "file": "src/infrastructure/postgres/h1-commercial-adapter.ts",
+      "line": 75,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "commercial_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "977e696c4062921ae7e3c62dc1ef5b733cc75726200b3781ca35c74e357c6ced",
+              "directAdmit": true,
+              "admitDefinitionLine": 18,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1007CommercialAdapter.read",
+      "file": "src/infrastructure/postgres/h1-commercial-adapter.ts",
+      "line": 106,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "commercial_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "46861a1d33fda8c5c59f728dd39a9772faca2fcdb880f416974cddaed22702ff",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1013EvidenceAdapter.apply",
+      "file": "src/infrastructure/postgres/h1-evidence-adapter.ts",
+      "line": 79,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "bb3bdc8b52164bac1435741b4f8ac6333cc2d90013d6c12bf75b2549a27b6284",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1013EvidenceAdapter.read",
+      "file": "src/infrastructure/postgres/h1-evidence-adapter.ts",
+      "line": 107,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "d97196b96ca3e9bcef712f1d8d70b8234a989b2cd4f92a5c6775a5e1b2775daf",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "16-surface-positive-and-denial"
+    },
+    {
+      "entrypoint": "H1001IdentityAdapter.apply",
+      "file": "src/infrastructure/postgres/h1-identity-adapter.ts",
+      "line": 105,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "identity_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "849c2159e0ca46e8bf7126ca15a4974d5df4bcf9a26ecaf91342aa80764f97bd",
+              "directAdmit": true,
+              "admitDefinitionLine": 13,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1001IdentityAdapter.read",
+      "file": "src/infrastructure/postgres/h1-identity-adapter.ts",
+      "line": 142,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "identity_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "b0e06d8c4e819aa55fb3639fb2441a7b69ec68fb3625ea80f10423da3bb9b332",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1015ObjectAdapter.prepare",
+      "file": "src/infrastructure/postgres/h1-object-adapter.ts",
+      "line": 68,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_object_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "41f80a74b383de1f727cfc5a4b757efcd9dc74e61f99a7a0258447634aa6900b",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "16-surface-positive-and-denial"
+    },
+    {
+      "entrypoint": "H1015ObjectAdapter.metadata",
+      "file": "src/infrastructure/postgres/h1-object-adapter.ts",
+      "line": 74,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_object_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "deea908819ac699a414bd18792fac9d6dfee5ce83685b23ac673da27b43c0640",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "16-surface-positive-and-denial"
+    },
+    {
+      "entrypoint": "H1015ObjectAdapter.upload",
+      "file": "src/infrastructure/postgres/h1-object-adapter.ts",
+      "line": 81,
+      "category": "storage-multiunit",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_object_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "deea908819ac699a414bd18792fac9d6dfee5ce83685b23ac673da27b43c0640",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b07_object_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "41f80a74b383de1f727cfc5a4b757efcd9dc74e61f99a7a0258447634aa6900b",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require stage-specific assertions: invalid prior proof prevents first storage access; concurrent closure after read/put prevents final Core transition; download must not release bytes after closure. DB snapshot alone misses external Storage effects.",
+      "matrixCoverage": "fixture-positive-only"
+    },
+    {
+      "entrypoint": "H1015ObjectAdapter.reconcile",
+      "file": "src/infrastructure/postgres/h1-object-adapter.ts",
+      "line": 89,
+      "category": "storage-multiunit",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_object_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "deea908819ac699a414bd18792fac9d6dfee5ce83685b23ac673da27b43c0640",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b07_object_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "41f80a74b383de1f727cfc5a4b757efcd9dc74e61f99a7a0258447634aa6900b",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require stage-specific assertions: invalid prior proof prevents first storage access; concurrent closure after read/put prevents final Core transition; download must not release bytes after closure. DB snapshot alone misses external Storage effects.",
+      "matrixCoverage": "fixture-positive-only"
+    },
+    {
+      "entrypoint": "H1015ObjectAdapter.link",
+      "file": "src/infrastructure/postgres/h1-object-adapter.ts",
+      "line": 98,
+      "category": "storage-multiunit",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_object_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "deea908819ac699a414bd18792fac9d6dfee5ce83685b23ac673da27b43c0640",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b07_object_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "41f80a74b383de1f727cfc5a4b757efcd9dc74e61f99a7a0258447634aa6900b",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require stage-specific assertions: invalid prior proof prevents first storage access; concurrent closure after read/put prevents final Core transition; download must not release bytes after closure. DB snapshot alone misses external Storage effects.",
+      "matrixCoverage": "fixture-positive-only"
+    },
+    {
+      "entrypoint": "H1015ObjectAdapter.download",
+      "file": "src/infrastructure/postgres/h1-object-adapter.ts",
+      "line": 107,
+      "category": "storage-multiunit",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_object_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "deea908819ac699a414bd18792fac9d6dfee5ce83685b23ac673da27b43c0640",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require stage-specific assertions: invalid prior proof prevents first storage access; concurrent closure after read/put prevents final Core transition; download must not release bytes after closure. DB snapshot alone misses external Storage effects.",
+      "matrixCoverage": "16-surface-positive-and-denial"
+    },
+    {
+      "entrypoint": "H1015ObjectAdapter.diagnoseOrphan",
+      "file": "src/infrastructure/postgres/h1-object-adapter.ts",
+      "line": 117,
+      "category": "storage-multiunit",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_object_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "deea908819ac699a414bd18792fac9d6dfee5ce83685b23ac673da27b43c0640",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b07_object_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "41f80a74b383de1f727cfc5a4b757efcd9dc74e61f99a7a0258447634aa6900b",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Require stage-specific assertions: invalid prior proof prevents first storage access; concurrent closure after read/put prevents final Core transition; download must not release bytes after closure. DB snapshot alone misses external Storage effects.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1003ResolutionAdapter.apply",
+      "file": "src/infrastructure/postgres/h1-resolution-adapter.ts",
+      "line": 85,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "identity_resolve",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "37f2d0fdf2432e400e4fac4878427408b830d0c988fc665f07a36907d42a7d6b",
+              "directAdmit": true,
+              "admitDefinitionLine": 15,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1003ResolutionAdapter.candidates",
+      "file": "src/infrastructure/postgres/h1-resolution-adapter.ts",
+      "line": 114,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "identity_candidates",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "f851287750ff96aac207acd3f6f68fa8eb49c3a31d1c49668412d20cfb232b65",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1003ResolutionAdapter.findCode",
+      "file": "src/infrastructure/postgres/h1-resolution-adapter.ts",
+      "line": 134,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "identity_code_lookup",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "9f1a57eb66c134a7d73d75ab33a61965ef389e6915032833ef87ffdb1aeead5f",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1017TaskAdapter.apply",
+      "file": "src/infrastructure/postgres/h1-task-adapter.ts",
+      "line": 59,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_task_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "4b5fe78c9dff5bba8a8fc40e590e37c8116355a1a9709efbf01b7ad789c34a61",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H1017TaskAdapter.read",
+      "file": "src/infrastructure/postgres/h1-task-adapter.ts",
+      "line": 66,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_task_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "a0dc517a76741a7debc0f3d9d2e9326d81787121acb725a181216a5ac45739da",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H2007AcceptanceAdapter.apply",
+      "file": "src/infrastructure/postgres/h2-acceptance-adapter.ts",
+      "line": 33,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "acceptance_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "84d50c893f71370b5a5a5e36f79d28674c70686ecf0f2de9ee5d5b94b34fa515",
+              "directAdmit": true,
+              "admitDefinitionLine": 14,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H2007AcceptanceAdapter.read",
+      "file": "src/infrastructure/postgres/h2-acceptance-adapter.ts",
+      "line": 34,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "acceptance_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "b980cb3fb12a219e77df8a7e0a976c27f7875e73521f6e02e338a15198a898b0",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H2009BookingAdapter.apply",
+      "file": "src/infrastructure/postgres/h2-booking-adapter.ts",
+      "line": 40,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "booking_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, cf2p bytea, cf2s bytea, cf1p bytea, cf1s bytea, cq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "8228a6c2b9ceb468ee1e0c7950b9aba28c74acba2939fa468550399af2d96303",
+              "directAdmit": true,
+              "admitDefinitionLine": 14,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "identity_resolve",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "37f2d0fdf2432e400e4fac4878427408b830d0c988fc665f07a36907d42a7d6b",
+              "directAdmit": true,
+              "admitDefinitionLine": 15,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H2009BookingAdapter.direct",
+      "file": "src/infrastructure/postgres/h2-booking-adapter.ts",
+      "line": 42,
+      "category": "composed-same-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b03_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, cf2p bytea, cf2s bytea, cf1p bytea, cf1s bytea, cq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "e30ecf4aae095a78ab93febb7df4f8662028f7e19e3d752264e27ecf2705ad04",
+              "directAdmit": true,
+              "admitDefinitionLine": 11,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "proposal_sources",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "30d7657fe3c12d4d093ee32e1b4670e0bd466955a31172f527940cdb5d6c0ffe",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "proposal_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, cf2p bytea, cf2s bytea, cf1p bytea, cf1s bytea, cq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "16af02327e3cca09341e1b812ed4cf5684e897a1c0efeece438195ad29f30785",
+              "directAdmit": true,
+              "admitDefinitionLine": 11,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "offer_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "888efa92a212b960a6541d55883f721dbbc682682eb04a60676d80f208a618e5",
+              "directAdmit": true,
+              "admitDefinitionLine": 14,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "acceptance_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "84d50c893f71370b5a5a5e36f79d28674c70686ecf0f2de9ee5d5b94b34fa515",
+              "directAdmit": true,
+              "admitDefinitionLine": 14,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "booking_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, cf2p bytea, cf2s bytea, cf1p bytea, cf1s bytea, cq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "8228a6c2b9ceb468ee1e0c7950b9aba28c74acba2939fa468550399af2d96303",
+              "directAdmit": true,
+              "admitDefinitionLine": 14,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "identity_resolve",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "37f2d0fdf2432e400e4fac4878427408b830d0c988fc665f07a36907d42a7d6b",
+              "directAdmit": true,
+              "admitDefinitionLine": 15,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "All ordered stages execute through existing adapters over one scoped transaction; no caller connection is exposed. Cover direct path and rollback with invalid authority; keep identity code resolution within same unit.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H2009BookingAdapter.read",
+      "file": "src/infrastructure/postgres/h2-booking-adapter.ts",
+      "line": 57,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "booking_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "c1a9032f3d66b1c2564b037cb1abf6895c9dde8c826e11553a226416fa421c12",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H2001CommercialAdapter.apply",
+      "file": "src/infrastructure/postgres/h2-commercial-adapter.ts",
+      "line": 48,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b03_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, cf2p bytea, cf2s bytea, cf1p bytea, cf1s bytea, cq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "e30ecf4aae095a78ab93febb7df4f8662028f7e19e3d752264e27ecf2705ad04",
+              "directAdmit": true,
+              "admitDefinitionLine": 11,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "identity_resolve",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "37f2d0fdf2432e400e4fac4878427408b830d0c988fc665f07a36907d42a7d6b",
+              "directAdmit": true,
+              "admitDefinitionLine": 15,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "16-surface-positive-and-denial"
+    },
+    {
+      "entrypoint": "H2001CommercialAdapter.read",
+      "file": "src/infrastructure/postgres/h2-commercial-adapter.ts",
+      "line": 56,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b03_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "6f81f4abb9b5d7251fa1586f88668017c30e06d029430cc316bbc2a36e1cff8c",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "16-surface-positive-and-denial"
+    },
+    {
+      "entrypoint": "H2005OfferAdapter.apply",
+      "file": "src/infrastructure/postgres/h2-offer-adapter.ts",
+      "line": 34,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "offer_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "888efa92a212b960a6541d55883f721dbbc682682eb04a60676d80f208a618e5",
+              "directAdmit": true,
+              "admitDefinitionLine": 14,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H2005OfferAdapter.read",
+      "file": "src/infrastructure/postgres/h2-offer-adapter.ts",
+      "line": 35,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "offer_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "11fca97c87c75dfa92664422a3a9c6c8b56f5cb899b1d0cf27262b807b392a4d",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H2003ProposalAdapter.apply",
+      "file": "src/infrastructure/postgres/h2-proposal-adapter.ts",
+      "line": 43,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "proposal_sources",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "30d7657fe3c12d4d093ee32e1b4670e0bd466955a31172f527940cdb5d6c0ffe",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "proposal_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, cf2p bytea, cf2s bytea, cf1p bytea, cf1s bytea, cq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "16af02327e3cca09341e1b812ed4cf5684e897a1c0efeece438195ad29f30785",
+              "directAdmit": true,
+              "admitDefinitionLine": 11,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "identity_resolve",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "37f2d0fdf2432e400e4fac4878427408b830d0c988fc665f07a36907d42a7d6b",
+              "directAdmit": true,
+              "admitDefinitionLine": 15,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H2003ProposalAdapter.read",
+      "file": "src/infrastructure/postgres/h2-proposal-adapter.ts",
+      "line": 47,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "proposal_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "0eea219a152eb86a494db934434da5a14c9ed2c1117d051246c502e2078c9936",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3005AllocationAdapter.apply",
+      "file": "src/infrastructure/postgres/h3-allocation-adapter.ts",
+      "line": 36,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "allocation_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "31b8758cfe4216dc3e89436db578d7c8e7494386edac00f90aa7e5e67d04c37a",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3005AllocationAdapter.read",
+      "file": "src/infrastructure/postgres/h3-allocation-adapter.ts",
+      "line": 49,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "allocation_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "99193eebb5eafa9d4cd2959556d48425312f4d6b0f4fbf2044168f6ee0ed4163",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3007InvoiceAdapter.apply",
+      "file": "src/infrastructure/postgres/h3-invoice-adapter.ts",
+      "line": 41,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "invoice_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "70ea89a677ea2578bf7a8fbfdc769c066bcda63a521410df2e5f425e4e26fb04",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3007InvoiceAdapter.read",
+      "file": "src/infrastructure/postgres/h3-invoice-adapter.ts",
+      "line": 44,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "invoice_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "dad2930ec08844931856aaf0f427d62addfa779763e6cf3519cd718a589d810b",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3001ObligationAdapter.apply",
+      "file": "src/infrastructure/postgres/h3-obligation-adapter.ts",
+      "line": 34,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "obligation_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "f5452d38fe34a256470dc7b3801fcd3fa7db8bfe85e0e7ab2bff67fe6a46848d",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3001ObligationAdapter.read",
+      "file": "src/infrastructure/postgres/h3-obligation-adapter.ts",
+      "line": 39,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "obligation_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "cb5f0578ceba362a3459d75827be3d4a9c5bf664de7d0f2268bb1c6d189155b6",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3001ObligationAdapter.evaluate",
+      "file": "src/infrastructure/postgres/h3-obligation-adapter.ts",
+      "line": 43,
+      "category": "exact-delegation",
+      "reviewedSqlPaths": [
+        {
+          "name": "obligation_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "cb5f0578ceba362a3459d75827be3d4a9c5bf664de7d0f2268bb1c6d189155b6",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3013OwnEconomicsAdapter.apply",
+      "file": "src/infrastructure/postgres/h3-own-economics-adapter.ts",
+      "line": 29,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "own_economics_sources",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "fe959fac4e48c04a465458876f51411c69cd815ce0940c85dc6fde5bf0a932b5",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "own_economics_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "0256992069f2f18028a42b35ee474727fde0e853da456f528190f4bb78bd08fc",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3013OwnEconomicsAdapter.read",
+      "file": "src/infrastructure/postgres/h3-own-economics-adapter.ts",
+      "line": 33,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "own_economics_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "86506d7e3f6cbb88bec9ee6cd0707364e564c02a1c37f7faf6bc4e5ab4e03085",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3003PaymentAdapter.apply",
+      "file": "src/infrastructure/postgres/h3-payment-adapter.ts",
+      "line": 33,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "payment_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "b30decc55fbc0ea245a170988019e867bd40dda1f2b522fa384126d92c311e2e",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3003PaymentAdapter.read",
+      "file": "src/infrastructure/postgres/h3-payment-adapter.ts",
+      "line": 37,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "payment_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "27ac0dd768b87e9b51e845d1c7d30193cc599e5ba66f7e8ceb354ebfd37db602",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3011ProviderPaymentAdapter.apply",
+      "file": "src/infrastructure/postgres/h3-provider-payment-adapter.ts",
+      "line": 26,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "provider_payment_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "c07acc94e64491befbb8deb834e0c07dcd1c1ad582fe0e9b66f45e158bba4746",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3011ProviderPaymentAdapter.read",
+      "file": "src/infrastructure/postgres/h3-provider-payment-adapter.ts",
+      "line": 29,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "provider_payment_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "cfdc150e37d92e4c399ba8638a61d8068791a7ba7e1aaa7185c4922f189abc0d",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3009SuplidoAdapter.apply",
+      "file": "src/infrastructure/postgres/h3-suplido-adapter.ts",
+      "line": 39,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "suplido_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "2285c462ea5eec458dfd41e8f5910605fae3b1efdae9301e3efe93a1999926b3",
+              "directAdmit": true,
+              "admitDefinitionLine": 11,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H3009SuplidoAdapter.read",
+      "file": "src/infrastructure/postgres/h3-suplido-adapter.ts",
+      "line": 42,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "suplido_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "8882a1dee6ef1dcf3e392f46299962f95f0cd326710d5431cc06998d40915af7",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4005AvailabilityAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-availability-adapter.ts",
+      "line": 30,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "availability_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, tf2p bytea, tf2s bytea, tf1p bytea, tf1s bytea, tq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "bb1793071ed02bb3a1841496f7c730858ac668c46db6d87f182f8b81eb2d4130",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b07_task_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "4b5fe78c9dff5bba8a8fc40e590e37c8116355a1a9709efbf01b7ad789c34a61",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4005AvailabilityAdapter.read",
+      "file": "src/infrastructure/postgres/h4-availability-adapter.ts",
+      "line": 33,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "availability_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "a7b80ab5904108c701bcc22042e2ea10b47124ab8d0d846343ea6075e026b424",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4005AvailabilityAdapter.evaluate",
+      "file": "src/infrastructure/postgres/h4-availability-adapter.ts",
+      "line": 36,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "availability_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "a7b80ab5904108c701bcc22042e2ea10b47124ab8d0d846343ea6075e026b424",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4020BookingPreparationAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-booking-preparation-adapter.ts",
+      "line": 24,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "booking_preparation_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "000fe30ebadbc4ad2c9cb0d3851cf44cdc5094b9a8bf2aff84789523636e530d",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4020BookingPreparationAdapter.read",
+      "file": "src/infrastructure/postgres/h4-booking-preparation-adapter.ts",
+      "line": 25,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "booking_preparation_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "ca5d687ce9192c7482d4c12ccbc01777473f5ba3dbe3e9ea865b115ca515557d",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4013CancellationAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-cancellation-adapter.ts",
+      "line": 25,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "cancellation_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "349fe3e179edf79833b50f3788ca81223a450fb4329fe52b91e6577e1542f1a9",
+              "directAdmit": true,
+              "admitDefinitionLine": 11,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4013CancellationAdapter.basis",
+      "file": "src/infrastructure/postgres/h4-cancellation-adapter.ts",
+      "line": 26,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "cancellation_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "72c6093f7c6e9d8c49bc292bb94700aa1084a65daf49eadb2152ef5ed7f4b30c",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4013CancellationAdapter.read",
+      "file": "src/infrastructure/postgres/h4-cancellation-adapter.ts",
+      "line": 27,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "cancellation_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "72c6093f7c6e9d8c49bc292bb94700aa1084a65daf49eadb2152ef5ed7f4b30c",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4009ConfirmationAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-confirmation-adapter.ts",
+      "line": 30,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "confirmation_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, tf2p bytea, tf2s bytea, tf1p bytea, tf1s bytea, tq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "b79da411f7c9d76f2ac59126ea1336efcdfc6cbd57f4ebad9abca947e4bf4c76",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b07_task_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "4b5fe78c9dff5bba8a8fc40e590e37c8116355a1a9709efbf01b7ad789c34a61",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4009ConfirmationAdapter.read",
+      "file": "src/infrastructure/postgres/h4-confirmation-adapter.ts",
+      "line": 33,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "confirmation_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "fa52bce6936eb9b42e06382045ddd10847c8f6ddb85b1e4b2483f46a2836eaec",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4009ConfirmationAdapter.assess",
+      "file": "src/infrastructure/postgres/h4-confirmation-adapter.ts",
+      "line": 34,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "confirmation_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "fa52bce6936eb9b42e06382045ddd10847c8f6ddb85b1e4b2483f46a2836eaec",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4017DepositAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-deposit-adapter.ts",
+      "line": 24,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "deposit_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "cbe324b6612f288fe351834ba29953451f38e54437b82b2ca55c20d55387db13",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4017DepositAdapter.read",
+      "file": "src/infrastructure/postgres/h4-deposit-adapter.ts",
+      "line": 25,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "deposit_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "12db4f0b8e1a4449d99c25033e462278edc42144fbc3135788dd8cbbababacce",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4007HoldAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-hold-adapter.ts",
+      "line": 30,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "hold_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, tf2p bytea, tf2s bytea, tf1p bytea, tf1s bytea, tq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "bb8939b1b7bce563d309ded75f908c410e59927165d1db8f7ab917ac4f1f7713",
+              "directAdmit": true,
+              "admitDefinitionLine": 11,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b07_task_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "4b5fe78c9dff5bba8a8fc40e590e37c8116355a1a9709efbf01b7ad789c34a61",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4007HoldAdapter.read",
+      "file": "src/infrastructure/postgres/h4-hold-adapter.ts",
+      "line": 33,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "hold_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "4d32d33bc2c25cc04994f6904d89077f2c2568d92b537f932b5f011c51c90524",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4007HoldAdapter.evaluate",
+      "file": "src/infrastructure/postgres/h4-hold-adapter.ts",
+      "line": 34,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "hold_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "4d32d33bc2c25cc04994f6904d89077f2c2568d92b537f932b5f011c51c90524",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4003IncidentAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-incident-adapter.ts",
+      "line": 31,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "incident_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, cf2p bytea, cf2s bytea, cf1p bytea, cf1s bytea, cq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "c463026089de37a8c7780c0817f7aad38c53cba8044260ae634d70e228220198",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "identity_resolve",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "37f2d0fdf2432e400e4fac4878427408b830d0c988fc665f07a36907d42a7d6b",
+              "directAdmit": true,
+              "admitDefinitionLine": 15,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4003IncidentAdapter.read",
+      "file": "src/infrastructure/postgres/h4-incident-adapter.ts",
+      "line": 34,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "incident_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "213008ab1bfd637ef2b7710a158beab9524db957ebeb49276e82c1e40abac173",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4003IncidentAdapter.byCode",
+      "file": "src/infrastructure/postgres/h4-incident-adapter.ts",
+      "line": 37,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "incident_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "213008ab1bfd637ef2b7710a158beab9524db957ebeb49276e82c1e40abac173",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4003IncidentAdapter.evaluate",
+      "file": "src/infrastructure/postgres/h4-incident-adapter.ts",
+      "line": 38,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "incident_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "213008ab1bfd637ef2b7710a158beab9524db957ebeb49276e82c1e40abac173",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4011ModificationAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-modification-adapter.ts",
+      "line": 32,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "modification_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, tf2p bytea, tf2s bytea, tf1p bytea, tf1s bytea, tq bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "0bd59b010e0b5485676f9b265dc5ef6370eed5d67c2a6a876572d163c27d2b6b",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b07_task_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "4b5fe78c9dff5bba8a8fc40e590e37c8116355a1a9709efbf01b7ad789c34a61",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4011ModificationAdapter.read",
+      "file": "src/infrastructure/postgres/h4-modification-adapter.ts",
+      "line": 35,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "modification_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "6c8295e4ad164da75a8ef4a82cea33d8cf85523e5e4576ade6ca979a13eb244d",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4011ModificationAdapter.assess",
+      "file": "src/infrastructure/postgres/h4-modification-adapter.ts",
+      "line": 36,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "modification_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "6c8295e4ad164da75a8ef4a82cea33d8cf85523e5e4576ade6ca979a13eb244d",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4022OperationalRealityAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-operational-reality-adapter.ts",
+      "line": 24,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "reality_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "c7e2ab88edb7eec694c8331c2274d9232b69d4e3159977e7f11deef0ea89872a",
+              "directAdmit": true,
+              "admitDefinitionLine": 7,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4022OperationalRealityAdapter.read",
+      "file": "src/infrastructure/postgres/h4-operational-reality-adapter.ts",
+      "line": 25,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "reality_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "ac9cee9a42148df65d5098ab20f0c66d335fadea4849d324ca84cec6a2d282f0",
+              "directAdmit": true,
+              "admitDefinitionLine": 7,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4015RefundAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-refund-adapter.ts",
+      "line": 25,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "refund_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "394f4da293718fe4f99502a4b2c3bf995134e895eb24b2665527fad4e3cc3494",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4015RefundAdapter.applyGuarantee",
+      "file": "src/infrastructure/postgres/h4-refund-adapter.ts",
+      "line": 26,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "refund_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "394f4da293718fe4f99502a4b2c3bf995134e895eb24b2665527fad4e3cc3494",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4015RefundAdapter.read",
+      "file": "src/infrastructure/postgres/h4-refund-adapter.ts",
+      "line": 27,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "refund_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "3774331a4584449d40dea94f9f169b5f06dbc74cf233ff736dd84e5c752a11a9",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4001RequirementAdapter.apply",
+      "file": "src/infrastructure/postgres/h4-requirement-adapter.ts",
+      "line": 26,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "requirement_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "669712dea9ab10e58e8da57826d99c1c3ab64f2846f1e823435e665797eb365d",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4001RequirementAdapter.read",
+      "file": "src/infrastructure/postgres/h4-requirement-adapter.ts",
+      "line": 29,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "requirement_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "71b9e0d57b4b8b51bd72326ae81003bf8561508ba739b670980601961b239e96",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H4001RequirementAdapter.evaluate",
+      "file": "src/infrastructure/postgres/h4-requirement-adapter.ts",
+      "line": 32,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "requirement_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "71b9e0d57b4b8b51bd72326ae81003bf8561508ba739b670980601961b239e96",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5003AlertAdapter.apply",
+      "file": "src/infrastructure/postgres/h5-alert-adapter.ts",
+      "line": 58,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_alert_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "a3b6c66659a5e747a0548515a541fdf2d9f3e233aa0fc126d0d7054c3e4f4530",
+              "directAdmit": true,
+              "admitDefinitionLine": 13,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5003AlertAdapter.read",
+      "file": "src/infrastructure/postgres/h5-alert-adapter.ts",
+      "line": 61,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_alert_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "7b71a7a428da2a9830426b8d8fd660d3a934baa2bd8d514e7c413528b3c37c08",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5013ClosureAdapter.apply",
+      "file": "src/infrastructure/postgres/h5-closure-adapter.ts",
+      "line": 24,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "closure_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "a3a7a9fefc9ef54402bfdc165b93d99a77cc8b556a1c046d159a758b35e59b95",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5013ClosureAdapter.close",
+      "file": "src/infrastructure/postgres/h5-closure-adapter.ts",
+      "line": 25,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "closure_joint_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "02b371461ae9573924d9e7953f900c903425702d2074cb49d257198098376de6",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5013ClosureAdapter.read",
+      "file": "src/infrastructure/postgres/h5-closure-adapter.ts",
+      "line": 26,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "closure_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "a83989c725c9cc55cbb6607bbe7dcfbf8070947eee7e42c63a2b2220b331c569",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5005CommunicationAdapter.apply",
+      "file": "src/infrastructure/postgres/h5-communication-adapter.ts",
+      "line": 32,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_communication_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "592472cb1f9dd656ab946c25901fa8c4183fe0fbaa389f0264ffa339b76faa3a",
+              "directAdmit": true,
+              "admitDefinitionLine": 14,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5005CommunicationAdapter.read",
+      "file": "src/infrastructure/postgres/h5-communication-adapter.ts",
+      "line": 33,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_communication_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "87bb3221f818746d615f0000292fd0b97df39608ed070d4e5a7086d6d5aae1f2",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5017DiagnosticAdapter.record",
+      "file": "src/infrastructure/postgres/h5-diagnostic-adapter.ts",
+      "line": 26,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "h5_diagnostic_record",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "b5ce6bdbebf14cc1426810e8768bd72d13429d85e777022eebc9b62963e23465",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5017DiagnosticAdapter.read",
+      "file": "src/infrastructure/postgres/h5-diagnostic-adapter.ts",
+      "line": 34,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "h5_diagnostic_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "31960f344a16cb3c8ca2be871c89fb6994260e337d454eee86d660f9ddb14b65",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5009ExternalEventAdapter.receive",
+      "file": "src/infrastructure/postgres/h5-external-event-adapter.ts",
+      "line": 40,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b09_external_event_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "554314268bc12eea2b3d8eb409089ec6b16b7bd4c41baf27ffb31de897cea8b9",
+              "directAdmit": true,
+              "admitDefinitionLine": 11,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5011ProjectionAdapter.read",
+      "file": "src/infrastructure/postgres/h5-projection-adapter.ts",
+      "line": 18,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "h5_projection_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "fa8f8ef5a81670a01ce75296fc29bdec024733ecf36f5111b46a22c018a34690",
+              "directAdmit": true,
+              "admitDefinitionLine": 11,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "16-surface-positive-and-denial"
+    },
+    {
+      "entrypoint": "H5001TaskAdapter.apply",
+      "file": "src/infrastructure/postgres/h5-task-adapter.ts",
+      "line": 37,
+      "category": "exact-delegation",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_task_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "4b5fe78c9dff5bba8a8fc40e590e37c8116355a1a9709efbf01b7ad789c34a61",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5001TaskAdapter.balanceNeeds",
+      "file": "src/infrastructure/postgres/h5-task-adapter.ts",
+      "line": 41,
+      "category": "exact-delegation",
+      "reviewedSqlPaths": [
+        {
+          "name": "obligation_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "cb5f0578ceba362a3459d75827be3d4a9c5bf664de7d0f2268bb1c6d189155b6",
+              "directAdmit": true,
+              "admitDefinitionLine": 8,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5001TaskAdapter.read",
+      "file": "src/infrastructure/postgres/h5-task-adapter.ts",
+      "line": 55,
+      "category": "exact-delegation",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_task_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "a0dc517a76741a7debc0f3d9d2e9326d81787121acb725a181216a5ac45739da",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "H5001TaskAdapter.transition",
+      "file": "src/infrastructure/postgres/h5-task-adapter.ts",
+      "line": 59,
+      "category": "core-single-transaction",
+      "reviewedSqlPaths": [
+        {
+          "name": "b07_task_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "4b5fe78c9dff5bba8a8fc40e590e37c8116355a1a9709efbf01b7ad789c34a61",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "The listed SQL path is protected before business branch/replay; equivalent methods sharing this exact path can share admission coverage, not business-semantic coverage.",
+      "matrixCoverage": "not-directly-covered-by-integrated-matrix"
+    },
+    {
+      "entrypoint": "createPersistedWorkExecutor.apply",
+      "file": "src/infrastructure/postgres/persisted-work-executor.ts",
+      "line": 78,
+      "category": "tte-persisted-work",
+      "reviewedSqlPaths": [
+        {
+          "name": "b08_work_probe",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "2f6766ceaaea7b1fd1447fd3dd83c746561811510d52c4ebd2fb56e857403d61",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b08_work_probe_material",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "7632eb1e8852da6eca63e0e0d515268cfda175a324f6448ddd8af6a3a8e9406d",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Calls b08_work_probe first"
+            }
+          ]
+        },
+        {
+          "name": "b08_work_lock",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "fd95d9a92bf3fd908af5b66033db7547e7a4721c8dd58040e15a7921bcb698ca",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b08_work_apply",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea, aux jsonb",
+              "runtimeExecute": false,
+              "definitionSha256": "b85f5d47c026b8ee2b9551225081c2862809cf28a52edab9cdc2214b971837c2",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b08_work_finalize",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "2ff749b1aac5f62b897f6aecc1e60869c95415c5ac4a0620f29531034070c7c7",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "b08_ha_finalize",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "6ce281cdc926bf727205adbe699787a923d8114159e90c7f3cab32320126c644",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_command",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, p bytea, s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "1c8e704d9b4867a2d4f098e1f5d67c00a4bd8b28f188a2caf6a51e57d2b8be5d",
+              "directAdmit": true,
+              "admitDefinitionLine": 22,
+              "condition": "Only propose/decide/reserve branch is human; its admit precedes command receipt replay"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_revalidate_evidence",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "a2179beee46754cd40f1f87cc95c55df0903123e640b1e953987316e3a5dea4e",
+              "directAdmit": true,
+              "admitDefinitionLine": 12,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        },
+        {
+          "name": "h0_m04_finalize_evidence",
+          "variants": [
+            {
+              "arguments": "command_key text",
+              "runtimeExecute": false,
+              "definitionSha256": "667c9ec24ec6803d79a60a0a0ecefccdb1cab54267e767a20b8c6b41e6912535",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Special authority path; do not infer ordinary admission equivalence"
+            }
+          ]
+        },
+        {
+          "name": "commit_internal_unit",
+          "variants": [
+            {
+              "arguments": "p bytea, s bytea, q bytea",
+              "runtimeExecute": true,
+              "definitionSha256": "59cbb18eacdd38320650854243da24b46e23f8935fe03ee53b2917523ff6f7f8",
+              "directAdmit": false,
+              "admitDefinitionLine": null,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            },
+            {
+              "arguments": "p bytea, s bytea, q bytea, f2p bytea, f2s bytea, hq bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "8beb38657ea078ea698891712244d291ee4bcf68b655c5f949a477b3d5dcbae1",
+              "directAdmit": true,
+              "admitDefinitionLine": 10,
+              "condition": "Human 6-argument overload only; 3-argument overload is technical"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Apply always probes under F2 before replay, result verifier/evidence access; the execution transaction and finalize re-admit. Cover fresh work and previously committed result/replay, plus delayed verifier and concurrency. Technical transitions retain their separate authority.",
+      "matrixCoverage": "16-surface-positive-and-denial"
+    },
+    {
+      "entrypoint": "createPersistedWorkExecutor.read",
+      "file": "src/infrastructure/postgres/persisted-work-executor.ts",
+      "line": 47,
+      "category": "tte-persisted-work",
+      "reviewedSqlPaths": [
+        {
+          "name": "b08_work_read",
+          "variants": [
+            {
+              "arguments": "f2p bytea, f2s bytea, f1p bytea, f1s bytea, q bytea",
+              "runtimeExecute": false,
+              "definitionSha256": "99d9f8cc6beeeda2e3bf4931175387d368e210df56abed4b4523fb7f137cc1e2",
+              "directAdmit": true,
+              "admitDefinitionLine": 9,
+              "condition": "First protected read/effect occurs after admission; input validation may precede it"
+            }
+          ]
+        }
+      ],
+      "equivalenceNote": "Apply always probes under F2 before replay, result verifier/evidence access; the execution transaction and finalize re-admit. Cover fresh work and previously committed result/replay, plus delayed verifier and concurrency. Technical transitions retain their separate authority.",
+      "matrixCoverage": "16-surface-positive-and-denial"
+    }
+  ]
+}

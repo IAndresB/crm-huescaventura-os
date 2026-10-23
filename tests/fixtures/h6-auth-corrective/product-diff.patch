@@ -1,0 +1,47 @@
+diff --git a/src/infrastructure/postgres/h0-005-adapter.ts b/src/infrastructure/postgres/h0-005-adapter.ts
+index 16d74f08..b7e08bb8 100644
+--- a/src/infrastructure/postgres/h0-005-adapter.ts
++++ b/src/infrastructure/postgres/h0-005-adapter.ts
+@@ -68,7 +68,19 @@ export class H0005PostgresAdapter {
+     };
+   }
+ 
+-  async establish(auth: VerifiedAuthEvidence): Promise<{ sessionId: string; epochId: string }> {
++  // Capture before completing a fresh provider identification. This metadata
++  // is not authority; establish must compare it and the existing F2 executor
++  // checks the same generation under the actor lock. No transaction is held
++  // open while the identity provider verifies the second factor.
++  async identificationGeneration(auth: VerifiedAuthEvidence): Promise<string> {
++    verified(auth);
++    if (auth.sessionId !== undefined || !auth.passwordVerified) {
++      throw new Error("F2_FULL_IDENTIFICATION_REQUIRED");
++    }
++    return this.unit(async tx => (await this.lookup(tx, auth, null)).access_generation);
++  }
++
++  async establish(auth: VerifiedAuthEvidence, expectedGeneration?: string): Promise<{ sessionId: string; epochId: string }> {
+     verified(auth);
+     if (auth.sessionId !== undefined || !auth.passwordVerified || !auth.mfaVerified) {
+       throw new Error("F2_FULL_IDENTIFICATION_REQUIRED");
+@@ -76,6 +88,9 @@ export class H0005PostgresAdapter {
+     try {
+       return await this.unit(async (tx) => {
+         const row = await this.lookup(tx, auth, null);
++        if (expectedGeneration !== undefined && row.access_generation !== expectedGeneration) {
++          throw new Error("F2_IDENTIFICATION_GENERATION_CHANGED");
++        }
+         const sessionId = randomUUID();
+         const epochId = randomUUID();
+         const q = encodeF2Fields(["CRM-F2-INP1","establish",auth.subject,sessionId,epochId]);
+diff --git a/src/server/human-postgres-composition.ts b/src/server/human-postgres-composition.ts
+index ce4bfd5e..1467be81 100644
+--- a/src/server/human-postgres-composition.ts
++++ b/src/server/human-postgres-composition.ts
+@@ -29,6 +29,7 @@ export function composeHumanPostgresRuntime(input: {
+       sql,input.f1,input.f2,input.authRevocation,
+     );
+     const access = Object.freeze({
++      identificationGeneration: adapter.identificationGeneration.bind(adapter),
+       establish: adapter.establish.bind(adapter),
+       reidentify: adapter.reidentify.bind(adapter),
+       revokeOne: adapter.revokeOne.bind(adapter),

@@ -1,0 +1,80 @@
+{
+  "task": "TSK-H6-008",
+  "baseCommit": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "frozenAt": "2026-10-21T22:55:00.577167+00:00",
+  "predecessorManifestSha256": "cea8c91910000d89a075401cbed60322ff71abccf5f7ba39569d188956bcd627",
+  "authority": "Autorización expresa local Auth/MFA/servidor sintéticos del director, continuación H6-006/H6-008",
+  "normativeSourceLock": "tests/fixtures/h6-local-validation/normative-source-lock.json",
+  "cases": [
+    {
+      "id": "A01",
+      "scenario": "Proveedor oficial local; identidad, password y TOTP auténticos",
+      "expected": "Login exige password y desafío TOTP válidos; password erróneo, TOTP incorrecto, AAL1, factor incompleto y registro público denegados. No callbacks de autenticación ficticios."
+    },
+    {
+      "id": "A02",
+      "scenario": "Binding servidor de sesión proveedor con sesión Core",
+      "expected": "Dos dispositivos conservan sesiones y epochs independientes. Client subject/session/role/human y JWT crudo no crean autoridad; refresh no crea epoch. Reinicio de servidor pierde handles y exige identificación completa, sin resucitar sesiones."
+    },
+    {
+      "id": "A03",
+      "scenario": "Matriz HTTP de dieciséis superficies",
+      "expected": "Cada superficie tiene control positivo y denegación real tras idle7, absolute30, disabled, enrollment, recovery y revocación. No cambios materiales ni actividad tras rechazo."
+    },
+    {
+      "id": "A04",
+      "scenario": "Límites y nueva identificación",
+      "expected": "Antes del límite puede acceder; en y después de 7 días inactivos/30 absolutos deniega antes de actividad. B no prolonga A; nueva identificación completa crea sesión/epoch nuevos y no reescribe anteriores."
+    },
+    {
+      "id": "A05",
+      "scenario": "Refresh y señales pasivas",
+      "expected": "Rotación real de refresh tokens; mantiene subject/session proveedor/Core/epoch; no cambia identified_at ni actividad. Polling/background/passive y human=true no conceden actividad humana."
+    },
+    {
+      "id": "A06",
+      "scenario": "Logout de una sesión",
+      "expected": "Cierre Core previo, logout local real del proveedor, rechazo refresh y /user antiguos. JWT antiguo puede seguir criptográficamente válido hasta exp; ningún acceso Core se deduce de su firma."
+    },
+    {
+      "id": "A07",
+      "scenario": "Revocación global desde otro dispositivo",
+      "expected": "A y B, incluida emisora, quedan cerradas; refresh antiguo rechazado; generación Core aumenta; nueva identificación completa independiente funciona."
+    },
+    {
+      "id": "A08",
+      "scenario": "Fallo parcial del proveedor",
+      "expected": "Cierre Core persiste aunque logout proveedor falle o sea incierto; resultado parcial y registro exacto. No éxito ficticio. Ensayo de fallo de red local sin sustituir verificación identidad."
+    },
+    {
+      "id": "A09",
+      "scenario": "Concurrencia HTTP/Core y revocación, ambos órdenes",
+      "expected": "Observar conexiones y locks reales solapados. Operación autorizada primero puede acabar; revocación primera deniega operación y posteriores. Refresh tardío no resucita cierre."
+    },
+    {
+      "id": "A10",
+      "scenario": "Storage real y respuesta tardía",
+      "expected": "JWT auténtico ordinario y ruta conocida no dan acceso directo a objeto privado; descarga autorizada real; revocación durante obtención impide liberar bytes; URL antigua no sustituye autorización Core."
+    },
+    {
+      "id": "A11",
+      "scenario": "HTTP y mínimo detalle",
+      "expected": "Origen distinto/ausente, método no permitido, cuerpo inválido/sobrante, tamaño excesivo, handle falso, token manipulado/expirado y rol declarado denegados sin secretos ni detalle privado. Rutas clasificadas por servidor."
+    },
+    {
+      "id": "A12",
+      "scenario": "Enrolamiento/recuperación y permisos",
+      "expected": "Solo subject previamente mapeado accede; metadata editable y relación comercial no conceden permisos; recovery/enrollment/disabled cierran todas las superficies aun con Auth real aal2. Cambio de contraseña no omite MFA ni revive sesión Core."
+    },
+    {
+      "id": "A13",
+      "scenario": "Regresión de garantías anteriores",
+      "expected": "Conservar expected/historia original; reproducir garantías PG/Storage y Auth H0/H1, unitarias/lint/typecheck/build aplicables. No extrapolar a Hosted/Production, dispositivos físicos o recuperación real."
+    },
+    {
+      "id": "A14",
+      "scenario": "Custodia y aislamiento",
+      "expected": "Manifiesto exacto de fuentes y cada ensayo, FAILs conservados, claves/factores efímeros no en evidencia, loopback y salida de correo/SMS/negocio desactivada/interceptada. H6-015 NOT STARTED; pendientes abiertos."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+# TSK-H6-015 — Adenda documental tras H6-006 y Auth H6-008
+
+Fecha local: 2026-10-22. Base verificada `971c55d5ce5770c71284d106d3c0deecca9514b5`. **H6-015 NOT STARTED / NO EJECUTADA.** Esta adenda complementa `preparation-TSK-H6-015.md`; no cambia normativa, receta aceptada H6-014 r3 ni expected históricos.
+
+H6-006 dispone de cierre **COMPLETED exclusivamente local/aislado**, con reproducción independiente 62/62 y diez contrapruebas propias. H6-008 dispone ahora de implementación Auth/HTTP local, evidencia de 17 tests integrados, corrección F01 y cobertura exhaustiva de entradas Core; su revisión independiente R2 es PASS, con 32 casos propios y regresiones finales contrastadas. Queda preparado su candidato de aceptación y cierre local, pendiente de aceptación formal: no se registra COMPLETED ni se convierte una candidatura en dependencia formalmente cerrada. H5-019 y H6-014 r3 mantienen sus estados aceptados. H6-009/010/011 no se añaden como dependencias directas inexistentes.
+
+El futuro diseño R07 debe incluir estas comprobaciones, derivadas de evidencia real y de las guardias ya aprobadas:
+
+1. El JWT antiguo puede mantener firma válida y expiración futura. Restaurar Auth no debe resucitar sus sesiones ni permitir renovar tokens anteriores. Comprobar por separado firma, `/user`, refresh, Core y Storage; ningún éxito parcial sustituye el resto.
+2. Una identificación con password/TOTP iniciada antes del cierre no debe adoptar una generación posterior. Repetir ambos órdenes: demora antes de completar TOTP, identificación completa demorada antes de establecer, autorización F2 firmada antes del cierre que llega después al SQL y respuesta de sesión ya establecida que llega tarde. Incluir dos instancias del servidor.
+3. El retroceso de la copia puede recuperar generaciones/estados de sesión anteriores. La cuarentena y el procedimiento r3 deben producir autoridades nuevas y revocación comprobada antes de admitir firmantes o identidad humana; no basta restaurar un contador. Verificar Core y proveedor por separado, conservando el resultado `partial/uncertain` cuando corresponda.
+4. Probar las 105 entradas Core del inventario y sus delegaciones, además de los ciclos de identificación/revocación y los seis estados de denegación. Conservar las comprobaciones de roles, acceso directo, objetos ausentes y bytes tardíos. El inventario es entrada revisable del diseño futuro, no evidencia de restauración ejecutada.
+5. Auth contiene hashes de contraseña, factores y material de sesión; las claves F1/F2 también son secretos. Cualquier copia sintética futura debe quedar en recinto privado y nunca convertirse en payload de Git/Drive o log. El archivo público de evidencia solo contiene identidades sintéticas no secretas, hashes admisibles y resultados. El ensayo no recupera contraseñas, factores ni autoridad de una persona real.
+
+Recursos conocidos para un eventual ensayo: PostgreSQL 17.11, Storage oficial fijado y Supabase Auth v2.197.0, servidor HTTP loopback y helpers de H6-008. Su disponibilidad técnica no es autorización de ejecución ni asignación de recursos a H6-015. No se ha creado ninguna base, copia, directorio de restauración, bucket ni servicio para H6-015.
+
+`ARCH-PENDING-002` permanece OPEN: medir tiempos/pérdidas aislados no aprueba RPO/RTO ni coste Production. `DM-PENDING-005` permanece OPEN: no se fija retención ni tratamiento de datos personales. Hosted/Production, datos/backups/credenciales reales, efectos externos, reentrada, despliegue, commit, push y Drive siguen reservados.
+
+Siguiente puerta propuesta: aceptar el candidato local H6-008, cuya matriz, revisión independiente y regresión final están completas; después conceder autorización nueva y delimitada para H6-015 sintética, con expected congelados y cuarentena. La reentrada y cualquier publicación siguen siendo decisiones separadas. Hasta esa decisión, **H6-015 NOT STARTED**.

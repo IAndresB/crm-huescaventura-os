@@ -29,6 +29,7 @@ export function composeHumanPostgresRuntime(input: {
       sql,input.f1,input.f2,input.authRevocation,
     );
     const access = Object.freeze({
+      identificationGeneration: adapter.identificationGeneration.bind(adapter),
       establish: adapter.establish.bind(adapter),
       reidentify: adapter.reidentify.bind(adapter),
       revokeOne: adapter.revokeOne.bind(adapter),

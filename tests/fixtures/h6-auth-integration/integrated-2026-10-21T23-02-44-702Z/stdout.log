@@ -1,0 +1,91 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /tmp/crm-h6-local-2accac43ca72/crm-private-storage-test-pQsBy5/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /tmp/crm-h6-local-2accac43ca72/crm-private-storage-test-pQsBy5/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ A01 A11: actual provider password, TOTP, identity, signup and forged claims (2925.571167ms)
+ℹ {"realProvider":"v2.197.0","actualPassword":true,"actualTOTP":true,"publicSignupDenied":true,"AAL1CannotEnterCore":true,"forgedClaims":3,"expiredTokenDenied":true}
+✔ A03 A04 A12: idle7 across sixteen HTTP surfaces (1315.557625ms)
+ℹ {"invalid":"idle7","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A03 A04 A12: absolute30 across sixteen HTTP surfaces (1320.014583ms)
+ℹ {"invalid":"absolute30","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A03 A04 A12: disabled across sixteen HTTP surfaces (853.421125ms)
+ℹ {"invalid":"disabled","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A03 A04 A12: recovery across sixteen HTTP surfaces (838.944125ms)
+ℹ {"invalid":"recovery","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A03 A04 A12: enrollment across sixteen HTTP surfaces (826.4355ms)
+ℹ {"invalid":"enrollment","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A03 A04 A12: logout across sixteen HTTP surfaces (689.902833ms)
+ℹ {"invalid":"logout","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✖ A02 A05 A11: refresh, independent devices and server-classified HTTP interaction (644.511625ms)
+✔ A06 A07: real provider logout semantics, global closure including issuer and fresh login (1090.438333ms)
+ℹ {"oldJWTSignatureStillValid":true,"oldJWTNotExpired":true,"providerUserAndRefreshRejected":true,"globalIncludesIssuer":true,"newFullLogin":true}
+✔ A10: actual Auth JWT against private Storage and late bytes after Core revocation (861.564333ms)
+ℹ {"realProviderJWTPrivateStorageDenied":true,"storageBytesFetched":true,"revocationBeforeRelease":true,"bytesReleased":false}
+✔ A09: HTTP and actual PG overlap; revocationFirst=false (738.351958ms)
+ℹ {"revocationFirst":false,"first":[{"pid":84825,"wait_event_type":"Lock","blockers":[87550]}],"second":[{"pid":87125,"wait_event_type":"Lock","blockers":[84825]}],"readAllowed":true,"postClosureDenied":true,"realHTTP":true,"realProvider":true}
+✔ A09: HTTP and actual PG overlap; revocationFirst=true (722.775875ms)
+ℹ {"revocationFirst":true,"first":[{"pid":87125,"wait_event_type":"Lock","blockers":[87732]}],"second":[{"pid":84825,"wait_event_type":"Lock","blockers":[87125]}],"readAllowed":false,"postClosureDenied":true,"realHTTP":true,"realProvider":true}
+✔ A12: unmapped actual identity, incomplete factor and editable metadata cannot grant authority (1502.7095ms)
+ℹ {"actualUnmappedSubjectDenied":true,"incompleteMFADenied":true,"userMetadataGrantsNothing":true}
+✔ A02: restart loses only server handles and requires new full identification (827.076166ms)
+ℹ {"oldHandleRejected":true,"oldEpochUnchanged":true,"newPasswordAndTOTPRequired":true}
+ℹ tests 14
+ℹ suites 0
+ℹ pass 13
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15656.083334
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6-008-auth.test.ts:123:1
+✖ A02 A05 A11: refresh, independent devices and server-classified HTTP interaction (644.511625ms)
+  Error [PostgresError]: new row for relation "identification_epochs" violates check constraint "identification_epochs_check"
+      at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-auth-integration/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/.codex/worktrees/h6-auth-integration/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/.codex/worktrees/h6-auth-integration/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+      at cachedError (file:///Users/andres/.codex/worktrees/h6-auth-integration/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/query.js:170:23)
+      at new Query (file:///Users/andres/.codex/worktrees/h6-auth-integration/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/query.js:36:24)
+      at Object.sql [as admin] (file:///Users/andres/.codex/worktrees/h6-auth-integration/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:112:11)
+      at TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-auth-integration/crm-huescaventura-os/tests/integration/postgres-h6-008-auth.test.ts:124:39) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '23514',
+    detail: 'Failing row contains (3cdc7e08-981b-4e24-bd0c-a13f1920ede7, 2475dc20-e014-43a6-8eaf-5d0ae3a346da, 2026-10-22 01:02:55.765983+02, 2026-10-16 01:02:56.260704+02, t, t, ready, t, null).',
+    schema_name: 'crm_private',
+    table_name: 'identification_epochs',
+    constraint_name: 'identification_epochs_check',
+    file: 'execMain.c',
+    line: '2079',
+    routine: 'ExecConstraints'
+  }
+waiting for server to shut down.... done
+server stopped

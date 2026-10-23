@@ -1,0 +1,30 @@
+{
+  "task": "TSK-H6-006",
+  "author": "independent reviewer agent",
+  "createdAt": "2026-10-21T22:54:39.044296+00:00",
+  "candidateManifestSha256": "cea8c91910000d89a075401cbed60322ff71abccf5f7ba39569d188956bcd627",
+  "derivedFrom": [
+    "SPEC-FR-ERR-002",
+    "SPEC-FR-HA-003",
+    "AC-057",
+    "SM-HA-03",
+    "Tasks 2.2 V-SM/V-EVI"
+  ],
+  "cases": [
+    {
+      "id": "IR01",
+      "scenario": "Resultado de proveedor discordante en identidad de ejecucion, intento, outcome o referencia",
+      "expected": "Cada discordancia se deniega sin consumo ni historia; tuple exacto posterior concilia una vez y replay no reinspecciona."
+    },
+    {
+      "id": "IR02",
+      "scenario": "Fuente efecto previo uncertain, ausente, checkEffect ausente o excepcion del verificador",
+      "expected": "Cada caso impide start, conserva claimed y no crea reserva; no equivale a none."
+    },
+    {
+      "id": "IR03",
+      "scenario": "Tras efecto ya sucedido, replay result conserva identidad pero material distinto",
+      "expected": "E2/conflicto; no inspeccion adicional ni sobrescritura del hecho."
+    }
+  ]
+}

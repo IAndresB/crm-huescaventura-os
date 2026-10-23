@@ -1,0 +1,85 @@
+{
+  "task": "TSK-H6-008",
+  "baseCommit": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "createdBeforeObservedAt": "2026-10-21T22:17:35.412097+00:00",
+  "authority": "Decisión expresa del director en esta conversación, 2026-10-22. Alcance local/aislado sintético; sin publicación.",
+  "normativeSourceLock": "tests/fixtures/h6-local-validation/normative-source-lock.json",
+  "independence": "Expected derivados de normativa, antes de instrumentar/observar. Fixtures y salidas no son oráculo. Revisión separada por instrumentos no equivale a auditor humano/agente independiente.",
+  "cases": [
+    {
+      "id": "S01",
+      "scenario": "Lectura, mutación nueva, replay, siete proyecciones y objeto autorizado",
+      "expected": "Control positivo real antes de cada invalidez; exactamente los datos sintéticos autorizados."
+    },
+    {
+      "id": "S02",
+      "scenario": "7 días de inactividad y 30 absolutos, borde anterior/exacto/posterior y dispositivos independientes",
+      "expected": "Límites del servidor antes de tocar actividad; actividad de B no prolonga A. Identificación nueva exige contraseña y TOTP."
+    },
+    {
+      "id": "S03",
+      "scenario": "Refresh/polling/job/passive y JSON de interacción falsificado",
+      "expected": "No renuevan actividad ni conceden interacción humana; origen web/HTTP real queda pendiente si frontera no existe."
+    },
+    {
+      "id": "S04",
+      "scenario": "Revocación global desde B con A/B aún verificadas por doble de Auth",
+      "expected": "A y B rechazadas en todas las superficies; revocación incluye emisora; nuevo login sintético independiente puede acceder; no afirmar revocación Auth real."
+    },
+    {
+      "id": "S05",
+      "scenario": "Revocación parcial Auth failed/uncertain/throw",
+      "expected": "Core queda cerrado; resultado parcial, nunca completed para Auth; conservar intento y evidencia sin secretos."
+    },
+    {
+      "id": "S06",
+      "scenario": "Disabled/recovery/enrollment/ausencia MFA/no contexto/identidad no mapeada/rol comercial",
+      "expected": "Lectura, mutación, replay, proyecciones y objetos denegados sin detalle privado ni permisos por relación."
+    },
+    {
+      "id": "S07",
+      "scenario": "SQL directo con runtime, ha_tx, anon, authenticated; tablas e interfaces",
+      "expected": "Denegación real, FORCE RLS/ACL, sin owner/BYPASSRLS ordinario; ni JWT de rol ni ruta conocida hacen público objeto privado."
+    },
+    {
+      "id": "S08",
+      "scenario": "Revocación mientras Storage obtiene bytes; solicitud concurrente y respuesta tardía",
+      "expected": "No liberar bytes después del cierre efectivo; evidencia de barrera real, no carrera inferida por Promise.all."
+    },
+    {
+      "id": "S09",
+      "scenario": "Concurrencia de revocación y transacciones Core en ambos órdenes",
+      "expected": "Orden real mediante barreras; trabajo autorizado anterior puede finalizar antes del cierre; solicitudes posteriores rechazadas; cierre sin éxito ficticio."
+    },
+    {
+      "id": "S10",
+      "scenario": "Auth real y frontera de ingreso completa",
+      "expected": "Pendiente hasta adaptador Auth real y composición de servidor verificados con identidades/factores sintéticos autorizados; SDK o port doble no acreditan JWT/MFA/refresh/logout reales ni ausencia de registro público del proveedor."
+    }
+  ],
+  "assignmentIds": [
+    "SPEC-FR-SEC-001",
+    "SPEC-FR-SEC-002",
+    "SPEC-FR-SEC-004",
+    "SPEC-FR-SEC-005",
+    "AC-064",
+    "AC-080",
+    "SPEC-NFR-002",
+    "DM-INV-050",
+    "SM-FORB-29",
+    "ARCH-DEC-004",
+    "ARCH-DEC-010",
+    "P10",
+    "PLAN-DEC-002",
+    "PLAN-DEC-007",
+    "PLAN-B01",
+    "PLAN-C01",
+    "PT-11",
+    "PLAN-AUTH-002",
+    "PLAN-AUTH-003",
+    "PLAN-AUTH-006",
+    "D015",
+    "D025",
+    "D026"
+  ]
+}

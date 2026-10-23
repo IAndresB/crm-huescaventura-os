@@ -1,0 +1,69 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /tmp/crm-h6-local-9c10fea2350b/crm-private-storage-test-czF01t/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /tmp/crm-h6-local-9c10fea2350b/crm-private-storage-test-czF01t/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ A01 A11: actual provider password, TOTP, identity, signup and forged claims (4089.768542ms)
+ℹ {"realProvider":"v2.197.0","actualPassword":true,"actualTOTP":true,"publicSignupDenied":true,"AAL1CannotEnterCore":true,"forgedClaims":3,"expiredTokenDenied":true}
+✔ A03 A04 A12: idle7 across sixteen HTTP surfaces (2684.438375ms)
+ℹ {"invalid":"idle7","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A03 A04 A12: absolute30 across sixteen HTTP surfaces (2070.531084ms)
+ℹ {"invalid":"absolute30","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A03 A04 A12: disabled across sixteen HTTP surfaces (1190.318084ms)
+ℹ {"invalid":"disabled","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A03 A04 A12: recovery across sixteen HTTP surfaces (1267.095416ms)
+ℹ {"invalid":"recovery","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A03 A04 A12: enrollment across sixteen HTTP surfaces (1411.755375ms)
+ℹ {"invalid":"enrollment","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A03 A04 A12: logout across sixteen HTTP surfaces (1237.07475ms)
+ℹ {"invalid":"logout","positive":16,"denied":16,"realAuth":true,"realHTTP":true,"noMutationOnDenial":true}
+✔ A02 A05 A11: refresh, independent devices and server-classified HTTP interaction (1142.421875ms)
+ℹ {"refreshConcurrent":2,"sameCoreSession":true,"epochUnchangedByRefresh":true,"deviceBDoesNotExtendA":true,"invalidIngressDenied":true}
+✔ A06 A07: real provider logout semantics, global closure including issuer and fresh login (1539.282833ms)
+ℹ {"oldJWTSignatureStillValid":true,"oldJWTNotExpired":true,"providerUserAndRefreshRejected":true,"globalIncludesIssuer":true,"newFullLogin":true}
+✔ A10: actual Auth JWT against private Storage and late bytes after Core revocation (1370.414334ms)
+ℹ {"realProviderJWTPrivateStorageDenied":true,"storageBytesFetched":true,"revocationBeforeRelease":true,"bytesReleased":false}
+✔ A09: HTTP and actual PG overlap; revocationFirst=false (2733.402375ms)
+ℹ {"revocationFirst":false,"first":[{"pid":22821,"wait_event_type":"Lock","blockers":[26030]}],"second":[{"pid":25518,"wait_event_type":"Lock","blockers":[22821]}],"readAllowed":true,"postClosureDenied":true,"realHTTP":true,"realProvider":true}
+✔ A09: HTTP and actual PG overlap; revocationFirst=true (1212.332875ms)
+ℹ {"revocationFirst":true,"first":[{"pid":25518,"wait_event_type":"Lock","blockers":[26242]}],"second":[{"pid":22821,"wait_event_type":"Lock","blockers":[25518]}],"readAllowed":false,"postClosureDenied":true,"realHTTP":true,"realProvider":true}
+✔ A12: unmapped actual identity, incomplete factor and editable metadata cannot grant authority (2075.167834ms)
+ℹ {"actualUnmappedSubjectDenied":true,"incompleteMFADenied":true,"userMetadataGrantsNothing":true}
+✔ A02: restart loses only server handles and requires new full identification (1482.257833ms)
+ℹ {"oldHandleRejected":true,"oldEpochUnchanged":true,"newPasswordAndTOTPRequired":true}
+✔ A08: real provider remains live during failed logout; Core closes durably without false success (1457.748875ms)
+ℹ {"realLogoutHTTP503":true,"providerStillAuthenticates":true,"CoreClosed":true,"previouslyVerifiedProofDenied":16,"status":"partial","persisted":"uncertain"}
+✔ A09: actual refreshed response delayed until after global closure cannot revive session (900.728083ms)
+ℹ {"providerRefreshActuallyCompleted":true,"responseHeld":true,"closureBeforeRelease":true,"lateRefreshDenied":true}
+✔ A04 A12 A14: three sessions, provider password change and direct provider identity separation (2899.76825ms)
+ℹ {"sessions":3,"activeBDoesNotExtendAOrC":true,"AAL1PasswordUpdateDenied":true,"AAL2PasswordUpdateDoesNotReviveCore":true,"authRoleHasNoCRMData":true,"communicationsObserved":0}
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 31542.642208
+waiting for server to shut down.... done
+server stopped
