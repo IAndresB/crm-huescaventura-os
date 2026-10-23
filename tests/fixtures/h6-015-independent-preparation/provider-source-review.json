@@ -1,0 +1,188 @@
+{
+  "schema": "h6015-independent-provider-source-review-v1",
+  "created_utc": "2026-10-22T11:45:37.153759+00:00",
+  "scope": "READ_ONLY_STATIC_PUBLIC_CACHE; no provider execution, SQL, network or source modification",
+  "auth": {
+    "source_commit_label": "4eee58f296d9698a1c2c0ae14d7a0b379c7622d3",
+    "source_identity_method": "Cached archive SHA matching prior pinned receipt; extracted directory has no .git, so no git identity is claimed.",
+    "source_archive_sha256": "ca50f741e115d970f89d0e6ffe4c75f6ce8cdff7bcfde98c23e862597beee79c",
+    "binary_sha256": "54a5afe7997bd16ab5244ab12c02905048b270a8f76eebf95739a6d364ffe01f",
+    "files": [
+      {
+        "path": "cmd/root_cmd.go",
+        "bytes": 1913,
+        "sha256": "f34168215f44a044e3c838694a7282faa508cd5c0596bd533a437a972bf9eeaf",
+        "identical_to_cached_source_archive": true
+      },
+      {
+        "path": "cmd/serve_cmd.go",
+        "bytes": 5870,
+        "sha256": "86a19a36523bb568c9853eeedf01ac34a9bb3d9ce80b9599d38defe325526ff7",
+        "identical_to_cached_source_archive": true
+      },
+      {
+        "path": "cmd/migrate_cmd.go",
+        "bytes": 2673,
+        "sha256": "9a80dde9aba8e9b3a8d42d2abde5d931f87d5372b31196063967ff326f84acc5",
+        "identical_to_cached_source_archive": true
+      },
+      {
+        "path": "internal/api/apiworker/apiworker.go",
+        "bytes": 5175,
+        "sha256": "33fcd5d4edffdea225a5b69efc824a8cf7bbc7251570d9f1102e3ec4afd05edc",
+        "identical_to_cached_source_archive": true
+      },
+      {
+        "path": "internal/storage/dial.go",
+        "bytes": 12727,
+        "sha256": "fcdee7df9849a19a37100fbba79952ecb534a9b2bb7edc1a4b21708ec3172087",
+        "identical_to_cached_source_archive": true
+      },
+      {
+        "path": "internal/conf/configuration.go",
+        "bytes": 53831,
+        "sha256": "b27faebba541f907b23d2ce2dcab8c4679b5ce49cf1fcee007778f1b53230773",
+        "identical_to_cached_source_archive": true
+      },
+      {
+        "path": "internal/conf/confload/confload.go",
+        "bytes": 3653,
+        "sha256": "68df6cdd11ccdcfc948d5d7c6e568e55086ef335d848c368a18566627b75fa01",
+        "identical_to_cached_source_archive": true
+      }
+    ],
+    "findings": [
+      {
+        "id": "AUTH-START-01",
+        "source": "cmd/root_cmd.go:20",
+        "finding": "Root Run invokes migrate then serve; forbidden for restored Auth."
+      },
+      {
+        "id": "AUTH-START-02",
+        "source": "cmd/serve_cmd.go:31",
+        "finding": "serve subcommand calls serve; DialContext opens connection without migration."
+      },
+      {
+        "id": "AUTH-START-03",
+        "source": "internal/api/apiworker/apiworker.go:194",
+        "finding": "serve starts apiworker; index worker calls CreateIndexes if EnsureUserSearchIndexesExist true OR MaxUsersThreshold > 0. Both must remain disabled for restore. Defaults false/0 are in configuration.go:1451-1454."
+      },
+      {
+        "id": "AUTH-START-04",
+        "source": "internal/api/apiworker/apiworker.go:185",
+        "finding": "Template reload can fetch template content when enabled; disable reloading or prove exclusively local source. DB worker ApplyConfig adjusts connection pool, not schema migrations."
+      }
+    ],
+    "dynamic_no_migration_verification": "NOT_EXECUTED"
+  },
+  "storage": {
+    "git_head": "5def1dfc15ab7f08fe271c7d1e70542424524e4e",
+    "tracked_clean": true,
+    "files": [
+      {
+        "path": "package.json",
+        "bytes": 9754,
+        "sha256": "1eee9beec9822138b952ee087d9641ba63cf575e0170df7b4166bba359ae20d1",
+        "identical_to_git_head": true
+      },
+      {
+        "path": "src/start/server.ts",
+        "bytes": 7922,
+        "sha256": "f68029ce9d7e24bf688dce888e78d3e1df1b4bdad86e97f754a3aee364dbfd25",
+        "identical_to_git_head": true
+      },
+      {
+        "path": "src/app.ts",
+        "bytes": 3897,
+        "sha256": "aafea8a470056668e0023448270d0bec8c6b0cee3c96a874a1ff18b025114673",
+        "identical_to_git_head": true
+      },
+      {
+        "path": "src/http/plugins/db.ts",
+        "bytes": 6862,
+        "sha256": "0ab87e5e7538956fa4b2766a567744f1115659964b0379a833e3f8ef50638f90",
+        "identical_to_git_head": true
+      },
+      {
+        "path": "src/config.ts",
+        "bytes": 33967,
+        "sha256": "4bdceeae849e23b181581535781120e39d7904dd816bc826464df444b5607d83",
+        "identical_to_git_head": true
+      },
+      {
+        "path": "src/internal/database/migrations/migrate.ts",
+        "bytes": 38149,
+        "sha256": "dbd26b0a2d38ca26f6596d428aabb0f25678d3b7b1cec73f139ff558bed5ceb3",
+        "identical_to_git_head": true
+      },
+      {
+        "path": "src/internal/database/tenant.ts",
+        "bytes": 13264,
+        "sha256": "7043f1da282a23d4f8784f5e383416b3f601ca29e04ceb7c3683915654b76301",
+        "identical_to_git_head": true
+      }
+    ],
+    "built_artifacts_observed": [
+      {
+        "path": "dist/start/server.js",
+        "bytes": 8797,
+        "sha256": "a1ff4ed14a8046ff5e48bcb290d511422bf590a35766201800d02ef690b4569a",
+        "reproducible_build_verified": false
+      },
+      {
+        "path": "dist/app.js",
+        "bytes": 5607,
+        "sha256": "828901885685e6bd482cf640e05fa177a25d9b6688201807d1f5247bd8e0be33",
+        "reproducible_build_verified": false
+      },
+      {
+        "path": "dist/http/plugins/db.js",
+        "bytes": 8202,
+        "sha256": "9a8a24037eb79c2036e918bb9acf2cd47e8bbe9255d95aa15ce0b913f798705e",
+        "reproducible_build_verified": false
+      },
+      {
+        "path": "dist/config.js",
+        "bytes": 27493,
+        "sha256": "4f497a1cdddc8fdbcbe08f79b7c0aa508f0dad403c4ebf772c8d33e1207a7025",
+        "reproducible_build_verified": false
+      }
+    ],
+    "findings": [
+      {
+        "id": "STORAGE-START-01",
+        "source": "src/start/server.ts:161",
+        "finding": "Standard single-tenant startup invokes runMigrationsOnTenant unconditionally. FREEZE_AT limits target only; PG_QUEUE_ENABLE=false is not a migration-disable switch."
+      },
+      {
+        "id": "STORAGE-START-02",
+        "source": "src/app.ts:15",
+        "finding": "Official build exports the Fastify API composition separately, without invoking the start/server main; external launcher may import official builder without editing provider sources."
+      },
+      {
+        "id": "STORAGE-START-03",
+        "source": "src/http/plugins/db.ts:154",
+        "finding": "On-request/progressive migration branches return without invoking migrations when isMultitenant is false. Single-tenant preHandler still reads the latest local migration name; catalog/ledger must therefore match pinned provider source."
+      },
+      {
+        "id": "STORAGE-START-04",
+        "source": "src/config.ts:571",
+        "finding": "DB_ALLOW_MIGRATION_REFRESH defaults to allowed; standard migrate can repair migration hashes. Freeze parameter alone does not protect ledger integrity."
+      },
+      {
+        "id": "STORAGE-START-05",
+        "source": "src/config.ts:676",
+        "finding": "Keep queue, vector/analytics and external webhook functions disabled and file backend private; verify actual listeners and channels independently."
+      }
+    ],
+    "dynamic_no_migration_verification": "NOT_EXECUTED"
+  },
+  "future_required": [
+    "Capture full catalog/ledger/data and private configuration before any start.",
+    "Use Auth serve with index-worker creation disabled; no root or migrate command.",
+    "Use Storage official builder through separate local launcher, single tenant, no standard server bootstrap.",
+    "Compare catalog and ledger before/after startup AND first real request; enumerate any legitimate provider data writes separately.",
+    "Preserve provider source hashes and record launcher/dependencies/dist provenance; cached dist bytes alone do not prove source-equivalent build.",
+    "No findings above establish a tested runtime, restored database, completed task or S11 reentry."
+  ]
+}

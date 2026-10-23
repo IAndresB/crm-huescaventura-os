@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "scope": "AC-073 local quarantine evidence reassessment; no business transition or reentry",
+  "normative": {
+    "specs/001-core-crm/spec.md": {
+      "566": "Automatismos sensibles suspendidos hasta conciliar efecto externo",
+      "597": "Conciliar efectos externos antes de reanudar"
+    },
+    "specs/001-core-crm/procedure-TSK-H6-014-r4.md": {
+      "691": "conservar evidencia/revisión por C04 y mantener el efecto suspendido"
+    }
+  },
+  "requiredBootstrapChecks": [
+    "core_restore_exact_before_start",
+    "t1_outside_restore",
+    "download_after_reconcile_missing",
+    "paused_claim_executed",
+    "uncertain_start_repeat_blocked",
+    "uncertain_new_claim_blocked",
+    "t1_missing_attempt_paused_claim_denied",
+    "no_duplicate_no_fabricated_attempts",
+    "quarantine_retained_no_S11"
+  ],
+  "requiredC04Checks": [
+    "candidate_registration_readback",
+    "reviewed_registration_readback",
+    "replay_one_record",
+    "concurrent_replay_one_record",
+    "conflicting_replay_denied",
+    "guard_uncertain_denied",
+    "uncertain_registered_without_success",
+    "business_tables_unchanged",
+    "missing_attempt_still_absent",
+    "all_jobs_still_paused",
+    "ledger_unchanged"
+  ],
+  "requiredObservations": [
+    "all four jobs paused",
+    "missing original remains missing",
+    "unknown remains unknown",
+    "no new external contact",
+    "missing object not recovered",
+    "no invented RPO/RTO",
+    "no S11",
+    "no N03"
+  ],
+  "countertests": [
+    "remove required observation",
+    "duplicate external contact",
+    "release suspended job",
+    "invent missing attempt",
+    "convert uncertainty to success",
+    "claim missing object recovered",
+    "invent RPO/RTO",
+    "authorize S11",
+    "authorize N03"
+  ],
+  "doesNotProve": [
+    "business reconciliation of absent attempt",
+    "production continuity",
+    "task completion",
+    "new runtime execution"
+  ]
+}

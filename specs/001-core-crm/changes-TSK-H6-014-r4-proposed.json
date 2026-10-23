@@ -1,0 +1,88 @@
+{
+  "state": "PROPOSED_NOT_APPROVED",
+  "original": "specs/001-core-crm/procedure-TSK-H6-014.md",
+  "originalSHA256": "906cf7a451d0c85f6d5bc0ff91ce776ef9cec786d896a3620b7019cfc667ba70",
+  "successor": "specs/001-core-crm/procedure-TSK-H6-014-r4-proposed.md",
+  "successorSHA256": "f593e25d9749b8e2a49a0e254a028153b334645536c00920af651edfec0ba1ae",
+  "changes": [
+    {
+      "kind": "estado",
+      "count": 1,
+      "before": "# TSK-H6-014 — Procedimiento preparado de restauración aislada",
+      "after": "# TSK-H6-014 — Procedimiento sucesor r4 PROPUESTO, NO APROBADO"
+    },
+    {
+      "kind": "estado",
+      "count": 1,
+      "before": "Estado del entregable: CORRECTIVO M1/m1 PREPARADO PARA REVISIÓN DEL DIRECTOR. Candidato auditado original preservado; véase [correctivo](corrective-TSK-H6-014-M1-m1.md). Responsable humano: Andrés. Ejecutor de la preparación: ChatGPT Work. Base: `07808f7d441452a8a2f251306824de3f8520b490`.",
+      "after": "Estado: BORRADOR PARA DECISIÓN DEL DIRECTOR. Fecha: 2026-10-22. No sustituye r3 ni autoriza ejecución, reentrada, cierre o publicación. Base de código 971c55d5ce5770c71284d106d3c0deecca9514b5; deriva del procedimiento r3 íntegro identificado en changes-TSK-H6-014-r4-proposed.json. Las referencias a H6-014, sus expected y ejecución no realizada describen el expediente histórico. El ensayo posterior PG17 v2 tiene evidencia propia; esta propuesta no reescribe aquella historia."
+    },
+    {
+      "kind": "N01",
+      "count": 1,
+      "before": "bootstrap del destino distinto de todos los roles del origen capturado",
+      "after": "bootstrap del destino con el mismo nombre e identidad OID 10 que el bootstrap del origen capturado, asignado exclusivamente por initdb soportado"
+    },
+    {
+      "kind": "N02",
+      "count": 1,
+      "before": "El bootstrap temporal distinto evita colisión con el rol bootstrap del origen; ninguna colisión se resuelve borrando un rol o ignorando errores.",
+      "after": "El bootstrap original queda creado por initdb. Antes de cargar globals se verifica que es el único rol no builtin preexistente, con nombre fuente, OID 10 y superusuario. Su única sentencia CREATE ROLE exacta se satisface explícitamente mediante una aserción; ninguna otra colisión se resuelve borrando roles o ignorando errores."
+    },
+    {
+      "kind": "N01",
+      "count": 1,
+      "before": "rol temporal distinto de todos los roles del origen",
+      "after": "nombre exacto del bootstrap fuente verificado con OID 10"
+    },
+    {
+      "kind": "N01",
+      "count": 3,
+      "before": "bootstrap temporal exclusivo",
+      "after": "bootstrap fuente del cluster exclusivo"
+    },
+    {
+      "kind": "N01",
+      "count": 1,
+      "before": "nombres distintos de cualquier recurso/origen existente.",
+      "after": "directorios, socket y recurso de destino distintos de cualquier recurso/origen existente; el nombre bootstrap coincide deliberadamente con el del origen."
+    },
+    {
+      "kind": "N02",
+      "count": 1,
+      "before": "--single-transaction --file=\"$H6015_PRIVATE_DIR/globals.sql\"",
+      "after": "--single-transaction --file=\"$H6015_PRIVATE_DIR/globals-bootstrap-verified.sql\""
+    },
+    {
+      "kind": "N02",
+      "count": 1,
+      "before": "Usar el globals.sql de ese cluster y su área privada;",
+      "after": "Antes de ese comando generar `globals-bootstrap-verified.sql` en custodia privada 0600 mediante la derivación mínima de `bootstrapGlobals` y las comprobaciones de `restoreBootstrapGlobals` del candidato PG17 v2, cuyos hashes quedan en el recibo. No basta asignar una ruta: el harness debe producir y verificar el archivo antes del comando. Debe existir exactamente una línea `CREATE ROLE <bootstrap>;` con identificador simple admitido; otra forma o múltiples coincidencias bloquean. Sustituir solo esa sentencia por DO que exija nombre/OID 10/superusuario y eleve 42501 si no coincide. No capturar ni tolerar duplicate_object. Mantener originales intactos y demostrar reversibilidad, offsets, hashes de prefijo/sufijo y de ambos archivos. Conservar todos los ALTER ROLE, atributos, configuraciones, membresías y grants. La exclusividad se comprueba antes de cargar, nunca a mitad del archivo. Ejecutar con ON_ERROR_STOP y transacción; tras la carga comparar globals completos contra origen sin excluir roles auxiliares. Cualquier diferencia bloquea. El archivo derivado es específico de cada cluster; no reutilizar globals Core para Storage.\n\nUsar el globals.sql de ese cluster y su área privada;"
+    },
+    {
+      "kind": "E01",
+      "count": 1,
+      "before": "No instalarlo bajo el bootstrap temporal",
+      "after": "No instalarlo bajo el bootstrap"
+    },
+    {
+      "kind": "E01",
+      "count": 1,
+      "before": "El bootstrap del cluster fuente y el del nuevo pueden tener nombres diferentes.",
+      "after": "En esta revisión el bootstrap fuente y destino tienen el mismo nombre y OID 10; la equivalencia histórica acotada que se describe a continuación no permite renombrarlos ni omitir comparación de propietarios."
+    },
+    {
+      "kind": "E02",
+      "count": 1,
+      "before": "No autorizar ninguna petición con una sesión recuperada. La composición local crea una identificación nueva de control con `verifyAuth` y `H0005PostgresAdapter.establish`, sin `sessionId` previo y con password/MFA comprobadas por el puerto sintético de ensayo. `establish` genera sessionId/epoch nuevos. Con esa autoridad llamar a `H0013GlobalAccessRevocationAdapter.revokeAll`, cuyo contrato incrementa la generación del Core y coordina Auth. Debe resultar `status=completed` y `auth=revoked`; incluye la sesión emisora. Cualquier estado partial/pending/failed/uncertain mantiene la cuarentena.\n\nLa forma de composición usa únicamente contratos existentes (fragmento futuro para harness, no ejecutado):\n\n```ts\nimport {verifyAuth} from '../../src/application/verified-auth.ts';\nimport {H0005PostgresAdapter} from '../../src/infrastructure/postgres/h0-005-adapter.ts';\nimport {H0013GlobalAccessRevocationAdapter} from '../../src/infrastructure/postgres/h0-013-adapter.ts';\nimport {createSyntheticAuthVerifier} from '../../tests/integration/synthetic-auth-fixture.ts';\n// Solo harness sintético: runtimeSql, f1/f2, subject y authRevocation se reciben\n// de su composición protegida. authRevocation implementa AuthGlobalRevocationPort\n// con estado del doble independiente del rollback; no se afirma Auth real.\nconst synthetic = createSyntheticAuthVerifier();\nconst access = new H0005PostgresAdapter(runtimeSql, f1, f2);\nconst revoke = new H0013GlobalAccessRevocationAdapter(runtimeSql, f1, f2, authRevocation);\nconst identified = await verifyAuth(synthetic.port, synthetic.register({subject, passwordVerified: true, mfaVerified: true}));\nconst established = await access.establish(identified);\nconst active = await verifyAuth(synthetic.port, synthetic.register({subject, sessionId: established.sessionId, passwordVerified: true, mfaVerified: true}));\nconst result = await revoke.revokeAll(active);\nif (result.status !== 'completed' || result.auth !== 'revoked') throw new Error('RESTORE_QUARANTINE_REQUIRED');\n```\n\nEl fragmento usa los exports y firmas existentes; `createSyntheticAuthVerifier.register` produce pruebas exclusivamente sintéticas como los tests H0-014. Los flags password/MFA del fixture no acreditan contraseña/TOTP reales. El puerto de revocación debe conservar y comprobar el estado independiente del doble; un callback que solo devuelve revoked no prueba por sí solo esa revocación. La implementación real de Auth sigue sin acreditarse. No registrar proofs o el objeto auth.\n\n",
+      "after": "No autorizar ninguna petición con una sesión recuperada. La composición debe usar `SupabaseAuthProvider` local real y `HumanAuthSessions` del candidato Auth R2 aceptado. `login` verifica password, captura `identificationGeneration` antes de completar TOTP auténtico del proveedor y llama `establish(proof, expectedGeneration)`. No invocar el antiguo establish sin generación ni usar flags de un doble como evidencia Auth real.\n\nComposición de referencia vigente: `tests/support/h6-bootstrap-integration.ts` y `src/server/human-auth-session.ts`, identificadas por hash en el expediente. Con la prueba de la identificación nueva, `H0013GlobalAccessRevocationAdapter.revokeAll` debe producir completed/revoked. El coordinador cambia primero generación Core y después revoca Auth. Una revocación partial/pending/failed/uncertain mantiene cuarentena. No registrar credenciales, proofs o tokens. Completar una segunda identificación íntegra nueva para las comprobaciones positivas. Logout o revocación de refresh no se equiparan a invalidación criptográfica instantánea de todo JWT emitido: comprobar por separado proveedor, frontera HTTP y autoridad efectiva Core, incluyendo respuestas tardías y ambos órdenes de concurrencia.\n\n"
+    },
+    {
+      "kind": "E01",
+      "count": 1,
+      "before": "## S06 — Configuración y secretos protegidos",
+      "after": "Aclaración de adquisición de ACL: comparar relacl por grantor, grantee, privilegio y grant option. NULL se expande con acldefault según tipo de objeto (s para secuencias, r para relaciones aplicables); ACL vacía continúa vacía. No reescribir grantors ni normalizar permisos diferentes. Conservar capturas crudas privadas, definiciones y contrapruebas de privilegios efectivos. Esta precisión no modifica los grants ni la comparación histórica de datacl.\n\n## S06 — Configuración y secretos protegidos"
+    }
+  ],
+  "prefix": "<!-- BORRADOR: no es normativa vigente. La aprobación del director sigue pendiente. -->\n"
+}

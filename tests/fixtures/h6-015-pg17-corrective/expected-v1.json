@@ -1,0 +1,45 @@
+{
+  "utc": "2026-10-22T14:05:18.022738+00:00",
+  "sourceLock": [
+    {
+      "path": "specs/001-core-crm/procedure-TSK-H6-014.md",
+      "sha256": "906cf7a451d0c85f6d5bc0ff91ce776ef9cec786d896a3620b7019cfc667ba70"
+    },
+    {
+      "path": "specs/001-core-crm/tasks.md",
+      "sha256": "bb73b357c3ff5de5b14952166580c1a6c3f8212407123f5ef148bee97cfff9d6"
+    },
+    {
+      "path": "specs/001-core-crm/plan.md",
+      "sha256": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e"
+    },
+    {
+      "path": "specs/001-core-crm/spec.md",
+      "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+    },
+    {
+      "path": "docs/constitution.md",
+      "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "sha256": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe"
+    }
+  ],
+  "state": "FROZEN_BEFORE_EXECUTOR_OBSERVED",
+  "checks": {
+    "fullCoreGlobals": "42501 check_role_grantor, transaction rollback; no subsequent database load",
+    "fullStorageGlobals": "42501 check_role_grantor, transaction rollback; no subsequent database load",
+    "importedGrantorIdentity": "same logical name as source; different from destination bootstrap OID10; SUPERUSER alone insufficient",
+    "prefixDiagnostic": "roles-only prefix is isolated diagnostic, never accepted restoration",
+    "graphComparison": "exact attributes, role/member/grantor/admin/inherit/set; missing/altered/extra authority detected",
+    "inputIntegrity": "raw dumps/globals and historical candidates unchanged",
+    "noTaskClose": true,
+    "noS11": true
+  },
+  "sourceBootstrapIdentityLimit": "Actual historical source OID is not reread by restarting its preserved cluster; OID10 origin established by initdb source and independent minimal-engine test, distinguish from a new live read."
+}

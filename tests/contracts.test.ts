@@ -8,6 +8,7 @@ import {
   invokeC05,
   invokeC06,
   type ContractRequest,
+  type EvidenceRegistration,
 } from "../src/application/contracts.ts";
 import { issueTrustedContext } from "../src/application/trusted-context.ts";
 import type { CommonGuardFacts } from "../src/domain/guards.ts";
@@ -69,6 +70,45 @@ test("C04 keeps evidence candidate without an explicit review", async () => {
   assert.equal(result.status, "applied");
   assert.equal(result.status === "applied" ? result.value.state : undefined, "candidate");
 });
+
+for (const reviewed of [false, true]) {
+  test(`C04 preserves captured registration during a wait (reviewed=${reviewed})`, async () => {
+    const input = {
+      sourceReference: "source-before-wait",
+      receivedAt: "2026-09-15T12:00:00.000Z",
+      preservation: "authorized-manual-record" as const,
+      verification: reviewed ? {
+        reviewerIdentityId: "reviewer-before-wait",
+        reviewedAt: "2026-09-15T12:01:00.000Z",
+      } : undefined,
+    };
+    const original = structuredClone(input);
+    const mutable = { ...request(input) };
+    let release!: () => void;
+    const pending = new Promise<void>((resolve) => { release = resolve; });
+    let persisted: EvidenceRegistration | undefined;
+    const result = invokeC04(mutable, {
+      register: async (_context, captured) => {
+        assert.ok(Object.isFrozen(captured));
+        if (captured.verification) assert.ok(Object.isFrozen(captured.verification));
+        await pending;
+        persisted = captured;
+        return { evidenceId: "new-evidence" };
+      },
+    });
+    if (input.verification) input.verification.reviewerIdentityId = "mutated-reviewer";
+    mutable.input = { ...input, sourceReference: "replacement-source",
+      verification: reviewed ? undefined : {
+        reviewerIdentityId: "replacement-reviewer",
+        reviewedAt: "2026-09-15T12:02:00.000Z",
+      } };
+    release();
+    const observed = await result;
+    assert.deepEqual(persisted, original);
+    assert.equal(observed.status, "applied");
+    assert.equal(observed.status === "applied" && observed.value.state, reviewed ? "verified" : "candidate");
+  });
+}
 
 test("C05 records an intent but leaves the external channel pending", async () => {
   const result = await invokeC05(request({

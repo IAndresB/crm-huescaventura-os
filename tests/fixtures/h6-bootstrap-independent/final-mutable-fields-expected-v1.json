@@ -1,0 +1,58 @@
+{
+  "utc": "2026-10-22T14:57:04.151252+00:00",
+  "frozenBeforeFinalAcquisition": true,
+  "source": "approved migrations for HA, F1/F2, b07 object conservation, b08 recovery, actor/session/identification, identity counters; only existing row field changes authorized by S06-S10",
+  "allowedFields": {
+    "crm_f1.keys": [
+      "enabled"
+    ],
+    "crm_f2.keys": [
+      "enabled"
+    ],
+    "crm_ha.reservations": [
+      "state",
+      "updated_at"
+    ],
+    "crm_private.b07_object_versions": [
+      "observed_digest",
+      "observed_size",
+      "observed_media",
+      "state",
+      "revision",
+      "observed_at",
+      "linked_at"
+    ],
+    "crm_private.b08_attempts": [
+      "state",
+      "result_ref",
+      "result_at"
+    ],
+    "crm_private.b08_executions": [
+      "control_state",
+      "generation"
+    ],
+    "crm_private.b08_parts": [
+      "state",
+      "attempt_id",
+      "reservation_id",
+      "result_ref"
+    ],
+    "crm_private.crm_actors": [
+      "access_generation",
+      "identification_generation",
+      "updated_at"
+    ],
+    "crm_private.crm_sessions": [
+      "revoked_at"
+    ],
+    "crm_private.identification_epochs": [
+      "last_human_activity_at",
+      "current_epoch",
+      "closed_at"
+    ],
+    "crm_private.identity_code_counters": [
+      "last_serial"
+    ]
+  },
+  "rule": "all prior rows retain multiplicity when projecting only documented mutable fields away; all other columns exact"
+}

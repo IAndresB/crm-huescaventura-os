@@ -1,0 +1,20 @@
+{
+  "frozenExpectedUnchanged": true,
+  "expectedRequired": "expected Auth 4xx rather than network/5xx failure",
+  "instrumentError": "Used HTTP401 for missing provider session; upstream auth.go:155 explicitly returns NewForbiddenError and apierrors.go:73-74 maps to HTTP403. Fix narrows to HTTP403 plus session_not_found, not generic rejection.",
+  "providerSources": [
+    {
+      "path": "internal/api/auth.go",
+      "sha256": "19672f8235335d723403a377ac32b76255beed8effc11f3c37d9beddc9d19926"
+    },
+    {
+      "path": "internal/api/apierrors/apierrors.go",
+      "sha256": "3bea6fc620bb5cb509032c6ce75f7a91b7b81a334c84240e4b5262797ddfb58b"
+    },
+    {
+      "path": "internal/api/apierrors/errorcode.go",
+      "sha256": "2e3c25030657ff6d073a819ffae12351c8a31725abbc46d7664a117ca9eb9065"
+    }
+  ],
+  "historyPreserved": "auth-independent-runtime-r5.json and runtime-r5-sources"
+}

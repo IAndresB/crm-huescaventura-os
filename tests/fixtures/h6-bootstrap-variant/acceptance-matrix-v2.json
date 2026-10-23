@@ -1,0 +1,108 @@
+{
+  "createdUTC": "2026-10-22T15:01:51.001050+00:00",
+  "taskState": "IN_PROGRESS",
+  "candidateRun": "2026-10-22T14-52-59-084Z",
+  "candidateReportSHA256": "2c9b9622aeeeaef68bd992e49e702e5c8187b0de23708b221d248b458064067d",
+  "normativeSource": "tasks.md section6 assignments; inherited expected-v1 frozen before observed",
+  "rows": [
+    {
+      "id": "SPEC-FR-HIST-004",
+      "topicSummaryNotNewRequirement": "Recuperación de historia, objetos y relaciones",
+      "evidenceSummary": "S05 exacta; S08 por estado y reparación",
+      "status": "LOCAL_EVIDENCE"
+    },
+    {
+      "id": "SPEC-FR-IDEMP-002",
+      "topicSummaryNotNewRequirement": "No duplicar efectos al repetir/restaurar",
+      "evidenceSummary": "S10 replay idempotente, contador3, pausa4",
+      "status": "LOCAL_EVIDENCE_WITH_PENDING_EFFECTS"
+    },
+    {
+      "id": "SPEC-FR-ERR-002",
+      "topicSummaryNotNewRequirement": "Conservar incertidumbre y bloquear efecto dependiente",
+      "evidenceSummary": "incierto y t1ausente protegidos; no fabricatedattempt",
+      "status": "LOCAL_EVIDENCE_WITH_PENDING_EFFECTS"
+    },
+    {
+      "id": "AC-073",
+      "topicSummaryNotNewRequirement": "Restauración anterior a efecto externo y objeto ausente",
+      "evidenceSummary": "t0/t1simulado; missing; sinS11",
+      "status": "PARTIAL_NO_GLOBAL_ACCEPTANCE"
+    },
+    {
+      "id": "AC-074",
+      "topicSummaryNotNewRequirement": "Binario y metadata separados; URL no autoriza",
+      "evidenceSummary": "missing/corrupt/MIMEreal/incomplete/orphan/privateURL",
+      "status": "LOCAL_SCENARIOS_VERIFIED"
+    },
+    {
+      "id": "SPEC-NFR-005",
+      "topicSummaryNotNewRequirement": "Recuperación comprobada en aislamiento",
+      "evidenceSummary": "Core/Auth/Storage exactos; tiempos y límites",
+      "status": "PARTIAL_ARCH_PENDING_002"
+    },
+    {
+      "id": "SPEC-NFR-014",
+      "topicSummaryNotNewRequirement": "E1–E8 distinguibles, interrupción/recuperación segura y resultados parciales explícitos",
+      "evidenceSummary": "Fallos históricos conservados, incertidumbre protegida, avance independiente; no se acredita familia E1–E8 completa por este ensayo",
+      "status": "PARTIAL_LOCAL_FAILURE_AND_RECOVERY_EVIDENCE"
+    },
+    {
+      "id": "SM-FORB-27",
+      "topicSummaryNotNewRequirement": "No inferir éxito/reintento desde fallo/incertidumbre",
+      "evidenceSummary": "guardasuncertain y workspaused; ningún reintento externo",
+      "status": "LOCAL_EVIDENCE"
+    },
+    {
+      "id": "ARCH-DEC-010",
+      "topicSummaryNotNewRequirement": "Objetos privados y conservación",
+      "evidenceSummary": "S08 + bytes tardíos + permisos y URL conocida",
+      "status": "LOCAL_SCENARIOS_VERIFIED"
+    },
+    {
+      "id": "ARCH-DEC-017",
+      "topicSummaryNotNewRequirement": "Development/Staging/Production separados, Work Local entorno principal",
+      "evidenceSummary": "Clústeres nuevos exclusivos y datos/secretos sintéticos; red externa denegada; ningún Hosted/Production",
+      "status": "LOCAL_ISOLATION_VERIFIED"
+    },
+    {
+      "id": "P13",
+      "topicSummaryNotNewRequirement": "Estado SQL revisable y aprobado",
+      "evidenceSummary": "sin cambios normativa/migraciones/app; derivado globals explícito",
+      "status": "EXPERIMENTAL_EXCEPTION_ONLY"
+    },
+    {
+      "id": "PLAN-DEC-008",
+      "topicSummaryNotNewRequirement": "Dominio determinista, PostgreSQL/Auth/Storage aislados y contratos; dobles controlados externos",
+      "evidenceSummary": "PostgreSQL/Auth/Storage reales, permisos/concurrencia no sustituidos por mocks; 210 unitarias; ledger externo sintético",
+      "status": "LOCAL_TEST_STRATEGY_VERIFIED"
+    },
+    {
+      "id": "PLAN-B10",
+      "topicSummaryNotNewRequirement": "Operación técnica y recuperación",
+      "evidenceSummary": "custodia, cuarentena, fuentesversionadas, objetosyAuth",
+      "status": "LOCAL_EVIDENCE"
+    },
+    {
+      "id": "PT-12",
+      "topicSummaryNotNewRequirement": "Familia de pruebas de restauración y duplicación",
+      "evidenceSummary": "63histórico conhallazgo preservado;64final;210unitarias",
+      "status": "LOCAL_EVIDENCE_NOT_GLOBAL_ACCEPTANCE"
+    },
+    {
+      "id": "D017",
+      "topicSummaryNotNewRequirement": "Identidades, documentación e historial recuperable",
+      "evidenceSummary": "Auth27tablas/Core175/Storage10; revocaciónreal;historia preservada",
+      "status": "LOCAL_EVIDENCE"
+    }
+  ],
+  "S11": "NOT_AUTHORIZED_NOT_EXECUTED",
+  "globalAcceptance": false,
+  "pending": [
+    "ARCH-PENDING-002",
+    "DM-PENDING-005",
+    "Definitive normative adoption",
+    "Legitimate reconciliation for t1-only attempt",
+    "Uncertain simulated effect"
+  ]
+}

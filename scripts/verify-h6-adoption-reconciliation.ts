@@ -1,0 +1,37 @@
+// Focused port checks. These never apply a result, create an attempt or contact a provider.
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {verifyWorkEffect,verifyWorkResult,type WorkEffectObservation,type WorkResultObservation} from '../src/application/work-result-verification.ts';
+const root='tests/fixtures/h6-adoption-reconciliation';
+const sha=(b:Uint8Array|string)=>createHash('sha256').update(b).digest('hex');
+const bytes=await readFile(root+'/expected-v1.json');
+assert.equal(sha(bytes),(await readFile(root+'/expected-v1.sha256','utf8')).trim());
+const expected=JSON.parse(bytes.toString());
+for(const [path,digest] of Object.entries(expected.sources))assert.equal(sha(await readFile(path)),digest,path);
+const request={executionId:'synthetic-execution',proposalId:'synthetic-proposal',partId:'synthetic-part',materialFingerprint:'synthetic-fingerprint'};
+const result={executionId:request.executionId,attemptId:'synthetic-attempt',outcome:'succeeded' as const,resultRef:'synthetic-reference'};
+const effect:WorkEffectObservation={...request,availability:'available',priorEffect:'none',sourceKind:'simulated',verifierIdentity:'local-review',observationRef:'synthetic-observation'};
+const observation:WorkResultObservation={...result,sourceKind:'simulated',verifierIdentity:'local-review'};
+const rows:any[]=[];
+async function check(id:string,run:()=>Promise<unknown>){let actual='PASS';try{await run();}catch(e){actual=(e as Error).message;}rows.push({id,expected:expected.cases[id],actual,status:actual===expected.cases[id]?'PASS':'FAIL'});}
+const effectCheck=(seen:WorkEffectObservation|undefined)=>()=>verifyWorkEffect({inspect:async()=>undefined,checkEffect:async()=>seen},request);
+const resultCheck=(seen:WorkResultObservation|undefined)=>()=>verifyWorkResult({inspect:async()=>seen},result);
+await check('effect_confirmed',effectCheck({...effect,priorEffect:'succeeded'}));
+await check('effect_uncertain',effectCheck({...effect,priorEffect:'uncertain'}));
+await check('effect_unavailable',effectCheck({...effect,availability:'unavailable'}));
+await check('effect_absent_observation',effectCheck(undefined));
+await check('effect_wrong_material',effectCheck({...effect,materialFingerprint:'other'}));
+await check('effect_proven_none',effectCheck(effect));
+await check('result_no_evidence',resultCheck(undefined));
+await check('result_timeout',()=>verifyWorkResult({inspect:async()=>{throw new Error('TIMEOUT');}},result));
+await check('result_wrong_attempt',resultCheck({...observation,attemptId:'other'}));
+await check('result_wrong_outcome',resultCheck({...observation,outcome:'failed'}));
+await check('result_verified_success',resultCheck(observation));
+await check('result_verified_failure',()=>verifyWorkResult({inspect:async()=>({...observation,outcome:'failed'})},{...result,outcome:'failed'}));
+assert.deepEqual(rows.map(r=>r.id).sort(),Object.keys(expected.cases).sort());
+const run=new Date().toISOString().replaceAll(':','-'),dir=root+'/runs/'+run;
+await mkdir(dir,{recursive:true});
+await writeFile(dir+'/report.json',JSON.stringify({run,expectedSHA256:sha(bytes),instrumentSHA256:sha(await readFile('scripts/verify-h6-adoption-reconciliation.ts')),scope:expected.scope,checks:rows,SQLExecuted:false,externalEffects:0,taskState:'IN_PROGRESS',S11:false},null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({run,checks:rows.length,passed:rows.filter(r=>r.status==='PASS').length}));
+assert.ok(rows.every(r=>r.status==='PASS'));

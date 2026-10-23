@@ -1,0 +1,16 @@
+{
+  "scope":"Independent database audit policy derived from the authorized operations and existing migration bodies; no business-result adoption",
+  "baseToFinalMutable":{"crm_f1.keys":["enabled"],"crm_f2.keys":["enabled"],"crm_private.crm_actors":["access_generation","updated_at"]},
+  "baseToFinalAppendOnly":["crm_private.b07_records","crm_private.b07_links","crm_private.b07_operations","crm_private.b07_history","crm_private.crm_sessions","crm_private.identification_epochs","crm_private.global_access_revocations","crm_private.global_access_revocation_attempts"],
+  "allOtherCoreTables":"Exact typed row multiset and column type equality; includes every B08, HA and financial table",
+  "sourceForSecurityChanges":["20260928223934_h0_m05_global_access_revocation.sql: start/finalize_global_access_revocation","202609260003_h0_m03_f2_expiry_revalidation_fix.sql: session and epoch establishment","D037/D038 renewed environment generation provisioning"],
+  "newEvidenceFromDeclaredActions":["candidate positive","reviewed positive","concurrent replay positive once","uncertain manual observation","registration wins race before revocation","inflight candidate input mutation","inflight reviewed input mutation"],
+  "newEvidenceExpected":7,
+  "reviewedEvidenceExpected":2,
+  "candidateEvidenceExpected":5,
+  "replayExpected":"No additional row/link/operation/history for same operation",
+  "newEvidenceRequired":"record/link/operation/history one-to-one; exact preserved ledger observation; manual registration metadata; same witnessed occurredAt; current recordedAt; reviewer and recording actor from verified identity; no businessResultApplied",
+  "securityExpected":"One new independent enabled F1 and F2 key/generation; original rows remain only disabled. Actor generation increases solely by the number of new global revocations. Final Core effective sessions and provider Auth sessions for the subject are absent.",
+  "globalsAndSchema":"Byte-exact schema SQL with fixed PG17 restrict key; logical roles, grantors, options, settings and effective privilege cells equal",
+  "history":"Existing immutable rows and original files retained; any allowed mutable change must match the explicitly authorized operation"
+}

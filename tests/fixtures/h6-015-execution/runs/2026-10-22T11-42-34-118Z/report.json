@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "run": "2026-10-22T11-42-34-118Z",
+  "utc": "2026-10-22T11:42:34.128Z",
+  "privateRoot": "/tmp/h6015-ewiepU",
+  "scope": "local synthetic quarantine",
+  "state": "FAIL_PRESERVED",
+  "explicitReentry": false,
+  "taskCompleted": false,
+  "phases": [
+    {
+      "name": "S01_identity_expected",
+      "startUTC": "2026-10-22T11:42:34.128Z",
+      "startMs": 0.07899999999995089,
+      "status": "PASS",
+      "elapsedMs": 214.01129199999997,
+      "endUTC": "2026-10-22T11:42:34.342Z"
+    },
+    {
+      "name": "S02_private_resources",
+      "startUTC": "2026-10-22T11:42:34.343Z",
+      "startMs": 214.69266699999997,
+      "status": "FAIL",
+      "elapsedMs": 1423.51425,
+      "endUTC": "2026-10-22T11:42:35.766Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "frozen_expected_and_source_identity",
+      "status": "PASS",
+      "facts": true
+    },
+    {
+      "id": "external_network_denied",
+      "status": "PASS",
+      "facts": {
+        "code": "EPERM"
+      }
+    }
+  ],
+  "failures": [
+    {
+      "phase": "S02_private_resources",
+      "name": "Error",
+      "code": null,
+      "reason": "ISOLATED_STORAGE_REQUIRED",
+      "stack": [
+        "    at isolatedInvoice (file:///Users/andres/.codex/worktrees/h6-restore-execution/crm-huescaventura-os/tests/support/h3-invoice-isolated.ts:13:89)",
+        "    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+        "    at async isolatedSuplido (file:///Users/andres/.codex/worktrees/h6-restore-execution/crm-huescaventura-os/tests/support/h3-suplido-isolated.ts:7:10)",
+        "    at async isolatedProviderPayment (file:///Users/andres/.codex/worktrees/h6-restore-execution/crm-huescaventura-os/tests/support/h3-provider-payment-isolated.ts:8:10)",
+        "    at async isolatedOwnEconomics (file:///Users/andres/.codex/worktrees/h6-restore-execution/crm-huescaventura-os/tests/support/h3-own-economics-isolated.ts:7:10)",
+        "    at async isolatedRequirement (file:///Users/andres/.codex/worktrees/h6-restore-execution/crm-huescaventura-os/tests/support/h4-requirement-isolated.ts:8:10)",
+        "    at async isolatedIncident (file:///Users/andres/.codex/worktrees/h6-restore-execution/crm-huescaventura-os/tests/support/h4-incident-isolated.ts:8:10)",
+        "    at async isolatedAvailability (file:///Users/andres/.codex/worktrees/h6-restore-execution/crm-huescaventura-os/tests/support/h4-availability-isolated.ts:7:92)"
+      ]
+    }
+  ],
+  "unexecuted": [
+    "S11"
+  ],
+  "pending": [
+    "ARCH-PENDING-002",
+    "DM-PENDING-005"
+  ],
+  "sourceLock": [
+    {
+      "path": "scripts/run-h6-015.ts",
+      "bytes": 34989,
+      "sha256": "3d03a93150a0601f428c6ceca887484b8bcb400caf8aa51a1e2a7463b83ee087"
+    },
+    {
+      "path": "tests/support/h6-015-runtime.ts",
+      "bytes": 14535,
+      "sha256": "f9420f39ffb3f402aceb0d85f82d9c70a48c6e9c242fb7c793e37866945649bd"
+    },
+    {
+      "path": "tests/support/h6-015-storage.cjs",
+      "bytes": 974,
+      "sha256": "df8fd4423d93e3ce55f296a6896bf965f9ddc0aa659e530f06f9b12d4cd2db86"
+    },
+    {
+      "path": "tests/support/h2-isolated.ts",
+      "bytes": 7041,
+      "sha256": "d8fff476ab85e9809ffc557258fdbf5760c50fcafd4992e83d8fdaf2a6cf2fb3"
+    },
+    {
+      "path": "tests/support/h5-work-isolated.ts",
+      "bytes": 5126,
+      "sha256": "21b4cd28445341f45756ed9b1c8c86e196c9c8f4c79252776780958d51918c96"
+    },
+    {
+      "path": "src/infrastructure/postgres/persisted-work-executor.ts",
+      "bytes": 13734,
+      "sha256": "e06c34763ac94f55fc7e12ee67cd2e5e5acd90e21e12d8657fb69638df6ea4a1"
+    }
+  ],
+  "expectedSHA256": "44bddf8210f3f01295a0d60c251e1546b32bcb2623cf9929a1a803aad7e44e20",
+  "base": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "postgresql": "postgres (PostgreSQL) 17.11 (Postgres.app)",
+  "finishedUTC": "2026-10-22T11:42:35.767Z",
+  "resourcesStopped": true,
+  "nativeEvents": [
+    {
+      "command": "postgres",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 87.027375
+    }
+  ],
+  "totalElapsedMs": 1638.781542
+}

@@ -1,0 +1,134 @@
+--- procedure-TSK-H6-014.md
++++ procedure-TSK-H6-014-r4-proposed.md
+@@ -1,6 +1,7 @@
+-# TSK-H6-014 — Procedimiento preparado de restauración aislada
+-
+-Estado del entregable: CORRECTIVO M1/m1 PREPARADO PARA REVISIÓN DEL DIRECTOR. Candidato auditado original preservado; véase [correctivo](corrective-TSK-H6-014-M1-m1.md). Responsable humano: Andrés. Ejecutor de la preparación: ChatGPT Work. Base: `07808f7d441452a8a2f251306824de3f8520b490`.
++<!-- BORRADOR: no es normativa vigente. La aprobación del director sigue pendiente. -->
++# TSK-H6-014 — Procedimiento sucesor r4 PROPUESTO, NO APROBADO
++
++Estado: BORRADOR PARA DECISIÓN DEL DIRECTOR. Fecha: 2026-10-22. No sustituye r3 ni autoriza ejecución, reentrada, cierre o publicación. Base de código 971c55d5ce5770c71284d106d3c0deecca9514b5; deriva del procedimiento r3 íntegro identificado en changes-TSK-H6-014-r4-proposed.json. Las referencias a H6-014, sus expected y ejecución no realizada describen el expediente histórico. El ensayo posterior PG17 v2 tiene evidencia propia; esta propuesta no reescribe aquella historia.
+ 
+ Este documento contiene instrucciones para una ejecución futura específicamente autorizada. Ningún paso S01–S13 se ha ejecutado como restauración en H6-014. Los controles del bloque JSON son condiciones que deberá cumplir el futuro ensayo, no observados de funcionamiento. R/S/P/N son identificadores instrumentales de este paquete, sin valor de nuevos requisitos normativos.
+ 
+@@ -428,20 +429,20 @@
+ 
+ ## S05 — Restauración de roles y bases
+ 
+-**Entrada:** destino nuevo, vacío y en cuarentena, con PostgreSQL compatible, locale/encoding/extensiones documentados y bootstrap del destino distinto de todos los roles del origen capturado. La preparación del cluster corresponde al harness H6-015 autorizado: directorio privado propio, `listen_addresses` vacío y socket exclusivo. Si no existe ese recurso, no apuntar a una base compartida por conveniencia. El bloque de aprovisionamiento que sigue se ejecuta solo en esa fase autorizada, antes del bloque de restauración.
+-
+-Inspeccionar `globals.sql` en área protegida. Contiene únicamente globals del origen sintético autorizado; no importar roles de otros proyectos o de un cluster compartido. Crear/restaurar atributos y memberships antes de objetos que los referencian. El bootstrap temporal distinto evita colisión con el rol bootstrap del origen; ninguna colisión se resuelve borrando un rol o ignorando errores. Owners, ACL y FORCE RLS deben conservarse. No usar `--no-owner`, `--no-privileges`, `--clean`, `--disable-triggers`, filtros de tabla o modo de continuar con errores para que el restore pase.
++**Entrada:** destino nuevo, vacío y en cuarentena, con PostgreSQL compatible, locale/encoding/extensiones documentados y bootstrap del destino con el mismo nombre e identidad OID 10 que el bootstrap del origen capturado, asignado exclusivamente por initdb soportado. La preparación del cluster corresponde al harness H6-015 autorizado: directorio privado propio, `listen_addresses` vacío y socket exclusivo. Si no existe ese recurso, no apuntar a una base compartida por conveniencia. El bloque de aprovisionamiento que sigue se ejecuta solo en esa fase autorizada, antes del bloque de restauración.
++
++Inspeccionar `globals.sql` en área protegida. Contiene únicamente globals del origen sintético autorizado; no importar roles de otros proyectos o de un cluster compartido. Crear/restaurar atributos y memberships antes de objetos que los referencian. El bootstrap original queda creado por initdb. Antes de cargar globals se verifica que es el único rol no builtin preexistente, con nombre fuente, OID 10 y superusuario. Su única sentencia CREATE ROLE exacta se satisface explícitamente mediante una aserción; ninguna otra colisión se resuelve borrando roles o ignorando errores. Owners, ACL y FORCE RLS deben conservarse. No usar `--no-owner`, `--no-privileges`, `--clean`, `--disable-triggers`, filtros de tabla o modo de continuar con errores para que el restore pase.
+ 
+ **Aprovisionamiento futuro del cluster exclusivo, no ejecutado en H6-014:**
+ 
+-Elegir directorios nuevos dentro del área privada propia. El recibo exige paths absolutos sin comillas/apóstrofos ni caracteres de control, bootstrap con identificador SQL simple y puerto válido; nombres distintos de cualquier recurso/origen existente. La configuración locale-provider/encoding/collation debe corresponder al origen; si es ICU o builtin, aportar además sus parámetros específicos documentados o parar por incompatibilidad, sin convertirlo silenciosamente a libc. Este bloque solo aplica al origen local libc/C de los fixtures cuando esa compatibilidad se haya comprobado.
++Elegir directorios nuevos dentro del área privada propia. El recibo exige paths absolutos sin comillas/apóstrofos ni caracteres de control, bootstrap con identificador SQL simple y puerto válido; directorios, socket y recurso de destino distintos de cualquier recurso/origen existente; el nombre bootstrap coincide deliberadamente con el del origen. La configuración locale-provider/encoding/collation debe corresponder al origen; si es ICU o builtin, aportar además sus parámetros específicos documentados o parar por incompatibilidad, sin convertirlo silenciosamente a libc. Este bloque solo aplica al origen local libc/C de los fixtures cuando esa compatibilidad se haya comprobado.
+ 
+ ```sh
+ set +x
+ set -euo pipefail
+ : "${H6015_DEST_DATA:?directorio de datos nuevo}"
+ : "${H6015_DEST_SOCKET:?socket nuevo en directorio privado ya creado}"
+-: "${H6015_DEST_BOOTSTRAP:?rol temporal distinto de todos los roles del origen}"
++: "${H6015_DEST_BOOTSTRAP:?nombre exacto del bootstrap fuente verificado con OID 10}"
+ : "${H6015_DEST_PORT:?puerto identificado en recibo}"
+ : "${H6015_ENCODING:?encoding comprobado}"
+ : "${H6015_LC_COLLATE:?collation comprobada}"
+@@ -461,6 +462,8 @@
+ 
+ **Carga común de globals, una sola vez por cluster exclusivo, no ejecutada en H6-014:**
+ 
++Antes de ese comando generar `globals-bootstrap-verified.sql` en custodia privada 0600 mediante la derivación mínima de `bootstrapGlobals` y las comprobaciones de `restoreBootstrapGlobals` del candidato PG17 v2, cuyos hashes quedan en el recibo. No basta asignar una ruta: el harness debe producir y verificar el archivo antes del comando. Debe existir exactamente una línea `CREATE ROLE <bootstrap>;` con identificador simple admitido; otra forma o múltiples coincidencias bloquean. Sustituir solo esa sentencia por DO que exija nombre/OID 10/superusuario y eleve 42501 si no coincide. No capturar ni tolerar duplicate_object. Mantener originales intactos y demostrar reversibilidad, offsets, hashes de prefijo/sufijo y de ambos archivos. Conservar todos los ALTER ROLE, atributos, configuraciones, membresías y grants. La exclusividad se comprueba antes de cargar, nunca a mitad del archivo. Ejecutar con ON_ERROR_STOP y transacción; tras la carga comparar globals completos contra origen sin excluir roles auxiliares. Cualquier diferencia bloquea. El archivo derivado es específico de cada cluster; no reutilizar globals Core para Storage.
++
+ Usar el globals.sql de ese cluster y su área privada; no cargar globals de Core en el cluster Storage. Tras esta carga, seleccionar SOLO la variante Core o Storage correspondiente a la base capturada. El orden de marcadores del instrumento describe su aparición en el documento, no ordena ejecutar ambas variantes sobre la misma base.
+ 
+ ```sh
+@@ -468,10 +471,10 @@
+ set -euo pipefail
+ : "${H6015_DEST_SOCKET:?socket Unix del destino exclusivo}"
+ : "${H6015_DEST_PORT:?puerto del destino}"
+-: "${H6015_DEST_BOOTSTRAP:?bootstrap temporal exclusivo}"
++: "${H6015_DEST_BOOTSTRAP:?bootstrap fuente del cluster exclusivo}"
+ : "${H6015_MAINT_DB:?base de mantenimiento aislada}"
+ # H6014-CMD restore-globals
+-"$H6015_BIN/psql" -X --host="$H6015_DEST_SOCKET" --port="$H6015_DEST_PORT" --username="$H6015_DEST_BOOTSTRAP" --no-password --dbname="$H6015_MAINT_DB" --set=ON_ERROR_STOP=1 --single-transaction --file="$H6015_PRIVATE_DIR/globals.sql" >/dev/null 2>&1
++"$H6015_BIN/psql" -X --host="$H6015_DEST_SOCKET" --port="$H6015_DEST_PORT" --username="$H6015_DEST_BOOTSTRAP" --no-password --dbname="$H6015_MAINT_DB" --set=ON_ERROR_STOP=1 --single-transaction --file="$H6015_PRIVATE_DIR/globals-bootstrap-verified.sql" >/dev/null 2>&1
+ ```
+ 
+ **Variante Core únicamente, no ejecutada en H6-014:**
+@@ -481,7 +484,7 @@
+ set -euo pipefail
+ : "${H6015_DEST_SOCKET:?socket Unix del destino exclusivo}"
+ : "${H6015_DEST_PORT:?puerto del destino}"
+-: "${H6015_DEST_BOOTSTRAP:?bootstrap temporal exclusivo}"
++: "${H6015_DEST_BOOTSTRAP:?bootstrap fuente del cluster exclusivo}"
+ : "${H6015_MAINT_DB:?base de mantenimiento aislada}"
+ : "${H6015_SOURCE_DB:?nombre acreditado en origen}"
+ : "${H6015_ARCHIVE_DB:?nombre acreditado en el archivo protegido}"
+@@ -515,7 +518,7 @@
+ set -euo pipefail
+ : "${H6015_DEST_SOCKET:?socket Unix del destino Storage exclusivo}"
+ : "${H6015_DEST_PORT:?puerto del destino}"
+-: "${H6015_DEST_BOOTSTRAP:?bootstrap temporal exclusivo}"
++: "${H6015_DEST_BOOTSTRAP:?bootstrap fuente del cluster exclusivo}"
+ : "${H6015_MAINT_DB:?base de mantenimiento aislada}"
+ : "${H6015_SOURCE_DB:?nombre acreditado en origen}"
+ : "${H6015_ARCHIVE_DB:?nombre acreditado en archivo}"
+@@ -596,7 +599,7 @@
+ 
+ Este apartado se aplica SOLO a Core, nunca a Storage. pg_restore no restaura el owner de una EXTENSION automáticamente. Antes de la ejecución futura Core, generar tres listas privadas desde la TOC íntegra obtenida con pg_restore --list --create (sin conectar), mediante partition_restore_toc del verificador: database.list contiene DATABASE y todas sus propiedades/ACL/comentarios/etiquetas; crypto-schema.list contiene únicamente SCHEMA crm_crypto; content.list contiene absolutamente el resto, incluida la entrada EXTENSION. Cada dumpId pertenece a una sola lista; se conserva cada línea literal y todo el conjunto, sin omitir ni duplicar contenido. El recibo independiente fija nombre y owner esperados del catálogo de origen, y un segundo verificador coteja clasificación, cobertura, hashes y TOC con el archivo. El parser se limita a identificadores simples del ensayo; un formato/nombre no soportado detiene esta variante. No deducir el owner original de la entrada EXTENSION, que no lo contiene.
+ 
+-La fase database usa --create conectado a mantenimiento y sin -1. Sigue la fase crypto-schema sin --create, con owners/ACL por defecto; después se ejecuta el SQL de provisión siguiente, derivado de la migración F1 y del catálogo autorizado. Finalmente content se restaura sin --create, con -1 y sin suprimir owners/ACL. La entrada EXTENSION IF NOT EXISTS del archivo encuentra la instancia recién provisionada: no sustituye comprobar antes y después owner/version/schema/miembros. Este es el único objeto preinstalado deliberadamente. No instalarlo bajo el bootstrap temporal ni confiar en la versión por defecto; si origen no es exactamente pgcrypto 1.3 en crm_crypto con owner crm_h0_migration y el instalador no conserva el CREATE legítimo del origen, parar sin conceder nuevos permisos.
++La fase database usa --create conectado a mantenimiento y sin -1. Sigue la fase crypto-schema sin --create, con owners/ACL por defecto; después se ejecuta el SQL de provisión siguiente, derivado de la migración F1 y del catálogo autorizado. Finalmente content se restaura sin --create, con -1 y sin suprimir owners/ACL. La entrada EXTENSION IF NOT EXISTS del archivo encuentra la instancia recién provisionada: no sustituye comprobar antes y después owner/version/schema/miembros. Este es el único objeto preinstalado deliberadamente. No instalarlo bajo el bootstrap ni confiar en la versión por defecto; si origen no es exactamente pgcrypto 1.3 en crm_crypto con owner crm_h0_migration y el instalador no conserva el CREATE legítimo del origen, parar sin conceder nuevos permisos.
+ 
+ <!-- H6014-EXTENSION-SQL -->
+ ```sql
+@@ -606,9 +609,11 @@
+ COMMIT;
+ ```
+ 
+-El owner de la extensión permanece exactamente crm_h0_migration y el del schema también. Para sus miembros nativos existe una equivalencia administrativa explícita y limitada: la migración 202609160001_h0_f1_capabilities.sql:14–17 documenta que los objetos de pgcrypto trusted pertenecen al bootstrap PostgreSQL; CREATE EXTENSION de PG17 confirma ese comportamiento. El bootstrap del cluster fuente y el del nuevo pueden tener nombres diferentes. Solo se admite correspondencia entre el rol builtin OID 10 de cada cluster, acreditado por lectura privilegiada independiente, para funciones C no SECURITY DEFINER que pg_depend acredite como miembros de pgcrypto y que conserven ACL inicial por defecto. No se normalizan roles CRM, owner de extensión/schema, funciones SECURITY DEFINER, membresías, grants explícitos ni otros objetos. Si cualquier miembro cae fuera de ese caso acotado, parar y revisar la variante; no ampliar la equivalencia. La migración F2:147 conserva expresamente la ACL de extensión de PostgreSQL.
++El owner de la extensión permanece exactamente crm_h0_migration y el del schema también. Para sus miembros nativos existe una equivalencia administrativa explícita y limitada: la migración 202609160001_h0_f1_capabilities.sql:14–17 documenta que los objetos de pgcrypto trusted pertenecen al bootstrap PostgreSQL; CREATE EXTENSION de PG17 confirma ese comportamiento. En esta revisión el bootstrap fuente y destino tienen el mismo nombre y OID 10; la equivalencia histórica acotada que se describe a continuación no permite renombrarlos ni omitir comparación de propietarios. Solo se admite correspondencia entre el rol builtin OID 10 de cada cluster, acreditado por lectura privilegiada independiente, para funciones C no SECURITY DEFINER que pg_depend acredite como miembros de pgcrypto y que conserven ACL inicial por defecto. No se normalizan roles CRM, owner de extensión/schema, funciones SECURITY DEFINER, membresías, grants explícitos ni otros objetos. Si cualquier miembro cae fuera de ese caso acotado, parar y revisar la variante; no ampliar la equivalencia. La migración F2:147 conserva expresamente la ACL de extensión de PostgreSQL.
+ 
+ Capturar en privado antes del corte y tras la carga pg_extension (extname, extowner por rol, extversion, extnamespace), pg_depend con deptype e para el inventario completo de miembros y, para funciones, pg_proc (identidad lógica, owner, lenguaje, prosecdef y ACL). Comprobar bootstrap OID10/rol de cada cluster y comparar con compare_pgcrypto_properties del verificador. Conservar definiciones/binarios/versiones y acceso efectivo; no sustituir captura por un JSON autodeclarado. Una revisión independiente del catálogo real es puerta de H6-015, NO EJECUTADA aquí. Esta correspondencia reproduce la autoridad builtin descrita por el código aprobado y no modifica una autoridad contractual CRM.
++
++Aclaración de adquisición de ACL: comparar relacl por grantor, grantee, privilegio y grant option. NULL se expande con acldefault según tipo de objeto (s para secuencias, r para relaciones aplicables); ACL vacía continúa vacía. No reescribir grantors ni normalizar permisos diferentes. Conservar capturas crudas privadas, definiciones y contrapruebas de privilegios efectivos. Esta precisión no modifica los grants ni la comparación histórica de datacl.
+ 
+ ## S06 — Configuración y secretos protegidos
+ 
+@@ -639,29 +644,9 @@
+ 
+ **Entrada:** cuarentena activa, actor/subject del origen legítimo, medios protegidos coherentes y Auth de prueba independiente del rollback.
+ 
+-No autorizar ninguna petición con una sesión recuperada. La composición local crea una identificación nueva de control con `verifyAuth` y `H0005PostgresAdapter.establish`, sin `sessionId` previo y con password/MFA comprobadas por el puerto sintético de ensayo. `establish` genera sessionId/epoch nuevos. Con esa autoridad llamar a `H0013GlobalAccessRevocationAdapter.revokeAll`, cuyo contrato incrementa la generación del Core y coordina Auth. Debe resultar `status=completed` y `auth=revoked`; incluye la sesión emisora. Cualquier estado partial/pending/failed/uncertain mantiene la cuarentena.
+-
+-La forma de composición usa únicamente contratos existentes (fragmento futuro para harness, no ejecutado):
+-
+-```ts
+-import {verifyAuth} from '../../src/application/verified-auth.ts';
+-import {H0005PostgresAdapter} from '../../src/infrastructure/postgres/h0-005-adapter.ts';
+-import {H0013GlobalAccessRevocationAdapter} from '../../src/infrastructure/postgres/h0-013-adapter.ts';
+-import {createSyntheticAuthVerifier} from '../../tests/integration/synthetic-auth-fixture.ts';
+-// Solo harness sintético: runtimeSql, f1/f2, subject y authRevocation se reciben
+-// de su composición protegida. authRevocation implementa AuthGlobalRevocationPort
+-// con estado del doble independiente del rollback; no se afirma Auth real.
+-const synthetic = createSyntheticAuthVerifier();
+-const access = new H0005PostgresAdapter(runtimeSql, f1, f2);
+-const revoke = new H0013GlobalAccessRevocationAdapter(runtimeSql, f1, f2, authRevocation);
+-const identified = await verifyAuth(synthetic.port, synthetic.register({subject, passwordVerified: true, mfaVerified: true}));
+-const established = await access.establish(identified);
+-const active = await verifyAuth(synthetic.port, synthetic.register({subject, sessionId: established.sessionId, passwordVerified: true, mfaVerified: true}));
+-const result = await revoke.revokeAll(active);
+-if (result.status !== 'completed' || result.auth !== 'revoked') throw new Error('RESTORE_QUARANTINE_REQUIRED');
+-```
+-
+-El fragmento usa los exports y firmas existentes; `createSyntheticAuthVerifier.register` produce pruebas exclusivamente sintéticas como los tests H0-014. Los flags password/MFA del fixture no acreditan contraseña/TOTP reales. El puerto de revocación debe conservar y comprobar el estado independiente del doble; un callback que solo devuelve revoked no prueba por sí solo esa revocación. La implementación real de Auth sigue sin acreditarse. No registrar proofs o el objeto auth.
++No autorizar ninguna petición con una sesión recuperada. La composición debe usar `SupabaseAuthProvider` local real y `HumanAuthSessions` del candidato Auth R2 aceptado. `login` verifica password, captura `identificationGeneration` antes de completar TOTP auténtico del proveedor y llama `establish(proof, expectedGeneration)`. No invocar el antiguo establish sin generación ni usar flags de un doble como evidencia Auth real.
++
++Composición de referencia vigente: `tests/support/h6-bootstrap-integration.ts` y `src/server/human-auth-session.ts`, identificadas por hash en el expediente. Con la prueba de la identificación nueva, `H0013GlobalAccessRevocationAdapter.revokeAll` debe producir completed/revoked. El coordinador cambia primero generación Core y después revoca Auth. Una revocación partial/pending/failed/uncertain mantiene cuarentena. No registrar credenciales, proofs o tokens. Completar una segunda identificación íntegra nueva para las comprobaciones positivas. Logout o revocación de refresh no se equiparan a invalidación criptográfica instantánea de todo JWT emitido: comprobar por separado proveedor, frontera HTTP y autoridad efectiva Core, incluyendo respuestas tardías y ambos órdenes de concurrencia.
+ 
+ Aplicar el procedimiento al único Administrador habilitado de V1 y enumerar cualquier otro actor presente: un actor deshabilitado o con recuperación incompleta permanece denegado, no se habilita para ejecutar esta operación. Si el contrato no puede obtener autoridad legítima, parar la apertura; no usar UPDATE de generaciones/sesiones como atajo. No basta comparar un contador restaurado contra un máximo supuesto: probar denegación efectiva.
+ 

@@ -1,0 +1,54 @@
+{
+  "scope": "offline capture/addendum consistency only",
+  "state": "PASS_OFFLINE_CAPTURE_ADDENDUM_CONSISTENCY_ONLY",
+  "checks": [
+    "source_report_instrument_expected_original_witness_hashes",
+    "all_archive_toc_and_table_coverage",
+    "three_t0_attempt_start_effect_intent_identities",
+    "one_late_attempt_absent_from_t0",
+    "all_three_t0_epochs_without_current_flag_inference",
+    "material_core_storage_block_preserved"
+  ],
+  "noSQLExecuted": true,
+  "noDatabaseStarted": true,
+  "noRestorationClaim": true,
+  "explicitReentry": false,
+  "taskCompleted": false,
+  "independentLimit": "Post-t0 source state and late attempt work_start identity are reviewed through exact hashed acquisition code/receipt, not independently queried from its live database.",
+  "archives": [
+    {
+      "kind": "core",
+      "sha256": "ee627980abcb7d4b65e0b073891cafd615b8988135efb64b478b6932b297c3a8",
+      "entries": 2546,
+      "dataTables": 175
+    },
+    {
+      "kind": "auth",
+      "sha256": "b03561d36b1258bb8104be11355ff5c004c232d061d258894bc0518a4c1f6d1f",
+      "entries": 265,
+      "dataTables": 27
+    },
+    {
+      "kind": "storage",
+      "sha256": "a3e7c13811c54cd4044eda6abaf56b22c1ad1a22ebd8d4c113424d1d4cd10571",
+      "entries": 127,
+      "dataTables": 10
+    }
+  ],
+  "diagnoses": [
+    {
+      "path": "tests/fixtures/h6-015-execution/globals-diagnostic-1792669484667.json",
+      "sha256": "f076ad4b789ae1b9fbbb53a25c4cd313418546a61726a0ebf4cb160a124d505b",
+      "sqlstate": "42501"
+    },
+    {
+      "path": "tests/fixtures/h6-015-execution/globals-diagnostic-1792669849916.json",
+      "sha256": "062bfe09fe4ded4394483f9bcb9a529a8ee1b84044a0d0f0de7408d493b9010f",
+      "sqlstate": "42501"
+    }
+  ],
+  "inputs": {
+    "addendumSHA256": "cc5a35f328cbb2980cdc5af9777d373b1ce2ac37f24fdf6862b967c697394629",
+    "instrumentSHA256": "415d92800ae66a6b7b695ad560dbbdd89bc021d10542dce48ae9dc17d5328f5f"
+  }
+}

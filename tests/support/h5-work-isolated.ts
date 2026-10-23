@@ -14,7 +14,7 @@ export async function isolatedWork(label:string,port:number,previous=false){
  const resultVerifier={checkEffect:async(r:any)=>({...r,availability:'available' as const,priorEffect:'none' as const,sourceKind:'simulated' as const,verifierIdentity:'synthetic-durable-provider',observationRef:'synthetic-effect-check'}),inspect:async(r:WorkResultRequest)=>{inspections++;return observations.get(r.attemptId);}};
  const executors:ReturnType<typeof createPersistedWorkExecutor>[]=[];
  const executor=(executorId='synthetic-executor-a',changes:Record<string,unknown>={})=>{
- const out=createPersistedWorkExecutor({databaseUrl:`postgresql://crm_h0_ha_tx@127.0.0.1:${port}/${label}`,ssl:false,capability:h.f1,humanAuthorization:h.f2,executorId,resultVerifier,...changes});executors.push(out);return out;};
+ const out=createPersistedWorkExecutor({databaseUrl:`postgresql://crm_h0_ha_tx@127.0.0.1:${port}/${label}`,...(process.env.H6015_PRIVATE_PARENT?{socketDirectory:h.temporary+'/socket'}:{}),ssl:false,capability:h.f1,humanAuthorization:h.f2,executorId,resultVerifier,...changes});executors.push(out);return out;};
  const closeExecutors=async()=>{await Promise.allSettled(executors.splice(0).map(x=>x.close()));};
  return {...h,observations,inspections:()=>inspections,executor,closeExecutors,close:async()=>{await closeExecutors();await h.close();}};
 }

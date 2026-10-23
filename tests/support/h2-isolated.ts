@@ -21,10 +21,11 @@ export const read=classifyServerEvent("core-read"),write=classifyServerEvent("co
 const root=resolve(import.meta.dirname,"../.."),migrations=join(root,"supabase/migrations");
 export async function isolatedH2(label:string,port:number,upgrade=false) {
  const bin=process.env.POSTGRES_H0_BIN;if(!bin) throw new Error("POSTGRES_H0_BIN_REQUIRED");
- const temporary=await mkdtemp(join(tmpdir(),`crm-${label}-`)),socket=join(temporary,"socket");await mkdir(socket);
- const command=(name:string,args:string[])=>{const p=spawnSync(join(bin,name),args,{encoding:"utf8",env:{...process.env,LC_ALL:"C"}});if(process.env.H4014_CAPTURE_DIR){const dir=join(process.env.H4014_CAPTURE_DIR,"native");mkdirSync(dir,{recursive:true});const prefix=join(dir,label+"-"+name+"-"+randomUUID());writeFileSync(prefix+".stdout.log",p.stdout??"");writeFileSync(prefix+".stderr.log",p.stderr??"");writeFileSync(prefix+".status.json",JSON.stringify({cmd:join(bin,name),args,status:p.status,signal:p.signal,error:p.error?.message??null},null,2)+"\n");}assert.equal(p.status,0,p.stderr);};
+ const recovery=process.env.H6015_PRIVATE_PARENT;
+ const temporary=await mkdtemp(join(recovery??tmpdir(),recovery?'core-':`crm-${label}-`)),socket=join(temporary,"socket");await mkdir(socket,{mode:0o700});
+ const command=(name:string,args:string[])=>{const p=spawnSync(join(bin,name),args,{encoding:"utf8",env:{...process.env,LC_ALL:"C"}});if(process.env.H4014_CAPTURE_DIR){const dir=join(process.env.H4014_CAPTURE_DIR,"native");mkdirSync(dir,{recursive:true});const prefix=join(dir,label+"-"+name+"-"+randomUUID());writeFileSync(prefix+".stdout.log",p.stdout??"");writeFileSync(prefix+".stderr.log",p.stderr??"");writeFileSync(prefix+".status.json",JSON.stringify({cmd:join(bin,name),args,status:p.status,signal:p.signal,error:p.error?.message??null},null,2)+"\n");}assert.equal(p.status,0,recovery?'H6015_NATIVE_COMMAND_FAILED':p.stderr);};
  command("initdb",["-D",join(temporary,"data"),"--username=h2_bootstrap","--auth-local=trust","--auth-host=trust","--no-locale","--encoding=UTF8"]);
- command("pg_ctl",["-D",join(temporary,"data"),"-l",join(temporary,"postgres.log"),"-o",`-k '${socket}' -h '127.0.0.1' -p ${port}`,"-w","start"]);
+ command("pg_ctl",["-D",join(temporary,"data"),"-l",recovery?'/dev/null':join(temporary,"postgres.log"),"-o",`-k '${socket}' -h '${recovery?'':'127.0.0.1'}' -p ${port}`,"-w","start"]);
  const connections:postgres.Sql[]=[];
  const connect=(user:string,db=label)=>{const sql=postgres({host:socket,port,database:db,user,max:user==="crm_h0_runtime"?4:1,prepare:false,onnotice:()=>{}});connections.push(sql);return sql;};
  const bootstrap=connect("h2_bootstrap","postgres");await bootstrap.unsafe(await readFile(join(migrations,"202609150000_h0_m01_roles.sql"),"utf8"));
@@ -52,6 +53,7 @@ export async function isolatedH2(label:string,port:number,upgrade=false) {
  const req=(kind:B07Command["kind"],material:Record<string,unknown>,contextId:string,contextKind:B07Command["contextKind"]="opportunity"):B07Command=>({action:"create",operationId:randomUUID(),targetId:randomUUID(),kind,material,sourceRef:"synthetic-manual",purpose:"commercial-test",occurredAt:"2026-09-28T10:00:00Z",contextKind,contextId,coverage:"synthetic-scope",reason:"synthetic-register"});
  const input=(change:Partial<CommercialCommand>={}):CommercialCommand=>({action:"direct",operationId:randomUUID(),targetId:randomUUID(),expectedRevision:0,sourceRef:"synthetic-origin",reason:"synthetic-sale",
   material:{contact:{channel:"manual",address:"synthetic-client",sourceRef:"synthetic-check",valid:true},need:"synthetic-event",commercialPossible:true,pending:["date","participants","services","budget"]},...change});
- const close=async()=>{await Promise.allSettled(connections.map(x=>x.end({timeout:1})));command("pg_ctl",["-D",join(temporary,"data"),"-m","fast","-w","stop"]);await rm(temporary,{recursive:true,force:true});};
- return {temporary,bin,admin,migration,observer,runtime,connect,applyChain,auth,adapter,identities,evidence,tasks,req,input,actorId,subject,sessionId,scope,f1,f2,close};
+ const closeConnections=async()=>{await Promise.allSettled(connections.map(x=>x.end({timeout:1})));};
+ const close=async()=>{await closeConnections();command("pg_ctl",["-D",join(temporary,"data"),"-m","fast","-w","stop"]);if(!recovery)await rm(temporary,{recursive:true,force:true});};
+ return {temporary,bin,admin,migration,observer,runtime,connect,applyChain,auth,adapter,identities,evidence,tasks,req,input,actorId,subject,sessionId,scope,f1,f2,close,closeConnections};
 }

@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "kind": "expected frozen before observed; normative claims remain per-case",
+  "scope": "local synthetic quarantine; no S11, no COMPLETED",
+  "caseExpectations": {
+    "network": "only private Unix sockets and loopback; external connect denied",
+    "coherentCut": "Auth/Storage stopped and no business writers during full dump interval; before/after content equal",
+    "restore": "new clusters; full database and globals; exact all table columns/types/multiplicity/NULL/decimal hashes, owners/ACL/catalog/settings before startup",
+    "authVariant": "all Auth tables including users,factors,sessions,refresh,migrations and catalog preserved; serve without migrate",
+    "storageVariant": "full metadata and filesystem bytes; serve official app without migrate",
+    "rotation": "all restored keys disabled retained; separate new 32-byte F1/F2 keys and generations; readback before signers",
+    "auth": "actual password/TOTP, generation captured before TOTP; signature separately from online session/Core",
+    "revocation": "t0 and t1 and issuing sessions denied after completed/revoked; fresh full login allowed",
+    "effects": "durable t1 ledger outside rollback, counters unchanged on restore/reconcile; uncertain cannot restart; absent t1 attempts not fabricated",
+    "objects": "complete exact bytes; missing/incomplete/orphan/corrupt never complete; direct unauthorized download denied",
+    "security": "ordinary-role keys/tables/Auth/DDL denied with real permission codes; old proof/replay/mutation/projection/object denied",
+    "concurrency": "revocation before TOTP/establish denied; confirmed establish then revoke late response denied; late object bytes denied",
+    "counterprobes": "mutated owner/ACL/settings/table row/hash/decimal/type/multiplicity/old active key/false complete must fail",
+    "measurements": "UTC and monotonic durations, exact loss/counts with coverage limits; no invented RPO/RTO"
+  },
+  "normativeAssignments": [
+    "SPEC-FR-HIST-004",
+    "SPEC-FR-IDEMP-002",
+    "SPEC-FR-ERR-002",
+    "AC-073",
+    "AC-074",
+    "SPEC-NFR-005",
+    "SPEC-NFR-014",
+    "SM-FORB-27",
+    "ARCH-DEC-010",
+    "ARCH-DEC-017",
+    "P13",
+    "PLAN-DEC-008",
+    "PLAN-B10",
+    "PT-12",
+    "D017"
+  ],
+  "unexecuted": [
+    "S11"
+  ],
+  "pending": [
+    "ARCH-PENDING-002",
+    "DM-PENDING-005"
+  ]
+}

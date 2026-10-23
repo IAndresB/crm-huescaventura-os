@@ -1,0 +1,39 @@
+{
+  "utc": "2026-10-22T15:07:23.980Z",
+  "privateRoot": "/tmp/h6ba-storage-http-Pxht6g",
+  "expectedSHA256": "6ed43bf2fcd74f911f1ab6e8904a93762a89b7315f3f62d9bb6973f8c8387988",
+  "checks": [
+    {
+      "id": "same_object_positive_before",
+      "status": "PASS",
+      "facts": {
+        "http": 200,
+        "bytes": 24
+      }
+    },
+    {
+      "id": "ordinary_storage_authority_not_transport_denial",
+      "status": "PASS",
+      "facts": {
+        "http": 400,
+        "providerStatus": "404",
+        "providerError": "not_found"
+      }
+    },
+    {
+      "id": "same_object_positive_after",
+      "status": "PASS",
+      "facts": {
+        "http": 200,
+        "bytes": 24
+      }
+    },
+    {
+      "id": "direct_postgresql_live",
+      "status": "PASS"
+    }
+  ],
+  "failures": [],
+  "state": "PASS_FOCUSED_STORAGE_HTTP_AUTHORITY",
+  "resourcesStopped": true
+}

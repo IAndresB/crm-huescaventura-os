@@ -1,0 +1,93 @@
+{
+  "state": "FAIL_PRESERVED",
+  "scope": "Auth only; no Core/Storage restore or S11",
+  "checks": [
+    {
+      "id": "archive_matches_source_schema_exact",
+      "status": "PASS",
+      "facts": {
+        "sha256": "8bff0a739facde748c1a06fca95b8947d946d52a5320bfac96af53aa1d2e7577"
+      }
+    },
+    {
+      "id": "bounded_live_columns_fk_identity",
+      "status": "PASS",
+      "facts": {
+        "liveColumns": 405,
+        "triggers": 96
+      }
+    },
+    {
+      "id": "full_schema_and_extended_catalog",
+      "status": "PASS",
+      "facts": {
+        "types": 72,
+        "enumLabels": 26,
+        "sequences": 1
+      }
+    },
+    {
+      "id": "independent_decimal_null_multiset_hashes",
+      "status": "PASS",
+      "facts": {
+        "tables": 27,
+        "rows": 100
+      }
+    },
+    {
+      "id": "official_serve_all_data_schema_ledger_unchanged",
+      "status": "PASS",
+      "facts": {}
+    }
+  ],
+  "failures": [
+    {
+      "phase": "direct_auth_http_controls",
+      "type": "ValueError",
+      "rule": "T1_SESSION_ABSENT_DIRECT_401"
+    }
+  ],
+  "explicitReentry": false,
+  "taskCompleted": false,
+  "privateRoot": "/tmp/h6015-independent-auth-ixacqpjc",
+  "sourceHashes": [
+    {
+      "path": "scripts/audit-h6-015-auth-independent.py",
+      "sha256": "44d2402a598103cd35b590464b5e81ca89738de06bde47a75c7f8b21cdb8cd5e"
+    },
+    {
+      "path": "scripts/verify-h6-015-catalog-identity.py",
+      "sha256": "f51a2c6ad8ecd2f3972c8e66584add0282c2ed7e443a33c7a352ad4986c7df8d"
+    }
+  ],
+  "expectedSHA256": "6f51bf48d40b3a7ef280de4afed8735327ea46c386aaa071ec5bdea2e8653f12",
+  "privateEvidence": [
+    {
+      "name": "source-identity.json",
+      "sha256": "6521d4146e8c75a14e2579124530f1e5924a0c7f1beed4a6d0e1d958e0595dfe",
+      "bytes": 201473
+    },
+    {
+      "name": "source-extra.json",
+      "sha256": "8edd0023552b17c011b5144b66436db6a23e740568c23b418ae1334717f6becf",
+      "bytes": 28949
+    },
+    {
+      "name": "target-identity-before-serve.json",
+      "sha256": "d479b5dddd79ed5cff329a6775cead7f50b20865aacaaaebb7d78f472b62b847",
+      "bytes": 201472
+    },
+    {
+      "name": "target-extra-before-serve.json",
+      "sha256": "d879581cc937b792f8ad62c42f8d10dad73341648f91f108395630dfbd691832",
+      "bytes": 29278
+    },
+    {
+      "name": "target-data-before-serve.json",
+      "sha256": "70bc3626ddb5a762153bd98605956f0e92b6605d9fa40b35156052023e99d25f",
+      "bytes": 16391
+    }
+  ],
+  "resourcesStopped": true,
+  "finishedUTC": "2026-10-22T12:08:02Z"
+}

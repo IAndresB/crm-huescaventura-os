@@ -16,6 +16,7 @@ interface Configuration {
  readonly databaseUrl:string;readonly capability:F1SigningConfiguration;readonly humanAuthorization:F2SigningConfiguration;
  readonly executorId:string;readonly resultVerifier?:WorkResultVerifier;readonly evidenceProvider?:EvidenceRevalidationProvider;
  readonly ssl?:postgres.Options<never>['ssl'];
+ readonly socketDirectory?:string;
 }
 export interface WorkSnapshot {
  readonly execution:any;readonly definition:any;readonly parts:any[];readonly attempts:any[];readonly history:any[];
@@ -30,7 +31,7 @@ export function createPersistedWorkExecutor(config:Configuration):{
  close():Promise<void>;
 } {
  if(!config.databaseUrl.trim()||!/^[a-z][a-z0-9-]{0,127}$/u.test(config.executorId)||Buffer.from(config.capability.key).equals(Buffer.from(config.humanAuthorization.key)))throw new Error('WORK_CONFIGURATION_INVALID');
- const sql=postgres(config.databaseUrl,{max:1,prepare:false,ssl:config.ssl??'require',onnotice:()=>{}});
+ const sql=postgres(config.databaseUrl,{...(config.socketDirectory?{host:config.socketDirectory}:{}),max:1,prepare:false,ssl:config.ssl??'require',onnotice:()=>{}});
  const f1=createF1Issuer(config.capability),f2=createF2Issuer(config.humanAuthorization);
  const context=(scope:string,purpose='h0-011-human-unit')=>issueTrustedContext({identityId:config.executorId,identityKind:'technical',purpose,scope,requestId:randomUUID(),serverTime:new Date().toISOString()});
  async function identity(tx:PostgresTransaction,auth:VerifiedAuthEvidence):Promise<F2Identity>{

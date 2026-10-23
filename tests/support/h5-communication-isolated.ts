@@ -8,7 +8,7 @@ export {read,write};
 export const migration='supabase/migrations/20261007230734_h5_communication_review.sql';
 export async function isolatedCommunications(label:string,port:number,previous=false){
  const h=await isolatedAlerts(label,port);try{if(!previous)await h.migration.unsafe(await readFile(migration,'utf8'));}catch(e){await h.close();throw e;}
- return {...h,communications:new H5005CommunicationAdapter({begin:async(options:any,work:any)=>h.runtime.begin(options,async(tx:any)=>work(new Proxy(tx,{get(target,key){const v=target[key];if(key!=='unsafe')return typeof v==='function'?v.bind(target):v;return async(...args:any[])=>{try{return await v.apply(target,args);}catch(e:any){console.log('H5006 SQL diagnostic',{code:e.code,message:e.message,where:e.where});throw e;}};}})))} as typeof h.runtime,h.f1,h.f2)};
+ return {...h,communications:new H5005CommunicationAdapter({begin:async(options:any,work:any)=>h.runtime.begin(options,async(tx:any)=>work(new Proxy(tx,{get(target,key){const v=target[key];if(key!=='unsafe')return typeof v==='function'?v.bind(target):v;return async(...args:any[])=>{try{return await v.apply(target,args);}catch(e:any){console.log('H5006 SQL diagnostic',process.env.H6015_PRIVATE_PARENT?{code:e.code}:{code:e.code,message:e.message,where:e.where});throw e;}};}})))} as typeof h.runtime,h.f1,h.f2)};
 }
 export async function communicationFixture(h:Awaited<ReturnType<typeof isolatedCommunications>>,direction='outgoing',bookingId?:string){
  const contextId=bookingId??uid(),recordId=uid(),at='2026-10-07T12:00:00Z',context={contextKind:'booking' as const,contextId,purpose:'synthetic-communication-review'};

@@ -1,0 +1,193 @@
+{
+  "version": 1,
+  "run": "2026-10-22T14-27-22-539Z",
+  "utc": "2026-10-22T14:27:22.545Z",
+  "privateRoot": "/tmp/h6boot-wnyLuF",
+  "scope": "local synthetic quarantine",
+  "state": "FAIL_PRESERVED",
+  "explicitReentry": false,
+  "taskCompleted": false,
+  "phases": [
+    {
+      "name": "S01_identity_expected",
+      "startUTC": "2026-10-22T14:27:22.545Z",
+      "startMs": 0.16066599999999198,
+      "status": "PASS",
+      "elapsedMs": 141.75516700000003,
+      "endUTC": "2026-10-22T14:27:22.687Z"
+    },
+    {
+      "name": "S02_private_resources",
+      "startUTC": "2026-10-22T14:27:22.688Z",
+      "startMs": 143.28954100000004,
+      "status": "PASS",
+      "elapsedMs": 4261.817749999999,
+      "endUTC": "2026-10-22T14:27:26.950Z"
+    },
+    {
+      "name": "S03_prepare_real_sources",
+      "startUTC": "2026-10-22T14:27:26.950Z",
+      "startMs": 4405.271666,
+      "status": "PASS",
+      "elapsedMs": 1559.027959,
+      "endUTC": "2026-10-22T14:27:28.509Z"
+    },
+    {
+      "name": "S03_S04_coherent_cut_backups",
+      "startUTC": "2026-10-22T14:27:28.510Z",
+      "startMs": 5964.5675,
+      "status": "FAIL",
+      "elapsedMs": 184.02116599999954,
+      "endUTC": "2026-10-22T14:27:28.694Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "frozen_expected_and_source_identity",
+      "status": "PASS",
+      "facts": true
+    },
+    {
+      "id": "external_network_denied",
+      "status": "PASS",
+      "facts": {
+        "code": "EPERM"
+      }
+    },
+    {
+      "id": "core_socket_private",
+      "status": "PASS",
+      "facts": true
+    },
+    {
+      "id": "storage_socket_private",
+      "status": "PASS",
+      "facts": true
+    },
+    {
+      "id": "exact_money_and_portions",
+      "status": "PASS",
+      "facts": {
+        "currency": "EUR",
+        "gross": "500.00",
+        "verified": "200.00",
+        "unreconciled": "300.00"
+      }
+    },
+    {
+      "id": "actual_password_totp_fixture",
+      "status": "PASS",
+      "facts": true
+    }
+  ],
+  "failures": [
+    {
+      "phase": "S03_S04_coherent_cut_backups",
+      "name": "PostgresError",
+      "code": "42601",
+      "reason": "ASSERTION_OR_INSTRUMENT_FAILURE",
+      "stack": [
+        "    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-restore-execution/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)",
+        "    at handle (file:///Users/andres/.codex/worktrees/h6-restore-execution/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)",
+        "    at Socket.data (file:///Users/andres/.codex/worktrees/h6-restore-execution/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)",
+        "    at Socket.emit (node:events:514:28)",
+        "    at addChunk (node:internal/streams/readable:568:12)",
+        "    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)",
+        "    at Readable.push (node:internal/streams/readable:399:5)",
+        "    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)"
+      ]
+    }
+  ],
+  "unexecuted": [
+    "S11"
+  ],
+  "pending": [
+    "ARCH-PENDING-002",
+    "DM-PENDING-005"
+  ],
+  "sourceLock": [
+    {
+      "path": "scripts/run-h6-bootstrap-variant.ts",
+      "bytes": 38151,
+      "sha256": "94937a4da750337feedd33078a50a4931f2f63c142def8958ce9e404109aa0bc"
+    },
+    {
+      "path": "tests/support/h6-bootstrap-variant.ts",
+      "bytes": 5878,
+      "sha256": "d5b24dcd71177bd90ea55056c5ba5e44d7b47678b9b2978c049737204836be48"
+    },
+    {
+      "path": "tests/support/h6-015-runtime.ts",
+      "bytes": 18271,
+      "sha256": "c25f9c99ac5ef5eb57ff23d0b48eaaa13fb663eac227ab02b8209ac95e0a0c2f"
+    },
+    {
+      "path": "tests/support/h6-015-storage.cjs",
+      "bytes": 974,
+      "sha256": "df8fd4423d93e3ce55f296a6896bf965f9ddc0aa659e530f06f9b12d4cd2db86"
+    },
+    {
+      "path": "tests/support/h2-isolated.ts",
+      "bytes": 7080,
+      "sha256": "ee1e4aa36337ead7a0d71af0048937363dd6820403bc66eb6fc25c9d66a8f94b"
+    },
+    {
+      "path": "tests/support/h5-work-isolated.ts",
+      "bytes": 5126,
+      "sha256": "21b4cd28445341f45756ed9b1c8c86e196c9c8f4c79252776780958d51918c96"
+    },
+    {
+      "path": "tests/support/h5-communication-isolated.ts",
+      "bytes": 5265,
+      "sha256": "862b8d4ca98bd0e1b8ba44f4770bc27c4b126c7d4714547f1b5b5adc43ba2047"
+    },
+    {
+      "path": "src/infrastructure/postgres/persisted-work-executor.ts",
+      "bytes": 13734,
+      "sha256": "e06c34763ac94f55fc7e12ee67cd2e5e5acd90e21e12d8657fb69638df6ea4a1"
+    }
+  ],
+  "expectedSHA256": "c7ea472951f1b568708156d97ec88376517f3ede49b9894593140c0f009c25f5",
+  "base": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "postgresql": "postgres (PostgreSQL) 17.11 (Postgres.app)",
+  "experimentalBootstrapException": true,
+  "resources": {
+    "sourceCore": "/tmp/h6boot-wnyLuF/core-QBH15w",
+    "sourceStorage": "/tmp/h6boot-wnyLuF/storage-source-9SlWaz",
+    "authVersion": "v2.197.0",
+    "storageCommit": "5def1dfc15ab7f08fe271c7d1e70542424524e4e",
+    "postgresSocketOnly": true,
+    "httpLoopbackOnly": true,
+    "networkSandbox": true,
+    "syntheticOnly": true
+  },
+  "finishedUTC": "2026-10-22T14:27:29.035Z",
+  "resourcesStopped": true,
+  "nativeEvents": [
+    {
+      "command": "postgres",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 59.812208
+    },
+    {
+      "command": "initdb",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 937.6805
+    },
+    {
+      "command": "pg_ctl",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 139.2215409999999
+    },
+    {
+      "command": "pg_ctl",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 107.44025000000056
+    }
+  ],
+  "totalElapsedMs": 6490.123583
+}

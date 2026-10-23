@@ -1,0 +1,14 @@
+"""Own previously audited effective-privilege acquisition; requires reader r."""
+def effective(c):
+ # Each identity is logical; grantors are compared separately without renaming.
+ base="from pg_roles r cross join pg_class c join pg_namespace n on n.oid=c.relnamespace"
+ ns="r.rolname !~ '^pg_' and n.nspname !~ '^pg_' and n.nspname<>'information_schema'"
+ vals={
+ 'roles':r.query(c,"select r.rolname actor,t.rolname target,p.kind,pg_has_role(r.oid,t.oid,p.kind) allowed from pg_roles r cross join pg_roles t cross join unnest(array['MEMBER','USAGE','SET']) p(kind) where r.rolname !~ '^pg_' order by 1,2,3"),
+ 'schemas':r.query(c,"select r.rolname actor,n.nspname object,p.kind,has_schema_privilege(r.oid,n.oid,p.kind) allowed from pg_roles r cross join pg_namespace n cross join unnest(array['USAGE','CREATE','USAGE WITH GRANT OPTION','CREATE WITH GRANT OPTION']) p(kind) where "+ns+" order by 1,2,3"),
+ 'tables':r.query(c,"select r.rolname actor,n.nspname schema,c.relname object,p.kind,has_table_privilege(r.oid,c.oid,p.kind) allowed "+base+" cross join unnest(array['SELECT','INSERT','UPDATE','DELETE','TRUNCATE','REFERENCES','TRIGGER','MAINTAIN','SELECT WITH GRANT OPTION','INSERT WITH GRANT OPTION','UPDATE WITH GRANT OPTION','DELETE WITH GRANT OPTION','TRUNCATE WITH GRANT OPTION','REFERENCES WITH GRANT OPTION','TRIGGER WITH GRANT OPTION','MAINTAIN WITH GRANT OPTION']) p(kind) where "+ns+" and c.relkind in ('r','p','v','m','f') order by 1,2,3,4"),
+ 'columns':r.query(c,"select r.rolname actor,n.nspname schema,c.relname object,a.attname col,p.kind,has_column_privilege(r.oid,c.oid,a.attnum,p.kind) allowed "+base+" join pg_attribute a on a.attrelid=c.oid and a.attnum>0 and not a.attisdropped cross join unnest(array['SELECT','INSERT','UPDATE','REFERENCES','SELECT WITH GRANT OPTION','INSERT WITH GRANT OPTION','UPDATE WITH GRANT OPTION','REFERENCES WITH GRANT OPTION']) p(kind) where "+ns+" and c.relkind in ('r','p','v','m','f') order by 1,2,3,4,5"),
+ 'functions':r.query(c,"select r.rolname actor,p.oid::regprocedure::text object,x.kind,has_function_privilege(r.oid,p.oid,x.kind) allowed from pg_roles r cross join pg_proc p join pg_namespace n on n.oid=p.pronamespace cross join unnest(array['EXECUTE','EXECUTE WITH GRANT OPTION']) x(kind) where "+ns+" order by 1,2,3"),
+ 'sequences':r.query(c,"select r.rolname actor,n.nspname schema,c.relname object,p.kind,has_sequence_privilege(r.oid,c.oid,p.kind) allowed "+base+" cross join unnest(array['SELECT','UPDATE','USAGE','SELECT WITH GRANT OPTION','UPDATE WITH GRANT OPTION','USAGE WITH GRANT OPTION']) p(kind) where "+ns+" and c.relkind='S' order by 1,2,3,4"),
+ 'database':r.query(c,"select r.rolname actor,p.kind,has_database_privilege(r.oid,current_database(),p.kind) allowed from pg_roles r cross join unnest(array['CONNECT','CREATE','TEMPORARY','CONNECT WITH GRANT OPTION','CREATE WITH GRANT OPTION','TEMPORARY WITH GRANT OPTION']) p(kind) where r.rolname !~ '^pg_' order by 1,2")}
+ return vals

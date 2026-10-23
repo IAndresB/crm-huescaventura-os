@@ -107,17 +107,24 @@ export async function invokeC04(
 ): Promise<ApplicationResult<EvidenceRecord>> {
   const rejection = rejectedByGuards(request);
   if (rejection) return rejection;
-  const verification = request.input.verification;
+  // Preserve one registration across asynchronous persistence. A caller may
+  // retain and mutate its request while the port is waiting for SQL locks.
+  const input = Object.freeze({ ...request.input,
+    ...(request.input.verification === undefined ? {} : {
+      verification: Object.freeze({ ...request.input.verification }),
+    }),
+  });
+  const verification = input.verification;
   if (verification !== undefined && (
     verification.reviewerIdentityId.trim().length === 0
     || Number.isNaN(Date.parse(verification.reviewedAt))
   )) {
     return { status: "rejected", issues: [semanticIssue("E3", request.scope)] };
   }
-  const registered = await port.register(request.context, request.input);
+  const registered = await port.register(request.context, input);
   const value: EvidenceRecord = {
     evidenceId: registered.evidenceId,
-    state: request.input.verification === undefined ? "candidate" : "verified",
+    state: verification === undefined ? "candidate" : "verified",
   };
   return { status: "applied", value };
 }

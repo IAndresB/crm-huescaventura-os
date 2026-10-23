@@ -1,0 +1,228 @@
+{
+  "utc": "2026-10-22T14:03:03.050737+00:00",
+  "privateRoot": "/tmp/h6pg-audit-w3564rmo",
+  "expectedSHA256": "9f7fd3923553852dc9af9747051cf04e561d1fee4f73cf5a15196e9060224e83",
+  "scriptSHA256": "7cc47a7d1f773a44b9813ec9694126d4e02085222608111f5e338af44b5d9d3a",
+  "scope": "minimal isolated synthetic mechanism only",
+  "checks": [
+    {
+      "name": "source_bootstrap_oid",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "source_socket_only",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "source_grantor_name",
+      "pass": true,
+      "observed": [
+        {
+          "r": "audit_group",
+          "m": "audit_actor",
+          "g": "audit_origin",
+          "a": false,
+          "i": false,
+          "s": true
+        }
+      ]
+    },
+    {
+      "name": "destination_bootstrap_oid",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "destination_socket_only",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "full_globals_new_distinct_bootstrap_sqlstate",
+      "pass": true,
+      "observed": {
+        "exit": 3,
+        "state": "42501",
+        "location": [
+          "check_role_grantor",
+          "user.c",
+          "2259"
+        ]
+      }
+    },
+    {
+      "name": "full_globals_rollback",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "source_name_imported_oid_not_10",
+      "pass": true,
+      "observed": "16387"
+    },
+    {
+      "name": "superuser_explicit_old_grantor_sqlstate",
+      "pass": true,
+      "observed": {
+        "exit": 3,
+        "state": "42501",
+        "location": [
+          "check_role_grantor",
+          "user.c",
+          "2259"
+        ]
+      }
+    },
+    {
+      "name": "set_role_old_sqlstate",
+      "pass": true,
+      "observed": {
+        "exit": 3,
+        "state": "42501",
+        "location": [
+          "check_role_grantor",
+          "user.c",
+          "2259"
+        ]
+      }
+    },
+    {
+      "name": "session_auth_old_sqlstate",
+      "pass": true,
+      "observed": {
+        "exit": 3,
+        "state": "42501",
+        "location": [
+          "check_role_grantor",
+          "user.c",
+          "2259"
+        ]
+      }
+    },
+    {
+      "name": "implicit_superuser_grantor",
+      "pass": true,
+      "observed": [
+        {
+          "r": "audit_group",
+          "m": "audit_actor",
+          "g": "audit_dest",
+          "a": false,
+          "i": false,
+          "s": true
+        }
+      ]
+    },
+    {
+      "name": "implicit_grant_detected_as_different",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "temporary_admin_creates_extra_edge",
+      "pass": true,
+      "observed": [
+        {
+          "r": "audit_group",
+          "m": "audit_actor",
+          "g": "audit_origin",
+          "a": false,
+          "i": false,
+          "s": true
+        },
+        {
+          "r": "audit_group",
+          "m": "audit_origin",
+          "g": "audit_dest",
+          "a": true,
+          "i": false,
+          "s": false
+        }
+      ]
+    },
+    {
+      "name": "revoke_restrict_sqlstate",
+      "pass": true,
+      "observed": {
+        "exit": 3,
+        "state": "2BP01",
+        "location": [
+          "plan_recursive_revoke",
+          "user.c",
+          "2492"
+        ]
+      }
+    },
+    {
+      "name": "revoke_restrict_leaves_graph",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "revoke_cascade_removes_dependent_grant",
+      "pass": true,
+      "observed": [
+        {
+          "r": "audit_group",
+          "m": "audit_origin",
+          "g": "audit_dest",
+          "a": false,
+          "i": false,
+          "s": false
+        }
+      ]
+    },
+    {
+      "name": "counterprobe_r",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "counterprobe_m",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "counterprobe_g",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "counterprobe_a",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "counterprobe_i",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "counterprobe_s",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "counterprobe_missing",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "counterprobe_extra",
+      "pass": true,
+      "observed": null
+    },
+    {
+      "name": "grants_comparison_rejects_missing_changed_or_expanded",
+      "pass": true,
+      "observed": null
+    }
+  ],
+  "taskCompleted": false,
+  "version": "postgres (PostgreSQL) 17.11 (Postgres.app)",
+  "globalsSHA256": "b42f145d8812270baae3f249c8e95fd1fd5ebc14ee820738237e6dd8f971487f",
+  "verdict": "PASS_INDEPENDENT_CAUSE_AND_NO_EQUIVALENT_TEMP_ADMIN_WORKAROUND",
+  "allOwnedClustersStopped": true
+}

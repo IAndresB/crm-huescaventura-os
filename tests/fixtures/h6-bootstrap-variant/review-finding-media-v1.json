@@ -1,0 +1,12 @@
+{
+  "id": "BOOT-F06",
+  "status": "FAIL_COVERAGE_PRESERVED",
+  "run": "2026-10-22T14-48-33-292Z",
+  "observed": "wrong-media remained verified_unlinked; actual served MIME normalized to octet-stream matched Core expectation",
+  "invalidatedClaim": "wrong MIME counterexample NOT credited in that run",
+  "rootCause": "fixture assumed uploaded Content-Type was served unchanged; assertion only required not stored",
+  "corrective": "separate expected application/pdf and actual served MIME, assert mismatch before t0 and inconsistent after restoration",
+  "normativeSource": "supabase/migrations/20260930170533_h1_private_object_conservation.sql:129-130",
+  "otherChecks": "not invalidated without specific evidence",
+  "historicalReportUnchanged": true
+}

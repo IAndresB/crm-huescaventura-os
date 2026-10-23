@@ -1,0 +1,1969 @@
+{
+  "utc": "2026-10-22T12:06:11.141Z",
+  "privateRoot": "/tmp/h6015-auth-wbiaMx",
+  "scope": "actual local Auth restore only; no Core or Storage DB restore claim",
+  "state": "TECHNICAL_PASS_AUTH_VARIANT_ONLY",
+  "explicitReentry": false,
+  "taskCompleted": false,
+  "checks": [
+    {
+      "id": "external_connect_denied",
+      "status": "PASS",
+      "facts": {
+        "code": "EPERM"
+      }
+    },
+    {
+      "id": "real_password_totp_identity",
+      "status": "PASS",
+      "facts": {
+        "subject": "15e1c391-12f2-4eaf-bf94-6df11c593041",
+        "providerSessionId": "5bc13181-730c-4a02-ae12-8f189fccb3f4"
+      }
+    },
+    {
+      "id": "wrong_password_denied",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": null
+      }
+    },
+    {
+      "id": "full_auth_cut_unchanged",
+      "status": "PASS",
+      "facts": {
+        "tables": 27,
+        "rows": 100
+      }
+    },
+    {
+      "id": "source_t0_session_revoked",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": null
+      }
+    },
+    {
+      "id": "source_t0_refresh_revoked",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": null
+      }
+    },
+    {
+      "id": "auth_witness_preserved_before_restore",
+      "status": "PASS",
+      "facts": {
+        "at": "2026-10-22T12:06:13.236Z",
+        "t0Session": "5bc13181-730c-4a02-ae12-8f189fccb3f4",
+        "t1Session": "f3ffbe34-1480-4703-bd52-225e575edee1",
+        "t0Revoked": true,
+        "coverage": "all Auth sessions created by this dedicated trial",
+        "sourceOutsideRollback": true
+      }
+    },
+    {
+      "id": "restored_all_auth_data_catalog_privileges_before_start",
+      "status": "PASS",
+      "facts": {
+        "tables": 27,
+        "rows": 100,
+        "sameName": true,
+        "bootstrapAdditionalRoleOnly": true
+      }
+    },
+    {
+      "id": "official_serve_no_migrations_no_initial_writes",
+      "status": "PASS",
+      "facts": {}
+    },
+    {
+      "id": "restored_t0_auth_session_present_inside_quarantine",
+      "status": "PASS",
+      "facts": {}
+    },
+    {
+      "id": "restored_t0_session_revoked",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": null
+      }
+    },
+    {
+      "id": "restored_t0_refresh_revoked",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": null
+      }
+    },
+    {
+      "id": "restored_issuer_session_revoked",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": null
+      }
+    },
+    {
+      "id": "restored_issuer_refresh_revoked",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": null
+      }
+    },
+    {
+      "id": "fresh_logout_online_rejection",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": null
+      }
+    },
+    {
+      "id": "fresh_password_totp_refresh_logout_real",
+      "status": "PASS",
+      "facts": {}
+    },
+    {
+      "id": "independent_t1_online_session_revoked",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": null
+      }
+    },
+    {
+      "id": "independent_t1_refresh_revoked",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": null
+      }
+    },
+    {
+      "id": "source_t1_and_restored_t0_revocation_separate",
+      "status": "PASS",
+      "facts": {}
+    },
+    {
+      "id": "ordinary_auth_sessions_denied",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": "42501"
+      }
+    },
+    {
+      "id": "ordinary_auth_factors_denied",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": "42501"
+      }
+    },
+    {
+      "id": "ordinary_auth_DDL_denied",
+      "status": "PASS",
+      "facts": {
+        "rejected": true,
+        "sqlstate": "42501"
+      }
+    },
+    {
+      "id": "counterprobe_owner",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_acl",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_settings",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_table_count",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_table_hash",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_column_type",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_omitted_relation",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_multiplicity",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_enum_label",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_type_definition",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_sequence_parameters",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    },
+    {
+      "id": "counterprobe_role_expiry",
+      "status": "PASS",
+      "facts": {
+        "detected": true
+      }
+    }
+  ],
+  "phases": [
+    {
+      "name": "A01_expected_sources_network",
+      "startUTC": "2026-10-22T12:06:11.141Z",
+      "startMs": 9.527916000000005,
+      "status": "PASS",
+      "elapsedMs": 4.989958999999999
+    },
+    {
+      "name": "A02_source_auth_real",
+      "startUTC": "2026-10-22T12:06:11.146Z",
+      "startMs": 14.709541000000002,
+      "status": "PASS",
+      "elapsedMs": 1604.6152920000002
+    },
+    {
+      "name": "A03_quiescent_cut_and_full_backups",
+      "startUTC": "2026-10-22T12:06:12.751Z",
+      "startMs": 1619.5680830000001,
+      "status": "PASS",
+      "elapsedMs": 179.28125
+    },
+    {
+      "name": "A04_independent_t1_revocation",
+      "startUTC": "2026-10-22T12:06:12.931Z",
+      "startMs": 1799.068958,
+      "status": "PASS",
+      "elapsedMs": 307.34712499999955
+    },
+    {
+      "name": "A05_new_full_auth_restore",
+      "startUTC": "2026-10-22T12:06:13.238Z",
+      "startMs": 2106.6469159999997,
+      "status": "PASS",
+      "elapsedMs": 796.2401669999999
+    },
+    {
+      "name": "A06_serve_separate_from_migrate",
+      "startUTC": "2026-10-22T12:06:14.035Z",
+      "startMs": 2903.1868329999998,
+      "status": "PASS",
+      "elapsedMs": 720.9761670000003
+    },
+    {
+      "name": "A07_ordinary_permission_and_counterprobes",
+      "startUTC": "2026-10-22T12:06:14.756Z",
+      "startMs": 3624.5951659999996,
+      "status": "PASS",
+      "elapsedMs": 147.8775840000003
+    }
+  ],
+  "failures": [],
+  "expectedSHA256": "3c5819a9aa831f31dab360557d7a07ad87db4c9ed128aadbd7c3cc65a1c29820",
+  "sourceLock": [
+    {
+      "path": "scripts/run-h6-015-auth-variant.ts",
+      "sha256": "6a9c2e0510dcd95201f2e91de20b3e078e82ece9967d7c6a459a41ff34307f87"
+    },
+    {
+      "path": "tests/support/h6-015-runtime.ts",
+      "sha256": "c25f9c99ac5ef5eb57ff23d0b48eaaa13fb663eac227ab02b8209ac95e0a0c2f"
+    },
+    {
+      "path": "src/infrastructure/auth/supabase-auth-provider.ts",
+      "sha256": "5bbd34da40f2e927b21917bd23ae8d0a24bbae9c645fc33c69d675ed326d0e9e"
+    }
+  ],
+  "backups": [
+    {
+      "name": "auth.dump",
+      "bytes": 101772,
+      "sha256": "14f465779407443e69f8f15c8a62f4a320f23c59d0c8d396a74a8965a6c59478",
+      "private": true
+    },
+    {
+      "name": "globals.sql",
+      "bytes": 1031,
+      "sha256": "2fb0fd91f2d067f8883d0d6d6ea6a5f530b88f956488b49a10023edf3393d881",
+      "private": true
+    },
+    {
+      "name": "source-configuration.json",
+      "bytes": 3690,
+      "sha256": "b4c9d281cdf2c18e6d1dc0342294d362648af92473bb2936a89439d45709ce32",
+      "private": true
+    }
+  ],
+  "t0Tables": {
+    "auth.audit_log_entries": {
+      "columns": [
+        "instance_id",
+        "id",
+        "payload",
+        "created_at",
+        "ip_address"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "json",
+        "timestamp with time zone",
+        "character varying(64)"
+      ],
+      "count": 10,
+      "sha256": "e8010c9350f613043a835cafcbb7f43adf0680f0783c4505fddc59405dc5db6b"
+    },
+    "auth.custom_oauth_providers": {
+      "columns": [
+        "id",
+        "provider_type",
+        "identifier",
+        "name",
+        "client_id",
+        "client_secret",
+        "acceptable_client_ids",
+        "scopes",
+        "pkce_enabled",
+        "attribute_mapping",
+        "authorization_params",
+        "enabled",
+        "email_optional",
+        "issuer",
+        "discovery_url",
+        "skip_nonce_check",
+        "cached_discovery",
+        "discovery_cached_at",
+        "authorization_url",
+        "token_url",
+        "userinfo_url",
+        "jwks_uri",
+        "created_at",
+        "updated_at",
+        "custom_claims_allowlist"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text[]",
+        "text[]",
+        "boolean",
+        "jsonb",
+        "jsonb",
+        "boolean",
+        "boolean",
+        "text",
+        "text",
+        "boolean",
+        "jsonb",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text[]"
+      ],
+      "count": 0,
+      "sha256": "2b715e68bd2c016c1815c2fe4fd22c4617ce7c1801f412ba006fbbb021a6cd7f"
+    },
+    "auth.flow_state": {
+      "columns": [
+        "id",
+        "user_id",
+        "auth_code",
+        "code_challenge_method",
+        "code_challenge",
+        "provider_type",
+        "provider_access_token",
+        "provider_refresh_token",
+        "created_at",
+        "updated_at",
+        "authentication_method",
+        "auth_code_issued_at",
+        "invite_token",
+        "referrer",
+        "oauth_client_state_id",
+        "linking_target_id",
+        "email_optional"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "auth.code_challenge_method",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "boolean"
+      ],
+      "count": 0,
+      "sha256": "147a53412ab98a3581bd312d0397df1e50d123c6d83c8f51a1b6b94059c625ab"
+    },
+    "auth.identities": {
+      "columns": [
+        "provider_id",
+        "user_id",
+        "identity_data",
+        "provider",
+        "last_sign_in_at",
+        "created_at",
+        "updated_at",
+        "email",
+        "id"
+      ],
+      "columnTypes": [
+        "text",
+        "uuid",
+        "jsonb",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "uuid"
+      ],
+      "count": 1,
+      "sha256": "12c4b18abe29e7ce8df92cab5d18cc8af773bc6ecb65fcdf4f4c7ea339a6efe3"
+    },
+    "auth.instances": {
+      "columns": [
+        "id",
+        "uuid",
+        "raw_base_config",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "689e333e096ca9c3ae997b1ddb65ed7aeacfe61d3862be7aac03f7b4582bd52b"
+    },
+    "auth.mfa_amr_claims": {
+      "columns": [
+        "session_id",
+        "created_at",
+        "updated_at",
+        "authentication_method",
+        "id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "uuid"
+      ],
+      "count": 4,
+      "sha256": "fc997f442f5f7d3483dd5b9a77feed6968a94f3b58a8db8fc44cf55d34a83a99"
+    },
+    "auth.mfa_challenges": {
+      "columns": [
+        "id",
+        "factor_id",
+        "created_at",
+        "verified_at",
+        "ip_address",
+        "otp_code",
+        "web_authn_session_data"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "inet",
+        "text",
+        "jsonb"
+      ],
+      "count": 2,
+      "sha256": "676d1a24888a23f3474bbd212e02c46a35441eb5048d770b73962381fa7a6f10"
+    },
+    "auth.mfa_factors": {
+      "columns": [
+        "id",
+        "user_id",
+        "friendly_name",
+        "factor_type",
+        "status",
+        "created_at",
+        "updated_at",
+        "secret",
+        "phone",
+        "last_challenged_at",
+        "web_authn_credential",
+        "web_authn_aaguid",
+        "last_webauthn_challenge_data"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "auth.factor_type",
+        "auth.factor_status",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "jsonb",
+        "uuid",
+        "jsonb"
+      ],
+      "count": 1,
+      "sha256": "6094373178b21d33ab659879c9160aac8fec29af7c33780bb4439b811154395c"
+    },
+    "auth.mfa_recovery_code_sets": {
+      "columns": [
+        "id",
+        "user_id",
+        "mfa_factor_id",
+        "failed_verification_count",
+        "verification_locked_until",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "integer",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "2c8626e241033309cb8ba5b900782cf9dd889542d412f4ab4ea0c448586c9a36"
+    },
+    "auth.mfa_recovery_codes": {
+      "columns": [
+        "id",
+        "mfa_recovery_code_set_id",
+        "code_hash",
+        "consumed_at",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "689e333e096ca9c3ae997b1ddb65ed7aeacfe61d3862be7aac03f7b4582bd52b"
+    },
+    "auth.oauth_authorizations": {
+      "columns": [
+        "id",
+        "authorization_id",
+        "client_id",
+        "user_id",
+        "redirect_uri",
+        "scope",
+        "state",
+        "resource",
+        "code_challenge",
+        "code_challenge_method",
+        "response_type",
+        "status",
+        "authorization_code",
+        "created_at",
+        "expires_at",
+        "approved_at",
+        "nonce"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "auth.code_challenge_method",
+        "auth.oauth_response_type",
+        "auth.oauth_authorization_status",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "6295752d89f064c55c38d36aa78589ebaae11dab69ddf1093bd8145b1ee0d627"
+    },
+    "auth.oauth_client_states": {
+      "columns": [
+        "id",
+        "provider_type",
+        "code_verifier",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "5dba029ef58cddd08650ce00af8f54078b4f18607e041d78c770604852975d03"
+    },
+    "auth.oauth_clients": {
+      "columns": [
+        "id",
+        "client_secret_hash",
+        "registration_type",
+        "redirect_uris",
+        "grant_types",
+        "client_name",
+        "client_uri",
+        "logo_uri",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "client_type",
+        "token_endpoint_auth_method"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "auth.oauth_registration_type",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "auth.oauth_client_type",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "d8200b7b9150e36b773e2afbe9cca98f0c8ccb9d8c8cbc6b07c6acc293a94677"
+    },
+    "auth.oauth_consents": {
+      "columns": [
+        "id",
+        "user_id",
+        "client_id",
+        "scopes",
+        "granted_at",
+        "revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "aa30eef3fca45099c9f43758791c49ff4b571fdcedc0417de3109afd12b14cc3"
+    },
+    "auth.one_time_tokens": {
+      "columns": [
+        "id",
+        "user_id",
+        "token_type",
+        "token_hash",
+        "relates_to",
+        "created_at",
+        "updated_at",
+        "expires_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "auth.one_time_token_type",
+        "text",
+        "text",
+        "timestamp without time zone",
+        "timestamp without time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "bc5c8dc571cc67ec5407c3ce6d58d972bab4db98ad044f2665a2e4f83f1772af"
+    },
+    "auth.refresh_tokens": {
+      "columns": [
+        "instance_id",
+        "id",
+        "token",
+        "user_id",
+        "revoked",
+        "created_at",
+        "updated_at",
+        "parent",
+        "session_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "character varying(255)",
+        "character varying(255)",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "character varying(255)",
+        "uuid"
+      ],
+      "count": 4,
+      "sha256": "1cfe4b6975b28ddbe19ab70b5d8552d09701042ab5b0b03b8f910cccf8a3d883"
+    },
+    "auth.saml_providers": {
+      "columns": [
+        "id",
+        "sso_provider_id",
+        "entity_id",
+        "metadata_xml",
+        "metadata_url",
+        "attribute_mapping",
+        "created_at",
+        "updated_at",
+        "name_id_format"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "jsonb",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "96c24194f01f83087a995feb27a237f8cef3cec0ddf5fe0779a136c6efc2f376"
+    },
+    "auth.saml_relay_states": {
+      "columns": [
+        "id",
+        "sso_provider_id",
+        "request_id",
+        "for_email",
+        "redirect_to",
+        "created_at",
+        "updated_at",
+        "flow_state_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "75e3f09a2ce125b7a7e43be4cd856eeb2bb26ce11c169e083728cad3d6eb609d"
+    },
+    "auth.schema_migrations": {
+      "columns": [
+        "version"
+      ],
+      "columnTypes": [
+        "character varying(14)"
+      ],
+      "count": 75,
+      "sha256": "ad901da9fa3a3d11a894fd54a4df20725a454c10cfb16f06990eb24b26c64a80"
+    },
+    "auth.scim_tokens": {
+      "columns": [
+        "id",
+        "sso_provider_id",
+        "token_hash",
+        "prefix",
+        "created_at",
+        "expires_at",
+        "revoked_at",
+        "last_used_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "3a89c9e6c4f1b689fe2ecd738577f2f47c04385856770e08ce454ca317234b93"
+    },
+    "auth.scim_users": {
+      "columns": [
+        "id",
+        "sso_provider_id",
+        "user_id",
+        "resource",
+        "user_name",
+        "external_id",
+        "active",
+        "created_at",
+        "updated_at",
+        "deleted_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "jsonb",
+        "text",
+        "text",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "aea0d7c2c31e48adb2d8d6663bfbc8caa789eb9391074119bf78533818dd2a2b"
+    },
+    "auth.sessions": {
+      "columns": [
+        "id",
+        "user_id",
+        "created_at",
+        "updated_at",
+        "factor_id",
+        "aal",
+        "not_after",
+        "refreshed_at",
+        "user_agent",
+        "ip",
+        "tag",
+        "oauth_client_id",
+        "refresh_token_hmac_key",
+        "refresh_token_counter",
+        "scopes"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid",
+        "auth.aal_level",
+        "timestamp with time zone",
+        "timestamp without time zone",
+        "text",
+        "inet",
+        "text",
+        "uuid",
+        "text",
+        "bigint",
+        "text"
+      ],
+      "count": 2,
+      "sha256": "acd5f3663147d0706068a8ebf8e5f87f6b9d4f28e399d6291b573d613ba3ed3c"
+    },
+    "auth.sso_domains": {
+      "columns": [
+        "id",
+        "sso_provider_id",
+        "domain",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "689e333e096ca9c3ae997b1ddb65ed7aeacfe61d3862be7aac03f7b4582bd52b"
+    },
+    "auth.sso_providers": {
+      "columns": [
+        "id",
+        "resource_id",
+        "created_at",
+        "updated_at",
+        "disabled"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean"
+      ],
+      "count": 0,
+      "sha256": "bca8d0b9aaf7911df7463dd572a162932dc55654f5c4ef55c0f5bda5d9b266a4"
+    },
+    "auth.users": {
+      "columns": [
+        "instance_id",
+        "id",
+        "aud",
+        "role",
+        "email",
+        "encrypted_password",
+        "email_confirmed_at",
+        "invited_at",
+        "confirmation_token",
+        "confirmation_sent_at",
+        "recovery_token",
+        "recovery_sent_at",
+        "email_change_token_new",
+        "email_change",
+        "email_change_sent_at",
+        "last_sign_in_at",
+        "raw_app_meta_data",
+        "raw_user_meta_data",
+        "is_super_admin",
+        "created_at",
+        "updated_at",
+        "phone",
+        "phone_confirmed_at",
+        "phone_change",
+        "phone_change_token",
+        "phone_change_sent_at",
+        "confirmed_at",
+        "email_change_token_current",
+        "email_change_confirm_status",
+        "banned_until",
+        "reauthentication_token",
+        "reauthentication_sent_at",
+        "is_sso_user",
+        "deleted_at",
+        "is_anonymous"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "character varying(255)",
+        "character varying(255)",
+        "character varying(255)",
+        "character varying(255)",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "character varying(255)",
+        "timestamp with time zone",
+        "character varying(255)",
+        "timestamp with time zone",
+        "character varying(255)",
+        "character varying(255)",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "jsonb",
+        "jsonb",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "character varying(255)",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "character varying(255)",
+        "smallint",
+        "timestamp with time zone",
+        "character varying(255)",
+        "timestamp with time zone",
+        "boolean",
+        "timestamp with time zone",
+        "boolean"
+      ],
+      "count": 1,
+      "sha256": "6129864b8f75f8fd46987a479c96450a99b0eb0c74061e5b953746e2f2382d08"
+    },
+    "auth.webauthn_challenges": {
+      "columns": [
+        "id",
+        "user_id",
+        "challenge_type",
+        "session_data",
+        "created_at",
+        "expires_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "5c14c1837afbc702f6b4892738c89a981ab59fd871179e7f9a9894ffc1fb1812"
+    },
+    "auth.webauthn_credentials": {
+      "columns": [
+        "id",
+        "user_id",
+        "credential_id",
+        "public_key",
+        "attestation_type",
+        "aaguid",
+        "sign_count",
+        "transports",
+        "backup_eligible",
+        "backed_up",
+        "friendly_name",
+        "created_at",
+        "updated_at",
+        "last_used_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "bytea",
+        "bytea",
+        "text",
+        "uuid",
+        "bigint",
+        "jsonb",
+        "boolean",
+        "boolean",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "f82b6be07ce5eb4f474cf883c02fe9c94d9fd44c53cf3dd4b4d9b38d6f3e4ca3"
+    }
+  },
+  "witnessSHA256": "1da1bad544f7bb60adb6ec962c31d43ecd6d2b19dcb5e5813f293edd7b50d5de",
+  "toc": {
+    "entries": 265,
+    "fullArchive": true,
+    "filtered": false,
+    "userExtensions": 0
+  },
+  "beforeStartEquality": true,
+  "restoredTables": {
+    "auth.audit_log_entries": {
+      "columns": [
+        "instance_id",
+        "id",
+        "payload",
+        "created_at",
+        "ip_address"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "json",
+        "timestamp with time zone",
+        "character varying(64)"
+      ],
+      "count": 10,
+      "sha256": "e8010c9350f613043a835cafcbb7f43adf0680f0783c4505fddc59405dc5db6b"
+    },
+    "auth.custom_oauth_providers": {
+      "columns": [
+        "id",
+        "provider_type",
+        "identifier",
+        "name",
+        "client_id",
+        "client_secret",
+        "acceptable_client_ids",
+        "scopes",
+        "pkce_enabled",
+        "attribute_mapping",
+        "authorization_params",
+        "enabled",
+        "email_optional",
+        "issuer",
+        "discovery_url",
+        "skip_nonce_check",
+        "cached_discovery",
+        "discovery_cached_at",
+        "authorization_url",
+        "token_url",
+        "userinfo_url",
+        "jwks_uri",
+        "created_at",
+        "updated_at",
+        "custom_claims_allowlist"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text[]",
+        "text[]",
+        "boolean",
+        "jsonb",
+        "jsonb",
+        "boolean",
+        "boolean",
+        "text",
+        "text",
+        "boolean",
+        "jsonb",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text[]"
+      ],
+      "count": 0,
+      "sha256": "2b715e68bd2c016c1815c2fe4fd22c4617ce7c1801f412ba006fbbb021a6cd7f"
+    },
+    "auth.flow_state": {
+      "columns": [
+        "id",
+        "user_id",
+        "auth_code",
+        "code_challenge_method",
+        "code_challenge",
+        "provider_type",
+        "provider_access_token",
+        "provider_refresh_token",
+        "created_at",
+        "updated_at",
+        "authentication_method",
+        "auth_code_issued_at",
+        "invite_token",
+        "referrer",
+        "oauth_client_state_id",
+        "linking_target_id",
+        "email_optional"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "auth.code_challenge_method",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "uuid",
+        "uuid",
+        "boolean"
+      ],
+      "count": 0,
+      "sha256": "147a53412ab98a3581bd312d0397df1e50d123c6d83c8f51a1b6b94059c625ab"
+    },
+    "auth.identities": {
+      "columns": [
+        "provider_id",
+        "user_id",
+        "identity_data",
+        "provider",
+        "last_sign_in_at",
+        "created_at",
+        "updated_at",
+        "email",
+        "id"
+      ],
+      "columnTypes": [
+        "text",
+        "uuid",
+        "jsonb",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "uuid"
+      ],
+      "count": 1,
+      "sha256": "12c4b18abe29e7ce8df92cab5d18cc8af773bc6ecb65fcdf4f4c7ea339a6efe3"
+    },
+    "auth.instances": {
+      "columns": [
+        "id",
+        "uuid",
+        "raw_base_config",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "689e333e096ca9c3ae997b1ddb65ed7aeacfe61d3862be7aac03f7b4582bd52b"
+    },
+    "auth.mfa_amr_claims": {
+      "columns": [
+        "session_id",
+        "created_at",
+        "updated_at",
+        "authentication_method",
+        "id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "uuid"
+      ],
+      "count": 4,
+      "sha256": "fc997f442f5f7d3483dd5b9a77feed6968a94f3b58a8db8fc44cf55d34a83a99"
+    },
+    "auth.mfa_challenges": {
+      "columns": [
+        "id",
+        "factor_id",
+        "created_at",
+        "verified_at",
+        "ip_address",
+        "otp_code",
+        "web_authn_session_data"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "inet",
+        "text",
+        "jsonb"
+      ],
+      "count": 2,
+      "sha256": "676d1a24888a23f3474bbd212e02c46a35441eb5048d770b73962381fa7a6f10"
+    },
+    "auth.mfa_factors": {
+      "columns": [
+        "id",
+        "user_id",
+        "friendly_name",
+        "factor_type",
+        "status",
+        "created_at",
+        "updated_at",
+        "secret",
+        "phone",
+        "last_challenged_at",
+        "web_authn_credential",
+        "web_authn_aaguid",
+        "last_webauthn_challenge_data"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "auth.factor_type",
+        "auth.factor_status",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "jsonb",
+        "uuid",
+        "jsonb"
+      ],
+      "count": 1,
+      "sha256": "6094373178b21d33ab659879c9160aac8fec29af7c33780bb4439b811154395c"
+    },
+    "auth.mfa_recovery_code_sets": {
+      "columns": [
+        "id",
+        "user_id",
+        "mfa_factor_id",
+        "failed_verification_count",
+        "verification_locked_until",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "integer",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "2c8626e241033309cb8ba5b900782cf9dd889542d412f4ab4ea0c448586c9a36"
+    },
+    "auth.mfa_recovery_codes": {
+      "columns": [
+        "id",
+        "mfa_recovery_code_set_id",
+        "code_hash",
+        "consumed_at",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "689e333e096ca9c3ae997b1ddb65ed7aeacfe61d3862be7aac03f7b4582bd52b"
+    },
+    "auth.oauth_authorizations": {
+      "columns": [
+        "id",
+        "authorization_id",
+        "client_id",
+        "user_id",
+        "redirect_uri",
+        "scope",
+        "state",
+        "resource",
+        "code_challenge",
+        "code_challenge_method",
+        "response_type",
+        "status",
+        "authorization_code",
+        "created_at",
+        "expires_at",
+        "approved_at",
+        "nonce"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "auth.code_challenge_method",
+        "auth.oauth_response_type",
+        "auth.oauth_authorization_status",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "6295752d89f064c55c38d36aa78589ebaae11dab69ddf1093bd8145b1ee0d627"
+    },
+    "auth.oauth_client_states": {
+      "columns": [
+        "id",
+        "provider_type",
+        "code_verifier",
+        "created_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "5dba029ef58cddd08650ce00af8f54078b4f18607e041d78c770604852975d03"
+    },
+    "auth.oauth_clients": {
+      "columns": [
+        "id",
+        "client_secret_hash",
+        "registration_type",
+        "redirect_uris",
+        "grant_types",
+        "client_name",
+        "client_uri",
+        "logo_uri",
+        "created_at",
+        "updated_at",
+        "deleted_at",
+        "client_type",
+        "token_endpoint_auth_method"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "auth.oauth_registration_type",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "auth.oauth_client_type",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "d8200b7b9150e36b773e2afbe9cca98f0c8ccb9d8c8cbc6b07c6acc293a94677"
+    },
+    "auth.oauth_consents": {
+      "columns": [
+        "id",
+        "user_id",
+        "client_id",
+        "scopes",
+        "granted_at",
+        "revoked_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "aa30eef3fca45099c9f43758791c49ff4b571fdcedc0417de3109afd12b14cc3"
+    },
+    "auth.one_time_tokens": {
+      "columns": [
+        "id",
+        "user_id",
+        "token_type",
+        "token_hash",
+        "relates_to",
+        "created_at",
+        "updated_at",
+        "expires_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "auth.one_time_token_type",
+        "text",
+        "text",
+        "timestamp without time zone",
+        "timestamp without time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "bc5c8dc571cc67ec5407c3ce6d58d972bab4db98ad044f2665a2e4f83f1772af"
+    },
+    "auth.refresh_tokens": {
+      "columns": [
+        "instance_id",
+        "id",
+        "token",
+        "user_id",
+        "revoked",
+        "created_at",
+        "updated_at",
+        "parent",
+        "session_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "bigint",
+        "character varying(255)",
+        "character varying(255)",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "character varying(255)",
+        "uuid"
+      ],
+      "count": 4,
+      "sha256": "1cfe4b6975b28ddbe19ab70b5d8552d09701042ab5b0b03b8f910cccf8a3d883"
+    },
+    "auth.saml_providers": {
+      "columns": [
+        "id",
+        "sso_provider_id",
+        "entity_id",
+        "metadata_xml",
+        "metadata_url",
+        "attribute_mapping",
+        "created_at",
+        "updated_at",
+        "name_id_format"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "jsonb",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text"
+      ],
+      "count": 0,
+      "sha256": "96c24194f01f83087a995feb27a237f8cef3cec0ddf5fe0779a136c6efc2f376"
+    },
+    "auth.saml_relay_states": {
+      "columns": [
+        "id",
+        "sso_provider_id",
+        "request_id",
+        "for_email",
+        "redirect_to",
+        "created_at",
+        "updated_at",
+        "flow_state_id"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid"
+      ],
+      "count": 0,
+      "sha256": "75e3f09a2ce125b7a7e43be4cd856eeb2bb26ce11c169e083728cad3d6eb609d"
+    },
+    "auth.schema_migrations": {
+      "columns": [
+        "version"
+      ],
+      "columnTypes": [
+        "character varying(14)"
+      ],
+      "count": 75,
+      "sha256": "ad901da9fa3a3d11a894fd54a4df20725a454c10cfb16f06990eb24b26c64a80"
+    },
+    "auth.scim_tokens": {
+      "columns": [
+        "id",
+        "sso_provider_id",
+        "token_hash",
+        "prefix",
+        "created_at",
+        "expires_at",
+        "revoked_at",
+        "last_used_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "3a89c9e6c4f1b689fe2ecd738577f2f47c04385856770e08ce454ca317234b93"
+    },
+    "auth.scim_users": {
+      "columns": [
+        "id",
+        "sso_provider_id",
+        "user_id",
+        "resource",
+        "user_name",
+        "external_id",
+        "active",
+        "created_at",
+        "updated_at",
+        "deleted_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "uuid",
+        "jsonb",
+        "text",
+        "text",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "aea0d7c2c31e48adb2d8d6663bfbc8caa789eb9391074119bf78533818dd2a2b"
+    },
+    "auth.sessions": {
+      "columns": [
+        "id",
+        "user_id",
+        "created_at",
+        "updated_at",
+        "factor_id",
+        "aal",
+        "not_after",
+        "refreshed_at",
+        "user_agent",
+        "ip",
+        "tag",
+        "oauth_client_id",
+        "refresh_token_hmac_key",
+        "refresh_token_counter",
+        "scopes"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "uuid",
+        "auth.aal_level",
+        "timestamp with time zone",
+        "timestamp without time zone",
+        "text",
+        "inet",
+        "text",
+        "uuid",
+        "text",
+        "bigint",
+        "text"
+      ],
+      "count": 2,
+      "sha256": "acd5f3663147d0706068a8ebf8e5f87f6b9d4f28e399d6291b573d613ba3ed3c"
+    },
+    "auth.sso_domains": {
+      "columns": [
+        "id",
+        "sso_provider_id",
+        "domain",
+        "created_at",
+        "updated_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "689e333e096ca9c3ae997b1ddb65ed7aeacfe61d3862be7aac03f7b4582bd52b"
+    },
+    "auth.sso_providers": {
+      "columns": [
+        "id",
+        "resource_id",
+        "created_at",
+        "updated_at",
+        "disabled"
+      ],
+      "columnTypes": [
+        "uuid",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "boolean"
+      ],
+      "count": 0,
+      "sha256": "bca8d0b9aaf7911df7463dd572a162932dc55654f5c4ef55c0f5bda5d9b266a4"
+    },
+    "auth.users": {
+      "columns": [
+        "instance_id",
+        "id",
+        "aud",
+        "role",
+        "email",
+        "encrypted_password",
+        "email_confirmed_at",
+        "invited_at",
+        "confirmation_token",
+        "confirmation_sent_at",
+        "recovery_token",
+        "recovery_sent_at",
+        "email_change_token_new",
+        "email_change",
+        "email_change_sent_at",
+        "last_sign_in_at",
+        "raw_app_meta_data",
+        "raw_user_meta_data",
+        "is_super_admin",
+        "created_at",
+        "updated_at",
+        "phone",
+        "phone_confirmed_at",
+        "phone_change",
+        "phone_change_token",
+        "phone_change_sent_at",
+        "confirmed_at",
+        "email_change_token_current",
+        "email_change_confirm_status",
+        "banned_until",
+        "reauthentication_token",
+        "reauthentication_sent_at",
+        "is_sso_user",
+        "deleted_at",
+        "is_anonymous"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "character varying(255)",
+        "character varying(255)",
+        "character varying(255)",
+        "character varying(255)",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "character varying(255)",
+        "timestamp with time zone",
+        "character varying(255)",
+        "timestamp with time zone",
+        "character varying(255)",
+        "character varying(255)",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "jsonb",
+        "jsonb",
+        "boolean",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "text",
+        "timestamp with time zone",
+        "text",
+        "character varying(255)",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "character varying(255)",
+        "smallint",
+        "timestamp with time zone",
+        "character varying(255)",
+        "timestamp with time zone",
+        "boolean",
+        "timestamp with time zone",
+        "boolean"
+      ],
+      "count": 1,
+      "sha256": "6129864b8f75f8fd46987a479c96450a99b0eb0c74061e5b953746e2f2382d08"
+    },
+    "auth.webauthn_challenges": {
+      "columns": [
+        "id",
+        "user_id",
+        "challenge_type",
+        "session_data",
+        "created_at",
+        "expires_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "text",
+        "jsonb",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "5c14c1837afbc702f6b4892738c89a981ab59fd871179e7f9a9894ffc1fb1812"
+    },
+    "auth.webauthn_credentials": {
+      "columns": [
+        "id",
+        "user_id",
+        "credential_id",
+        "public_key",
+        "attestation_type",
+        "aaguid",
+        "sign_count",
+        "transports",
+        "backup_eligible",
+        "backed_up",
+        "friendly_name",
+        "created_at",
+        "updated_at",
+        "last_used_at"
+      ],
+      "columnTypes": [
+        "uuid",
+        "uuid",
+        "bytea",
+        "bytea",
+        "text",
+        "uuid",
+        "bigint",
+        "jsonb",
+        "boolean",
+        "boolean",
+        "text",
+        "timestamp with time zone",
+        "timestamp with time zone",
+        "timestamp with time zone"
+      ],
+      "count": 0,
+      "sha256": "f82b6be07ce5eb4f474cf883c02fe9c94d9fd44c53cf3dd4b4d9b38d6f3e4ca3"
+    }
+  },
+  "noCoreAuthorityClaim": true,
+  "noStorageDBRestoreClaim": true,
+  "loss": {
+    "t0RestoredRowsMissing": 0,
+    "t0UnexpectedRows": 0,
+    "authT1RollbackSemantics": "post-t0 session is not in backup; independently revoked in source",
+    "businessLoss": "not measured in this variant"
+  },
+  "resourcesStopped": true,
+  "finishedUTC": "2026-10-22T12:06:15.129Z",
+  "nativeEvents": [
+    {
+      "command": "initdb",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 569.349792
+    },
+    {
+      "command": "pg_ctl",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 124.42954199999997
+    },
+    {
+      "command": "pg_dumpall",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 25.64320900000007
+    },
+    {
+      "command": "pg_dump",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 55.46162500000014
+    },
+    {
+      "command": "psql",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 10.03887500000019
+    },
+    {
+      "command": "initdb",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 479.0451659999999
+    },
+    {
+      "command": "pg_ctl",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 114.58341699999983
+    },
+    {
+      "command": "pg_restore",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 10.585583000000042
+    },
+    {
+      "command": "psql",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 8.916457999999693
+    },
+    {
+      "command": "pg_restore",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 117.34983299999976
+    },
+    {
+      "command": "psql",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 8.369791999999961
+    },
+    {
+      "command": "pg_ctl",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 104.61241699999982
+    },
+    {
+      "command": "pg_ctl",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 110.97049999999945
+    }
+  ],
+  "elapsedMs": 3996.9064579999995
+}

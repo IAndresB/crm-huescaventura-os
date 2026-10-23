@@ -1,0 +1,40 @@
+{
+  "id": "H6015-S05-GRANTOR",
+  "state": "OPEN",
+  "classification": "MATERIAL_PROCEDURE_INCOMPATIBILITY",
+  "affected": [
+    "S05 Core globals",
+    "S05 Storage globals",
+    "dependent S06-S10 integration"
+  ],
+  "actualSQLSTATE": "42501",
+  "engineFunction": "check_role_grantor",
+  "source": "PostgreSQL 17.11 user.c:2259",
+  "cause": "Imported original bootstrap role has a new OID; exact GRANTED BY requires ADMIN OPTION unless grantor is bootstrap OID 10. Core and Storage source globals contain such membership grants.",
+  "reproducedInNewClusters": [
+    "globals-diagnostic-1792669484667.json",
+    "globals-diagnostic-1792669849916.json"
+  ],
+  "forbiddenWorkarounds": [
+    "omit CREATE/grants",
+    "suppress owners/ACL",
+    "change grantor equivalence beyond the approved pgcrypto case",
+    "add permanent privileges solely to pass",
+    "write system catalogs",
+    "reuse failed restore target"
+  ],
+  "requiredDecision": "Approve a reviewed revision of the recovery procedure and exact role/bootstrap identity strategy; preserve r3 and all FAIL history. No implementation of that revision under this record.",
+  "independentActivitiesAllowed": [
+    "dedicated Auth resource restore",
+    "read-only backup and witness inspection",
+    "counterprobes",
+    "static/unit/build regression",
+    "local evidence and documentation"
+  ],
+  "explicitReentry": false,
+  "taskCompleted": false,
+  "references": [
+    "https://www.postgresql.org/docs/17/sql-grant.html",
+    "https://raw.githubusercontent.com/postgres/postgres/REL_17_11/src/backend/commands/user.c"
+  ]
+}

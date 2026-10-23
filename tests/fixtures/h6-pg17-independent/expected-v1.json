@@ -1,0 +1,60 @@
+{
+  "createdUTC": "2026-10-22T14:01:40.279986+00:00",
+  "scope": "Independent minimal PostgreSQL semantics; no modified recovery recipe or historic restore",
+  "base": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "sources": [
+    {
+      "path": "specs/001-core-crm/procedure-TSK-H6-014.md",
+      "sha256": "906cf7a451d0c85f6d5bc0ff91ce776ef9cec786d896a3620b7019cfc667ba70"
+    },
+    {
+      "path": "specs/001-core-crm/tasks.md",
+      "sha256": "bb73b357c3ff5de5b14952166580c1a6c3f8212407123f5ef148bee97cfff9d6"
+    },
+    {
+      "path": "specs/001-core-crm/plan.md",
+      "sha256": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e"
+    },
+    {
+      "path": "specs/001-core-crm/spec.md",
+      "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117"
+    },
+    {
+      "path": "docs/constitution.md",
+      "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "sha256": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe"
+    }
+  ],
+  "assertions": {
+    "source_bootstrap_oid": 10,
+    "source_grantor_name": "audit_origin",
+    "destination_bootstrap_oid": 10,
+    "destination_bootstrap_name": "audit_dest",
+    "full_globals_new_distinct_bootstrap_sqlstate": "42501",
+    "full_globals_rollback": true,
+    "source_name_imported_oid_not_10": true,
+    "superuser_explicit_old_grantor_sqlstate": "42501",
+    "set_role_old_sqlstate": "42501",
+    "session_auth_old_sqlstate": "42501",
+    "implicit_superuser_grantor": "audit_dest",
+    "temporary_admin_creates_extra_edge": true,
+    "revoke_restrict_sqlstate": "2BP01",
+    "revoke_restrict_leaves_graph": true,
+    "revoke_cascade_removes_dependent_grant": true,
+    "grants_comparison_rejects_missing_changed_or_expanded": true
+  },
+  "excluded": [
+    "No corrected globals",
+    "No same-bootstrap restore",
+    "No catalog write",
+    "No S11",
+    "No Core/Storage restore PASS claim"
+  ]
+}

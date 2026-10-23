@@ -1,0 +1,40 @@
+{
+  "frozenAt": "2026-10-22T16:39:13.843698+00:00",
+  "scope": "new local isolated cold clone; real Auth and PostgreSQL; C04 manual registration only; no N03/S11",
+  "cases": {
+    "cold_copy_exact": "PASS",
+    "new_generations_readback": "PASS",
+    "real_auth_totp": "PASS",
+    "initial_global_revocation": "PASS",
+    "paused_and_absent_baseline": "PASS",
+    "candidate_registration_readback": "PASS",
+    "reviewed_registration_readback": "PASS",
+    "replay_one_record": "PASS",
+    "concurrent_replay_one_record": "PASS",
+    "conflicting_replay_denied": "PASS",
+    "cross_context_read_denied": "PASS",
+    "wrong_source_denied": "PASS",
+    "original_bytes_claim_denied": "PASS",
+    "false_reviewer_denied": "PASS",
+    "bound_context_denied": "PASS",
+    "guard_uncertain_denied": "PASS",
+    "uncertain_registered_without_success": "PASS",
+    "old_session_denied": "PASS",
+    "revocation_first_denies": "PASS",
+    "registration_first_then_revocation": "PASS",
+    "business_tables_unchanged": "PASS",
+    "missing_attempt_still_absent": "PASS",
+    "all_jobs_still_paused": "PASS",
+    "ledger_unchanged": "PASS",
+    "final_global_revocation": "PASS"
+  },
+  "invariants": [
+    "No B08/HA/financial mutation",
+    "No recreated attempt",
+    "New evidence identity is new history, never original attempt",
+    "No external business calls",
+    "No schema or ACL changes",
+    "Old records preserved"
+  ],
+  "priorManifestSHA256": "3706b515db4671f5f1fdeda47d2c8d6564e90a94deba62dbebff118b871bce78"
+}

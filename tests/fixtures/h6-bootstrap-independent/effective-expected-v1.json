@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-22T14:32:39.975068+00:00",
+  "scope": "Ordinary actor and effective authority probes in auditors own restored databases, transaction rollback after tamper",
+  "expected": [
+    "Core runtime cannot select F1/F2/private actors or create private table: 42501",
+    "Core runtime cannot SELECT Auth sessions:42501",
+    "Storage anon/authenticated cannot read private rows without subject:42501 or successful zero rows, no 5xx/transport allowance",
+    "Bootstrap positive control sees nonzero private source object rows",
+    "transactional extra ADMIN/INHERIT/SET edge changes complete role graph and effective SET authority; rollback restores graph",
+    "transactional added object SELECT ACL changes exact schema and effective privilege; rollback restores it",
+    "transactional revoked expected object ACL changes exact schema/effective privilege; rollback restores it"
+  ],
+  "S11": false
+}

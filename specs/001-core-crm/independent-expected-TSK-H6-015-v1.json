@@ -1,0 +1,504 @@
+{
+  "schema": "h6015-independent-expected-v1",
+  "status": "FROZEN_BEFORE_EXECUTION_OBSERVATIONS",
+  "base_commit": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "derivation": "Independent initial source review delivered before executor implementation; no executor results used as oracle. Instrument IDs are not new normative requirements.",
+  "candidate_document_sha256": "3cc24a01d2fc921c0ea6b8e1a2ceb1ff75a8b1cf966490633a88821ffb8ff93f",
+  "r2_manifest_expected_sha256": "23419baa5d5ddb985ce4ac42d1d408d510ffad89959b1154fb0e6f147e30f14f",
+  "assignments": [
+    {
+      "id": "EI-01",
+      "normative_id": "SPEC-FR-HIST-004",
+      "source": "specs/001-core-crm/spec.md",
+      "line": 341,
+      "expected": "Distinguir binario, metadata, integridad y vinculo; ausencia/corrupcion no son evidencia integra; reparacion conserva historia y permisos."
+    },
+    {
+      "id": "EI-02",
+      "normative_id": "SPEC-FR-IDEMP-002",
+      "source": "specs/001-core-crm/spec.md",
+      "line": 379,
+      "expected": "Identidad exacta de operacion/efecto/parte/intento; repeticion equivalente no duplica hechos ni efectos; pendiente no equivale a ejecutado."
+    },
+    {
+      "id": "EI-03",
+      "normative_id": "SPEC-FR-ERR-002",
+      "source": "specs/001-core-crm/spec.md",
+      "line": 414,
+      "expected": "Timeout/perdida de respuesta exigen fuente autorizada; sin evidencia suficiente se conservan reserva e intervencion y no se repite."
+    },
+    {
+      "id": "EI-04",
+      "normative_id": "AC-073",
+      "source": "specs/001-core-crm/spec.md",
+      "line": 566,
+      "expected": "Restaurar t0 anterior a pago/envio simulado t1 y mantener objeto ausente; automatismos suspendidos, cero duplicacion, sin RPO/RTO inventados."
+    },
+    {
+      "id": "EI-05",
+      "normative_id": "AC-074",
+      "source": "specs/001-core-crm/spec.md",
+      "line": 567,
+      "expected": "Binario sin metadata y referencia sin objeto siguen incompletos; URL conocida no autoriza; reparacion trazable sin atomicidad ficticia."
+    },
+    {
+      "id": "EI-06",
+      "normative_id": "SPEC-NFR-005",
+      "source": "specs/001-core-crm/spec.md",
+      "line": 597,
+      "expected": "Recuperacion real aislada de datos/historia/objetos/Auth/configuracion/referencias/idempotencia/ejecuciones; medicion y limites."
+    },
+    {
+      "id": "EI-07",
+      "normative_id": "SPEC-NFR-014",
+      "source": "specs/001-core-crm/spec.md",
+      "line": 606,
+      "expected": "Separar causa tecnica del estado del efecto y resultados parciales; E4 persiste si efecto incierto; bloqueos localizados y FAIL conservados."
+    },
+    {
+      "id": "EI-08",
+      "normative_id": "SM-FORB-27",
+      "source": "docs/state-machines.md",
+      "line": 742,
+      "expected": "Intentar inferencia/repeticion prohibida y comprobar rechazo sin efecto indebido; no ocurrido sin intento no acredita V-NEG."
+    },
+    {
+      "id": "EI-09",
+      "normative_id": "ARCH-DEC-010",
+      "source": "docs/architecture.md",
+      "line": 450,
+      "expected": "Objetos privados, metadata/versiones/vinculos canonicos; autoridad por finalidad/alcance revalidada al descargar."
+    },
+    {
+      "id": "EI-10",
+      "normative_id": "ARCH-DEC-017",
+      "source": "docs/architecture.md",
+      "line": 457,
+      "expected": "Recursos/datos/credenciales/procesos sinteticos locales separados; nuevos destinos; Core solo socket privado."
+    },
+    {
+      "id": "EI-11",
+      "normative_id": "P13",
+      "source": "docs/constitution.md",
+      "line": 79,
+      "expected": "Restaurar esquema aprobado, no debilitar permisos/restricciones ni reejecutar migraciones; provision administrativa separada de hechos."
+    },
+    {
+      "id": "EI-12",
+      "normative_id": "PLAN-DEC-008",
+      "source": "specs/001-core-crm/plan.md",
+      "line": 90,
+      "expected": "PostgreSQL/Auth/Storage reales aislados para sus controles; dobles solo de canales externos."
+    },
+    {
+      "id": "EI-13",
+      "normative_id": "PLAN-B10",
+      "source": "specs/001-core-crm/plan.md",
+      "line": 107,
+      "expected": "Evidencia reproducible vinculada a candidato exacto/fuentes/entorno/expected/observado/limites; no release ni Production."
+    },
+    {
+      "id": "EI-14",
+      "normative_id": "PT-12",
+      "source": "specs/001-core-crm/plan.md",
+      "line": 405,
+      "expected": "Restauracion, objetos, atomicidad, repeticion y continuidad pertinentes; separar nueva evidencia e historia heredada."
+    },
+    {
+      "id": "EI-15",
+      "normative_id": "D017",
+      "source": "docs/DECISIONS.md",
+      "line": 133,
+      "expected": "Conservar identidades, relaciones, versiones fijadas, originales/rectificaciones; sin borrar historia ni limpiar huerfanos."
+    }
+  ],
+  "controls": [
+    {
+      "id": "IC-01",
+      "title": "Corte t0 y testigo t1 separados",
+      "expected": "Escritores detenidos durante captura Core/Auth/Storage/bytes; intervalo UTC/monotonico; fuente t1 durable fuera de rollback, cobertura/completitud expresas."
+    },
+    {
+      "id": "IC-02",
+      "title": "Foto anterior a escrituras",
+      "expected": "Comparar inmediatamente despues de restore y antes de serve/revocacion/epochs/conciliacion; despues enumerar cada cambio autorizado sin exclusiones genericas."
+    },
+    {
+      "id": "IC-03",
+      "title": "Core",
+      "expected": "Archivo entero, TOC completa/disjunta, nombres iguales en clusters distintos; owner/ACL/settings/roles/RLS/funciones preservados; pgcrypto 1.3 crm_crypto owner crm_h0_migration. Solo equivalencia OID10 para miembros C no-definer/default ACL."
+    },
+    {
+      "id": "IC-04",
+      "title": "Auth",
+      "expected": "Variante propia completa, sesiones/factores/refresh/migraciones/roles/settings incluidos; serve separado de migrate; diferencias posteriores enumeradas."
+    },
+    {
+      "id": "IC-05",
+      "title": "Storage",
+      "expected": "Variante propia completa con metadata y bytes del corte; sin receta pgcrypto de Core; presentes/missing/corruptos/media discordante/huerfanos sin recuperacion ficticia."
+    },
+    {
+      "id": "IC-06",
+      "title": "Renovacion F1/F2",
+      "expected": "Inventariar t0/t1; deshabilitar todas las claves restauradas sin borrar; claves nuevas independientes y generaciones nuevas antes de firmantes, por autoridad administrativa y readback; access_generation no sustituye generation."
+    },
+    {
+      "id": "IC-07",
+      "title": "Auth y Core separados",
+      "expected": "Password/TOTP reales locales con generation capturada antes de TOTP; comprobar por separado JWT/session/refresh/logout/Core y ambas instancias Auth recuperada y t1."
+    },
+    {
+      "id": "IC-08",
+      "title": "Revocacion y carreras",
+      "expected": "revokeAll completed/auth revoked; revocacion antes TOTP/establish; F2 tardia SQL42501; establish primero/respuesta tardia sin autoridad; todas las superficies y segunda identificacion nueva."
+    },
+    {
+      "id": "IC-09",
+      "title": "Privilegios efectivos",
+      "expected": "Intentos reales con rol ordinario/sin contexto/falsificado/inhabilitado/M2; sin acceso directo Core/Auth/claves/DDL/ownership/BYPASSRLS ni membresias privilegiadas; error de transporte no es denegacion."
+    },
+    {
+      "id": "IC-10",
+      "title": "Conciliacion",
+      "expected": "Efecto ejecutado/ausencia acreditada/incierto/cobertura insuficiente separados. Intento t1 ausente t0 no se fabrica: pendiente por contrato vigente, sin UPDATE administrativo."
+    },
+    {
+      "id": "IC-11",
+      "title": "Contrapruebas",
+      "expected": "Alteraciones independientes owner/ACL/settings/contenido/clave antigua/decimal/multiplicidad/objeto missing deben producir FAIL y cuarentena."
+    },
+    {
+      "id": "IC-12",
+      "title": "Mediciones/evidencia",
+      "expected": "Importes exactos por moneda/porcion; desconocido no cero; monotonic por fase/pausas; conservar FAIL/candidatos; ningun secreto en evidencia."
+    }
+  ],
+  "pure_properties": [
+    {
+      "id": "P01",
+      "scenario": "row_order",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P02",
+      "scenario": "row_multiplicity",
+      "expected_code": "ROW_MULTISET"
+    },
+    {
+      "id": "P03",
+      "scenario": "number_vs_string",
+      "expected_code": "ROW_MULTISET"
+    },
+    {
+      "id": "P04",
+      "scenario": "number_vs_boolean",
+      "expected_code": "ROW_MULTISET"
+    },
+    {
+      "id": "P05",
+      "scenario": "large_integer",
+      "expected_code": "ROW_MULTISET"
+    },
+    {
+      "id": "P06",
+      "scenario": "decimal_exact",
+      "expected_code": "ROW_MULTISET"
+    },
+    {
+      "id": "P07",
+      "scenario": "decimal_scale_equivalent",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P08",
+      "scenario": "array_order",
+      "expected_code": "ROW_MULTISET"
+    },
+    {
+      "id": "P09",
+      "scenario": "sql_null_vs_json_null",
+      "expected_code": "ROW_MULTISET"
+    },
+    {
+      "id": "P10",
+      "scenario": "duplicate_json_key",
+      "expected_code": "INPUT_JSON_DUPLICATE_KEY"
+    },
+    {
+      "id": "P11",
+      "scenario": "database_acl_order",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P12",
+      "scenario": "database_owner",
+      "expected_code": "DATABASE_OWNER"
+    },
+    {
+      "id": "P13",
+      "scenario": "acl_grantor",
+      "expected_code": "DATABASE_ACL"
+    },
+    {
+      "id": "P14",
+      "scenario": "acl_grant_option",
+      "expected_code": "DATABASE_ACL"
+    },
+    {
+      "id": "P15",
+      "scenario": "database_setting",
+      "expected_code": "DATABASE_SETTINGS"
+    },
+    {
+      "id": "P16",
+      "scenario": "core_public_connect",
+      "expected_code": "CORE_PUBLIC_ACCESS"
+    },
+    {
+      "id": "P17",
+      "scenario": "storage_original_public_acl",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P18",
+      "scenario": "catalog_object_absent",
+      "expected_code": "CATALOG_EXACT"
+    },
+    {
+      "id": "P19",
+      "scenario": "catalog_force_rls",
+      "expected_code": "CATALOG_EXACT"
+    },
+    {
+      "id": "P20",
+      "scenario": "auth_factor_table_absent",
+      "expected_code": "SNAPSHOT_TABLES"
+    },
+    {
+      "id": "P21",
+      "scenario": "migration_ledger_changed",
+      "expected_code": "SNAPSHOT_MIGRATIONS"
+    },
+    {
+      "id": "P22",
+      "scenario": "pgcrypto_bootstrap_c_member",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P23",
+      "scenario": "pgcrypto_crm_owner_changed",
+      "expected_code": "PGCRYPTO_EXTENSION"
+    },
+    {
+      "id": "P24",
+      "scenario": "pgcrypto_security_definer_normalized",
+      "expected_code": "PGCRYPTO_MEMBER"
+    },
+    {
+      "id": "P25",
+      "scenario": "pgcrypto_explicit_acl_normalized",
+      "expected_code": "PGCRYPTO_MEMBER"
+    },
+    {
+      "id": "P26",
+      "scenario": "pgcrypto_nonmember_normalized",
+      "expected_code": "PGCRYPTO_MEMBER"
+    },
+    {
+      "id": "P27",
+      "scenario": "rotation_complete",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P28",
+      "scenario": "rotation_old_enabled",
+      "expected_code": "ROTATION_OLD_STATE"
+    },
+    {
+      "id": "P29",
+      "scenario": "rotation_old_deleted",
+      "expected_code": "ROTATION_OLD_SET"
+    },
+    {
+      "id": "P30",
+      "scenario": "rotation_reuses_t1_generation",
+      "expected_code": "ROTATION_GENERATION"
+    },
+    {
+      "id": "P31",
+      "scenario": "rotation_reuses_old_secret",
+      "expected_code": "ROTATION_KEY_REUSE"
+    },
+    {
+      "id": "P32",
+      "scenario": "rotation_f1_f2_same_secret",
+      "expected_code": "ROTATION_KEY_REUSE"
+    },
+    {
+      "id": "P33",
+      "scenario": "rotation_purpose_broadened",
+      "expected_code": "ROTATION_NEW_DESCRIPTOR"
+    },
+    {
+      "id": "P34",
+      "scenario": "object_complete",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P35",
+      "scenario": "object_missing_claimed_complete",
+      "expected_code": "OBJECT_STATE"
+    },
+    {
+      "id": "P36",
+      "scenario": "object_orphan",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P37",
+      "scenario": "object_corrupt",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P38",
+      "scenario": "object_unauthorized_download",
+      "expected_code": "OBJECT_ACCESS"
+    },
+    {
+      "id": "P39",
+      "scenario": "late_revoked_download",
+      "expected_code": "OBJECT_ACCESS"
+    },
+    {
+      "id": "P40",
+      "scenario": "witness_executed_no_retry",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P41",
+      "scenario": "witness_uncertain_releases_reservation",
+      "expected_code": "EFFECT_RESERVATION"
+    },
+    {
+      "id": "P42",
+      "scenario": "witness_incomplete_claims_no_effect",
+      "expected_code": "EFFECT_COVERAGE"
+    },
+    {
+      "id": "P43",
+      "scenario": "t1_attempt_fabricated",
+      "expected_code": "EFFECT_FABRICATED"
+    },
+    {
+      "id": "P44",
+      "scenario": "duplicate_effect_count",
+      "expected_code": "EFFECT_COUNTER"
+    },
+    {
+      "id": "P45",
+      "scenario": "identity_by_amount",
+      "expected_code": "EFFECT_IDENTITY"
+    },
+    {
+      "id": "P46",
+      "scenario": "scope_no_s11",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P47",
+      "scenario": "scope_s11_claimed",
+      "expected_code": "S11_PROHIBITED"
+    },
+    {
+      "id": "P48",
+      "scenario": "scope_completed_claimed",
+      "expected_code": "TASK_COMPLETION_PROHIBITED"
+    },
+    {
+      "id": "P49",
+      "scenario": "measurement_unknown_zero",
+      "expected_code": "LOSS_UNKNOWN"
+    },
+    {
+      "id": "P50",
+      "scenario": "measurement_negative_duration",
+      "expected_code": "MEASUREMENT_CLOCK"
+    },
+    {
+      "id": "P51",
+      "scenario": "measurement_target_invented",
+      "expected_code": "PRODUCTION_TARGET"
+    },
+    {
+      "id": "P52",
+      "scenario": "auth_root_entrypoint",
+      "expected_code": "AUTH_STARTUP_MIGRATION"
+    },
+    {
+      "id": "P53",
+      "scenario": "auth_index_worker_enabled",
+      "expected_code": "AUTH_INDEX_WORKER"
+    },
+    {
+      "id": "P54",
+      "scenario": "storage_standard_entrypoint",
+      "expected_code": "STORAGE_STARTUP_MIGRATION"
+    },
+    {
+      "id": "P55",
+      "scenario": "storage_freeze_not_skip",
+      "expected_code": "STORAGE_STARTUP_MIGRATION"
+    },
+    {
+      "id": "P56",
+      "scenario": "storage_builder_single_tenant",
+      "expected_code": "ACCEPT"
+    },
+    {
+      "id": "P57",
+      "scenario": "storage_multitenant_builder",
+      "expected_code": "STORAGE_MULTITENANT"
+    },
+    {
+      "id": "P58",
+      "scenario": "json_duplicate_even_equal",
+      "expected_code": "INPUT_JSON_DUPLICATE_KEY"
+    },
+    {
+      "id": "P59",
+      "scenario": "snapshot_late_capture",
+      "expected_code": "SNAPSHOT_STAGE"
+    },
+    {
+      "id": "P60",
+      "scenario": "snapshot_catalog_omission",
+      "expected_code": "SNAPSHOT_CATALOG"
+    },
+    {
+      "id": "P61",
+      "scenario": "manifest_path_escape",
+      "expected_code": "MANIFEST_PATH"
+    },
+    {
+      "id": "P62",
+      "scenario": "manifest_content_mutation",
+      "expected_code": "MANIFEST_CONTENT"
+    }
+  ],
+  "limits": {
+    "S11": "PROHIBITED_NOT_EXECUTED",
+    "H6-015_COMPLETED": false,
+    "r3_complete_chain": false,
+    "partial_measurement_report_allowed": true,
+    "ARCH-PENDING-002": "OPEN",
+    "DM-PENDING-005": "OPEN",
+    "Hosted": false,
+    "Production": false,
+    "real_credentials_data": false,
+    "external_business_effects": false,
+    "commit_push_deploy_Drive": false,
+    "functional_independent_verdict": "NOT_EXECUTED"
+  },
+  "changes_policy": "Preserve this expected; any later instrumentation correction or additional independent case is an append-only addendum, not altered expected after observing executor results."
+}

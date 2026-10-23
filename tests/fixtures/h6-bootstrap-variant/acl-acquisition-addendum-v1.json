@@ -1,0 +1,23 @@
+{
+  "utc": "2026-10-22T14:32:46.197688+00:00",
+  "kind": "Instrumental acquisition addendum; normative privilege identity unchanged",
+  "observedHistoricalFailure": "2026-10-22T14-29-41-471Z",
+  "relation": "crm_private.access_probe",
+  "issue": "Explicit owner default ACL versus SQL NULL representation after logical restore",
+  "expected": "Use PostgreSQL acldefault and aclexplode; compare exact grantor/grantee/privilege/grant-option including PUBLIC and owner; effective privilege matrix remains independent additional check",
+  "scope": "Relational/sequence ACL only, other fields unchanged",
+  "forbidden": [
+    "role/grantor normalization",
+    "ignore missing grants",
+    "ignore grant options",
+    "drop PUBLIC grants"
+  ],
+  "counterprobesRequired": [
+    "added privilege",
+    "removed privilege",
+    "grant option",
+    "changed grantor",
+    "owner substitution"
+  ],
+  "independentReviewRequired": true
+}

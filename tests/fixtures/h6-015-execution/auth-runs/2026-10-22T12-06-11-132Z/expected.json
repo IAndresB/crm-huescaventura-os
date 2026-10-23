@@ -1,0 +1,8 @@
+{
+  "resource": "Auth dedicated synthetic cluster",
+  "preRestore": "all tables, columns, exact values, roles, owners, ACL, functions, indexes, triggers, policies and settings equal; no restore exclusions",
+  "startup": "official serve without migrate; no changed catalog/data before requests",
+  "t1": "outside rollback; genuine global revocation then new session; source and target tested separately",
+  "auth": "true password, TOTP, refresh, logout; cryptographic signature can remain valid after online session rejection",
+  "limits": "Core and Storage blocked by R3 grantor finding; no equivalence claim; no S11"
+}

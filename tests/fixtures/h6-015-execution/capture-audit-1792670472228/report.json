@@ -1,0 +1,214 @@
+{
+  "utc": "2026-10-22T12:01:12.229Z",
+  "sourceReport": "tests/fixtures/h6-015-execution/runs/2026-10-22T11-43-19-800Z/report.json",
+  "sourceReportSHA256": "6b816b2533e7ba6b596ace14584b71717c20e67a78a3b714d4c9db08bb17a93f",
+  "expectedSHA256": "90fe35abcbba466966599730fadd7c9f2ccb9b70a6fa107204f931cd585b20ca",
+  "state": "PASS_CAPTURE_AND_WITNESS_ADDENDUM_ONLY",
+  "instrumentSHA256": "2365451eeb1569acdfbc9b87c225e9ff007728025d9e48a9101491c493cf9c80",
+  "runtimeSHA256": "c25f9c99ac5ef5eb57ff23d0b48eaaa13fb663eac227ab02b8209ac95e0a0c2f",
+  "sourceOnly": true,
+  "checks": [
+    "read_only_source_equals_before_after",
+    "all_four_start_operation_effect_attempt_identities",
+    "all_t0_core_epochs_without_current_flag_inference",
+    "witness_original_unchanged",
+    "storage_bytes_copy_equal"
+  ],
+  "failures": [],
+  "witnessAddendum": {
+    "originalWitnessSHA256": "ec682a9958a2c9f1ba6f7e51b67ccdd4701ab77bc218fad752e41ad33770a6e1",
+    "corrections": [
+      {
+        "field": "effects.operationId",
+        "originalMeaning": "work_define operation; preserved verbatim in historical witness",
+        "added": "startOperationId from existing work_start history; effectId/intentId from existing reservation"
+      },
+      {
+        "field": "sessions.t0Core",
+        "originalIssue": "selection by not current_epoch was incomplete: a global generation change does not require this flag to become false",
+        "added": "full existing epochs identified before the coherent t0 cut, irrespective of current_epoch"
+      }
+    ],
+    "identities": [
+      {
+        "kind": "executed",
+        "attempt_id": "e87e3e40-800c-42a9-ad79-1c3f4a831795",
+        "execution_id": "6102f1fb-ab02-4382-a751-f9d5eaad591a",
+        "part_id": "part-1",
+        "state": "succeeded",
+        "claimed_at": "2026-10-22 13:43:26.555349+02",
+        "contacted_at": "2026-10-22 13:43:26.603015+02",
+        "reservation_id": "reserve-6102f1fb-ab02-4382-a751-f9d5eaad591a-part-1",
+        "effect_id": "effect-8a8c8622d60a1d2aad33bbb6202675b3",
+        "intent_id": "intent-8a8c8622d60a1d2aad33bbb6202675b3",
+        "definitionOperationId": "e42ba7b9-d4cf-40fa-aa48-31b6dce53775",
+        "startOperationId": "774be172-051d-4f45-8b65-43e67fae7ce6",
+        "presentAtT0": true,
+        "acquisition": "existing source history; no inserted facts"
+      },
+      {
+        "kind": "uncertain",
+        "attempt_id": "213cc67a-185c-4f14-af19-10389bc8f7b4",
+        "execution_id": "d8252511-ad5d-4813-8d6f-3d78f655cffd",
+        "part_id": "part-1",
+        "state": "uncertain",
+        "claimed_at": "2026-10-22 13:43:26.765444+02",
+        "contacted_at": "2026-10-22 13:43:26.815469+02",
+        "reservation_id": "reserve-d8252511-ad5d-4813-8d6f-3d78f655cffd-part-1",
+        "effect_id": "effect-af286e8d62b3f00dcd2b1f8de0fa94cf",
+        "intent_id": "intent-af286e8d62b3f00dcd2b1f8de0fa94cf",
+        "definitionOperationId": "117b65eb-5323-474c-a8a3-fe9d52fa4d79",
+        "startOperationId": "1dc2b681-1b63-49f4-a97b-ced5fa345d0b",
+        "presentAtT0": true,
+        "acquisition": "existing source history; no inserted facts"
+      },
+      {
+        "kind": "absent-t0-attempt",
+        "attempt_id": "2311fa0b-94f4-4e0e-8832-1b69e0d46eee",
+        "execution_id": "8989f278-08af-45b2-9875-21c5c536602e",
+        "part_id": "part-1",
+        "state": "contacted",
+        "claimed_at": "2026-10-22 13:43:30.245469+02",
+        "contacted_at": "2026-10-22 13:43:30.286608+02",
+        "reservation_id": "reserve-8989f278-08af-45b2-9875-21c5c536602e-part-1",
+        "effect_id": "effect-41f1567de510ec3f373a33402a28081b",
+        "intent_id": "intent-41f1567de510ec3f373a33402a28081b",
+        "definitionOperationId": "3e58cd69-e5b2-4635-a4db-eea2f73cfb0e",
+        "startOperationId": "27597cf8-9cf9-427e-9a53-63e88da0f859",
+        "presentAtT0": false,
+        "acquisition": "existing source history; no inserted facts"
+      },
+      {
+        "kind": "absence-proven",
+        "attempt_id": "5eaccffa-ba8e-4d54-9e0d-4e90fa81183c",
+        "execution_id": "a3257b05-4866-4a1d-939d-2d53ac5c2b2f",
+        "part_id": "part-1",
+        "state": "contacted",
+        "claimed_at": "2026-10-22 13:43:27.082001+02",
+        "contacted_at": "2026-10-22 13:43:27.115371+02",
+        "reservation_id": "reserve-a3257b05-4866-4a1d-939d-2d53ac5c2b2f-part-1",
+        "effect_id": "effect-d020949647566dc3aa832ead6e7dff92",
+        "intent_id": "intent-d020949647566dc3aa832ead6e7dff92",
+        "definitionOperationId": "ce18cdaf-2faa-4fc2-9b89-d115ba5df1ef",
+        "startOperationId": "6d9df6ed-6ff2-4947-95f6-a5f823f38c88",
+        "presentAtT0": true,
+        "acquisition": "existing source history; no inserted facts"
+      }
+    ],
+    "t0Sessions": [
+      {
+        "session_id": "51bd5ee4-9c68-4bf7-8329-1333e3f7631c",
+        "epoch_id": "e2ad8b9a-14b8-4afc-8662-e7738f544266",
+        "actor_id": "80c63e1f-1d9a-4ea8-bb9a-b458e8f2086d",
+        "session_access_generation": "1",
+        "revoked_at": null,
+        "identified_at": "2026-10-22 13:43:23.711279+02",
+        "current_epoch": true
+      },
+      {
+        "session_id": "bb46a972-db73-42d3-834b-1af8c736b3d4",
+        "epoch_id": "314bc30c-ee1d-4bcf-9da0-adecc830a38d",
+        "actor_id": "80c63e1f-1d9a-4ea8-bb9a-b458e8f2086d",
+        "session_access_generation": "1",
+        "revoked_at": null,
+        "identified_at": "2026-10-22 13:43:26.250507+02",
+        "current_epoch": true
+      },
+      {
+        "session_id": "d6c7e6ae-e384-4734-a88d-78c7db9f05ee",
+        "epoch_id": "dc34d31e-47cb-4b3f-a3aa-dc25242fd79f",
+        "actor_id": "80c63e1f-1d9a-4ea8-bb9a-b458e8f2086d",
+        "session_access_generation": "1",
+        "revoked_at": null,
+        "identified_at": "2026-10-22 13:43:28.131057+02",
+        "current_epoch": true
+      }
+    ],
+    "sourceActorAtT1": [
+      {
+        "actor_id": "80c63e1f-1d9a-4ea8-bb9a-b458e8f2086d",
+        "access_generation": "2",
+        "access_state": "ready",
+        "enabled": true
+      }
+    ],
+    "noHistoryCreated": true,
+    "readOnlyDataEquality": true
+  },
+  "corePartition": {
+    "database": 2,
+    "crypto-schema": 1,
+    "content": 2543
+  },
+  "archives": [
+    {
+      "kind": "core",
+      "entries": 2546,
+      "dataTables": 175,
+      "exactTableCoverage": true,
+      "sha256": "ee627980abcb7d4b65e0b073891cafd615b8988135efb64b478b6932b297c3a8"
+    },
+    {
+      "kind": "auth",
+      "entries": 265,
+      "dataTables": 27,
+      "exactTableCoverage": true,
+      "sha256": "b03561d36b1258bb8104be11355ff5c004c232d061d258894bc0518a4c1f6d1f"
+    },
+    {
+      "kind": "storage",
+      "entries": 127,
+      "dataTables": 10,
+      "exactTableCoverage": true,
+      "sha256": "a3e7c13811c54cd4044eda6abaf56b22c1ad1a22ebd8d4c113424d1d4cd10571"
+    }
+  ],
+  "counterprobes": [
+    {
+      "kind": "core",
+      "omittedTableDetected": true
+    },
+    {
+      "kind": "auth",
+      "omittedTableDetected": true
+    },
+    {
+      "kind": "storage",
+      "omittedTableDetected": true
+    }
+  ],
+  "nativeEvents": [
+    {
+      "command": "pg_ctl",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 141.36274999999998
+    },
+    {
+      "command": "pg_restore",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 18.111625000000004
+    },
+    {
+      "command": "pg_restore",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 7.163457999999991
+    },
+    {
+      "command": "pg_restore",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 6.293250000000057
+    },
+    {
+      "command": "pg_ctl",
+      "status": 0,
+      "signal": null,
+      "elapsedMs": 110.38925000000006
+    }
+  ],
+  "elapsedMs": 831.0524160000001,
+  "resourcesStopped": true
+}

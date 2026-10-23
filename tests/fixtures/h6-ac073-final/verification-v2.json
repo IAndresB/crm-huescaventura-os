@@ -1,0 +1,113 @@
+{
+  "type": "sealed evidence verification and in-memory falsification controls; no runtime rerun",
+  "status": "PASS",
+  "expectedSHA256": "01d7512f87b4a1e2b87daf92bbd2174c07874f5b7ce4a3f0ee6b1a224e08964e",
+  "instrumentSHA256": "2a3b9eb3b7ebea17b8dd6f24c9df1ddbeec2c2f791dc9b29b137b0f99109be44",
+  "packages": [
+    {
+      "manifest": "/Users/andres/.codex/worktrees/h6-c04-integration/crm-huescaventura-os/tests/fixtures/h6-bootstrap-variant/delivery-manifest-v2.json",
+      "sha256": "ae32773e56d1680f8dacbfa9a7cf1f312c5ef0630ed1b79b49fe63372d8a8a7c",
+      "payloadsVerified": 106
+    },
+    {
+      "manifest": "/Users/andres/.codex/worktrees/h6-c04-integration/crm-huescaventura-os/tests/fixtures/h6-c04-integration/delivery-manifest-r2.json",
+      "sha256": "768b3fb290f3d564df5f6fdce637fbb4f6ae2e4c804fa168fa9e9bd1361bacdf",
+      "payloadsVerified": 35
+    },
+    {
+      "manifest": "/Users/andres/.codex/worktrees/h6-c04-audit/crm-huescaventura-os/tests/fixtures/h6-c04-independent/delivery-manifest-v1.json",
+      "sha256": "f502e2627de1bb37538d73be369cce1ce9efd25a5ec32c67475c5c0e474e14cf",
+      "payloadsVerified": 33
+    }
+  ],
+  "normativeReferences": [
+    {
+      "file": "specs/001-core-crm/spec.md",
+      "line": 566,
+      "matched": true
+    },
+    {
+      "file": "specs/001-core-crm/spec.md",
+      "line": 597,
+      "matched": true
+    },
+    {
+      "file": "specs/001-core-crm/procedure-TSK-H6-014-r4.md",
+      "line": 689,
+      "matched": true
+    }
+  ],
+  "requiredChecksVerified": 20,
+  "countertests": [
+    {
+      "countertest": "remove required observation",
+      "detected": [
+        "ledger_unchanged"
+      ],
+      "status": "PASS"
+    },
+    {
+      "countertest": "duplicate external contact",
+      "detected": [
+        "no_duplicate"
+      ],
+      "status": "PASS"
+    },
+    {
+      "countertest": "release suspended job",
+      "detected": [
+        "suspended"
+      ],
+      "status": "PASS"
+    },
+    {
+      "countertest": "invent missing attempt",
+      "detected": [
+        "missing_not_reconstructed"
+      ],
+      "status": "PASS"
+    },
+    {
+      "countertest": "convert uncertainty to success",
+      "detected": [
+        "uncertain_not_success_or_failure"
+      ],
+      "status": "PASS"
+    },
+    {
+      "countertest": "claim missing object recovered",
+      "detected": [
+        "missing_object"
+      ],
+      "status": "PASS"
+    },
+    {
+      "countertest": "invent RPO/RTO",
+      "detected": [
+        "no_invented_objectives"
+      ],
+      "status": "PASS"
+    },
+    {
+      "countertest": "authorize S11",
+      "detected": [
+        "no_reentry"
+      ],
+      "status": "PASS"
+    },
+    {
+      "countertest": "authorize N03",
+      "detected": [
+        "no_N03"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "AC073": "PASS_LOCAL_QUARANTINE_OBLIGATIONS",
+  "businessReconciliationOfMissingAttempt": false,
+  "unknownResolved": false,
+  "N03RequiredForAC073": false,
+  "S11": false,
+  "taskState": "IN_PROGRESS",
+  "taskCompleted": false
+}

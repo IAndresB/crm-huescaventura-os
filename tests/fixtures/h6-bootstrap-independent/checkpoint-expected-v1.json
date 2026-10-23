@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-22T14:42:42.523753+00:00",
+  "frozenBeforeObservation": true,
+  "expected": "current candidate S05 must preserve all source authority attributes, full schema SQL, typed rows, exact grants and effective privileges; no S06 yet",
+  "priorExpectedSHA256": "ae3ba450d8269adf61545ea449893ff2212ae8f1889e0f21cac1638dfef7953c",
+  "checks": [
+    "all checkpoint source locks unchanged in working and frozen files",
+    "all immutable norm source hashes exact",
+    "bootstrap10 same name; derivedglobals only one checked CREATE replacement",
+    "every dump schema byte exact source and restored, fixed restrict key",
+    "all typed rows equal independent t0 expectation",
+    "all roles including builtin, options, expiry, config, memberships, grantors, parameterACL, tablespaces equal live source",
+    "all database role settings logical identities equal",
+    "effective role/table/column/schema/function/sequence/database rights including grantoption same",
+    "query actual destination listener is socket-only",
+    "original dumps/globals receipts match",
+    "no S06 or S11"
+  ]
+}

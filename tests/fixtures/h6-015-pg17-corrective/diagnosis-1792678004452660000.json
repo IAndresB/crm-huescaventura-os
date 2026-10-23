@@ -1,0 +1,335 @@
+{
+  "utc": "2026-10-22T14:06:41.142638+00:00",
+  "privateRoot": "/tmp/h6pg-exec-5jlsnrmr",
+  "expectedSHA256": "6901d4027685963fdd2e93eac2d009c64b2e44bac07dd366e0062f488aeec83f",
+  "scriptSHA256": "bc7d698e108e6fa81768f2e45edb3a70ddcb1111eca43c75d619e3e2f5e64568",
+  "scope": "Exact historical globals reproduction and isolated diagnostic; NOT Core/Storage restored acceptance",
+  "taskState": "IN_PROGRESS",
+  "taskCompleted": false,
+  "S11": "NOT_EXECUTED",
+  "checks": [
+    {
+      "id": "core_source_graph_has_bootstrap_grantor",
+      "status": "PASS",
+      "facts": {
+        "roles": 15,
+        "memberships": 6,
+        "grantor": "h2_bootstrap"
+      }
+    },
+    {
+      "id": "core_no_recorded_admin_edge_for_source_grantor",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_exact_globals_42501",
+      "status": "PASS",
+      "facts": {
+        "exit": 3,
+        "sqlstate": "42501",
+        "location": [
+          "check_role_grantor",
+          "user.c",
+          "2259"
+        ]
+      }
+    },
+    {
+      "id": "core_single_transaction_rollback",
+      "status": "PASS",
+      "facts": {
+        "remainingUserRoles": 1,
+        "destinationBootstrapOID": "10"
+      }
+    },
+    {
+      "id": "core_diagnostic_prefix_load",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_same_name_not_bootstrap_identity",
+      "status": "PASS",
+      "facts": {
+        "roles": [
+          {
+            "rolname": "h2_bootstrap",
+            "oid": "16396",
+            "rolsuper": true
+          },
+          {
+            "rolname": "h6015_pg17_core_probe",
+            "oid": "10",
+            "rolsuper": true
+          }
+        ],
+        "currentUser": "h6015_pg17_core_probe"
+      }
+    },
+    {
+      "id": "core_explicit_original_grant_rejected",
+      "status": "PASS",
+      "facts": {
+        "exit": 3,
+        "sqlstate": "42501",
+        "location": [
+          "check_role_grantor",
+          "user.c",
+          "2259"
+        ]
+      }
+    },
+    {
+      "id": "core_diagnostic_graph_remains_empty",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_mutated_role",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_mutated_member",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_mutated_grantor",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_mutated_admin_option",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_mutated_inherit_option",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_mutated_set_option",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_missing_edge",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_extra_edge",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_mutated_rolsuper",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_mutated_rolbypassrls",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_mutated_rolcreaterole",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_reject_mutated_rolcanlogin",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "core_original_globals_preserved",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_source_graph_has_bootstrap_grantor",
+      "status": "PASS",
+      "facts": {
+        "roles": 5,
+        "memberships": 4,
+        "grantor": "postgres"
+      }
+    },
+    {
+      "id": "storage_no_recorded_admin_edge_for_source_grantor",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_exact_globals_42501",
+      "status": "PASS",
+      "facts": {
+        "exit": 3,
+        "sqlstate": "42501",
+        "location": [
+          "check_role_grantor",
+          "user.c",
+          "2259"
+        ]
+      }
+    },
+    {
+      "id": "storage_single_transaction_rollback",
+      "status": "PASS",
+      "facts": {
+        "remainingUserRoles": 1,
+        "destinationBootstrapOID": "10"
+      }
+    },
+    {
+      "id": "storage_diagnostic_prefix_load",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_same_name_not_bootstrap_identity",
+      "status": "PASS",
+      "facts": {
+        "roles": [
+          {
+            "rolname": "h6015_pg17_storage_probe",
+            "oid": "10",
+            "rolsuper": true
+          },
+          {
+            "rolname": "postgres",
+            "oid": "16387",
+            "rolsuper": true
+          }
+        ],
+        "currentUser": "h6015_pg17_storage_probe"
+      }
+    },
+    {
+      "id": "storage_explicit_original_grant_rejected",
+      "status": "PASS",
+      "facts": {
+        "exit": 3,
+        "sqlstate": "42501",
+        "location": [
+          "check_role_grantor",
+          "user.c",
+          "2259"
+        ]
+      }
+    },
+    {
+      "id": "storage_diagnostic_graph_remains_empty",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_mutated_role",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_mutated_member",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_mutated_grantor",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_mutated_admin_option",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_mutated_inherit_option",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_mutated_set_option",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_missing_edge",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_extra_edge",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_mutated_rolsuper",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_mutated_rolbypassrls",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_mutated_rolcreaterole",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_reject_mutated_rolcanlogin",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "id": "storage_original_globals_preserved",
+      "status": "PASS",
+      "facts": null
+    }
+  ],
+  "resources": [
+    {
+      "kind": "core",
+      "fullRestoreAttempt": {
+        "exit": 3,
+        "sqlstate": "42501",
+        "location": [
+          "check_role_grantor",
+          "user.c",
+          "2259"
+        ]
+      },
+      "elapsedMs": 37.29675,
+      "databaseArchiveLoad": "NOT_ATTEMPTED_AFTER_GLOBALS_FAILURE",
+      "cluster": "/tmp/h6pg-exec-5jlsnrmr/core_full"
+    },
+    {
+      "kind": "storage",
+      "fullRestoreAttempt": {
+        "exit": 3,
+        "sqlstate": "42501",
+        "location": [
+          "check_role_grantor",
+          "user.c",
+          "2259"
+        ]
+      },
+      "elapsedMs": 28.354958,
+      "databaseArchiveLoad": "NOT_ATTEMPTED_AFTER_GLOBALS_FAILURE",
+      "cluster": "/tmp/h6pg-exec-5jlsnrmr/storage_full"
+    }
+  ],
+  "inputHashes": {
+    "core": "e5f061a18134206087a41888a70347449b5c6a4741fa243a097ed2d0736d5ac5",
+    "storage": "408d97fccdc957ad53c1dd5c61aea568d7f07a3e0ff0925d30ccb344df8d81a1"
+  },
+  "failures": [],
+  "state": "PASS_DIAGNOSIS_BLOCK_CONFIRMED_NOT_RESTORE",
+  "allOwnedClustersStopped": true
+}

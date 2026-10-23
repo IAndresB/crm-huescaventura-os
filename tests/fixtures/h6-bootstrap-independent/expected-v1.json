@@ -1,0 +1,67 @@
+{
+  "utc": "2026-10-22T14:24:02.101433+00:00",
+  "sourceLock": [
+    {
+      "path": "docs/constitution.md",
+      "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "sha256": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe"
+    },
+    {
+      "path": "specs/001-core-crm/spec.md",
+      "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+    },
+    {
+      "path": "specs/001-core-crm/plan.md",
+      "sha256": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e"
+    },
+    {
+      "path": "specs/001-core-crm/tasks.md",
+      "sha256": "bb73b357c3ff5de5b14952166580c1a6c3f8212407123f5ef148bee97cfff9d6"
+    },
+    {
+      "path": "specs/001-core-crm/procedure-TSK-H6-014.md",
+      "sha256": "906cf7a451d0c85f6d5bc0ff91ce776ef9cec786d896a3620b7019cfc667ba70"
+    }
+  ],
+  "authorization": "Experimental exception only: original bootstrap OID10/name and explicit preexisting CREATE ROLE satisfied by initdb; no definitive normative change",
+  "expectations": [
+    "same source/destination bootstrap logical name and OID10, only supported initdb",
+    "one CREATE ROLE semantically discharged by verified initdb; byte equality all remaining globals",
+    "all attributes/config/membership/options/grantors exact; no extra role or admin edge",
+    "full archive Core partition complete/disjoint and pgcrypto exact; Storage full create",
+    "schema definitions/ACL/owners/settings/extension/catalog equal; data all types exact",
+    "effective ordinary privileges and actor isolation preserved; no implicit authority expansion",
+    "all negative probes truly rejected; no transport errors treated as denials",
+    "before S06 gate independent evidence required; no S11 or task close",
+    "custody all files exact protected; originals retained",
+    "Auth integration newly verified before accepting S06-S10; no historical PASS substitution"
+  ],
+  "custody": [
+    {
+      "folder": "20261022-pg17",
+      "inventorySHA256": "7cd26c6f47df84ec41aac22171c2a502ff0a404e428fd204f7481b627719bdc9",
+      "files": 32754,
+      "bytes": 1172113768
+    },
+    {
+      "folder": "20261022-pg17-corrective",
+      "inventorySHA256": "620593987eb68b1231760fd4a3ac02c59a42daed2499b562f3b36d7b453291eb",
+      "files": 5829,
+      "bytes": 243212913
+    }
+  ],
+  "negativeExpected": [
+    "missing role or grant rejected",
+    "changed grantor rejected",
+    "additional ADMIN/INHERIT/SET rejected",
+    "changed owner/ACL/data/schema rejected",
+    "duplicate/missing CREATE ROLE bootstrap rejected"
+  ]
+}

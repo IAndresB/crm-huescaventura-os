@@ -1,0 +1,58 @@
+{
+  "state": "FAIL_PRESERVED",
+  "scope": "Auth only; no Core/Storage restore or S11",
+  "checks": [
+    {
+      "id": "archive_matches_source_schema_exact",
+      "status": "PASS",
+      "facts": {
+        "sha256": "8bff0a739facde748c1a06fca95b8947d946d52a5320bfac96af53aa1d2e7577"
+      }
+    }
+  ],
+  "failures": [
+    {
+      "phase": "new_auth_restore",
+      "type": "IdentityError",
+      "rule": "COLUMN_FIELDS"
+    }
+  ],
+  "explicitReentry": false,
+  "taskCompleted": false,
+  "privateRoot": "/tmp/h6015-independent-auth-drxzf66x",
+  "sourceHashes": [
+    {
+      "path": "scripts/audit-h6-015-auth-independent.py",
+      "sha256": "4668e656f1bdb14849312d2d4ceca75ed947ef1953b45e0f0fee4b996cfbdc77"
+    },
+    {
+      "path": "scripts/verify-h6-015-catalog-identity.py",
+      "sha256": "f51a2c6ad8ecd2f3972c8e66584add0282c2ed7e443a33c7a352ad4986c7df8d"
+    }
+  ],
+  "expectedSHA256": "6f51bf48d40b3a7ef280de4afed8735327ea46c386aaa071ec5bdea2e8653f12",
+  "privateEvidence": [
+    {
+      "name": "source-identity.json",
+      "sha256": "ebed19b89ee53a771a9342fdcf8e5fb9c26b894e1bef2737d8d81c8c94cdf86f",
+      "bytes": 201609
+    },
+    {
+      "name": "source-extra.json",
+      "sha256": "8edd0023552b17c011b5144b66436db6a23e740568c23b418ae1334717f6becf",
+      "bytes": 28949
+    },
+    {
+      "name": "target-identity-before-serve.json",
+      "sha256": "f3f50476a48602ff65981e8bd080f8098e2e8ff9a3dac1cacdde63575036fc2f",
+      "bytes": 201608
+    },
+    {
+      "name": "target-extra-before-serve.json",
+      "sha256": "d879581cc937b792f8ad62c42f8d10dad73341648f91f108395630dfbd691832",
+      "bytes": 29278
+    }
+  ],
+  "resourcesStopped": true,
+  "finishedUTC": "2026-10-22T12:06:59Z"
+}

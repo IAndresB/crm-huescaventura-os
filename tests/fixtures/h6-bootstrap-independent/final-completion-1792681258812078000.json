@@ -1,0 +1,112 @@
+{
+  "utc": "2026-10-22T15:00:56.393839+00:00",
+  "expectedSHA256": "050b3d87a9142f3ab4b61a62f73470b4f7817ba86fc8ceb90325a0abee57d98b",
+  "priorReport": "/Users/andres/.codex/worktrees/h6-bootstrap-audit/crm-huescaventura-os/tests/fixtures/h6-bootstrap-independent/final-result-1792681051223735000.json",
+  "priorReportSHA256": "5c609837e6681c0550ff9ad1769dbb09abeaf8a30480b1da59f9d84a63f55bbd",
+  "preservedPriorFAIL": true,
+  "sourceReportSHA256": "2c9b9622aeeeaef68bd992e49e702e5c8187b0de23708b221d248b458064067d",
+  "privateRoot": "/tmp/h6ba-final-5gud49uy",
+  "scriptSHA256": "affa9c4e9ca686905b9f0d4bbfe4bbd9ed0f733177aab0c12a549436049ff601",
+  "checks": [
+    {
+      "name": "prior_failure_only_incorrect_physical_revocation_expectation",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "name": "source_report_same_as_prior_acquisition",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "name": "executed_code_unchanged",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "name": "final_core_all_tables_still_exact_to_capture",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "name": "all_t0_core_sessions_effectively_revoked_by_generation",
+      "status": "PASS",
+      "facts": {
+        "oldSessions": 3,
+        "generationInvalidated": 3,
+        "physicallyMarkedRevoked": 0
+      }
+    },
+    {
+      "name": "all_old_epoch_bindings_invalidated",
+      "status": "PASS",
+      "facts": {
+        "oldEpochs": 3,
+        "physicalCurrent": 3,
+        "generationInvalidated": 3
+      }
+    },
+    {
+      "name": "all_t0_provider_auth_sessions_absent",
+      "status": "PASS",
+      "facts": {
+        "oldProviderSessions": 4,
+        "intersection": 0
+      }
+    },
+    {
+      "name": "live_final_object_state_counts",
+      "status": "PASS",
+      "facts": [
+        {
+          "n": 2,
+          "state": "inconsistent"
+        },
+        {
+          "n": 1,
+          "state": "missing"
+        },
+        {
+          "n": 2,
+          "state": "stored"
+        }
+      ]
+    },
+    {
+      "name": "live_mime_and_corruption_inconsistent",
+      "status": "PASS",
+      "facts": {
+        "corrupt": 1,
+        "wrong_media": 1
+      }
+    },
+    {
+      "name": "reported_object_states_exact",
+      "status": "PASS",
+      "facts": null
+    },
+    {
+      "name": "actual_work_paused_no_attempt_fabricated",
+      "status": "FAIL",
+      "facts": {
+        "total": 4,
+        "paused": 4,
+        "attempts": 3,
+        "no_attempt": 1
+      }
+    }
+  ],
+  "failures": [
+    {
+      "class": "ValueError",
+      "rule": "actual_work_paused_no_attempt_fabricated"
+    }
+  ],
+  "taskCompleted": false,
+  "S11": "NOT_EXECUTED",
+  "independence": "independent S05 live acquisition, own t0 reconstruction, own final cold copies and SQL verification; Auth HTTP integrated results independently reviewed, not claimed as a second provider execution",
+  "inheritedVerifiedChecks": 254,
+  "state": "FAIL_PRESERVED",
+  "verdict": "FAIL",
+  "resourcesStopped": true
+}
