@@ -1,5 +1,18 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+<!-- H6-004-LOCAL-CLOSURE-BEGIN -->
+## Estado vigente H6-004 — cierre local/aislado, 2026-10-23
+
+**TSK-H6-004: COMPLETED — exclusivamente local/aislado. H6 global: IN PROGRESS.** Cierre formalizado por la autorización condicionada del director, tras dictamen independiente PASS y resolución del hallazgo AC-032. Alcance E2E-04: modificación/cancelación parcial, D019/D020, Refund y reevaluación del cierre afectado; resto e historia preservados. H5-019 satisfecha. Focal31/31, suplemento1/1, regresión dirigida837/837, unitarias210/210; repetición independiente31/31+1/1 y contrapruebas8/8. No existe corrida global limpia nueva: historial propio PostgreSQL1.006 PASS/117 FAIL de1.123, todos los117 con sucesor; fallos independientes2 conservados con sucesor8/8.
+
+Acta: `specs/001-core-crm/acceptance-TSK-H6-004.md`; evidencia: `specs/001-core-crm/evidence-TSK-H6-004.md`; auditoría: `tests/fixtures/h6-004/independent/independent-verdict.md`; candidato y custodia: `tests/fixtures/h6-004/delivery-manifest-v1.json` y sello separado. Esta cabecera y su ficha son una variante aislada del lote F; no se han aplicado a coordinadores protegidos ni publicado en GitHub.
+
+H6-001 conserva COMPLETED local/aislado y sus candidatos sellados. H6-015 conserva COMPLETED formal local/aislado, cuarentena y cuatro trabajos suspendidos: ninguna reentrada ni runtime. Los46 FAIL históricos H6-001 (2.899 PASS/46 FAIL de2.945) siguen reconciliados en su expediente original, sin reinterpretarlos como corrida limpia. Hosted/Production NO ACREDITADOS. Sin datos/efectos reales, normativa nueva, Drive, deploy, stage, commit, push, merge o cambios en main/origin/main.
+
+Siguiente acción: autorización expresa de publicación por lotes, rutas/hash y postimágenes compartidas. A–D2 permanece como candidato separado al corte temporal anterior; F-a contiene H6-004 propio y F-b propone estas tres postimágenes después de D2. La aceptación local no autoriza su publicación conjunta. Los bloques inferiores conservan hechos, autorizaciones y estados históricos de sus fechas; sus referencias a H6-004 IN PROGRESS/NOT STARTED quedan supersedidas exclusivamente por este cierre local.
+<!-- H6-004-LOCAL-CLOSURE-END -->
+
+
 <!-- H6-PREPUBLICATION-CUTOFF-BEGIN -->
 ## Corte temporal de prepublicación A–D2
 

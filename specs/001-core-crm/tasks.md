@@ -1,5 +1,18 @@
 # Tasks — SPEC 001 Core CRM
 
+<!-- H6-004-LOCAL-CLOSURE-BEGIN -->
+## Estado vigente H6-004 — cierre local/aislado, 2026-10-23
+
+**TSK-H6-004: COMPLETED — exclusivamente local/aislado. H6 global: IN PROGRESS.** Cierre formalizado por la autorización condicionada del director, tras dictamen independiente PASS y resolución del hallazgo AC-032. Alcance E2E-04: modificación/cancelación parcial, D019/D020, Refund y reevaluación del cierre afectado; resto e historia preservados. H5-019 satisfecha. Focal31/31, suplemento1/1, regresión dirigida837/837, unitarias210/210; repetición independiente31/31+1/1 y contrapruebas8/8. No existe corrida global limpia nueva: historial propio PostgreSQL1.006 PASS/117 FAIL de1.123, todos los117 con sucesor; fallos independientes2 conservados con sucesor8/8.
+
+Acta: `specs/001-core-crm/acceptance-TSK-H6-004.md`; evidencia: `specs/001-core-crm/evidence-TSK-H6-004.md`; auditoría: `tests/fixtures/h6-004/independent/independent-verdict.md`; candidato y custodia: `tests/fixtures/h6-004/delivery-manifest-v1.json` y sello separado. Esta cabecera y su ficha son una variante aislada del lote F; no se han aplicado a coordinadores protegidos ni publicado en GitHub.
+
+H6-001 conserva COMPLETED local/aislado y sus candidatos sellados. H6-015 conserva COMPLETED formal local/aislado, cuarentena y cuatro trabajos suspendidos: ninguna reentrada ni runtime. Los46 FAIL históricos H6-001 (2.899 PASS/46 FAIL de2.945) siguen reconciliados en su expediente original, sin reinterpretarlos como corrida limpia. Hosted/Production NO ACREDITADOS. Sin datos/efectos reales, normativa nueva, Drive, deploy, stage, commit, push, merge o cambios en main/origin/main.
+
+Siguiente acción: autorización expresa de publicación por lotes, rutas/hash y postimágenes compartidas. A–D2 permanece como candidato separado al corte temporal anterior; F-a contiene H6-004 propio y F-b propone estas tres postimágenes después de D2. La aceptación local no autoriza su publicación conjunta. Los bloques inferiores conservan hechos, autorizaciones y estados históricos de sus fechas; sus referencias a H6-004 IN PROGRESS/NOT STARTED quedan supersedidas exclusivamente por este cierre local.
+<!-- H6-004-LOCAL-CLOSURE-END -->
+
+
 <!-- H6-PREPUBLICATION-CUTOFF-BEGIN -->
 ## Corte temporal de prepublicación A–D2
 
@@ -2314,17 +2327,17 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H6-004 — Verificar E2E-04: Modificación y cancelación parcial
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H6. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED — local/aislado. Evidencia: SATISFACTORIA; auditoría independiente PASS; cierre condicionado autorizado por dirección formalizado 2026-10-23.** Hito: H6. Tipo: comprobación.
 - **Objetivo y alcance:** Proceso completo de petición/proveedor/aprobación/operación, determinación D019/D020, Refund y cierre afectado.
 - **Fuentes exactas:** Plan §§9–10.1; SPEC §9; Plan §9 (resultado y salida del hito); correspondencias específicas de §6. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H6-004.
 - **Bloques, contratos y unidades:** B01–B10; C01–C06; T04/T06/T07/T10.
 - **Entregable previsto:** Casos y evidencia propuestos de recorrido Core. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H5-019]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H5 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Datos sintéticos y dobles externos; no requiere UI ni conector; acceso real permanece bloqueado. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Cancelar una parte y mantener otra ejecutada; variante sin base atribuible deja economía pendiente; completar con determinación explícita y salida acreditada.
+- **Bloqueo localizado / condición para levantarlo:** Datos sintéticos y dobles externos; no requiere UI ni conector; acceso real permanece bloqueado. El detalle de evidencia/decisión y puerta está en §7; el estado local vigente se acredita en acceptance-TSK-H6-004.md; acceso real sigue bloqueado.
+- **Acción ejecutada en local/aislado:** Cancelar una parte y mantener otra ejecutada; variante sin base atribuible deja economía pendiente; completar con determinación explícita y salida acreditada.
 - **Salida observable:** Parte restante e historia intactas, derecho antes de fondos, salida parcial con pendiente y cierres reevaluados; no aprobación retroactiva.
 - **Verificación y esperado:** Parte restante e historia intactas, derecho antes de fondos, salida parcial con pendiente y cierres reevaluados; no aprobación retroactiva. En cada efecto comprobar guardas, permisos, historia y repetición aplicables. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **SATISFACTORIA local/aislada**: esperado/observado, 19 AC y 210 referencias en coverage-matrix-v3.json; evidencia, auditoría y custodia enlazadas en la cabecera vigente. Sin ejecución global limpia nueva.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T04/T06/T07/T10 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h6-005"></a>
