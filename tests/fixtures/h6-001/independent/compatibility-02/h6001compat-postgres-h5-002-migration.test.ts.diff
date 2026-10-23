@@ -1,0 +1,13 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-002-migration.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-002-migration.test.ts
+index be26852c..d5b3fd1a 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-002-migration.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-002-migration.test.ts
+@@ -59,7 +59,7 @@ test('H5-R02 official Supabase advisors on fresh 53 isolated migrations',async()
+   await h.migration.unsafe(await readFile(file,'utf8'));
+   const args=['--yes','supabase@2.119.0','db','advisors','--db-url',
+    `postgresql://crm_h0_migration@127.0.0.1:${port}/${label}?sslmode=disable`,
+-   '--type','all','--fail-on','error'];
++   '--type','all','--fail-on','error','--output-format','json'];
+   const result=spawnSync('npx',args,{encoding:'utf8',timeout:45000});
+   if(process.env.H5002_CAPTURE_DIR){
+    await writeFile(`${process.env.H5002_CAPTURE_DIR}/advisors.stdout.log`,result.stdout??'');

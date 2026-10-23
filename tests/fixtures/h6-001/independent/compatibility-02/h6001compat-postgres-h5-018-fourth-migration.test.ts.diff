@@ -1,0 +1,13 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-018-fourth-migration.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-018-fourth-migration.test.ts
+index 08070117..346357f0 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-018-fourth-migration.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-018-fourth-migration.test.ts
+@@ -26,7 +26,7 @@ test('Q06 independent populated66 catalog data aborted upgrade restore retry and
+   await h.migration.unsafe(bodies.join(';\n'));assert.deepEqual(await snapshot(),before);assert.equal(await dataHash(),rows);
+   await h.migration.unsafe(sql);assert.deepEqual(await snapshot(),after);assert.equal(await dataHash(),rows);
+   const q={contextKind:'booking' as const,contextId:bad.contextId,reference:bad.requestRef,pageSize:100};assert.equal((await h.diagnostic.read(await h.auth(),read,q)).nodes.some(n=>n.id===bad.observationId),false);assert.deepEqual(await saved(h,bad),original);
+-  const advisor=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59984/fourthmig?sslmode=disable','--type','all','--fail-on','error'],{encoding:'utf8',timeout:45000});assert.equal(advisor.status,0,advisor.stderr);assert.deepEqual(JSON.parse(advisor.stdout).results,[]);
++  const advisor=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59984/fourthmig?sslmode=disable','--type','all','--fail-on','error','--output-format','json'],{encoding:'utf8',timeout:45000});assert.equal(advisor.status,0,advisor.stderr);assert.deepEqual(JSON.parse(advisor.stdout).results,[]);
+   console.log('Q06 catalog',JSON.stringify({changed,tables:tables.length,relations:before.classes.length,functions:before.functions.length,policies:before.policies.length,constraints:before.constraints.length,dataSha256:rows,ddlDataChanges:0,otherCatalogChanges:0,abortedRollback:true,recoveredThenReapplied:true,advisors:JSON.parse(advisor.stdout)}));
+  }finally{await h.close();}
+ });

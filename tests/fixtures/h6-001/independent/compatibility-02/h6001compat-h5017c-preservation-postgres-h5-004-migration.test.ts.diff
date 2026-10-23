@@ -1,0 +1,27 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/h5017c-preservation-postgres-h5-004-migration.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-h5017c-preservation-postgres-h5-004-migration.test.ts
+index 44a16ed7..8af1b601 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/h5017c-preservation-postgres-h5-004-migration.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-h5017c-preservation-postgres-h5-004-migration.test.ts
+@@ -1,3 +1,4 @@
++import {assertInheritedOrHistorical} from '../support/h6-001-inherited-compatibility.ts';
+ import {assertHistoricalBytes as assertCProductBytes} from '../support/h5-017-c-dependency-preservation.ts';
+ import {test} from 'node:test';
+ import assert from 'node:assert/strict';
+@@ -34,7 +35,7 @@ test('H5-AAB fresh 54 and populated 53 upgrade preserve history data ACL owners
+ test('H5-AAC official advisors fresh 54 loopback',async()=>{
+  const label='crm_h5004_advisors',port=58803,h=await isolatedAlerts(label,port);
+  try{
+-  const r=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url',`postgresql://crm_h0_migration@127.0.0.1:${port}/${label}?sslmode=disable`,'--type','all','--fail-on','error'],{encoding:'utf8',timeout:45000});
++  const r=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url',`postgresql://crm_h0_migration@127.0.0.1:${port}/${label}?sslmode=disable`,'--type','all','--fail-on','error','--output-format','json'],{encoding:'utf8',timeout:45000});
+   await capture('advisors',{status:r.status,stdout:r.stdout,stderr:r.stderr});assert.equal(r.status,0,r.stdout+r.stderr);assert.deepEqual(JSON.parse(r.stdout).results,[]);
+  }finally{await h.close();}
+ });
+@@ -42,7 +43,7 @@ test('H5-AQ/AZ/AAD expected base inventory old product D027 health and 53 migrat
+  const base='e54331e41d5da154379542d0a08578288a57f01a';
+  const git=(args:string[])=>{const r=spawnSync('git',args,{encoding:'utf8'});assert.equal(r.status,0);return r.stdout;};
+  const prior=git(['ls-tree','-r','--name-only',base,'src','supabase','tests/operations','scripts']).trim().split('\n');
+- for(const file of prior){const current=await readFile(file,'utf8'),historical=git(['show',base+':'+file]);if(file==='src/server/composition.ts')assertCProductBytes(file,Buffer.from(current),Buffer.from(historical));else assert.equal(current,historical,file);}
++ for(const file of prior){const current=await readFile(file,'utf8'),historical=git(['show',base+':'+file]);if(file==='src/server/composition.ts')assertCProductBytes(file,Buffer.from(current),Buffer.from(historical));else assertInheritedOrHistorical(file,current,historical);}
+  const expected='specs/001-core-crm/expected-TSK-H5-003-004.md';assert.equal(await readFile(expected,'utf8'),git(['show','7cfa0ee:'+expected]));
+  const tasks=git(['show',base+':specs/001-core-crm/tasks.md']);const rows=tasks.split('## 6. Matrices de trazabilidad')[1]!.split('## 7.')[0]!.split('\n').filter(x=>x.startsWith('|')&&/\[TSK-H5-00[34]\]/.test(x));
+  assert.equal(rows.length,10);for(const row of rows)assert.ok((await readFile(expected,'utf8')).includes(row));

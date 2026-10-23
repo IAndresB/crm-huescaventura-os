@@ -1,0 +1,13 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-013-migration.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-013-migration.test.ts
+index af795169..1603ecb8 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-013-migration.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-013-migration.test.ts
+@@ -29,7 +29,7 @@ test('H5-013 N12 V-MIG: populated61 rollback/retry, existing catalogue and data,
+   }
+   assert.equal((await h.observer`select count(*)::int n from pg_proc p join pg_namespace n on n.oid=p.pronamespace cross join lateral aclexplode(p.proacl) a where n.nspname in('crm_api','crm_private') and p.proname like 'closure_%' and a.grantee=0`)[0]!.n,0);
+   const help=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--help'],{encoding:'utf8',timeout:45000});assert.equal(help.status,0);
+-  const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59514/h5013mig?sslmode=disable','--type','all','--fail-on','error'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);
++  const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59514/h5013mig?sslmode=disable','--type','all','--fail-on','error','--output-format','json'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);
+   console.log('H5013 migration',JSON.stringify({chain:(await readdir('supabase/migrations')).filter(n=>n.endsWith('.sql')).length,priorTablesPreserved:tables.length,priorFunctionsPreserved:before.length-1,intentionalBodyChange:'booking_read',rollback:true,retry:true,advisors:JSON.parse(advisors.stdout)}));
+  }finally{await h.close();}
+ });

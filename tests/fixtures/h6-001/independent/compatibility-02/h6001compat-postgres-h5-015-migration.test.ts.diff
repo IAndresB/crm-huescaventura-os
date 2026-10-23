@@ -1,0 +1,13 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-015-migration.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-015-migration.test.ts
+index a7fe7871..1a9a9925 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-015-migration.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-015-migration.test.ts
+@@ -33,7 +33,7 @@ test('H5-015 J09/J10 populated62 upgrade, rollback, retry, ACL/FORCE RLS and ori
+   const triggers=await h.observer`select tgrelid::regclass::text t,tgdeferrable,tginitdeferred from pg_trigger where tgname='closure_material_invalidation'order by 1`;assert.ok(triggers.length>30);assert.ok(triggers.every(t=>t.tgdeferrable&&t.tginitdeferred));
+   for(const query of ['select * from crm_private.b06_joint_closures','select * from crm_private.b06_closure_invalidations','select crm_private.closure_invalidate(null,null)','select crm_api.closure_joint_apply(null,null,null,null,null)'])await assert.rejects(h.runtime.unsafe(query));
+   const help=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--help'],{encoding:'utf8',timeout:45000});assert.equal(help.status,0);
+-  const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59536/h5015migration?sslmode=disable','--type','all','--fail-on','error'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);console.log('H5015 advisors',advisors.stdout);
++  const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59536/h5015migration?sslmode=disable','--type','all','--fail-on','error','--output-format','json'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);console.log('H5015 advisors',advisors.stdout);
+   console.log('H5015 migration and security',JSON.stringify({chain:(await readdir('supabase/migrations')).filter(n=>n.endsWith('.sql')).length,oldTables:tables.length,oldFunctions:before.length,changed,rollback:true,retry:true,triggers,functions:fs}));
+  }finally{await h.close();}
+ });

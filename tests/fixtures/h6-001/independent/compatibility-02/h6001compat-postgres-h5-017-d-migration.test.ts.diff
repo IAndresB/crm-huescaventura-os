@@ -1,0 +1,13 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-017-d-migration.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-017-d-migration.test.ts
+index ca9d7b65..af525076 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-017-d-migration.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-017-d-migration.test.ts
+@@ -27,7 +27,7 @@ test('D08 populated65 rollback66 retry preserves all rows policies constraints A
+  assert.deepEqual(changed,['crm_private.diagnostic_nodes(text,text,uuid)']);
+  for(const t of tables)assert.deepEqual((await h.admin`select relowner::int owner,relacl::text acl,relrowsecurity rls,relforcerowsecurity force from pg_class where oid=${t.oid}::oid`)[0],{owner:t.owner,acl:t.acl,rls:t.rls,force:t.force});
+  const n=(await h.diagnostic.read(await h.auth(),read,q)).nodes;assert.ok(n.some(x=>x.id===o.observationId));assert.equal(n.find(x=>x.id===o.observationId)!.historicalOperationReference,true);assert.equal(n.some(x=>x.source==='b08_executions'),false);
+- const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59932/h5017dmig?sslmode=disable','--type','all','--fail-on','error'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);
++ const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59932/h5017dmig?sslmode=disable','--type','all','--fail-on','error','--output-format','json'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);
+  console.log('D08 migration catalog',JSON.stringify({tables:tables.length,functions:after.length,changed,policies:before.policies.length,constraints:before.constraints.length,rowsSha256:before.rows,rollback:true,newObjects:0,advisors:JSON.parse(advisors.stdout)}));
+  }finally{await h.close();}
+ });

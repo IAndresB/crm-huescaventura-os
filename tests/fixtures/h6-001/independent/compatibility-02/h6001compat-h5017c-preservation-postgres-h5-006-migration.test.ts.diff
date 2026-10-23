@@ -1,0 +1,24 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/h5017c-preservation-postgres-h5-006-migration.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-h5017c-preservation-postgres-h5-006-migration.test.ts
+index f48ba78d..30df1138 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/h5017c-preservation-postgres-h5-006-migration.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-h5017c-preservation-postgres-h5-006-migration.test.ts
+@@ -1,3 +1,4 @@
++import {assertInheritedOrHistorical} from '../support/h6-001-inherited-compatibility.ts';
+ import {assertHistoricalBytes as assertCProductBytes} from '../support/h5-017-c-dependency-preservation.ts';
+ import {test} from 'node:test';
+ import assert from 'node:assert/strict';
+@@ -26,12 +27,12 @@ test('H5-CAS fresh55 populated54 upgrade DDL rollback retry preserve all old cat
+ });
+ test('H5-CAS official advisors55 exclusively loopback',async()=>{
+  const label='crm_h5006_advisors',port=58903,h=await isolatedCommunications(label,port);
+- try{const r=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url',`postgresql://crm_h0_migration@127.0.0.1:${port}/${label}?sslmode=disable`,'--type','all','--fail-on','error'],{encoding:'utf8',timeout:45000});await capture('advisors',{status:r.status,stdout:r.stdout,stderr:r.stderr});assert.equal(r.status,0,r.stdout+r.stderr);assert.deepEqual(JSON.parse(r.stdout).results,[]);}finally{await h.close();}
++ try{const r=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url',`postgresql://crm_h0_migration@127.0.0.1:${port}/${label}?sslmode=disable`,'--type','all','--fail-on','error','--output-format','json'],{encoding:'utf8',timeout:45000});await capture('advisors',{status:r.status,stdout:r.stdout,stderr:r.stderr});assert.equal(r.status,0,r.stdout+r.stderr);assert.deepEqual(JSON.parse(r.stdout).results,[]);}finally{await h.close();}
+ });
+ test('H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE exact expected33 rows57 cases and historic product bytes',async()=>{
+  const base='7eac0d27b6b74331868a14bbc4ca967f8d2f6bb9',expectedSha='b14396627cbadfc4a99dd3b158b47c3562d3f08f';
+  const git=(...args:string[])=>{const r=spawnSync('git',args,{encoding:'utf8'});assert.equal(r.status,0);return r.stdout;};
+- const protectedFiles=git('ls-tree','-r','--name-only',base,'src','supabase','scripts','tests/operations').trim().split('\n');for(const f of protectedFiles){const current=await readFile(f,'utf8'),historical=git('show',base+':'+f);if(f==='src/server/composition.ts')assertCProductBytes(f,Buffer.from(current),Buffer.from(historical));else assert.equal(current,historical,f);}
++ const protectedFiles=git('ls-tree','-r','--name-only',base,'src','supabase','scripts','tests/operations').trim().split('\n');for(const f of protectedFiles){const current=await readFile(f,'utf8'),historical=git('show',base+':'+f);if(f==='src/server/composition.ts')assertCProductBytes(f,Buffer.from(current),Buffer.from(historical));else assertInheritedOrHistorical(f,current,historical);}
+  const expectedFile='specs/001-core-crm/expected-TSK-H5-005-006.md',expected=await readFile(expectedFile,'utf8');assert.equal(expected,git('show',expectedSha+':'+expectedFile));
+  const tasks=git('show',base+':specs/001-core-crm/tasks.md'),rows=tasks.split('\n## 6.')[1]!.split('\n## 7.')[0]!.split('\n').filter(x=>x.startsWith('|')&&/\[TSK-H5-00[56]\]/.test(x));assert.equal(rows.length,33);for(const row of rows)assert.ok(expected.includes(row));assert.equal(expected.split('\n').filter(x=>x.startsWith('| H5-C')).length,57);
+  assert.equal((await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')&&x<=migration.split('/').at(-1)!).length,55);

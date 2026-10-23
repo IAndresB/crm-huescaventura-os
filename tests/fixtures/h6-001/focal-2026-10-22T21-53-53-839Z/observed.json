@@ -1,0 +1,1815 @@
+{
+  "scope": "synthetic local E2E-01 only",
+  "auth": "Supabase Auth v2.197.0 actual password and TOTP",
+  "postgres": "17.11",
+  "observed": [
+    {
+      "id": "P01 context and Lead via ordinary contracts",
+      "result": "PASS"
+    },
+    {
+      "id": "P02 Lead conversion versions modalities and exact Acceptance",
+      "result": "PASS"
+    },
+    {
+      "id": "N01 conversion without acceptance and forged identity have no side effects",
+      "result": "PASS"
+    },
+    {
+      "id": "P03 one Booking immutable accepted snapshots quantities and nights",
+      "result": "PASS"
+    },
+    {
+      "id": "N02 won and dates alone do not confirm or perform Booking",
+      "result": "PASS"
+    },
+    {
+      "id": "P04 approved ordinary payment rule fixes exact obligation",
+      "result": "PASS"
+    }
+  ],
+  "commands": [
+    {
+      "port": "identities",
+      "command": {
+        "action": "create_context",
+        "operationId": "d1ba19da-f6b9-4eaa-a31f-6b488e5e4264",
+        "targetId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "kind": "opportunity",
+        "expectedVersion": 0,
+        "sourceRef": "SYNTHETIC enquiry context",
+        "evidenceRef": "SYNTHETIC context",
+        "reason": "SYNTHETIC",
+        "verified": true
+      },
+      "result": {
+        "id": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "version": 0,
+        "replayed": false
+      }
+    },
+    {
+      "port": "identities",
+      "command": {
+        "action": "create_entity",
+        "operationId": "7152537f-8ce9-4048-8603-00f3c2f070f2",
+        "targetId": "ced8c895-5cef-4fa3-886f-96223cd78a5a",
+        "kind": "contact",
+        "expectedVersion": 0,
+        "sourceRef": "SYNTHETIC enquiry",
+        "evidenceRef": "SYNTHETIC contextual record",
+        "reason": "SYNTHETIC consent-free fixture",
+        "verified": true,
+        "displayName": "SYNTHETIC contact"
+      },
+      "result": {
+        "id": "ced8c895-5cef-4fa3-886f-96223cd78a5a",
+        "version": 0,
+        "replayed": false
+      }
+    },
+    {
+      "port": "identities",
+      "command": {
+        "action": "create_entity",
+        "operationId": "c0b4edb9-1b57-4247-9456-85e9d4637178",
+        "targetId": "9f8f7b8d-ebf5-4077-90a2-8392d38aea2c",
+        "kind": "group",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "expectedVersion": 0,
+        "sourceRef": "SYNTHETIC enquiry",
+        "evidenceRef": "SYNTHETIC contextual record",
+        "reason": "SYNTHETIC consent-free fixture",
+        "verified": true,
+        "displayName": "SYNTHETIC group"
+      },
+      "result": {
+        "id": "9f8f7b8d-ebf5-4077-90a2-8392d38aea2c",
+        "version": 0,
+        "replayed": false
+      }
+    },
+    {
+      "port": "adapter",
+      "command": {
+        "action": "lead",
+        "operationId": "78fac349-e053-4f6c-99ce-5d10f8f82809",
+        "targetId": "c4e52f16-2adb-445d-af85-95d4dbd3d910",
+        "expectedRevision": 0,
+        "sourceRef": "synthetic-origin",
+        "reason": "synthetic-sale",
+        "material": {
+          "contact": {
+            "channel": "manual",
+            "address": "client@example.invalid",
+            "sourceRef": "SYNTHETIC verified enquiry",
+            "valid": true
+          },
+          "need": "SYNTHETIC group activity and two nights",
+          "commercialPossible": true,
+          "pending": [],
+          "contactId": "ced8c895-5cef-4fa3-886f-96223cd78a5a",
+          "groupId": null
+        }
+      },
+      "result": {
+        "id": "c4e52f16-2adb-445d-af85-95d4dbd3d910",
+        "replayed": false
+      }
+    },
+    {
+      "port": "adapter",
+      "command": {
+        "action": "convert",
+        "operationId": "0ca84bc2-e3c9-44f2-83fc-c1ed4fb2ab6b",
+        "targetId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "expectedRevision": 0,
+        "sourceRef": "synthetic-origin",
+        "reason": "synthetic-sale",
+        "material": {
+          "contact": {
+            "channel": "manual",
+            "address": "client@example.invalid",
+            "sourceRef": "SYNTHETIC verified enquiry",
+            "valid": true
+          },
+          "need": "SYNTHETIC group activity and two nights",
+          "commercialPossible": true,
+          "pending": [],
+          "contactId": "ced8c895-5cef-4fa3-886f-96223cd78a5a",
+          "groupId": "9f8f7b8d-ebf5-4077-90a2-8392d38aea2c"
+        },
+        "leadId": "c4e52f16-2adb-445d-af85-95d4dbd3d910"
+      },
+      "result": {
+        "id": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "replayed": false
+      }
+    },
+    {
+      "port": "proposal",
+      "command": {
+        "action": "prepare",
+        "operationId": "1fd1152f-902b-403b-b510-fb709bd3eed8",
+        "proposalId": "a71008a2-02be-4c2f-ae07-03d3fa4ae8f7",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "expectedRevision": 0,
+        "expectedOpportunityRevision": 1,
+        "sourceRef": "synthetic",
+        "reason": "synthetic",
+        "content": {
+          "scope": "H2 exact synthetic scope",
+          "terms": {
+            "version": "H2-T1",
+            "text": "Existing synthetic conditions; no mandate",
+            "sourceRef": "synthetic retained terms"
+          },
+          "pending": [],
+          "modalities": [
+            {
+              "id": "a0ba4f9e-68eb-4646-ac71-eeeea78896e1",
+              "name": "A",
+              "participants": 10,
+              "independent": true,
+              "selectable": true,
+              "conditions": "synthetic exact",
+              "finalPersonPrice": "100.01",
+              "manualReason": "human synthetic",
+              "definitive": true,
+              "lines": [
+                {
+                  "id": "25ee288b-766b-4dbb-8529-0ec09d538604",
+                  "serviceRevisionId": "3bf4620d-0db7-4420-ae28-eab79f6831a9",
+                  "unitRevisionId": "807ea506-42a3-46d2-b6e9-9a82500c6442",
+                  "tariffRevisionId": "a2fa71e5-b193-4fd9-b151-59ed09bccfac",
+                  "quantity": "1",
+                  "included": true,
+                  "independent": true,
+                  "selectable": true,
+                  "date": "2026-10-20",
+                  "datePending": false,
+                  "priceBasis": "fixed",
+                  "costMaterial": true,
+                  "sourceRef": "synthetic quantity"
+                }
+              ]
+            },
+            {
+              "id": "6c74bfb8-ce1c-4a10-84b0-5be1e679f1fc",
+              "name": "B",
+              "participants": 10,
+              "independent": true,
+              "selectable": true,
+              "conditions": "synthetic exact",
+              "finalPersonPrice": "100.01",
+              "manualReason": "human synthetic",
+              "definitive": true,
+              "lines": [
+                {
+                  "id": "f7aca190-71cb-4dec-b753-18e845dd7523",
+                  "serviceRevisionId": "3bf4620d-0db7-4420-ae28-eab79f6831a9",
+                  "unitRevisionId": "807ea506-42a3-46d2-b6e9-9a82500c6442",
+                  "tariffRevisionId": "a2fa71e5-b193-4fd9-b151-59ed09bccfac",
+                  "quantity": "1",
+                  "included": true,
+                  "independent": true,
+                  "selectable": true,
+                  "date": "2026-10-20",
+                  "datePending": false,
+                  "priceBasis": "fixed",
+                  "costMaterial": true,
+                  "sourceRef": "synthetic quantity"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "id": "1fd1152f-902b-403b-b510-fb709bd3eed8",
+        "replayed": false
+      }
+    },
+    {
+      "port": "proposal",
+      "command": {
+        "action": "fix",
+        "operationId": "8103cbbf-470b-4f28-8821-9a6279f1a605",
+        "proposalId": "a71008a2-02be-4c2f-ae07-03d3fa4ae8f7",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "expectedRevision": 1,
+        "expectedOpportunityRevision": 1,
+        "sourceRef": "synthetic",
+        "reason": "synthetic",
+        "versionId": "de5f91d0-9eb4-4421-b661-34bc234ae232"
+      },
+      "result": {
+        "id": "de5f91d0-9eb4-4421-b661-34bc234ae232",
+        "replayed": false
+      }
+    },
+    {
+      "port": "identities",
+      "command": {
+        "action": "create_entity",
+        "operationId": "331399d9-874e-4e88-a115-3f0b7feeb7ac",
+        "targetId": "f79098f8-0c17-408e-b0b8-d4fe0f0b26a0",
+        "kind": "contact",
+        "expectedVersion": 0,
+        "sourceRef": "synthetic identity",
+        "evidenceRef": "synthetic identity evidence",
+        "reason": "synthetic",
+        "verified": true,
+        "displayName": "SYNTHETIC CLIENT"
+      },
+      "result": {
+        "id": "f79098f8-0c17-408e-b0b8-d4fe0f0b26a0",
+        "version": 0,
+        "replayed": false
+      }
+    },
+    {
+      "port": "identities",
+      "command": {
+        "action": "designate",
+        "operationId": "92096774-1066-4040-9087-3c7c6e596959",
+        "targetId": "4c07c695-6f27-47d1-8a0b-db80da42286a",
+        "relatedId": "f79098f8-0c17-408e-b0b8-d4fe0f0b26a0",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "kind": "primary_contact",
+        "expectedVersion": 0,
+        "sourceRef": "synthetic designation",
+        "evidenceRef": "synthetic faculty",
+        "reason": "synthetic",
+        "verified": true,
+        "happenedAt": "2026-10-22T21:53:58.440Z"
+      },
+      "result": {
+        "id": "4c07c695-6f27-47d1-8a0b-db80da42286a",
+        "version": 1,
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "cb360f0e-3bd5-4d6f-a2ad-20a9b9e641a1",
+        "targetId": "7a0bd4f0-882b-4453-a33f-66af7b0795d3",
+        "kind": "evidence",
+        "material": {
+          "claim": "offer:issue:de5f91d0-9eb4-4421-b661-34bc234ae232:2026-10-22T21:53:59.444Z:7",
+          "coverage": "H2 exact synthetic scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.444Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "H2 exact synthetic scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "7a0bd4f0-882b-4453-a33f-66af7b0795d3",
+        "replayed": false
+      }
+    },
+    {
+      "port": "offer",
+      "command": {
+        "action": "issue",
+        "operationId": "41b7326f-a92c-4a82-ac47-857c83f4367f",
+        "proposalId": "a71008a2-02be-4c2f-ae07-03d3fa4ae8f7",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "versionId": "de5f91d0-9eb4-4421-b661-34bc234ae232",
+        "expectedRevision": 2,
+        "expectedOpportunityRevision": 2,
+        "sourceRef": "synthetic",
+        "reason": "synthetic",
+        "coverage": "H2 exact synthetic scope",
+        "at": "2026-10-22T21:53:59.444Z",
+        "issuance": {
+          "issuedAt": "2026-10-22T21:53:59.444Z",
+          "limits": []
+        },
+        "evidenceId": "7a0bd4f0-882b-4453-a33f-66af7b0795d3"
+      },
+      "result": {
+        "id": "41b7326f-a92c-4a82-ac47-857c83f4367f",
+        "result": {
+          "days": 7,
+          "issuedAt": "2026-10-22T23:53:59.444+02:00",
+          "effectiveUntil": "2026-10-29T22:53:59.444+01:00"
+        },
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "cefd0da1-bb97-432c-9c66-7f6c06aa3cef",
+        "targetId": "ab026c91-043e-4f6e-a3bb-93cc68e9c7df",
+        "kind": "evidence",
+        "material": {
+          "claim": "acceptance:authority:de5f91d0-9eb4-4421-b661-34bc234ae232:f79098f8-0c17-408e-b0b8-d4fe0f0b26a0:4c07c695-6f27-47d1-8a0b-db80da42286a",
+          "coverage": "H2 exact synthetic scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.488Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "H2 exact synthetic scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "ab026c91-043e-4f6e-a3bb-93cc68e9c7df",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "608c95dc-1574-4a37-ad4c-e007c2c65554",
+        "targetId": "745448fa-affc-4d73-9a2f-6b5d3f3c90d4",
+        "kind": "evidence",
+        "material": {
+          "claim": "acceptance:agree:de5f91d0-9eb4-4421-b661-34bc234ae232:94d76d0f-cb49-44c5-8148-71a8da98b67d:f79098f8-0c17-408e-b0b8-d4fe0f0b26a0:phone",
+          "coverage": "H2 exact synthetic scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.488Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "H2 exact synthetic scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "745448fa-affc-4d73-9a2f-6b5d3f3c90d4",
+        "replayed": false
+      }
+    },
+    {
+      "port": "acceptance",
+      "command": {
+        "action": "register",
+        "operationId": "6ff497c4-7495-42fb-bcce-aa45253f590d",
+        "acceptanceId": "94d76d0f-cb49-44c5-8148-71a8da98b67d",
+        "proposalId": "a71008a2-02be-4c2f-ae07-03d3fa4ae8f7",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "versionId": "de5f91d0-9eb4-4421-b661-34bc234ae232",
+        "expectedRevision": 3,
+        "expectedOpportunityRevision": 2,
+        "sourceRef": "synthetic exact act",
+        "reason": "synthetic decision",
+        "coverage": "H2 exact synthetic scope",
+        "at": "2026-10-22T21:53:59.488Z",
+        "accepterId": "f79098f8-0c17-408e-b0b8-d4fe0f0b26a0",
+        "designationId": "4c07c695-6f27-47d1-8a0b-db80da42286a",
+        "channel": "phone",
+        "terms": {
+          "version": "H2-T1",
+          "text": "Existing synthetic conditions; no mandate",
+          "sourceRef": "synthetic retained terms"
+        },
+        "authorityEvidenceId": "ab026c91-043e-4f6e-a3bb-93cc68e9c7df",
+        "evidenceId": "745448fa-affc-4d73-9a2f-6b5d3f3c90d4"
+      },
+      "result": {
+        "id": "6ff497c4-7495-42fb-bcce-aa45253f590d",
+        "result": {
+          "won": false,
+          "verified": false,
+          "registered": true,
+          "acceptanceId": "94d76d0f-cb49-44c5-8148-71a8da98b67d"
+        },
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "c48d0938-f8c0-43cb-b194-443cddd23d9c",
+        "targetId": "29469a68-d9ca-4831-8fa0-d5e2da907dc8",
+        "kind": "evidence",
+        "material": {
+          "claim": "offer:review:de5f91d0-9eb4-4421-b661-34bc234ae232:94d76d0f-cb49-44c5-8148-71a8da98b67d:accept:prices",
+          "coverage": "H2 exact synthetic scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.488Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "H2 exact synthetic scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "29469a68-d9ca-4831-8fa0-d5e2da907dc8",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "0eb327ee-87cb-46d8-a6c0-f8f22e398efb",
+        "targetId": "39802a1d-824b-416e-9105-ee0b2ce10fb8",
+        "kind": "evidence",
+        "material": {
+          "claim": "offer:review:de5f91d0-9eb4-4421-b661-34bc234ae232:94d76d0f-cb49-44c5-8148-71a8da98b67d:accept:availability",
+          "coverage": "H2 exact synthetic scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.488Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "H2 exact synthetic scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "39802a1d-824b-416e-9105-ee0b2ce10fb8",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "c0775856-6588-4adc-9990-77c98d7f51ad",
+        "targetId": "d993719a-f798-4b8b-babc-4b0420c094bf",
+        "kind": "evidence",
+        "material": {
+          "claim": "offer:review:de5f91d0-9eb4-4421-b661-34bc234ae232:94d76d0f-cb49-44c5-8148-71a8da98b67d:accept:conditions",
+          "coverage": "H2 exact synthetic scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.488Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "H2 exact synthetic scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "d993719a-f798-4b8b-babc-4b0420c094bf",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "3985fd9e-1315-4348-8edc-4d1f84139a92",
+        "targetId": "388f9ac8-65e5-4b5e-a3ec-66d96e7c0c08",
+        "kind": "evidence",
+        "material": {
+          "claim": "offer:review:de5f91d0-9eb4-4421-b661-34bc234ae232:94d76d0f-cb49-44c5-8148-71a8da98b67d:accept:capacity",
+          "coverage": "H2 exact synthetic scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.488Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "H2 exact synthetic scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "388f9ac8-65e5-4b5e-a3ec-66d96e7c0c08",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "1c1b0ddc-fe93-41e2-8614-5dc3ffa2f935",
+        "targetId": "45760eec-5dfa-4461-8f1f-3680d5e171c7",
+        "kind": "evidence",
+        "material": {
+          "claim": "booking:detail:94d76d0f-cb49-44c5-8148-71a8da98b67d:642999f049346917c1ea2e1a9d1b1825f5019843f1f391e41a3ca13fe163b7c2",
+          "coverage": "H2 exact synthetic scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.613Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "H2 exact synthetic scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "45760eec-5dfa-4461-8f1f-3680d5e171c7",
+        "replayed": false
+      }
+    },
+    {
+      "port": "proposal",
+      "command": {
+        "action": "prepare",
+        "operationId": "eb5c07b0-35ae-4572-93cc-f04d45757e6d",
+        "proposalId": "817abe72-d90e-475f-a610-94ff91225f7c",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "expectedRevision": 0,
+        "expectedOpportunityRevision": 2,
+        "sourceRef": "SYNTHETIC",
+        "reason": "SYNTHETIC",
+        "content": {
+          "scope": "SYNTHETIC AC017 accepted scope",
+          "terms": {
+            "version": "H2-T1",
+            "text": "Existing synthetic conditions; no mandate",
+            "sourceRef": "synthetic retained terms"
+          },
+          "pending": [],
+          "modalities": [
+            {
+              "id": "e247fced-53d7-40f7-8920-724c46959188",
+              "name": "A",
+              "participants": 10,
+              "independent": true,
+              "selectable": true,
+              "conditions": "SYNTHETIC",
+              "finalPersonPrice": "100.01",
+              "manualReason": "SYNTHETIC",
+              "definitive": true,
+              "lines": [
+                {
+                  "id": "02e5c4ba-aeb3-4469-a796-0ce3741720e1",
+                  "serviceRevisionId": "bf54093a-9127-4f0b-85bf-c66110246ddb",
+                  "unitRevisionId": "807ea506-42a3-46d2-b6e9-9a82500c6442",
+                  "tariffRevisionId": "abbe2240-6def-4554-9a5a-f5f8c39533f8",
+                  "quantity": "1",
+                  "included": true,
+                  "independent": false,
+                  "selectable": false,
+                  "date": "2026-10-20",
+                  "datePending": false,
+                  "priceBasis": "fixed",
+                  "costMaterial": true,
+                  "sourceRef": "SYNTHETIC explicit contribution"
+                },
+                {
+                  "id": "66a28337-33b2-477e-8c85-f7690bb82acc",
+                  "serviceRevisionId": "057437a2-3a5d-4d1c-85e2-abc4c1e71a50",
+                  "unitRevisionId": "807ea506-42a3-46d2-b6e9-9a82500c6442",
+                  "tariffRevisionId": "6facde97-a286-47f6-848d-b5992e0714a5",
+                  "quantity": "1",
+                  "included": true,
+                  "independent": false,
+                  "selectable": false,
+                  "date": "2026-10-20",
+                  "datePending": false,
+                  "priceBasis": "fixed",
+                  "costMaterial": true,
+                  "sourceRef": "SYNTHETIC explicit contribution"
+                },
+                {
+                  "id": "3a138a2c-ce33-4a0b-bb03-48fb4572ac99",
+                  "serviceRevisionId": "4715b6ed-22f3-446f-8202-9fb15f5f063c",
+                  "unitRevisionId": "807ea506-42a3-46d2-b6e9-9a82500c6442",
+                  "tariffRevisionId": "c56a564b-62c0-4b4b-bbdc-e17aa4b3f9f2",
+                  "quantity": "1",
+                  "included": true,
+                  "independent": false,
+                  "selectable": false,
+                  "date": "2026-10-20",
+                  "datePending": false,
+                  "priceBasis": "fixed",
+                  "costMaterial": true,
+                  "sourceRef": "SYNTHETIC explicit contribution"
+                },
+                {
+                  "id": "5a4cc9c7-1d19-4043-8410-0d719b7c8b4f",
+                  "serviceRevisionId": "4715b6ed-22f3-446f-8202-9fb15f5f063c",
+                  "unitRevisionId": "807ea506-42a3-46d2-b6e9-9a82500c6442",
+                  "tariffRevisionId": "c56a564b-62c0-4b4b-bbdc-e17aa4b3f9f2",
+                  "quantity": "1",
+                  "included": true,
+                  "independent": false,
+                  "selectable": false,
+                  "date": "2026-10-21",
+                  "datePending": false,
+                  "priceBasis": "fixed",
+                  "costMaterial": true,
+                  "sourceRef": "SYNTHETIC explicit contribution"
+                }
+              ]
+            },
+            {
+              "id": "19acc5f6-20c8-4e02-9fdb-65701d2f22ad",
+              "name": "B",
+              "participants": 2,
+              "independent": true,
+              "selectable": true,
+              "conditions": "SYNTHETIC",
+              "finalPersonPrice": "100.01",
+              "manualReason": "SYNTHETIC",
+              "definitive": true,
+              "lines": [
+                {
+                  "id": "42925ae1-ceca-4e16-949d-172290a88d28",
+                  "serviceRevisionId": "057437a2-3a5d-4d1c-85e2-abc4c1e71a50",
+                  "unitRevisionId": "807ea506-42a3-46d2-b6e9-9a82500c6442",
+                  "tariffRevisionId": "6facde97-a286-47f6-848d-b5992e0714a5",
+                  "quantity": "1",
+                  "included": true,
+                  "independent": false,
+                  "selectable": false,
+                  "date": "2026-10-20",
+                  "datePending": false,
+                  "priceBasis": "fixed",
+                  "costMaterial": true,
+                  "sourceRef": "SYNTHETIC explicit contribution"
+                },
+                {
+                  "id": "d727b988-be1b-4a3f-95da-a5149023614d",
+                  "serviceRevisionId": "4715b6ed-22f3-446f-8202-9fb15f5f063c",
+                  "unitRevisionId": "807ea506-42a3-46d2-b6e9-9a82500c6442",
+                  "tariffRevisionId": "c56a564b-62c0-4b4b-bbdc-e17aa4b3f9f2",
+                  "quantity": "1",
+                  "included": true,
+                  "independent": false,
+                  "selectable": false,
+                  "date": "2026-10-20",
+                  "datePending": false,
+                  "priceBasis": "fixed",
+                  "costMaterial": true,
+                  "sourceRef": "SYNTHETIC explicit contribution"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "id": "eb5c07b0-35ae-4572-93cc-f04d45757e6d",
+        "replayed": false
+      }
+    },
+    {
+      "port": "proposal",
+      "command": {
+        "action": "fix",
+        "operationId": "9a63b1c4-fdb3-4782-b8b8-9e40ed1c7e29",
+        "proposalId": "817abe72-d90e-475f-a610-94ff91225f7c",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "expectedRevision": 1,
+        "expectedOpportunityRevision": 3,
+        "sourceRef": "SYNTHETIC",
+        "reason": "SYNTHETIC",
+        "versionId": "a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe"
+      },
+      "result": {
+        "id": "a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "ac0a4f40-a2e8-48ed-9d12-5b7d873ac3b8",
+        "targetId": "def44c17-8655-49f3-8c76-c1700aaf0fed",
+        "kind": "evidence",
+        "material": {
+          "claim": "offer:issue:a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe:2026-10-22T21:53:59.700Z:7",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.700Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "def44c17-8655-49f3-8c76-c1700aaf0fed",
+        "replayed": false
+      }
+    },
+    {
+      "port": "offer",
+      "command": {
+        "action": "issue",
+        "operationId": "57ca8c3f-21c3-4b98-b11c-8f89be439f8c",
+        "proposalId": "817abe72-d90e-475f-a610-94ff91225f7c",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "versionId": "a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe",
+        "expectedRevision": 2,
+        "expectedOpportunityRevision": 3,
+        "sourceRef": "SYNTHETIC",
+        "reason": "SYNTHETIC",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "at": "2026-10-22T21:53:59.700Z",
+        "issuance": {
+          "issuedAt": "2026-10-22T21:53:59.700Z",
+          "limits": []
+        },
+        "evidenceId": "def44c17-8655-49f3-8c76-c1700aaf0fed"
+      },
+      "result": {
+        "id": "57ca8c3f-21c3-4b98-b11c-8f89be439f8c",
+        "result": {
+          "days": 7,
+          "issuedAt": "2026-10-22T23:53:59.7+02:00",
+          "effectiveUntil": "2026-10-29T22:53:59.7+01:00"
+        },
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "8e3f2b6f-18d6-44bf-af47-dcd05afa5dc5",
+        "targetId": "281c67cc-f4d6-4979-9841-573fb4eafd0b",
+        "kind": "evidence",
+        "material": {
+          "claim": "acceptance:authority:a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe:f79098f8-0c17-408e-b0b8-d4fe0f0b26a0:4c07c695-6f27-47d1-8a0b-db80da42286a",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.731Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "281c67cc-f4d6-4979-9841-573fb4eafd0b",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "6a8128a2-4002-4673-9e43-f6d2ba1ac256",
+        "targetId": "7a9e24ba-9e29-4e52-aebc-4a00b064a3fa",
+        "kind": "evidence",
+        "material": {
+          "claim": "acceptance:agree:a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe:59482ed5-765c-4f42-a71e-2852eb3b0611:f79098f8-0c17-408e-b0b8-d4fe0f0b26a0:phone",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.731Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "7a9e24ba-9e29-4e52-aebc-4a00b064a3fa",
+        "replayed": false
+      }
+    },
+    {
+      "port": "acceptance",
+      "command": {
+        "action": "register",
+        "operationId": "339b9fdd-a86c-4744-954e-484aeb6731f4",
+        "acceptanceId": "59482ed5-765c-4f42-a71e-2852eb3b0611",
+        "proposalId": "817abe72-d90e-475f-a610-94ff91225f7c",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "versionId": "a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe",
+        "expectedRevision": 3,
+        "expectedOpportunityRevision": 3,
+        "sourceRef": "SYNTHETIC",
+        "reason": "SYNTHETIC",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "at": "2026-10-22T21:53:59.731Z",
+        "accepterId": "f79098f8-0c17-408e-b0b8-d4fe0f0b26a0",
+        "designationId": "4c07c695-6f27-47d1-8a0b-db80da42286a",
+        "channel": "phone",
+        "terms": {
+          "version": "H2-T1",
+          "text": "Existing synthetic conditions; no mandate",
+          "sourceRef": "synthetic retained terms"
+        },
+        "authorityEvidenceId": "281c67cc-f4d6-4979-9841-573fb4eafd0b",
+        "evidenceId": "7a9e24ba-9e29-4e52-aebc-4a00b064a3fa"
+      },
+      "result": {
+        "id": "339b9fdd-a86c-4744-954e-484aeb6731f4",
+        "result": {
+          "won": false,
+          "verified": false,
+          "registered": true,
+          "acceptanceId": "59482ed5-765c-4f42-a71e-2852eb3b0611"
+        },
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "f336658b-1277-4cef-9617-9b8e67c366e0",
+        "targetId": "ed05bc7e-eee0-4488-bf04-ab7b09939605",
+        "kind": "evidence",
+        "material": {
+          "claim": "offer:review:a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe:59482ed5-765c-4f42-a71e-2852eb3b0611:accept:prices",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.731Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "ed05bc7e-eee0-4488-bf04-ab7b09939605",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "f1f57a50-66db-405b-bbd0-27a2c33579b1",
+        "targetId": "12140df3-6e99-4535-9c87-ac72bebe3277",
+        "kind": "evidence",
+        "material": {
+          "claim": "offer:review:a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe:59482ed5-765c-4f42-a71e-2852eb3b0611:accept:availability",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.731Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "12140df3-6e99-4535-9c87-ac72bebe3277",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "9f425697-cdef-45e8-92c6-dfdbb9116603",
+        "targetId": "a10b47bf-8c9a-42d6-ac74-c4de38521aeb",
+        "kind": "evidence",
+        "material": {
+          "claim": "offer:review:a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe:59482ed5-765c-4f42-a71e-2852eb3b0611:accept:conditions",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.731Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "a10b47bf-8c9a-42d6-ac74-c4de38521aeb",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "888dcf12-97ab-4880-9d17-ad7f07d24e99",
+        "targetId": "aad3121b-34d8-446f-a83e-7aa40a46821c",
+        "kind": "evidence",
+        "material": {
+          "claim": "offer:review:a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe:59482ed5-765c-4f42-a71e-2852eb3b0611:accept:capacity",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.731Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "aad3121b-34d8-446f-a83e-7aa40a46821c",
+        "replayed": false
+      }
+    },
+    {
+      "port": "acceptance",
+      "command": {
+        "action": "verify",
+        "operationId": "1a833b70-d3b4-4b91-9575-b60aa327b266",
+        "acceptanceId": "59482ed5-765c-4f42-a71e-2852eb3b0611",
+        "proposalId": "817abe72-d90e-475f-a610-94ff91225f7c",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "versionId": "a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe",
+        "expectedRevision": 4,
+        "expectedOpportunityRevision": 3,
+        "sourceRef": "SYNTHETIC",
+        "reason": "SYNTHETIC",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "at": "2026-10-22T21:53:59.731Z",
+        "reviewEvidence": {
+          "prices": "ed05bc7e-eee0-4488-bf04-ab7b09939605",
+          "availability": "12140df3-6e99-4535-9c87-ac72bebe3277",
+          "conditions": "a10b47bf-8c9a-42d6-ac74-c4de38521aeb",
+          "capacity": "aad3121b-34d8-446f-a83e-7aa40a46821c"
+        },
+        "won": true
+      },
+      "result": {
+        "id": "1a833b70-d3b4-4b91-9575-b60aa327b266",
+        "result": {
+          "won": true,
+          "terms": {
+            "text": "Existing synthetic conditions; no mandate",
+            "version": "H2-T1",
+            "sourceRef": "synthetic retained terms"
+          },
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "verified": true,
+          "registered": true,
+          "acceptanceId": "59482ed5-765c-4f42-a71e-2852eb3b0611"
+        },
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "da064ad6-4c34-4e2f-8e32-674bd2ce188d",
+        "targetId": "33aaf66c-6f3f-48a1-bb31-e69a878ec29c",
+        "kind": "evidence",
+        "material": {
+          "claim": "booking:detail:59482ed5-765c-4f42-a71e-2852eb3b0611:5dca8b4f7f616c545e91fbd4fac1b9014c2aa27337afafe64814c65b5c2e8fc5",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.867Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "33aaf66c-6f3f-48a1-bb31-e69a878ec29c",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "d09973f0-b389-4ef5-b9a8-25066005ba69",
+        "targetId": "694a73f8-bc1d-4f9d-9a63-210a07647270",
+        "kind": "evidence",
+        "material": {
+          "claim": "booking:detail:59482ed5-765c-4f42-a71e-2852eb3b0611:36efb9201999a0f8c82c06aecbf45bf45d7be38a7eef074d8444292219376e0e",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:53:59.882Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "694a73f8-bc1d-4f9d-9a63-210a07647270",
+        "replayed": false
+      }
+    },
+    {
+      "port": "booking",
+      "command": {
+        "operationId": "b2a24a25-1748-4b8b-aeb7-dd807f0b169c",
+        "bookingId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "proposalId": "817abe72-d90e-475f-a610-94ff91225f7c",
+        "versionId": "a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe",
+        "acceptanceId": "59482ed5-765c-4f42-a71e-2852eb3b0611",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "terms": {
+          "version": "H2-T1",
+          "text": "Existing synthetic conditions; no mandate",
+          "sourceRef": "synthetic retained terms"
+        },
+        "expectedRevision": 5,
+        "expectedOpportunityRevision": 4,
+        "sourceRef": "SYNTHETIC AC017",
+        "reason": "SYNTHETIC",
+        "evidenceId": "694a73f8-bc1d-4f9d-9a63-210a07647270",
+        "detail": {
+          "services": [
+            {
+              "id": "5566e60e-baaf-4875-afc1-3aceb786c417",
+              "serviceRevisionId": "bf54093a-9127-4f0b-85bf-c66110246ddb",
+              "nature": "internal",
+              "variant": null,
+              "provider": null,
+              "place": null,
+              "schedule": null,
+              "contributions": [
+                {
+                  "id": "8453a6c2-db44-4f02-ba0f-3d808fa4b6a6",
+                  "lineId": "02e5c4ba-aeb3-4469-a796-0ce3741720e1",
+                  "modalityId": "e247fced-53d7-40f7-8920-724c46959188",
+                  "quantity": "1",
+                  "attendees": 10,
+                  "certainty": "estimated"
+                }
+              ],
+              "nights": []
+            },
+            {
+              "id": "53d93847-cea4-4782-b894-efe1646a6a84",
+              "serviceRevisionId": "057437a2-3a5d-4d1c-85e2-abc4c1e71a50",
+              "nature": "internal",
+              "variant": null,
+              "provider": null,
+              "place": null,
+              "schedule": null,
+              "contributions": [
+                {
+                  "id": "a667edf1-9a5c-43db-9384-a5225fc19130",
+                  "lineId": "66a28337-33b2-477e-8c85-f7690bb82acc",
+                  "modalityId": "e247fced-53d7-40f7-8920-724c46959188",
+                  "quantity": "1",
+                  "attendees": 10,
+                  "certainty": "estimated"
+                },
+                {
+                  "id": "d9a641e6-5a4d-4d96-9e0e-1d3427b4b3c7",
+                  "lineId": "42925ae1-ceca-4e16-949d-172290a88d28",
+                  "modalityId": "19acc5f6-20c8-4e02-9fdb-65701d2f22ad",
+                  "quantity": "1",
+                  "attendees": 2,
+                  "certainty": "estimated"
+                }
+              ],
+              "nights": []
+            },
+            {
+              "id": "ab7fa8e6-3bd9-4ca8-87f0-b5d3318915ac",
+              "serviceRevisionId": "4715b6ed-22f3-446f-8202-9fb15f5f063c",
+              "nature": "internal",
+              "variant": null,
+              "provider": null,
+              "place": null,
+              "schedule": null,
+              "contributions": [
+                {
+                  "id": "8113b4d5-6d06-4613-840b-4403e7a9e4cd",
+                  "lineId": "3a138a2c-ce33-4a0b-bb03-48fb4572ac99",
+                  "modalityId": "e247fced-53d7-40f7-8920-724c46959188",
+                  "quantity": "1",
+                  "attendees": 10,
+                  "certainty": "estimated"
+                },
+                {
+                  "id": "9ae06105-28bc-43e7-ab42-7251859f6446",
+                  "lineId": "5a4cc9c7-1d19-4043-8410-0d719b7c8b4f",
+                  "modalityId": "e247fced-53d7-40f7-8920-724c46959188",
+                  "quantity": "1",
+                  "attendees": 10,
+                  "certainty": "estimated"
+                },
+                {
+                  "id": "39d63598-32ef-4e0f-b4e0-3540978444e8",
+                  "lineId": "d727b988-be1b-4a3f-95da-a5149023614d",
+                  "modalityId": "19acc5f6-20c8-4e02-9fdb-65701d2f22ad",
+                  "quantity": "1",
+                  "attendees": 2,
+                  "certainty": "estimated"
+                }
+              ],
+              "nights": [
+                {
+                  "id": "ff771c0b-cc57-4878-ad85-233fd4e24097",
+                  "date": "2026-10-20",
+                  "contributionIds": [
+                    "8113b4d5-6d06-4613-840b-4403e7a9e4cd",
+                    "39d63598-32ef-4e0f-b4e0-3540978444e8"
+                  ]
+                },
+                {
+                  "id": "ca562349-db9b-4a66-8e8a-46d12d66bf7c",
+                  "date": "2026-10-21",
+                  "contributionIds": [
+                    "9ae06105-28bc-43e7-ab42-7251859f6446"
+                  ]
+                }
+              ]
+            }
+          ],
+          "participants": [],
+          "assignments": []
+        },
+        "route": "normal"
+      },
+      "result": {
+        "id": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "result": {
+          "state": "Pendiente de preparación",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "existing": false,
+          "bookingId": "57d27024-e7ad-466a-aece-8cd640ca0dc0"
+        },
+        "replayed": false
+      }
+    },
+    {
+      "port": "booking",
+      "command": {
+        "operationId": "b2a24a25-1748-4b8b-aeb7-dd807f0b169c",
+        "bookingId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "opportunityId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "proposalId": "817abe72-d90e-475f-a610-94ff91225f7c",
+        "versionId": "a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe",
+        "acceptanceId": "59482ed5-765c-4f42-a71e-2852eb3b0611",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "terms": {
+          "version": "H2-T1",
+          "text": "Existing synthetic conditions; no mandate",
+          "sourceRef": "synthetic retained terms"
+        },
+        "expectedRevision": 5,
+        "expectedOpportunityRevision": 4,
+        "sourceRef": "SYNTHETIC AC017",
+        "reason": "SYNTHETIC",
+        "evidenceId": "694a73f8-bc1d-4f9d-9a63-210a07647270",
+        "detail": {
+          "services": [
+            {
+              "id": "5566e60e-baaf-4875-afc1-3aceb786c417",
+              "serviceRevisionId": "bf54093a-9127-4f0b-85bf-c66110246ddb",
+              "nature": "internal",
+              "variant": null,
+              "provider": null,
+              "place": null,
+              "schedule": null,
+              "contributions": [
+                {
+                  "id": "8453a6c2-db44-4f02-ba0f-3d808fa4b6a6",
+                  "lineId": "02e5c4ba-aeb3-4469-a796-0ce3741720e1",
+                  "modalityId": "e247fced-53d7-40f7-8920-724c46959188",
+                  "quantity": "1",
+                  "attendees": 10,
+                  "certainty": "estimated"
+                }
+              ],
+              "nights": []
+            },
+            {
+              "id": "53d93847-cea4-4782-b894-efe1646a6a84",
+              "serviceRevisionId": "057437a2-3a5d-4d1c-85e2-abc4c1e71a50",
+              "nature": "internal",
+              "variant": null,
+              "provider": null,
+              "place": null,
+              "schedule": null,
+              "contributions": [
+                {
+                  "id": "a667edf1-9a5c-43db-9384-a5225fc19130",
+                  "lineId": "66a28337-33b2-477e-8c85-f7690bb82acc",
+                  "modalityId": "e247fced-53d7-40f7-8920-724c46959188",
+                  "quantity": "1",
+                  "attendees": 10,
+                  "certainty": "estimated"
+                },
+                {
+                  "id": "d9a641e6-5a4d-4d96-9e0e-1d3427b4b3c7",
+                  "lineId": "42925ae1-ceca-4e16-949d-172290a88d28",
+                  "modalityId": "19acc5f6-20c8-4e02-9fdb-65701d2f22ad",
+                  "quantity": "1",
+                  "attendees": 2,
+                  "certainty": "estimated"
+                }
+              ],
+              "nights": []
+            },
+            {
+              "id": "ab7fa8e6-3bd9-4ca8-87f0-b5d3318915ac",
+              "serviceRevisionId": "4715b6ed-22f3-446f-8202-9fb15f5f063c",
+              "nature": "internal",
+              "variant": null,
+              "provider": null,
+              "place": null,
+              "schedule": null,
+              "contributions": [
+                {
+                  "id": "8113b4d5-6d06-4613-840b-4403e7a9e4cd",
+                  "lineId": "3a138a2c-ce33-4a0b-bb03-48fb4572ac99",
+                  "modalityId": "e247fced-53d7-40f7-8920-724c46959188",
+                  "quantity": "1",
+                  "attendees": 10,
+                  "certainty": "estimated"
+                },
+                {
+                  "id": "9ae06105-28bc-43e7-ab42-7251859f6446",
+                  "lineId": "5a4cc9c7-1d19-4043-8410-0d719b7c8b4f",
+                  "modalityId": "e247fced-53d7-40f7-8920-724c46959188",
+                  "quantity": "1",
+                  "attendees": 10,
+                  "certainty": "estimated"
+                },
+                {
+                  "id": "39d63598-32ef-4e0f-b4e0-3540978444e8",
+                  "lineId": "d727b988-be1b-4a3f-95da-a5149023614d",
+                  "modalityId": "19acc5f6-20c8-4e02-9fdb-65701d2f22ad",
+                  "quantity": "1",
+                  "attendees": 2,
+                  "certainty": "estimated"
+                }
+              ],
+              "nights": [
+                {
+                  "id": "ff771c0b-cc57-4878-ad85-233fd4e24097",
+                  "date": "2026-10-20",
+                  "contributionIds": [
+                    "8113b4d5-6d06-4613-840b-4403e7a9e4cd",
+                    "39d63598-32ef-4e0f-b4e0-3540978444e8"
+                  ]
+                },
+                {
+                  "id": "ca562349-db9b-4a66-8e8a-46d12d66bf7c",
+                  "date": "2026-10-21",
+                  "contributionIds": [
+                    "9ae06105-28bc-43e7-ab42-7251859f6446"
+                  ]
+                }
+              ]
+            }
+          ],
+          "participants": [],
+          "assignments": []
+        },
+        "route": "normal"
+      },
+      "result": {
+        "id": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "result": {
+          "state": "Pendiente de preparación",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "existing": false,
+          "bookingId": "57d27024-e7ad-466a-aece-8cd640ca0dc0"
+        },
+        "replayed": true
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "255e4fde-9c1e-41b1-8d44-0d3fb2a0b3c9",
+        "targetId": "30768566-7d82-4e63-84eb-fda7ffa20e65",
+        "kind": "evidence",
+        "material": {
+          "claim": "booking-preparation:coordination",
+          "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:54:00.300Z",
+        "contextKind": "other",
+        "contextId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "30768566-7d82-4e63-84eb-fda7ffa20e65",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "a691d8a0-38f2-4b22-b4d7-e7f8b6b3cad0",
+        "targetId": "c26971ea-a772-464f-995c-72cee1b885e1",
+        "kind": "evidence",
+        "material": {
+          "claim": "booking-preparation:critical:a3c405b3f3fafb6ab75d7343bb6e408aa61eea9c2e04bfa0772d659bf76e5a77",
+          "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:54:00.300Z",
+        "contextKind": "other",
+        "contextId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "c26971ea-a772-464f-995c-72cee1b885e1",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "a6acb48f-629c-469e-8aac-af97081b4100",
+        "targetId": "a987c175-1bed-4b1b-830d-0bd33de4bcd5",
+        "kind": "evidence",
+        "material": {
+          "claim": "booking-preparation:critical:5a43ea61551d6d8f9d133fdae3dfeb5558d936892eefb6560a6c1af0b082f4d1",
+          "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:54:00.300Z",
+        "contextKind": "other",
+        "contextId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "a987c175-1bed-4b1b-830d-0bd33de4bcd5",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "00bde916-a015-49db-acdd-677774116be2",
+        "targetId": "181b5b5e-4aea-47b3-b1f6-36534bae3668",
+        "kind": "evidence",
+        "material": {
+          "claim": "booking-preparation:critical:02b29c499ca9bbdd5a791e52b9985f6b586cc87dfe285aa041f41089729a0b2b",
+          "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:54:00.300Z",
+        "contextKind": "other",
+        "contextId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "181b5b5e-4aea-47b3-b1f6-36534bae3668",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "b1a22ad1-4ad0-430c-a552-93d175e9c948",
+        "targetId": "af096c78-2a32-4fc2-aaf5-53ddc58a9622",
+        "kind": "evidence",
+        "material": {
+          "claim": "booking-preparation:critical:cea9a05122dc23c97c3198b4b6745510d66e15989e71dacdf32f602bc87cad3d",
+          "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:54:00.300Z",
+        "contextKind": "other",
+        "contextId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "af096c78-2a32-4fc2-aaf5-53ddc58a9622",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "93080feb-31f0-4b4b-abd2-7682e461f031",
+        "targetId": "497cce86-f59c-4fc5-bd24-f98308d26576",
+        "kind": "evidence",
+        "material": {
+          "claim": "booking-preparation:evaluate:93b9a5043b5e559789524415e1601b70f9c1e9c0dfad5392ce7e826b103b70ee",
+          "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:54:00.300Z",
+        "contextKind": "other",
+        "contextId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "coverage": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "497cce86-f59c-4fc5-bd24-f98308d26576",
+        "replayed": false
+      }
+    },
+    {
+      "port": "preparation",
+      "command": {
+        "action": "evaluate",
+        "operationId": "bfc84f67-b1dc-499d-96bc-677f0132ff5a",
+        "bookingId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "expectedRevision": 0,
+        "expectedMaterial": "bd4c0575a0d6adaadb7267cca309957e0ced94eab6e8fcb3d0d339517eb048dc",
+        "sourceRef": "SYNTHETIC independent scoped decision",
+        "reason": "SYNTHETIC current exact decision",
+        "at": "2026-10-22T21:54:00.300Z",
+        "criticalScopes": [
+          {
+            "serviceId": "5566e60e-baaf-4875-afc1-3aceb786c417",
+            "nightId": null,
+            "contributionId": null,
+            "necessary": true,
+            "basis": "SYNTHETIC independently documented contracted critical scope",
+            "evidenceId": "c26971ea-a772-464f-995c-72cee1b885e1"
+          },
+          {
+            "serviceId": "53d93847-cea4-4782-b894-efe1646a6a84",
+            "nightId": null,
+            "contributionId": null,
+            "necessary": true,
+            "basis": "SYNTHETIC independently documented contracted critical scope",
+            "evidenceId": "181b5b5e-4aea-47b3-b1f6-36534bae3668"
+          },
+          {
+            "serviceId": "ab7fa8e6-3bd9-4ca8-87f0-b5d3318915ac",
+            "nightId": "ff771c0b-cc57-4878-ad85-233fd4e24097",
+            "contributionId": null,
+            "necessary": true,
+            "basis": "SYNTHETIC independently documented contracted critical scope",
+            "evidenceId": "af096c78-2a32-4fc2-aaf5-53ddc58a9622"
+          },
+          {
+            "serviceId": "ab7fa8e6-3bd9-4ca8-87f0-b5d3318915ac",
+            "nightId": "ca562349-db9b-4a66-8e8a-46d12d66bf7c",
+            "contributionId": null,
+            "necessary": true,
+            "basis": "SYNTHETIC independently documented contracted critical scope",
+            "evidenceId": "a987c175-1bed-4b1b-830d-0bd33de4bcd5"
+          }
+        ],
+        "preparationEvidenceIds": [
+          "30768566-7d82-4e63-84eb-fda7ffa20e65"
+        ],
+        "evidenceId": "497cce86-f59c-4fc5-bd24-f98308d26576"
+      },
+      "result": {
+        "id": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "result": {
+          "phase": "En confirmación con proveedores",
+          "history": [
+            {
+              "at": "2026-10-22T23:54:00.443101+02:00",
+              "phase": "En confirmación con proveedores",
+              "actorId": "a755c9af-f926-4126-a2a7-3db3dc120f9f",
+              "material": "9a63c25b56f6db72561c7191558dcb6ce82195d35cc6e3cc9b61ecc34824ad5c",
+              "revision": 1,
+              "evidenceId": "497cce86-f59c-4fc5-bd24-f98308d26576"
+            }
+          ],
+          "missing": [
+            "critical:53d93847-cea4-4782-b894-efe1646a6a84:",
+            "critical:5566e60e-baaf-4875-afc1-3aceb786c417:",
+            "critical:ab7fa8e6-3bd9-4ca8-87f0-b5d3318915ac:ca562349-db9b-4a66-8e8a-46d12d66bf7c",
+            "critical:ab7fa8e6-3bd9-4ca8-87f0-b5d3318915ac:ff771c0b-cc57-4878-ad85-233fd4e24097",
+            "economy-definition"
+          ],
+          "coverage": [
+            {
+              "basis": "SYNTHETIC independently documented contracted critical scope",
+              "scope": {
+                "nightId": null,
+                "quantity": 2,
+                "serviceId": "53d93847-cea4-4782-b894-efe1646a6a84",
+                "contributionId": null
+              },
+              "confirmed": false,
+              "necessary": true
+            },
+            {
+              "basis": "SYNTHETIC independently documented contracted critical scope",
+              "scope": {
+                "nightId": null,
+                "quantity": 1,
+                "serviceId": "5566e60e-baaf-4875-afc1-3aceb786c417",
+                "contributionId": null
+              },
+              "confirmed": false,
+              "necessary": true
+            },
+            {
+              "basis": "SYNTHETIC independently documented contracted critical scope",
+              "scope": {
+                "nightId": "ca562349-db9b-4a66-8e8a-46d12d66bf7c",
+                "quantity": 10,
+                "serviceId": "ab7fa8e6-3bd9-4ca8-87f0-b5d3318915ac",
+                "contributionId": null
+              },
+              "confirmed": false,
+              "necessary": true
+            },
+            {
+              "basis": "SYNTHETIC independently documented contracted critical scope",
+              "scope": {
+                "nightId": "ff771c0b-cc57-4878-ad85-233fd4e24097",
+                "quantity": 12,
+                "serviceId": "ab7fa8e6-3bd9-4ca8-87f0-b5d3318915ac",
+                "contributionId": null
+              },
+              "confirmed": false,
+              "necessary": true
+            }
+          ],
+          "material": "bd4c0575a0d6adaadb7267cca309957e0ced94eab6e8fcb3d0d339517eb048dc",
+          "revision": 1,
+          "bookingId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+          "economics": [],
+          "applicable": true,
+          "evaluatedAt": "2026-10-22T23:54:00.423474+02:00",
+          "historicalPhase": "En confirmación con proveedores"
+        },
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "a2a0a9a0-a2f8-4a25-975c-3e2c5b335b67",
+        "targetId": "04820ca7-50ba-42c3-8e2a-0784b6e8f181",
+        "kind": "evidence",
+        "material": {
+          "claim": "obligation:publish_policy:765d8f1c99f4d3860cc6f4f5c90ce55337b6bd83a1326d9bb076a6c2824709be",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:54:00.521Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "04820ca7-50ba-42c3-8e2a-0784b6e8f181",
+        "replayed": false
+      }
+    },
+    {
+      "port": "obligations",
+      "command": {
+        "operationId": "4ffffff2-c296-4003-a1f6-fd310bd5aa82",
+        "bookingId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "expectedRevision": 0,
+        "sourceRef": "SYNTHETIC explicit known source",
+        "reason": "SYNTHETIC authorized local test",
+        "at": "2026-10-22T21:54:00.521Z",
+        "evidenceId": "04820ca7-50ba-42c3-8e2a-0784b6e8f181",
+        "action": "publish_policy",
+        "policyId": "85bf1d3e-5823-469c-99cb-03765c6e9119",
+        "policyVersion": 1,
+        "selectors": {}
+      },
+      "result": {
+        "id": "85bf1d3e-5823-469c-99cb-03765c6e9119",
+        "result": {
+          "id": "85bf1d3e-5823-469c-99cb-03765c6e9119",
+          "rule": "ordinary_50_50",
+          "revision": 1
+        },
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "9170f2e6-79de-41e7-9084-44d731a6ba74",
+        "targetId": "a5d6749e-b25d-4cae-92dd-fca18a6d6634",
+        "kind": "evidence",
+        "material": {
+          "claim": "obligation:determine:777e5929045d572b502c79a36b695976afb454855c840b8ec1940c0d28ad1a50",
+          "coverage": "SYNTHETIC AC017 accepted scope",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:54:00.543Z",
+        "contextKind": "opportunity",
+        "contextId": "53feff65-ac93-4a1b-8bd4-34bcc5ac3f2f",
+        "coverage": "SYNTHETIC AC017 accepted scope",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "a5d6749e-b25d-4cae-92dd-fca18a6d6634",
+        "replayed": false
+      }
+    },
+    {
+      "port": "obligations",
+      "command": {
+        "operationId": "6544bd1c-0573-4dd4-828d-a6214efd119a",
+        "bookingId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "expectedRevision": 0,
+        "sourceRef": "SYNTHETIC explicit known source",
+        "reason": "SYNTHETIC authorized local test",
+        "at": "2026-10-22T21:54:00.543Z",
+        "evidenceId": "a5d6749e-b25d-4cae-92dd-fca18a6d6634",
+        "action": "determine",
+        "policyId": "85bf1d3e-5823-469c-99cb-03765c6e9119",
+        "scheduleId": "17ab2ab2-1f30-49a3-9e3e-3a0fb608fe8a",
+        "scope": "global",
+        "scopeId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+        "policy": {
+          "id": "85bf1d3e-5823-469c-99cb-03765c6e9119",
+          "version": 1,
+          "rule": "ordinary_50_50"
+        },
+        "definition": {
+          "base": {
+            "amount": "1200.12",
+            "sourceRef": "a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe",
+            "version": "1"
+          },
+          "reference": {
+            "scope": "global",
+            "scopeId": "57d27024-e7ad-466a-aece-8cd640ca0dc0",
+            "date": "2026-10-20",
+            "zone": {
+              "zone": "Europe/Madrid",
+              "sourceRef": "SYNTHETIC contractual zone",
+              "version": "1"
+            },
+            "sourceRef": "a0bb3d1e-c5fd-4c4c-80a4-8aaf1e5460fe",
+            "version": "1",
+            "basis": "default"
+          },
+          "at": "2026-10-22T21:54:00.543Z"
+        }
+      },
+      "result": {
+        "id": "17ab2ab2-1f30-49a3-9e3e-3a0fb608fe8a",
+        "result": {
+          "id": "17ab2ab2-1f30-49a3-9e3e-3a0fb608fe8a",
+          "existing": false,
+          "revision": 1
+        },
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "fad203a8-5c7f-499b-84be-52cef1d0f1e3",
+        "targetId": "15c1f43b-8d4b-42e6-a691-1c6a7ec3d711",
+        "kind": "evidence",
+        "material": {
+          "claim": "payment-source:SYNTHETIC-BANK",
+          "coverage": "5b747682-5d8f-4558-9544-2a8df34d2619",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:54:00.680Z",
+        "contextKind": "other",
+        "contextId": "5b747682-5d8f-4558-9544-2a8df34d2619",
+        "coverage": "5b747682-5d8f-4558-9544-2a8df34d2619",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "15c1f43b-8d4b-42e6-a691-1c6a7ec3d711",
+        "replayed": false
+      }
+    },
+    {
+      "port": "evidence",
+      "command": {
+        "action": "create",
+        "operationId": "c2771c43-fc3d-430b-a321-963db6d4e8d5",
+        "targetId": "50924f1a-23ac-486e-aebd-0473d3af16c0",
+        "kind": "evidence",
+        "material": {
+          "claim": "payment:detect:8cbcb6068eb2b0b86d4f207e885996354e0701c4ed8374d68507443b70619124",
+          "coverage": "5b747682-5d8f-4558-9544-2a8df34d2619",
+          "certainty": "reviewed",
+          "source_kind": "manual"
+        },
+        "sourceRef": "synthetic-manual",
+        "purpose": "commercial-test",
+        "occurredAt": "2026-10-22T21:54:00.680Z",
+        "contextKind": "other",
+        "contextId": "5b747682-5d8f-4558-9544-2a8df34d2619",
+        "coverage": "5b747682-5d8f-4558-9544-2a8df34d2619",
+        "reason": "synthetic-register"
+      },
+      "result": {
+        "id": "50924f1a-23ac-486e-aebd-0473d3af16c0",
+        "replayed": false
+      }
+    }
+  ]
+}

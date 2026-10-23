@@ -1,0 +1,13 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-017-e-migration.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-017-e-migration.test.ts
+index 3bb9c7b3..b640a046 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-017-e-migration.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-017-e-migration.test.ts
+@@ -59,7 +59,7 @@ test('E-M01 independent catalog, populated upgrade, aborted DDL, function recove
+    }
+   }
+   console.log('M01 legitimate post-read activity',JSON.stringify({changedByRead,onlyColumn:'last_human_activity_at',allDDLComparisonsExact:true}));
+-  const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59965/h5017emig?sslmode=disable','--type','all','--fail-on','error'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);console.log('E advisors loopback',advisors.stdout);
++  const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59965/h5017emig?sslmode=disable','--type','all','--fail-on','error','--output-format','json'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);console.log('E advisors loopback',advisors.stdout);
+   console.log('E-M01 independent67',JSON.stringify({tables:tables.length,classes:before.classes.length,functions:after.length,policies:before.policies.length,constraints:before.constraints.length,changed,newObjects:0,rowsHash:before.data,aclRlsUnchanged:true,ordinaryDDLRejected:true,abortedMigration:true,priorFunctionRecoveryAndForwardRetry:true}));
+  }finally{await h.close();}
+ });

@@ -1,0 +1,13 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-017-c-migration.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-017-c-migration.test.ts
+index b150d9d2..6da82ca4 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-017-c-migration.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-017-c-migration.test.ts
+@@ -25,7 +25,7 @@ test('C12 populated64 rollback65 retry preserves every row and only replaces the
+   for(const t of tables){const row=(await h.admin`select relowner::int owner,relacl::text acl,relrowsecurity rls,relforcerowsecurity force from pg_class where oid=${t.oid}::oid`)[0]!;assert.deepEqual(row,{owner:t.owner,acl:t.acl,rls:t.rls,force:t.force});}
+   assert.deepEqual((await h.diagnostic.read(await h.auth(),read,{contextKind:'booking',contextId:a.contextId,reference:requestRef,pageSize:100})).nodes,[]);
+   assert.equal((await h.admin`select count(*)::int n from crm_private.b10_diagnostic_observations where observation_id=${observationId}::uuid`)[0]!.n,1,'legacy evidence remains durable');
+-  const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59818/h5017cmigrate?sslmode=disable','--type','all','--fail-on','error'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);
++  const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59818/h5017cmigrate?sslmode=disable','--type','all','--fail-on','error','--output-format','json'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);
+   console.log('C12 migration65 preservation',JSON.stringify({oldTables:tables.length,oldFunctions:catalog.length,newHelpers:3,changedBodies:replaced,rowsHash:before,rollback:true,legacyBadObservationPreserved:true,advisors:JSON.parse(advisors.stdout)}));
+  }finally{await h.close();}
+ });

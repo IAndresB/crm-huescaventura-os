@@ -1,0 +1,13 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-017-migration.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-017-migration.test.ts
+index c86e6abc..7f0390e4 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-017-migration.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-017-migration.test.ts
+@@ -22,7 +22,7 @@ test('H5-017 D07 populated63 upgrade rollback retry historical rows functions ow
+   await h.migration.unsafe(sql);assert.equal(await data(),digest);const after=await catalog();for(const r of before)assert.deepEqual(after.find(x=>x.oid===r.oid),r);
+   const q={contextKind:'booking' as const,contextId:f.context.contextId,pageSize:100,reference:f.executionId};const p=await h.diagnostics.read(await h.auth(),read,q);assert.ok(p.nodes.some(x=>x.source==='b08_attempts'));assert.equal(p.nodes.find(x=>x.source==='b08_executions')!.incomplete,true);
+   console.log('H5017 migration',JSON.stringify({chain:(await readdir('supabase/migrations')).filter(x=>x.endsWith('.sql')).length,oldTables:tables.length,oldFunctions:before.length,changedOldFunctions:0,populatedUpgrade:true,rollback:true,retry:true,dataHash:digest}));
+-  const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59619/h5017migration?sslmode=disable','--type','all','--fail-on','error'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);console.log('H5017 advisors',advisors.stdout);
++  const advisors=spawnSync('npx',['--yes','supabase@2.119.0','db','advisors','--db-url','postgresql://crm_h0_migration@127.0.0.1:59619/h5017migration?sslmode=disable','--type','all','--fail-on','error','--output-format','json'],{encoding:'utf8',timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);console.log('H5017 advisors',advisors.stdout);
+  }finally{await h.close();}
+ });
+ test('H5-017 D07 clean64 install, permissions and two real contexts isolated',async()=>{

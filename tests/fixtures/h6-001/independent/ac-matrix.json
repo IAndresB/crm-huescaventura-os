@@ -1,0 +1,1690 @@
+{
+  "scope": "Independent current execution map of 34 principal criteria, material cited branches only. PASS rows do not mean global H6 criterion completion. The three directly assigned requirements are AC-089, SPEC-NFR-001 and E2E-01.",
+  "base": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "expectedSHA": "ecaf8a7ffc942493c5d7fc7606f0c15a6af8d85aba766e1117d0cb901d544eb2",
+  "rows": [
+    {
+      "criterion": "AC-001",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Unknown material cost stays null, blocks only dependent definitive fixation; independent known scope continues.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 79,
+          "test": "R17 unknown material cost only dependent fixation blocked, independent work allowed",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1208,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 479,
+        "literal": "| AC-001 | Falta coste verificable de S1, pero existe necesidad/contacto y datos suficientes de S2; se prepara la venta y se intenta comprometer precio de S1. | La venta/S2 pueden continuar; compromiso de S1 pendiente por dato identificado, sin convertir coste desconocido en cero. | SPEC-FR-ID-001, SPEC-FR-COM-001, SPEC-FR-PROP-005, SPEC-FR-ERR-001. |"
+      }
+    },
+    {
+      "criterion": "AC-002",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Distinct organization/person/group roles and history; changed Primary Contact leaves earlier accepter and payer/nonparticipant separation.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h1-002.test.ts",
+          "sourceSHA": "a788e0cd5bbac2e37cabd2b84a66704974004c87e69346ccc01bb23162c0d0b8",
+          "sourceLine": 94,
+          "test": "H1-002 R01-R08,R17: distinct parties, context, history and denied inference",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1111,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-008.test.ts",
+          "sourceSHA": "e063e56aa4e5cc6191e55546aade733bd67d8db3584fbf0f54672beaed647e5e",
+          "sourceLine": 55,
+          "test": "R20 changing Primary Contact preserves earlier accepter",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-14.stdout.log.gz",
+          "logLine": 45,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-008.test.ts",
+          "sourceSHA": "e063e56aa4e5cc6191e55546aade733bd67d8db3584fbf0f54672beaed647e5e",
+          "sourceLine": 107,
+          "test": "R61 Organization/context payer/nonparticipant and changed interlocutor preserve Acceptance",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-14.stdout.log.gz",
+          "logLine": 86,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 480,
+        "literal": "| AC-002 | Una organización cambia de interlocutor y el pagador no participa; se actualiza Primary Contact. | Se mantienen identidades/funciones separadas, historia de organización/personas y aceptante anterior; nuevo interlocutor sin permisos internos. | SPEC-FR-ID-001–002. |"
+      }
+    },
+    {
+      "criterion": "AC-003",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Shared email/phone produces candidates, not automatic merge; authorized merge preserves original identities and links.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h1-004.test.ts",
+          "sourceSHA": "21efb519e7aa23750a00a6d9ca9b4a77ae00f949ee3d7b2775ed70517234c933",
+          "sourceLine": 107,
+          "test": "H1-004 R01-R04: no automatic merge, scoped resolution, retained links and restoration",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1118,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 481,
+        "literal": "| AC-003 | Dos contactos comparten email/teléfono; se propone fusión y después el Administrador verifica la identidad y la ejecuta. | Primero solo candidatos; tras acción humana se conservan ambas identidades/historias/relaciones y procedencia, sin fusión automática. | SPEC-FR-ID-003, SPEC-FR-IDEMP-003. |"
+      }
+    },
+    {
+      "criterion": "AC-004",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Lead converts through the ordinary contract; each absent contact/need/possibility separately denies conversion without final date/quantity requirements.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 48,
+          "test": "P01 context and Lead via ordinary contracts",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 27,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 55,
+          "test": "P02 Lead conversion versions modalities and exact Acceptance",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 28,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h2-002.test.ts",
+          "sourceSHA": "7cfe93d6fc91420d9cb8d66f0d41b34d06587009c97ca704d989e6a6b3d72ab0",
+          "sourceLine": 82,
+          "test": "R01: three exact minima; each individually absent rejected by PostgreSQL",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1171,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-002.test.ts",
+          "sourceSHA": "7cfe93d6fc91420d9cb8d66f0d41b34d06587009c97ca704d989e6a6b3d72ab0",
+          "sourceLine": 99,
+          "test": "R03: incomplete Lead, source/owner/link and direct H1 identity reuse",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1173,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 482,
+        "literal": "| AC-004 | Lead con contacto válido, necesidad identificable y posibilidad real, sin fecha/cantidad final ni scoring; se convierte. | Opportunity Nueva enlazada al origen; si falta cualquiera de esos tres mínimos queda pendiente de completarlo. | SPEC-FR-COM-001, SPEC-FR-ID-001. |"
+      }
+    },
+    {
+      "criterion": "AC-005",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Missing loss reason rejects; explicit unknown reason is retained; alternative rejection does not lose whole Opportunity.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-002.test.ts",
+          "sourceSHA": "7cfe93d6fc91420d9cb8d66f0d41b34d06587009c97ca704d989e6a6b3d72ab0",
+          "sourceLine": 154,
+          "test": "R10: OP-08 all approved reasons, unknown explicit, no loss from alternative rejection",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1180,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 483,
+        "literal": "| AC-005 | Se intenta marcar Perdida sin motivo y luego con desconocido explícito; se rechaza solo una alternativa distinta. | Primer intento rechazado; segundo conserva pérdida/contexto; rechazo de alternativa no pierde toda venta. | SPEC-FR-COM-003–004, SPEC-FR-PROP-007. |"
+      }
+    },
+    {
+      "criterion": "AC-006",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Lost/paused reactivation retains original cause and old validity, refuses direct won/validity renewal inference.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-002.test.ts",
+          "sourceSHA": "7cfe93d6fc91420d9cb8d66f0d41b34d06587009c97ca704d989e6a6b3d72ab0",
+          "sourceLine": 166,
+          "test": "R12: OP-10 lost/paused to both supported destinations; history and old vigencies preserved",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1182,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-002.test.ts",
+          "sourceSHA": "7cfe93d6fc91420d9cb8d66f0d41b34d06587009c97ca704d989e6a6b3d72ab0",
+          "sourceLine": 196,
+          "test": "R15: explicit SM-FORB-30 attempts do not erase loss or renew external validity",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1185,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-006.test.ts",
+          "sourceSHA": "dd5b6e25cebaab95e55c191dc2239555cc23d944f1ca71628239be2d13f43b34",
+          "sourceLine": 83,
+          "test": "R15 expired no review blocks",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1246,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 484,
+        "literal": "| AC-006 | Venta pausada o perdida se reactiva con interés nuevo y tarifa antigua caducada. | Conserva pausa/pérdida/motivo y destino sustentado; precio se revalida antes del compromiso, sin volver directamente a Ganada. | SPEC-FR-COM-005. |"
+      }
+    },
+    {
+      "criterion": "AC-007",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Fixed v1 immutable; price/composition/terms changes produce v2 and preserve v1 plus alternatives.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 71,
+          "test": "R06 ordinary contract cannot edit fixed v1",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1197,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 72,
+          "test": "R07 material price creates v2 and keeps v1",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1198,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 72,
+          "test": "R08 material composition creates v2 and keeps v1",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1199,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 72,
+          "test": "R09 material terms creates v2 and keeps v1",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1200,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 485,
+        "literal": "| AC-007 | Proposal tiene versión fijada v1 aún no aceptada; se cambia precio/composición/términos. | v1 permanece idéntica; existe nueva preparación/v2 enlazada con motivo; alternativas previas siguen disponibles. | SPEC-FR-PROP-001–002, SPEC-FR-HIST-002. |"
+      }
+    },
+    {
+      "criterion": "AC-008",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Most restrictive material validity applies; late act without current revalidation denies; later review cannot retroactively rescue expired acceptance.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-006.test.ts",
+          "sourceSHA": "dd5b6e25cebaab95e55c191dc2239555cc23d944f1ca71628239be2d13f43b34",
+          "sourceLine": 70,
+          "test": "R02 most restrictive material limit",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1233,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-008.test.ts",
+          "sourceSHA": "e063e56aa4e5cc6191e55546aade733bd67d8db3584fbf0f54672beaed647e5e",
+          "sourceLine": 45,
+          "test": "R10 outside effective material expiry cannot verify",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-14.stdout.log.gz",
+          "logLine": 35,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-008.test.ts",
+          "sourceSHA": "e063e56aa4e5cc6191e55546aade733bd67d8db3584fbf0f54672beaed647e5e",
+          "sourceLine": 60,
+          "test": "R24 later revalidation cannot rescue an earlier expired act",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-14.stdout.log.gz",
+          "logLine": 49,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 486,
+        "literal": "| AC-008 | Validez ordinaria 7 días, pero opción material vence antes; cliente responde tras ese vencimiento sin revalidación. | Prevalece límite más restrictivo; respuesta conservada pendiente, sin Acceptance válida. Revalidación posterior permite nuevo acto, sin prorrogar v1 silenciosamente. | SPEC-FR-PROP-004, SPEC-FR-ACC-002. |"
+      }
+    },
+    {
+      "criterion": "AC-009",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Actual valid act can be recorded later; missing act-time proof blocks.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-008.test.ts",
+          "sourceSHA": "e063e56aa4e5cc6191e55546aade733bd67d8db3584fbf0f54672beaed647e5e",
+          "sourceLine": 46,
+          "test": "R11 late recording preserves real act within validity",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-14.stdout.log.gz",
+          "logLine": 36,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-008.test.ts",
+          "sourceSHA": "e063e56aa4e5cc6191e55546aade733bd67d8db3584fbf0f54672beaed647e5e",
+          "sourceLine": 47,
+          "test": "R12 missing evidence of real act time blocks",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-14.stdout.log.gz",
+          "logLine": 37,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 487,
+        "literal": "| AC-009 | Se registra tarde una aceptación: caso A acredita acto dentro de vigencia; B no acredita vigencia del acto. | A distingue fecha real y registro y permite verificar; B conserva candidato y exige nueva aceptación válida tras revisar, sin fecha/revalidación retroactiva. | SPEC-FR-ACC-001–002, SPEC-FR-HIST-001. |"
+      }
+    },
+    {
+      "criterion": "AC-010",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Unknown dependent cost remains unknown and no definitive commitment; independent tariff-based work passes.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 79,
+          "test": "R17 unknown material cost only dependent fixation blocked, independent work allowed",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1208,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-006.test.ts",
+          "sourceSHA": "dd5b6e25cebaab95e55c191dc2239555cc23d944f1ca71628239be2d13f43b34",
+          "sourceLine": 85,
+          "test": "R17 unknown material costs retained not zero",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1248,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 488,
+        "literal": "| AC-010 | Oferta definitiva depende de coste hotelero incierto; otro precio se conoce por tarifa verificable. | No compromete importe dependiente hasta confirmar coste; conserva fuentes/unidades y estimación solo si regla aprobada, sin impedir trabajo independiente. | SPEC-FR-CAT-002–004, SPEC-FR-PROP-005. |"
+      }
+    },
+    {
+      "criterion": "AC-011",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Exact decimal calculation and manual final adjustment retain cost/unit/author/reason internally; commercial projection excludes those values.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 76,
+          "test": "R14 exact PM02 100.01 x10 =1000.10",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1205,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 77,
+          "test": "R15 calculated90/manual100.01/difference10.01 actor and immutable costs",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1206,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 78,
+          "test": "R16 commercial projection excludes economics outside UI",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1207,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 489,
+        "literal": "| AC-011 | Pack con componente fijo y precio final manual diferente al calculado se prepara para cliente. | Por modalidad salen precio final/persona, participantes e incluidos; dentro quedan unidad fija, cálculo, ajuste/autor/motivo y desglose reservado. | SPEC-FR-PROP-003/005, SPEC-FR-SEC-003, SPEC-FR-CAT-005. |"
+      }
+    },
+    {
+      "criterion": "AC-012",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Explicit A selection leaves B neither accepted nor rejected; immutable terms and selection recorded.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-008.test.ts",
+          "sourceSHA": "e063e56aa4e5cc6191e55546aade733bd67d8db3584fbf0f54672beaed647e5e",
+          "sourceLine": 48,
+          "test": "R13 selection A leaves B neither accepted nor rejected",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-14.stdout.log.gz",
+          "logLine": 38,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-010.test.ts",
+          "sourceSHA": "9f4b23f4545d8309ba11d411336ce3423d3c8fa5f458f9462dcf89cd390cfa92",
+          "sourceLine": 45,
+          "test": "R13 exact modality A leaves B uncontracted",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1289,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 490,
+        "literal": "| AC-012 | Versión vigente contiene A/B expresamente seleccionables; cliente acepta A inequívocamente. | Acceptance fija A y sus términos; no exige v2 por elegir A ni contrata/rechaza B por inferencia. | SPEC-FR-ACC-001–003. |"
+      }
+    },
+    {
+      "criterion": "AC-013",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Nonselectable partial request requires new version before Acceptance; historical v1 cannot be repaired.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-008.test.ts",
+          "sourceSHA": "e063e56aa4e5cc6191e55546aade733bd67d8db3584fbf0f54672beaed647e5e",
+          "sourceLine": 49,
+          "test": "R14 nonselectable request needs new version before Acceptance",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-14.stdout.log.gz",
+          "logLine": 39,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 74,
+          "test": "R12 AC013 nonselectable partial request recorded no historical repair",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1203,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 491,
+        "literal": "| AC-013 | Versión contiene un pack cuyo componente no es seleccionable y cliente pide solo ese componente. | Se conserva petición; primero nueva Proposal Version y después Acceptance real; no aceptación de v1 reparada retrospectivamente. | SPEC-FR-ACC-003, SPEC-FR-PROP-002. |"
+      }
+    },
+    {
+      "criterion": "AC-014",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Direct booking composes real T01/T02/T03; no invented Lead/send; missing agreement cannot complete; late failure rolls back entire composition.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h2-010.test.ts",
+          "sourceSHA": "9f4b23f4545d8309ba11d411336ce3423d3c8fa5f458f9462dcf89cd390cfa92",
+          "sourceLine": 35,
+          "test": "R02 direct reuses existing real chain without Lead or fake sends",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1278,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-010.test.ts",
+          "sourceSHA": "9f4b23f4545d8309ba11d411336ce3423d3c8fa5f458f9462dcf89cd390cfa92",
+          "sourceLine": 36,
+          "test": "R03 direct composes real T02 then T03 atomically; missing agreement retains preparation",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1279,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-010.test.ts",
+          "sourceSHA": "9f4b23f4545d8309ba11d411336ce3423d3c8fa5f458f9462dcf89cd390cfa92",
+          "sourceLine": 120,
+          "test": "R64 direct composes T01 T02 T03 same commit with full late rollback",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1340,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 492,
+        "literal": "| AC-014 | Administrador registra reserva directa con evidencia real de llamada/condiciones exactas; segundo caso carece de Acceptance del cliente. | Primero genera/reutiliza Opportunity → Proposal/Version/términos → Acceptance → Booking; sin Lead/envío ficticios. Segundo puede preparar, pero no completar Booking aceptada. | SPEC-FR-COM-002, SPEC-FR-BOOK-001–002, SPEC-FR-ACC-002/005. |"
+      }
+    },
+    {
+      "criterion": "AC-015",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Database uniqueness, replay, lost committed response and conflicting concurrent keys leave one Booking.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 76,
+          "test": "P03 one Booking immutable accepted snapshots quantities and nights",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 30,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h2-010.test.ts",
+          "sourceSHA": "9f4b23f4545d8309ba11d411336ce3423d3c8fa5f458f9462dcf89cd390cfa92",
+          "sourceLine": 37,
+          "test": "R04 uniqueness at database boundary",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1280,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-010.test.ts",
+          "sourceSHA": "9f4b23f4545d8309ba11d411336ce3423d3c8fa5f458f9462dcf89cd390cfa92",
+          "sourceLine": 39,
+          "test": "R07 exact replay retains root code detail and history",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1283,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-010.test.ts",
+          "sourceSHA": "9f4b23f4545d8309ba11d411336ce3423d3c8fa5f458f9462dcf89cd390cfa92",
+          "sourceLine": 40,
+          "test": "R08 committed result survives lost response",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1284,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-010.test.ts",
+          "sourceSHA": "9f4b23f4545d8309ba11d411336ce3423d3c8fa5f458f9462dcf89cd390cfa92",
+          "sourceLine": 121,
+          "test": "R65 distinct conflicting keys two authorized sessions both orders",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1341,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 493,
+        "literal": "| AC-015 | Dos intentos equivalentes, simultáneos o repetidos tras perder respuesta, crean Booking para la misma Opportunity aceptada. | Existe una sola Booking con sus vínculos; segundo reconoce resultado/operación en curso sin duplicar; contenido material diferente produce conflicto. | SPEC-FR-BOOK-003, SPEC-FR-IDEMP-001–002, SPEC-FR-CONC-002. |"
+      }
+    },
+    {
+      "criterion": "AC-016",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Acceptance and Ganada have no money/confirmation side effect; conversion initially pending preparation.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 55,
+          "test": "P02 Lead conversion versions modalities and exact Acceptance",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 28,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 91,
+          "test": "N02 won and dates alone do not confirm or perform Booking",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 31,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h2-010.test.ts",
+          "sourceSHA": "9f4b23f4545d8309ba11d411336ce3423d3c8fa5f458f9462dcf89cd390cfa92",
+          "sourceLine": 93,
+          "test": "R48 SM-FORB04 tempting Ganada cannot confirm or reconcile",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1324,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-008.test.ts",
+          "sourceSHA": "e063e56aa4e5cc6191e55546aade733bd67d8db3584fbf0f54672beaed647e5e",
+          "sourceLine": 52,
+          "test": "R17 advance unequivocally linked is evidence without Payment",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-14.stdout.log.gz",
+          "logLine": 42,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 494,
+        "literal": "| AC-016 | Acceptance válida sin pago ni Provider Confirmation habilita Ganada y conversión. | Ganada solo en alcance aceptado; Booking Pendiente de preparación, sin conciliación ni confirmación operativa implícitas. Anticipo como evidencia exige verificaciones separadas. | SPEC-FR-COM-003, SPEC-FR-BOOK-001/004, SPEC-FR-ACC-005. |"
+      }
+    },
+    {
+      "criterion": "AC-017",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Continuous sale A10+B2 yields rafting10/cena12 and nights12/10 with preserved contribution provenance.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 76,
+          "test": "P03 one Booking immutable accepted snapshots quantities and nights",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 30,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h2-004.test.ts",
+          "sourceSHA": "fb71f2f6b4d20340c0bb991746a97e087fd4de3a94aee53f54033ab7602f2ea6",
+          "sourceLine": 75,
+          "test": "R13 modalities preserve rafting10/cena12/night12/night10 contributions",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1204,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 500,
+        "literal": "| AC-017 | Modalidad A: 10 con rafting/2 noches; B: 2 sin rafting/1 noche; cena común; se convierte lo aceptado. | Una Booking: rafting 10, cena 12, noche 1: 12 y noche 2: 10; procedencia de cada contribución, sin servicios/noches adicionales. | SPEC-FR-BOOK-003, SPEC-FR-SVC-001–003, SPEC-FR-PROP-003. |"
+      }
+    },
+    {
+      "criterion": "AC-018",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Group12→14 leaves rafting10 unaffected; explicit dinner change retains before/after without fictitious nominal people.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h4-012.test.ts",
+          "sourceSHA": "8dc5e434e08707490a9e01e4daada3296613f57c146cb22e5ded622ea41b227a",
+          "sourceLine": 26,
+          "test": "H4-012 AC018 actual H2 group12 to14 preserves rafting10 and dinner before after without fictitious nominal participants",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 4914,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 501,
+        "literal": "| AC-018 | Grupo pasa de 12 a 14; rafting conserva 10 confirmados; se pide cambiar cena. | Ningún global sobrescribe rafting/noches; cena conserva antes/después y revisa solo capacidad/precio/confirmación materialmente dependientes. | SPEC-FR-SVC-002/010. |"
+      }
+    },
+    {
+      "criterion": "AC-019",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Night2 change preserves night1; 12/10 contributions remain, four names do not increase totals; whole house does not require nominal room distribution.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h4-012-f16.test.ts",
+          "sourceSHA": "6ba6413979bfeae2eb32ad1e396884c14c5f4822ba4042a8e7c9a5cd489335b1",
+          "sourceLine": 37,
+          "test": "H4-012-F16 C09 actual H2 nights12/10 four nominal remain independent of sibling supplier change",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 2797,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-011.test.ts",
+          "sourceSHA": "a7d6e707fc66d49013a6945eaff6e0d11014a3583278a696dd95cd77668a2e4d",
+          "sourceLine": 33,
+          "test": "R12 whole house needs no invented rooms",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-11.stdout.log.gz",
+          "logLine": 37,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 502,
+        "literal": "| AC-019 | Noche 1 tiene 12 y noche 2 tiene 10; se cambia noche 2. Solo 4 asistentes de noche 1 están identificados nominalmente. | Noche 1 no cambia; lista parcial no suma 4 a 12 ni crea 8 personas ficticias; casa completa no exige reparto de habitaciones por defecto. | SPEC-FR-ID-004, SPEC-FR-SVC-003–004. |"
+      }
+    },
+    {
+      "criterion": "AC-023",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Funds and critical scope independently required; six days 50% fails/100% passes; seven-day initial50% boundary retained; economic exception cannot waive critical.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 105,
+          "test": "P05 received verified and assigned funds remain distinct",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 33,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 153,
+          "test": "P09 full preparation joins funds critical scopes and reviewed documents",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 56,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h4-021.test.ts",
+          "sourceSHA": "c4605714ee8195fad8bf3bb5cd5b219e82058dc391e136c1d4bfc71a68305e2d",
+          "sourceLine": 18,
+          "test": "B09/B14/B43/B44 valid money never confirms missing critical",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 12092,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h4-021.test.ts",
+          "sourceSHA": "c4605714ee8195fad8bf3bb5cd5b219e82058dc391e136c1d4bfc71a68305e2d",
+          "sourceLine": 19,
+          "test": "B05/B13 partial service coverage and missing pertinent allocation",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 12093,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h4-021.test.ts",
+          "sourceSHA": "c4605714ee8195fad8bf3bb5cd5b219e82058dc391e136c1d4bfc71a68305e2d",
+          "sourceLine": 20,
+          "test": "B15 six days and50% does not satisfy before-confirmation100%",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 12094,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h4-021.test.ts",
+          "sourceSHA": "c4605714ee8195fad8bf3bb5cd5b219e82058dc391e136c1d4bfc71a68305e2d",
+          "sourceLine": 21,
+          "test": "B16 six days and100% passes current guard",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 12095,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h4-021.test.ts",
+          "sourceSHA": "c4605714ee8195fad8bf3bb5cd5b219e82058dc391e136c1d4bfc71a68305e2d",
+          "sourceLine": 22,
+          "test": "B17 exact7 days retains50% initial; full balance day not expired",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 12096,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h4-021.test.ts",
+          "sourceSHA": "c4605714ee8195fad8bf3bb5cd5b219e82058dc391e136c1d4bfc71a68305e2d",
+          "sourceLine": 25,
+          "test": "B27 economic exception cannot dispense critical confirmation",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 12135,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 506,
+        "literal": "| AC-023 | Reserva a 10 días con crítico confirmado y 50 % debido verificado/asignado; casos alternativos: crítico pendiente, justificante sin verificar o reserva a 6 días con solo 50 %. | Primer caso satisface guarda de cobro inicial; alternativos no confirman conjunto. A 6 días exige 100 % salvo excepción económica documentada, que nunca dispensa crítico/capacidad. | SPEC-FR-BOOK-004, SPEC-FR-ECON-001–002. |"
+      }
+    },
+    {
+      "criterion": "AC-024",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Tentative16 preserves confirmed18; hour ratification leaves quantity review pending.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h4-012.test.ts",
+          "sourceSHA": "8dc5e434e08707490a9e01e4daada3296613f57c146cb22e5ded622ea41b227a",
+          "sourceLine": 27,
+          "test": "H4-012 AC024 tentative16 preserves actual confirmed18 and hour ratification leaves quantity pending",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 4915,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 507,
+        "literal": "| AC-024 | Confirmación para 18; llega «creo que 16» o nueva fecha; respuesta posterior solo ratifica horario. | Conserva 18/hecho anterior, abre revisión acotada y tarea; horario no ratifica cantidad/precio/capacidad; no aplica 16 automáticamente. | SPEC-FR-SVC-010, SPEC-FR-HIST-005. |"
+      }
+    },
+    {
+      "criterion": "AC-025",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Expected/notice/customer proof alone do not create received/verified money.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 105,
+          "test": "P05 received verified and assigned funds remain distinct",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 33,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h3-004.test.ts",
+          "sourceSHA": "cbb621dac5f04eecb95f051e81a1e40f69358df8666875d7cec4c9b57a1c7f9e",
+          "sourceLine": 41,
+          "test": "R01 Expected exists independently, no movement created",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1418,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-004.test.ts",
+          "sourceSHA": "cbb621dac5f04eecb95f051e81a1e40f69358df8666875d7cec4c9b57a1c7f9e",
+          "sourceLine": 42,
+          "test": "R02 notice or promise detection is not money",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1419,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-004.test.ts",
+          "sourceSHA": "cbb621dac5f04eecb95f051e81a1e40f69358df8666875d7cec4c9b57a1c7f9e",
+          "sourceLine": 43,
+          "test": "R03 customer proof alone cannot receive",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1420,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 508,
+        "literal": "| AC-025 | Expected Payment de 500 sin entrada y luego aviso de transferencia. | Previsión no crea dinero; aviso crea detección sin recepción/conciliación verificadas ni pago de reserva. | SPEC-FR-ECON-001/003. |"
+      }
+    },
+    {
+      "criterion": "AC-026",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Receipt separate from correspondence; 500 received/200 verified leaves300 pending and unable to fund another purpose.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 105,
+          "test": "P05 received verified and assigned funds remain distinct",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 33,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h3-004.test.ts",
+          "sourceSHA": "cbb621dac5f04eecb95f051e81a1e40f69358df8666875d7cec4c9b57a1c7f9e",
+          "sourceLine": 51,
+          "test": "R11 authorized receipt separate from correspondence",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1428,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-004.test.ts",
+          "sourceSHA": "cbb621dac5f04eecb95f051e81a1e40f69358df8666875d7cec4c9b57a1c7f9e",
+          "sourceLine": 70,
+          "test": "R26 normative 500 received 200 identified 300 unresolved",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1443,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-006.test.ts",
+          "sourceSHA": "4719b89eb0d38d951ca9380b79b330fbb758dfc4a6ce794e72a2c66f1e66584e",
+          "sourceLine": 46,
+          "test": "R10 unassigned unresolved300 cannot fund another purpose automatically",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1513,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 509,
+        "literal": "| AC-026 | Transferencia recibida verificada pero destino dudoso; después solo 200 de 500 quedan comprobados. | Recepción separada de conciliación; propuesta requiere revisión humana, 300 siguen pendientes y no se usa su porción para acreditar obligación. | SPEC-FR-ECON-004–005. |"
+      }
+    },
+    {
+      "criterion": "AC-027",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Competing80+80 from100 cannot both consume; real allocation-vs-refund races in both orders preserve shared portions.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 119,
+          "test": "N03 duplicated and overallocated funds denied without second movement",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 52,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h3-006.test.ts",
+          "sourceSHA": "4719b89eb0d38d951ca9380b79b330fbb758dfc4a6ce794e72a2c66f1e66584e",
+          "sourceLine": 152,
+          "test": "R49 real concurrent80/80 same and different destinations no existing child",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1552,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h4-016.test.ts",
+          "sourceSHA": "499b4c75f4d91e547e2f1ad109ce955f77b6b2cbde0c43dcc925215936fdef83",
+          "sourceLine": 35,
+          "test": "H4-016 R24 AC027 Allocation80 vs Refund80 from100 0,1",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 7867,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h4-016.test.ts",
+          "sourceSHA": "499b4c75f4d91e547e2f1ad109ce955f77b6b2cbde0c43dcc925215936fdef83",
+          "sourceLine": 35,
+          "test": "H4-016 R24 AC027 Allocation80 vs Refund80 from100 1,0",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 7932,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h6-001-independent-audit.test.ts",
+          "sourceSHA": "bef1aee615ad4907c987b6d7354ab222b56d208df8eb22786c64c9134f332f70",
+          "sourceLine": 15,
+          "test": "A01 external payment partial reality cannot complete or replace invoice",
+          "run": "independent-02",
+          "log": "independent-02/stdout.log.gz",
+          "logLine": 27,
+          "result": "PASS",
+          "coverage": "independent new control chain68; external branch separate from E2E-01"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 510,
+        "literal": "| AC-027 | Fondos comprobados disponibles 100; dos operaciones intentan consumir 80 cada una, incluyendo caso asignación frente a Refund. | No se aplican ambas por 160; tras primer efecto, segundo detecta insuficiencia/conflicto y reevalúa. Misma porción no financia dos efectos. | SPEC-FR-ECON-005/007, SPEC-FR-CONC-002. |"
+      }
+    },
+    {
+      "criterion": "AC-028",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Duplicate movement does not sum; equal real transfers remain separate; multiple partial payments cover one obligation without forced excess destination.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h3-004.test.ts",
+          "sourceSHA": "cbb621dac5f04eecb95f051e81a1e40f69358df8666875d7cec4c9b57a1c7f9e",
+          "sourceLine": 46,
+          "test": "R06 repeated identical signal links prior without double money",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1423,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-004.test.ts",
+          "sourceSHA": "cbb621dac5f04eecb95f051e81a1e40f69358df8666875d7cec4c9b57a1c7f9e",
+          "sourceLine": 49,
+          "test": "R09 two real transfers same amount date payer reference remain two",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1426,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-006.test.ts",
+          "sourceSHA": "4719b89eb0d38d951ca9380b79b330fbb758dfc4a6ce794e72a2c66f1e66584e",
+          "sourceLine": 44,
+          "test": "R08 multiple real payments cover one obligation without1to1",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1511,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-006.test.ts",
+          "sourceSHA": "4719b89eb0d38d951ca9380b79b330fbb758dfc4a6ce794e72a2c66f1e66584e",
+          "sourceLine": 45,
+          "test": "R09 one payment multiple disjoint obligation destinations",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1512,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-006.test.ts",
+          "sourceSHA": "4719b89eb0d38d951ca9380b79b330fbb758dfc4a6ce794e72a2c66f1e66584e",
+          "sourceLine": 46,
+          "test": "R10 unassigned unresolved300 cannot fund another purpose automatically",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1513,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 511,
+        "literal": "| AC-028 | Aviso duplicado de una transferencia y otra transferencia real con mismo importe/fecha; un vencimiento se cubre con pagos parciales. | Duplicado no suma; segunda transferencia real se conserva; parciales muestran saldo, sin convertir toda Booking en pagada ni forzar asignación de excedente. | SPEC-FR-ECON-003–006, SPEC-FR-IDEMP-003. |"
+      }
+    },
+    {
+      "criterion": "AC-044",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Managed300 and Fee200 remain separate; no inferred mandate/payment/own income; independent actual80 payment leaves420 due and no invoice.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h3-006.test.ts",
+          "sourceSHA": "4719b89eb0d38d951ca9380b79b330fbb758dfc4a6ce794e72a2c66f1e66584e",
+          "sourceLine": 47,
+          "test": "R11 managed funds and Fee distinct no output mandate own income",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1514,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-010.test.ts",
+          "sourceSHA": "9d54c96a2b79718646d0e14037b1d9b518ea0d3a4f1b1f783dbd43af89681ac5",
+          "sourceLine": 60,
+          "test": "R10",
+          "parent": "H3-010 independent frozen normative matrix",
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1671,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-010.test.ts",
+          "sourceSHA": "9d54c96a2b79718646d0e14037b1d9b518ea0d3a4f1b1f783dbd43af89681ac5",
+          "sourceLine": 62,
+          "test": "R12",
+          "parent": "H3-010 independent frozen normative matrix",
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1673,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-010.test.ts",
+          "sourceSHA": "9d54c96a2b79718646d0e14037b1d9b518ea0d3a4f1b1f783dbd43af89681ac5",
+          "sourceLine": 69,
+          "test": "R19",
+          "parent": "H3-010 independent frozen normative matrix",
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1680,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h6-001-independent-audit.test.ts",
+          "sourceSHA": "bef1aee615ad4907c987b6d7354ab222b56d208df8eb22786c64c9134f332f70",
+          "sourceLine": 15,
+          "test": "A01 external payment partial reality cannot complete or replace invoice",
+          "run": "independent-02",
+          "log": "independent-02/stdout.log.gz",
+          "logLine": 27,
+          "result": "PASS",
+          "coverage": "independent new control chain68; external branch separate from E2E-01"
+        }
+      ],
+      "limits": "Separate external component/chain68 controls; no external supplier invented in internal continuous sale, no E2E-05 closure.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 527,
+        "literal": "| AC-044 | Cliente aporta fondos para externo y honorarios; se asigna parte al suplido, otra a Fee. | Gestión externa, factura al cliente, pago y remuneración propia separados; asignación no acredita salida ni convierte total gestionado en ingreso/coste propio; mandato ausente no aceptado. | SPEC-FR-ECON-005/009/013, SPEC-FR-ACC-005. |"
+      }
+    },
+    {
+      "criterion": "AC-045",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Received invoice remains unreviewed/unlinked; wrong recipient or amount enters Incident without arithmetic repair; review guards and link separate.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h3-008.test.ts",
+          "sourceSHA": "5a77e312193e44d0fc5233e34730051ff67fbd68d93a7598f3217e4c906489e1",
+          "sourceLine": 54,
+          "test": "R13",
+          "parent": "H3-008 independent frozen normative matrix",
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1601,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-008.test.ts",
+          "sourceSHA": "5a77e312193e44d0fc5233e34730051ff67fbd68d93a7598f3217e4c906489e1",
+          "sourceLine": 56,
+          "test": "R15",
+          "parent": "H3-008 independent frozen normative matrix",
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1603,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-008.test.ts",
+          "sourceSHA": "5a77e312193e44d0fc5233e34730051ff67fbd68d93a7598f3217e4c906489e1",
+          "sourceLine": 57,
+          "test": "R16",
+          "parent": "H3-008 independent frozen normative matrix",
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1604,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-008.test.ts",
+          "sourceSHA": "5a77e312193e44d0fc5233e34730051ff67fbd68d93a7598f3217e4c906489e1",
+          "sourceLine": 60,
+          "test": "R19",
+          "parent": "H3-008 independent frozen normative matrix",
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1607,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h6-001-independent-audit.test.ts",
+          "sourceSHA": "bef1aee615ad4907c987b6d7354ab222b56d208df8eb22786c64c9134f332f70",
+          "sourceLine": 35,
+          "test": "A04 payment without invoice stays documentary pending until explicit receipt review link",
+          "run": "independent-02",
+          "log": "independent-02/stdout.log.gz",
+          "logLine": 30,
+          "result": "PASS",
+          "coverage": "independent new control chain68; external branch separate from E2E-01"
+        }
+      ],
+      "limits": "Separate invoice/provider component branch; no fiscal/legal or external delivery claim.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 528,
+        "literal": "| AC-045 | Factura externa recibida y pago programado; en otro caso factura corresponde a cliente/importe diferente. | Recibida no significa Revisada/Vinculada ni Pagado; diferencia queda en incidencia/revisión sin ajustar importes para cuadrar. | SPEC-FR-ECON-010–011. |"
+      }
+    },
+    {
+      "criterion": "AC-046",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Actual supplier500 without invoice stays documentary pending; later real Storage original receipt, review, link and evaluation resolve only documentary component. Later correction/discrepancy reopens evaluation.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001-independent-audit.test.ts",
+          "sourceSHA": "bef1aee615ad4907c987b6d7354ab222b56d208df8eb22786c64c9134f332f70",
+          "sourceLine": 35,
+          "test": "A04 payment without invoice stays documentary pending until explicit receipt review link",
+          "run": "independent-02",
+          "log": "independent-02/stdout.log.gz",
+          "logLine": 30,
+          "result": "PASS",
+          "coverage": "independent new control chain68; external branch separate from E2E-01"
+        },
+        {
+          "source": "tests/integration/postgres-h3-010.test.ts",
+          "sourceSHA": "9d54c96a2b79718646d0e14037b1d9b518ea0d3a4f1b1f783dbd43af89681ac5",
+          "sourceLine": 102,
+          "test": "R52",
+          "parent": "H3-010 independent frozen normative matrix",
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1713,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h3-010.test.ts",
+          "sourceSHA": "9d54c96a2b79718646d0e14037b1d9b518ea0d3a4f1b1f783dbd43af89681ac5",
+          "sourceLine": 106,
+          "test": "R53",
+          "parent": "H3-010 independent frozen normative matrix",
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1714,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Current chain68 positive sequence plus pinned component discrepancy regression, distinct from internal E2E-01; no implicit Booking closure.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 529,
+        "literal": "| AC-046 | Pago al proveedor acreditado sin factura; luego llega documento correcto, se revisa/vincula y concilia. | Primero registra pago real y alerta/cierre documental pendiente; después puede resolver suplido con sus evidencias, sin cerrar Booking por inferencia. Nueva discrepancia reabre evaluación. | SPEC-FR-ECON-009–011, SPEC-FR-CLOSE-002/004. |"
+      }
+    },
+    {
+      "criterion": "AC-058",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Actual Finalizada retains pending invoice/deposit/refund; performance alone does not resolve economic/joint closure.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 178,
+          "test": "N05 performance does not implicitly close any dimension",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 82,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h4-023.test.ts",
+          "sourceSHA": "c74dc1c91c814a3320bccecb0030c6b59e62979aafdab9e64ad9b3d670732bda",
+          "sourceLine": 34,
+          "test": "H4-023 J actual Finalizada preserves pending invoice deposit Refund and all economic portions",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 13583,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h5-014-safety.test.ts",
+          "sourceSHA": "f3672e6370867df4cb8a977243ffb9c6c4153619cd5d3ca5a2a5ca0df4336bf1",
+          "sourceLine": 36,
+          "test": "H5-014 A12 real partial Refund and failure without execution stay economically pending",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 15781,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 546,
+        "literal": "| AC-058 | Booking Finalizada pero factura/fianza/devolución siguen pendientes. | Finalización real conservada; Economic Closure y cierre conjunto no resueltos por finalizar. | SPEC-FR-BOOK-005, SPEC-FR-CLOSE-001–003. |"
+      }
+    },
+    {
+      "criterion": "AC-059",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Three explicit independent reviews needed; any missing dimension prevents closure; explicit joint act after all resolved.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 179,
+          "test": "P12 commercial operational economic reviews resolve independently",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 83,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h6-001.test.ts",
+          "sourceSHA": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+          "sourceLine": 182,
+          "test": "P13 explicit joint closure and response-loss replay preserve history",
+          "run": "focal-independent-01",
+          "log": "focal-independent-01/stdout.log.gz",
+          "logLine": 88,
+          "result": "PASS",
+          "coverage": "continuous E2E-01 chain68 with actual synthetic local Auth and Storage"
+        },
+        {
+          "source": "tests/integration/postgres-h5-015.test.ts",
+          "sourceSHA": "421e5bfb39d9cbb9c98ff2905af82825744e04c367ed25b9b0c9a502f6ddae8a",
+          "sourceLine": 10,
+          "test": "H5-015 J01 no implicit closure and pending dimensions reject",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 15851,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h5-015.test.ts",
+          "sourceSHA": "421e5bfb39d9cbb9c98ff2905af82825744e04c367ed25b9b0c9a502f6ddae8a",
+          "sourceLine": 82,
+          "test": "H5-015 J03 insufficient No aplica cannot authorize joint closure",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 15917,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 547,
+        "literal": "| AC-059 | Comercial resuelto, operación pendiente y economía resuelta; después se acreditan las partes operativas restantes. | Evaluaciones independientes; solo después de resolver las tres con criterios aplicables puede declararse Closed / Historical; dimensión sin requisitos exige evaluación explícita. | SPEC-FR-CLOSE-001–003. |"
+      }
+    },
+    {
+      "criterion": "AC-060",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Critical incident blocks current closure; justified critical exception is explicit/scoped and does not waive economic incident/refund.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h5-015.test.ts",
+          "sourceSHA": "421e5bfb39d9cbb9c98ff2905af82825744e04c367ed25b9b0c9a502f6ddae8a",
+          "sourceLine": 47,
+          "test": "H5-015 J02 global critical guard persists invalidation even outside dimension materiality filter",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 15886,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h5-015.test.ts",
+          "sourceSHA": "421e5bfb39d9cbb9c98ff2905af82825744e04c367ed25b9b0c9a502f6ddae8a",
+          "sourceLine": 53,
+          "test": "H5-015 J02 critical exception is explicit, scoped and cannot waive economic incident",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 15891,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h5-013.test.ts",
+          "sourceSHA": "6afb816521b8dfe0c764d87c5b85f45ac5196b575a31ffcf6cd0503e1d0af205",
+          "sourceLine": 76,
+          "test": "H5-013 N03: unexecuted refund and cancellation right remain pending",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 15621,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 548,
+        "literal": "| AC-060 | Crítica Abierta/En gestión, con y sin justificación del Administrador; además hay devolución debida pendiente. | Sin justificación bloquea cierre; con justificación solo salva ese bloqueo admisible, pero devolución/otra incidencia económica sigue bloqueando economía. | SPEC-FR-CLOSE-002–003, SPEC-FR-COORD-006. |"
+      }
+    },
+    {
+      "criterion": "AC-061",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "New material economic incident invalidates only economic/current joint state, retains historical close and other dimensions/independent root.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h5-019-integrated.test.ts",
+          "sourceSHA": "874af10b9fe0b02c55b1b447fbb647e056843f2e4081d650dfd62d1f96226dde",
+          "sourceLine": 26,
+          "test": "H5-019 I02 chain68 T10 three assessments founded invalidation history and independent root",
+          "run": "integrated-68",
+          "log": "integrated-68/stdout.log.gz",
+          "logLine": 31,
+          "result": "PASS",
+          "coverage": "additional current chain68 regression"
+        },
+        {
+          "source": "tests/integration/postgres-h5-015.test.ts",
+          "sourceSHA": "421e5bfb39d9cbb9c98ff2905af82825744e04c367ed25b9b0c9a502f6ddae8a",
+          "sourceLine": 33,
+          "test": "H5-015 J04/J05 close, economic incident, founded reopen, correction, reevaluation and new close",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 15880,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 549,
+        "literal": "| AC-061 | Tras cierre conjunto aparece nueva discrepancia material de pago. | Reabre evaluación económica y retira cierre conjunto actual; conserva cierre previo/causa, sin modificar ejecución comercial/operativa por inferencia. | SPEC-FR-CLOSE-004. |"
+      }
+    },
+    {
+      "criterion": "AC-062",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Merge/archive retains identity links/code search; codes distinct/no reuse; no Opportunity/Booking merging or archive→closure inference.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h1-004.test.ts",
+          "sourceSHA": "21efb519e7aa23750a00a6d9ca9b4a77ae00f949ee3d7b2775ed70517234c933",
+          "sourceLine": 169,
+          "test": "H1-004 R05-R07: D040 cut, distinct serials, no reuse and replay competition",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1119,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h1-004.test.ts",
+          "sourceSHA": "21efb519e7aa23750a00a6d9ca9b4a77ae00f949ee3d7b2775ed70517234c933",
+          "sourceLine": 226,
+          "test": "H1-004 R06: code remains searchable after linked identities merge and archive",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1120,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h2-010.test.ts",
+          "sourceSHA": "9f4b23f4545d8309ba11d411336ce3423d3c8fa5f458f9462dcf89cd390cfa92",
+          "sourceLine": 95,
+          "test": "R50 SM-FORB31 split/merge or second distinct Booking rejected",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 1326,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Only the cited material branches were reexecuted; no global closure of this AC or its separate H6 task.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 550,
+        "literal": "| AC-062 | Se archiva/anula un expediente o se fusionan humanamente identidades Contact/Organization con historia; después se recupera el contexto y crea otro expediente anual. | Recuperación conserva vínculos/códigos y no presenta archivado como cierre; nuevo identificador no reutiliza el anterior. No se fusionan Opportunities/Bookings. | SPEC-FR-ID-005, SPEC-FR-HIST-006, SPEC-FR-CLOSE-003. |"
+      }
+    },
+    {
+      "criterion": "AC-063",
+      "result": "PASS_LOCAL_CITED_SCOPE",
+      "observed": "Factual exceptional execution/refund without previous approval is registered with human review/incident; no invented confirmation or retroactive authorization.",
+      "evidence": [
+        {
+          "source": "tests/integration/postgres-h4-023.test.ts",
+          "sourceSHA": "c74dc1c91c814a3320bccecb0030c6b59e62979aafdab9e64ad9b3d670732bda",
+          "sourceLine": 7,
+          "test": "H4-023 C exceptional verified reality requires human review and never creates confirmation",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 12437,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        },
+        {
+          "source": "tests/integration/postgres-h4-016.test.ts",
+          "sourceSHA": "499b4c75f4d91e547e2f1ad109ce955f77b6b2cbde0c43dcc925215936fdef83",
+          "sourceLine": 10,
+          "test": "H4-016 R13 AC063 preserve unapproved real output with existing Incident, never retroactive approval",
+          "parent": null,
+          "run": "regression-01",
+          "log": "regression-01/phase-15.stdout.log.gz",
+          "logLine": 7098,
+          "result": "PASS",
+          "coverage": "component PostgreSQL; historical fixture migration boundary retained"
+        }
+      ],
+      "limits": "Separate exceptional component regressions; continuous focal uses only ordinary start/perform/finish.",
+      "normativeSource": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 551,
+        "literal": "| AC-063 | Evidencia prueba servicio ejecutado o devolución hecha sin autorización previa registrada. | Registrar realidad/momento y revisión/incidencia; no fabricar aprobación/confirmación retroactiva ni habilitar ese camino irregular; cierres evalúan sus pendientes. | SPEC-FR-BOOK-005, SPEC-FR-SVC-011, SPEC-FR-ECON-007/011, SPEC-FR-HIST-001. |"
+      }
+    }
+  ]
+}

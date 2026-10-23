@@ -1,0 +1,13 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-012-f01-security.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-012-f01-security.test.ts
+index 927fa409..0426257f 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-012-f01-security.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-012-f01-security.test.ts
+@@ -18,7 +18,7 @@ test("H5-012-F01 security: migrated59 ACL, function authority, current-night vie
+   assert.equal((await h.observer`select count(*)::int n from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='crm_private' and c.relkind='r' and (not c.relrowsecurity or not c.relforcerowsecurity)`)[0]!.n,0);
+   for(const sql of ["select * from crm_private.b04_current_nights","delete from crm_private.b04_nights","select crm_api.h5_projection_read(null,null,null,null,null)"]){await assert.rejects(h.runtime.unsafe(sql));}
+   const help=spawnSync("npx",["--yes","supabase@2.119.0","db","advisors","--help"],{encoding:"utf8",timeout:45000});assert.equal(help.status,0);assert.ok(help.stdout.includes("--db-url"));
+-  const check=spawnSync("npx",["--yes","supabase@2.119.0","db","advisors","--db-url","postgresql://crm_h0_migration@127.0.0.1:59415/h512sec?sslmode=disable","--type","all","--fail-on","error"],{encoding:"utf8",timeout:45000});
++  const check=spawnSync("npx",["--yes","supabase@2.119.0","db","advisors","--db-url","postgresql://crm_h0_migration@127.0.0.1:59415/h512sec?sslmode=disable","--type","all",'--fail-on','error','--output-format','json'],{encoding:"utf8",timeout:45000});
+   assert.equal(check.status,0,check.stderr);assert.deepEqual(JSON.parse(check.stdout).results,[]);
+   console.log("H512 F01 security",JSON.stringify({migration:59,ordinaryRuntimeDirectViewDenied:true,publicExecute:false,ownerBypassRls:false,privateTablesForceRls:true,advisors:JSON.parse(check.stdout)}));
+  }finally{await h.close();}

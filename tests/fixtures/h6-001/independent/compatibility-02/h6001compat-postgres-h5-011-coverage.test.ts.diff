@@ -1,0 +1,13 @@
+diff --git a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-011-coverage.test.ts b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-011-coverage.test.ts
+index c93df157..e9f1c5c7 100644
+--- a/tmp/h6-001-audit/replica/tests/integration/postgres-h5-011-coverage.test.ts
++++ b/tmp/h6-001-audit/replica/tests/integration/h6001compat-postgres-h5-011-coverage.test.ts
+@@ -152,7 +152,7 @@ test("H5-011 A08 V-DAT: least privilege, authenticated guards, RLS and advisors
+  for(const v of ["null::bytea","'fake'::bytea"])await assert.rejects(h.runtime.unsafe(`select crm_api.h5_projection_read(${Array(5).fill(v).join(',')})`));
+  for(const table of ["b04_bookings","b07_records","b09_event_receipts","identity_history"]){await assert.rejects(h.runtime.unsafe(`select * from crm_private.${table}`));await assert.rejects(h.runtime.unsafe(`delete from crm_private.${table}`));}
+  const help=spawnSync("npx",["--yes","supabase@2.119.0","db","advisors","--help"],{encoding:"utf8",timeout:45000});assert.equal(help.status,0);assert.ok(help.stdout.includes("--db-url"));
+- const advisors=spawnSync("npx",["--yes","supabase@2.119.0","db","advisors","--db-url","postgresql://crm_h0_migration@127.0.0.1:59221/crm_h5011_coverage?sslmode=disable","--type","all","--fail-on","error"],{encoding:"utf8",timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);console.log("H5011 advisors: results=[] exclusively loopback");
++ const advisors=spawnSync("npx",["--yes","supabase@2.119.0","db","advisors","--db-url","postgresql://crm_h0_migration@127.0.0.1:59221/crm_h5011_coverage?sslmode=disable","--type","all",'--fail-on','error','--output-format','json'],{encoding:"utf8",timeout:45000});assert.equal(advisors.status,0,advisors.stderr);assert.deepEqual(JSON.parse(advisors.stdout).results,[]);console.log("H5011 advisors: results=[] exclusively loopback");
+ });
+ 
+ test("H5-011 V-MIG: populated57 to58 preserves all prior tables, functions, schemas, policies and roles on rollback/retry",async()=>{

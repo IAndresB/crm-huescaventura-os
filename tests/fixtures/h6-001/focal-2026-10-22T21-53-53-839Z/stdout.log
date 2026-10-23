@@ -1,0 +1,93 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /tmp/crm-h6001-runtime/crm-private-storage-test-8gOElI/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /tmp/crm-h6001-runtime/crm-private-storage-test-8gOElI/data -l logfile start
+
+waiting for server to start.... done
+server started
+▶ H6-001 E2E-01 continuous local sale, ordinary permissions and evidence
+  ✔ P01 context and Lead via ordinary contracts (94.966292ms)
+  ✔ P02 Lead conversion versions modalities and exact Acceptance (612.961ms)
+  ✔ N01 conversion without acceptance and forged identity have no side effects (121.67125ms)
+  ✔ P03 one Booking immutable accepted snapshots quantities and nights (277.886042ms)
+  ✔ N02 won and dates alone do not confirm or perform Booking (147.74475ms)
+  ✔ P04 approved ordinary payment rule fixes exact obligation (173.598666ms)
+H4-016 SQL diagnostic PostgresError: PAYMENT_INPUT_INVALID
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.payment_apply(bytea,bytea,bytea,bytea,bytea) line 23 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+  ✖ P05 received verified and assigned funds remain distinct (32.619333ms)
+✖ H6-001 E2E-01 continuous local sale, ordinary permissions and evidence (4456.001792ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 6
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4693.35275
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6-001.test.ts:34:83
+✖ P05 received verified and assigned funds remain distinct (32.619333ms)
+  Error: PAYMENT_INPUT_INVALID
+      at H3003PaymentAdapter.call (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/src/infrastructure/postgres/h3-payment-adapter.ts:31:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H3003PaymentAdapter.apply (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/src/infrastructure/postgres/h3-payment-adapter.ts:35:10)
+      at async Proxy.<anonymous> (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/tests/integration/postgres-h6-001.test.ts:44:192)
+      at async file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/tests/integration/postgres-h6-001.test.ts:103:4
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/tests/integration/postgres-h6-001.test.ts:34:101)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async step (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/tests/integration/postgres-h6-001.test.ts:34:75)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/tests/integration/postgres-h6-001.test.ts:102:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+
+test at tests/integration/postgres-h6-001.test.ts:24:1
+✖ H6-001 E2E-01 continuous local sale, ordinary permissions and evidence (4456.001792ms)
+  AssertionError [ERR_ASSERTION]: stop dependent chain after P05 received verified and assigned funds remain distinct
+      at step (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/tests/integration/postgres-h6-001.test.ts:34:170)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-001-local/crm-huescaventura-os/tests/integration/postgres-h6-001.test.ts:102:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+waiting for server to shut down.... done
+server stopped

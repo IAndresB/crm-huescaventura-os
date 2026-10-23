@@ -1,0 +1,342 @@
+[
+  {
+    "file": "test at tests/integration/h5017c-preservation-postgres-h4-018-migration.test.ts:16:1",
+    "title": "\u2716 H4-018 D19 fresh48 official advisors complete stdout stderr status signal error only loopback (6210.569584ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/h5017c-preservation-postgres-h4-019-f06.test.ts:62:1",
+    "title": "\u2716 A12 official advisors on current49 loopback full stdout/stderr/status (5763.7315ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/h5017c-preservation-postgres-h4-019-preservation.test.ts:7:1",
+    "title": "\u2716 J22 official advisors fresh48 exclusively loopback complete capture (5920.365417ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/h5017c-preservation-postgres-h4-021-f23-migration.test.ts:15:1",
+    "title": "\u2716 F23 C16/C18/C20 fresh51 authority privacy and official advisors exclusively loopback (6674.967583ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/h5017c-preservation-postgres-h4-021-migration.test.ts:15:1",
+    "title": "\u2716 H4-021 B67 advisors official exclusively loopback on current preparation chain (6008.035583ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/h5017c-preservation-postgres-h4-023-migration.test.ts:19:1",
+    "title": "\u2716 H4-023 fresh52 RLS ACL private helpers privacy foreign references F1 F2 session epoch HA exclusive and loopback advisors (7453.627708ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/h5017c-preservation-postgres-h5-004-migration.test.ts:34:1",
+    "title": "\u2716 H5-AAC official advisors fresh 54 loopback (6348.951584ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/h5017c-preservation-postgres-h5-004-migration.test.ts:41:1",
+    "title": "\u2716 H5-AQ/AZ/AAD expected base inventory old product D027 health and 53 migrations preserved (130.4505ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: src/application/contracts.ts",
+      "    actual: 'import { evaluateCommonGuards, type CommonGuardFacts } from \"../domain/guards.ts\";\\nimport { semanticIssue } from \"../domain/semantic-error.ts\";\\nimport type { ApplicationResult } from \"./result.ts\";\\nimport { isTrustedContext, type TrustedExecutionContext } from \"./trusted-context.ts\";\\n\\nexport interface ContractRequest<T> {\\n  readonly context: TrustedExecutionContext;\\n  readonly scope: string;\\n  readonly guards: CommonGuardFacts;\\n  readonly input: T;\\n}\\n\\nfunction rejectedByGuards<T>(request: ContractRequest<T>): ApplicationResult<never> | undefined {\\n  if (!isTrustedContext(request.context)) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E1\", request.scope)] };\\n  }\\n  const failures = evaluateCommonGuards(request.scope, request.guards);\\n  return failures.length > 0\\n    ? { status: \"rejected\", issues: failures.map(({ issue }) => issue) }\\n    : undefined;\\n}\\n\\nexport interface AuthorizedProjection<T> {\\n  readonly data: T;\\n  readonly provenance: string;\\n  readonly certainty: \"verified\" | \"pending\" | \"unknown\";\\n  readonly nextPage?: string;\\n}\\n\\nexport interface AuthorizedQueryPort<Query, Projection> {\\n  read(context: TrustedExecutionContext, query: Query): Promise<AuthorizedProjection<Projection>>;\\n}\\n\\nexport async function invokeC01<Query, Projection>(\\n  request: ContractRequest<Query>,\\n  port: AuthorizedQueryPort<Query, Projection>,\\n): Promise<ApplicationResult<AuthorizedProjection<Projection>>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return { status: \"applied\", value: await port.read(request.context, request.input) };\\n}\\n\\nexport interface DomainDecision<Change> {\\n  readonly allowedChanges: readonly Change[];\\n  readonly blockers: readonly string[];\\n}\\n\\nexport function invokeC02<Input, Change>(\\n  request: ContractRequest<Input>,\\n  decide: (input: Input) => DomainDecision<Change>,\\n): ApplicationResult<DomainDecision<Change>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return { status: \"applied\", value: decide(request.input) };\\n}\\n\\nexport interface AtomicCommit<Change, Intent> {\\n  readonly operationId: string;\\n  readonly expectedVersion?: string;\\n  readonly changes: readonly Change[];\\n  readonly historyRequired: true;\\n  readonly resultRequired: true;\\n  readonly intent?: Intent;\\n}\\n\\nexport interface TransactionPort<Change, Intent, Output> {\\n  commit(\\n    context: TrustedExecutionContext,\\n    unit: AtomicCommit<Change, Intent>,\\n  ): Promise<ApplicationResult<Output>>;\\n}\\n\\nexport async function invokeC03<Change, Intent, Output>(\\n  request: ContractRequest<AtomicCommit<Change, Intent>>,\\n  port: TransactionPort<Change, Intent, Output>,\\n): Promise<ApplicationResult<Output>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return port.commit(request.context, request.input);\\n}\\n\\nexport interface EvidenceRegistration {\\n  readonly sourceReference: string;\\n  readonly receivedAt: string;\\n  readonly preservation: \"original\" | \"authorized-manual-record\";\\n  readonly verification?: {\\n    readonly reviewerIdentityId: string;\\n    readonly reviewedAt: string;\\n  };\\n}\\n\\nexport interface EvidenceRecord {\\n  readonly evidenceId: string;\\n  readonly state: \"candidate\" | \"verified\";\\n}\\n\\nexport interface EvidencePort {\\n  register(\\n    context: TrustedExecutionContext,\\n    evidence: EvidenceRegistration,\\n  ): Promise<{ readonly evidenceId: string }>;\\n}\\n\\nexport async function invokeC04(\\n  request: ContractRequest<EvidenceRegistration>,\\n  port: EvidencePort,\\n): Promise<ApplicationResult<EvidenceRecord>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  // Preserve one registration across asynchronous persistence. A caller may\\n  // retain and mutate its request while the port is waiting for SQL locks.\\n  const input = Object.freeze({ ...request.input,\\n    ...(request.input.verification === undefined ? {} : {\\n      verification: Object.freeze({ ...request.input.verification }),\\n    }),\\n  });\\n  const verification = input.verification;\\n  if (verification !== undefined && (\\n    verification.reviewerIdentityId.trim().length === 0\\n    || Number.isNaN(Date.parse(verification.reviewedAt))\\n  )) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E3\", request.scope)] };\\n  }\\n  const registered = await port.register(request.context, input);\\n  const value: EvidenceRecord = {\\n    evidenceId: registered.evidenceId,\\n    state: verification === undefined ? \"candidate\" : \"verified\",\\n  };\\n  return { status: \"applied\", value };\\n}\\n\\nexport interface ExternalIntent {\\n  readonly effectId: string;\\n  readonly recipientReference: string;\\n  readonly contentVersion: string;\\n  readonly approvalReference?: string;\\n}\\n\\nexport type ExternalEffectRecord =\\n  | { readonly stage: \"intent\"; readonly intentId: string }\\n  | { readonly stage: \"attempt\"; readonly intentId: string; readonly attemptId: string }\\n  | {\\n    readonly stage: \"result\";\\n    readonly intentId: string;\\n    readonly attemptId: string;\\n    readonly resultReference: string;\\n    readonly outcome: \"succeeded\" | \"failed\";\\n  }\\n  | { readonly stage: \"uncertain\"; readonly intentId: string; readonly attemptId: string };\\n\\nexport interface ExternalEffectPort {\\n  record(\\n    context: TrustedExecutionContext,\\n    intent: ExternalIntent,\\n  ): Promise<ExternalEffectRecord>;\\n}\\n\\nexport async function invokeC05(\\n  request: ContractRequest<ExternalIntent>,\\n  port: ExternalEffectPort,\\n): Promise<ApplicationResult<ExternalEffectRecord>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  const value = await port.record(request.context, request.input);\\n  if (value.stage === \"result\") return { status: \"applied\", value };\\n  if (value.stage === \"uncertain\") {\\n    return { status: \"pending\", value, issues: [semanticIssue(\"E4\", request.scope)] };\\n  }\\n  return { status: \"pending\", value, issues: [semanticIssue(\"E6\", request.scope)] };\\n}\\n\\nexport type ScopedEvaluationChange =\\n  | { readonly kind: \"record-assessment\"; readonly assessment: string }\\n  | { readonly kind: \"mark-pending\"; readonly reason: string }\\n  | { readonly kind: \"request-review\"; readonly reason: string };\\n\\nexport interface ScopedEvaluation {\\n  readonly scope: string;\\n  readonly changes: readonly ScopedEvaluationChange[];\\n}\\n\\nexport function invokeC06<Input>(\\n  request: ContractRequest<Input>,\\n  evaluate: (input: Input) => ScopedEvaluation,\\n): ApplicationResult<ScopedEvaluation> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  const value = evaluate(request.input);\\n  const allowedKinds = new Set<ScopedEvaluationChange[\"kind\"]>([\\n    \"record-assessment\",\\n    \"mark-pending\",\\n    \"request-review\",\\n  ]);\\n  if (value.scope !== request.scope || value.changes.some((change) => !allowedKinds.has(change.kind))) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E1\", request.scope)] };\\n  }\\n  return { status: \"applied\", value };\\n}\\n',",
+      "    expected: 'import { evaluateCommonGuards, type CommonGuardFacts } from \"../domain/guards.ts\";\\nimport { semanticIssue } from \"../domain/semantic-error.ts\";\\nimport type { ApplicationResult } from \"./result.ts\";\\nimport { isTrustedContext, type TrustedExecutionContext } from \"./trusted-context.ts\";\\n\\nexport interface ContractRequest<T> {\\n  readonly context: TrustedExecutionContext;\\n  readonly scope: string;\\n  readonly guards: CommonGuardFacts;\\n  readonly input: T;\\n}\\n\\nfunction rejectedByGuards<T>(request: ContractRequest<T>): ApplicationResult<never> | undefined {\\n  if (!isTrustedContext(request.context)) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E1\", request.scope)] };\\n  }\\n  const failures = evaluateCommonGuards(request.scope, request.guards);\\n  return failures.length > 0\\n    ? { status: \"rejected\", issues: failures.map(({ issue }) => issue) }\\n    : undefined;\\n}\\n\\nexport interface AuthorizedProjection<T> {\\n  readonly data: T;\\n  readonly provenance: string;\\n  readonly certainty: \"verified\" | \"pending\" | \"unknown\";\\n  readonly nextPage?: string;\\n}\\n\\nexport interface AuthorizedQueryPort<Query, Projection> {\\n  read(context: TrustedExecutionContext, query: Query): Promise<AuthorizedProjection<Projection>>;\\n}\\n\\nexport async function invokeC01<Query, Projection>(\\n  request: ContractRequest<Query>,\\n  port: AuthorizedQueryPort<Query, Projection>,\\n): Promise<ApplicationResult<AuthorizedProjection<Projection>>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return { status: \"applied\", value: await port.read(request.context, request.input) };\\n}\\n\\nexport interface DomainDecision<Change> {\\n  readonly allowedChanges: readonly Change[];\\n  readonly blockers: readonly string[];\\n}\\n\\nexport function invokeC02<Input, Change>(\\n  request: ContractRequest<Input>,\\n  decide: (input: Input) => DomainDecision<Change>,\\n): ApplicationResult<DomainDecision<Change>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return { status: \"applied\", value: decide(request.input) };\\n}\\n\\nexport interface AtomicCommit<Change, Intent> {\\n  readonly operationId: string;\\n  readonly expectedVersion?: string;\\n  readonly changes: readonly Change[];\\n  readonly historyRequired: true;\\n  readonly resultRequired: true;\\n  readonly intent?: Intent;\\n}\\n\\nexport interface TransactionPort<Change, Intent, Output> {\\n  commit(\\n    context: TrustedExecutionContext,\\n    unit: AtomicCommit<Change, Intent>,\\n  ): Promise<ApplicationResult<Output>>;\\n}\\n\\nexport async function invokeC03<Change, Intent, Output>(\\n  request: ContractRequest<AtomicCommit<Change, Intent>>,\\n  port: TransactionPort<Change, Intent, Output>,\\n): Promise<ApplicationResult<Output>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return port.commit(request.context, request.input);\\n}\\n\\nexport interface EvidenceRegistration {\\n  readonly sourceReference: string;\\n  readonly receivedAt: string;\\n  readonly preservation: \"original\" | \"authorized-manual-record\";\\n  readonly verification?: {\\n    readonly reviewerIdentityId: string;\\n    readonly reviewedAt: string;\\n  };\\n}\\n\\nexport interface EvidenceRecord {\\n  readonly evidenceId: string;\\n  readonly state: \"candidate\" | \"verified\";\\n}\\n\\nexport interface EvidencePort {\\n  register(\\n    context: TrustedExecutionContext,\\n    evidence: EvidenceRegistration,\\n  ): Promise<{ readonly evidenceId: string }>;\\n}\\n\\nexport async function invokeC04(\\n  request: ContractRequest<EvidenceRegistration>,\\n  port: EvidencePort,\\n): Promise<ApplicationResult<EvidenceRecord>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  const verification = request.input.verification;\\n  if (verification !== undefined && (\\n    verification.reviewerIdentityId.trim().length === 0\\n    || Number.isNaN(Date.parse(verification.reviewedAt))\\n  )) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E3\", request.scope)] };\\n  }\\n  const registered = await port.register(request.context, request.input);\\n  const value: EvidenceRecord = {\\n    evidenceId: registered.evidenceId,\\n    state: request.input.verification === undefined ? \"candidate\" : \"verified\",\\n  };\\n  return { status: \"applied\", value };\\n}\\n\\nexport interface ExternalIntent {\\n  readonly effectId: string;\\n  readonly recipientReference: string;\\n  readonly contentVersion: string;\\n  readonly approvalReference?: string;\\n}\\n\\nexport type ExternalEffectRecord =\\n  | { readonly stage: \"intent\"; readonly intentId: string }\\n  | { readonly stage: \"attempt\"; readonly intentId: string; readonly attemptId: string }\\n  | {\\n    readonly stage: \"result\";\\n    readonly intentId: string;\\n    readonly attemptId: string;\\n    readonly resultReference: string;\\n    readonly outcome: \"succeeded\" | \"failed\";\\n  }\\n  | { readonly stage: \"uncertain\"; readonly intentId: string; readonly attemptId: string };\\n\\nexport interface ExternalEffectPort {\\n  record(\\n    context: TrustedExecutionContext,\\n    intent: ExternalIntent,\\n  ): Promise<ExternalEffectRecord>;\\n}\\n\\nexport async function invokeC05(\\n  request: ContractRequest<ExternalIntent>,\\n  port: ExternalEffectPort,\\n): Promise<ApplicationResult<ExternalEffectRecord>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  const value = await port.record(request.context, request.input);\\n  if (value.stage === \"result\") return { status: \"applied\", value };\\n  if (value.stage === \"uncertain\") {\\n    return { status: \"pending\", value, issues: [semanticIssue(\"E4\", request.scope)] };\\n  }\\n  return { status: \"pending\", value, issues: [semanticIssue(\"E6\", request.scope)] };\\n}\\n\\nexport type ScopedEvaluationChange =\\n  | { readonly kind: \"record-assessment\"; readonly assessment: string }\\n  | { readonly kind: \"mark-pending\"; readonly reason: string }\\n  | { readonly kind: \"request-review\"; readonly reason: string };\\n\\nexport interface ScopedEvaluation {\\n  readonly scope: string;\\n  readonly changes: readonly ScopedEvaluationChange[];\\n}\\n\\nexport function invokeC06<Input>(\\n  request: ContractRequest<Input>,\\n  evaluate: (input: Input) => ScopedEvaluation,\\n): ApplicationResult<ScopedEvaluation> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  const value = evaluate(request.input);\\n  const allowedKinds = new Set<ScopedEvaluationChange[\"kind\"]>([\\n    \"record-assessment\",\\n    \"mark-pending\",\\n    \"request-review\",\\n  ]);\\n  if (value.scope !== request.scope || value.changes.some((change) => !allowedKinds.has(change.kind))) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E1\", request.scope)] };\\n  }\\n  return { status: \"applied\", value };\\n}\\n',"
+    ]
+  },
+  {
+    "file": "test at tests/integration/h5017c-preservation-postgres-h5-006-migration.test.ts:27:1",
+    "title": "\u2716 H5-CAS official advisors55 exclusively loopback (6821.190583ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/h5017c-preservation-postgres-h5-006-migration.test.ts:31:1",
+    "title": "\u2716 H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE exact expected33 rows57 cases and historic product bytes (237.073042ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: src/application/contracts.ts",
+      "    actual: 'import { evaluateCommonGuards, type CommonGuardFacts } from \"../domain/guards.ts\";\\nimport { semanticIssue } from \"../domain/semantic-error.ts\";\\nimport type { ApplicationResult } from \"./result.ts\";\\nimport { isTrustedContext, type TrustedExecutionContext } from \"./trusted-context.ts\";\\n\\nexport interface ContractRequest<T> {\\n  readonly context: TrustedExecutionContext;\\n  readonly scope: string;\\n  readonly guards: CommonGuardFacts;\\n  readonly input: T;\\n}\\n\\nfunction rejectedByGuards<T>(request: ContractRequest<T>): ApplicationResult<never> | undefined {\\n  if (!isTrustedContext(request.context)) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E1\", request.scope)] };\\n  }\\n  const failures = evaluateCommonGuards(request.scope, request.guards);\\n  return failures.length > 0\\n    ? { status: \"rejected\", issues: failures.map(({ issue }) => issue) }\\n    : undefined;\\n}\\n\\nexport interface AuthorizedProjection<T> {\\n  readonly data: T;\\n  readonly provenance: string;\\n  readonly certainty: \"verified\" | \"pending\" | \"unknown\";\\n  readonly nextPage?: string;\\n}\\n\\nexport interface AuthorizedQueryPort<Query, Projection> {\\n  read(context: TrustedExecutionContext, query: Query): Promise<AuthorizedProjection<Projection>>;\\n}\\n\\nexport async function invokeC01<Query, Projection>(\\n  request: ContractRequest<Query>,\\n  port: AuthorizedQueryPort<Query, Projection>,\\n): Promise<ApplicationResult<AuthorizedProjection<Projection>>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return { status: \"applied\", value: await port.read(request.context, request.input) };\\n}\\n\\nexport interface DomainDecision<Change> {\\n  readonly allowedChanges: readonly Change[];\\n  readonly blockers: readonly string[];\\n}\\n\\nexport function invokeC02<Input, Change>(\\n  request: ContractRequest<Input>,\\n  decide: (input: Input) => DomainDecision<Change>,\\n): ApplicationResult<DomainDecision<Change>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return { status: \"applied\", value: decide(request.input) };\\n}\\n\\nexport interface AtomicCommit<Change, Intent> {\\n  readonly operationId: string;\\n  readonly expectedVersion?: string;\\n  readonly changes: readonly Change[];\\n  readonly historyRequired: true;\\n  readonly resultRequired: true;\\n  readonly intent?: Intent;\\n}\\n\\nexport interface TransactionPort<Change, Intent, Output> {\\n  commit(\\n    context: TrustedExecutionContext,\\n    unit: AtomicCommit<Change, Intent>,\\n  ): Promise<ApplicationResult<Output>>;\\n}\\n\\nexport async function invokeC03<Change, Intent, Output>(\\n  request: ContractRequest<AtomicCommit<Change, Intent>>,\\n  port: TransactionPort<Change, Intent, Output>,\\n): Promise<ApplicationResult<Output>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return port.commit(request.context, request.input);\\n}\\n\\nexport interface EvidenceRegistration {\\n  readonly sourceReference: string;\\n  readonly receivedAt: string;\\n  readonly preservation: \"original\" | \"authorized-manual-record\";\\n  readonly verification?: {\\n    readonly reviewerIdentityId: string;\\n    readonly reviewedAt: string;\\n  };\\n}\\n\\nexport interface EvidenceRecord {\\n  readonly evidenceId: string;\\n  readonly state: \"candidate\" | \"verified\";\\n}\\n\\nexport interface EvidencePort {\\n  register(\\n    context: TrustedExecutionContext,\\n    evidence: EvidenceRegistration,\\n  ): Promise<{ readonly evidenceId: string }>;\\n}\\n\\nexport async function invokeC04(\\n  request: ContractRequest<EvidenceRegistration>,\\n  port: EvidencePort,\\n): Promise<ApplicationResult<EvidenceRecord>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  // Preserve one registration across asynchronous persistence. A caller may\\n  // retain and mutate its request while the port is waiting for SQL locks.\\n  const input = Object.freeze({ ...request.input,\\n    ...(request.input.verification === undefined ? {} : {\\n      verification: Object.freeze({ ...request.input.verification }),\\n    }),\\n  });\\n  const verification = input.verification;\\n  if (verification !== undefined && (\\n    verification.reviewerIdentityId.trim().length === 0\\n    || Number.isNaN(Date.parse(verification.reviewedAt))\\n  )) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E3\", request.scope)] };\\n  }\\n  const registered = await port.register(request.context, input);\\n  const value: EvidenceRecord = {\\n    evidenceId: registered.evidenceId,\\n    state: verification === undefined ? \"candidate\" : \"verified\",\\n  };\\n  return { status: \"applied\", value };\\n}\\n\\nexport interface ExternalIntent {\\n  readonly effectId: string;\\n  readonly recipientReference: string;\\n  readonly contentVersion: string;\\n  readonly approvalReference?: string;\\n}\\n\\nexport type ExternalEffectRecord =\\n  | { readonly stage: \"intent\"; readonly intentId: string }\\n  | { readonly stage: \"attempt\"; readonly intentId: string; readonly attemptId: string }\\n  | {\\n    readonly stage: \"result\";\\n    readonly intentId: string;\\n    readonly attemptId: string;\\n    readonly resultReference: string;\\n    readonly outcome: \"succeeded\" | \"failed\";\\n  }\\n  | { readonly stage: \"uncertain\"; readonly intentId: string; readonly attemptId: string };\\n\\nexport interface ExternalEffectPort {\\n  record(\\n    context: TrustedExecutionContext,\\n    intent: ExternalIntent,\\n  ): Promise<ExternalEffectRecord>;\\n}\\n\\nexport async function invokeC05(\\n  request: ContractRequest<ExternalIntent>,\\n  port: ExternalEffectPort,\\n): Promise<ApplicationResult<ExternalEffectRecord>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  const value = await port.record(request.context, request.input);\\n  if (value.stage === \"result\") return { status: \"applied\", value };\\n  if (value.stage === \"uncertain\") {\\n    return { status: \"pending\", value, issues: [semanticIssue(\"E4\", request.scope)] };\\n  }\\n  return { status: \"pending\", value, issues: [semanticIssue(\"E6\", request.scope)] };\\n}\\n\\nexport type ScopedEvaluationChange =\\n  | { readonly kind: \"record-assessment\"; readonly assessment: string }\\n  | { readonly kind: \"mark-pending\"; readonly reason: string }\\n  | { readonly kind: \"request-review\"; readonly reason: string };\\n\\nexport interface ScopedEvaluation {\\n  readonly scope: string;\\n  readonly changes: readonly ScopedEvaluationChange[];\\n}\\n\\nexport function invokeC06<Input>(\\n  request: ContractRequest<Input>,\\n  evaluate: (input: Input) => ScopedEvaluation,\\n): ApplicationResult<ScopedEvaluation> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  const value = evaluate(request.input);\\n  const allowedKinds = new Set<ScopedEvaluationChange[\"kind\"]>([\\n    \"record-assessment\",\\n    \"mark-pending\",\\n    \"request-review\",\\n  ]);\\n  if (value.scope !== request.scope || value.changes.some((change) => !allowedKinds.has(change.kind))) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E1\", request.scope)] };\\n  }\\n  return { status: \"applied\", value };\\n}\\n',",
+      "    expected: 'import { evaluateCommonGuards, type CommonGuardFacts } from \"../domain/guards.ts\";\\nimport { semanticIssue } from \"../domain/semantic-error.ts\";\\nimport type { ApplicationResult } from \"./result.ts\";\\nimport { isTrustedContext, type TrustedExecutionContext } from \"./trusted-context.ts\";\\n\\nexport interface ContractRequest<T> {\\n  readonly context: TrustedExecutionContext;\\n  readonly scope: string;\\n  readonly guards: CommonGuardFacts;\\n  readonly input: T;\\n}\\n\\nfunction rejectedByGuards<T>(request: ContractRequest<T>): ApplicationResult<never> | undefined {\\n  if (!isTrustedContext(request.context)) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E1\", request.scope)] };\\n  }\\n  const failures = evaluateCommonGuards(request.scope, request.guards);\\n  return failures.length > 0\\n    ? { status: \"rejected\", issues: failures.map(({ issue }) => issue) }\\n    : undefined;\\n}\\n\\nexport interface AuthorizedProjection<T> {\\n  readonly data: T;\\n  readonly provenance: string;\\n  readonly certainty: \"verified\" | \"pending\" | \"unknown\";\\n  readonly nextPage?: string;\\n}\\n\\nexport interface AuthorizedQueryPort<Query, Projection> {\\n  read(context: TrustedExecutionContext, query: Query): Promise<AuthorizedProjection<Projection>>;\\n}\\n\\nexport async function invokeC01<Query, Projection>(\\n  request: ContractRequest<Query>,\\n  port: AuthorizedQueryPort<Query, Projection>,\\n): Promise<ApplicationResult<AuthorizedProjection<Projection>>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return { status: \"applied\", value: await port.read(request.context, request.input) };\\n}\\n\\nexport interface DomainDecision<Change> {\\n  readonly allowedChanges: readonly Change[];\\n  readonly blockers: readonly string[];\\n}\\n\\nexport function invokeC02<Input, Change>(\\n  request: ContractRequest<Input>,\\n  decide: (input: Input) => DomainDecision<Change>,\\n): ApplicationResult<DomainDecision<Change>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return { status: \"applied\", value: decide(request.input) };\\n}\\n\\nexport interface AtomicCommit<Change, Intent> {\\n  readonly operationId: string;\\n  readonly expectedVersion?: string;\\n  readonly changes: readonly Change[];\\n  readonly historyRequired: true;\\n  readonly resultRequired: true;\\n  readonly intent?: Intent;\\n}\\n\\nexport interface TransactionPort<Change, Intent, Output> {\\n  commit(\\n    context: TrustedExecutionContext,\\n    unit: AtomicCommit<Change, Intent>,\\n  ): Promise<ApplicationResult<Output>>;\\n}\\n\\nexport async function invokeC03<Change, Intent, Output>(\\n  request: ContractRequest<AtomicCommit<Change, Intent>>,\\n  port: TransactionPort<Change, Intent, Output>,\\n): Promise<ApplicationResult<Output>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  return port.commit(request.context, request.input);\\n}\\n\\nexport interface EvidenceRegistration {\\n  readonly sourceReference: string;\\n  readonly receivedAt: string;\\n  readonly preservation: \"original\" | \"authorized-manual-record\";\\n  readonly verification?: {\\n    readonly reviewerIdentityId: string;\\n    readonly reviewedAt: string;\\n  };\\n}\\n\\nexport interface EvidenceRecord {\\n  readonly evidenceId: string;\\n  readonly state: \"candidate\" | \"verified\";\\n}\\n\\nexport interface EvidencePort {\\n  register(\\n    context: TrustedExecutionContext,\\n    evidence: EvidenceRegistration,\\n  ): Promise<{ readonly evidenceId: string }>;\\n}\\n\\nexport async function invokeC04(\\n  request: ContractRequest<EvidenceRegistration>,\\n  port: EvidencePort,\\n): Promise<ApplicationResult<EvidenceRecord>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  const verification = request.input.verification;\\n  if (verification !== undefined && (\\n    verification.reviewerIdentityId.trim().length === 0\\n    || Number.isNaN(Date.parse(verification.reviewedAt))\\n  )) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E3\", request.scope)] };\\n  }\\n  const registered = await port.register(request.context, request.input);\\n  const value: EvidenceRecord = {\\n    evidenceId: registered.evidenceId,\\n    state: request.input.verification === undefined ? \"candidate\" : \"verified\",\\n  };\\n  return { status: \"applied\", value };\\n}\\n\\nexport interface ExternalIntent {\\n  readonly effectId: string;\\n  readonly recipientReference: string;\\n  readonly contentVersion: string;\\n  readonly approvalReference?: string;\\n}\\n\\nexport type ExternalEffectRecord =\\n  | { readonly stage: \"intent\"; readonly intentId: string }\\n  | { readonly stage: \"attempt\"; readonly intentId: string; readonly attemptId: string }\\n  | {\\n    readonly stage: \"result\";\\n    readonly intentId: string;\\n    readonly attemptId: string;\\n    readonly resultReference: string;\\n    readonly outcome: \"succeeded\" | \"failed\";\\n  }\\n  | { readonly stage: \"uncertain\"; readonly intentId: string; readonly attemptId: string };\\n\\nexport interface ExternalEffectPort {\\n  record(\\n    context: TrustedExecutionContext,\\n    intent: ExternalIntent,\\n  ): Promise<ExternalEffectRecord>;\\n}\\n\\nexport async function invokeC05(\\n  request: ContractRequest<ExternalIntent>,\\n  port: ExternalEffectPort,\\n): Promise<ApplicationResult<ExternalEffectRecord>> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  const value = await port.record(request.context, request.input);\\n  if (value.stage === \"result\") return { status: \"applied\", value };\\n  if (value.stage === \"uncertain\") {\\n    return { status: \"pending\", value, issues: [semanticIssue(\"E4\", request.scope)] };\\n  }\\n  return { status: \"pending\", value, issues: [semanticIssue(\"E6\", request.scope)] };\\n}\\n\\nexport type ScopedEvaluationChange =\\n  | { readonly kind: \"record-assessment\"; readonly assessment: string }\\n  | { readonly kind: \"mark-pending\"; readonly reason: string }\\n  | { readonly kind: \"request-review\"; readonly reason: string };\\n\\nexport interface ScopedEvaluation {\\n  readonly scope: string;\\n  readonly changes: readonly ScopedEvaluationChange[];\\n}\\n\\nexport function invokeC06<Input>(\\n  request: ContractRequest<Input>,\\n  evaluate: (input: Input) => ScopedEvaluation,\\n): ApplicationResult<ScopedEvaluation> {\\n  const rejection = rejectedByGuards(request);\\n  if (rejection) return rejection;\\n  const value = evaluate(request.input);\\n  const allowedKinds = new Set<ScopedEvaluationChange[\"kind\"]>([\\n    \"record-assessment\",\\n    \"mark-pending\",\\n    \"request-review\",\\n  ]);\\n  if (value.scope !== request.scope || value.changes.some((change) => !allowedKinds.has(change.kind))) {\\n    return { status: \"rejected\", issues: [semanticIssue(\"E1\", request.scope)] };\\n  }\\n  return { status: \"applied\", value };\\n}\\n',"
+    ]
+  },
+  {
+    "file": "test at tests/integration/h5017d-dependency-postgres-h4-024.test.ts:41:1",
+    "title": "\u2716 H4-024 preserved product migrations historical verifiers sources expected and health (438.184ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: src/application/contracts.ts",
+      "    actual: '59c0f969e0d83230dbbe16365f844beab6d7c6d4f0feb4f84c8076256547a66c',",
+      "    expected: 'fa05f5400015423d541d5703271c4402ae7979eed3e5a87db4f61b004510022c',"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h4-006-scope-reproducer.test.ts:7:1",
+    "title": "\u2716 H4-006 F12 later external fact cannot retroactively cover earlier action (3239.387334ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: Missing expected rejection.",
+      "    actual: undefined,",
+      "    expected: /AVAILABILITY_/,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h4-008-supplement.test.ts:26:1",
+    "title": "\u2716 H4-008 loopback security advisors for complete fresh41 (10472.901875ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h4-010-supplement.test.ts:22:1",
+    "title": "\u2716 H4-010 R27 fresh42 advisors complete stdout stderr and exit loopback only (5954.848334ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h4-012-f16.test.ts:34:1",
+    "title": "\u2716 H4-012-F16 C16 fresh44 official advisors all complete streams status error signal loopback (5911.241792ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h4-012-supplement.test.ts:19:1",
+    "title": "\u2716 H4-012 R18 fresh43 advisors full stdout stderr status signal loopback only (6488.966875ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h4-014-migration.test.ts:14:1",
+    "title": "\u2716 H4-014 C31 fresh45 official advisors complete stdout stderr status signal error only loopback (6023.2045ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h4-016-f23-migration.test.ts:18:1",
+    "title": "\u2716 F23 C12 fresh47 official advisors complete stdout stderr status signal error only loopback (5930.106125ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h4-016-migration.test.ts:14:1",
+    "title": "\u2716 H4-016 R30 fresh46 official advisors complete stdout stderr status signal error only loopback (6505.671667ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-002-migration.test.ts:56:1",
+    "title": "\u2716 H5-R02 official Supabase advisors on fresh 53 isolated migrations (7302.567625ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-011-coverage.test.ts:147:1",
+    "title": "\u2716 H5-011 A08 V-DAT: least privilege, authenticated guards, RLS and advisors on the new read function (5699.3895ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-012-f01-security.test.ts:9:1",
+    "title": "\u2716 H5-012-F01 security: migrated59 ACL, function authority, current-night view and official advisors (8955.212084ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-012-final-security.test.ts:9:1",
+    "title": "\u2716 H5-012-final60 security: migrated60 ACL, function authority, current-night view and official advisors (7602.475ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-012-security61.test.ts:9:1",
+    "title": "\u2716 H5-012-candidate61 security: migrated61 ACL, function authority, current-night view and official advisors (8645.98175ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-013-migration.test.ts:9:1",
+    "title": "\u2716 H5-013 N12 V-MIG: populated61 rollback/retry, existing catalogue and data, security/advisors (8346.869583ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-015-migration.test.ts:11:1",
+    "title": "\u2716 H5-015 J09/J10 populated62 upgrade, rollback, retry, ACL/FORCE RLS and original records (10580.732041ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-c-migration.test.ts:11:1",
+    "title": "\u2716 C12 populated64 rollback65 retry preserves every row and only replaces the two declared bodies (6524.796125ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-d-migration.test.ts:11:1",
+    "title": "\u2716 D08 populated65 rollback66 retry preserves all rows policies constraints ACL and only replaces diagnostic_nodes (6459.861959ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-e-migration.test.ts:12:1",
+    "title": "\u2716 E-M01 independent catalog, populated upgrade, aborted DDL, function recovery and exact effective privileges (12960.670333ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-migration.test.ts:11:1",
+    "title": "\u2716 F-MIG independent populated67 catalog data aborted upgrade restore retry and privileges (7346.955125ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:17:67",
+    "title": "\u2716 F-R01 exact replay conflicts and concurrent duplicates operation (1090.292209ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:17:67",
+    "title": "\u2716 F-R01 exact replay conflicts and concurrent duplicates execution (0.453666ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:17:67",
+    "title": "\u2716 F-R01 exact replay conflicts and concurrent duplicates both (0.804542ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:17:67",
+    "title": "\u2716 F-R01 exact replay conflicts and concurrent duplicates none (0.087708ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:30:1",
+    "title": "\u2716 F-R02 historical replay reauthorizes sessions and requires the original actor (0.131125ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:40:36",
+    "title": "\u2716 F-R03 late canonical ownership cannot turn stored intent into authorized replay true (0.11825ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:40:36",
+    "title": "\u2716 F-R03 late canonical ownership cannot turn stored intent into authorized replay false (0.103542ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:48:61",
+    "title": "\u2716 F-R04 historical replay checks current source authorization operation (0.088625ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:48:61",
+    "title": "\u2716 F-R04 historical replay checks current source authorization execution (0.12125ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:48:61",
+    "title": "\u2716 F-R04 historical replay checks current source authorization event (0.167666ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:59:36",
+    "title": "\u2716 F-R05 revision while waiting for observation identity rechecks write versus replay false (0.091208ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-f-replay.test.ts:59:36",
+    "title": "\u2716 F-R05 revision while waiting for observation identity rechecks write versus replay true (0.087958ms)",
+    "errors": [
+      "  AssertionError [ERR_ASSERTION]: pg_ctl: could not start server",
+      "    actual: 1,",
+      "    expected: 0,"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-017-migration.test.ts:12:1",
+    "title": "\u2716 H5-017 D07 populated63 upgrade rollback retry historical rows functions owners ACL preserved (6967.319792ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  },
+  {
+    "file": "test at tests/integration/postgres-h5-018-fourth-migration.test.ts:10:1",
+    "title": "\u2716 Q06 independent populated66 catalog data aborted upgrade restore retry and privileges (7810.359917ms)",
+    "errors": [
+      "  SyntaxError: Unexpected end of JSON input"
+    ]
+  }
+]
