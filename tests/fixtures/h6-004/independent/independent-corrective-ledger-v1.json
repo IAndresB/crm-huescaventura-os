@@ -1,0 +1,26 @@
+{
+  "schema": "H6-004-independent-instrument-successors/v1",
+  "originalRun": "runs/controls-20261022T234653993404Z",
+  "originalResult": {
+    "tests": 8,
+    "pass": 6,
+    "fail": 2
+  },
+  "originalSourceSHA256": "30fa8983a502075daeb83cbf6f1925e85d617e92954a63360e01617205ecf206",
+  "successorSourceSHA256": "fbe69dc3f5b8e106c3d2d6a44db7344175e62af18c40ebef45a116e9152a1e1a",
+  "expectedUnchanged": true,
+  "changes": [
+    {
+      "id": "I04-04",
+      "failure": "REFUND_FUNDS_REVISION_CONFLICT:E2",
+      "diagnosis": "Independent resolve command reused pre-reservation fund revision. Product correctly rejected stale funds. New verified movement evidence refreshes portions after reservation while preserving right80/pending120 oracle.",
+      "kind": "harness"
+    },
+    {
+      "id": "I04-07",
+      "failure": "historical assessment.status Resuelto versus expected Pendiente",
+      "diagnosis": "Public type explicitly distinguishes historical status from currentStatus. Assert currentStatus Pendiente, historical evaluation retained, joint false, other dimensions currentStatus Resuelto.",
+      "kind": "harness"
+    }
+  ]
+}

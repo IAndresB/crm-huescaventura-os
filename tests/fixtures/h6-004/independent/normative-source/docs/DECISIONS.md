@@ -1,0 +1,382 @@
+# CRM HUESCAVENTURA OS — Decisions
+
+Este archivo registra decisiones importantes aprobadas del proyecto.
+
+## D001 — Nombre oficial del proyecto
+
+Date: 2026-09-05
+Status: APPROVED
+Decision: CRM HUESCAVENTURA OS
+Reason: Establecer el nombre oficial y uniforme del proyecto.
+Impact: Toda la documentación y comunicación del proyecto utilizará este nombre.
+
+## D002 — Arquitectura de desarrollo
+
+Date: 2026-09-05
+Status: APPROVED
+Decision: Work Local en Mac como entorno principal de desarrollo, con acceso remoto desde iPhone/iPad.
+Reason: Mantener un entorno local principal con acceso remoto para supervisión y coordinación.
+Impact: El desarrollo y la ejecución principal de Work se realizarán en el Mac local.
+
+## D003 — Repositorio
+
+Date: 2026-09-05
+Status: APPROVED
+Decision: GitHub es la fuente de verdad del código y documentación.
+Reason: Disponer de una referencia versionada y compartida para el proyecto.
+Impact: El código y la documentación aprobados deberán reflejarse en el repositorio GitHub.
+
+## D004 — Datos
+
+Date: 2026-09-05
+Status: APPROVED
+Decision: Supabase será la fuente de verdad de los datos del CRM.
+Reason: Centralizar los datos canónicos del CRM en una plataforma definida.
+Impact: Las interfaces e integraciones utilizarán Supabase como registro canónico.
+
+## D005 — Despliegue
+
+Date: 2026-09-05
+Status: APPROVED
+Decision: Vercel será la plataforma principal de despliegue de la aplicación.
+Reason: Definir la plataforma principal para publicar la aplicación.
+Impact: La arquitectura y los procesos de despliegue priorizarán la compatibilidad con Vercel.
+
+## D006 — Metodología
+
+Date: 2026-09-05
+Status: APPROVED
+Decision: El proyecto seguirá SDD para funcionalidades importantes.
+Reason: Asegurar que las funcionalidades importantes se especifiquen antes de implementarse.
+Impact: Las funcionalidades importantes deberán contar con Spec, plan y tareas trazables.
+
+## D007 — Aplicaciones separadas
+
+Date: 2026-09-05
+Status: APPROVED
+Decision: La futura web pública huescaventura.com y el CRM serán aplicaciones/repositorios separados, compartiendo backend/API cuando corresponda.
+Reason: Mantener separados los objetivos y ciclos de evolución de la web pública y el CRM.
+Impact: Cada aplicación tendrá su propio ámbito de código y documentación, con contratos compartidos cuando proceda.
+
+## D008 — Facturación
+
+Date: 2026-09-05
+Status: APPROVED
+Decision: El CRM no emitirá facturas legales hasta completar la validación específica de normativa y arquitectura fiscal.
+Reason: Condicionar la facturación legal a una validación fiscal y arquitectónica completa.
+Impact: El CRM no podrá emitir facturas legales mientras esa validación no esté aprobada y documentada.
+
+## D009 — Supervisión humana inicial
+
+Date: 2026-09-05
+Status: APPROVED
+Decision: Las reservas, modificaciones y comunicaciones sensibles preparadas por IA requerirán revisión humana en la primera fase.
+Reason: Mantener supervisión humana sobre acciones sensibles durante la primera fase.
+Impact: La IA podrá preparar propuestas, pero las acciones sensibles requerirán revisión humana antes de ejecutarse.
+
+## D010 — Catálogo, cantidades y packs configurables
+
+Date: 2026-09-06
+Status: APPROVED
+Decision: El catálogo, categorías/atributos, públicos recomendados, unidades, formas de precio, tarifas y packs serán configurables y versionados. Se admiten modalidades distintas dentro de una propuesta y precios comerciales manuales trazables, preservando composición, cantidades por servicio/noche y economía interna. Se adopta EUR, indicación explícita del tratamiento IVA y 2 decimales para importes visibles/cobrados, sin redondeo comercial automático del pack.
+Reason: Representar el negocio real sin imponer precio por persona ni un catálogo rígido.
+Impact: [business-rules.md](business-rules.md), §§8–10, 15 y 25–26, recoge el detalle aprobado, las cifras conocidas y los límites de datos aún no aportados. Los cambios no alteran versiones históricas ni sustituyen validación fiscal.
+
+## D011 — Política comercial, aceptación, cobros y cancelaciones
+
+Date: 2026-09-06
+Status: APPROVED
+Decision: Se aprueban los requisitos mínimos lead → oportunidad sin scoring obligatorio, interlocutor principal habilitado para aceptar, evidencias multicanal y términos inmutables. Política general de cobro 50 % al confirmar y 50 % a 7 días; reservas a menos de 7 días requieren 100 % antes de confirmar salvo excepción autorizada. Se aprueban validez configurable de 7 días, seguimiento supervisado, promoción novio/a gratis bajo sus condiciones y cancelaciones diferenciadas por causante y por intervalos.
+Reason: Formalizar el funcionamiento comercial indicado por el propietario durante la revisión humana.
+Impact: [business-rules.md](business-rules.md), §§3–6, 14, 16 y 25, conserva condiciones, umbrales, excepciones y evidencias. Aceptación comercial no implica pago ni confirmación operativa. No se introducen cargos o repartos económicos no definidos.
+
+## D012 — Operación por servicio y cierres independientes
+
+Date: 2026-09-06
+Status: APPROVED
+Decision: Reservas y servicios mantienen estados base separados del comercial, confirmaciones verificables y bloqueos temporales. Se permiten horarios alternativos, ubicaciones variables, distribución de alojamiento opcional, fianzas configurables e incidencias. Se separan cierres comercial, operativo y económico; solo su resolución permite Cerrada / Histórico.
+Reason: Coordinar participantes y proveedores sin confundir venta aceptada, prestación realizada y obligaciones económicas resueltas.
+Impact: [business-rules.md](business-rules.md), §§7–13, 17, 28 y 30, registra reglas/estados base y alertas. No se redactan todavía máquinas de estados detalladas. Finalización operativa no oculta facturas, pagos o incidencias pendientes.
+
+## D013 — Fondos de clientes, honorarios y Tararí con validación fiscal pendiente
+
+Date: 2026-09-06
+Status: APPROVED
+Decision: Se documenta el modelo operativo indicado por el propietario y su gestor: proveedores externos facturan al cliente; Huescaventura administra y paga con fondos de este, separando suplidos/fondos ajenos y honorarios propios. La rentabilidad operativa se basa principalmente en honorarios propios menos costes propios atribuibles. Tararí, bajo el mismo titular/NIF, es servicio interno y no proveedor externo/suplido ni factura interna por defecto.
+Reason: Evitar tratar automáticamente todo el dinero gestionado como ingreso propio y conservar conciliación y documentación por servicio.
+Impact: [business-rules.md](business-rules.md), §§15, 23, 26–28, mantiene la validación profesional pendiente del sistema de suplidos, arquitectura fiscal y tratamiento exacto de Tararí. Las condiciones futuras de la web deberán incorporar mandato expreso de gestión/administración/pago por cuenta del cliente y conservar la versión aceptada; no se modifica esa web ahora. D008 y P16 siguen íntegros.
+
+## D014 — Prioridad y límites de integraciones
+
+Date: 2026-09-06
+Status: APPROVED
+Decision: Orden previsto: Telefonía IA + WhatsApp; Email; Calendario; Pagos; Web pública; Avaibook. Telefonía/WhatsApp comparten contexto y timeline pero permanecen desacoplados y sustituibles. Antes de elegir proveedor definitivo se probarán ElevenLabs y al menos una alternativa real. Calendario propio/Supabase es referencia operacional y Google Calendar auxiliar; Avaibook V1 es solo lectura/consulta. Transferencia bancaria es el medio actual y el proveedor de tarjeta queda pendiente.
+Reason: Priorizar la atención comercial manteniendo control de cambios externos y capacidad de sustitución.
+Impact: [business-rules.md](business-rules.md), §§14, 17–18 y 24, define comparativa, formularios futuros directos al CRM y validación previa de capacidades reales. PLAUD se trata como fuente de comunicaciones, no necesariamente conector prioritario separado. No se configura ninguna integración en esta fase.
+
+## D015 — Un único usuario operativo en V1 y roles futuros
+
+Date: 2026-09-06
+Status: APPROVED
+Decision: En V1 solo operará el Administrador / Propietario, con acceso y gestión de todo el CRM. Se mantienen preparados los roles Comercial, Operaciones, Administración y Colaborador interno limitado, sin activar permisos granulares innecesarios antes de necesitarlos.
+Reason: Ajustar la primera versión al uso real sin impedir la evolución posterior del equipo.
+Impact: [business-rules.md](business-rules.md), §22, concreta este alcance sobre los perfiles de producto. Economía interna sigue reservada a administradores; los terceros no ganan acceso por relación con un expediente. El detalle de permisos futuros queda pendiente y se mantienen mínimo privilegio y obligaciones constitucionales.
+
+## D016 — Comunicaciones, IA supervisada y automatizaciones auditables
+
+Date: 2026-09-06
+Status: APPROVED
+Decision: Conservar originales de comunicaciones cuando sea viable y autorizado; en V1 no almacenar audio por defecto, siendo suficientes transcripción y resumen. PLAUD Pro es fuente válida para llamadas atendidas personalmente y se conserva su transcripción original. La IA puede extraer datos claros y preparar acciones, pero no sobrescribir confirmaciones manuales ni ejecutar acciones sensibles sin aprobación. Avisos internos V1: todos en CRM, Críticos/Importantes en WhatsApp, ninguno por email, dirigidos al Administrador/Propietario.
+Reason: Aprovechar asistencia y seguimiento sin perder contexto, privacidad ni control sobre compromisos.
+Impact: [business-rules.md](business-rules.md), §§17–19, define tareas automáticas, seguimiento de propuestas supervisado, email comercial futuro info@huescaventura.com y fallos/reintentos seguros. La selección tecnológica y requisitos legales de conservación/consentimiento siguen pendientes. P14, P15 y D009 no se rebajan.
+
+## D017 — Identidades, documentación e historial recuperable
+
+Date: 2026-09-06
+Status: APPROVED
+Decision: Separar contactos y organizaciones, conservar ambos historiales y fusionar duplicados solo mediante acción humana. Documentación exigible configurable por servicio, identificadores humanos anuales únicos/no reutilizables y versiones inmutables de propuestas/condiciones. Priorizar archivado recuperable; no eliminar físicamente registros con historia relevante mediante el flujo normal.
+Reason: Mantener trazabilidad de relaciones, compromisos, cambios y evidencias sin imponer datos personales innecesarios.
+Impact: [business-rules.md](business-rules.md), §§3, 20–22 y 29–30, conserva auditoría y límites de eliminación/anonimización. Plazos RGPD y política detallada siguen pendientes de revisión legal; no se realizan borrados automáticos importantes sin regla aprobada.
+
+## D018 — Aceptación parcial, reserva directa y unidad del expediente V1
+
+Date: 2026-09-08
+Status: APPROVED
+Decision: Se permite aceptación parcial únicamente cuando la Proposal Version contiene partes, modalidades o alcances expresamente seleccionables; Acceptance identifica exactamente lo aceptado. Si la parte solicitada no estaba definida como independiente o seleccionable, debe generarse una nueva Proposal Version antes de registrar Acceptance. Nunca se modifican retrospectivamente una versión fijada ni una Acceptance histórica. El Administrador/Propietario puede utilizar en V1 una futura acción «Crear reserva directa» que genere o registre la cadena mínima Opportunity → Proposal Version / condiciones → Acceptance → Booking, conservando la relación de Proposal Version con Proposal y la evidencia comercial real. La regla normal es 1 Opportunity aceptada → 1 Booking → N Booking Services / modalidades / noches / cantidades; distintas modalidades del mismo grupo permanecen en una única Booking. No se realiza división ni agrupación automática de Opportunities o Bookings en V1. Una futura división de Booking solo podrá realizarse mediante acción explícita y trazable del Administrador y deberá especificarse posteriormente; no se diseña esa operación extraordinaria aquí.
+Reason: Resolver la revisión humana de SM-PENDING-001, permitir selección comercial explícita y evitar trabajo manual innecesario al Administrador sin saltarse hechos, evidencias ni invariantes del dominio.
+Impact: [state-machines.md](state-machines.md), §§4–6, 12, 14 y 16–20, incorpora esta decisión, actualiza las guardas de aceptación/conversión y retira SM-PENDING-001 de pendientes activos, conservando su resolución. D018 concreta el alcance V1 antes diferido por BR-PENDING-027 y DM-PENDING-001; sus textos anteriores permanecen como antecedentes en Business Rules v0.2 y Domain Model v0.1, ambos APPROVED y sin cambios en esta corrección. No impone una restricción global para toda evolución futura ni autoriza división/agrupación extraordinarias por analogía. La acción interna del Administrador no sustituye Acceptance del cliente ni acredita pago o confirmación operativa. Permanecen abiertos SM-PENDING-002 y SM-PENDING-003 y los demás límites no resueltos. D001–D017 permanecen intactos. State Machines sigue DRAFT v0.1, pendiente de aprobación global; no se diseña UI, tablas, API, arquitectura ni implementación.
+
+## D019 — Bases económicas reproducibles para promociones y cancelaciones
+
+Date: 2026-09-09
+Status: APPROVED
+Decision: En una promoción de novi@ gratis con varias modalidades, la gratuidad equivale al precio final por persona de la modalidad concreta asignada al/a la novi@, que debe identificarse antes del efecto económico definitivo; no se usan medias, modalidades elegidas automáticamente ni repartos proporcionales. En la cancelación total de una persona con precio por persona, la base es el precio real de su modalidad y sobre ella se aplican sin cambios los intervalos aprobados: ≥7 días, devolución correspondiente; ≥3 y <7 días, retención/cobro del 50 %; <3 días, retención/cobro del 100 %. Un precio fijo/grupal no se reparte automáticamente entre participantes y permanece según el compromiso salvo regla contractual aprobada, reducción real/verificada o ajuste comercial explícito y trazable aprobado por el Administrador. La cancelación parcial de un componente usa su valor comercial atribuible y verificable; si no existe distribución aprobada/verificable, el importe requiere determinación económica explícita del Administrador antes de aplicar devolución, retención, nueva obligación o ajuste, mientras los efectos operativos independientes pueden avanzar. El derecho contractual se determina antes de ajustar fondos, conciliación, asignaciones, Refund u obligaciones, con reparto reproducible y trazable y sin prorrateos implícitos.
+Reason: Resolver SM-PENDING-002 con bases económicas verificables para los casos multimodales, individuales, grupales y parciales, sin inventar distribuciones ni confundir la ubicación física de los fondos con el derecho del cliente.
+Impact: [state-machines.md](state-machines.md), §§5, 9, 11–12 y 16–20, incorpora las nuevas guardas y efectos en SM-RF-02, SM-RC-02 y SM-MO-05/06, retira SM-PENDING-002 de pendientes activos y conserva su resolución histórica. BR-PENDING-023 y DM-PENDING-003 permanecen sin cambios en sus documentos APPROVED y se interpretan junto con D019 para este alcance resuelto. SM-PENDING-003 continúa íntegramente abierto. D001–D018 permanecen intactos. State Machines sigue DRAFT v0.1 y pendiente de aprobación global; no se diseña arquitectura ni implementación.
+
+## D020 — Cómputo temporal por días naturales y alcance
+
+Date: 2026-09-09
+Status: APPROVED
+Decision: Los umbrales temporales comerciales y operativos de este ámbito se calculan exclusivamente por fechas y días naturales, usando la fecha local del servicio/alcance y concediendo completo el último día de cada intervalo. La zona horaria solo determina la fecha local; la hora del servicio no crea un corte dentro del día y no se usan equivalentes de 168/72 horas ni horas ficticias. Para el saldo general 50 % restante a 7 días y para la cifra final global, la referencia por defecto es la fecha del primer servicio contratado de Booking; una cifra final específica usa la fecha de su alcance y no se propaga. En cancelación total de Booking se usa su primer servicio contratado; en cancelación de la modalidad/participación completa de una persona, el primer servicio de esa modalidad; en cancelación de Booking Service, la fecha del servicio; y en alojamiento/noche u otro alcance específico, la fecha de inicio del alcance. Prevalece una referencia contractual expresa y válida diferente. Los intervalos permanecen: ≥7 días, devolución correspondiente; ≥3 y <7 días, retención/cobro del 50 %; <3 días, retención/cobro del 100 %. Los días situados exactamente 7 y 3 días antes pertenecen completos al primer y segundo intervalo respectivamente. Un cambio de fecha reevalúa los plazos afectados con historial; un cambio de hora dentro de la misma fecha no los modifica.
+Reason: Resolver SM-PENDING-003 con una convención simple, flexible y reproducible para reservas multifecha, sin alterar las políticas económicas ni introducir cortes horarios ficticios.
+Impact: [state-machines.md](state-machines.md), §§2, 5–6, 9, 11–13 y 16–20, incorpora D020 en SM-EP-01/03, SM-BK-04, SM-RF-02, Task/avisos y cifra final; retira SM-PENDING-003 de pendientes activos y conserva su resolución histórica. BR-PENDING-036 y DM-PENDING-004 permanecen sin cambios en sus documentos APPROVED y se interpretan junto con D020 para este alcance resuelto. No queda ningún SM-PENDING activo. D001–D019 permanecen intactos. State Machines sigue DRAFT v0.1 y pendiente de aprobación global; no se diseña arquitectura ni implementación.
+
+## D021 — Architecture v0.1 aprobada
+
+Date: 2026-09-10
+Status: APPROVED
+Decision: Architecture v0.1 queda APPROVED tras revisión humana. ARCH-DEC-001 a ARCH-DEC-018 quedan aprobadas como decisiones arquitectónicas de esta versión, referenciadas en [architecture.md](architecture.md). ARCH-PENDING-001 y ARCH-PENDING-002 permanecen abiertos y PENDING.
+Reason: Registrar formalmente la aprobación humana de la fase Architecture sin duplicar sus decisiones técnicas ni iniciar la fase siguiente.
+Impact: Ambos pendientes son no bloqueantes para cerrar Architecture y para poder iniciar SPEC 001 posteriormente. ARCH-PENDING-001 bloquea únicamente la selección o implementación dependiente de Telefonía IA y WhatsApp. ARCH-PENDING-002 bloquea únicamente la aceptación o configuración definitiva de recuperación y continuidad de Production. Esta decisión no inicia SPEC 001 ni autoriza implementación.
+
+## D022 — SPEC 001 Core CRM v0.1 aprobada
+
+Date: 2026-09-10
+Status: APPROVED
+Decision: SPEC 001 Core CRM v0.1 queda APPROVED tras revisión humana completa. Sus requisitos funcionales, criterios de aceptación, requisitos no funcionales, guardas, invariantes, fronteras, criterios de concurrencia/idempotencia, Human Approval, seguridad, economía, historial y trazabilidad constituyen la especificación autorizada del Core CRM V1 para derivar posteriormente plan.md. La aprobación de SPEC 001 NO inicia automáticamente plan.md, que necesita una instrucción humana posterior. ARCH-PENDING-001 y ARCH-PENDING-002 permanecen PENDING y los pendientes heredados conservan su alcance. No se ha aprobado ninguna selección de proveedor ni diseño físico de SQL, RLS, endpoints, UI o infraestructura. No se ha iniciado implementación.
+Reason: Cerrar formalmente la fase de especificación funcional/técnica verificable antes de planificación, conforme a la Constitución y al orden SDD aprobado.
+Impact: [specs/001-core-crm/spec.md](../specs/001-core-crm/spec.md) pasa de DRAFT a APPROVED v0.1 y SPEC 001 queda completada. La siguiente fase autorizable pasa a ser plan.md; plan.md, tasks.md e implementación continúan no iniciados hasta nueva instrucción humana. D001–D021 permanecen intactas.
+
+## D023 — Precisión y materialización monetaria en los casos acordados
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma conservar precisión interna y materializar importes visibles/cobrados a dos decimales. Para importes positivos exactamente a medio céntimo se redondea al céntimo superior: 10,005 → 10,01 EUR. Cada modalidad de pack calcula su total multiplicando el precio final por persona ya fijado a dos decimales por sus participantes: 100,01 × 10 = 1.000,10 EUR. Esto no autoriza redondeo comercial automático ni sustituye la fijación manual del precio comercial.
+
+En el anticipo se redondea el porcentaje correspondiente y se obtiene el saldo por diferencia con el total: total 1.000,01 EUR, anticipo 50 % de 500,01 EUR y saldo de 500,00 EUR. En devoluciones se redondea el derecho calculado y se obtiene la retención por diferencia con la base: base 100,01 EUR, devolución 50 % de 50,01 EUR y retención de 50,00 EUR. En cancelaciones de participaciones con precio por persona se calcula por participación y después se suma, sin exigir identificación nominal: tres participaciones de 100,01 EUR con devolución del 50 % generan 150,03 EUR. Las devoluciones parciales descuentan lo efectivamente devuelto del derecho fijado, sin recalcular porcentajes.
+
+Los servicios de precio fijo/grupal conservan su total original: no se prorratean ni se altera ese total por redondeos por persona. Anulaciones y ajustes inversos reproducen exactamente el importe original con signo contrario, con historial y motivo. Se preservan bases, componentes, precisión, diferencias y versión de cálculo. No se modifican costes, suplidos o derechos para cuadrar céntimos silenciosamente. Estos casos no se generalizan a otros repartos o políticas no aprobados.
+Reason: Resolver el alcance concretado de PLAN-PENDING-002 y hacer reproducibles los céntimos sin cambiar políticas comerciales, intervalos de cancelación o derechos.
+Impact: [plan.md](../specs/001-core-crm/plan.md) v0.2, §§3/5.2/7/9/10/12, aplica esta concreción de D010, D019, D020, BR-ECON-007, BR-PACK-004, SPEC-FR-ECON-014 y SPEC-NFR-013. PLAN-PENDING-002 queda RESOLVED en este alcance; casos materiales distintos se localizan en PLAN-PENDING-004. D019 sigue determinando la base, incluido el tratamiento de promociones y precios fijos; esta decisión no crea descuentos ni amplía derechos. D001–D022 y las fuentes anteriores conservan su historial. No se aprueba globalmente PLAN-DEC-006, las otras PLAN-DEC ni el plan, que sigue DRAFT / NOT APPROVED; no se inician tareas ni implementación.
+
+## D024 — Corrección editorial permanente de AC-084
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés autoriza sustituir el literal desactualizado DRAFT/NOT APPROVED de AC-084 por el control permanente de que publicar no equivale a aprobar ni inicia automáticamente otra fase: cada avance requiere las aprobaciones y autorizaciones correspondientes. La corrección se limita al criterio y sus referencias directamente afectadas.
+Reason: Resolver PLAN-OBS-001 / PLAN-PENDING-001 sin contradecir la aprobación documentada de SPEC 001 ni confundir publicación y autorización de fases.
+Impact: [spec.md](../specs/001-core-crm/spec.md), AC-084 y nota editorial de §1, conserva APPROVED v0.1, fecha y evidencia de aprobación de 2026-09-10, D022 intacta e historial en Git. No se reabre la aprobación de la SPEC ni se alteran otros criterios, FR, NFR o reglas. PLAN-PENDING-001 queda RESOLVED por la corrección autorizada. Esta decisión no aprueba el plan v0.2 ni las PLAN-DEC ni habilita tasks.md o implementación.
+
+## D025 — Acceso del Administrador y recuperación
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma un único Administrador, sin registro público y utilizable desde varios dispositivos, con contraseña y segundo factor TOTP. La duración máxima de sesión es de 30 días; tras 7 días sin utilizar el CRM se exige nueva identificación con contraseña y segundo factor. Inactividad significa ausencia de uso del CRM, no ausencia de renovación automática del token.
+
+Contraseñas de Apple es el gestor elegido; Andrés dispone de acceso desde iPhone y Mac/iPad. Durante implementación se verificará el acceso con segundo factor desde otro dispositivo. La clave de configuración TOTP tendrá copia de emergencia en papel, fuera de iCloud y protegida, y se verificará su recuperación antes del uso real. Se permitirá cerrar todas las sesiones desde otro dispositivo autorizado y se exigirá nueva identificación.
+Reason: Concretar la política de PLAN-PENDING-003 para el único usuario sin confundir elección humana, capacidad publicada del proveedor y mecanismos configurados o probados.
+Impact: [plan.md](../specs/001-core-crm/plan.md) v0.2, §§3/6/9/10/11/12, desarrolla D015, ARCH-DEC-004, SPEC-FR-SEC-001/004/005 y SPEC-NFR-002/004. La política queda acordada; PLAN-PENDING-003 se mantiene PARTIALLY RESOLVED por comprobaciones técnicas, coste, revocación efectiva y recuperación todavía pendientes antes de acceso real. El alcance de la inactividad entre varias sesiones/dispositivos y el canal/procedimiento de recuperación de contraseña cuando no esté disponible en el gestor aún requieren concreción; no se eligen por analogía. La copia TOTP no recupera una contraseña perdida ni acredita un canal alternativo o una desactivación autorizada de MFA. No se contrata ni configura nada, no se aprueba globalmente PLAN-DEC-007 ni las restantes PLAN-DEC ni el plan, y no se inicia tasks.md o implementación.
+
+## D026 — Inactividad independiente por sesión/dispositivo
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Los 7 días de inactividad de D025 se calculan independientemente por sesión/dispositivo. El uso del CRM en iPhone no mantiene activa una sesión abandonada en Mac o iPad. Cada sesión conserva su máximo absoluto de 30 días. Solo uso humano real del CRM validado por servidor constituye actividad; refresh, polling, jobs o una pestaña abierta no cuentan.
+Reason: Completar el alcance humano pendiente de D025.
+Impact: Plan §6 y PLAN-AUTH-002: política resuelta; medición y límites pendientes de prueba antes del acceso real.
+
+## D027 — Recuperación de contraseña por email verificado
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Si la contraseña no está disponible en Contraseñas de Apple, se restablecerá mediante enlace enviado al email previamente verificado del único Administrador. TOTP sigue siendo obligatorio tras restablecerla. Este email es exclusivamente de autenticación/seguridad y no cambia D016 ni los avisos internos mediante CRM y WhatsApp.
+Reason: Resolver el canal de recuperación sin confundir política y capacidad configurada.
+Impact: Plan §6; capacidad, configuración, entrega, coste y ensayo pendientes antes del acceso real, dentro de PLAN-PENDING-003.
+
+## D028 — Redondeo simétrico de nuevos importes negativos
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Para nuevos importes calculados negativos se redondea simétricamente por magnitud: −10,005 EUR → −10,01 EUR. Las anulaciones y reversiones exactas mantienen D023: invertir el importe materializado original sin recalcularlo.
+Reason: Resolver el caso negativo nuevo de PLAN-PENDING-004.
+Impact: Plan §5.2, PM-10; conserva BR-ECON-007, BR-PACK-004, D019 y P20. No cambia precio comercial manual, bases ni historia.
+
+## D029 — Repartos deterministas de céntimos
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: En repartos iguales, los céntimos residuales siguen el orden registrado: 100 EUR entre tres destinos → 33,34 + 33,33 + 33,33. En ponderados/desiguales, calcular cada parte con precisión completa, asignar primero céntimos completos, distribuir los restantes por mayor resto decimal y desempatar por orden registrado. La suma materializada coincide exactamente con el total. Para negativos, aplicar sobre el valor absoluto y después el signo: −100 EUR → −33,34 −33,33 −33,33. Preservar total, pesos/bases, resultados internos, restos, orden aplicado, asignación de residuos y versión de cálculo. No inventa bases, porcentajes, derechos ni tratamientos fiscales.
+Reason: Resolver los repartos de PLAN-PENDING-004 con conservación exacta y trazabilidad.
+Impact: Plan §5.2, PM-11–PM-13; 004 RESOLVED junto a D028. No autoriza prorratear precios fijos/grupales, modificar costes/suplidos ni sustituir cálculo por participación de D023; los pendientes fiscales heredados conservan su alcance.
+
+## D030 — Semántica visual para futura Spec de interfaz
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Los importes aparecerán en rojo únicamente cuando el contexto represente pérdida, saldo desfavorable o importe vencido. Una devolución, corrección o negativo normal no será rojo solo por su signo. El color siempre se acompaña de signo y etiqueta/estado, sin depender únicamente de él.
+Reason: Registrar la preferencia humana fuera del alcance de SPEC 001.
+Impact: Principio APPROVED pendiente de incorporar a futura Spec de interfaz; coordinación y plan §11.1 lo conservan sin nuevos requisitos Core, componentes ni estilos.
+
+## D031 — Recuperación extrema desde la cuenta propietaria de Supabase
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Ante pérdida simultánea de contraseña, dispositivos y copia TOTP se aprueba break-glass desde la cuenta propietaria de Supabase, independiente del usuario CRM. Verificar autoridad del propietario, revocar todas las sesiones, registrar incidente y acciones, restablecer únicamente lo necesario para recuperar acceso, enrolar TOTP nuevo y generar/verificar una nueva copia protegida en papel. No permite acceso ordinario sin segundo factor ni es canal habitual. Definir y probar alcance, permisos mínimos, trazabilidad, revocación y procedimiento real antes de Production. No almacenar secretos ni datos de recuperación en Git o logs.
+Reason: Completar la política de recuperación extrema preservando seguridad y supervisión.
+Impact: Plan §6/§11, PLAN-AUTH-005/006; PLAN-PENDING-003 conserva comprobaciones técnicas. El acceso independiente del propietario y las capacidades reales deben verificarse; no se garantiza recuperación de la propia cuenta propietaria perdida. P10–P15 siguen íntegros, incluida P13 para intervenciones de base de datos; no se habilitan permisos ordinarios adicionales ni implementación.
+
+## D032 — Aprobación técnica de PLAN-DEC-001 a PLAN-DEC-009
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés aprueba expresamente las nueve PLAN-DEC-001–PLAN-DEC-009 como decisiones técnicas del Plan SPEC 001. En PLAN-DEC-001, dominio sin dependencias de Next.js significa independencia técnica de las reglas y lógica del dominio de negocio respecto del framework, no dominio o dirección web. La aprobación técnica no equivale por sí sola a aprobar globalmente plan.md.
+Reason: Registrar la aprobación explícita posterior a las políticas parciales de D023–D025.
+Impact: Plan §3.2 pasa sus nueve decisiones de PROPOSED a APPROVED, manteniendo plan v0.3 DRAFT / NOT APPROVED, Ready for tasks.md: NO e implementación no iniciada.
+
+## D033 — Dirección web prevista del CRM
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés confirma: Se aprueba crm.huescaventura.com como dirección prevista del CRM: subdominio asociado a un proyecto/despliegue separado de la web pública. No utilizar huescaventura.com/crm ni comprar un dominio nuevo para este alcance. Esta decisión no autoriza configurar DNS, vincular dominio, crear proyectos ni desplegar durante esta fase. La dirección web es independiente del dominio de negocio de PLAN-DEC-001.
+Reason: Fijar destino previsto sin ejecutar configuración ni ampliar la fase documental.
+Impact: Plan §11.1 y coordinación; configuración, recursos y despliegue no iniciados. No aprueba globalmente el plan.
+
+## D034 — Plan SPEC 001 Core CRM v0.3 aprobado
+
+Date: 2026-09-14
+Status: APPROVED
+Decision: Andrés aprueba formal y expresamente el Plan SPEC 001 Core CRM v0.3 después de la revisión final del commit de coordinación e902220b96a7df36454a984531c27c2f14d14529. La revisión no detectó defectos bloqueantes. PLAN-DEC-001–PLAN-DEC-009 y D023–D033 continúan APPROVED. PLAN-PENDING-003 y los pendientes heredados conservan exclusivamente sus bloqueos localizados; PLAN-PENDING-001/002/004 permanecen resueltos en sus alcances.
+Reason: Cerrar formalmente la fase 07 — Plan con una base revisada, trazable y apta para derivar posteriormente las tareas de implementación.
+Impact: [plan.md](../specs/001-core-crm/plan.md) v0.3 pasa a APPROVED / COMPLETED, con Ready for tasks.md: YES e Implementation: NOT STARTED. La siguiente fase autorizable es 08 — Tasks SPEC 001. Esta decisión no inicia automáticamente tasks.md, implementación, código, UI, SQL, migraciones, configuración, infraestructura o despliegues; cada avance requiere la instrucción humana correspondiente. No acredita como ejecutadas las pruebas o verificaciones técnicas pendientes.
+
+## D035 — Autorización de preparación y publicación de Tasks SPEC 001 v0.1 DRAFT
+
+Date: 2026-09-15
+Status: APPROVED
+Decision: Andrés autoriza exclusivamente la preparación documental de la fase 08 — Tasks SPEC 001: redactar specs/001-core-crm/tasks.md v0.1 DRAFT / NOT APPROVED, revisarlo y publicarlo mediante commit y push, junto con la coordinación documental, sin otra confirmación para estas actuaciones. El alcance de edición se limita a tasks.md, docs/PROJECT-STATUS.md, docs/NEXT-STEPS.md y esta entrada en docs/DECISIONS.md, conservando D001–D034 íntegramente. Puede añadirse un segundo commit exclusivamente de coordinación para registrar el SHA del borrador.
+Reason: Convertir el Plan SPEC 001 v0.3 APPROVED / COMPLETED por D034 en un borrador de tareas trazable y revisable posteriormente en GitHub por ChatGPT y Andrés.
+Impact: Fase 08 IN PROGRESS — pendiente de revisión humana; Tasks v0.1 DRAFT / NOT APPROVED. Esta aprobación corresponde únicamente a la autorización documental, no al contenido de Tasks, a decisiones técnicas nuevas ni a ejecución de tareas. Implementación y H0–H6 NOT STARTED; pruebas técnicas NO EJECUTADAS. No se inicia código, SQL, migraciones, RLS, pruebas de aplicación, UI, conectores, configuración, infraestructura ni despliegues. Las fuentes aprobadas y los pendientes en sus ámbitos se preservan; Last Approved Commit permanece en c2c908495afb8eacd39775f273585173533d6b51. La autorización termina tras publicar el borrador y la coordinación.
+
+## D036 — Tasks SPEC 001 Core CRM v0.1 aprobada
+
+Date: 2026-09-15
+Status: APPROVED
+Decision: Andrés aprueba formalmente Tasks SPEC 001 Core CRM v0.1 sobre el contenido publicado en el borrador 04a98a81720dd02892b12c67fbcede69e5ae7787 y la coordinación revisada f267e2c02d3c920dc385a73a6a0cc0f0e8c6dc5f. Se cierra la fase 08 documental. D035 conserva íntegramente su carácter histórico de autorización para preparar y publicar el borrador; no se reinterpreta como aprobación del contenido.
+Reason: Registrar la aprobación humana expresa del documento de tareas revisado y cerrar su fase documental sin iniciar trabajo técnico.
+Impact: [tasks.md](../specs/001-core-crm/tasks.md) v0.1 pasa a APPROVED / COMPLETED. COMPLETED corresponde únicamente a la fase documental, no a las 125 tareas. Las fichas, IDs, casillas, dependencias, bloques, verificaciones, evidencias NO EJECUTADAS, 618 correspondencias, pendientes y bloqueos localizados permanecen vigentes. Implementación y H0–H6 siguen NOT STARTED; pruebas técnicas NO EJECUTADAS. Esta decisión no autoriza ejecutar TSK-H0-001 ni ninguna otra tarea, preparación técnica o ensayo, y no inicia automáticamente la siguiente fase.
+
+## D037 — F1: capacidad autenticada por transacción para corregir H0-008-F01
+
+Date: 2026-09-16
+Status: APPROVED
+Approved: 2026-09-16
+Decision: Andrés aprueba expresamente seleccionar F1 — CAPACIDAD AUTENTICADA POR TRANSACCIÓN como modelo de confianza para corregir H0-008-F01. F1 queda APPROVED AS DESIGN / NOT IMPLEMENTED. La selección aprobada comprende conjuntamente las siguientes condiciones:
+
+1. **Invariante y amenaza.** Poseer las credenciales de crm_h0_runtime, incluso con capacidad para emitir SQL arbitrario permitido a ese rol, no debe ser suficiente para fabricar, ampliar o reutilizar fuera de su autorización una identidad, scope u operación aceptada por la capa de datos. M1 controla input cliente/HTTP; M2 posee las credenciales runtime y conoce objetos, protocolo, IDs y scopes. Se exige resistencia a ambos, especialmente M2, sin confiar en UI, TypeScript, oscuridad ni GUC autodeclarados. El servidor autoriza antes de emitir: no firma libremente claims del cliente.
+2. **Autoridades separadas.** MIGRATION administra exclusivamente su ámbito autorizado y nunca atiende tráfico ordinario. RUNTIME es LOGIN, con solo CONNECT/USAGE necesarios y EXECUTE explícito sobre la interfaz estrictamente necesaria: sin SELECT/INSERT/UPDATE/DELETE directo Core, acceso al key store, DDL, ownership, SUPERUSER, BYPASSRLS, CREATEROLE, CREATEDB, REPLICATION ni membresías privilegiadas transitivas SET/INHERIT/ADMIN. TABLE OWNER es distinto de runtime/executor, preferentemente NOLOGIN. VERIFIER es NOLOGIN, con acceso mínimo a claves/helpers y sin DML Core ordinario. EXECUTOR es NOLOGIN, con permisos mínimos de datos, sin ownership de tablas, BYPASSRLS ni lectura de claves. PUBLIC, genéricos y Data API no reciben privilegios implícitos. Runtime no obtiene firmador, helper que fabrique autoridad ni capacidad para asumir verifier/executor/migration.
+3. **Capability.** Se autentican protocol_version, key_id, environment/audience, generation, binding PostgreSQL, login esperado, identity, identity_kind, purpose, scope, operation, resource/action, fingerprint material SHA-256, límites temporales y capability_id. Serialización canónica no ambigua, dominios separados/versionados y validación completa: modificar cualquier campo o input invalida la autorización salvo nueva emisión válida. El ejecutor recalcula el fingerprint del input que realmente ejecuta. Ausencias, desconocidos incompatibles, malformación o fallo de verificación deniegan sin efectos. Este paquete usa identidad técnica; no implementa identidad humana/Auth.
+4. **Binding y transporte.** Se seleccionan xid8 completo real, backend PID y ámbito de base/entorno/generación, incluyendo arranque del servidor PostgreSQL, cotejados contra valores obtenidos por PostgreSQL y no contra claims/GUC del caller. Son identificadores públicos, no secretos. Una única conexión runtime reservada realiza BEGIN → binding → emisión en servidor → verificación/operación → COMMIT/ROLLBACK. El transporte es parametrizado; se asume que una capability podría observarse/copiarse. La seguridad debe sobrevivir a commit, rollback, error y reutilización del pool, incluso si queda un valor de sesión anterior. No se conserva autoridad entre unidades.
+5. **MAC y claves.** HMAC-SHA-256 con K de 32 bytes criptográficamente aleatorios y MAC completo de 32 bytes, sin truncar. K se custodia únicamente en servidor autorizado y key store DB protegido, fuera de Git, navegador, GUC, logs, definición de funciones y migraciones en texto claro. Nunca deriva de la contraseña runtime ni viaja por su conexión. key_id selecciona exactamente una clave, sin fallback. Rotación: provisionar nueva clave de verificación, cambiar emisión y retirar la anterior tras su ventana autorizada; ausencia/error/revocación falla cerrado. Cada entorno mantiene generación propia, renovada antes de servir tras restauración/clonación/reset de línea temporal, sin reutilizar autoridad de otro entorno. HMAC es simétrico: verificador/custodios administrativos pertenecen al perímetro privilegiado.
+6. **Comparador seleccionado.** PR-F-01 está CLOSED técnicamente. E = HMAC-SHA-256(K, payload); S es el MAC recibido de exactamente 32 bytes. En cada comparación el verificador genera B, 32 bytes criptográficamente aleatorios nuevos e independientes de K. Con D = ASCII exacto `CRM-H0F1-CMP-v1`, sin NUL, calcula L = HMAC-SHA-256(B, D || E) y R = HMAC-SHA-256(B, D || S). Recorre exactamente los 32 bytes acumulando OR de XOR, sin early return; acepta únicamente con acumulador cero y longitudes/valores válidos. Se prohíben comparación directa E/S como mecanismo final, random(), reutilizar B, recibir B/E del runtime, exponer E/B/L/R/K o fallback de comparador. La garantía es impedir aprendizaje progresivo del MAC original por oráculo de prefijos y evitar salida anticipada explícita; no se afirma CPU constant-time perfecto ni seguridad criptográfica incondicional.
+7. **Versión y límites iniciales.** protocol_version = 1 selecciona exclusivamente este algoritmo/codec, sin negociación de downgrade. Se conservan del diagnóstico: payload firmado e input canónico de hasta 64 KiB cada uno, strings de hasta 16 KiB y plazo firmado de 30 segundos. not_before procede del reloj DB y expires_at = not_before + 30 segundos; comprobación en admisión, accesos y final del ejecutor, con error/rollback ante caducidad, nunca éxito parcial. No es un deadline de COMMIT. READ COMMITTED; rotación/revocación se comprueban sin prometer cancelación retroactiva de sentencias en vuelo bajo MVCC. Ampliar estos límites o alterar esta semántica requiere revisión humana, no cambio silencioso de implementación.
+8. **C01.** Se conserva AuthorizedQueryPort: función de lectura estrecha, capability para scope/operación/input concretos, executor con SELECT mínimo y proyección mínima, sin columnas privadas ni acceso fuera de alcance. Runtime no tiene SELECT directo. No se trasladan reglas comerciales al transporte/SQL; dominio y aplicación mantienen sus fronteras modulares.
+9. **C03 y consumo.** Se conserva TransactionPort: manifest completo, ordenado y autenticado; todas las escrituras de la unidad en la misma transacción y rollback conjunto ante fallo. Se permite una marca técnica protegida de consumo, creada antes de efectos y confirmada/revertida junto con ellos, para denegar una segunda aplicación superviviente. Runtime no puede manipularla y su limpieza no puede reabrir una autorización activa. No equivale a historia, resultado, idempotencia o intención durable; no adelanta H0-009 ni autoriza SQL/CRUD genérico. El subconjunto técnico rechaza campos no soportados, sin omitirlos silenciosamente ni eliminar los contratos generales.
+10. **Replay.** Denegados cross-transaction, cross-connection, cross-scope, cross-operation e input modificado. C01 puede repetir la misma lectura dentro de su unidad/plazo si el contrato lo permite. C03 admite las instrucciones internas del manifest, no una segunda aplicación superviviente; consumo técnico lo impide. Rollback/savepoint puede revertir conjuntamente consumo y efectos. La incertidumbre de COMMIT no autoriza retry ciego ni se transforma en éxito/fallo conocido.
+11. **Grants, RLS y funciones.** Funciones estrechas, grants mínimos y RLS son complementarios y efectivos. Executor permanece sujeto a políticas; table owner está separado y se mantiene FORCE RLS donde corresponda, incluida la superficie técnica H0-M01. Ninguna policy acepta GUC planos ni un flag verified autodeclarado: cualquier envelope/contexto transportado debe autenticarse. Toda SECURITY DEFINER tiene owner no runtime, preferentemente NOLOGIN, search_path seguro/fijo, nombres cualificados, EXECUTE revocado de PUBLIC y grants explícitos, sin SQL dinámico controlado por caller ni temporales confiados, con retorno mínimo y errores saneados. Runtime no puede ALTER/REPLACE ni poseer funciones/schemas; se revisan helpers, overloads, vistas, defaults y funciones llamadas para impedir accesos indirectos que reabran la superficie.
+12. **Pendientes, riesgos y frontera de aprobación.** Esta aprobación selecciona el modelo, sus autoridades, capability/binding, comparador, custodia/rotación, límites y consumo técnico limitado. No acredita implementación ni hosted: PLAN-AUTH-006 sigue PENDING / NO EJECUTADA globalmente para ownership/roles custom, pooler transaction mode/afinidad, pgcrypto efectivo, provisión/rotación, TLS, logs, backups/restauración, límites/performance y Staging/Production. Fuera de la garantía específica quedan robo de K, compromiso del proceso servidor, credenciales de migración/administración y superuser/autoridad equivalente; persisten riesgos de DoS, exposición de metadatos e incertidumbre de COMMIT. H0-008-F01 permanece OPEN y H0-008 FAILED/BLOCKED hasta corrección autorizada y verificación completa.
+
+Reason: H0-008 demostró que runtime fabrica GUC y satisface RLS sin autorización servidor. F1 aporta autoridad criptográfica independiente de la contraseña runtime y elimina acceso directo Core; las funciones sin autenticación no resuelven M2 y los roles por sí solos no distinguen al atacante. Se prefiere F1 frente a conservar SELECT directo, introducir otra conexión emisora C2 o adelantar JWT/Auth. PR-F-01 tiene cierre técnico mediante double-HMAC fresco + XOR/OR, no aprobación del conjunto. Trazabilidad: Plan §§3.2/6.5/7.2, B01/C01/C03; SPEC-FR-SEC-001/002/005, SPEC-FR-INT-002, AC-064/079/082; Tasks TSK-H0-007/008; evidencia H0-008 y diagnóstico H0-008-F01 §§1/3/12/13. El diagnóstico es evidencia no normativa, no una fuente APPROVED incorporada íntegramente por referencia.
+Impact: Aprobación exclusivamente documental; D001–D036 y fuentes APPROVED permanecen intactas. F1 queda APPROVED AS DESIGN / NOT IMPLEMENTED. Se dejan a implementación autorizada nombres SQL/schemas/helpers, paths/módulos, offsets del codec, mensajes y housekeeping del consumo, siempre subordinados a estas condiciones. Esta aprobación NO autoriza implementar, modificar código/migraciones/tests, aprovisionar secretos o recursos, ejecutar tareas, cerrar H0-008, iniciar H0-009/010 o H0-005/006, Auth/UI ni hosted/Staging/Production. Se requieren instrucciones humanas separadas para implementación y verificación; H0-008 deberá repetir íntegramente sus controles asignados y regresiones, no cerrarse por aprobar D037.
+
+## D038 — F2: capacidad humana autenticada por transacción para CRM Actor y sesiones
+
+Date: 2026-09-26
+Status: APPROVED
+Decision: Andrés aprueba F2 — CAPACIDAD HUMANA AUTENTICADA POR TRANSACCIÓN como autoridad separada para implementar CRM Actor y sesiones humanas sin ampliar ni reinterpretar F1/D037. La aprobación comprende conjuntamente estas condiciones:
+
+1. **Separación F1/F2.** F1 continúa reservado a identidad técnica conforme a D037. F2 acredita exclusivamente autoridad humana derivada de identidad Auth previamente verificada y estado vigente de CRM Actor/sesión. F2 no cambia protocol_version, semántica ni identity_kind de F1, no convierte F1 en capacidad humana, no permite a `crm_h0_runtime` fabricar identidad humana y no reutiliza K-F1. Una misma transacción puede exigir ambas: F2 acredita al humano/sesión vigente; F1, la operación técnica exacta autorizada.
+2. **Amenaza M1/M2.** M1 controla input cliente/HTTP. M2 posee credenciales `crm_h0_runtime`, conoce IDs, scopes, esquema y protocolo, y emite cualquier SQL permitido a runtime. M2 no debe poder crear sesión humana válida, fabricar actor, alterar mapping Auth subject→actor, habilitar actor, revocar o desrevocar sesión, prolongar `identified_at` o `last_human_activity_at`, fingir MFA o recuperación, cambiar `access_generation`, inventar actividad humana, recuperar autoridad caducada, ampliar scope ni reutilizar capability fuera de su binding. No se confía en UI, TypeScript, oscuridad, GUC autodeclarados ni claims editables por cliente.
+3. **Emisión.** Solo el servidor autorizado, después de verificar la identidad Auth mediante la frontera aprobada, emite F2. Runtime no posee K-F2 ni firmador, no lee el key store F2, no asume verifier/executor/owner/migration, no recibe CRUD directo sobre actor/sesión ni helper genérico que fabrique autoridad.
+4. **Capability F2 v1.** Autentica al menos protocol/version F2, key_id, environment/audience, generation, binding PostgreSQL, login esperado, Auth subject verificado, CRM Actor ID, session ID, identification/access epoch, access_generation, purpose, scope, operation, resource/action, clase de interacción, fingerprint del input material, not_before, expires_at y capability_id. La serialización es inequívoca. Modificar cualquier componente o input invalida la autorización salvo nueva emisión válida; el ejecutor recalcula el fingerprint del input ejecutado.
+5. **Binding.** F2 se vincula a xid8 real, backend PID, database, postmaster start, login esperado y environment/generation, cotejados con PostgreSQL. No cruza transacción, conexión, sesión, actor, scope, operation, resource/action ni generation; no deja autoridad entre unidades. Esos identificadores no son secretos.
+6. **Criptografía y claves.** F2 usa HMAC-SHA-256, K-F2 independiente de K-F1 de 32 bytes aleatorios y MAC completo de 32 bytes. Selección exacta por key_id, sin fallback; generación propia por entorno y rotación fail-closed. Puede reutilizarse solo el algoritmo comparador endurecido de D037, con clave, dominio y protocolo F2 independientes: nunca mezclar claves, payloads ni dominios F1/F2. Ventana firmada inicial: 30 segundos. Cambiar ventana o criptografía requiere revisión humana.
+7. **Superficie estrecha.** F2 no autoriza CRUD genérico. Las operaciones conceptuales son `provision_actor_mapping` —solo autoridad administrativa/migración—, `establish_session`, `authorize_core_access`, `reidentify_session`, `revoke_session`, `revoke_all_sessions` y `enable_actor`/`disable_actor` cuando proceda. Cada una tiene input y efecto estrechos; runtime no obtiene modificación arbitraria de sesión. Los nombres físicos quedan para la implementación autorizada.
+8. **CRM Actor.** V1 conserva un único Administrador operativo, con actor_id estable, mapping Auth subject autorizado, enabled/disabled y access_generation monotónica. Crear o cambiar el mapping no es facultad ordinaria runtime; no hay alta pública de actores.
+9. **Session.** Cada sesión humana es independiente: session_id estable, actor_id, Auth subject, generación vigente, estado/revocación, identification epoch vigente y tiempos servidor relevantes. No guardar password, TOTP secret, QR, OTP, recovery secret ni JWT completo salvo necesidad técnica explícita posterior.
+10. **Identification epoch.** Una identificación completa con contraseña y TOTP/MFA crea un epoch nuevo. Reidentificar no reescribe hacia atrás uno expirado: el nuevo epoch vigente tiene nuevos identified_at y last_human_activity_at iniciales; el anterior queda histórico/no vigente. Puede vincularse al mismo dispositivo/sesión física sin revivir autoridad anterior.
+11. **Límites.** Por sesión/epoch: 30 días absolutos desde identified_at y 7 días de inactividad humana desde last_human_activity_at. Solo reloj servidor. En el instante exacto de cualquiera de los límites, Core ya está denegado; no hay tolerancia implícita. Refresh no mueve ninguno de los dos tiempos.
+12. **Actividad humana.** Solo interacción real validada por servidor puede actualizar last_human_activity_at: `interactive_read` o `interactive_action`, o equivalentes estrictos. Token refresh, polling, background job, sync, keepalive y passive/open tab no cuentan. `human=true` u otro booleano libre del cliente no acredita actividad; la señal procede de ruta/operación servidor previamente clasificada.
+13. **Admisión antes de actividad.** `authorize_core_access` verifica F2; obtiene/bloquea actor y sesión/epoch vigentes; comprueba mapping, enabled, generation, revocación, identificación completa, MFA, enrollment/recovery, límites `<7` y `<30` días, scope y operation; solo entonces admite Core. Únicamente después, si la clase humana es válida, actualiza last_human_activity_at. Una petición llegada al límite no se auto-reactiva actualizando primero.
+14. **Atomicidad con Core.** La admisión F2 y el acceso Core material se coordinan en la misma transacción PostgreSQL o con garantía equivalente demostrada. Una guardia de aplicación aislada antes de otra transacción no basta frente a M2 ni carreras. F2 no sustituye F1: si Core requiere F1, la misma unidad exige ambas autoridades.
+15. **Orden de locks y carreras.** Orden único documentado actor → session → identification epoch/estado asociado, o equivalente estable; autorización, revocación e inhabilitación lo comparten. Si revocación/disable confirma primero, la petición posterior se deniega y no reactiva actividad. Si la operación humana obtuvo locks y autorización primero, puede completar esa transacción; la revocación se aplica después y ninguna operación posterior con autoridad anterior pasa. No se afirma cancelación retroactiva de una transacción ya autorizada.
+16. **Revocación global.** access_generation del actor nunca disminuye ni puede ser modificada directamente por runtime. `revoke_all_sessions` la incrementa; capacidades, sesiones/epochs o autoridad de generación anterior se rechazan, aunque un token Auth aún viva. La generación no procede de claims libres del cliente.
+17. **Auth/MFA.** Supabase Auth sigue siendo proveedor aprobado de identidad. Autenticado en Auth y `aal2` válido no implican autorización Core. F2 exige además actor, sesión, epoch, MFA/identificación completa, tiempos, generation y revocación vigentes, así como enrollment/recovery compatibles. D038 no configura Supabase Auth real.
+18. **Enrollment/recovery.** Enrollment incompleto, recuperación en curso o reidentificación posterior pendiente mantienen Core denegado. Puede existir ámbito mínimo separado para continuar solo enrollment/recovery, sin expedientes ni operaciones Core.
+19. **Persistencia y privilegios.** Tablas futuras de actor/session/epoch con owner separado NOLOGIN, FORCE RLS cuando proceda, runtime sin DML directo y PUBLIC/Data API sin acceso implícito. Verifier sin Core DML general, executor sin K y migration separado. Escrituras sensibles solo mediante funciones estrechas autorizadas.
+20. **Frontera.** D038 resuelve solo el bloqueo arquitectónico localizado antes de TSK-H0-005. No acredita implementación, Supabase Auth/MFA reales, email, recuperación, dispositivos, Production, H0-006, PLAN-AUTH-002 ni PLAN-AUTH-006 global. TSK-H0-005 requiere nueva autorización humana para continuar.
+
+Reason: H0-005 necesita persistir y comprobar estado humano vigente frente a M2. D037 protege identidad técnica y no implementa Auth humana. Ampliar F1 silenciosamente rompería la separación aprobada; F2 añade autoridad humana independiente, estrecha, transaccional y verificable sin modificar D037.
+Impact: Queda RESOLVED por decisión el bloqueo de diseño localizado de H0-005, pero TSK-H0-005 sigue NOT STARTED hasta nueva autorización. Constitution, Product, Business Rules, Domain Model, State Machines, Architecture v0.1, SPEC 001, Plan aprobado y D037 permanecen intactos. PLAN-AUTH-002 y PLAN-AUTH-006 siguen PENDING. Esta decisión no autoriza código, migraciones, tests, claves, recursos hosted, configuración Auth, H0-005/006 ni tarea posterior.
+
+## D039 — Transaction Finalization Authority
+
+Date: 2026-09-28
+Status: APPROVED
+Implementation: IMPLEMENTED LOCALLY — TSK-H0-012 COMPLETED; evidencia formal R01–R25 del 2026-09-28 en [evidence-TSK-H0-012.md](../specs/001-core-crm/evidence-TSK-H0-012.md). Hosted M03/M04 NO ACREDITADOS. La aprobación inicial y su límite histórico se conservan abajo.
+Decision: Andrés aprueba expresamente D039 y selecciona A + D: Trusted Transaction Executor (TTE) interno dentro del servidor de confianza, con login y pool PostgreSQL exclusivos. La aprobación comprende conjuntamente estas condiciones:
+
+1. **Propiedad exclusiva.** Las unidades sensibles de Human Approval que coordinan M04/M02 se ejecutan mediante el TTE, propietario exclusivo de su conexión y transacción. El solicitante recibe una interfaz de operaciones estrecha, nunca la conexión, un handle transaccional ni una facultad de confirmar posteriormente.
+2. **Control transaccional.** El TTE controla BEGIN, la secuencia autorizada, las comprobaciones finales y COMMIT/ROLLBACK. El solicitante no puede omitir o adelantar la comprobación final, intercalar SQL, introducir waits ni separar arbitrariamente comprobación y finalización. No se devuelve el control al solicitante entre la comprobación final y el inicio de COMMIT.
+3. **Runtime general.** `crm_h0_runtime` deja de poder construir o finalizar directamente las unidades sensibles de Human Approval: no dispone de acceso directo ni indirecto a las funciones, conexión o credencial que permitan eludir al TTE, ni puede asumir su login o roles privilegiados. Conserva solo las operaciones ordinarias expresamente autorizadas. Esta es una obligación de la implementación futura, no un cambio de permisos ya realizado.
+4. **Arquitectura A + D.** Se selecciona un módulo interno del servidor de confianza y un login/pool PostgreSQL exclusivo, manteniendo el monolito modular. Otro pool con la misma credencial runtime no satisface la separación. Se preservan mínimo privilegio, owners/verifiers/executors separados y ausencia de acceso directo a datos o claves; no se introducen roles NOLOGIN adicionales salvo necesidad demostrada en la implementación autorizada.
+5. **Frontera de confianza.** Se mantienen M1/M2 de D037/D038: M1 controla input cliente/HTTP; M2 posee las credenciales de `crm_h0_runtime` y emite el SQL permitido a ese rol. No se amplía la garantía frente al compromiso del proceso servidor de confianza. Un módulo interno no se presenta como aislamiento frente al control de ese proceso o de la conexión privada del TTE.
+6. **F1/F2 y binding.** F1 y F2 siguen siendo autoridades separadas, técnica y humana. Las capacidades necesarias se emiten por servidor autorizado después de BEGIN, para la transacción real del TTE, preservando backend PID, xid8, database, postmaster start, login esperado y environment/generation, cotejados con PostgreSQL. No se reutilizan capacidades de otra conexión/transacción ni se acepta un login indistinto: cada login queda asociado a operaciones autorizadas. Se conservan claves independientes, criptografía, ventanas y controles de D037/D038.
+7. **Human Approval.** El TTE no aprueba, no cambia el material ni sustituye la autoridad humana. Conserva propuesta/versión/parte exactas, admisión y revalidación F2, reservas, consumo e incertidumbre, así como la distinción entre operaciones humanas y técnicas ya autorizadas.
+8. **Evidencia y propiedad temporal aprobada.** Se distinguen expresamente A) última comprobación autoritativa obligatoria y B) finalización durable interna de PostgreSQL. La evidencia debe seguir vigente en una comprobación final obligatoria, ejecutada después de todas las esperas y trabajos de la unidad e inmediatamente antes de iniciar COMMIT. La comprobación y el inicio de COMMIT pertenecen al TTE; en ese intervalo no vuelve el control al solicitante ni este puede intercalar SQL, introducir waits, adelantar u omitir la comprobación o separar arbitrariamente comprobación y finalización. La evidencia no se renueva ni amplía silenciosamente; una comprobación fallida impide confirmar. **No se exige que PostgreSQL haya terminado físicamente su confirmación durable antes del instante de expiración de la evidencia.** Esta distinción queda aprobada expresamente y alineada con D037 §7: las ventanas temporales de capability no son un deadline físico de COMMIT. No se redefine silenciosamente la semántica ni se admite una comprobación opcional o adelantable.
+9. **M02/M04 y atomicidad.** Cuando corresponda a la operación, M04 y M02 permanecen en la misma unidad atómica, incluyendo autorización/revalidación aplicable, historia, resultado e intención. Se conserva la partición de autoridad humana/técnica y la revalidación original exigida al cierre; un fallo no produce éxito parcial.
+10. **Resultado y replay.** Solo se devuelve éxito durable tras confirmación conocida. Un commit incierto se recupera mediante identidad estable y resultado persistido, sin repetir a ciegas. Same identity/different material conserva E2. La recuperación autorizada de un resultado ya committed no vuelve a ejecutar el efecto ni exige obtener de nuevo la evidencia/proveedor original; no convierte polling en actividad humana.
+11. **Efectos externos.** No se contacta con un proveedor externo dentro de la unidad sensible. Intención, intento, resultado e incertidumbre conservan sus contratos, incluida conciliación del intento exacto cuando corresponda. No se promete exactly-once externo.
+12. **Relación con D037/D038.** D039 concreta la autoridad de finalización para estas unidades: la conexión reservada y el binding corresponden al TTE conforme a esta decisión, manteniendo las restantes garantías de D037/D038. No convierte F1 en autoridad humana, no sustituye F2 y no reabre la criptografía ni sus ventanas. D037 y D038 permanecen histórica e íntegramente APPROVED, sin alterar su texto.
+13. **Límite de aprobación.** D039 queda APPROVED / NOT IMPLEMENTED. Aprobarla no implementa TTE/F05, no cierra F05, no completa H0-012, no acredita hosted, no autoriza Production ni H0-013. Esta publicación solo autoriza decisión y coordinación documental: no código, tests de implementación, migraciones, roles/login reales, secretos, pools, Supabase, Vercel ni nueva R01–R25. Implementación y verificación requieren autorización humana posterior delimitada.
+
+Reason: F05 demuestra que el runtime propietario de la transacción puede omitir o adelantar una comprobación opcional. A + D asigna al servidor de confianza la comprobación final obligatoria y el inicio de COMMIT, fuera del control SQL M2 del runtime general. La aprobación distingue expresamente esa obligación del trabajo interno posterior de confirmación durable de PostgreSQL.
+Impact: F05 = OPEN / MATERIAL / ALTA; DESIGN BLOCKER RESOLVED BY D039; IMPLEMENTATION NOT STARTED; PENDING TECHNICAL VERIFICATION. F01/F02/F03/F04 = FIX IMPLEMENTED / PENDING FORMAL REVERIFICATION; TSK-H0-012 = FAILED / NOT COMPLETED; H0-013 = NOT STARTED; H0 = IN PROGRESS. PLAN-AUTH-002/006 siguen PENDING globalmente; hosted M03/M04 NO ACREDITADOS; Supabase Staging SIN CAMBIOS. Se publican únicamente DECISIONS, PROJECT-STATUS, NEXT-STEPS y la coordinación de Tasks. Architecture y Plan requieren una actualización documental posterior autorizada para referenciar la propiedad de conexión, roles y cierre seleccionada; no se modifican aquí ni se alteran otras fuentes APPROVED o evidencias históricas.
+
+## D040 — Año y zona canónica de los códigos correlativos
+
+Date: 2026-09-29
+Status: APPROVED
+Decision: Andrés fija para OP, PR, RES e INC el año del código por el instante de creación/asignación del código del registro correspondiente, interpretado en `Europe/Madrid`. El cambio de serie anual ocurre el 1 de enero a las 00:00:00 en esa zona. Para RES, el instante corresponde a la creación de Booking conforme a SM-BK-01; no se adelanta por preparación ni se usa la fecha futura de prestación. OP y PR usan su propia creación/asignación; INC usa su creación/asignación, no necesariamente la fecha del hecho. Ninguna fecha futura de servicio, actividad o alojamiento determina la serie. Una vez asignados, código y año son inmutables: cambios posteriores de fechas u otros datos no los regeneran ni trasladan de serie.
+Reason: Resolver exclusivamente la convención temporal pendiente en Plan §5.1 y Tasks H1-003/004 para las series aprobadas por BR-ID-001/002 y SPEC-FR-ID-005.
+Impact: Se levanta el bloqueo localizado de convención de año para TSK-H1-003/004. El pendiente compuesto de Tasks §7.2 queda resuelto solo en su parte de año/zona de códigos; la zona/fecha contractual pertinente para otros cómputos sigue pendiente. No cambia D020, el nacimiento de Booking, formato, ámbito, autorización, conservación ni otras reglas. Esta decisión no acredita implementación, tests, hosted, Production ni inicia H1-005.

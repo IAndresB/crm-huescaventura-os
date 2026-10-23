@@ -1,0 +1,52 @@
+{
+  "schema": "H6-004-independent-corrective-reconciliation/v1",
+  "status": "PASS",
+  "postgresHistoricalFail": 2,
+  "postgresReconciled": 2,
+  "correspondences": [
+    {
+      "original": {
+        "name": "I04-04 movement identities deduplicate; uncertainty survives resolved Incident and needs verified outcome",
+        "status": "FAIL",
+        "path": "runs/controls-20261022T234653993404Z/phase-01.stdout.log",
+        "line": 229,
+        "sha256": "846aa7a5e5b6a3f85e61fdff61e3628e443d9d193352e688a4d62dcbd4774966"
+      },
+      "successor": {
+        "name": "I04-04 movement identities deduplicate; uncertainty survives resolved Incident and needs verified outcome",
+        "status": "PASS",
+        "path": "runs/controls-successor-20261022T234823010108Z/phase-01.stdout.log",
+        "line": 209,
+        "sha256": "ec6c49b185606a49318ec1f89a8f7e870c038120e52e1c541bf948490fa0ee95"
+      }
+    },
+    {
+      "original": {
+        "name": "I04-07 real root overlap in both orders prevents closing over a new Refund and preserves independent dimensions",
+        "status": "FAIL",
+        "path": "runs/controls-20261022T234653993404Z/phase-01.stdout.log",
+        "line": 250,
+        "sha256": "846aa7a5e5b6a3f85e61fdff61e3628e443d9d193352e688a4d62dcbd4774966"
+      },
+      "successor": {
+        "name": "I04-07 real root overlap in both orders prevents closing over a new Refund and preserves independent dimensions",
+        "status": "PASS",
+        "path": "runs/controls-successor-20261022T234823010108Z/phase-01.stdout.log",
+        "line": 230,
+        "sha256": "ec6c49b185606a49318ec1f89a8f7e870c038120e52e1c541bf948490fa0ee95"
+      }
+    }
+  ],
+  "instrumentVerificationFailure": {
+    "original": "integrity-v1.json",
+    "originalStatus": "FAIL",
+    "successor": "integrity-v2.json",
+    "successorStatus": "PASS",
+    "reason": "Character-diff quote boundary assumption replaced by exact complete-source equality after removal of only the two CLI arguments."
+  },
+  "expectedUnchanged": true,
+  "sourceVersions": [
+    "own-source-v1/postgres-h6-004-independent.test.ts",
+    "own-source-v2/postgres-h6-004-independent.test.ts"
+  ]
+}

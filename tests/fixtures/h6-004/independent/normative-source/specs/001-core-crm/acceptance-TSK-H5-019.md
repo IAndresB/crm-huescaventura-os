@@ -1,0 +1,13 @@
+# H5-019/H5 — Recibo de aceptación y cierre documental local
+
+18 de octubre de 2026. El director técnico adopta D01–D04 conforme al [recibo estructurado](../../tests/fixtures/h5-019-acceptance/decision-receipt.json). Es constancia documental de la decisión comunicada en este encargo, no una firma criptográfica ni autorización de publicación.
+
+**D01 — aceptación técnica.** Se acepta exclusivamente el candidato sucesor local/aislado cuyo sello `tests/fixtures/h5-019-corrective/candidate-seal.json` tiene SHA-256 `31fd4ac89aea684f2155a4365cb5870a0c0163838cbfd543d2ad98d0db1ea619`. La auditoría independiente del sucesor emitió PASS para ese conjunto exacto. Su sello externo tiene SHA-256 `9f35bae29b5a152c3520b36f723be57cd606c8cf9b2cc30f2ca80e88038b9915`. El recibo conserva los hashes de su informe, matriz e inventario; los originales permanecen en archivo independiente externo bajo custodia del director. Esta síntesis y los hashes permiten identificar la decisión desde el repositorio sin depender de que GitHub resuelva una ruta privada.
+
+**D02 — cierre documental local.** TSK-H5-019 y H5 global quedan COMPLETED exclusivamente local/aislado, respaldados por el [cierre consolidado](closure-TSK-H5-019.md), la [matriz final](matrix-TSK-H5-019-corrective.md) y las evidencias originales preservadas. La decisión humana acepta; el PASS de cada auditor es una evaluación técnica distinta. El cierre no produce una ejecución funcional nueva.
+
+**D03 — reconciliación limitada.** Las anotaciones vigentes de H5-011, H5-013 y H5-015 remiten a sus publicaciones y verificaciones posteriores, sin alterar el texto histórico de sus fichas. [Reconciliación detallada](reconciliation-TSK-H5-019.md).
+
+**D04 — publicación pendiente.** Existe un [manifiesto de publicación preparado](../../tests/fixtures/h5-019-acceptance/publication-manifest.json), sellado mediante un hash externo separado. No se ha ejecutado git add, commit, push ni despliegue. El conjunto documental de cierre tiene bytes distintos de los del candidato técnico aceptado; el sello D01 identifica solo a este último. La publicación exige autorización expresa posterior y verificación del commit, push y lectura remota antes de declararla realizada.
+
+DM-PENDING-005 OPEN. H6 NOT STARTED. Hosted y Production NO ACREDITADOS. AC-073/H6-015 y demás tramos H6 siguen NO EJECUTADOS; los dobles externos no acreditan entrega, cobro ni continuidad reales. Se mantienen Tasks §7 y Plan §12, incluidas PLAN-AUTH, ARCH-PENDING-002, privacidad, fiscalidad, conectores y parámetros operativos pendientes. No se fija política de conservación, anonimización, eliminación, audio o acceso real.

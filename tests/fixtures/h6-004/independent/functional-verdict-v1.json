@@ -1,0 +1,90 @@
+{
+  "schema": "H6-004-independent-functional-verdict/v1",
+  "createdAt": "2026-10-22T23:58:38.542265+00:00",
+  "result": "PASS TECNICO LOCAL/AISLADO",
+  "base": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "expectedSHA256": "6469303177ee16e1cee10b896dc5f49d8e5e6c866e4130791892e58ffea9622d",
+  "directAssignment": "E2E-04",
+  "primaryAC": 19,
+  "normativeControls": 34,
+  "independentOwnControls": 8,
+  "ownSelected": {
+    "candidateFocal": 31,
+    "candidateSupplement": 1,
+    "newIndependentControls": 8,
+    "totalNodeRecords": 40,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "ownHistorical": {
+    "records": 48,
+    "pass": 46,
+    "fail": 2,
+    "reconciledFail": 2,
+    "additionalInstrumentVerifierFAIL": 1
+  },
+  "executorSelected": {
+    "total": 869,
+    "focal": 31,
+    "supplement": 1,
+    "regression": 837,
+    "regressionFiles": 18,
+    "totalFiles": 20
+  },
+  "executorHistorical": {
+    "records": 1122,
+    "pass": 1005,
+    "fail": 117,
+    "reconciledFail": 117
+  },
+  "uniqueConsolidatedNodeRecords": 877,
+  "uniqueConsolidatedExplanation": "869 producer selections + 8 newly authored independent controls. Candidate repetitions and failed predecessors do not increase unique coverage. Counts include Node test containers.",
+  "productPathsIdenticalToBase": 174,
+  "migrationCount": 68,
+  "H6_001InputsInherited": 0,
+  "openMaterialFindings": 0,
+  "findings": [
+    {
+      "id": "AI04-COV-01",
+      "control": "IA04-07 / AC-032",
+      "status": "CLOSED",
+      "initial": "Matrix v1 linked a customer-outflow arithmetic case C15 as though it demonstrated prior supplier payment.",
+      "resolution": "Additive S01 executes actual synthetic provider payment200 before cancellation on the same Booking/service and retains right200/funds/history; independently repeated PASS. Matrix v1 preserved, v2 corrected."
+    },
+    {
+      "id": "AI04-INST-01",
+      "status": "CLOSED",
+      "scope": "Own I04-04 stale pre-reservation funds revision; corrected harness uses current verified portion."
+    },
+    {
+      "id": "AI04-INST-02",
+      "status": "CLOSED",
+      "scope": "Own I04-07 queried historical status; corrected harness uses currentStatus while asserting historical preservation."
+    },
+    {
+      "id": "AI04-INST-03",
+      "status": "CLOSED",
+      "scope": "Integrity verifier character-diff boundary assumption; full-source equality verifies exact CLI-only arguments."
+    }
+  ],
+  "independence": {
+    "ownExpectedBeforeCandidate": true,
+    "sameModel": true,
+    "separateProcessDatabaseRuntime": true,
+    "fixtureReuse": "Existing base adapters and technical fixtures, plus frozen candidate orchestration; own adversarial scenarios and assertions authored separately.",
+    "regression": "Executor raw logs/source identity independently examined; 837 regressions were not all independently rerun."
+  },
+  "limits": [
+    "Local synthetic only; no real business effect or external connector.",
+    "No UI, hosted Auth, Production, S11, Git publication or Drive.",
+    "AC036/038/061/062 specialized separate regressions; no claim of all E2E03/05/07.",
+    "AC062 alternative human-identity merge/archive/restore branch; no explicit archive of Opportunity/Booking implemented or exercised.",
+    "S01 proves same Booking/service with prior supplier payment; auxiliary cancellation provider identity differs; single supplier identity throughout S01 not claimed.",
+    "No new normative decisions or product/migration edits.",
+    "No fresh full H6-001/H6-015 custody sweep by this auditor; final package/documentary receipt separate."
+  ],
+  "directorAcceptance": "Current mandate conditions apply; this is a technical opinion, not a new human decision.",
+  "H6": "IN PROGRESS",
+  "finalDocumentaryReadback": "PENDING SEPARATE RECEPTION"
+}

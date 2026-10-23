@@ -1,0 +1,106 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /tmp/crm-h6004-runtime/crm-private-storage-test-6gtATj/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /tmp/crm-h6004-runtime/crm-private-storage-test-6gtATj/data -l logfile start
+
+waiting for server to start.... done
+server started
+H5013 SQL diagnostic {
+  message: 'CLOSURE_DIMENSION_PENDING:E3:commercial',
+  where: 'PL/pgSQL function crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea) line 21 at RAISE'
+}
+✔ H5-015 J01 no implicit closure and pending dimensions reject (1711.300125ms)
+H5013 SQL diagnostic {
+  message: 'CLOSURE_REPLAY_CONFLICT:E2',
+  where: 'PL/pgSQL function crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea) line 13 at RAISE'
+}
+H5013 SQL diagnostic {
+  message: 'CLOSURE_ALREADY_CLOSED:E2',
+  where: 'PL/pgSQL function crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea) line 19 at RAISE'
+}
+✔ H5-015 J01/J06 explicit closure, canonical projection, replay and duplicate rejection (2318.373334ms)
+H5013 SQL diagnostic {
+  message: 'CLOSURE_DIMENSION_PENDING:E3:commercial',
+  where: 'PL/pgSQL function crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea) line 21 at RAISE'
+}
+✔ H5-015 J01 pending commercial blocks independently (1565.578458ms)
+H5013 SQL diagnostic {
+  message: 'CLOSURE_DIMENSION_PENDING:E3:operational',
+  where: 'PL/pgSQL function crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea) line 21 at RAISE'
+}
+✔ H5-015 J01 pending operational blocks independently (1649.789ms)
+H5013 SQL diagnostic {
+  message: 'CLOSURE_DIMENSION_PENDING:E3:economic',
+  where: 'PL/pgSQL function crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea) line 21 at RAISE'
+}
+✔ H5-015 J01 pending economic blocks independently (1572.110125ms)
+H5013 SQL diagnostic {
+  message: 'CLOSURE_NOT_RESOLVED:E3',
+  where: 'PL/pgSQL function crm_api.closure_apply(bytea,bytea,bytea,bytea,bytea) line 25 at RAISE'
+}
+✔ H5-015 J04/J05 close, economic incident, founded reopen, correction, reevaluation and new close (5063.988334ms)
+H5013 SQL diagnostic {
+  message: 'CLOSURE_REOPEN_UNFOUNDED:E3',
+  where: 'PL/pgSQL function crm_api.closure_apply(bytea,bytea,bytea,bytea,bytea) line 26 at RAISE'
+}
+✔ H5-015 J05 unfounded explicit reopen is rejected (2623.710334ms)
+✔ H5-015 J02 global critical guard persists invalidation even outside dimension materiality filter (3275.702917ms)
+H5013 SQL diagnostic {
+  message: 'CLOSURE_DIMENSION_PENDING:E3:operational',
+  where: 'PL/pgSQL function crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea) line 21 at RAISE'
+}
+✔ H5-015 J02 critical exception is explicit, scoped and cannot waive economic incident (4330.173375ms)
+H5013 SQL diagnostic {
+  message: 'H5015_INJECTED',
+  where: 'PL/pgSQL function crm_private.h5015_fail() line 1 at RAISE\n' +
+    `SQL statement "insert into crm_private.b06_joint_closures values(bid,rev+1,s,op,v,actor,(a->>'evidenceId')::uuid,clock_timestamp())"\n` +
+    'PL/pgSQL function crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea) line 32 at SQL statement'
+}
+✔ H5-015 J08 rollback at b06_joint_closures and retry (3563.515042ms)
+H5013 SQL diagnostic {
+  message: 'H5015_INJECTED',
+  where: 'PL/pgSQL function crm_private.h5015_fail() line 1 at RAISE\n' +
+    'SQL statement "insert into crm_private.b06_closure_operations values(op,bid,s,actor,fp,r,clock_timestamp())"\n' +
+    'PL/pgSQL function crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea) line 34 at SQL statement'
+}
+✔ H5-015 J08 rollback at b06_closure_operations and retry (3621.64625ms)
+✔ H5-015 J08 rollback at commit and retry (3759.15975ms)
+✔ H5-015 J08 source mutation and invalidation roll back together on deferred error (4268.806083ms)
+H5013 SQL diagnostic {
+  message: 'CLOSURE_CRITERION_UNSUPPORTED:E3',
+  where: 'PL/pgSQL function crm_private.closure_assess(jsonb,jsonb) line 45 at RAISE\n' +
+    'PL/pgSQL function crm_api.closure_apply(bytea,bytea,bytea,bytea,bytea) line 29 at assignment'
+}
+H5013 SQL diagnostic {
+  message: 'CLOSURE_DIMENSION_PENDING:E3:economic',
+  where: 'PL/pgSQL function crm_api.closure_joint_apply(bytea,bytea,bytea,bytea,bytea) line 21 at RAISE'
+}
+✔ H5-015 J03 insufficient No aplica cannot authorize joint closure (3003.440917ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45143.729375
+waiting for server to shut down.... done
+server stopped
