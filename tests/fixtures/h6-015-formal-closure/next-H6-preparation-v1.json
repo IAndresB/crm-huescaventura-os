@@ -1,0 +1,182 @@
+{
+  "sourceTasksSHA256": "bb73b357c3ff5de5b14952166580c1a6c3f8212407123f5ef148bee97cfff9d6",
+  "scope": "DOCUMENTARY_ONLY_NO_EXECUTION",
+  "tasks": {
+    "TSK-H6-016": {
+      "definition": "#### TSK-H6-016 — Verificar intercalaciones y fallos de T01–T11 integradas\n\n- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H6. Tipo: comprobación.\n- **Objetivo y alcance:** Unidades materiales sobre versión, raíz Opportunity, fondos, Approval, trabajo, Booking/cierre e identidades con aplicación completa.\n- **Fuentes exactas:** Plan §§7.2, 10.1; SPEC-FR-CONC-001, SPEC-FR-CONC-002, SPEC-FR-CONC-003, AC-067, AC-068. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H6-016.\n- **Bloques, contratos y unidades:** B01–B10; C02/C03/C06; T01–T11.\n- **Entregable previsto:** Evidencia propuesta por unidad, puntos de fallo y órdenes. Áreas propuestas, no creadas; véase §2.1.\n- **Dependencias y precondiciones:** [TSK-H5-019], [TSK-H6-013], [TSK-H6-001], [TSK-H6-004], [TSK-H6-006], [TSK-H6-007]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H5 está incluida expresamente.\n- **Bloqueo localizado / condición para levantarlo:** Solo PostgreSQL aislado real; dobles no acreditan atomicidad/concurrencia. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.\n- **Acción futura:** Ejecutar matriz §6.5 por cada unidad e intercalaciones integradas; comparar resultado y ausencia de efectos colaterales con los guiones específicos de sus tareas.\n- **Salida observable:** Todos los límites transaccionales tienen evidencia integrada, sin Booking/fondos/Approval/cierre incompatibles ni historia perdida.\n- **Verificación y esperado:** Ambos órdenes/solapamiento, ausencia inicial de hijos, fallo antes/durante commit y respuesta perdida; raíz compartida en cierre vs factura/Refund/Incident, reserva/consumo y contexto pool. No retry ciego de negocio ni transición extra por éxito técnico. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.\n- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.\n- **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T01–T11 conservan atomicidad y revisión conjunta.\n",
+      "assignedRows": [
+        {
+          "sourceLine": 2726,
+          "literal": "| **SPEC-FR-CONC-001** — [spec.md](spec.md), § 18. Concurrency and Consistency | [TSK-H0-009] | [TSK-H0-010], [TSK-H2-004], [TSK-H4-012], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 2727,
+          "literal": "| **SPEC-FR-CONC-002** — [spec.md](spec.md), § 18. Concurrency and Consistency | [TSK-H0-009], [TSK-H2-009], [TSK-H3-005], [TSK-H0-011], [TSK-H5-015] | [TSK-H2-010], [TSK-H4-019], [TSK-H0-012], [TSK-H5-016], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-016 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 2728,
+          "literal": "| **SPEC-FR-CONC-003** — [spec.md](spec.md), § 18. Concurrency and Consistency | [TSK-H0-009] | [TSK-H0-010], [TSK-H2-010], [TSK-H3-006], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 2818,
+          "literal": "| **AC-067** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-009], [TSK-H2-003], [TSK-H2-007], [TSK-H4-011] | [TSK-H2-004], [TSK-H2-008], [TSK-H4-012], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 2819,
+          "literal": "| **AC-068** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-009], [TSK-H2-009], [TSK-H3-005] | [TSK-H0-010], [TSK-H2-010], [TSK-H3-006], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 2850,
+          "literal": "| **SPEC-NFR-007** — [spec.md](spec.md), § 25. Non-Functional Requirements | [TSK-H0-009], [TSK-H2-009], [TSK-H3-005], [TSK-H0-011], [TSK-H5-007], [TSK-H5-015] | [TSK-H6-016], [TSK-H2-010], [TSK-H4-019], [TSK-H5-008], [TSK-H5-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-016 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3125,
+          "literal": "| **ARCH-DEC-014** — [architecture.md](../../docs/architecture.md), § 17. ARCH-DEC — Decisiones arquitectónicas aprobadas | [TSK-H0-009], [TSK-H2-009], [TSK-H3-005], [TSK-H5-015] | [TSK-H0-010], [TSK-H2-010], [TSK-H3-006], [TSK-H5-016], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-016 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3158,
+          "literal": "| **PLAN-DEC-004** — [plan.md](plan.md), § 3.2. PLAN-DEC — decisiones técnicas APPROVED | [TSK-H0-009], [TSK-H2-009], [TSK-H0-011], [TSK-H3-005], [TSK-H5-015] | [TSK-H0-010], [TSK-H2-010], [TSK-H0-012], [TSK-H3-006], [TSK-H5-016], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-016 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3162,
+          "literal": "| **PLAN-DEC-008** — [plan.md](plan.md), § 3.2. PLAN-DEC — decisiones técnicas APPROVED | [TSK-H0-002] | [TSK-H1-010], [TSK-H0-008], [TSK-H6-016], [TSK-H6-015], [TSK-H5-010], [TSK-H6-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3173,
+          "literal": "| **PLAN-B10** — [plan.md](plan.md), § 4. Bloques, componentes y responsabilidades | [TSK-H0-001], [TSK-H0-002], [TSK-H6-014], [TSK-H6-018] | [TSK-H6-012], [TSK-H6-013], [TSK-H6-015], [TSK-H6-016], [TSK-H6-017], [TSK-H6-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3176,
+          "literal": "| **PLAN-C03** — [plan.md](plan.md), § 7.1. Contrato común de aplicación | [TSK-H0-009], [TSK-H2-009], [TSK-H3-003], [TSK-H3-005], [TSK-H0-011], [TSK-H5-015] | [TSK-H0-010], [TSK-H2-010], [TSK-H3-004], [TSK-H3-006], [TSK-H0-012], [TSK-H5-016], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-016 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3180,
+          "literal": "| **PLAN-T01** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H2-003], [TSK-H2-005] | [TSK-H2-004], [TSK-H2-006], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3181,
+          "literal": "| **PLAN-T02** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H2-007], [TSK-H2-001] | [TSK-H2-008], [TSK-H2-002], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3182,
+          "literal": "| **PLAN-T03** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H2-009] | [TSK-H2-010], [TSK-H2-011], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3183,
+          "literal": "| **PLAN-T04** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H2-009], [TSK-H4-011], [TSK-H4-020], [TSK-H4-022] | [TSK-H2-010], [TSK-H2-011], [TSK-H4-012], [TSK-H4-021], [TSK-H4-023], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI; observado local H4-021 registrado a continuación, restantes tareas conservan su estado. Evidencia local H4-021 EJECUTADA: [matriz69/23](matrix-TSK-H4-021.md); solo el tramo asignado y probado, restantes tareas/recorridos futuros conservados.  **Evidencia local H4-023 EJECUTADA:** [matriz28](matrix-TSK-H4-023.md), SHA `f99de8bad495c86021e91730bb69af81f69e44ec`; alcance asignado local, AC-058/H5-014 y E2E-01/H6-001 integrales futuros conservados. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3184,
+          "literal": "| **PLAN-T05** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H3-003], [TSK-H3-005] | [TSK-H3-004], [TSK-H3-006], [TSK-H4-019], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3185,
+          "literal": "| **PLAN-T06** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H4-011], [TSK-H4-013] | [TSK-H4-012], [TSK-H4-014], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3186,
+          "literal": "| **PLAN-T07** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H3-011], [TSK-H4-015], [TSK-H4-017] | [TSK-H3-012], [TSK-H4-016], [TSK-H4-018], [TSK-H4-019], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3187,
+          "literal": "| **PLAN-T08** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H0-011], [TSK-H5-007] | [TSK-H0-012], [TSK-H5-008], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3188,
+          "literal": "| **PLAN-T09** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H1-013], [TSK-H5-007], [TSK-H5-009] | [TSK-H1-014], [TSK-H5-008], [TSK-H5-010], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3189,
+          "literal": "| **PLAN-T10** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H5-013], [TSK-H5-015] | [TSK-H5-014], [TSK-H5-016], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-014 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-014 local/aislada:** [matriz independiente](matrix-TSK-H5-014.md), alcance de evaluación y rechazo de inferencias PASS; tramos conjuntos H5-015/016 pendientes en aquel antecedente; resultado H5-016 actual indicado a continuación; H6 pendiente. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3190,
+          "literal": "| **PLAN-T11** — [plan.md](plan.md), § 7.2. Unidades internas | [TSK-H1-003], [TSK-H2-007], [TSK-H1-013] | [TSK-H1-004], [TSK-H2-008], [TSK-H1-014], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3207,
+          "literal": "| **PT-12** — [plan.md](plan.md), § 10.2. Familias de pruebas y los 92 criterios | [TSK-H0-009], [TSK-H2-009], [TSK-H3-005], [TSK-H1-015], [TSK-H5-007], [TSK-H5-009], [TSK-H6-014] | [TSK-H0-010], [TSK-H2-010], [TSK-H3-006], [TSK-H1-016], [TSK-H5-008], [TSK-H5-010], [TSK-H6-015], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3250,
+          "literal": "| **G6** — [state-machines.md](../../docs/state-machines.md), § 2.1. Semántica de la transición | [TSK-H0-009], [TSK-H2-009], [TSK-H3-005], [TSK-H5-007] | [TSK-H0-010], [TSK-H2-010], [TSK-H3-006], [TSK-H5-008], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3252,
+          "literal": "| **E2** — [spec.md](spec.md), § 19. Errors, Revalidation and Uncertainty | [TSK-H0-009], [TSK-H2-009], [TSK-H3-005], [TSK-H0-011], [TSK-H5-015] | [TSK-H0-010], [TSK-H2-010], [TSK-H3-006], [TSK-H0-012], [TSK-H5-016], [TSK-H6-016] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI local H5-016 indicada a continuación; restantes alcances conservan su estado. **Evidencia H5-016 local/aislada PASS del candidato corregido:** [matriz independiente](matrix-TSK-H5-016.md) e [informe](evidence-TSK-H5-016.md), con límites por fila; no acredita recorridos H6 ni publicación. |",
+          "status": "NOT_EXECUTED"
+        }
+      ],
+      "state": "NOT STARTED"
+    },
+    "TSK-H6-001": {
+      "definition": "#### TSK-H6-001 — Verificar E2E-01: Venta y prestación completa\n\n- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H6. Tipo: comprobación.\n- **Objetivo y alcance:** Contexto → Lead/Opportunity → modalidades/versiones/Acceptance → Booking/cantidades → fondos y críticos → ejecución/documentos → tres cierres.\n- **Fuentes exactas:** Plan §§9–10.1; SPEC §9; AC-089. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H6-001.\n- **Bloques, contratos y unidades:** B01–B10; C01–C06; T01/T02/T03/T04/T05/T07/T10.\n- **Entregable previsto:** Casos y evidencia propuestos de recorrido Core. Áreas propuestas, no creadas; véase §2.1.\n- **Dependencias y precondiciones:** [TSK-H5-019]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H5 está incluida expresamente.\n- **Bloqueo localizado / condición para levantarlo:** Datos sintéticos y dobles externos; no requiere UI ni conector; acceso real permanece bloqueado. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.\n- **Acción futura:** Recorrer contratos de aplicación y PostgreSQL aislado desde entradas válidas; verificar vínculos, historia y pendientes en cada frontera.\n- **Salida observable:** Una Booking cerrada reconstruye necesidad, versiones, aceptación, cantidades/noches, confirmaciones, movimientos/porciones y fundamentos de los tres cierres.\n- **Verificación y esperado:** Una Booking cerrada reconstruye necesidad, versiones, aceptación, cantidades/noches, confirmaciones, movimientos/porciones y fundamentos de los tres cierres. En cada efecto comprobar guardas, permisos, historia y repetición aplicables. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.\n- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.\n- **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T01/T02/T03/T04/T05/T07/T10 conservan atomicidad y revisión conjunta.\n",
+      "assignedRows": [
+        {
+          "sourceLine": 2840,
+          "literal": "| **AC-089** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-002], [TSK-H6-018] | [TSK-H6-018], [TSK-H6-001] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 2844,
+          "literal": "| **SPEC-NFR-001** — [spec.md](spec.md), § 25. Non-Functional Requirements | [TSK-H0-009], [TSK-H1-013], [TSK-H5-011] | [TSK-H2-008], [TSK-H5-012], [TSK-H6-001], [TSK-H6-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+          "status": "NOT_EXECUTED"
+        },
+        {
+          "sourceLine": 3209,
+          "literal": "| **E2E-01** — [spec.md](spec.md), § 9. Core End-to-End Scenarios | [TSK-H1-001], [TSK-H2-001], [TSK-H2-003], [TSK-H2-007], [TSK-H2-009], [TSK-H4-020], [TSK-H4-022], [TSK-H5-013], [TSK-H5-015] | [TSK-H6-001] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA.  **Evidencia local H4-023 EJECUTADA:** [matriz28](matrix-TSK-H4-023.md), SHA `f99de8bad495c86021e91730bb69af81f69e44ec`; alcance asignado local, AC-058/H5-014 y E2E-01/H6-001 integrales futuros conservados. |",
+          "status": "NOT_EXECUTED"
+        }
+      ],
+      "state": "NOT STARTED"
+    }
+  },
+  "transactionUnits": [
+    "| PLAN-T01 — Fijar versión | Nueva versión y composición/términos/snapshots, vínculo a preparación y relación de sustitución pertinente. | Proteger revisión de preparación y numeración de versión; la antigua permanece inmutable. Fijar no envía. |",
+    "| PLAN-T02 — Registrar/verificar Acceptance | Hecho identificado y términos; verificación como acto explícito, junto con Ganada si se solicita y cumplen SM-AC/SM-OP. | Puede conservarse Acceptance registrada pendiente de verificación si su identidad material existe. Candidata ambigua queda en Review. Conversión es acto separado. |",
+    "| PLAN-T03 — Convertir normal/directa | Booking con cadena comercial válida, servicios/modalidades/noches/cantidades de origen y referencias obligatorias. La vía directa compone los hechos reales faltantes de T01/T02. | Unicidad V1 por Opportunity más serialización sobre su identidad; un reintento recupera Booking existente. Preparación válida puede existir antes; nunca Booking visible incompleta. |",
+    "| PLAN-T04 — Cambiar alcance operativo | Efecto autorizado por servicio/noche, antes/después, evidencia, Review y reevaluaciones materialmente afectadas. | Proteger versión del alcance y evaluación padre pertinente; no modificar otras noches ni ratificar aspectos no cubiertos. |",
+    "| PLAN-T05 — Conciliar/asignar/ajustar | Correspondencia verificada, porciones/destinos, consumos/disponibles y cobertura de obligaciones afectadas. | Serializar sobre movimiento/fondos compartidos, no solo asignaciones hijas. Evitar 80 + 80 sobre 100, también frente a Refund. Sin transferencia real. |",
+    "| PLAN-T06 — Determinar y aplicar cambio | Evaluación D019/D020, autorización y cada conjunto de efectos internos dependientes de la misma base; nueva obligación/ajuste con fundamento cuando proceda. | Separar efecto operativo independiente de importe aún pendiente. El resultado parcial conserva qué falta; no toda modificación es una transacción gigante. |",
+    "| PLAN-T07 — Registrar salida económica real | Movimiento verificado y porciones de Provider Payment/Refund/fianza, referencias comunes, ajustes y reevaluaciones. | No duplicar una devolución por aparecer en Refund y Deposit. La ejecución externa precede a su registro acreditado; una anomalía abre revisión, sin aprobación retroactiva. |",
+    "| PLAN-T08 — Autorizar/reservar efecto | Aprobación exacta y, en el acto posterior de ejecución, consumo/reserva de la parte autorizada, intención y registro del intento pertinente. | Una misma parte no se reserva para dos efectos. Cambio material invalida aplicabilidad; aprobación histórica permanece. Resultado incierto conserva reserva hasta conciliar. D039 exige final check obligatoria y cierre bajo control exclusivo del TTE. |",
+    "| PLAN-T09 — Recibir o reclamar trabajo | Recepción + deduplicación + evento/evidencia; o reclamación exclusiva + identidad/generación de intento, según operación. | Recepción y aplicación separables. Reclamar no prueba ejecución. Una concesión vencida no autoriza reenviar si pudo ocurrir un efecto. |",
+    "| PLAN-T10 — Cierre y reapertura | Evaluación de cada dimensión solicitada, fundamentos y condición conjunta; evidencia posterior invalida solo evaluación afectada y retira cierre actual. | Los comandos que cambian insumos del cierre y el cierre mismo comparten versión/serialización de Booking. No puede cerrar sobre una factura/Refund que cambió concurrentemente. |",
+    "| PLAN-T11 — Fusión/archivado/corrección | Resolución humana, referencias de origen, vínculos y cambio de vista vigente con ambos historiales preservados. | Identidades/códigos no se liberan. Fusión no reatribuye hechos ni agrupa Opportunities/Bookings. |"
+  ],
+  "H6016Dependencies": {
+    "TSK-H5-019": "COMPLETED_LOCAL",
+    "TSK-H6-013": "COMPLETED_LOCAL",
+    "TSK-H6-001": "NOT STARTED",
+    "TSK-H6-004": "NOT STARTED",
+    "TSK-H6-006": "COMPLETED_LOCAL",
+    "TSK-H6-007": "NOT STARTED"
+  },
+  "H6001Dependencies": {
+    "TSK-H5-019": "COMPLETED_LOCAL"
+  }
+}
