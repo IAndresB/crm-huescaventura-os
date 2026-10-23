@@ -1,0 +1,1755 @@
+{
+  "schema": "h6-001-local-closure-original-ratification-v1",
+  "checkedAt": "2026-10-22T22:46:56.757042+00:00",
+  "auditor": "/root/custody_publication_audit",
+  "status": "PASS",
+  "scope": "Read-only ratification of frozen originals before the newly authorized documentary closure. Original historical states are preserved; director acceptance is recorded separately.",
+  "base": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+  "candidateManifest": {
+    "path": "tests/fixtures/h6-001/delivery-manifest-v1.json",
+    "sha256": "d97ab86cd4d78c001f5a5e29f3ce501c0c6b44cf592a7b22e78589c26569c435",
+    "payloads": 305,
+    "payloadBytes": 52932020
+  },
+  "candidateSeal": {
+    "path": "tests/fixtures/h6-001/delivery-seal-v1.json",
+    "sha256": "17bda49a2b9a9d174024fe7d413b39f02b57c1e930be22c91a6cc09eb3d9bd99"
+  },
+  "publicationInventory": {
+    "path": "tests/fixtures/h6-001/publication-candidate-inventory.json",
+    "sha256": "d4964979f7a52a95aa0e56847b284844aede566137f2d25e7ef88612483cf87a",
+    "ownPayloadsIncludingSelf": 305,
+    "inheritedFiles": 14,
+    "publicationExecuted": false
+  },
+  "functionalAudit": {
+    "path": "tests/fixtures/h6-001/independent/audit-manifest-v1.json",
+    "sha256": "dff39c22bde4a56e42af7d811df69a8438f8ed24b02f790e43360d13dc5d29e6",
+    "payloads": 173,
+    "payloadBytes": 14044516,
+    "envelopes": 3,
+    "verdict": "PASS_TECHNICAL_LOCAL_WITH_EXPLICIT_RECONCILED_REGRESSION"
+  },
+  "checks": [
+    {
+      "id": "exterior-manifest-exact",
+      "status": "PASS",
+      "detail": "d97ab86cd4d78c001f5a5e29f3ce501c0c6b44cf592a7b22e78589c26569c435"
+    },
+    {
+      "id": "exterior-seal-exact",
+      "status": "PASS",
+      "detail": "17bda49a2b9a9d174024fe7d413b39f02b57c1e930be22c91a6cc09eb3d9bd99"
+    },
+    {
+      "id": "exterior-seal-binding",
+      "status": "PASS",
+      "detail": {
+        "schema": "h6-001-local-delivery-seal-v1",
+        "sealedAt": "2026-10-22T22:29:58.097809+00:00",
+        "manifestPath": "tests/fixtures/h6-001/delivery-manifest-v1.json",
+        "manifestSHA256": "d97ab86cd4d78c001f5a5e29f3ce501c0c6b44cf592a7b22e78589c26569c435",
+        "payloads": 305,
+        "payloadBytes": 52932020,
+        "base": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+        "purpose": "Local custody identity only; no director acceptance or publication authorization",
+        "independentReadbackDirectory": "tests/fixtures/h6-001-delivery-readback/"
+      }
+    },
+    {
+      "id": "own-305-payloads",
+      "status": "PASS",
+      "detail": {
+        "entries": 305,
+        "verified": 305,
+        "bytes": 52932020,
+        "actualIdentityTableSHA256": "4bf83e8a5d070bb8614ed2c57d692463e7f243ef38d20cde460128c2d983effe",
+        "mismatches": []
+      }
+    },
+    {
+      "id": "own-envelope-separation",
+      "status": "PASS",
+      "detail": [
+        "tests/fixtures/h6-001/delivery-manifest-v1.json",
+        "tests/fixtures/h6-001/delivery-seal-v1.json",
+        "tests/fixtures/h6-001-delivery-readback/"
+      ]
+    },
+    {
+      "id": "formal-states-and-boundaries",
+      "status": "PASS",
+      "detail": {
+        "taskState": "IN PROGRESS; acceptance pending director decision",
+        "h6State": "IN PROGRESS",
+        "h6015State": "COMPLETED local/isolated; quarantine and four suspended jobs preserved documentarily"
+      }
+    },
+    {
+      "id": "14-inherited-exact-excluded",
+      "status": "PASS",
+      "detail": [
+        {
+          "path": "src/application/contracts.ts",
+          "sha256": "59c0f969e0d83230dbbe16365f844beab6d7c6d4f0feb4f84c8076256547a66c",
+          "pass": true
+        },
+        {
+          "path": "src/infrastructure/postgres/h0-005-adapter.ts",
+          "sha256": "eeb328bca74a0bb35678be592c315ad1417eec0b3159b77fedf6e5071ef180c6",
+          "pass": true
+        },
+        {
+          "path": "src/infrastructure/postgres/persisted-work-executor.ts",
+          "sha256": "e06c34763ac94f55fc7e12ee67cd2e5e5acd90e21e12d8657fb69638df6ea4a1",
+          "pass": true
+        },
+        {
+          "path": "src/server/human-postgres-composition.ts",
+          "sha256": "79c638b3c0edc84ecadf14a633e69eef185408e4f0ef04dbf1b24ae1d6621cc5",
+          "pass": true
+        },
+        {
+          "path": "tests/contracts.test.ts",
+          "sha256": "0cfcfb54467147588f58f376b4964e41c138012bc125b772dceafbdc4314ef48",
+          "pass": true
+        },
+        {
+          "path": "tests/support/h2-isolated.ts",
+          "sha256": "ee1e4aa36337ead7a0d71af0048937363dd6820403bc66eb6fc25c9d66a8f94b",
+          "pass": true
+        },
+        {
+          "path": "tests/support/h5-communication-isolated.ts",
+          "sha256": "862b8d4ca98bd0e1b8ba44f4770bc27c4b126c7d4714547f1b5b5adc43ba2047",
+          "pass": true
+        },
+        {
+          "path": "tests/support/h5-work-isolated.ts",
+          "sha256": "21b4cd28445341f45756ed9b1c8c86e196c9c8f4c79252776780958d51918c96",
+          "pass": true
+        },
+        {
+          "path": "src/infrastructure/auth/supabase-auth-provider.ts",
+          "sha256": "5bbd34da40f2e927b21917bd23ae8d0a24bbae9c645fc33c69d675ed326d0e9e",
+          "pass": true
+        },
+        {
+          "path": "src/server/b07-evidence-port.ts",
+          "sha256": "09e03ee860db70177868a30f98f76a0e9d33b38da56895d6b046d13fa50f8fab",
+          "pass": true
+        },
+        {
+          "path": "src/server/human-auth-session.ts",
+          "sha256": "4be67b2900b794f211df753d30520693b9aaeb93b4a7d8eca30f2b18d92b56ec",
+          "pass": true
+        },
+        {
+          "path": "src/server/human-http-boundary.ts",
+          "sha256": "13f2e417f818102a9deee0eb1a0da0e8a6ccda128471e5cf040b37fbf916cf48",
+          "pass": true
+        },
+        {
+          "path": "tests/support/h6-auth-provider-isolated.ts",
+          "sha256": "fa1b29c7d9d97e16d4164fdb613603aa5158c05de4dda7f0da6b031e9210844a",
+          "pass": true
+        },
+        {
+          "path": "tests/support/h6-current-isolated.ts",
+          "sha256": "045867f756d3c78b5f7a3c74143eba7db477e36abc0cd1f14f6063c89b89b5e9",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "publication-inventory-path-equality",
+      "status": "PASS",
+      "detail": {
+        "ownListed": 304,
+        "plusSelf": "tests/fixtures/h6-001/publication-candidate-inventory.json",
+        "inheritedCount": 14
+      }
+    },
+    {
+      "id": "publication-inventory-identities",
+      "status": "PASS",
+      "detail": "304 independent payload identity entries and 14 inherited entries match exactly"
+    },
+    {
+      "id": "publication-pending-five-separate-lots",
+      "status": "PASS",
+      "detail": {
+        "lots": [
+          {
+            "lot": "A",
+            "scope": "H6-006/H6-008",
+            "manifestSHA256": "8d0f443747cdb1d66f9cd9af0945fc5df12e81bf16cf25cf9f4e2060fdbb7982"
+          },
+          {
+            "lot": "B",
+            "scope": "H6-015 technical",
+            "manifestSHA256": "542321de105ab58d2ba662c4e4936ce0a057e6c83beb7aca2d3a8c1eb550e499"
+          },
+          {
+            "lot": "C",
+            "scope": "H6-015 formal closure archived snapshot",
+            "manifestSHA256": "991d14013efd0f2527dea48bdc50dd426747a6089d15fc54745eac8140b15ada"
+          },
+          {
+            "lot": "D",
+            "scope": "H6-001 own package plus explicitly separate inherited prerequisites"
+          },
+          {
+            "lot": "E",
+            "scope": "Historical/failed attempts and preservation inventories; not bulk candidates"
+          }
+        ],
+        "conflicts": [
+          {
+            "paths": [
+              "src/infrastructure/auth/supabase-auth-provider.ts",
+              "src/server/human-auth-session.ts"
+            ],
+            "reason": "Historical R1 and accepted R2; preserve history and select exact approved antecedent separately."
+          },
+          {
+            "paths": [
+              "specs/001-core-crm/tasks.md",
+              "docs/PROJECT-STATUS.md",
+              "docs/NEXT-STEPS.md"
+            ],
+            "reason": "Concurrent documentary chronology H6-015 closure and H6-001 start; future minimal chronological merge requires separate authorization."
+          }
+        ],
+        "excluded": [
+          "runtime/database/dumps/ephemeral keys",
+          "node_modules/.next/caches/.DS_Store",
+          "real credentials and real business data",
+          "unselected historical files",
+          "automatic inclusion of H6-015 localOnlyPreservationMetadata"
+        ]
+      }
+    },
+    {
+      "id": "functional-audit-manifest-exact",
+      "status": "PASS",
+      "detail": "dff39c22bde4a56e42af7d811df69a8438f8ed24b02f790e43360d13dc5d29e6"
+    },
+    {
+      "id": "functional-audit-173-payloads",
+      "status": "PASS",
+      "detail": {
+        "entries": 173,
+        "verified": 173,
+        "bytes": 14044516,
+        "actualIdentityTableSHA256": "531f6b0e3a121608a3359e2f66b34600cb0c7c6d9e25d5b3b4d1a66eb512a2ac",
+        "mismatches": []
+      }
+    },
+    {
+      "id": "functional-audit-three-envelopes",
+      "status": "PASS",
+      "detail": [
+        "audit-manifest-v1.json",
+        "audit-manifest-v1.sha256",
+        "audit-readback-v1.json"
+      ]
+    },
+    {
+      "id": "functional-audit-nested-paths",
+      "status": "PASS",
+      "detail": "All 173 nested payloads also bound by exterior manifest"
+    },
+    {
+      "id": "functional-audit-current-sources",
+      "status": "PASS",
+      "detail": {
+        "focalSourceSHA256": "8baba979531801a1dda47559a52026871b829e0ae36b6d8966a1c659019561bb",
+        "focalRunnerSHA256": "c7ff5edf5f0dd10c5cf0a53cb6d7a26024b1117fd722c3330c7c4a6c0847682a",
+        "expectedSHA256": "ecaf8a7ffc942493c5d7fc7606f0c15a6af8d85aba766e1117d0cb901d544eb2"
+      }
+    },
+    {
+      "id": "raw-regression-preserved-FAIL",
+      "status": "PASS",
+      "detail": {
+        "tests": 2945,
+        "pass": 2899,
+        "fail": 46,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "id": "46-reconciliation-row-log-references",
+      "status": "PASS",
+      "detail": {
+        "verifiedRows": 46,
+        "total": 46
+      }
+    },
+    {
+      "id": "reconciled-not-new-clean-full-run",
+      "status": "PASS",
+      "detail": "2945 positions counted once in the exact196-file selection, including containers. The 46 failed positions have current passing successors; do not add repeated runs to this count, or claim 2945/2945 from a fresh complete execution. Counts are not unique business scenarios."
+    },
+    {
+      "id": "focal-executor-and-independent-22",
+      "status": "PASS",
+      "detail": [
+        {
+          "source": "executor",
+          "pass": true,
+          "summary": [
+            "ℹ tests 22",
+            "ℹ pass 22",
+            "ℹ fail 0",
+            "ℹ cancelled 0",
+            "ℹ skipped 0",
+            "ℹ duration_ms 53472.385458"
+          ],
+          "logHashesMatch": true
+        },
+        {
+          "source": "independent",
+          "pass": true,
+          "summary": [
+            "ℹ tests 22",
+            "ℹ pass 22",
+            "ℹ fail 0",
+            "ℹ cancelled 0",
+            "ℹ skipped 0",
+            "ℹ duration_ms 82412.363"
+          ],
+          "logHashesMatch": true
+        }
+      ]
+    },
+    {
+      "id": "functional-integrity822-receipt",
+      "status": "PASS",
+      "detail": {
+        "status": "PASS",
+        "count": 822,
+        "scope": "Existing signed-by-hash receipt, not reexecution of its 822 controls"
+      }
+    },
+    {
+      "id": "H6015-sixteen-manifests4568",
+      "status": "PASS",
+      "detail": {
+        "manifests": 16,
+        "payloadEntries": 4568,
+        "mismatches": 0
+      }
+    },
+    {
+      "id": "four-suspended-documentary-only",
+      "status": "PASS",
+      "detail": {
+        "sourceReceiptSHA256": "f1f41f93a347148f91de4ed9edc5a35516ee94152c2cde2544b2c90c5ebf6d8b",
+        "jobsPausedInFinalSnapshot": 4,
+        "runtimeRechecked": false
+      }
+    },
+    {
+      "id": "snapshot:8ec91602a3bf813cf01ffbc6b2ac1a2862fe10d0",
+      "status": "PASS",
+      "detail": "refs/codex/snapshots/7e4fd5a822682f8084c66e10e9dfe5c6c96c558b"
+    },
+    {
+      "id": "snapshot:fc68a90cd555a83388d5b166ff86adeda70110b8",
+      "status": "PASS",
+      "detail": "refs/codex/snapshots/5dd45c051bdda86d56e55b9732678692fc2eb919"
+    },
+    {
+      "id": "primary14954-history-inventory",
+      "status": "PASS",
+      "detail": {
+        "paths": 14954,
+        "sameSizesAsV1": true,
+        "limitation": "Names and sizes compared; no nonexistent prior full-content hash is asserted."
+      }
+    },
+    {
+      "id": "git:primary",
+      "status": "PASS",
+      "detail": {
+        "head": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+        "indexEmpty": true
+      }
+    },
+    {
+      "id": "git:candidate",
+      "status": "PASS",
+      "detail": {
+        "head": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+        "indexEmpty": true
+      }
+    },
+    {
+      "id": "source-and-68-migrations-unchanged",
+      "status": "PASS",
+      "detail": {
+        "files": 178,
+        "migrations": 68,
+        "mismatches": [],
+        "basePlusExactInherited": true
+      }
+    },
+    {
+      "id": "current-states-historical-body:docs/NEXT-STEPS.md",
+      "status": "PASS",
+      "detail": "856371221694b3e4f61f139be9b855ffe6715d3c4777296f0831a84994dd69bb"
+    },
+    {
+      "id": "current-states-historical-body:docs/PROJECT-STATUS.md",
+      "status": "PASS",
+      "detail": "118d4c6581781e85423c9203fd5013c2723d42b3ffb8934329c0795945adac05"
+    },
+    {
+      "id": "current-states-historical-body:specs/001-core-crm/tasks.md",
+      "status": "PASS",
+      "detail": "2c10fbfb5d5bf9f61fe92fc33035ecf86f05b719c0dbed19d404cddbe0aa397a"
+    },
+    {
+      "id": "previous-custody-original-and-copy:v1",
+      "status": "PASS",
+      "detail": {
+        "payloads": 13,
+        "mismatches": [],
+        "sealSHA256": "e2f8d3901716942aec983771fd60f6ee802ee079f79edc4291a4507228a4a1ad"
+      }
+    },
+    {
+      "id": "previous-custody-original-and-copy:v2",
+      "status": "PASS",
+      "detail": {
+        "payloads": 17,
+        "mismatches": [],
+        "sealSHA256": "87d2fce013b47e3bbde6d3612fd63bd2eaa202e3cdb172fb77b3b0d18347938b"
+      }
+    },
+    {
+      "id": "end-of-readback305-stable",
+      "status": "PASS",
+      "detail": {
+        "payloads": 305,
+        "bytes": 52932020,
+        "manifestUnchanged": true,
+        "sealUnchanged": true
+      }
+    }
+  ],
+  "controlCount": 34,
+  "failures": [],
+  "reconciliationLogReferences": [
+    {
+      "id": "AF001",
+      "title": "W50 official advisors56 loopback only",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-01.stdout.log.gz",
+          "line": 41,
+          "lineSHA256": "fcc0fe0d0a52e1a0bf1db8fa7039783954de1afec7d339b58c2ab01753428214",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 93,
+          "lineSHA256": "9ee52deb0467e47b672ef77b0c7474482c5e78f495a7e37c7e1f3d30ded3f030",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF002",
+      "title": "W53 W54 W56 expected45 rows56 cases, all56 published migration bytes, F10/F12 unchanged and scoped synthetic product",
+      "cause": "PRE_INHERITED_BYTE_BASELINE",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-01.stdout.log.gz",
+          "line": 50,
+          "lineSHA256": "0bcaeca4f317a551dbfb7c66bb81fcab15ad357585e82eee2c8c0154e92ed3ce",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-03/stdout.log.gz",
+          "line": 26,
+          "lineSHA256": "83c1cd9b34e7afaa0ec310501db1c6ab59f225245ba38684f34ca7927a732b2d",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF003",
+      "title": "H4-018 D19 fresh48 official advisors complete stdout stderr status signal error only loopback",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16410,
+          "lineSHA256": "61b9586e64f392fa3862e091615155166b274d707db6fcd192b5e5401e23abb1",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 34,
+          "lineSHA256": "874a7122147859a198ab0c69741e0819f13e8614c18dfeda7466b6ce7882e501",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF004",
+      "title": "A12 official advisors on current49 loopback full stdout/stderr/status",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16419,
+          "lineSHA256": "10e5b54b983e7f2541ef57a114ecb8fb2f45ca65700fbb1adbd11be1b9126bc4",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 36,
+          "lineSHA256": "5909fb18c8255b6785f01b5e30af3fc8939d87fe29a4ae53fd2e98bd5408ca4a",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF005",
+      "title": "J22 official advisors fresh48 exclusively loopback complete capture",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16429,
+          "lineSHA256": "0666b61e4a259d172db9d86644fac241072e67051c2f7305081275afef5942fa",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 45,
+          "lineSHA256": "11c1645b829bbfeef4fa8e20292a2a1dadd9b7d26721a92c9daec0a7d41ec510",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF006",
+      "title": "F23 C16/C18/C20 fresh51 authority privacy and official advisors exclusively loopback",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16438,
+          "lineSHA256": "6224d08ee5559d2bbe48ba2516eeaacf2b44701321c9de9cd28250eae27c7f01",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 52,
+          "lineSHA256": "92d71bb2cc8e74deb7c86b47cb9795c6dcc4583e8a8bb2c40bc99f007cf836cb",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF007",
+      "title": "H4-021 B67 advisors official exclusively loopback on current preparation chain",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16447,
+          "lineSHA256": "4cff18ad0555a24485bf70b7aa3e3a7140670e4627e4aa3b041543baad210211",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 59,
+          "lineSHA256": "22f4a58fed44075827993c9124e98d96d60f2179bf5bdc82e786623b5b64c4b8",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF008",
+      "title": "H4-023 fresh52 RLS ACL private helpers privacy foreign references F1 F2 session epoch HA exclusive and loopback advisors",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16456,
+          "lineSHA256": "69a634ef0a0c38e9e0b9619fa38a7d3d0f8a33ec0c9342f171c0f82c6a1e61c6",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 88,
+          "lineSHA256": "1d6b4e77bbd7fd26b3a3303474cac230bbf016ac5bb221063b28f22c02942c03",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF009",
+      "title": "H5-AAC official advisors fresh 54 loopback",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16465,
+          "lineSHA256": "37899c83ec8514e9e920517fc1389189aae77b41bad09e0765f675b56c219c23",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 89,
+          "lineSHA256": "1a270d35a3aa49d356e68e67294cc69903ebf474235db0b441164825814434b5",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF010",
+      "title": "H5-AQ/AZ/AAD expected base inventory old product D027 health and 53 migrations preserved",
+      "cause": "PRE_INHERITED_BYTE_BASELINE",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16474,
+          "lineSHA256": "14dfeac8a48bc77e9a7e98bb56586ec6852a9efe398a0e8d09d2cc3056d05d85",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 90,
+          "lineSHA256": "c3968984d5353fa5af9c599331cf0cbc701496c115a671cf388ae754e0ea230b",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF011",
+      "title": "H5-CAS official advisors55 exclusively loopback",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16525,
+          "lineSHA256": "fa23221eaef12596c708c2d816a44c551a716ab306581fa54bc0899f8b58bc84",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 91,
+          "lineSHA256": "c10476170a27303d4df4288acc7c517ed9c9d0d42fbeddc6cce2e940212a721b",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF012",
+      "title": "H5-CAR/CAN/CAM/CAO/CAP/CAZ/CBD/CBE exact expected33 rows57 cases and historic product bytes",
+      "cause": "PRE_INHERITED_BYTE_BASELINE",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16534,
+          "lineSHA256": "a8b04f0bb45f838bf149ce2fee32e3f1c707dbe71d8e55c9b086b2b573afd0e9",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 92,
+          "lineSHA256": "b8dc81a7fc2b11e1804962fa6729892bf7430ebd5a7fec2fde4c9e1a6c5c4592",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF013",
+      "title": "H4-024 preserved product migrations historical verifiers sources expected and health",
+      "cause": "PRE_INHERITED_BYTE_BASELINE",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16585,
+          "lineSHA256": "462abbde0463b355470084014963619fb79b3e0feb36e98249d3b5b18ca230a2",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 95,
+          "lineSHA256": "918595e08dbf6071e3dd4be320b92040f3d8e55853f4ac96896be1a2ff54b4be",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF014",
+      "title": "H4-006 F12 later external fact cannot retroactively cover earlier action",
+      "cause": "EXPIRED_RELATIVE_TIME_FIXTURE",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16605,
+          "lineSHA256": "3ddea56d5e47f5a651d7b54cb2832a4ec2e60f2aa5030b72e89713c82902c589",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 96,
+          "lineSHA256": "d2c2a1d168e5ea1e4268dd168cf1b565bfc26079ff156fd396533c0debc8746b",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF015",
+      "title": "H4-008 loopback security advisors for complete fresh41",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16620,
+          "lineSHA256": "c026ff7137e29a814d7b77273f0b3ebca10c8f91779a8a08ceaae5a0619f077d",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 104,
+          "lineSHA256": "bc814a07d691daa89aed5257744cca147919d40e616358012723b2d85b2a181b",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF016",
+      "title": "H4-010 R27 fresh42 advisors complete stdout stderr and exit loopback only",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16629,
+          "lineSHA256": "e78090fd53d4425a5179faa908f0714c1479d8bc457bc63ba3e209cef528d81e",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 113,
+          "lineSHA256": "ffc4df9038cbaa976a5576abd586ba43ceb60579d61992289e3ab76575e0e2c5",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF017",
+      "title": "H4-012-F16 C16 fresh44 official advisors all complete streams status error signal loopback",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16638,
+          "lineSHA256": "b0f35613f82ecc11ee60f4c3cef1b03810a305f816a046533538ccbaf4e6045a",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 122,
+          "lineSHA256": "cf8c1ce4c7f245160317cbbc4630ce5213c35be11a23d14228a72746594d380b",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF018",
+      "title": "H4-012 R18 fresh43 advisors full stdout stderr status signal loopback only",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16647,
+          "lineSHA256": "b9bb3360b0430d3a349543d38a3f60d50c20ed17d362b92f436b4139b24fc2b6",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 131,
+          "lineSHA256": "fdd2652fefc04a3a84a25534323048f4e2b9b6bfe123c25561a41780c3094ed1",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF019",
+      "title": "H4-014 C31 fresh45 official advisors complete stdout stderr status signal error only loopback",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16656,
+          "lineSHA256": "b9339bfdc73984420ab03b7233d76b083fd40964918d03c0784208ca15920eac",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 140,
+          "lineSHA256": "4db2d28f351279b644ea8e517b211793afbeeb7d6341ee07f8bbe5ba49e00b33",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF020",
+      "title": "F23 C12 fresh47 official advisors complete stdout stderr status signal error only loopback",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16665,
+          "lineSHA256": "bc8b04e9684c3db5fbb5b5ea575463c2671989d413fb18a40fa176823da208f3",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 149,
+          "lineSHA256": "c867ad961635db5f2325607494d7edb5d68b659cb917a2eccf7778301f6b1711",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF021",
+      "title": "H4-016 R30 fresh46 official advisors complete stdout stderr status signal error only loopback",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16674,
+          "lineSHA256": "f567eae842dc9d41efa8da93bddfe41be10fc7a4ae0e2ca506048a7522bb92d1",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 158,
+          "lineSHA256": "dc3a18e70622ef9871bd10b28c0e4aa95f745ea3e02eeb2d156f94e080d58246",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF022",
+      "title": "H5-R02 official Supabase advisors on fresh 53 isolated migrations",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16683,
+          "lineSHA256": "838e4ed3a921dffd26e0ccc5580509b8f2e1c428fed61b550a23649cdfa2ae1c",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 159,
+          "lineSHA256": "ed5acf72677acdd6f2b083c5c61bf1376f08f2b37d3b64815c7bde8eae29d203",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF023",
+      "title": "H5-011 A08 V-DAT: least privilege, authenticated guards, RLS and advisors on the new read function",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16692,
+          "lineSHA256": "10eee46db2c8b1c7c3fbd64000bc5ab307b04677029a26c0809beb7c516b01d4",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 161,
+          "lineSHA256": "311dbfc245cc6217dcc1e54371cfbb211855cdeaefe088ee6531320ff99a17ce",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF024",
+      "title": "H5-012-F01 security: migrated59 ACL, function authority, current-night view and official advisors",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16701,
+          "lineSHA256": "59a2a4a21789ba38baf32088c4fee326b2bb408854f363b2385c9ffb3f5593ff",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 163,
+          "lineSHA256": "160105a1d090e45abae281290eabf7246125800f3c7c8e04a3b4d57245d7e7ef",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF025",
+      "title": "H5-012-final60 security: migrated60 ACL, function authority, current-night view and official advisors",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16710,
+          "lineSHA256": "752da0fccc74c50887752238dd781848f1d4c12c5a286274eccddd591ccbb5af",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 165,
+          "lineSHA256": "95d3fc8160881b3b928e5cba68b4e5493185a50ad6fa97adbf5ae94c4887297f",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF026",
+      "title": "H5-012-candidate61 security: migrated61 ACL, function authority, current-night view and official advisors",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16719,
+          "lineSHA256": "c444db88342d459edef32f4a0976de42c52976c62d689b99c65dbaf994ae7beb",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 167,
+          "lineSHA256": "b87b39aaa4bbb4f76a24394b0fe4a0442b8e0167dcd3b8eacdb16e83c0cc78dc",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF027",
+      "title": "H5-013 N12 V-MIG: populated61 rollback/retry, existing catalogue and data, security/advisors",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16728,
+          "lineSHA256": "6b65a6484363c300473dbe26ffea1acef7b0d2d63f2026ab3bb713dd47146f1c",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 169,
+          "lineSHA256": "6aaeac947c012221fa7ebe01b7b3529dca819c93996ced166d24f687dbc2b36e",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF028",
+      "title": "H5-015 J09/J10 populated62 upgrade, rollback, retry, ACL/FORCE RLS and original records",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16737,
+          "lineSHA256": "27c7861bdf95b98a2ce43f92055ef87bda3f4aafd3a6713d2ae1f0b08250e921",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 173,
+          "lineSHA256": "997ef0accc1ea0b4bb072b4ebbc864cf73c06545d54816484db2cc050603e59c",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF029",
+      "title": "C12 populated64 rollback65 retry preserves every row and only replaces the two declared bodies",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16746,
+          "lineSHA256": "4014b2987ae2713ff7a551936ba8b8d4e678c7711c29e1a22841d02ee280ee64",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 175,
+          "lineSHA256": "d4cc239c444a2ffad3340d792c8c9b4a543ca38ec3b747e33fa652ebb7589de6",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF030",
+      "title": "D08 populated65 rollback66 retry preserves all rows policies constraints ACL and only replaces diagnostic_nodes",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16755,
+          "lineSHA256": "382a802e1c659a365aea41d6dabd0d4dd127aede8f925e909a668b1dcf57b397",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 177,
+          "lineSHA256": "8c3e68a15f2bacd61612c0c89ebc04a1611415c92ee859036bf64edab0b31c97",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF031",
+      "title": "E-M01 independent catalog, populated upgrade, aborted DDL, function recovery and exact effective privileges",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16764,
+          "lineSHA256": "3c793a03afdc0b866fa371ff4b07e4c9e7114074575015b01907de60a1abf931",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 182,
+          "lineSHA256": "3fe828e16f97c028b4ca85b65060fd5cb8c245125f60bd5bbe128d13d91a63ca",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF032",
+      "title": "F-MIG independent populated67 catalog data aborted upgrade restore retry and privileges",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16773,
+          "lineSHA256": "a0a57e2827345ce43c4ba3f5347fa90b270a5e05328c91cfb2a931cae3e74c25",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 184,
+          "lineSHA256": "2d96107939e3c1f93c45bdf19eed5200a8e21cd9907883b64d61029da1385de8",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF033",
+      "title": "F-R01 exact replay conflicts and concurrent duplicates operation",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16782,
+          "lineSHA256": "d0b6b8398a90c1b70cb37ea1efcff537e32f8c3e6ed10da07b2c8455edd9a922",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 27,
+          "lineSHA256": "d9adeee47620ca7d0e7393aba6841c124e29e73b884621ccc221643b4ef9150a",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF034",
+      "title": "F-R01 exact replay conflicts and concurrent duplicates execution",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16808,
+          "lineSHA256": "3206ffad1c35c66c5173a9341ba5f943eeaecfb0ac05ad9198d3a5af4b371e65",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 29,
+          "lineSHA256": "3a7af8a77e3a1206c0b069027b58a6cc06c3c5c030c33977fb86ee721ff2764f",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF035",
+      "title": "F-R01 exact replay conflicts and concurrent duplicates both",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16834,
+          "lineSHA256": "3b069d86937a4b045288ade174e6cb1e936f2988f255a587293515446ea2521e",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 31,
+          "lineSHA256": "1285a7007bfe990559310818b0e9f0de4cbc69e805f1efe36e465064a53a190e",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF036",
+      "title": "F-R01 exact replay conflicts and concurrent duplicates none",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16860,
+          "lineSHA256": "e2ff640a0d0271e85cf1a38e2e5139a49deb9de7af56ebb7d270b6f8f2f8d62d",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 33,
+          "lineSHA256": "cdbd9a0d5a5b92dfb76a218343cb89902b5d0c9d3ae71ba740db98cab6a5ed62",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF037",
+      "title": "F-R02 historical replay reauthorizes sessions and requires the original actor",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16886,
+          "lineSHA256": "e1ac73ea47d729697d4b77053556236967efc4ecdfff3fd1a4c28d621be6b493",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 34,
+          "lineSHA256": "7e4f7ad18e5fde7414c09901ae1283e77194ecae452cbf89da0809453c8030f4",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF038",
+      "title": "F-R03 late canonical ownership cannot turn stored intent into authorized replay true",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16912,
+          "lineSHA256": "5da0de2509c866a068e028dc377911518fdb0da7c5b1965934d8975f0fe9ce7c",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 35,
+          "lineSHA256": "74433112c2841096375bfc6a0dd0a4a4ca39be7b6d2341aecc43fdccd08a8e97",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF039",
+      "title": "F-R03 late canonical ownership cannot turn stored intent into authorized replay false",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16938,
+          "lineSHA256": "7300f790c1cc508a31f4cf3ff429eb9b6481bee80b3463b98488b4c6ee530337",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 36,
+          "lineSHA256": "e636cbe0ff2ecd9806a3ddd08b36f831588ccb04236a32b72d2b5b3db271261a",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF040",
+      "title": "F-R04 historical replay checks current source authorization operation",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16964,
+          "lineSHA256": "26d1a6867247135580202aae04161b854d1662b641de760c17f5e63ec75b985d",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 37,
+          "lineSHA256": "53ec91b4f86d37b46f9d0306f6dd509963ff4ced2fc146b5f49c9f8c18a9a1f5",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF041",
+      "title": "F-R04 historical replay checks current source authorization execution",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 16990,
+          "lineSHA256": "395dc944e525d7f4d7efbec5a2bf4a0f96d3fc82e7c4a03d4359e35141bff54c",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 38,
+          "lineSHA256": "bc91ebba5223c8339f4ffe2fab64c67306805b49e32ae0c2f0436a33f78be9de",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF042",
+      "title": "F-R04 historical replay checks current source authorization event",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 17016,
+          "lineSHA256": "e7d3337d08a8f3d5dcc1a955e10c2b2fbba4401385cfa0815e895db9d66c52cb",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 39,
+          "lineSHA256": "f2975f4d155f094bf7d780be9978e0bb0a03110c27379ef452b78feec6d42b1e",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF043",
+      "title": "F-R05 revision while waiting for observation identity rechecks write versus replay false",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 17042,
+          "lineSHA256": "a28797b66de558d0231734ef92592304e0d220a7fa141cfd11f31cfb4d22c850",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 41,
+          "lineSHA256": "2e6701caaedf41d15c9a5a271978afeda1ea54c3b3b61aafd82683e160dad63e",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF044",
+      "title": "F-R05 revision while waiting for observation identity rechecks write versus replay true",
+      "cause": "FIXED_PORT_COLLISION",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 17068,
+          "lineSHA256": "936d5f917de59ea0e28d39bd3a02ed5cf48d6c8e2ee3238f3634d4a11e18ac8e",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "freplay-isolated-01/stdout.log.gz",
+          "line": 43,
+          "lineSHA256": "72fb70bcbc4c790e6878f0c46e60cb82f861670dea6678eabff796968c7cd28a",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF045",
+      "title": "H5-017 D07 populated63 upgrade rollback retry historical rows functions owners ACL preserved",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 17094,
+          "lineSHA256": "77ac2bf02fadaf5814d69fddeff7bb0bee0f98403c17bfd85ed1f5fcafed63ec",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 188,
+          "lineSHA256": "ebe19fe64b43899248877989fdd67d7883767f044f13cd72a08d061960350fbb",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "AF046",
+      "title": "Q06 independent populated66 catalog data aborted upgrade restore retry and privileges",
+      "cause": "CLI_OUTPUT_FORMAT",
+      "refs": [
+        {
+          "role": "original",
+          "path": "regression-01/phase-15.stdout.log.gz",
+          "line": 17102,
+          "lineSHA256": "3e5415c4eb9377e63a6949d52d22cc9634a21ba0f3aa5c42d0732c61d5e5b550",
+          "recordedResult": "FAIL",
+          "matches": true
+        },
+        {
+          "role": "successor",
+          "path": "compatibility-02/stdout.log.gz",
+          "line": 190,
+          "lineSHA256": "b662a001c03f93263d208d7bd1168d21186b61bdc5e66c878c02a820f75a6bbf",
+          "recordedResult": "PASS",
+          "matches": true
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "protectedH6015Manifests": [
+    {
+      "source": "h6-restore-execution",
+      "manifest": "tests/fixtures/h6-015-execution/delivery-manifest-v1.json",
+      "sha256": "3b928abaf8fb1ae44a195c00a9c95af61899e502efbe6cf838c0bcc78feac088",
+      "payloads": 4136,
+      "bytes": 44156350,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-pg17-corrective",
+      "manifest": "tests/fixtures/h6-015-pg17-corrective/corrective-manifest-v1.json",
+      "sha256": "0f34d7b9971802e5398969977963dc56766dfd179fa6d6f174a1b7307396511b",
+      "payloads": 12,
+      "bytes": 46240,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-bootstrap-variant",
+      "manifest": "tests/fixtures/h6-bootstrap-variant/delivery-manifest-v2.json",
+      "sha256": "ae32773e56d1680f8dacbfa9a7cf1f312c5ef0630ed1b79b49fe63372d8a8a7c",
+      "payloads": 106,
+      "bytes": 2068270,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-bootstrap-audit",
+      "manifest": "tests/fixtures/h6-bootstrap-independent/delivery-manifest-v1.json",
+      "sha256": "609fa29b83a71308a47689b99729c2183c7024fbaa5386043665d38bc295b433",
+      "payloads": 48,
+      "bytes": 237152,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-c04-integration",
+      "manifest": "tests/fixtures/h6-c04-integration/delivery-manifest-r2.json",
+      "sha256": "768b3fb290f3d564df5f6fdce637fbb4f6ae2e4c804fa168fa9e9bd1361bacdf",
+      "payloads": 35,
+      "bytes": 285374,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-c04-audit",
+      "manifest": "tests/fixtures/h6-c04-independent/delivery-manifest-v1.json",
+      "sha256": "f502e2627de1bb37538d73be369cce1ce9efd25a5ec32c67475c5c0e474e14cf",
+      "payloads": 33,
+      "bytes": 151112,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-c04-integration",
+      "manifest": "tests/fixtures/h6-ac073-final/delivery-manifest-v1.json",
+      "sha256": "12d7e7ccd7f45d6931f90d81c8b1477d668b927ee68340eba094751f5974bc7c",
+      "payloads": 17,
+      "bytes": 581557,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-c04-audit",
+      "manifest": "tests/fixtures/h6-ac073-independent/delivery-manifest-v1.json",
+      "sha256": "0574e1f47385d9b3d528bb8460474dd9a469e1494d86e6abd071b16a9be26c75",
+      "payloads": 3,
+      "bytes": 19707,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-c04-integration",
+      "manifest": "tests/fixtures/h6-015-acceptance/delivery-manifest-v1.json",
+      "sha256": "542321de105ab58d2ba662c4e4936ce0a057e6c83beb7aca2d3a8c1eb550e499",
+      "payloads": 31,
+      "bytes": 10800090,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-c04-audit",
+      "manifest": "tests/fixtures/h6-015-acceptance-independent/delivery-manifest-v1.json",
+      "sha256": "047bf131fb54945409d03ed260eec3f0b754e8b866af3ead4f58db3ac5a3097e",
+      "payloads": 15,
+      "bytes": 804666,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "snapshot:8ec91602a3bf813cf01ffbc6b2ac1a2862fe10d0",
+      "manifest": "tests/fixtures/h6-015-formal-closure/delivery-manifest-v1.json",
+      "sha256": "991d14013efd0f2527dea48bdc50dd426747a6089d15fc54745eac8140b15ada",
+      "payloads": 16,
+      "bytes": 13568442,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-c04-audit",
+      "manifest": "tests/fixtures/h6-015-formal-closure-independent/delivery-manifest-v1.json",
+      "sha256": "8de3bc2fe5930c3ecfca95114648349bac0da4d745bbe92e633a1f325871036a",
+      "payloads": 14,
+      "bytes": 255851,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-adoption-reconciliation",
+      "manifest": "tests/fixtures/h6-adoption-reconciliation/delivery-manifest-v1.json",
+      "sha256": "3706b515db4671f5f1fdeda47d2c8d6564e90a94deba62dbebff118b871bce78",
+      "payloads": 13,
+      "bytes": 124713,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "snapshot:fc68a90cd555a83388d5b166ff86adeda70110b8",
+      "manifest": "tests/fixtures/h6-adoption-independent/delivery-manifest-v1.json",
+      "sha256": "0aac3c814a4fe58e5613e4a89c82538ae069f7c9a7b9fb88880ccfd6ccd03316",
+      "payloads": 14,
+      "bytes": 66398,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-pg17-audit",
+      "manifest": "tests/fixtures/h6-pg17-independent/audit-manifest-v2.json",
+      "sha256": "b7d9ce440bd0ad9766c1786138ee5ce1ee2bac3c9b48b8050d34c3b77091266e",
+      "payloads": 15,
+      "bytes": 50522,
+      "pass": true,
+      "mismatches": []
+    },
+    {
+      "source": "h6-restore-audit",
+      "manifest": "tests/fixtures/h6-015-independent-preparation/audit-package-manifest-v1.json",
+      "sha256": "7a016d76363a4ee6db364a149d570f3977ace44f9558481ff9dc1e3d87b8e550",
+      "payloads": 60,
+      "bytes": 597776,
+      "pass": true,
+      "mismatches": []
+    }
+  ],
+  "focalReadback": [
+    {
+      "source": "executor",
+      "pass": true,
+      "summary": [
+        "ℹ tests 22",
+        "ℹ pass 22",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ duration_ms 53472.385458"
+      ],
+      "logHashesMatch": true
+    },
+    {
+      "source": "independent",
+      "pass": true,
+      "summary": [
+        "ℹ tests 22",
+        "ℹ pass 22",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ duration_ms 82412.363"
+      ],
+      "logHashesMatch": true
+    }
+  ],
+  "states": {
+    "H6001": "IN_PROGRESS_DIRECTOR_ACCEPTANCE_PENDING",
+    "H6": "IN_PROGRESS",
+    "H6015": "COMPLETED_LOCAL_ISOLATED_QUARANTINE",
+    "suspendedJobs": 4,
+    "suspensionEvidence": "DOCUMENTARY_ONLY"
+  },
+  "operationsPerformed": {
+    "fileReadsAndHashes": true,
+    "writes": "Only new auditor instruments and receipts under /tmp/h6-001-local-closure-audit",
+    "runtime": false,
+    "SQL": false,
+    "restore": false,
+    "regressionExecution": false,
+    "S11": false,
+    "stage": false,
+    "commit": false,
+    "push": false,
+    "remoteAccess": false,
+    "Drive": false
+  },
+  "limits": [
+    "No fresh runtime verification of H6-015 suspension.",
+    "Historical primary 14954 files checked by paths and sizes; no prior unrecorded full hash is invented.",
+    "Original wide regression remains FAIL 2899/2945 with 46 identified successor PASS; no new complete clean execution.",
+    "Technical independence of context and instruments on shared machine, not external organizational certification."
+  ],
+  "instrumentReuse": "Read-only verification logic from preserved v3; outputs redirected to this new closure-audit directory; previous audit artifacts read only.",
+  "nextAction": "Audit the new additive documentary closure once frozen; no original payload may be modified. No publication authorization."
+}

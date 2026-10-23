@@ -1,0 +1,59 @@
+{
+  "schema": "h6-001-closure-independent-instrument-correction-v1",
+  "at": "2026-10-22T23:07:35.032232+00:00",
+  "classification": "AUDITOR_INSTRUMENT_ENUMERATION_ERROR_NOT_CANDIDATE_DEFECT",
+  "originalInstrument": {
+    "path": "verify-closure-final-v1.py",
+    "bytes": 21145,
+    "sha256": "5d575842c2894308b6511a5504d2566ab3063b2e68a41853e428f800f0fbeffd"
+  },
+  "originalResult": {
+    "path": "final-closure-readback-v1.json",
+    "bytes": 17649,
+    "sha256": "86d0dd4f2f783270dbc882f10bf12d8a49ed000e3aa2c4ba38f6b995a36add09"
+  },
+  "successorInstrument": {
+    "path": "verify-closure-final-v2.py",
+    "bytes": 21892,
+    "sha256": "b4a1399d2c8b1644e17692de4160a0e26d52282bee9d217e17477876910db8bb"
+  },
+  "failedControl": "C10-product178-migrations68",
+  "originalObserved": 174,
+  "frozenExpected": 178,
+  "cause": "The v1 enumerated product/migration paths only in git ls-tree BASE, excluding four added inherited product sources already present in the frozen original candidate. No source hash mismatched.",
+  "correction": "Union base product/migration paths with declared inherited product additions, verify current on-disk set equals union, then compare every byte identity. Existing expected178 unchanged.",
+  "inheritedAdditions": [
+    {
+      "path": "src/infrastructure/auth/supabase-auth-provider.ts",
+      "bytes": 5083,
+      "expectedSHA256": "5bbd34da40f2e927b21917bd23ae8d0a24bbae9c645fc33c69d675ed326d0e9e",
+      "observedSHA256": "5bbd34da40f2e927b21917bd23ae8d0a24bbae9c645fc33c69d675ed326d0e9e",
+      "matches": true
+    },
+    {
+      "path": "src/server/b07-evidence-port.ts",
+      "bytes": 3187,
+      "expectedSHA256": "09e03ee860db70177868a30f98f76a0e9d33b38da56895d6b046d13fa50f8fab",
+      "observedSHA256": "09e03ee860db70177868a30f98f76a0e9d33b38da56895d6b046d13fa50f8fab",
+      "matches": true
+    },
+    {
+      "path": "src/server/human-auth-session.ts",
+      "bytes": 4935,
+      "expectedSHA256": "4be67b2900b794f211df753d30520693b9aaeb93b4a7d8eca30f2b18d92b56ec",
+      "observedSHA256": "4be67b2900b794f211df753d30520693b9aaeb93b4a7d8eca30f2b18d92b56ec",
+      "matches": true
+    },
+    {
+      "path": "src/server/human-http-boundary.ts",
+      "bytes": 3894,
+      "expectedSHA256": "13f2e417f818102a9deee0eb1a0da0e8a6ccda128471e5cf040b37fbf916cf48",
+      "observedSHA256": "13f2e417f818102a9deee0eb1a0da0e8a6ccda128471e5cf040b37fbf916cf48",
+      "matches": true
+    }
+  ],
+  "candidateModified": false,
+  "expectedModified": false,
+  "priorFailPreserved": true,
+  "newProductOrNormativeChanges": false
+}

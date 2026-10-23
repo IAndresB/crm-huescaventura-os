@@ -1,5 +1,47 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+<!-- H6-PREPUBLICATION-CUTOFF-BEGIN -->
+## Corte temporal de prepublicación A–D2
+
+Corte UTC: `2026-10-22T23:41:48.793504+00:00`. Esta propuesta reúne exclusivamente A/B/C/D1/D2. **H6 global IN PROGRESS; H6-001 COMPLETED local/aislado; H6-015 COMPLETED local/aislado y en cuarentena.**
+
+**H6-004 está IN PROGRESS en una ejecución independiente y queda fuera de este candidato.** No se incorporan sus resultados, pruebas, aceptación ni código. Las menciones históricas a NOT STARTED conservadas más abajo no representan su estado actual. El estado final de H6-004 requerirá un expediente y lote separados, identificados por sus propios manifiestos, auditoría y aceptación, y una futura superposición documental aditiva.
+
+Esta cabecera fija el alcance temporal de preparación; no modifica reglas ni decisiones anteriores. Los bloques siguientes conservan literalmente el cierre H6-001, el cierre H6-015 y sus históricos. La cuarentena y los cuatro trabajos suspendidos de H6-015 no se consultan ni se reactivan. Integración/publicación, en particular la combinación de los documentos compartidos, sigue pendiente de autorización expresa.
+<!-- H6-PREPUBLICATION-CUTOFF-END -->
+
+<!-- H6001-LOCAL-CLOSURE-BEGIN -->
+## Estado vigente H6-001 — COMPLETED local/aislado, 2026-10-23
+
+**TSK-H6-001: COMPLETED — exclusivamente local/aislado**, por aceptación expresa del director y ratificación de las evidencias selladas. **H6 global IN PROGRESS.** [Aceptación](../specs/001-core-crm/acceptance-TSK-H6-001-local.md), [cierre formal](../specs/001-core-crm/closure-TSK-H6-001-local.md) y [propuesta de publicación pendiente](../specs/001-core-crm/publication-TSK-H6-001-local-closure.md).
+
+Alcance: AC-089, SPEC-NFR-001 y E2E-01, recorrido continuo interno sintético mediante contratos y PostgreSQL aislado. Regresión histórica: **2.899 PASS y 46 FAIL de 2.945**, con 46 sucesores PASS identificados; **sin ejecución completa limpia posterior**. Focal 22/22, repetición independiente 22/22, unitarias 212/212, contrapruebas 7/7 y H5-019 3/3 son evidencia histórica sellada, ratificada sin nueva ejecución funcional en este cierre.
+
+Esta variante documental es aditiva y está aislada: conserva los bloques previos H6-001/H6-015, que expresan sus estados históricos. Las menciones anteriores a NOT STARTED, IN PROGRESS o evidencia futura no sustituyen este cierre de H6-001 ni acreditan otras tareas o AC compartidos. H6-015 permanece COMPLETED exclusivamente local/aislado y en cuarentena, con sus cuatro trabajos suspendidos; sin reentrada, runtime ni modificación de sus decisiones. Se preservan ARCH-PENDING-002 y DM-PENDING-005 OPEN.
+
+Publicación e integración en main pendientes de autorización expresa independiente. Sin commit, push, Drive, despliegue, datos/credenciales reales ni conectores reales. No se inicia ninguna otra tarea. Los documentos originales del candidato sellado permanecen intactos; esta variante y su parche exacto son el registro local vigente y la propuesta para una integración futura.
+<!-- H6001-LOCAL-CLOSURE-END -->
+
+<!-- H6001-LOCAL-STATUS-BEGIN -->
+## Estado vigente H6-001 — ejecución local/aislada, 2026-10-23
+
+**TSK-H6-001 IN PROGRESS; aceptación local pendiente de decisión del director. H6 global IN PROGRESS.** Autorización del director recibida el 2026-10-22: verificar e implementar E2E-01 exclusivamente en entorno local/aislado dentro de los contratos aprobados. La dependencia H5-019 está satisfecha por su aceptación D01–D03 y la publicación histórica localmente verificada. [Informe consolidado](../specs/001-core-crm/evidence-TSK-H6-001.md), [expected independiente](../specs/001-core-crm/expected-TSK-H6-001-independent.md) y [publicación pendiente](../specs/001-core-crm/publication-TSK-H6-001.md).
+
+El director acepta H6-015 como **COMPLETED exclusivamente local/aislado y en cuarentena**. Sus evidencias y cuatro trabajos suspendidos se preservan; no se reentra en S11. Su cierre formal permanece recuperable en el snapshot local `8ec91602a3bf813cf01ffbc6b2ac1a2862fe10d0`; no se ha restaurado ni publicado. Los antecedentes pendientes de H6-006/H6-008/H6-015 se inventarían por lotes propios, sin mezclarlos con la publicación de H6-001.
+
+Pruebas y auditoría tienen alcance sintético local. Sin nuevas decisiones normativas, datos/credenciales reales, efectos externos de negocio, Hosted/Production, deploy, commit, push, publicación GitHub ni Drive. Las entradas siguientes conservan los estados y STOP históricos de sus fechas; esta autorización habilita únicamente el trabajo local H6-001. No se declara COMPLETED por un resultado técnico PASS.
+<!-- H6001-LOCAL-STATUS-END -->
+
+## Estado vigente H6-015 — cierre formal local/aislado y en cuarentena, 2026-10-22
+
+**TSK-H6-015: COMPLETED — exclusivamente local/aislado y en cuarentena**, por aprobación expresa del director. [Acta formal](../specs/001-core-crm/closure-TSK-H6-015-local.md). Matriz integral y dictamen independiente aceptados; AC-073 y AC-074 satisfechos solo dentro del alcance local acreditado. N01/N02 resueltos; adopción local r4 y C04→B07/C07 conservados. Candidato SHA-256 `542321de105ab58d2ba662c4e4936ce0a057e6c83beb7aca2d3a8c1eb550e499`; auditoría SHA-256 `047bf131fb54945409d03ed260eec3f0b754e8b866af3ead4f58db3ac5a3097e`.
+
+**H6 global IN PROGRESS, no COMPLETED. ARCH-PENDING-002 y DM-PENDING-005 OPEN.** Cuatro trabajos suspendidos, intento t1 ausente, efecto incierto y objeto no recuperado conservados. S11 no autorizada/no ejecutada; N03 no implementada ni necesaria para AC-073. No reentrada, efectos reales, Hosted/Production, despliegue, commit/push/publicación ni Drive.
+
+H6-006/H6-008/H6-013/H6-014 conservan sus cierres locales aceptados. La [siguiente preparación documental](../specs/001-core-crm/preparation-next-H6-after-H6-015.md) mantiene H6-016 y H6-001 NOT STARTED: H6-016 depende aún de H6-001/H6-004/H6-007; se propone H6-001 como primer bloque funcional futuro, sujeto a autorización propia. No se ha iniciado ninguna tarea nueva.
+
+Las entradas siguientes y las líneas históricas de las fichas conservan los estados de sus fechas; no sustituyen este cierre vigente ni autorizan sus antiguas acciones futuras. El candidato histórico permanece en su worktree intacto; esta copia documental no sustituye su implementación.
+
 ## Estado vigente H6-014 — cierre documental local/aislado, 2026-10-21
 
 **TSK-H6-014: COMPLETED exclusivamente local/aislado. Inventario y procedimiento preparados; aceptación técnica del director y auditoría independiente r3 PASS. Custodia externa y publicación PENDIENTES DE AUTORIZACIÓN.** [Aceptación](../specs/001-core-crm/acceptance-TSK-H6-014.md), [cierre consolidado](../specs/001-core-crm/closure-TSK-H6-014.md), [propuesta exacta de custodia y publicación](../specs/001-core-crm/publication-TSK-H6-014.md). Manifiesto r3 SHA-256 `1352361f1bf22ffb3670d8a7f36ca15b583ccf11bef9d6c4bd0d94adf1b7c065`; informe independiente SHA-256 `3e610a7c2e276a33cc262d2818691a31429b73120a0db70c51dc2932ecf33f88`.
