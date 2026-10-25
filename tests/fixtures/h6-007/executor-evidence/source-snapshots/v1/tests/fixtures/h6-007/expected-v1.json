@@ -1,0 +1,182 @@
+{
+  "schema": "H6-007-executor-expected/v1",
+  "at": "2026-10-24T01:20:45.887186+00:00",
+  "base": "9c15e6d143822f7fcc84f29744194554630f4ac4",
+  "tree": "fe7cabb05e44462121c70ad52405765e2c94fcd2",
+  "directAssignments": [
+    "SPEC-FR-CLOSE-004",
+    "AC-061",
+    "PT-10",
+    "E2E-07",
+    "G5"
+  ],
+  "rows": [
+    {
+      "id": "P01",
+      "expected": "Base con tres evaluaciones y cierre explícito"
+    },
+    {
+      "id": "A01",
+      "expected": "Discrepancia de pago posterior invalida solo economía"
+    },
+    {
+      "id": "A02",
+      "expected": "Reapertura fundada explícita y replay"
+    },
+    {
+      "id": "A03",
+      "expected": "Reconstrucción del cierre, causa, actores y tiempos"
+    },
+    {
+      "id": "A04",
+      "expected": "Lectura canónica y proyección no mutan ni otorgan autoridad"
+    },
+    {
+      "id": "B01",
+      "expected": "Evidencia informativa no contradictoria"
+    },
+    {
+      "id": "B02",
+      "expected": "Incidencia no material no reabre"
+    },
+    {
+      "id": "C01",
+      "expected": "Discrepancia duplicada es replay"
+    },
+    {
+      "id": "C02",
+      "expected": "Misma identidad con material distinto es conflicto"
+    },
+    {
+      "id": "C03",
+      "expected": "Recepción de evidencia repetida conserva un hecho"
+    },
+    {
+      "id": "D01",
+      "expected": "Reapertura infundada rechazada"
+    },
+    {
+      "id": "D02",
+      "expected": "Evidencia inexistente rechazada"
+    },
+    {
+      "id": "D03",
+      "expected": "Evidencia de otra raíz rechazada"
+    },
+    {
+      "id": "D04",
+      "expected": "Evaluación sin fundamento suficiente no resuelve economía"
+    },
+    {
+      "id": "D05",
+      "expected": "Cierre con material anterior a discrepancia rechazado"
+    },
+    {
+      "id": "E01",
+      "expected": "Auth falsificada denegada"
+    },
+    {
+      "id": "E02",
+      "expected": "Interacción de lectura no autoriza escritura"
+    },
+    {
+      "id": "E03",
+      "expected": "DML directo runtime denegado"
+    },
+    {
+      "id": "E04",
+      "expected": "Actor deshabilitado no muta, lee ni obtiene replay"
+    },
+    {
+      "id": "F01",
+      "expected": "Fallo antes de revisión de pago revierte unidad"
+    },
+    {
+      "id": "F02",
+      "expected": "Fallo en resultado idempotente de pago revierte unidad"
+    },
+    {
+      "id": "F03",
+      "expected": "Fallo en invalidación revierte origen e historia"
+    },
+    {
+      "id": "F04",
+      "expected": "Fallo diferido durante COMMIT revierte unidad"
+    },
+    {
+      "id": "F05",
+      "expected": "Fallo en evaluación de reapertura revierte unidad"
+    },
+    {
+      "id": "F06",
+      "expected": "Fallo en resultado de reapertura revierte unidad"
+    },
+    {
+      "id": "F07",
+      "expected": "Fallo COMMIT de reapertura revierte unidad"
+    },
+    {
+      "id": "F08",
+      "expected": "Respuesta perdida tras COMMIT real recupera un efecto"
+    },
+    {
+      "id": "F09",
+      "expected": "Cierre primero, evidencia después con espera real"
+    },
+    {
+      "id": "F10",
+      "expected": "Evidencia primero, cierre obsoleto después con espera real"
+    },
+    {
+      "id": "F11",
+      "expected": "Corrección no resucita cierre; reevaluación y cierre son explícitos"
+    },
+    {
+      "id": "F12",
+      "expected": "Booking ajena progresa durante espera de otra raíz"
+    },
+    {
+      "id": "X01",
+      "expected": "AC-046: pago sin factura, documento y nueva discrepancia"
+    }
+  ],
+  "guards": [
+    "G1",
+    "G2",
+    "G3 where applicable; no AI effect in main path",
+    "G4",
+    "G5",
+    "G6"
+  ],
+  "transverse": [
+    "AC-046",
+    "AC-058",
+    "AC-059",
+    "AC-060",
+    "AC-062",
+    "AC-063",
+    "SM-CL-01",
+    "SM-CL-02",
+    "SM-CL-03",
+    "SM-CL-04",
+    "SM-CL-05",
+    "P06",
+    "P07",
+    "P08",
+    "P10",
+    "P11",
+    "P13",
+    "P18",
+    "T09",
+    "T10"
+  ],
+  "limits": [
+    "No UI, hosted, Production or real connectors",
+    "No global clean regression claim",
+    "Exceptional reviewed performance fixture is labelled AC-063, not ordinary start/finish",
+    "AC-046 supplier documentary case is separate from main internal closed Booking",
+    "AC-062 clauses mapped through targeted historical contracts/regressions, no invented archive API"
+  ],
+  "independentExpectedSHA256": "0c859b5eed9f0960a7616fb1159b853f8b5f56993ddcb50fa99109d8697c83c3",
+  "productChangesBeforeExpected": false
+}

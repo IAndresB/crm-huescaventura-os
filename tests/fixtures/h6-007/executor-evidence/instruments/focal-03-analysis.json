@@ -1,0 +1,17 @@
+{
+  "historical": {
+    "tests": 32,
+    "pass": 31,
+    "fail": 1
+  },
+  "failedCase": "F12",
+  "cause": "Verifier reused F2 session of a payment request waiting on Booking; its read waited on that session row. Own pg_stat_activity showed transactionid blocker20158. A third independent session is required to test independent Booking progress.",
+  "evidence": [
+    "focal-03-lock-inspection-v2.csv",
+    "focal-03-monitor-recovery.csv"
+  ],
+  "recovery": "Cancelled only blocked verifier read19857 in own test database; finally released root and completed test run. No protected runtime accessed.",
+  "successor": "focal-04 F12 uses third session and prebuilt command with bounded own-session timeout",
+  "productChanged": false,
+  "monitorAttemptFailure": "Initial inspection used absent postgres role; published fixture uses h2_bootstrap. Corrected read stored separately."
+}

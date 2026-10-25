@@ -1,0 +1,7 @@
+# Cápsula posterior de aceptación local H6-007
+
+Estado registrado: **COMPLETED exclusivamente local/aislado**; H6 global IN PROGRESS. Acta en `specs/001-core-crm/acceptance-TSK-H6-007-local.md`, continuidad documental H6-016 en su preparación separada.
+
+Core previo sellado y recibido: manifiesto `9864633972785547891c97658471f77a6c1ce47c8e9c604ad48589892b445fc6`, sello `b17b4f2aaba67e2d5bbec7aee6899d653b0fd3e2b0572b256619e8a87f7bc309`. No se reescribe ese core. Los resultados de custodia anteriores al acta se conservan literalmente y el paquete `1f247192857aee020bd02088318c7331e7befe749343a0ae0871dc56a659f082` tiene copia legible persistente en `/Users/andres/.codex/worktrees/h6-007-local/receipts/custody-before-acceptance`. El readback final de esta cápsula se registra después fuera de su sello.
+
+Las tres preimágenes son bytes de la base publicada; las postimágenes son variantes aisladas. `shared-state-v1.patch.gz` conserva sin pérdida el parche exacto; descomprimir en un archivo temporal externo y ejecutar `git apply --check` sobre la base, sin aplicarlo. La compresión evita interpretar el espacio obligatorio de contexto de un parche como formato nuevo del producto. Tasks, PROJECT-STATUS y NEXT-STEPS canónicos siguen intactos. No hay autorización de staging/commit/push/merge ni Drive/deploy. La propuesta original H6-016 mantiene su corte histórico; el nuevo binding declara seis dependencias locales satisfechas y prueba H6-007 no publicada. No inicia H6-016.

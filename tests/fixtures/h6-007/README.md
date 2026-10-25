@@ -1,0 +1,13 @@
+# Evidencia técnica H6-007, exclusivamente local/aislada
+
+Los expected preceden al ejecutable. `executor-capture-index-v1.json` enlaza cada fichero capturado con sus bytes originales, SHA-256 crudo, tamaño, representación y SHA-256 almacenado. Los `.gz` se descomprimen sin pérdida; los logs y capturas originales permanecen además en `/Users/andres/.codex/worktrees/h6-007-local/receipts/`. No se sustituye un FAIL por un PASS.
+
+Resultados finales del ejecutor: focal32/32, regresión dirigida49/49 (incluye H01), unitarias212/212, typecheck/lint/build PASS. Los intentos focal17/32 y31/32, y regresión46/49, conservan su identidad, fuentes y sucesores nominales. Los errores de setup no se cuentan como pruebas de negocio ejecutadas. Los resultados originales H6-001/H6-004 mantienen sus FAIL y reconciliaciones.
+
+Producto y68 migraciones son la base publicada9c15e6d sin cambios. Nuevas fuentes funcionales de ensayo: `tests/support/h6-007-fixtures.ts`, `tests/integration/postgres-h6-007.test.ts` y `postgres-h6-007-history.test.ts`. Las cuatro copias de regresión conservan aserciones y solo sustituyen imports declarados; la envoltura de Refund usa la cronología ya publicada H5-017-G. M02 conserva su bootstrap histórico61 en base exclusiva y su upgrade62, no un falso estado68.
+
+Para reproducir, usar un checkout/copia de ensayo autorizado, Node24.21.x/pnpm11.19.0 y PostgreSQL17.11, con dependencias congeladas. Los wrappers `.py` capturados son los instrumentos exactos ejecutados y esperan un directorio `receipts/` hermano del checkout `crm-huescaventura-os/`; copiarlos a un expediente nuevo antes de usarlos. `run-integration.py` usa entorno permitido reducido, runtime propio, bootstrap oficial fijado y salidas fuera del candidato. Selecciones: `postgres-h6-007.test.ts`; para regresión, los cuatro `h6007-regression-*.test.ts` y `postgres-h6-007-history.test.ts`. Conservar cada repetición en una carpeta nueva. Nunca ejecutar sobre una base o runtime protegido ni omitir el runner Storage heredado.
+
+El dictamen técnico y su expected/instrumentos/contrapruebas propios están en `independent/`. El auditor es un agente separado del mismo modelo; no auditor humano. La prestación del fixture es excepcional revisada AC-063; la pérdida de acuse se simula después de commit real. El caso proveedor es complementario; H01 no acredita por sí solo todo AC-062. Véanse la matriz y el informe de evidencia para límites por cláusula.
+
+El manifiesto técnico y su sello se generan tras completar el paquete. La aceptación formal posterior se custodia separadamente sin reescribir este candidato sellado. No autoriza publicación, datos o conectores reales, Production, Drive ni reentrada H6-015/S11. H6 global continúa IN PROGRESS.

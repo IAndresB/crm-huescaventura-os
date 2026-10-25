@@ -1,0 +1,287 @@
+{
+  "schema": "h6-007-independent-core-custody-v1",
+  "at": "2026-10-24T01:47:43.870204+00:00",
+  "status": "PASS",
+  "counts": {
+    "PASS": 12
+  },
+  "checks": [
+    {
+      "id": "C01_own_baseline_preserved",
+      "status": "PASS",
+      "detail": {
+        "immutableInputs": 11,
+        "mismatches": []
+      }
+    },
+    {
+      "id": "C02_core_envelopes",
+      "status": "PASS",
+      "detail": {
+        "manifest": "tests/fixtures/h6-007/delivery-manifest-v1.json",
+        "manifestSHA256": "9864633972785547891c97658471f77a6c1ce47c8e9c604ad48589892b445fc6",
+        "seal": "tests/fixtures/h6-007/delivery-seal-v1.json",
+        "sealSHA256": "b17b4f2aaba67e2d5bbec7aee6899d653b0fd3e2b0572b256619e8a87f7bc309",
+        "sealFields": {
+          "schema": "h6-007-technical-core-seal-v1",
+          "at": "2026-10-24T01:46:51.898163+00:00",
+          "manifest": "tests/fixtures/h6-007/delivery-manifest-v1.json",
+          "manifestSHA256": "9864633972785547891c97658471f77a6c1ce47c8e9c604ad48589892b445fc6",
+          "manifestBytes": 30554,
+          "payloadCount": 116,
+          "payloadBytes": 26963131,
+          "selfExcluded": true,
+          "meaning": "SHA-256 integrity identity; not a cryptographic director signature; later acceptance is separate."
+        }
+      }
+    },
+    {
+      "id": "C03_core_payloads",
+      "status": "PASS",
+      "detail": {
+        "payloads": 116,
+        "bytes": 26963131,
+        "mismatches": [],
+        "envelopesExcludedFromOwnPayload": true
+      }
+    },
+    {
+      "id": "C04_nine_frozen_test_sources",
+      "status": "PASS",
+      "detail": {
+        "files": 9,
+        "manifestSHA256": "4178b9b7c40c7bd9e2dce18875cfe6ef40457fec0222a99e663671ebd85b504e",
+        "mismatches": []
+      }
+    },
+    {
+      "id": "C05_primary14954_hashes",
+      "status": "PASS",
+      "detail": {
+        "paths": 14954,
+        "bytes": 172003534,
+        "baselineSHA256": "3090d96ff985ff069456153a79cd067da234b7f789c844a6c024cd468c75ead2",
+        "mismatches": [],
+        "pathSetExact": true
+      }
+    },
+    {
+      "id": "C06_git_state",
+      "status": "PASS",
+      "detail": {
+        "primary": {
+          "head": "971c55d5ce5770c71284d106d3c0deecca9514b5",
+          "branch": "refs/heads/main",
+          "indexEmpty": true,
+          "trackedClean": true
+        },
+        "candidate": {
+          "head": "9c15e6d143822f7fcc84f29744194554630f4ac4",
+          "tree": "fe7cabb05e44462121c70ad52405765e2c94fcd2",
+          "indexEmpty": true,
+          "trackedClean": true
+        }
+      }
+    },
+    {
+      "id": "C07_product110_migrations68",
+      "status": "PASS",
+      "detail": {
+        "product": 110,
+        "migrations": 68,
+        "mismatches": []
+      }
+    },
+    {
+      "id": "C08_canonical_normative_and_acceptances",
+      "status": "PASS",
+      "detail": {
+        "wholeCanonicalSources": 10,
+        "mismatches": [],
+        "acceptanceCapsule2NotAppliedToCanonicalFiles": true
+      }
+    },
+    {
+      "id": "C09_H6-001",
+      "status": "PASS",
+      "detail": {
+        "files": 376,
+        "mismatches": [],
+        "indexEmpty": true
+      }
+    },
+    {
+      "id": "C09_H6-004",
+      "status": "PASS",
+      "detail": {
+        "files": 701,
+        "mismatches": [],
+        "indexEmpty": true
+      }
+    },
+    {
+      "id": "C10_H6015_16_4568",
+      "status": "PASS",
+      "detail": {
+        "manifests": [
+          {
+            "source": "h6-restore-execution",
+            "manifest": "tests/fixtures/h6-015-execution/delivery-manifest-v1.json",
+            "sha256": "3b928abaf8fb1ae44a195c00a9c95af61899e502efbe6cf838c0bcc78feac088",
+            "entries": 4136,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-pg17-corrective",
+            "manifest": "tests/fixtures/h6-015-pg17-corrective/corrective-manifest-v1.json",
+            "sha256": "0f34d7b9971802e5398969977963dc56766dfd179fa6d6f174a1b7307396511b",
+            "entries": 12,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-bootstrap-variant",
+            "manifest": "tests/fixtures/h6-bootstrap-variant/delivery-manifest-v2.json",
+            "sha256": "ae32773e56d1680f8dacbfa9a7cf1f312c5ef0630ed1b79b49fe63372d8a8a7c",
+            "entries": 106,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-bootstrap-audit",
+            "manifest": "tests/fixtures/h6-bootstrap-independent/delivery-manifest-v1.json",
+            "sha256": "609fa29b83a71308a47689b99729c2183c7024fbaa5386043665d38bc295b433",
+            "entries": 48,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-c04-integration",
+            "manifest": "tests/fixtures/h6-c04-integration/delivery-manifest-r2.json",
+            "sha256": "768b3fb290f3d564df5f6fdce637fbb4f6ae2e4c804fa168fa9e9bd1361bacdf",
+            "entries": 35,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-c04-audit",
+            "manifest": "tests/fixtures/h6-c04-independent/delivery-manifest-v1.json",
+            "sha256": "f502e2627de1bb37538d73be369cce1ce9efd25a5ec32c67475c5c0e474e14cf",
+            "entries": 33,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-c04-integration",
+            "manifest": "tests/fixtures/h6-ac073-final/delivery-manifest-v1.json",
+            "sha256": "12d7e7ccd7f45d6931f90d81c8b1477d668b927ee68340eba094751f5974bc7c",
+            "entries": 17,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-c04-audit",
+            "manifest": "tests/fixtures/h6-ac073-independent/delivery-manifest-v1.json",
+            "sha256": "0574e1f47385d9b3d528bb8460474dd9a469e1494d86e6abd071b16a9be26c75",
+            "entries": 3,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-c04-integration",
+            "manifest": "tests/fixtures/h6-015-acceptance/delivery-manifest-v1.json",
+            "sha256": "542321de105ab58d2ba662c4e4936ce0a057e6c83beb7aca2d3a8c1eb550e499",
+            "entries": 31,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-c04-audit",
+            "manifest": "tests/fixtures/h6-015-acceptance-independent/delivery-manifest-v1.json",
+            "sha256": "047bf131fb54945409d03ed260eec3f0b754e8b866af3ead4f58db3ac5a3097e",
+            "entries": 15,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "snapshot:8ec91602a3bf813cf01ffbc6b2ac1a2862fe10d0",
+            "manifest": "tests/fixtures/h6-015-formal-closure/delivery-manifest-v1.json",
+            "sha256": "991d14013efd0f2527dea48bdc50dd426747a6089d15fc54745eac8140b15ada",
+            "entries": 16,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-c04-audit",
+            "manifest": "tests/fixtures/h6-015-formal-closure-independent/delivery-manifest-v1.json",
+            "sha256": "8de3bc2fe5930c3ecfca95114648349bac0da4d745bbe92e633a1f325871036a",
+            "entries": 14,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-adoption-reconciliation",
+            "manifest": "tests/fixtures/h6-adoption-reconciliation/delivery-manifest-v1.json",
+            "sha256": "3706b515db4671f5f1fdeda47d2c8d6564e90a94deba62dbebff118b871bce78",
+            "entries": 13,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "snapshot:fc68a90cd555a83388d5b166ff86adeda70110b8",
+            "manifest": "tests/fixtures/h6-adoption-independent/delivery-manifest-v1.json",
+            "sha256": "0aac3c814a4fe58e5613e4a89c82538ae069f7c9a7b9fb88880ccfd6ccd03316",
+            "entries": 14,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-pg17-audit",
+            "manifest": "tests/fixtures/h6-pg17-independent/audit-manifest-v2.json",
+            "sha256": "b7d9ce440bd0ad9766c1786138ee5ce1ee2bac3c9b48b8050d34c3b77091266e",
+            "entries": 15,
+            "mismatches": [],
+            "status": "PASS"
+          },
+          {
+            "source": "h6-restore-audit",
+            "manifest": "tests/fixtures/h6-015-independent-preparation/audit-package-manifest-v1.json",
+            "sha256": "7a016d76363a4ee6db364a149d570f3977ace44f9558481ff9dc1e3d87b8e550",
+            "entries": 60,
+            "mismatches": [],
+            "status": "PASS"
+          }
+        ],
+        "runtimeSQL": false,
+        "restored": false,
+        "fourSuspendedJobs": "Documentary only, not queried or started"
+      }
+    },
+    {
+      "id": "C11_scope_and_sequence",
+      "status": "PASS",
+      "detail": {
+        "noFreshFunctionalExecution": true,
+        "noRuntimeSQL": true,
+        "noSourceWrites": true,
+        "noRemoteOperations": true,
+        "noH6016Start": true,
+        "acceptanceFollowsCorePASS": true,
+        "H6": "IN_PROGRESS",
+        "H6015Quarantine": true
+      }
+    }
+  ],
+  "failed": [],
+  "expectedSHA256": "1a744a2fa600ceb8e55f6a061c5de19e9b29056d01658815e69e9a100fc57b18",
+  "identityExpectedSHA256": "a26443187a2f846c735a0b7180afdc2bdbfbc5d1e38ad645a87e7922c279bdcb",
+  "instrumentSHA256": "4595522c8c3326baef583e409969627534a55df0e7f7641717f357bd75ea752b",
+  "coreManifestSHA256": "9864633972785547891c97658471f77a6c1ce47c8e9c604ad48589892b445fc6",
+  "coreSealSHA256": "b17b4f2aaba67e2d5bbec7aee6899d653b0fd3e2b0572b256619e8a87f7bc309",
+  "scope": "Technical capsule identity/custody only. Functional conclusions belong to execution and independent functional auditor. Acceptance/overlays are a subsequent separate capsule.",
+  "sourceWrites": false,
+  "runtimeSQL": false,
+  "functionalTests": false,
+  "remoteOperations": false
+}
