@@ -1,5 +1,17 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
+<!-- H6-007-LOCAL-CLOSURE-BEGIN -->
+## Estado vigente H6-007 — aceptación exclusivamente local/aislada
+
+Corte UTC `2026-10-24T01:50:15.261296+00:00`. **TSK-H6-007: COMPLETED — local/aislado. H6 global: IN PROGRESS.** Cierre condicionado autorizado por dirección y formalizado tras focal32/32, regresión dirigida49/49, unitarias212/212 y typecheck/lint/build PASS; réplica independiente32/32+1/1, contrapruebas10/10 y custodia de antecedentes/core PASS. No existe regresión global limpia nueva; se preservan todos los fallos y sucesores.
+
+Acta `specs/001-core-crm/acceptance-TSK-H6-007-local.md`; evidencia y matriz H6-007; core SHA-256 `9864633972785547891c97658471f77a6c1ce47c8e9c604ad48589892b445fc6`. Esta es una variante aislada pendiente de integración y publicación autorizadas; los tres documentos canónicos conservan sus bytes. La base publicada actual es `9c15e6d143822f7fcc84f29744194554630f4ac4`, árbol `fe7cabb05e44462121c70ad52405765e2c94fcd2`: H6-001/H6-004 ya están publicadas. Las referencias antiguas a publicación pendiente o H6-007 NOT STARTED describen sus cortes históricos.
+
+H6-015 mantiene cierre formal local/aislado, cuarentena y cuatro trabajos suspendidos; sin runtime ni S11.68 migraciones y antecedentes intactos. Hosted/Production NO ACREDITADOS; sin datos o efectos reales, normativa/seguridad nueva, Drive ni despliegue. H6-007 no se ha publicado.
+
+H6-016: NOT STARTED. Sus seis dependencias funcionales están satisfechas localmente; H6-007 aporta prueba sellada local todavía no integrada/publicada. La propuesta T01–T11 identifica esta diferencia y exige un mandato independiente para iniciar, sin suponer que la evidencia local pertenece a la base Git. Los bloques inferiores conservan íntegramente decisiones, autorizaciones y estados de sus fechas.
+<!-- H6-007-LOCAL-CLOSURE-END -->
+
 <!-- H6-004-LOCAL-CLOSURE-BEGIN -->
 ## Estado vigente H6-004 — cierre local/aislado, 2026-10-23
 

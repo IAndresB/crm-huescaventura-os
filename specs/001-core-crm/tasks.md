@@ -1,5 +1,17 @@
 # Tasks — SPEC 001 Core CRM
 
+<!-- H6-007-LOCAL-CLOSURE-BEGIN -->
+## Estado vigente H6-007 — aceptación exclusivamente local/aislada
+
+Corte UTC `2026-10-24T01:50:15.261296+00:00`. **TSK-H6-007: COMPLETED — local/aislado. H6 global: IN PROGRESS.** Cierre condicionado autorizado por dirección y formalizado tras focal32/32, regresión dirigida49/49, unitarias212/212 y typecheck/lint/build PASS; réplica independiente32/32+1/1, contrapruebas10/10 y custodia de antecedentes/core PASS. No existe regresión global limpia nueva; se preservan todos los fallos y sucesores.
+
+Acta `specs/001-core-crm/acceptance-TSK-H6-007-local.md`; evidencia y matriz H6-007; core SHA-256 `9864633972785547891c97658471f77a6c1ce47c8e9c604ad48589892b445fc6`. Esta es una variante aislada pendiente de integración y publicación autorizadas; los tres documentos canónicos conservan sus bytes. La base publicada actual es `9c15e6d143822f7fcc84f29744194554630f4ac4`, árbol `fe7cabb05e44462121c70ad52405765e2c94fcd2`: H6-001/H6-004 ya están publicadas. Las referencias antiguas a publicación pendiente o H6-007 NOT STARTED describen sus cortes históricos.
+
+H6-015 mantiene cierre formal local/aislado, cuarentena y cuatro trabajos suspendidos; sin runtime ni S11.68 migraciones y antecedentes intactos. Hosted/Production NO ACREDITADOS; sin datos o efectos reales, normativa/seguridad nueva, Drive ni despliegue. H6-007 no se ha publicado.
+
+H6-016: NOT STARTED. Sus seis dependencias funcionales están satisfechas localmente; H6-007 aporta prueba sellada local todavía no integrada/publicada. La propuesta T01–T11 identifica esta diferencia y exige un mandato independiente para iniciar, sin suponer que la evidencia local pertenece a la base Git. Los bloques inferiores conservan íntegramente decisiones, autorizaciones y estados de sus fechas.
+<!-- H6-007-LOCAL-CLOSURE-END -->
+
 <!-- H6-004-LOCAL-CLOSURE-BEGIN -->
 ## Estado vigente H6-004 — cierre local/aislado, 2026-10-23
 
@@ -2378,17 +2390,17 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H6-007 — Verificar E2E-07: Evidencia posterior al cierre
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H6. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED exclusivamente local/aislado. Evidencia: EJECUTADA y custodiada localmente.** Hito: H6. Tipo: comprobación.
 - **Objetivo y alcance:** Cierre conjunto seguido por discrepancia y reapertura fundada.
 - **Fuentes exactas:** Plan §§9–10.1; SPEC §9; SPEC-FR-CLOSE-004, AC-061. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H6-007.
 - **Bloques, contratos y unidades:** B01–B10; C01–C06; T09/T10.
 - **Entregable previsto:** Casos y evidencia propuestos de recorrido Core. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H5-019]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H5 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Datos sintéticos y dobles externos; no requiere UI ni conector; acceso real permanece bloqueado. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Cerrar con todos los hechos, registrar nueva evidencia económica contradictoria y consultar historia/condición vigente.
+- **Bloqueo localizado / condición para levantarlo:** Datos sintéticos y dobles externos; no requiere UI ni conector; acceso real permanece bloqueado. El detalle de evidencia/decisión y puerta está en §7; acceso real y restantes fronteras reservadas siguen bloqueados pese al cierre local/aislado.
+- **Acción ejecutada localmente:** Cerrar con todos los hechos, registrar nueva evidencia económica contradictoria y consultar historia/condición vigente.
 - **Salida observable:** Solo dimensión afectada vuelve a pendiente y se retira cierre actual; conserva cierre pasado/causa, ejecución y aceptación sin contrato nuevo.
 - **Verificación y esperado:** Solo dimensión afectada vuelve a pendiente y se retira cierre actual; conserva cierre pasado/causa, ejecución y aceptación sin contrato nuevo. En cada efecto comprobar guardas, permisos, historia y repetición aplicables. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **EJECUTADA local/aislado**: focal32/32, dirigida49/49, unitarias212/212 y gates PASS; réplica32/32+1/1, contrapruebas10/10, auditoría36/36 y custodia PASS. [Acta](acceptance-TSK-H6-007-local.md), [evidencia](evidence-TSK-H6-007.md) y [matriz](matrix-TSK-H6-007.md). Todos los intentos fallidos y sucesores se conservan; no regresión global limpia.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T09/T10 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h6-008"></a>
