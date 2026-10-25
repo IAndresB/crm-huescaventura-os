@@ -1,5 +1,28 @@
 # Tasks — SPEC 001 Core CRM
 
+<!-- H6-016-POST-G-B-PREPUBLICATION-BEGIN -->
+## Corte de prepublicación H6-016 posterior a G-b
+
+Corte UTC `2026-10-25T18:59:48.307795+00:00`. H6-007 está COMPLETED local/aislado y su publicación G-b está confirmada en `63cbd4ae690dcb02deb9f194d501e8580c72f9d5`, árbol `fe08a679c6bc247fb3127f32a7abef0250fdaabb`. **H6-016: COMPLETED exclusivamente local/aislado; su publicación sigue pendiente de autorización expresa sobre un candidato exacto. H6 global: IN PROGRESS.** Esta preparación no ejecuta la publicación de H6-016 ni amplía la aceptación local a Hosted o Production.
+
+La única actualización documental activa de este candidato parte de G-b y conserva literalmente debajo la postimagen local H6-016 post-G-b. Los bloques anteriores y sus referencias a H6-007 sin publicar, a variantes no aplicadas o a tareas aún no iniciadas describen sus fechas históricas. El expediente original de 63 rutas conserva ambas variantes para mantener íntegros sus manifiestos; `direct-9c15` es historia inactiva, queda excluida del aplicador y jamás se combina con post-G-b.
+
+[Acta local H6-016](acceptance-TSK-H6-016-local.md) y [alcance y límites del cierre](report-TSK-H6-016-local.md). H6-015 mantiene cierre formal local/aislado, cuarentena y cuatro trabajos suspendidos, sin runtime, S11 ni reentrada. No se modifican contratos, normativa, seguridad, producto ni las 68 migraciones; no se acreditan datos o efectos reales, conectores, Drive, despliegues, Hosted o Production. La integración y publicación futura de H6-016 requieren su propia autorización; los estados e historias de las demás tareas se conservan.
+<!-- H6-016-POST-G-B-PREPUBLICATION-END -->
+
+<!-- H6-016-LOCAL-CLOSURE-BEGIN -->
+## Estado vigente H6-016 — cierre exclusivamente local/aislado, 2026-10-25
+
+**TSK-H6-016: COMPLETED — exclusivamente local/aislado. H6 global: IN PROGRESS.** Cierre formalizado conforme a la autorización condicionada de dirección tras cobertura de las 25 asignaciones y T01–T11, auditoría técnica independiente PASS y custodia local PASS. Evidencia del integrador: 165/165 de composición y regresión dirigida, más9/9 proveedor en ejecución separada;138 focales propios y36 repeticiones dirigidas. Unitarias212/212, typecheck/lint/build PASS. Auditor:138 repeticiones y8 contrapruebas propias PASS; independencia técnica de agentes del mismo modelo, no humana externa.
+
+Acta `specs/001-core-crm/acceptance-TSK-H6-016-local.md`; evidencia y matriz del mismo expediente; dictamen `tests/fixtures/h6-016/independent/independent-verdict.md`; manifiesto técnico y candidato final separados. Ningún cambio de producto, seguridad, autenticación, normativa ni de las68 migraciones. Los128 FAIL Node y4 cancelados previos del integrador, los2 FAIL del coautor y los3 FAIL de contrapruebas del auditor se conservan con sus sucesores; errores de instrumentos se documentan aparte. No es una ejecución global limpia histórica. H6-001 conserva2.899PASS/46FAIL de2.945 y H6-0041.006PASS/117FAIL de1.123, con sus reconciliaciones originales.
+
+Seis dependencias satisfechas localmente: H5-019,H6-013,H6-001,H6-004,H6-006,H6-007. H6-007 permanece COMPLETED local/aislado y su candidato sellado4aeb3d83… no se presupone publicado. Su target de prepublicación19facd96… y corte histórico permanecen separados. H6-015 conserva COMPLETED formal local/aislado, cuarentena y cuatro trabajos suspendidos: sin acceso al runtime, S11 ni reentrada. Hosted/Production NO ACREDITADOS. Sin datos/efectos reales, conectores, Drive, deploy, staging, commit, push o merge.
+
+Esta es una variante documental aislada; no se ha aplicado a documentos canónicos ni publicado. Los bloques y estados inferiores conservan su fecha e historia; las referencias antiguas H6-016 NOT STARTED/NO ACREDITADA quedan supersedidas exclusivamente para este alcance local. Las restantes tareas e hitos conservan su estado. Publicar H6-007 o H6-016 requiere autorización posterior sobre su candidato exacto, sin mezclar lotes ni levantar cuarentenas.
+<!-- H6-016-LOCAL-CLOSURE-END -->
+
+
 <!-- H6-007-LOCAL-CLOSURE-BEGIN -->
 ## Estado vigente H6-007 — aceptación exclusivamente local/aislada
 
@@ -2549,17 +2572,17 @@ Antecedente histórico del cierre H4-013/014: Estado vigente: **IN PROGRESS; H4-
 
 #### TSK-H6-016 — Verificar intercalaciones y fallos de T01–T11 integradas
 
-- [ ] **Ejecución: NOT STARTED. Evidencia: NO EJECUTADA.** Hito: H6. Tipo: comprobación.
+- [x] **Ejecución: COMPLETED — exclusivamente local/aislado. Evidencia: SATISFACTORIA; auditoría y custodia independientes PASS; cierre condicionado formalizado 2026-10-25.** Hito: H6. Tipo: comprobación.
 - **Objetivo y alcance:** Unidades materiales sobre versión, raíz Opportunity, fondos, Approval, trabajo, Booking/cierre e identidades con aplicación completa.
 - **Fuentes exactas:** Plan §§7.2, 10.1; SPEC-FR-CONC-001, SPEC-FR-CONC-002, SPEC-FR-CONC-003, AC-067, AC-068. §6 identifica archivo/sección y detalla también invariantes, transiciones, prohibiciones y demás obligaciones asignadas a TSK-H6-016.
 - **Bloques, contratos y unidades:** B01–B10; C02/C03/C06; T01–T11.
 - **Entregable previsto:** Evidencia propuesta por unidad, puntos de fallo y órdenes. Áreas propuestas, no creadas; véase §2.1.
 - **Dependencias y precondiciones:** [TSK-H5-019], [TSK-H6-013], [TSK-H6-001], [TSK-H6-004], [TSK-H6-006], [TSK-H6-007]. Requiere aprobación de Tasks y autorización posterior de implementación; entorno/datos autorizados y compatibles para el alcance. La salida de H5 está incluida expresamente.
-- **Bloqueo localizado / condición para levantarlo:** Solo PostgreSQL aislado real; dobles no acreditan atomicidad/concurrencia. El detalle de evidencia/decisión y puerta está en §7; no cambia el estado NOT STARTED.
-- **Acción futura:** Ejecutar matriz §6.5 por cada unidad e intercalaciones integradas; comparar resultado y ausencia de efectos colaterales con los guiones específicos de sus tareas.
+- **Bloqueo localizado / condición para levantarlo:** Solo PostgreSQL aislado real; dobles no acreditan atomicidad/concurrencia. El detalle de evidencia/decisión y puerta está en §7; el estado local vigente se acredita en acceptance-TSK-H6-016-local.md; Hosted/Production y publicación siguen excluidos.
+- **Acción ejecutada local/aislada:** Ejecutar matriz §6.5 por cada unidad e intercalaciones integradas; comparar resultado y ausencia de efectos colaterales con los guiones específicos de sus tareas.
 - **Salida observable:** Todos los límites transaccionales tienen evidencia integrada, sin Booking/fondos/Approval/cierre incompatibles ni historia perdida.
 - **Verificación y esperado:** Ambos órdenes/solapamiento, ausencia inicial de hijos, fallo antes/durante commit y respuesta perdida; raíz compartida en cierre vs factura/Refund/Incident, reserva/consumo y contexto pool. No retry ciego de negocio ni transición extra por éxito técnico. Aplicar protocolos §2.2 y cada fila normativa asignada, incluidas guardas y prohibiciones pertinentes.
-- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **NO EJECUTADA**: observado y resultado aún sin producir.
+- **Evidencia necesaria:** V-EVI, con el resultado esperado anterior y la comparación observada por caso/ID; migración y pruebas reales aplicables de §2.2. **SATISFACTORIA local/aislada**: matriz25/T01–T11, observado, dictamen, FAIL y sucesores, manifiestos y custodia enlazados en la cabecera. No acredita una regresión global limpia histórica.
 - **Paralelismo y restricciones:** Solo con tareas independientes cuyas dependencias estén satisfechas, según §5. No compartir escrituras sobre contrato, migración, archivo, raíz, objetos o recurso de ensayo; las unidades T01–T11 conservan atomicidad y revisión conjunta.
 
 <a id="tsk-h6-017"></a>

@@ -1,5 +1,28 @@
 # CRM HUESCAVENTURA OS — Next Steps
 
+<!-- H6-016-POST-G-B-PREPUBLICATION-BEGIN -->
+## Corte de prepublicación H6-016 posterior a G-b
+
+Corte UTC `2026-10-25T18:59:48.307795+00:00`. H6-007 está COMPLETED local/aislado y su publicación G-b está confirmada en `63cbd4ae690dcb02deb9f194d501e8580c72f9d5`, árbol `fe08a679c6bc247fb3127f32a7abef0250fdaabb`. **H6-016: COMPLETED exclusivamente local/aislado; su publicación sigue pendiente de autorización expresa sobre un candidato exacto. H6 global: IN PROGRESS.** Esta preparación no ejecuta la publicación de H6-016 ni amplía la aceptación local a Hosted o Production.
+
+La única actualización documental activa de este candidato parte de G-b y conserva literalmente debajo la postimagen local H6-016 post-G-b. Los bloques anteriores y sus referencias a H6-007 sin publicar, a variantes no aplicadas o a tareas aún no iniciadas describen sus fechas históricas. El expediente original de 63 rutas conserva ambas variantes para mantener íntegros sus manifiestos; `direct-9c15` es historia inactiva, queda excluida del aplicador y jamás se combina con post-G-b.
+
+[Acta local H6-016](../specs/001-core-crm/acceptance-TSK-H6-016-local.md) y [alcance y límites del cierre](../specs/001-core-crm/report-TSK-H6-016-local.md). H6-015 mantiene cierre formal local/aislado, cuarentena y cuatro trabajos suspendidos, sin runtime, S11 ni reentrada. No se modifican contratos, normativa, seguridad, producto ni las 68 migraciones; no se acreditan datos o efectos reales, conectores, Drive, despliegues, Hosted o Production. La integración y publicación futura de H6-016 requieren su propia autorización; los estados e historias de las demás tareas se conservan.
+<!-- H6-016-POST-G-B-PREPUBLICATION-END -->
+
+<!-- H6-016-LOCAL-CLOSURE-BEGIN -->
+## Estado vigente H6-016 — cierre exclusivamente local/aislado, 2026-10-25
+
+**TSK-H6-016: COMPLETED — exclusivamente local/aislado. H6 global: IN PROGRESS.** Cierre formalizado conforme a la autorización condicionada de dirección tras cobertura de las 25 asignaciones y T01–T11, auditoría técnica independiente PASS y custodia local PASS. Evidencia del integrador: 165/165 de composición y regresión dirigida, más9/9 proveedor en ejecución separada;138 focales propios y36 repeticiones dirigidas. Unitarias212/212, typecheck/lint/build PASS. Auditor:138 repeticiones y8 contrapruebas propias PASS; independencia técnica de agentes del mismo modelo, no humana externa.
+
+Acta `specs/001-core-crm/acceptance-TSK-H6-016-local.md`; evidencia y matriz del mismo expediente; dictamen `tests/fixtures/h6-016/independent/independent-verdict.md`; manifiesto técnico y candidato final separados. Ningún cambio de producto, seguridad, autenticación, normativa ni de las68 migraciones. Los128 FAIL Node y4 cancelados previos del integrador, los2 FAIL del coautor y los3 FAIL de contrapruebas del auditor se conservan con sus sucesores; errores de instrumentos se documentan aparte. No es una ejecución global limpia histórica. H6-001 conserva2.899PASS/46FAIL de2.945 y H6-0041.006PASS/117FAIL de1.123, con sus reconciliaciones originales.
+
+Seis dependencias satisfechas localmente: H5-019,H6-013,H6-001,H6-004,H6-006,H6-007. H6-007 permanece COMPLETED local/aislado y su candidato sellado4aeb3d83… no se presupone publicado. Su target de prepublicación19facd96… y corte histórico permanecen separados. H6-015 conserva COMPLETED formal local/aislado, cuarentena y cuatro trabajos suspendidos: sin acceso al runtime, S11 ni reentrada. Hosted/Production NO ACREDITADOS. Sin datos/efectos reales, conectores, Drive, deploy, staging, commit, push o merge.
+
+Esta es una variante documental aislada; no se ha aplicado a documentos canónicos ni publicado. Los bloques y estados inferiores conservan su fecha e historia; las referencias antiguas H6-016 NOT STARTED/NO ACREDITADA quedan supersedidas exclusivamente para este alcance local. Las restantes tareas e hitos conservan su estado. Publicar H6-007 o H6-016 requiere autorización posterior sobre su candidato exacto, sin mezclar lotes ni levantar cuarentenas.
+<!-- H6-016-LOCAL-CLOSURE-END -->
+
+
 <!-- H6-007-LOCAL-CLOSURE-BEGIN -->
 ## Estado vigente H6-007 — aceptación exclusivamente local/aislada
 
