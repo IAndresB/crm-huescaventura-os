@@ -1,0 +1,45 @@
+# Dictamen técnico independiente H6-016
+
+**PASS técnico local/aislado**, con 25 asignaciones directas y 11 unidades cubiertas en los límites especificados. No quedan hallazgos materiales técnicos abiertos. La custodia del core y el acto posterior de aceptación se reciben aparte; este dictamen no sustituye esa recepción ni declara H6 global completado.
+
+Expectativas propias congeladas antes de leer el candidato: `expected-independent-v1.json`, SHA `a1f393e9fd673dd0ff4611f8663c411936f2fe4cccde4e8fcec2577c64b77333`. Base `9c15e6d143822f7fcc84f29744194554630f4ac4`, árbol `fe7cabb05e44462121c70ad52405765e2c94fcd2`. Se contrastaron directamente Tasks, SPEC, Architecture, Plan, Constitución, decisiones y contratos H5.
+
+| Ejecución propia | Resultado bruto | Alcance seleccionado |
+|---|---|---|
+| units-01-20261025T172612.186186Z |90/90 PASS| 90 casos candidato |
+| work-events-02-20261025T172818.458159Z |19/19 PASS| 19 casos T08/T09 en su combinación final |
+| cross-counter-provider-01-20261025T173818.895911Z |35 PASS / 2 FAIL|20 cruces +9 proveedor PASS;6/8 contrapruebas PASS |
+| counter-02-20261025T174138.738405Z |7 PASS /1 FAIL| Sucesor propio, oráculo Q04 pendiente en ese intento |
+| counter-03-20261025T174719.113654Z |8/8 PASS| Ocho contrapruebas finales,0 skip/cancel |
+
+**146 casos únicos ejecutados por el auditor**: 138 repeticiones exactas del candidato y ocho contrapruebas propias. Las repeticiones suman159 PASS y3 FAIL en162 posiciones históricas; no existe una única ejecución146 ni un historial completo limpio. Los3 FAIL originales, fuentes y sucesores están preservados en `own-functional-fail-successors-v1.json`. Los errores de parseo/typecheck/selector y del conciliador documental figuran aparte en `instrument-checks`; ninguno se convierte en prueba funcional pasada.
+
+Se leyeron los logs crudos, entradas y resultados actuales del integrador:165+9 casos,174 únicos;36 son regresiones dirigidas H6-007/H5-019, no ejecuciones propias adicionales del auditor. Calidad final212unitarias, typecheck, lint y build PASS. La comprobación propia `executor-readback-v3/result.json` da18/18PASS. Los128 FAIL del integrador conservan sucesor exacto por posición; cuatro contenedores cancelados se separan. Un título T10-L fue aclarado a repetición tras éxito conocido; su prueba real de ACK perdido es Lwire. El conciliador v2 fallido queda conservado.
+
+| Unidad | Evidencia ejecutada propia principal y complementos | Límite |
+|---|---|---|
+| T01 | T01-R0, T01-R1, T01-F0, T01-F1, T01-F2, T01-L, T01-N, T01-Fpre, T01-N2, T01-Lwire, C01, C02, C03, Q01 | Preparación anterior legítima queda separada de fijar; fijar no envía y Acceptance no se infiere. |
+| T02 | T02-R0, T02-R1, T02-F0, T02-F1, T02-F2, T02-L, T02-N, T02-Fpre, T02-N2, T02-Lwire, C01, C02, C03, Q01 | Se prueba verificación explícita y registro obsoleto; Ganada no crea Booking. |
+| T03 | T03-R0, T03-R1, T03-F0, T03-F1, T03-F2, T03-L, T03-N, T03-Fpre, T03-N2, T03-Lwire, C03, Q02 | El directo ordinario se ejerce además con cadena completa y rollback diferido C03. No se siembra Booking. |
+| T04 | T04-R0, T04-R1, T04-F0, T04-F1, T04-F2, T04-L, T04-N, T04-Fpre, T04-N2, T04-Lwire, C08, Q04 | Q04 verifica una noche realmente confirmada y dos noches/dos servicios ajenos; no se extrapola toda combinación posible de modalidades. |
+| T05 | T05-R0, T05-R1, T05-F0, T05-F1, T05-F2, T05-L, T05-N, T05-Fpre, T05-N2, T05-Lwire, C04, C05, Q03 | Raíz común de100 con dos solicitudes80; los movimientos son sintéticos, sin transferencia externa. |
+| T06 | T06-R0, T06-R1, T06-F0, T06-F1, T06-F2, T06-L, T06-N, T06-Fpre, T06-N2, T06-Lwire, C08, C09, Q04 | La cancelación operativa puede aplicarse dejando economía pendiente; la atribución posterior explícita sustituye cualquier prorrateo inferido. |
+| T07 | T07-R0, T07-R1, T07-F0, T07-F1, T07-F2, T07-L, T07-N, T07-Fpre, T07-N2, T07-Lwire, C06, C07, Q03, P01, P02, P03, P04, P05, P06, P07, P08, P09 | Refund/Deposit y pago a proveedor son hechos sintéticos persistidos. No se contacta banco/proveedor ni se afirma exactly-once externo. |
+| T08 | W05, W06, W07, W08, W09, W10, W11, W12, W13, W14, W15, W16, W17, W18, W19, Q05, Q08 | D039: restricciones diferidas y comprobación final antes de COMMIT en secuencia controlada; no se promete validez hasta la duración física de COMMIT. El proveedor es doble local. |
+| T09 | W01, W02, W03, W04, W05, W06, W07, W08, W09, W10, W11, W12, W13, W14, W15, W16, W17, W18, Q06 | Cobertura compuesta de recepción de eventos y trabajos. F1/F3/F4 se acreditan sobre claim/start/result de trabajos; el evento B09 tiene rollback intermedio propio. No se afirma cada frontera de fallo en cada rama B09. Q06 mata un proceso propio tras efecto simulado durable y evita reenvío ciego. |
+| T10 | T10-R0, T10-R1, T10-F0, T10-F1, T10-F2, T10-L, T10-N, T10-Fpre, T10-N2, T10-Lwire, C10, C11, C12, C13, C14, C15, C16, C17, C18, C19, Q07, R04, R05, R06, R07, R08, R09, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R30, R31, R32, R33, R34, R35, R36 | Las carreras de factura externa parten de cierre pendiente; no demuestran cierre externo válido. Carreras internas válidas emplean prestación excepcional verificada del fixture publicado. Las36 regresiones R se leen en ejecución actual del integrador, no se cuentan como nuevas ejecuciones del auditor. |
+| T11 | T11-R0, T11-R1, T11-F0, T11-F1, T11-F2, T11-L, T11-N, T11-Fpre, T11-N2, T11-Lwire, C20, Q08, R04 | Se resuelven/archivan/restauran Contact en los casos ejecutados conforme a contrato; no se inventa fusión o API de archivo de Opportunity/Booking. Se conservan sus originales y códigos no vacíos. |
+
+Las88 posiciones de la matriz son ejes de cobertura, no88 casos adicionales. Cada referencia conduce a título exacto, fuente con línea/SHA, log con línea/SHA y ejecución en `case-catalog-v1.json`. El JSON conserva las25 filas normativas literales y su relación con casos; no atribuye toda una familia por un simple nombre de suite.
+
+Las contrapruebas aportan una Booking ausente disputada por rutas normal/directa, pérdida real del ACK de COMMIT, fondos comunes, cambio de una noche previamente confirmada, replay tras vencimiento sin refresco, caída real de proceso tras efecto simulado durable, cierre frente a Incidencia en ambos órdenes y otra Booking libre, y códigos reales no vacíos conservados al resolver/archivar/restaurar. Q08 verifica el mismo PID/backend_start del pool frente a identidad ajena, finalidad/contexto incorrectos, sesión revocada, actor inhabilitado y SQL ordinario directo, con restauración de acceso solo mediante otra sesión legítima.
+
+No hay cambios de producto:178 archivos src/migraciones coinciden con la base publicada (110src y68migraciones), al igual que las22 fuentes normativas/dependencias congeladas. Las catorce fuentes del candidato recibidas y las fuentes ejecutadas se verificaron por identidad. Las seis dependencias documentales se acreditaron, incorporando H6-007 local de forma explícita; H5-019 se volvió a ejercitar en la regresión actual del integrador. No se heredó automáticamente PASS funcional de paquetes históricos.
+
+La persistencia y las transacciones usan PostgreSQL17.11 real sobre bases nuevas con68 migraciones y puertos/TMPDIR propios. Se reutilizan fixtures y adaptadores publicados por identidad; las expectativas, ocho contrapruebas, barreras y relay propio son del auditor. Los fallos se inyectan mediante DDL efímero identificado; no se siembran estados de negocio para eludir guardas. Los proveedores son dobles locales y el efecto durable de Q06 es un fichero sintético de un proceso propio.
+
+Independencia efectiva: agente distinto del implementador, con el mismo modelo, expectativa previa, proceso, bases y recursos propios. No es auditoría humana ni institucional ni una garantía de ausencia absoluta de defectos. D039 se acredita tras esperas y restricciones diferidas antes de iniciar COMMIT; no extiende una ventana hasta la durabilidad física. No se afirma exactly-once externo ni cobertura exhaustiva de cada frontera en cada rama de eventos. La prohibición de polling como actividad humana se revisa sobre el contrato publicado sin una nueva batería temporal completa de F2.
+
+Los nueve hallazgos estáticos preliminares quedaron resueltos mediante fuentes y ejecuciones actuales; la tabla de resolución conserva su identidad y alcance. Los3 FAIL propios son oráculos/instrumentación: clase de conflicto incompleta, relación de lectura de noches incorrecta y equivalencia contractual confundida con conflicto. La corrección final conserva todos los estados de negocio y exige conflicto exacto al cambiar material bajo la misma clave.
+
+Recomendación: aceptar técnicamente H6-016 solo en local/aislado, condicionado a la custodia final y al cierre documental autorizado. H6 permanece IN PROGRESS. No se ejecutaron stage, commit, push, Drive, despliegue, efectos externos de negocio, datos reales, nuevas normas ni runtime/S11 de H6-015; sus cuatro trabajos permanecen fuera de esta auditoría.

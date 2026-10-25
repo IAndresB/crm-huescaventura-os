@@ -1,0 +1,327 @@
+{
+  "schema": "h6-016-independent-formal-acceptance-readback-v1",
+  "at": "2026-10-25T18:10:05.899038+00:00",
+  "status": "PASS",
+  "counts": {
+    "PASS": 5,
+    "FAIL": 0
+  },
+  "checks": [
+    {
+      "id": "D01_new20_and_core_unchanged",
+      "status": "PASS",
+      "detail": {
+        "newPayloads": 20,
+        "newBytes": 4016318,
+        "reviewManifestSHA256": "f65946ae25a56adbc4e8ba2f2cf5fab51e0097cf08545923fee94b8d49d8d8b7",
+        "corePayloads": 38,
+        "coreManifestSHA256": "7f5de1d94fb76aa6a61c550beff017c078e52383f07b0c0058a6224247f976d5",
+        "coreCustodyReceiptExact": true
+      }
+    },
+    {
+      "id": "D02_shared_variants_exact_and_isolated",
+      "status": "PASS",
+      "detail": {
+        "variants": 2,
+        "pathsPerVariant": 3,
+        "pairs": [
+          {
+            "variant": "post-G-b",
+            "targetPath": "specs/001-core-crm/tasks.md",
+            "preSHA256": "3e3ee55591018a597739ef75cab027336910051899eaaef22642328af5c98fc9",
+            "postSHA256": "859c11b417a54b917d4659e42f181d1a0ea5615cc802b06676749ad0fd67bd4a",
+            "preBytes": 767564,
+            "postBytes": 770318,
+            "remainingTasksAndNormativeCriteriaExact": true
+          },
+          {
+            "variant": "post-G-b",
+            "targetPath": "docs/PROJECT-STATUS.md",
+            "preSHA256": "02aae9d2960052869a1d3d289fc72723b5f0e0833bbacb05c4a9c77599b0bc36",
+            "postSHA256": "a0adb30b5611793464baaa6bf1e648957140cebe903c2ece5d588da59956580c",
+            "preBytes": 125449,
+            "postBytes": 127843,
+            "remainingTasksAndNormativeCriteriaExact": true
+          },
+          {
+            "variant": "post-G-b",
+            "targetPath": "docs/NEXT-STEPS.md",
+            "preSHA256": "9cb7eedd35a9b391ca13974725718686af0a3cdc607925dbdba4fe4deaf54366",
+            "postSHA256": "4f9ef2800653071027a91d55bc0ef0a0c7878c42b1b1ad333ecf611a02b7af86",
+            "preBytes": 101126,
+            "postBytes": 103520,
+            "remainingTasksAndNormativeCriteriaExact": true
+          },
+          {
+            "variant": "direct-9c15",
+            "targetPath": "specs/001-core-crm/tasks.md",
+            "preSHA256": "85cd27cfe4093eef40c5d9e4a191e45b4fe6211d0d3e784401e993e3e5db4fe3",
+            "postSHA256": "4494bd8419ded7dce4ba8428fe19b8726ad4f75adc3ee556124dac37dd80f82f",
+            "preBytes": 765307,
+            "postBytes": 768061,
+            "remainingTasksAndNormativeCriteriaExact": true
+          },
+          {
+            "variant": "direct-9c15",
+            "targetPath": "docs/PROJECT-STATUS.md",
+            "preSHA256": "946e9383217ae359b42eea0095ada5c6000dba695b00d06af4c117fed7e7be07",
+            "postSHA256": "bc12d13f474789ddafe1b354c9a15b87ca428433fdbe6513260b98e67ee6088d",
+            "preBytes": 123607,
+            "postBytes": 126001,
+            "remainingTasksAndNormativeCriteriaExact": true
+          },
+          {
+            "variant": "direct-9c15",
+            "targetPath": "docs/NEXT-STEPS.md",
+            "preSHA256": "b8199140b19a20bc2c2690e66c16e6ca0448d66a39508dcb34f2726adf93b926",
+            "postSHA256": "784bb53ffc13e88965dec31d3d42688cec5c2d6579057c39b5db2f20cf30ec13",
+            "preBytes": 99284,
+            "postBytes": 101678,
+            "remainingTasksAndNormativeCriteriaExact": true
+          }
+        ],
+        "postG_bIsPreferredAndDirectMutuallyExclusive": true,
+        "onlyFourStateFieldsChangedInH16Card": true,
+        "otherCriteriaAndStatesExact": true
+      }
+    },
+    {
+      "id": "D03_real_patch_roundtrips",
+      "status": "PASS",
+      "detail": {
+        "variants": [
+          {
+            "variant": "post-G-b",
+            "status": "PASS",
+            "commands": [
+              {
+                "label": "forward-check",
+                "args": [
+                  "--check",
+                  "--whitespace=error-all"
+                ],
+                "exit": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "label": "forward",
+                "args": [
+                  "--whitespace=error-all"
+                ],
+                "exit": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "label": "repeat-rejects",
+                "args": [
+                  "--check"
+                ],
+                "exit": 1,
+                "stdout": "",
+                "stderr": "error: patch failed: specs/001-core-crm/tasks.md:1\nerror: specs/001-core-crm/tasks.md: patch does not apply\nerror: patch failed: docs/PROJECT-STATUS.md:1\nerror: docs/PROJECT-STATUS.md: patch does not apply\nerror: patch failed: docs/NEXT-STEPS.md:1\nerror: docs/NEXT-STEPS.md: patch does not apply\n"
+              },
+              {
+                "label": "reverse-check",
+                "args": [
+                  "--reverse",
+                  "--check"
+                ],
+                "exit": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "label": "reverse",
+                "args": [
+                  "--reverse"
+                ],
+                "exit": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "label": "reverse-repeat-rejects",
+                "args": [
+                  "--reverse",
+                  "--check"
+                ],
+                "exit": 1,
+                "stdout": "",
+                "stderr": "error: patch failed: docs/NEXT-STEPS.md:1\nerror: docs/NEXT-STEPS.md: patch does not apply\nerror: patch failed: docs/PROJECT-STATUS.md:1\nerror: docs/PROJECT-STATUS.md: patch does not apply\nerror: patch failed: specs/001-core-crm/tasks.md:1\nerror: specs/001-core-crm/tasks.md: patch does not apply\n"
+              }
+            ],
+            "hashGuardedNoopAfterExactApply": true,
+            "exactReverse": true,
+            "rawPatchSHA256": "52065988bec82a472479ce365ee3194ce6839ac7e0224f70835084969fdd9505",
+            "gzipSHA256": "10afa5c64b071d32d3af3bcf15581731360a451dc2e80ef87bc828a791e9f39c",
+            "pairs": [
+              {
+                "targetPath": "specs/001-core-crm/tasks.md",
+                "preSHA256": "3e3ee55591018a597739ef75cab027336910051899eaaef22642328af5c98fc9",
+                "postSHA256": "859c11b417a54b917d4659e42f181d1a0ea5615cc802b06676749ad0fd67bd4a",
+                "preBytes": 767564,
+                "postBytes": 770318,
+                "remainingTasksAndNormativeCriteriaExact": true
+              },
+              {
+                "targetPath": "docs/PROJECT-STATUS.md",
+                "preSHA256": "02aae9d2960052869a1d3d289fc72723b5f0e0833bbacb05c4a9c77599b0bc36",
+                "postSHA256": "a0adb30b5611793464baaa6bf1e648957140cebe903c2ece5d588da59956580c",
+                "preBytes": 125449,
+                "postBytes": 127843,
+                "remainingTasksAndNormativeCriteriaExact": true
+              },
+              {
+                "targetPath": "docs/NEXT-STEPS.md",
+                "preSHA256": "9cb7eedd35a9b391ca13974725718686af0a3cdc607925dbdba4fe4deaf54366",
+                "postSHA256": "4f9ef2800653071027a91d55bc0ef0a0c7878c42b1b1ad333ecf611a02b7af86",
+                "preBytes": 101126,
+                "postBytes": 103520,
+                "remainingTasksAndNormativeCriteriaExact": true
+              }
+            ]
+          },
+          {
+            "variant": "direct-9c15",
+            "status": "PASS",
+            "commands": [
+              {
+                "label": "forward-check",
+                "args": [
+                  "--check",
+                  "--whitespace=error-all"
+                ],
+                "exit": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "label": "forward",
+                "args": [
+                  "--whitespace=error-all"
+                ],
+                "exit": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "label": "repeat-rejects",
+                "args": [
+                  "--check"
+                ],
+                "exit": 1,
+                "stdout": "",
+                "stderr": "error: patch failed: specs/001-core-crm/tasks.md:1\nerror: specs/001-core-crm/tasks.md: patch does not apply\nerror: patch failed: docs/PROJECT-STATUS.md:1\nerror: docs/PROJECT-STATUS.md: patch does not apply\nerror: patch failed: docs/NEXT-STEPS.md:1\nerror: docs/NEXT-STEPS.md: patch does not apply\n"
+              },
+              {
+                "label": "reverse-check",
+                "args": [
+                  "--reverse",
+                  "--check"
+                ],
+                "exit": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "label": "reverse",
+                "args": [
+                  "--reverse"
+                ],
+                "exit": 0,
+                "stdout": "",
+                "stderr": ""
+              },
+              {
+                "label": "reverse-repeat-rejects",
+                "args": [
+                  "--reverse",
+                  "--check"
+                ],
+                "exit": 1,
+                "stdout": "",
+                "stderr": "error: patch failed: docs/NEXT-STEPS.md:1\nerror: docs/NEXT-STEPS.md: patch does not apply\nerror: patch failed: docs/PROJECT-STATUS.md:1\nerror: docs/PROJECT-STATUS.md: patch does not apply\nerror: patch failed: specs/001-core-crm/tasks.md:1\nerror: specs/001-core-crm/tasks.md: patch does not apply\n"
+              }
+            ],
+            "hashGuardedNoopAfterExactApply": true,
+            "exactReverse": true,
+            "rawPatchSHA256": "ade1e9a3e07efb482cfa1077066174d5eb7afe438b9d765800c0c9833648917c",
+            "gzipSHA256": "2f9a072b04392ad57cd0d4bd62955bc7db7cbb9d0dc016f71b3acfc88508f0f5",
+            "pairs": [
+              {
+                "targetPath": "specs/001-core-crm/tasks.md",
+                "preSHA256": "85cd27cfe4093eef40c5d9e4a191e45b4fe6211d0d3e784401e993e3e5db4fe3",
+                "postSHA256": "4494bd8419ded7dce4ba8428fe19b8726ad4f75adc3ee556124dac37dd80f82f",
+                "preBytes": 765307,
+                "postBytes": 768061,
+                "remainingTasksAndNormativeCriteriaExact": true
+              },
+              {
+                "targetPath": "docs/PROJECT-STATUS.md",
+                "preSHA256": "946e9383217ae359b42eea0095ada5c6000dba695b00d06af4c117fed7e7be07",
+                "postSHA256": "bc12d13f474789ddafe1b354c9a15b87ca428433fdbe6513260b98e67ee6088d",
+                "preBytes": 123607,
+                "postBytes": 126001,
+                "remainingTasksAndNormativeCriteriaExact": true
+              },
+              {
+                "targetPath": "docs/NEXT-STEPS.md",
+                "preSHA256": "b8199140b19a20bc2c2690e66c16e6ca0448d66a39508dcb34f2726adf93b926",
+                "postSHA256": "784bb53ffc13e88965dec31d3d42688cec5c2d6579057c39b5db2f20cf30ec13",
+                "preBytes": 99284,
+                "postBytes": 101678,
+                "remainingTasksAndNormativeCriteriaExact": true
+              }
+            ]
+          }
+        ],
+        "noIndex": true,
+        "canonicalWrites": false,
+        "gzipLosslessOriginalsExact": true
+      }
+    },
+    {
+      "id": "D04_conditioned_acceptance_sequence",
+      "status": "PASS",
+      "detail": {
+        "coreCustodyAt": "2026-10-25T18:06:06.665156+00:00",
+        "formalAcceptanceAt": "2026-10-25T18:06:40.732809+00:00",
+        "custodyPrecedesAcceptance": true,
+        "technicalVerdictOriginalEnum": "PASS_TECHNICAL_LOCAL_ISOLATED",
+        "actaSHA256": "89d35432eb3fd4e8e221eb63c86c615d7a5a8f0712abaf0c88c7ccd3d31121ff",
+        "reportSHA256": "0e0c01bea7bff9c591a695f10dc68981c4504d951f24093aeca39d4ee9e826fa",
+        "historicalFailuresAndCoverageLimitsPreserved": true,
+        "newTaskStarted": false
+      }
+    },
+    {
+      "id": "D05_scope_and_git",
+      "status": "PASS",
+      "detail": {
+        "untrackedOwned": 60,
+        "trackedClean": true,
+        "indexEmpty": true,
+        "H7PrepublicationTargetSHA256": "19facd96d3f0abfe77c7b825d89d6dc0269afb4af5248b93eb8ee1a1baccdb6f",
+        "H6": "IN PROGRESS",
+        "H6015Quarantine": "intact, no runtime/S11 access",
+        "noPublication": true
+      }
+    }
+  ],
+  "C11": "PASS",
+  "C15": "PASS",
+  "C16": "PENDING_FINAL_INVENTORY_AND_MASTER",
+  "manifestSHA256": "7f5de1d94fb76aa6a61c550beff017c078e52383f07b0c0058a6224247f976d5",
+  "acceptanceReviewManifestSHA256": "f65946ae25a56adbc4e8ba2f2cf5fab51e0097cf08545923fee94b8d49d8d8b7",
+  "coreCustodySHA256": "8fddafe8f7d2add99f9f555a69019cab7f3df28399482aa27caac8157686df1b",
+  "H6016": "COMPLETED_EXCLUSIVELY_LOCAL_ISOLATED_PENDING_FINAL_C16_RECEIPT",
+  "H6": "IN PROGRESS",
+  "functionalTestsRepeated": false,
+  "sourceWrites": false,
+  "SQL": false,
+  "staging": false,
+  "instrumentSHA256": "9673611f160330a7772a0cae24f35436f26030e3fdd4f8c4373ffcc278269c42"
+}
