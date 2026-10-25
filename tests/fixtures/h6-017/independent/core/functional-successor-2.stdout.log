@@ -1,0 +1,100 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-d2Apj3/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-d2Apj3/data -l logfile start
+
+waiting for server to start.... done
+server started
+AUTH {"version":"v2.197.0","actualPassword":true,"actualTotp":true,"wrongPasswordDenied":true,"AAL1NotMFA":true,"localPorts":[59791,59792,59793,59794,59795]}
+AUD01 {"outputs":21,"searches":147,"cursors":63,"authorizedInternalPositive":true,"businessUnchanged":true}
+✔ AUD01 original purpose, search and cursor counterexamples on all surfaces (7682.941083ms)
+✖ AUD02 identity, future role, job, separate actor and protected attribute counterexamples (334.646667ms)
+AUD03 {"tables":165,"roles":3,"denied":1980,"codes":["42501"]}
+✔ AUD03 complete current private-table SQL exposure matrix with real SQLSTATE (15323.504333ms)
+AUD04 {"privateBinaryBytes":323,"sha256":"01c621c991dfc1c1ebe255b5eabb03f35fcb922e5e1eb62c915882ab78955bf6","crossContextDenials":3,"foreignIdentityDenied":true,"revokedReadDenied":true,"newSessionOriginalIdentical":true}
+✔ AUD04 object binary, purpose, crossed context and revoked-session counterexamples (932.975709ms)
+AUD05 {"nominalParticipants":4,"noFictitiousParticipants":true,"externalPersonalNamesAbsent":true,"commitFailureRolledBack":true,"retryExactlyOnce":true,"confirmed18Unchanged":true,"prohibitedPrivacyDenied":8,"originalUnchanged":true,"unverifiedContactDenied":true}
+✔ AUD05 originals, minimization, tentative identity and controlled rollback/retry (805.49825ms)
+AUD06 {"externalDocumentLinked":true,"externalIssuerPreserved":true,"internalApprovalNoSend":true,"fiscalDenials":11,"economyBookingUnchanged":true}
+✔ AUD06 external document lifecycle plus fiscal bypasses after internal approval (1218.132916ms)
+✖ AUD07 technical audit sanitization and indirect cross-root queries (345.047125ms)
+✖ AUD08 external received does not mean applied; original source/context counterexamples (373.11575ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 5
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 27493.74275
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6017-independent-audit.test.ts:53:1
+✖ AUD02 identity, future role, job, separate actor and protected attribute counterexamples (334.646667ms)
+  Error [PostgresError]: F2_DENIED
+      at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+      at handle (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+      at Socket.data (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+      at Socket.emit (node:events:514:28)
+      at addChunk (node:internal/streams/readable:568:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+      at Readable.push (node:internal/streams/readable:399:5)
+      at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+      at cachedError (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/query.js:170:23)
+      at new Query (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/query.js:36:24)
+      at Object.sql [as migration] (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/index.js:112:11)
+      at TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/integration/postgres-h6017-independent-audit.test.ts:58:51) {
+    severity_local: 'ERROR',
+    severity: 'ERROR',
+    code: '42501',
+    where: 'PL/pgSQL function crm_api.provision_actor_mapping(uuid,uuid,text) line 9 at RAISE',
+    file: 'pl_exec.c',
+    line: '3911',
+    routine: 'exec_stmt_raise'
+  }
+
+test at tests/integration/postgres-h6017-independent-audit.test.ts:109:1
+✖ AUD07 technical audit sanitization and indirect cross-root queries (345.047125ms)
+  Error: DIAGNOSTIC_DENIED
+      at H5017DiagnosticAdapter.call (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/src/infrastructure/postgres/h5-diagnostic-adapter.ts:24:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H5017DiagnosticAdapter.read (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/src/infrastructure/postgres/h5-diagnostic-adapter.ts:36:14)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/integration/postgres-h6017-independent-audit.test.ts:113:14)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h6017-independent-audit.test.ts:119:1
+✖ AUD08 external received does not mean applied; original source/context counterexamples (373.11575ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/integration/postgres-h6017-independent-audit.test.ts:122:120)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+waiting for server to shut down.... done
+server stopped

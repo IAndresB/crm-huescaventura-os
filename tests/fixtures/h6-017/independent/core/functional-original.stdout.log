@@ -1,0 +1,114 @@
+
+added 919 packages in 11s
+
+> supa-storage@1.11.2 build
+> tsc -noEmit && node ./build.js && resolve-tspaths
+
+[1mresolve-tspaths:[22m changed 317 file(s)
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-YYkAMA/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /var/folders/yl/gkcr80ts3q78l9tnv5943flc0000gn/T/crm-private-storage-test-YYkAMA/data -l logfile start
+
+waiting for server to start.... done
+server started
+AUD01 {"outputs":21,"searches":147,"cursors":63,"authorizedInternalPositive":true,"businessUnchanged":true}
+✔ AUD01 original purpose, search and cursor counterexamples on all surfaces (2181.507583ms)
+✖ AUD02 identity, future role, job, separate actor and protected attribute counterexamples (69.628167ms)
+AUD03 {"tables":165,"roles":3,"denied":1980,"codes":["42501"]}
+✔ AUD03 complete current private-table SQL exposure matrix with real SQLSTATE (14658.381541ms)
+AUD04 {"privateBinaryBytes":323,"sha256":"e4bf99b718500fae316731f9e9a8458b2816e9f89f2d803c0e8d989b74aa7924","crossContextDenials":3,"foreignIdentityDenied":true,"revokedReadDenied":true,"newSessionOriginalIdentical":true}
+✔ AUD04 object binary, purpose, crossed context and revoked-session counterexamples (143.65525ms)
+✖ AUD05 originals, minimization, tentative identity and controlled rollback/retry (1.276666ms)
+✖ AUD06 external document lifecycle plus fiscal bypasses after internal approval (1.083333ms)
+✖ AUD07 technical audit sanitization and indirect cross-root queries (1.158791ms)
+✖ AUD08 external received does not mean applied; original source/context counterexamples (1.271166ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 3
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17528.137709
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6017-independent-audit.test.ts:43:1
+✖ AUD02 identity, future role, job, separate actor and protected attribute counterexamples (69.628167ms)
+  Error: SERVER_INTERACTION_DENIED
+      at classifyServerEvent (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/src/application/verified-interaction.ts:26:44)
+      at TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/integration/postgres-h6017-independent-audit.test.ts:47:107)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h6017-independent-audit.test.ts:75:1
+✖ AUD05 originals, minimization, tentative identity and controlled rollback/retry (1.276666ms)
+  Error: CATALOG_DENIED
+      at H1005CatalogAdapter.apply (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/src/infrastructure/postgres/h1-catalog-adapter.ts:103:13)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Object.cat (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:15:3)
+      at async acceptanceFixture (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-acceptance-fixtures.ts:8:16)
+      at async bookingFixture (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-booking-fixtures.ts:8:10)
+      at async quantityFixture (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-quantities-fixtures.ts:10:10)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/integration/postgres-h6017-independent-audit.test.ts:76:12)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h6017-independent-audit.test.ts:90:1
+✖ AUD06 external document lifecycle plus fiscal bypasses after internal approval (1.083333ms)
+  Error: CATALOG_DENIED
+      at H1005CatalogAdapter.apply (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/src/infrastructure/postgres/h1-catalog-adapter.ts:103:13)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Object.cat (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:15:3)
+      at async invoiceAcceptanceFixture (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h3-invoice-booking-fixtures.ts:9:16)
+      at async invoiceBookingFixture (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h3-invoice-booking-fixtures.ts:37:10)
+      at async invoiceFixture (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h3-invoice-fixtures.ts:10:10)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/integration/postgres-h6017-independent-audit.test.ts:91:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h6017-independent-audit.test.ts:100:1
+✖ AUD07 technical audit sanitization and indirect cross-root queries (1.158791ms)
+  Error: CATALOG_DENIED
+      at H1005CatalogAdapter.apply (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/src/infrastructure/postgres/h1-catalog-adapter.ts:103:13)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Object.cat (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:15:3)
+      at async acceptanceFixture (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-acceptance-fixtures.ts:8:16)
+      at async bookingFixture (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-booking-fixtures.ts:8:10)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/integration/postgres-h6017-independent-audit.test.ts:101:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h6017-independent-audit.test.ts:110:1
+✖ AUD08 external received does not mean applied; original source/context counterexamples (1.271166ms)
+  Error: CATALOG_DENIED
+      at H1005CatalogAdapter.apply (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/src/infrastructure/postgres/h1-catalog-adapter.ts:103:13)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Object.cat (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-proposal-isolated.ts:15:3)
+      at async acceptanceFixture (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-acceptance-fixtures.ts:8:16)
+      at async bookingFixture (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/support/h2-booking-fixtures.ts:8:10)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-independent-audit/crm-huescaventura-os/tests/integration/postgres-h6017-independent-audit.test.ts:111:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+waiting for server to shut down.... done
+server stopped

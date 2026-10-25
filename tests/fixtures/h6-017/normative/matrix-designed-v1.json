@@ -1,0 +1,1153 @@
+{
+  "task": "TSK-H6-017",
+  "expectedSha256": "aec842ca961995d0130dc5e7e0e9363eb4280f706239bdb9a650ceae0314920a",
+  "rows": [
+    {
+      "id": "SPEC-FR-ID-004",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2726,
+        "text": "| **SPEC-FR-ID-004** — [spec.md](spec.md), § 10.1. Identidad y relaciones | [TSK-H2-009], [TSK-H4-001] | [TSK-H2-011], [TSK-H4-002], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 151,
+        "criterion": "| SPEC-FR-ID-004 | Solicitar/asociar nombres y datos adicionales solo por necesidad justificada del servicio/noche; vincular Participant con Contact solo si identidad verificada; admitir cantidades sin fichas ficticias. | Necesidad no acreditada impide tratamiento; lista incompleta no impone bloqueo global. | BR-PAX-004/007; DM-INV-015; C P10. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Known customer/provider identities, future role, forged proof and passive jobs cannot read",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F02",
+      "families": [
+        "F02"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-FR-ID-004 | Solicitar/asociar nombres y datos adicionales solo por necesidad justificada del servicio/noche; vincular Participant con Contact solo si identidad verificada; admitir cantidades sin fichas ficticias. | Necesidad no acreditada impide tratamiento; lista incompleta no impone bloqueo global. | BR-PAX-004/007; DM-INV-015; C P10. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-FR-PROP-003",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2742,
+        "text": "| **SPEC-FR-PROP-003** — [spec.md](spec.md), § 10.4. Propuestas | [TSK-H2-003], [TSK-H2-009] | [TSK-H2-004], [TSK-H2-011], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 182,
+        "criterion": "| SPEC-FR-PROP-003 | Obtener cantidades exactas desde inclusiones/exclusiones de modalidades y conservar su contribución al alcance; presentación comercial de packs: precio final por persona, participantes e incluidos por modalidad. | No revelar descomposición interna ni convertir componente fijo en tarifa por persona. | BR-PACK-002–003; DM-INV-024–025. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "External projection exact allowlist on 7 surfaces; internal sentinel visible only to Administrator",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F01",
+      "families": [
+        "F01"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-FR-PROP-003 | Obtener cantidades exactas desde inclusiones/exclusiones de modalidades y conservar su contribución al alcance; presentación comercial de packs: precio final por persona, participantes e incluidos por modalidad. | No revelar descomposición interna ni convertir componente fijo en tarifa por persona. | BR-PACK-002–003; DM-INV-024–025. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-FR-ECON-014",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2790,
+        "text": "| **SPEC-FR-ECON-014** — [spec.md](spec.md), § 10.9. Economía operativa y reservada | [TSK-H1-009], [TSK-H3-013] | [TSK-H1-010], [TSK-H3-014], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 255,
+        "criterion": "| SPEC-FR-ECON-014 | Usar EUR e indicación IVA incluida/excluida explícita, base/impuestos/total cuando necesarios y 2 decimales visibles/cobrados; conservar precisión interna pertinente y Tararí como propio con cifras aprobadas versionables. | Sin tipos fiscales inventados, redondeo comercial automático ni coste de extras extrapolado; sin factura interna por defecto. | D010/D013; BR-ECON-007; BR-TAR-001–003; DM-INV-029/036. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Own economic approved facts remain available but fiscal capability and rate inference rejected",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F13",
+      "families": [
+        "F13"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-FR-ECON-014 | Usar EUR e indicación IVA incluida/excluida explícita, base/impuestos/total cuando necesarios y 2 decimales visibles/cobrados; conservar precisión interna pertinente y Tararí como propio con cifras aprobadas versionables. | Sin tipos fiscales inventados, redondeo comercial automático ni coste de extras extrapolado; sin factura interna por defecto. | D010/D013; BR-ECON-007; BR-TAR-001–003; DM-INV-029/036. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-FR-HA-005",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2813,
+        "text": "| **SPEC-FR-HA-005** — [spec.md](spec.md), § 16. Human Approval | [TSK-H0-011] | [TSK-H0-012], [TSK-H2-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 370,
+        "criterion": "| SPEC-FR-HA-005 | Aplicar supervisión a acciones sensibles IA de reserva, cambios, precio, condiciones de proveedor, comunicación vinculante, pagos/reembolsos, revelación personal y permisos; separar Acceptance y Provider Confirmation. | Human Approval no crea acuerdo externo, pago, permiso futuro ni autorización fiscal P16. | D009/D016; BR-AI-002–003; SM §14.3. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Human Approval alone does not execute, altered material cannot reuse approval, AI cannot decide",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F10",
+      "families": [
+        "F10"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-FR-HA-005 | Aplicar supervisión a acciones sensibles IA de reserva, cambios, precio, condiciones de proveedor, comunicación vinculante, pagos/reembolsos, revelación personal y permisos; separar Acceptance y Provider Confirmation. | Human Approval no crea acuerdo externo, pago, permiso futuro ni autorización fiscal P16. | D009/D016; BR-AI-002–003; SM §14.3. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-FR-SEC-002",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2827,
+        "text": "| **SPEC-FR-SEC-002** — [spec.md](spec.md), § 20. Security, Privacy and Authorization | [TSK-H0-007] | [TSK-H0-008], [TSK-H0-006], [TSK-H6-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 423,
+        "criterion": "| SPEC-FR-SEC-002 | Aplicar denegación por defecto, mínimo privilegio y controles de servidor complementados por controles de base de datos, incluida RLS en lo expuesto mediante Supabase antes de exponer datos. | Cliente, job o adaptador no eluden permisos; esta obligación no define políticas físicas ni activa roles futuros. | C P10; ARCH §§5/14. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Known customer/provider identities, future role, forged proof and passive jobs cannot read; All ordinary SQL roles denied private reads/writes, privilege escalation and protected actor attributes",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F02, F12",
+      "families": [
+        "F02",
+        "F12"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-FR-SEC-002 | Aplicar denegación por defecto, mínimo privilegio y controles de servidor complementados por controles de base de datos, incluida RLS en lo expuesto mediante Supabase antes de exponer datos. | Cliente, job o adaptador no eluden permisos; esta obligación no define políticas físicas ni activa roles futuros. | C P10; ARCH §§5/14. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-FR-SEC-003",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2828,
+        "text": "| **SPEC-FR-SEC-003** — [spec.md](spec.md), § 20. Security, Privacy and Authorization | [TSK-H2-003], [TSK-H5-011] | [TSK-H2-004], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 424,
+        "criterion": "| SPEC-FR-SEC-003 | Restringir economía interna —costes, márgenes, beneficios, comisiones, honorarios/desgloses— en consultas, documentos, búsquedas, exportaciones, timeline, contexto IA y cualquier salida según finalidad/destinatario. | Acceso total del propietario no autoriza contexto externo; pack comercial respeta BR-PACK-003 incluso si conserva desglose interno. | C P11; BR-SEC-002–004; DM-INV-025/050. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "External projection exact allowlist on 7 surfaces; internal sentinel visible only to Administrator; Cross-root and context-kind isolation, search after minimization, cursor root/purpose binding",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F01, F03",
+      "families": [
+        "F01",
+        "F03"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-FR-SEC-003 | Restringir economía interna —costes, márgenes, beneficios, comisiones, honorarios/desgloses— en consultas, documentos, búsquedas, exportaciones, timeline, contexto IA y cualquier salida según finalidad/destinatario. | Acceso total del propietario no autoriza contexto externo; pack comercial respeta BR-PACK-003 incluso si conserva desglose interno. | C P11; BR-SEC-002–004; DM-INV-025/050. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-FR-SEC-005",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2830,
+        "text": "| **SPEC-FR-SEC-005** — [spec.md](spec.md), § 20. Security, Privacy and Authorization | [TSK-H0-003], [TSK-H0-005], [TSK-H0-007], [TSK-H1-015] | [TSK-H0-004], [TSK-H0-008], [TSK-H1-016], [TSK-H6-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 426,
+        "criterion": "| SPEC-FR-SEC-005 | Proteger sesiones/transporte, secretos por entorno y objetos privados; acceso a documento/URL temporal exige autorización; limitar entradas/adjuntos a finalidad necesaria y proteger entradas contra abuso/origen no verificado. | No secretos/service-role en cliente, Git, ejemplos o logs; no URLs temporales como identidad permanente; sin límites numéricos inventados. | C P10/P12; ARCH §§6/9/14. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Private object cannot be downloaded by known reference, wrong purpose or revoked session; Real Storage bytes after concurrent revocation are not released; Interrupted object metadata preserves state and repairs; corruption rejects release; Diagnostic logs and persisted diagnostic nodes exclude raw body/secrets/temporary URL/internal economy and wrong root; All ordinary SQL roles denied private reads/writes, privilege escalation and protected actor attributes",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F05, F06, F07, F08, F12",
+      "families": [
+        "F05",
+        "F06",
+        "F07",
+        "F08",
+        "F12"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-FR-SEC-005 | Proteger sesiones/transporte, secretos por entorno y objetos privados; acceso a documento/URL temporal exige autorización; limitar entradas/adjuntos a finalidad necesaria y proteger entradas contra abuso/origen no verificado. | No secretos/service-role en cliente, Git, ejemplos o logs; no URLs temporales como identidad permanente; sin límites numéricos inventados. | C P10/P12; ARCH §§6/9/14. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-FR-SEC-006",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2831,
+        "text": "| **SPEC-FR-SEC-006** — [spec.md](spec.md), § 20. Security, Privacy and Authorization | [TSK-H1-001], [TSK-H4-001], [TSK-H5-005], [TSK-H5-011] | [TSK-H1-002], [TSK-H4-002], [TSK-H5-006], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 427,
+        "criterion": "| SPEC-FR-SEC-006 | Minimizar datos personales por servicio/finalidad/destinatario; archivado recuperable, conservación/anonimización/eliminación solo con política autorizada y auditoría; mantener originales/derivados diferenciados. | No audio por defecto, consentimiento inferido, retención ilimitada ni borrado automático importante sin regla; DM-PENDING-005 vigente. | D016/D017; BR-SEC-003/005; ARCH §14. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "External projection exact allowlist on 7 surfaces; internal sentinel visible only to Administrator; Cross-root and context-kind isolation, search after minimization, cursor root/purpose binding; Original/summary/candidate stay distinct, original and confirmed fact preserved; no inferred audio/consent/retention/deletion",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F01, F03, F04",
+      "families": [
+        "F01",
+        "F03",
+        "F04"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-FR-SEC-006 | Minimizar datos personales por servicio/finalidad/destinatario; archivado recuperable, conservación/anonimización/eliminación solo con política autorizada y auditoría; mantener originales/derivados diferenciados. | No audio por defecto, consentimiento inferido, retención ilimitada ni borrado automático importante sin regla; DM-PENDING-005 vigente. | D016/D017; BR-SEC-003/005; ARCH §14. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-FR-SEC-007",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2832,
+        "text": "| **SPEC-FR-SEC-007** — [spec.md](spec.md), § 20. Security, Privacy and Authorization | [TSK-H3-013], [TSK-H3-009], [TSK-H5-011] | [TSK-H3-014], [TSK-H3-010], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 428,
+        "criterion": "| SPEC-FR-SEC-007 | Mantener fuera del Core la emisión legal/numeración/motor fiscal; documentos externos o borradores autorizados no fiscales conservan su naturaleza y validaciones pendientes. | Ni Administrador, Human Approval o integración levantan P16; sin conclusión nueva de suplidos/Tararí ni mandato supuesto. | C P16; D008/D013; BR-BILL-001–005. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Documentary external invoice keeps issuer; fiscal emission/numbering/approval override rejected; Own economic approved facts remain available but fiscal capability and rate inference rejected",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F09, F13",
+      "families": [
+        "F09",
+        "F13"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-FR-SEC-007 | Mantener fuera del Core la emisión legal/numeración/motor fiscal; documentos externos o borradores autorizados no fiscales conservan su naturaleza y validaciones pendientes. | Ni Administrador, Human Approval o integración levantan P16; sin conclusión nueva de suplidos/Tararí ni mandato supuesto. | C P16; D008/D013; BR-BILL-001–005. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-FR-INT-002",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2834,
+        "text": "| **SPEC-FR-INT-002** — [spec.md](spec.md), § 22. Core Integration Boundaries | [TSK-H5-009], [TSK-H0-007] | [TSK-H5-010], [TSK-H0-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 445,
+        "criterion": "| SPEC-FR-INT-002 | Entrada futura pasa por verificación de origen/alcance, normalización, deduplicación y persistencia coordinada antes de evaluar efecto con guardas; registrar técnicamente recibido separado de aplicado. | Entrada no verificada se rechaza/aísla para revisión de seguridad sin evidencia válida ni efecto; E2/E7/E8 no sobrescriben hechos. | ARCH §6/12.1; SM G1–G6. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Unverified external source never produces Booking/payment/closure mutation; received distinct from applied",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F11",
+      "families": [
+        "F11"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-FR-INT-002 | Entrada futura pasa por verificación de origen/alcance, normalización, deduplicación y persistencia coordinada antes de evaluar efecto con guardas; registrar técnicamente recibido separado de aplicado. | Entrada no verificada se rechaza/aísla para revisión de seguridad sin evidencia válida ni efecto; E2/E7/E8 no sobrescriben hechos. | ARCH §6/12.1; SM G1–G6. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "AC-011",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2854,
+        "text": "| **AC-011** — [spec.md](spec.md), § 24.1. Identidad, comercial y aceptación | [TSK-H2-003], [TSK-H1-009] | [TSK-H2-004], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 489,
+        "criterion": "| AC-011 | Pack con componente fijo y precio final manual diferente al calculado se prepara para cliente. | Por modalidad salen precio final/persona, participantes e incluidos; dentro quedan unidad fija, cálculo, ajuste/autor/motivo y desglose reservado. | SPEC-FR-PROP-003/005, SPEC-FR-SEC-003, SPEC-FR-CAT-005. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "External projection exact allowlist on 7 surfaces; internal sentinel visible only to Administrator",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F01",
+      "families": [
+        "F01"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| AC-011 | Pack con componente fijo y precio final manual diferente al calculado se prepara para cliente. | Por modalidad salen precio final/persona, participantes e incluidos; dentro quedan unidad fija, cálculo, ajuste/autor/motivo y desglose reservado. | SPEC-FR-PROP-003/005, SPEC-FR-SEC-003, SPEC-FR-CAT-005. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "AC-056",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2899,
+        "text": "| **AC-056** — [spec.md](spec.md), § 24.3. Coordinación, supervisión y cierres | [TSK-H0-011], [TSK-H2-007], [TSK-H3-013] | [TSK-H0-012], [TSK-H2-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 544,
+        "criterion": "| AC-056 | IA intenta aprobarse, usar plantilla sensible sin revisión, sustituir Acceptance/Provider Confirmation o emitir factura con aprobación interna. | Todos rechazados en su parte dependiente; IA solo prepara y Human Approval no crea acuerdo del cliente, confirmación del proveedor ni dispensa P16. | SPEC-FR-HA-001/005, SPEC-FR-ACC-005, SPEC-FR-SEC-007. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Human Approval alone does not execute, altered material cannot reuse approval, AI cannot decide; Own economic approved facts remain available but fiscal capability and rate inference rejected",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F10, F13",
+      "families": [
+        "F10",
+        "F13"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| AC-056 | IA intenta aprobarse, usar plantilla sensible sin revisión, sustituir Acceptance/Provider Confirmation o emitir factura con aprobación interna. | Todos rechazados en su parte dependiente; IA solo prepara y Human Approval no crea acuerdo del cliente, confirmación del proveedor ni dispensa P16. | SPEC-FR-HA-001/005, SPEC-FR-ACC-005, SPEC-FR-SEC-007. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "AC-065",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2908,
+        "text": "| **AC-065** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H5-011], [TSK-H2-003] | [TSK-H5-012], [TSK-H2-004], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 558,
+        "criterion": "| AC-065 | Se prepara consulta/exportación/documento/timeline/contexto IA para tercero desde expediente que contiene costes/márgenes/beneficios/honorarios internos. | Salida autorizada excluye economía interna y datos personales innecesarios; propiedad del expediente o acceso del Administrador no permiten divulgación. | SPEC-FR-SEC-003/006, SPEC-NFR-003. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "External projection exact allowlist on 7 surfaces; internal sentinel visible only to Administrator; Cross-root and context-kind isolation, search after minimization, cursor root/purpose binding",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F01, F03",
+      "families": [
+        "F01",
+        "F03"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| AC-065 | Se prepara consulta/exportación/documento/timeline/contexto IA para tercero desde expediente que contiene costes/márgenes/beneficios/honorarios internos. | Salida autorizada excluye economía interna y datos personales innecesarios; propiedad del expediente o acceso del Administrador no permiten divulgación. | SPEC-FR-SEC-003/006, SPEC-NFR-003. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "AC-078",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2921,
+        "text": "| **AC-078** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H3-013], [TSK-H3-009] | [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 571,
+        "criterion": "| AC-078 | Se pide factura legal/numeración fiscal desde pago conciliado, documento externo o aprobación humana. | No emisión ni numeración/motor fiscal; documento externo conserva emisor y borrador autorizado está inequívocamente marcado no fiscal. | SPEC-FR-SEC-007. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Documentary external invoice keeps issuer; fiscal emission/numbering/approval override rejected; Own economic approved facts remain available but fiscal capability and rate inference rejected",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F09, F13",
+      "families": [
+        "F09",
+        "F13"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| AC-078 | Se pide factura legal/numeración fiscal desde pago conciliado, documento externo o aprobación humana. | No emisión ni numeración/motor fiscal; documento externo conserva emisor y borrador autorizado está inequívocamente marcado no fiscal. | SPEC-FR-SEC-007. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "AC-079",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2922,
+        "text": "| **AC-079** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-001], [TSK-H0-002], [TSK-H0-007] | [TSK-H0-008], [TSK-H6-013], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 572,
+        "criterion": "| AC-079 | Validación en Development/Staging intenta usar datos, secretos o recursos de Production por conveniencia. | Separación exigida; datos sintéticos/minimizados y recursos/secretos propios; no efectos reales externos sin alcance autorizado. | SPEC-NFR-004, SPEC-FR-SEC-005. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Synthetic local environment refuses non-loopback endpoint and avoids external operations",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F14",
+      "families": [
+        "F14"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| AC-079 | Validación en Development/Staging intenta usar datos, secretos o recursos de Production por conveniencia. | Separación exigida; datos sintéticos/minimizados y recursos/secretos propios; no efectos reales externos sin alcance autorizado. | SPEC-NFR-004, SPEC-FR-SEC-005. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "AC-082",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2925,
+        "text": "| **AC-082** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H0-003], [TSK-H5-009], [TSK-H1-015], [TSK-H0-007] | [TSK-H0-004], [TSK-H5-010], [TSK-H1-016], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 575,
+        "criterion": "| AC-082 | Entrada no verificada, adjunto innecesario o petición de contexto/secretos ajenos intenta atravesar frontera del Core. | Rechazo/aislamiento sin efectos ni evidencia válida; secreto no aparece en cliente/Git/logs y documento solo se entrega con autorización/finalidad. | SPEC-FR-INT-002, SPEC-FR-SEC-005–006. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Private object cannot be downloaded by known reference, wrong purpose or revoked session; Interrupted object metadata preserves state and repairs; corruption rejects release; Diagnostic logs and persisted diagnostic nodes exclude raw body/secrets/temporary URL/internal economy and wrong root; Unverified external source never produces Booking/payment/closure mutation; received distinct from applied",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F05, F07, F08, F11",
+      "families": [
+        "F05",
+        "F07",
+        "F08",
+        "F11"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| AC-082 | Entrada no verificada, adjunto innecesario o petición de contexto/secretos ajenos intenta atravesar frontera del Core. | Rechazo/aislamiento sin efectos ni evidencia válida; secreto no aparece en cliente/Git/logs y documento solo se entrega con autorización/finalidad. | SPEC-FR-INT-002, SPEC-FR-SEC-005–006. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "AC-088",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2931,
+        "text": "| **AC-088** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H1-013], [TSK-H5-005] | [TSK-H5-006], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 581,
+        "criterion": "| AC-088 | Transcripción PLAUD autorizada y resumen generado se vinculan a persona/Booking; IA detecta dato tentativo contra confirmación manual. | Original y resumen separados, fuente/actor/momentos/revisión y dato confirmado preservados; sin audio/consentimiento por defecto ni conector supuesto. | SPEC-FR-HIST-003/005, SPEC-FR-INT-004, SPEC-FR-SEC-006. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Original/summary/candidate stay distinct, original and confirmed fact preserved; no inferred audio/consent/retention/deletion",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F04",
+      "families": [
+        "F04"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| AC-088 | Transcripción PLAUD autorizada y resumen generado se vinculan a persona/Booking; IA detecta dato tentativo contra confirmación manual. | Original y resumen separados, fuente/actor/momentos/revisión y dato confirmado preservados; sin audio/consentimiento por defecto ni conector supuesto. | SPEC-FR-HIST-003/005, SPEC-FR-INT-004, SPEC-FR-SEC-006. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-NFR-002",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2937,
+        "text": "| **SPEC-NFR-002** — [spec.md](spec.md), § 25. Non-Functional Requirements | [TSK-H0-005], [TSK-H0-007], [TSK-H1-015] | [TSK-H0-008], [TSK-H6-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 594,
+        "criterion": "| SPEC-NFR-002 | Seguridad: rechazar acceso/efecto sin identidad y autorización vigente en servidor/datos; mínimo privilegio, MFA Production según capacidad aprobada y protección aun fuera de UI. | C P10/P11; ARCH §§5/14. | AC-064/080/082. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Known customer/provider identities, future role, forged proof and passive jobs cannot read; Private object cannot be downloaded by known reference, wrong purpose or revoked session; Real Storage bytes after concurrent revocation are not released; All ordinary SQL roles denied private reads/writes, privilege escalation and protected actor attributes",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F02, F05, F06, F12",
+      "families": [
+        "F02",
+        "F05",
+        "F06",
+        "F12"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-NFR-002 | Seguridad: rechazar acceso/efecto sin identidad y autorización vigente en servidor/datos; mínimo privilegio, MFA Production según capacidad aprobada y protección aun fuera de UI. | C P10/P11; ARCH §§5/14. | AC-064/080/082. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-NFR-003",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2938,
+        "text": "| **SPEC-NFR-003** — [spec.md](spec.md), § 25. Non-Functional Requirements | [TSK-H1-001], [TSK-H4-001], [TSK-H5-005], [TSK-H5-011] | [TSK-H2-011], [TSK-H4-002], [TSK-H5-006], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 595,
+        "criterion": "| SPEC-NFR-003 | Privacidad/minimización: cada dato/salida tiene finalidad y destinatario autorizado; política de conservación pendiente no se sustituye por retención indefinida ni audio por defecto. | C P07/P10; ARCH §14/18.2. | AC-019/065/088. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Cross-root and context-kind isolation, search after minimization, cursor root/purpose binding; Original/summary/candidate stay distinct, original and confirmed fact preserved; no inferred audio/consent/retention/deletion",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F03, F04",
+      "families": [
+        "F03",
+        "F04"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-NFR-003 | Privacidad/minimización: cada dato/salida tiene finalidad y destinatario autorizado; política de conservación pendiente no se sustituye por retención indefinida ni audio por defecto. | C P07/P10; ARCH §14/18.2. | AC-019/065/088. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SPEC-NFR-004",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2939,
+        "text": "| **SPEC-NFR-004** — [spec.md](spec.md), § 25. Non-Functional Requirements | [TSK-H0-001], [TSK-H0-002], [TSK-H0-007] | [TSK-H0-008], [TSK-H6-013], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/spec.md",
+        "line": 596,
+        "criterion": "| SPEC-NFR-004 | Aislamiento Development/Staging/Production con Supabase, datos, secretos e integraciones separados; Work Local Mac permanece entorno principal, sin recursos productivos usados por comodidad. | D002/D005; ARCH-DEC-017 y §16.2. | AC-079. |",
+        "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Synthetic local environment refuses non-loopback endpoint and avoids external operations",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F14",
+      "families": [
+        "F14"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SPEC-NFR-004 | Aislamiento Development/Staging/Production con Supabase, datos, secretos e integraciones separados; Work Local Mac permanece entorno principal, sin recursos productivos usados por comodidad. | D002/D005; ARCH-DEC-017 y §16.2. | AC-079. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "DM-INV-025",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 2980,
+        "text": "| **DM-INV-025** — [domain-model.md](../../docs/domain-model.md), § 14. Invariants — Invariantes del dominio | [TSK-H2-003], [TSK-H5-011] | [TSK-H2-004], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "docs/domain-model.md",
+        "line": 503,
+        "criterion": "| DM-INV-025 | El pack comercial muestra precio final por persona, participantes e incluidos por modalidad, preservando internamente unidades y desglose reservado. | BR-PACK-003; C P11. |",
+        "sha256": "f9fafbb715ca57ef843d673af3a475847b4bcae6c37c0469552430c2a8558ddf"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "External projection exact allowlist on 7 surfaces; internal sentinel visible only to Administrator",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F01",
+      "families": [
+        "F01"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| DM-INV-025 | El pack comercial muestra precio final por persona, participantes e incluidos por modalidad, preservando internamente unidades y desglose reservado. | BR-PACK-003; C P11. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "DM-INV-050",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3005,
+        "text": "| **DM-INV-050** — [domain-model.md](../../docs/domain-model.md), § 14. Invariants — Invariantes del dominio | [TSK-H0-005], [TSK-H0-007], [TSK-H5-011] | [TSK-H6-008], [TSK-H0-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "docs/domain-model.md",
+        "line": 528,
+        "criterion": "| DM-INV-050 | V1 solo opera Administrador/Propietario; roles/contactos/proveedores no reciben permisos implícitos. Economía interna se restringe en todos los soportes y contexto IA. | BR-SEC-001–004; C P10/P11. |",
+        "sha256": "f9fafbb715ca57ef843d673af3a475847b4bcae6c37c0469552430c2a8558ddf"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Known customer/provider identities, future role, forged proof and passive jobs cannot read",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F02",
+      "families": [
+        "F02"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| DM-INV-050 | V1 solo opera Administrador/Propietario; roles/contactos/proveedores no reciben permisos implícitos. Economía interna se restringe en todos los soportes y contexto IA. | BR-SEC-001–004; C P10/P11. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "DM-INV-052",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3007,
+        "text": "| **DM-INV-052** — [domain-model.md](../../docs/domain-model.md), § 14. Invariants — Invariantes del dominio | [TSK-H3-009], [TSK-H3-013] | [TSK-H3-010], [TSK-H3-014], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "docs/domain-model.md",
+        "line": 530,
+        "criterion": "| DM-INV-052 | Registro económico, borrador o integración fiscal no autoriza emisión legal/numeración fiscal; suplidos, mandato y Tararí mantienen validación profesional pendiente. | BR-BILL-001–005; D008/D013; C P16. |",
+        "sha256": "f9fafbb715ca57ef843d673af3a475847b4bcae6c37c0469552430c2a8558ddf"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Documentary external invoice keeps issuer; fiscal emission/numbering/approval override rejected; Own economic approved facts remain available but fiscal capability and rate inference rejected",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F09, F13",
+      "families": [
+        "F09",
+        "F13"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| DM-INV-052 | Registro económico, borrador o integración fiscal no autoriza emisión legal/numeración fiscal; suplidos, mandato y Tararí mantienen validación profesional pendiente. | BR-BILL-001–005; D008/D013; C P16. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SM-FORB-22",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3187,
+        "text": "| **SM-FORB-22** — [state-machines.md](../../docs/state-machines.md), § 17. Forbidden transitions — Transiciones prohibidas | [TSK-H0-011], [TSK-H5-007], [TSK-H3-013] | [TSK-H0-012], [TSK-H5-008], [TSK-H6-017] | V-NEG: intentar «Human Approval → ejecución, nueva aprobación implícita tras cambio, o facultad de eludir P16»; impedir la transición/inferencia y conservar hechos/historia. V-NEG: AC-053, AC-054, AC-055, AC-056, AC-078. Intentar inferencia/transición prohibida de SM §17; debe rechazarse sin efecto indebido. |"
+      },
+      "source": {
+        "path": "docs/state-machines.md",
+        "line": 737,
+        "criterion": "| SM-FORB-22 | Human Approval → ejecución, nueva aprobación implícita tras cambio, o facultad de eludir P16 | BR-AI-002–003; BR-BILL-001–005. |",
+        "sha256": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Human Approval alone does not execute, altered material cannot reuse approval, AI cannot decide",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F10",
+      "families": [
+        "F10"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SM-FORB-22 | Human Approval → ejecución, nueva aprobación implícita tras cambio, o facultad de eludir P16 | BR-AI-002–003; BR-BILL-001–005. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "SM-FORB-29",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3194,
+        "text": "| **SM-FORB-29** — [state-machines.md](../../docs/state-machines.md), § 17. Forbidden transitions — Transiciones prohibidas | [TSK-H0-005], [TSK-H0-007], [TSK-H5-011], [TSK-H1-015] | [TSK-H0-008], [TSK-H6-008], [TSK-H6-017] | V-NEG: intentar «Rol previsto/relación comercial → permiso activo; timeline → divulgación de economía/datos personales no autorizados»; impedir la transición/inferencia y conservar hechos/historia. V-NEG: AC-064, AC-065, AC-082. Intentar inferencia/transición prohibida de SM §17; debe rechazarse sin efecto indebido. |"
+      },
+      "source": {
+        "path": "docs/state-machines.md",
+        "line": 744,
+        "criterion": "| SM-FORB-29 | Rol previsto/relación comercial → permiso activo; timeline → divulgación de economía/datos personales no autorizados | BR-SEC-001–004; BR-HIST-004. |",
+        "sha256": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "External projection exact allowlist on 7 surfaces; internal sentinel visible only to Administrator; Known customer/provider identities, future role, forged proof and passive jobs cannot read",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F01, F02",
+      "families": [
+        "F01",
+        "F02"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| SM-FORB-29 | Rol previsto/relación comercial → permiso activo; timeline → divulgación de economía/datos personales no autorizados | BR-SEC-001–004; BR-HIST-004. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "ARCH-DEC-008",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3211,
+        "text": "| **ARCH-DEC-008** — [architecture.md](../../docs/architecture.md), § 17. ARCH-DEC — Decisiones arquitectónicas aprobadas | [TSK-H5-009], [TSK-H5-011], [TSK-H0-007] | [TSK-H5-010], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "docs/architecture.md",
+        "line": 448,
+        "criterion": "| ARCH-DEC-008 — Web pública separada | Aplicaciones/repositorios separados y futura frontera pública limitada, sin acceso económico interno. | §8.6; D007, C P10/P11. |",
+        "sha256": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Unverified external source never produces Booking/payment/closure mutation; received distinct from applied",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F11",
+      "families": [
+        "F11"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| ARCH-DEC-008 — Web pública separada | Aplicaciones/repositorios separados y futura frontera pública limitada, sin acceso económico interno. | §8.6; D007, C P10/P11. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "P10",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3231,
+        "text": "| **P10** — [constitution.md](../../docs/constitution.md), § P10. Seguridad y privacidad desde el diseño | [TSK-H0-005], [TSK-H0-007], [TSK-H1-015], [TSK-H5-011] | [TSK-H6-008], [TSK-H0-008], [TSK-H1-016], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "docs/constitution.md",
+        "line": 53,
+        "criterion": "### P10. Seguridad y privacidad desde el diseño\n\nEl acceso DEBE aplicar mínimo privilegio y denegación por defecto, con controles en servidor y base de datos, incluida RLS en las tablas expuestas mediante Supabase. La interfaz no constituye una barrera de seguridad. Cada tratamiento DEBE justificar los datos necesarios, destinatarios y conservación; los entornos, registros, exportaciones e integraciones DEBEN evitar accesos o divulgaciones no autorizados.",
+        "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Known customer/provider identities, future role, forged proof and passive jobs cannot read; Original/summary/candidate stay distinct, original and confirmed fact preserved; no inferred audio/consent/retention/deletion; Private object cannot be downloaded by known reference, wrong purpose or revoked session; Real Storage bytes after concurrent revocation are not released; Interrupted object metadata preserves state and repairs; corruption rejects release; All ordinary SQL roles denied private reads/writes, privilege escalation and protected actor attributes",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F02, F04, F05, F06, F07, F12",
+      "families": [
+        "F02",
+        "F04",
+        "F05",
+        "F06",
+        "F07",
+        "F12"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "### P10. Seguridad y privacidad desde el diseño\n\nEl acceso DEBE aplicar mínimo privilegio y denegación por defecto, con controles en servidor y base de datos, incluida RLS en las tablas expuestas mediante Supabase. La interfaz no constituye una barrera de seguridad. Cada tratamiento DEBE justificar los datos necesarios, destinatarios y conservación; los entornos, registros, exportaciones e integraciones DEBEN evitar accesos o divulgaciones no autorizados.",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "P11",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3232,
+        "text": "| **P11** — [constitution.md](../../docs/constitution.md), § P11. Información económica interna reservada | [TSK-H3-013], [TSK-H5-011], [TSK-H0-007] | [TSK-H3-014], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "docs/constitution.md",
+        "line": 57,
+        "criterion": "### P11. Información económica interna reservada\n\nCostes, márgenes y beneficios, incluidos sus desgloses y cálculos, DEBEN ser accesibles únicamente a administradores autorizados. La restricción DEBE verificarse en consultas, API, informes, exportaciones y contexto de IA. Ocultar campos en pantalla es insuficiente: esos datos NO DEBEN enviarse a clientes o usuarios sin autorización.",
+        "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "External projection exact allowlist on 7 surfaces; internal sentinel visible only to Administrator",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F01",
+      "families": [
+        "F01"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "### P11. Información económica interna reservada\n\nCostes, márgenes y beneficios, incluidos sus desgloses y cálculos, DEBEN ser accesibles únicamente a administradores autorizados. La restricción DEBE verificarse en consultas, API, informes, exportaciones y contexto de IA. Ocultar campos en pantalla es insuficiente: esos datos NO DEBEN enviarse a clientes o usuarios sin autorización.",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "P12",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3233,
+        "text": "| **P12** — [constitution.md](../../docs/constitution.md), § P12. Secretos fuera de Git | [TSK-H0-003], [TSK-H5-017], [TSK-H0-015] | [TSK-H0-004], [TSK-H5-018], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "docs/constitution.md",
+        "line": 61,
+        "criterion": "### P12. Secretos fuera de Git\n\nCredenciales, tokens, contraseñas y API keys secretas NO DEBEN guardarse en Git, documentación, ejemplos ni registros. DEBEN gestionarse mediante secretos protegidos por entorno; las plantillas solo pueden contener marcadores. Ante una exposición se DEBE revocar o rotar el secreto y registrar el incidente; borrar el archivo no elimina la exposición del historial.",
+        "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Diagnostic logs and persisted diagnostic nodes exclude raw body/secrets/temporary URL/internal economy and wrong root; Synthetic local environment refuses non-loopback endpoint and avoids external operations",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F08, F14",
+      "families": [
+        "F08",
+        "F14"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "### P12. Secretos fuera de Git\n\nCredenciales, tokens, contraseñas y API keys secretas NO DEBEN guardarse en Git, documentación, ejemplos ni registros. DEBEN gestionarse mediante secretos protegidos por entorno; las plantillas solo pueden contener marcadores. Ante una exposición se DEBE revocar o rotar el secreto y registrar el incidente; borrar el archivo no elimina la exposición del historial.",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "P16",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3237,
+        "text": "| **P16** — [constitution.md](../../docs/constitution.md), § P16. Facturación legal condicionada a validación | [TSK-H3-007], [TSK-H3-009], [TSK-H5-009] | [TSK-H3-008], [TSK-H3-010], [TSK-H5-010], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "docs/constitution.md",
+        "line": 77,
+        "criterion": "### P16. Facturación legal condicionada a validación\n\nEl CRM NO DEBE emitir facturas legales ni asignar numeración fiscal hasta que su arquitectura de facturación haya sido validada conforme a la normativa española aplicable por profesionales competentes y aprobada por el responsable del proyecto. La evidencia y el alcance de esa validación DEBEN documentarse. Mientras tanto, cualquier borrador autorizado DEBE identificarse inequívocamente como no fiscal y sin validez como factura.",
+        "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Documentary external invoice keeps issuer; fiscal emission/numbering/approval override rejected; Human Approval alone does not execute, altered material cannot reuse approval, AI cannot decide; Own economic approved facts remain available but fiscal capability and rate inference rejected",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F09, F10, F13",
+      "families": [
+        "F09",
+        "F10",
+        "F13"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "### P16. Facturación legal condicionada a validación\n\nEl CRM NO DEBE emitir facturas legales ni asignar numeración fiscal hasta que su arquitectura de facturación haya sido validada conforme a la normativa española aplicable por profesionales competentes y aprobada por el responsable del proyecto. La evidencia y el alcance de esa validación DEBEN documentarse. Mientras tanto, cualquier borrador autorizado DEBE identificarse inequívocamente como no fiscal y sin validez como factura.",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "PLAN-B10",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3265,
+        "text": "| **PLAN-B10** — [plan.md](plan.md), § 4. Bloques, componentes y responsabilidades | [TSK-H0-001], [TSK-H0-002], [TSK-H6-014], [TSK-H6-018] | [TSK-H6-012], [TSK-H6-013], [TSK-H6-015], [TSK-H6-016], [TSK-H6-017], [TSK-H6-018] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/plan.md",
+        "line": 107,
+        "criterion": "| PLAN-B10 — Validación y entrega futura | Trazabilidad de pruebas, migraciones revisadas, observabilidad, recuperación y criterios de release. | No declara Production lista sin dependencias resueltas ni autoriza despliegue por sí solo. |",
+        "sha256": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Diagnostic logs and persisted diagnostic nodes exclude raw body/secrets/temporary URL/internal economy and wrong root",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F08",
+      "families": [
+        "F08"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| PLAN-B10 — Validación y entrega futura | Trazabilidad de pruebas, migraciones revisadas, observabilidad, recuperación y criterios de release. | No declara Production lista sin dependencias resueltas ni autoriza despliegue por sí solo. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "PT-11",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3298,
+        "text": "| **PT-11** — [plan.md](plan.md), § 10.2. Familias de pruebas y los 92 criterios | [TSK-H0-003], [TSK-H0-005], [TSK-H0-007], [TSK-H0-013], [TSK-H0-016], [TSK-H1-015], [TSK-H5-017], [TSK-H3-007] | [TSK-H0-004], [TSK-H6-008], [TSK-H6-009], [TSK-H6-010], [TSK-H6-011], [TSK-H0-008], [TSK-H1-016], [TSK-H5-018], [TSK-H3-008], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "specs/001-core-crm/plan.md",
+        "line": 404,
+        "criterion": "| PT-11 | AC-064–AC-065, AC-078–AC-082 | Autorización/datos, prohibición fiscal, entornos, MFA, logs y entradas/objetos protegidos. H0–H6. |",
+        "sha256": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Diagnostic logs and persisted diagnostic nodes exclude raw body/secrets/temporary URL/internal economy and wrong root; Synthetic local environment refuses non-loopback endpoint and avoids external operations",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F08, F14",
+      "families": [
+        "F08",
+        "F14"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| PT-11 | AC-064–AC-065, AC-078–AC-082 | Autorización/datos, prohibición fiscal, entornos, MFA, logs y entradas/objetos protegidos. H0–H6. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "G1",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3337,
+        "text": "| **G1** — [state-machines.md](../../docs/state-machines.md), § 2.1. Semántica de la transición | [TSK-H0-005], [TSK-H0-007], [TSK-H5-011] | [TSK-H0-006], [TSK-H0-008], [TSK-H5-012], [TSK-H6-017] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+      },
+      "source": {
+        "path": "docs/state-machines.md",
+        "line": 28,
+        "criterion": "| G1 — Identidad y alcance | Identificar entidad, servicio/noche/personas/unidades afectados y actor facultado. En V1 opera Administrador/Propietario; cliente, proveedor y roles futuros no obtienen permisos internos por figurar en el expediente. |",
+        "sha256": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Known customer/provider identities, future role, forged proof and passive jobs cannot read; Cross-root and context-kind isolation, search after minimization, cursor root/purpose binding",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F02, F03",
+      "families": [
+        "F02",
+        "F03"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "| G1 — Identidad y alcance | Identificar entidad, servicio/noche/personas/unidades afectados y actor facultado. En V1 opera Administrador/Propietario; cliente, proveedor y roles futuros no obtienen permisos internos por figurar en el expediente. |",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage",
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "D007",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3362,
+        "text": "| **D007** — [DECISIONS.md](../../docs/DECISIONS.md), § D007 — Aplicaciones separadas | [TSK-H5-009], [TSK-H0-007] | [TSK-H5-010], [TSK-H6-017] | Separación web pública/CRM; sin UI. |"
+      },
+      "source": {
+        "path": "docs/DECISIONS.md",
+        "line": 53,
+        "criterion": "## D007 — Aplicaciones separadas\n\nDate: 2026-09-05\nStatus: APPROVED\nDecision: La futura web pública huescaventura.com y el CRM serán aplicaciones/repositorios separados, compartiendo backend/API cuando corresponda.\nReason: Mantener separados los objetivos y ciclos de evolución de la web pública y el CRM.\nImpact: Cada aplicación tendrá su propio ámbito de código y documentación, con contratos compartidos cuando proceda.",
+        "sha256": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Unverified external source never produces Booking/payment/closure mutation; received distinct from applied",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F11",
+      "families": [
+        "F11"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "## D007 — Aplicaciones separadas\n\nDate: 2026-09-05\nStatus: APPROVED\nDecision: La futura web pública huescaventura.com y el CRM serán aplicaciones/repositorios separados, compartiendo backend/API cuando corresponda.\nReason: Mantener separados los objetivos y ciclos de evolución de la web pública y el CRM.\nImpact: Cada aplicación tendrá su propio ámbito de código y documentación, con contratos compartidos cuando proceda.",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    },
+    {
+      "id": "D008",
+      "assignment": {
+        "path": "specs/001-core-crm/tasks.md",
+        "line": 3363,
+        "text": "| **D008** — [DECISIONS.md](../../docs/DECISIONS.md), § D008 — Facturación | [TSK-H3-007], [TSK-H3-009], [TSK-H5-009] | [TSK-H3-008], [TSK-H3-010], [TSK-H6-017] | Validación fiscal pendiente; emisión excluida. |"
+      },
+      "source": {
+        "path": "docs/DECISIONS.md",
+        "line": 61,
+        "criterion": "## D008 — Facturación\n\nDate: 2026-09-05\nStatus: APPROVED\nDecision: El CRM no emitirá facturas legales hasta completar la validación específica de normativa y arquitectura fiscal.\nReason: Condicionar la facturación legal a una validación fiscal y arquitectónica completa.\nImpact: El CRM no podrá emitir facturas legales mientras esa validación no esté aprobada y documentada.",
+        "sha256": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe"
+      },
+      "status": "NOT OBSERVED",
+      "preconditions": "Base exacta y 68 migraciones en PostgreSQL aislado nuevo; Storage oficial propio para objetos; contratos aprobados; sin conectores ni datos reales. Solo Administrador operativo V1; actores negativos no obtienen permiso por relación.",
+      "actorAndScope": "Administrador sintético autorizado en ámbito Core vigente; terceros/contactos/proveedores/rol futuro/job sin facultad. Expedientes Booking/Contact/Organization identificados por fixtures.",
+      "syntheticData": "Identidades ficticias, dos Booking independientes, propuesta inmutable con componente fijo, economía interna, comunicaciones PLAUD sintéticas autorizadas, originales/derivados, objetos privados, entradas no verificadas.",
+      "positiveScenario": "Documentary external invoice keeps issuer; fiscal emission/numbering/approval override rejected",
+      "negativeScenario": "Intentar accesos/serialización y efectos prohibidos relacionados en escenario favorable; comprobar rechazo exacto, salida mínima y ausencia de efectos según caso. Casos: F09",
+      "families": [
+        "F09"
+      ],
+      "action": "Invocar contrato real aplicación/PostgreSQL; usar solo dobles en canal externo. Consultar criterios literales source.criterion y guion congelado correspondiente.",
+      "expected": "## D008 — Facturación\n\nDate: 2026-09-05\nStatus: APPROVED\nDecision: El CRM no emitirá facturas legales hasta completar la validación específica de normativa y arquitectura fiscal.\nReason: Condicionar la facturación legal a una validación fiscal y arquitectónica completa.\nImpact: El CRM no podrá emitir facturas legales mientras esa validación no esté aprobada y documentada.",
+      "observed": null,
+      "instrument": [
+        "tests/integration/postgres-h6-017-integrated.test.ts; actual 68 migration PostgreSQL and local Storage"
+      ],
+      "independentProof": "Pendiente instrumento y resultados propios del auditor; no heredar PASS del implementador.",
+      "acceptanceLimit": "Acreditación local/aislada exclusivamente; no cerrar fuente global compartida ni H6 global."
+    }
+  ]
+}

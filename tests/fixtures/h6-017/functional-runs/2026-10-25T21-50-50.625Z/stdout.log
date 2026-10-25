@@ -1,0 +1,199 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /private/tmp/crm-h6017-functional-runtime/crm-private-storage-test-Nuiw20/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /private/tmp/crm-h6017-functional-runtime/crm-private-storage-test-Nuiw20/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ H6-017 F01 exact external timeline allowlist; reserved-field search has no oracle (1526.696708ms)
+ℹ {"surface":"timeline","destinations":3,"expectedEntryFields":["finalPersonPrice","included","participants","reference"],"canonicalStateUnchanged":true}
+✔ H6-017 F01 exact external calendar allowlist; reserved-field search has no oracle (81.535708ms)
+ℹ {"surface":"calendar","destinations":3,"expectedEntryFields":["finalPersonPrice","included","participants","reference"],"canonicalStateUnchanged":true}
+✔ H6-017 F01 exact external query allowlist; reserved-field search has no oracle (77.584834ms)
+ℹ {"surface":"query","destinations":3,"expectedEntryFields":["finalPersonPrice","included","participants","reference"],"canonicalStateUnchanged":true}
+✔ H6-017 F01 exact external search allowlist; reserved-field search has no oracle (80.068083ms)
+ℹ {"surface":"search","destinations":3,"expectedEntryFields":["finalPersonPrice","included","participants","reference"],"canonicalStateUnchanged":true}
+✔ H6-017 F01 exact external export allowlist; reserved-field search has no oracle (76.773917ms)
+ℹ {"surface":"export","destinations":3,"expectedEntryFields":["finalPersonPrice","included","participants","reference"],"canonicalStateUnchanged":true}
+✔ H6-017 F01 exact external document allowlist; reserved-field search has no oracle (74.054334ms)
+ℹ {"surface":"document","destinations":3,"expectedEntryFields":["finalPersonPrice","included","participants","reference"],"canonicalStateUnchanged":true}
+✔ H6-017 F01 exact external ai_context allowlist; reserved-field search has no oracle (73.080833ms)
+ℹ {"surface":"ai_context","destinations":3,"expectedEntryFields":["finalPersonPrice","included","participants","reference"],"canonicalStateUnchanged":true}
+✔ H6-017 F02 commercial relationship, future role and passive job do not grant authority (22.535333ms)
+✔ H6-017 F03 root, context kind, search, cursor and shared original never widen access (725.406041ms)
+✖ H6-017 F04 original, derivative and candidate distinct; audio/retention/consent/deletion denied (20.674791ms)
+✖ H6-017 F05 known private object URL, wrong purpose/root and revoked session refuse release (21.582417ms)
+✔ H6-017 F06 revocation committed while actual Storage download is paused prevents release (33.848042ms)
+✖ H6-017 F07 real object upload metadata fault, repair, idempotence and corruption denial (14.775041ms)
+✔ H6-017 F08 diagnostics and logs minimize hostile raw secret/body/economy and preserve E4 without retry (54.221417ms)
+✖ H6-017 F09 external invoice retains issuer; emission/numbering forbidden despite documentary state (123.768834ms)
+✖ H6-017 F10 Approval is not execution or Acceptance/Confirmation, changed material cannot reuse decision (61.378625ms)
+✖ H6-017 F11 hostile public/web/calendar payload is receipt-only, never Booking/payment/closure authority (11.5915ms)
+H6017 SQL denial summary {"roles":4,"tables":172,"attempts":1388}
+✔ H6-017 F12 SQL roles denied private data, protected attributes and self elevation (7799.978791ms)
+✔ H6-017 F13 economic facts keep pending fiscal treatment; approval/inference flags cannot authorize fiscal effect (105.468041ms)
+✔ H6-017 F14 local synthetic isolation and no hidden fiscal/audio/public surface (22.908ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 14
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11355.570708
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6-017-integrated.test.ts:73:1
+✖ H6-017 F04 original, derivative and candidate distinct; audio/retention/consent/deletion denied (20.674791ms)
+  TypeError: Cannot read properties of undefined (reading 'content_kind')
+      at file:///Users/andres/.codex/worktrees/h6-017-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-017-integrated.test.ts:75:164
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async unchanged (file:///Users/andres/.codex/worktrees/h6-017-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-017-integrated.test.ts:36:81)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+
+test at tests/integration/postgres-h6-017-integrated.test.ts:79:1
+✖ H6-017 F05 known private object URL, wrong purpose/root and revoked session refuse release (21.582417ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async file:///Users/andres/.codex/worktrees/h6-017-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-017-integrated.test.ts:82:109
+      at async unchanged (file:///Users/andres/.codex/worktrees/h6-017-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-017-integrated.test.ts:36:81)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-017-integrated.test.ts:81:2)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-017-integrated.test.ts:99:1
+✖ H6-017 F07 real object upload metadata fault, repair, idempotence and corruption denial (14.775041ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-017-integrated.test.ts:103:6)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-017-integrated.test.ts:118:1
+✖ H6-017 F09 external invoice retains issuer; emission/numbering forbidden despite documentary state (123.768834ms)
+  AssertionError [ERR_ASSERTION]: denial/projection must not mutate protected canonical state
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      b03_acceptances: 'f94465dc4560d1de4eca23a9084eacb31cfbfcffe0d26a62bd57983cef60af3c',
+      b03_proposal_versions: 'b24207cdd794e81f1ebe5997f240e10e7aa942c1d2b597ea5930fb94700bc230',
+      b04_bookings: '20f8ee52a6a9baf07d5bda632ae8e59bc019326a4cff45c63b5c75c9c4c6d552',
+      b04_nights: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+  ...
+      b06_joint_closures: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+  +   b07_history: 'cc528defc8e080b7b1ca9c4ac6148dd636bac5a8ef644aeac287cc0335bf7c07',
+  +   b07_links: '5faf006ab8174c29b30a8897d2a156919a1491d5e7afa1066c53b44b841b0457',
+  -   b07_history: 'bed7f8805a7cceb04e6a4068392c35a4c8a47479544b44823bd1018e9c8c4cdc',
+  -   b07_links: '45df9280351b762bc362938bf5a9cd6936f1740c99aca7a7d2a6bdeda804356a',
+      b07_object_versions: '3e60d8dc76da322fb9e34dddb82ac1e43ae1c59f795e3dd4081929907265b9f1',
+  +   b07_records: '6cb63f9a016f8c4b7e45ab0932abe8799774769ecb106eafd6a9a92ff976fbb5',
+  -   b07_records: '05319bca08297bb3eb6836ebcfd6aed3840938ba9e55d34f0d2a22230df6665b',
+      b08_attempts: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+      b08_executions: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+    }
+  
+      at unchanged (file:///Users/andres/.codex/worktrees/h6-017-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-017-integrated.test.ts:36:103)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-017-integrated.test.ts:121:2)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { b04_bookings: '20f8ee52a6a9baf07d5bda632ae8e59bc019326a4cff45c63b5c75c9c4c6d552', b04_services: 'ffcac773d86776a2fde596adf475459ee1cb8f40adfa33a67ac21c235d02e5aa', b04_nights: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b03_acceptances: 'f94465dc4560d1de4eca23a9084eacb31cfbfcffe0d26a62bd57983cef60af3c', b03_proposal_versions: 'b24207cdd794e81f1ebe5997f240e10e7aa942c1d2b597ea5930fb94700bc230', b07_records: '6cb63f9a016f8c4b7e45ab0932abe8799774769ecb106eafd6a9a92ff976fbb5', b07_history: 'cc528defc8e080b7b1ca9c4ac6148dd636bac5a8ef644aeac287cc0335bf7c07', b07_links: '5faf006ab8174c29b30a8897d2a156919a1491d5e7afa1066c53b44b841b0457', b07_object_versions: '3e60d8dc76da322fb9e34dddb82ac1e43ae1c59f795e3dd4081929907265b9f1', b08_executions: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b08_attempts: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b05_provider_invoices: '01cffd18f2f5a43e9a1eb67ca0fdfe6b2104292a5a3b578461982a1329fb470f', b05_own_economies: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b06_joint_closures: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
+    expected: { b04_bookings: '20f8ee52a6a9baf07d5bda632ae8e59bc019326a4cff45c63b5c75c9c4c6d552', b04_services: 'ffcac773d86776a2fde596adf475459ee1cb8f40adfa33a67ac21c235d02e5aa', b04_nights: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b03_acceptances: 'f94465dc4560d1de4eca23a9084eacb31cfbfcffe0d26a62bd57983cef60af3c', b03_proposal_versions: 'b24207cdd794e81f1ebe5997f240e10e7aa942c1d2b597ea5930fb94700bc230', b07_records: '05319bca08297bb3eb6836ebcfd6aed3840938ba9e55d34f0d2a22230df6665b', b07_history: 'bed7f8805a7cceb04e6a4068392c35a4c8a47479544b44823bd1018e9c8c4cdc', b07_links: '45df9280351b762bc362938bf5a9cd6936f1740c99aca7a7d2a6bdeda804356a', b07_object_versions: '3e60d8dc76da322fb9e34dddb82ac1e43ae1c59f795e3dd4081929907265b9f1', b08_executions: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b08_attempts: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b05_provider_invoices: '01cffd18f2f5a43e9a1eb67ca0fdfe6b2104292a5a3b578461982a1329fb470f', b05_own_economies: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b06_joint_closures: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-017-integrated.test.ts:127:1
+✖ H6-017 F10 Approval is not execution or Acceptance/Confirmation, changed material cannot reuse decision (61.378625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + Result(0) []
+  - []
+  
+      at TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-017-integrated.test.ts:128:87)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-017-integrated.test.ts:135:1
+✖ H6-017 F11 hostile public/web/calendar payload is receipt-only, never Booking/payment/closure authority (11.5915ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      b03_acceptances: 'f94465dc4560d1de4eca23a9084eacb31cfbfcffe0d26a62bd57983cef60af3c',
+      b03_proposal_versions: 'b24207cdd794e81f1ebe5997f240e10e7aa942c1d2b597ea5930fb94700bc230',
+      b04_bookings: '20f8ee52a6a9baf07d5bda632ae8e59bc019326a4cff45c63b5c75c9c4c6d552',
+      b04_nights: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+  ...
+      b06_joint_closures: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+  +   b07_history: '4f4df4437ed197f301cd4e55ad5df5aca976b9efd206cf21c513d67a56e74962',
+  +   b07_links: 'cf6833c3fa0a7514edd9191f71abbbcdb5bf9023fb2a22f2ea0a3223ff44771e',
+  -   b07_history: '46666b7efb78489f9314cef2cc1aee199de11a60ee389c4a004c27c95827f89e',
+  -   b07_links: '2e92c1a21fa7d20c18accf3d6253f7e4c9e9a67c09319c2f15292496523a78bb',
+      b07_object_versions: '3e60d8dc76da322fb9e34dddb82ac1e43ae1c59f795e3dd4081929907265b9f1',
+  +   b07_records: 'ea204e5dfa8ba6d0b6b6695fd99856a6bd3a2a0416f176efbd77b6e3a82a67f9',
+  -   b07_records: '35aa8439beb99cc2c4bccba2bbd5f44aee6c76ce867d1db3cf96fd841aa9513b',
+      b08_attempts: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+      b08_executions: '7107eebf0fd2b0fad80b079aaa7083543fc8f3c78032122e71af204d16cf30bc'
+    }
+  
+      at TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-017-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-017-integrated.test.ts:136:339)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { b04_bookings: '20f8ee52a6a9baf07d5bda632ae8e59bc019326a4cff45c63b5c75c9c4c6d552', b04_services: 'ffcac773d86776a2fde596adf475459ee1cb8f40adfa33a67ac21c235d02e5aa', b04_nights: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b03_acceptances: 'f94465dc4560d1de4eca23a9084eacb31cfbfcffe0d26a62bd57983cef60af3c', b03_proposal_versions: 'b24207cdd794e81f1ebe5997f240e10e7aa942c1d2b597ea5930fb94700bc230', b07_records: 'ea204e5dfa8ba6d0b6b6695fd99856a6bd3a2a0416f176efbd77b6e3a82a67f9', b07_history: '4f4df4437ed197f301cd4e55ad5df5aca976b9efd206cf21c513d67a56e74962', b07_links: 'cf6833c3fa0a7514edd9191f71abbbcdb5bf9023fb2a22f2ea0a3223ff44771e', b07_object_versions: '3e60d8dc76da322fb9e34dddb82ac1e43ae1c59f795e3dd4081929907265b9f1', b08_executions: '7107eebf0fd2b0fad80b079aaa7083543fc8f3c78032122e71af204d16cf30bc', b08_attempts: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b05_provider_invoices: '01cffd18f2f5a43e9a1eb67ca0fdfe6b2104292a5a3b578461982a1329fb470f', b05_own_economies: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b06_joint_closures: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
+    expected: { b04_bookings: '20f8ee52a6a9baf07d5bda632ae8e59bc019326a4cff45c63b5c75c9c4c6d552', b04_services: 'ffcac773d86776a2fde596adf475459ee1cb8f40adfa33a67ac21c235d02e5aa', b04_nights: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b03_acceptances: 'f94465dc4560d1de4eca23a9084eacb31cfbfcffe0d26a62bd57983cef60af3c', b03_proposal_versions: 'b24207cdd794e81f1ebe5997f240e10e7aa942c1d2b597ea5930fb94700bc230', b07_records: '35aa8439beb99cc2c4bccba2bbd5f44aee6c76ce867d1db3cf96fd841aa9513b', b07_history: '46666b7efb78489f9314cef2cc1aee199de11a60ee389c4a004c27c95827f89e', b07_links: '2e92c1a21fa7d20c18accf3d6253f7e4c9e9a67c09319c2f15292496523a78bb', b07_object_versions: '3e60d8dc76da322fb9e34dddb82ac1e43ae1c59f795e3dd4081929907265b9f1', b08_executions: '7107eebf0fd2b0fad80b079aaa7083543fc8f3c78032122e71af204d16cf30bc', b08_attempts: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b05_provider_invoices: '01cffd18f2f5a43e9a1eb67ca0fdfe6b2104292a5a3b578461982a1329fb470f', b05_own_economies: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', b06_joint_closures: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+waiting for server to shut down.... done
+server stopped
