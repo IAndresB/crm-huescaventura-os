@@ -1,0 +1,31 @@
+{
+  "time": "2026-10-25T22:10:13.410028+00:00",
+  "task": "H6-002",
+  "base": "0cd5f06d2efec9741906d4927318734451b01d4a",
+  "assignments": [
+    "| **SPEC-FR-ACC-004** — [spec.md](spec.md), § 10.5. Acceptance | [TSK-H2-007] | [TSK-H2-008], [TSK-H6-002] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+    "| **SPEC-FR-BOOK-002** — [spec.md](spec.md), § 10.6. Conversión y Booking | [TSK-H2-009] | [TSK-H2-010], [TSK-H6-002] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+    "| **AC-075** — [spec.md](spec.md), § 24.4. Controles técnicos y fronteras | [TSK-H2-007], [TSK-H1-013], [TSK-H5-011] | [TSK-H2-008], [TSK-H5-012], [TSK-H6-002] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+    "| **E2E-02** — [spec.md](spec.md), § 9. Core End-to-End Scenarios | [TSK-H2-003], [TSK-H2-007], [TSK-H2-009] | [TSK-H6-002] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+    "| **D018** — [DECISIONS.md](../../docs/DECISIONS.md), § D018 — Aceptación parcial, reserva directa y unidad del expediente V1 | [TSK-H2-007], [TSK-H2-009] | [TSK-H2-008], [TSK-H2-010], [TSK-H6-002] | Selección explícita o nueva versión; cadena directa real; una Booking por Opportunity. |"
+  ],
+  "sources": {
+    "specs/001-core-crm/tasks.md": "abebce062faa0f103bf98940b6f903bcbecd96db17828e76eb8eeb4e0b9d0b8b",
+    "specs/001-core-crm/spec.md": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747",
+    "specs/001-core-crm/plan.md": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e",
+    "docs/architecture.md": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117",
+    "docs/DECISIONS.md": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe",
+    "specs/001-core-crm/closure-TSK-H5-019.md": "60e68b49caf707c9592f3fd3a92967d2f72fc079cc3377323aa782375954d4bd",
+    "specs/001-core-crm/acceptance-TSK-H5-019.md": "a89e492241bb5ddc5c1cde95ba5f62831877caf00566c0835a73eeb67b77a63a"
+  },
+  "expected": {
+    "AC-014": "Direct phone agreement preserves Opportunity/Proposal/version/terms/real acceptance; no Lead or fake send. Missing acceptance prepares only, zero accepted Booking.",
+    "AC-015": "Equivalent retry after lost response and two-session concurrent requests produce one Booking per Opportunity; changed material same operation conflicts.",
+    "AC-016": "Verified Acceptance without money/provider permits won and Pending preparation only, no implicit payment/reconciliation/confirmation.",
+    "AC-075": "Human reviewed error links immutable original, recorded/act moments and identity, terms/version, reason and dependent reevaluation; no bank/provider reversal.",
+    "D018": "Partial only expressly selectable, else new version; one Booking N services; no split/merge.",
+    "V-AT": "T01/T02/T03 late failure rollback, original facts invariant, response lost replay authorized; both lock orders.",
+    "V-DAT": "Real runtime SQL role no BYPASSRLS; forged/unmapped/disabled identity rejected and reauthorization on replay."
+  },
+  "scope": "synthetic application contracts + own PostgreSQL 61300, 68 migrations; no real Auth/Storage required for E2E02; no H6-015 runtime"
+}

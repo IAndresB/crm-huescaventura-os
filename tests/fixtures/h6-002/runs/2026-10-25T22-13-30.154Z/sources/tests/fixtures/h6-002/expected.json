@@ -1,0 +1,50 @@
+{
+  "task": "TSK-H6-002",
+  "frozenBeforeExecution": true,
+  "assignments": [
+    "SPEC-FR-ACC-004",
+    "SPEC-FR-BOOK-002",
+    "AC-075",
+    "E2E-02",
+    "D018"
+  ],
+  "sources": [
+    {
+      "path": "specs/001-core-crm/tasks.md",
+      "sha256": "abebce062faa0f103bf98940b6f903bcbecd96db17828e76eb8eeb4e0b9d0b8b"
+    },
+    {
+      "path": "specs/001-core-crm/spec.md",
+      "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+    },
+    {
+      "path": "specs/001-core-crm/plan.md",
+      "sha256": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "sha256": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe"
+    },
+    {
+      "path": "docs/state-machines.md",
+      "sha256": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240"
+    },
+    {
+      "path": "docs/constitution.md",
+      "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+    },
+    {
+      "path": "specs/001-core-crm/acceptance-TSK-H5-019.md",
+      "sha256": "a89e492241bb5ddc5c1cde95ba5f62831877caf00566c0835a73eeb67b77a63a"
+    }
+  ],
+  "positive": "Opportunity directa real + Proposal fijada/condiciones + evidencia llamada/identidad + Acceptance registrada/verificada + Booking pendiente; sin Lead o envío ficticio; reutilización; cadena/snapshot e historia exactos",
+  "negative": "Sin Acceptance suficiente, sin contexto, actor inhabilitado, contexto falsificado, rol ordinario, cruce ámbito o detalle inválido no crean Booking; no pago/confirmación por Ganada; inmutabilidad; split/merge rechazados",
+  "atomicity": "T01/T02/T03: ningún efecto ante fallo tardío; reintento después rollback crea una; respuesta perdida/repetición conserva resultado; misma clave contenido material distinto conflicto; carreras ambas órdenes una Booking por Opportunity",
+  "rectification": "Error atribución acreditado/revisión humana enlaza original/motivo/reevaluación; conserva timestamps/registrador/aceptante/versión/términos y Booking histórica; no revierte banco/proveedor; cambio opinión no sustituye error",
+  "limits": "Local/sintético únicamente; no H6-003 ni H6-015 runtime; DM-PENDING-005 OPEN; H6 IN PROGRESS"
+}

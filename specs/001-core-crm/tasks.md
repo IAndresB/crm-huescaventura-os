@@ -1,5 +1,18 @@
 # Tasks — SPEC 001 Core CRM
 
+<!-- H6-002-LOCAL-CLOSURE-BEGIN -->
+## Estado vigente H6-002 — COMPLETED local/aislado
+
+Corte `2026-10-25T23:19:41.350262+01:00`. **TSK-H6-002 COMPLETED exclusivamente local/aislado; H6 global IN PROGRESS.** Cinco asignaciones acreditadas, focal14/14, regresión128/128 en rondas conservadas, unitarias212/212 ytypecheck/lint/build/formatoPASS. Dictamen propio14/14PASS,0materiales ycustodia técnica159payloads sellada/leída. Acta `specs/001-core-crm/acceptance-TSK-H6-002-local.md`;matrizaceptada yclosure del mismoexpediente. Manifiesto técnico `f74934d1b22cfbb1648273439ba8dc0b5f3732ea534adf9e93c2f63adf6adf10`.
+
+ErrataAUD002-D01 cerrada por localizadoresH2008R26–R29/R59 en sucesor;original intacto. FAILinstrumentales/oráculos ysucesores conservados;no corrida conjunta142/142limpia supuesta. Independencia técnicaagentesmismomodelo,no humanaexterna.
+
+H0–H5,H6-001/004/007/008/016/017 y68migraciones íntegros. H6-015cuarentena16manifiestos/4568entradas y4trabajos suspendidos,sin runtimeSQLS11reentrada. Sin cambios producto/T03/normativaseguridad,nidatoscredenciales reales/efectos/conectores,Hosted/Production,staging/commit/push/merge/Drive/deploy.
+
+Variante aislada/parche noaplicados,no publicación. Bloquesinferiores conservan cronología;la ficha antiguaH6-002NOT STARTED queda supersedida solo localmente por estecierre. No incorporaH6-005 ni modificaelcandidatoH6-017. H6-003 no iniciada;recomendación deentrada trasestabilizarT03,no dependencia normativa nueva. H6global IN PROGRESS.
+<!-- H6-002-LOCAL-CLOSURE-END -->
+
+
 <!-- H6-017-LOCAL-CLOSURE-BEGIN -->
 ## Estado vigente H6-017 — cierre exclusivamente local/aislado
 
