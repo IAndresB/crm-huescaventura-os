@@ -1,0 +1,9 @@
+import {spawnSync} from 'node:child_process';
+import {mkdir,writeFile,readFile,copyFile} from 'node:fs/promises';
+import {resolve,join} from 'node:path';
+import {createHash} from 'node:crypto';
+const root=resolve(import.meta.dirname,'..'),out=resolve(root,'tests/fixtures/h6-005/runs',new Date().toISOString().replaceAll(':','-'));await mkdir(out,{recursive:true});
+const files=process.argv.slice(2);if(!files.length)files.push('postgres-h6-005-integrated.test.ts');if(files.some(x=>!x.startsWith('h6005-')&&x!=='postgres-h6-005-integrated.test.ts'))throw Error('ALLOWLIST_REQUIRED');
+for(const path of ['scripts/test-h6-005.mjs','scripts/test-h6-005-runtime.mjs','tests/fixtures/h6-005/expected-v1.json',...files.map(x=>'tests/integration/'+x)]){const target=join(out,'instruments',path);await mkdir(resolve(target,'..'),{recursive:true});await copyFile(join(root,path),target);}
+const env={PATH:'/Users/andres/.openclaw/bin:/usr/bin:/bin:/usr/sbin:/sbin',HOME:process.env.HOME,TMPDIR:'/tmp/h6005-runtime',LANG:'C',POSTGRES_H0_BIN:'/Users/andres/Applications/Postgres.app/Contents/Versions/17/bin',H6005_OUTPUT:out,H4014_CAPTURE_DIR:out};
+const r=spawnSync(process.execPath,['scripts/test-h6-005-runtime.mjs',...files],{cwd:root,env,encoding:'utf8',maxBuffer:200*1024*1024});await writeFile(join(out,'stdout.log'),r.stdout??'');await writeFile(join(out,'stderr.log'),r.stderr??'');await writeFile(join(out,'result.json'),JSON.stringify({task:'TSK-H6-005',files,status:r.status,signal:r.signal,error:r.error?.message??null,expectedSha256:createHash('sha256').update(await readFile('tests/fixtures/h6-005/expected-v1.json')).digest('hex'),syntheticOnly:true,ports:{core:61200,storage:[61201,61202,61203]},environmentWhitelist:Object.keys(env)},null,2)+'\n');console.log(JSON.stringify({out,status:r.status}));process.stdout.write(r.stdout??'');process.stderr.write(r.stderr??'');process.exitCode=r.status??1;

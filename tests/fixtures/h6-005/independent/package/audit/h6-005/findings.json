@@ -1,0 +1,38 @@
+[
+  {
+    "id": "AUD005-I01",
+    "type": "instrument",
+    "status": "CLOSED",
+    "original": "attempt-01 6PASS2FAIL; attempt-02 7PASS1FAIL",
+    "cause": "typed wrong margin API, invalid Tarari input shape; exceptional actual supplier payment intentionally lacks planned approval and correctly remains Review",
+    "correction": "use existing totals/profit API and three approved kind entries; normal positive path now records approved exact schedule and asserts paid0 before actual fact; no product/oracle change",
+    "successor": "attempt-06 11/11PASS"
+  },
+  {
+    "id": "AUD005-I02",
+    "type": "instrument",
+    "status": "CLOSED",
+    "original": "verify-candidate-v1-fail.py assertion",
+    "cause": "derivative had additional direct J14 import to published G chronology; first verifier expected only shared refund import",
+    "correction": "explicitly permit both exact published fixture imports and exclusive port replacements; compare all other bytes unchanged",
+    "successor": "candidate-readback.json PASS; original assertions byte preserved"
+  },
+  {
+    "id": "AUD005-I03",
+    "type": "instrument",
+    "status": "CLOSED",
+    "original": "typecheck-v1-fail.stdout.log 3TypeScript errors",
+    "cause": "readonly fixture construction and unknown byPurpose record typed access",
+    "correction": "test-only type annotations; no expected/outcome changed",
+    "successor": "typecheck.stdout.log PASS and attempt06 11/11PASS"
+  },
+  {
+    "id": "AUD005-I04",
+    "type": "preparation",
+    "status": "CLOSED",
+    "original": "tool command /Users/andres/.openclaw/bin/python3 exited127",
+    "cause": "Python not present at Node toolchain location",
+    "correction": "use available python3; runner source unchanged; no tests attributed to failed launch",
+    "successor": "attempt01 process ran, subsequent own logs retained"
+  }
+]

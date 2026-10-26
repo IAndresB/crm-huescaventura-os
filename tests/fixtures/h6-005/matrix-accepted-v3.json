@@ -1,0 +1,477 @@
+{
+  "assignmentCount": 1,
+  "expandedAcceptanceCount": 13,
+  "rows": [
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-023",
+      "normativeLiteral": "| AC-023 | Reserva a 10 días con crítico confirmado y 50 % debido verificado/asignado; casos alternativos: crítico pendiente, justificante sin verificar o reserva a 6 días con solo 50 %. | Primer caso satisface guarda de cobro inicial; alternativos no confirman conjunto. A 6 días exige 100 % salvo excepción económica documentada, que nunca dispensa crítico/capacidad. | SPEC-FR-BOOK-004, SPEC-FR-ECON-001–002. |",
+      "positive": "10days+critical+assigned500 confirms;6days+1000 confirms",
+      "negative": "missing critical,proposed only,6days500 never confirm",
+      "preconditions": "Booking preparation with exact critical classification/civil date/obligation",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C03",
+      "expected": {
+        "positive": "10days+critical+assigned500 confirms;6days+1000 confirms",
+        "negative": "missing critical,proposed only,6days500 never confirm"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-023",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-023 | Reserva a 10 días con crítico confirmado y 50 % debido verificado/asignado; casos alternativos: crítico pendiente, justificante sin verificar o reserva a 6 días con solo 50 %. | Primer caso satisface guarda de cobro inicial; alternativos no confirman conjunto. A 6 días exige 100 % salvo excepción económica documentada, que nunca dispensa crítico/capacidad. | SPEC-FR-BOOK-004, SPEC-FR-ECON-001–002. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A10-7-true-500.00",
+          "A10-6-true-500.00",
+          "A10-6-true-1000.00",
+          "A10-6-false-1000.00"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-025",
+      "normativeLiteral": "| AC-025 | Expected Payment de 500 sin entrada y luego aviso de transferencia. | Previsión no crea dinero; aviso crea detección sin recepción/conciliación verificadas ni pago de reserva. | SPEC-FR-ECON-001/003. |",
+      "positive": "detected500 retained as observation;received500 separately verified",
+      "negative": "Expected Payment and detection create no real funds",
+      "preconditions": "ExpectedPayment determined;source movement identity",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C01",
+      "expected": {
+        "positive": "detected500 retained as observation;received500 separately verified",
+        "negative": "Expected Payment and detection create no real funds"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-025",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-025 | Expected Payment de 500 sin entrada y luego aviso de transferencia. | Previsión no crea dinero; aviso crea detección sin recepción/conciliación verificadas ni pago de reserva. | SPEC-FR-ECON-001/003. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A01"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-026",
+      "normativeLiteral": "| AC-026 | Transferencia recibida verificada pero destino dudoso; después solo 200 de 500 quedan comprobados. | Recepción separada de conciliación; propuesta requiere revisión humana, 300 siguen pendientes y no se usa su porción para acreditar obligación. | SPEC-FR-ECON-004–005. |",
+      "positive": "receive500 then reviewed verified200;300 remain unreconciled",
+      "negative": "proposed/doubt unverified cannot fund obligation",
+      "preconditions": "CustomerPayment and correspondence distinct revisions",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C01",
+      "expected": {
+        "positive": "receive500 then reviewed verified200;300 remain unreconciled",
+        "negative": "proposed/doubt unverified cannot fund obligation"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-026",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-026 | Transferencia recibida verificada pero destino dudoso; después solo 200 de 500 quedan comprobados. | Recepción separada de conciliación; propuesta requiere revisión humana, 300 siguen pendientes y no se usa su porción para acreditar obligación. | SPEC-FR-ECON-004–005. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A01"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-027",
+      "normativeLiteral": "| AC-027 | Fondos comprobados disponibles 100; dos operaciones intentan consumir 80 cada una, incluyendo caso asignación frente a Refund. | No se aplican ambas por 160; tras primer efecto, segundo detecta insuficiencia/conflicto y reevalúa. Misma porción no financia dos efectos. | SPEC-FR-ECON-005/007, SPEC-FR-CONC-002. |",
+      "positive": "one80 assignment of100 persists",
+      "negative": "second80 rejected;allocation/Refund/provider shared root races",
+      "preconditions": "verified100;independent operations/transactions",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C04;h6005-regression-postgres-h4-019.test.ts",
+      "expected": {
+        "positive": "one80 assignment of100 persists",
+        "negative": "second80 rejected;allocation/Refund/provider shared root races"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-027",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-027 | Fondos comprobados disponibles 100; dos operaciones intentan consumir 80 cada una, incluyendo caso asignación frente a Refund. | No se aplican ambas por 160; tras primer efecto, segundo detecta insuficiencia/conflicto y reevalúa. Misma porción no financia dos efectos. | SPEC-FR-ECON-005/007, SPEC-FR-CONC-002. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A09-0,1",
+          "A09-1,0"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-028",
+      "normativeLiteral": "| AC-028 | Aviso duplicado de una transferencia y otra transferencia real con mismo importe/fecha; un vencimiento se cubre con pagos parciales. | Duplicado no suma; segunda transferencia real se conserva; parciales muestran saldo, sin convertir toda Booking en pagada ni forzar asignación de excedente. | SPEC-FR-ECON-003–006, SPEC-FR-IDEMP-003. |",
+      "positive": "distinct transfer identity same500 remains;partial obligation balances persist",
+      "negative": "duplicate/replay cannot sum nor force excess allocation",
+      "preconditions": "stable bankidentity;verified portions;separate destination",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C01;h6005-regression-postgres-h3-004.test.ts;h6005-regression-postgres-h3-006.test.ts",
+      "expected": {
+        "positive": "distinct transfer identity same500 remains;partial obligation balances persist",
+        "negative": "duplicate/replay cannot sum nor force excess allocation"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-028",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-028 | Aviso duplicado de una transferencia y otra transferencia real con mismo importe/fecha; un vencimiento se cubre con pagos parciales. | Duplicado no suma; segunda transferencia real se conserva; parciales muestran saldo, sin convertir toda Booking en pagada ni forzar asignación de excedente. | SPEC-FR-ECON-003–006, SPEC-FR-IDEMP-003. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A01",
+          "regression39-independent.json"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-035",
+      "normativeLiteral": "| AC-035 | Refund debida/autorizada por 200; solo hay salida acreditada de 80; se cierra Incident o cliente retira solicitud. | Devuelto 80 y resto debido/autorizado pendiente, con medio normalmente igual al del cobro; ninguna acción acredita 200 ejecutados ni extingue obligación real; conservar cobro bruto y ajustes. | SPEC-FR-ECON-006–007. |",
+      "positive": "right200 authorized then actual80 keeps120 pending",
+      "negative": "withdrawal/replay/closure cannot manufacture200 executed",
+      "preconditions": "verified receipt;D019right;exact approval;movement",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C05",
+      "expected": {
+        "positive": "right200 authorized then actual80 keeps120 pending",
+        "negative": "withdrawal/replay/closure cannot manufacture200 executed"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-035",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-035 | Refund debida/autorizada por 200; solo hay salida acreditada de 80; se cierra Incident o cliente retira solicitud. | Devuelto 80 y resto debido/autorizado pendiente, con medio normalmente igual al del cobro; ninguna acción acredita 200 ejecutados ni extingue obligación real; conservar cobro bruto y ajustes. | SPEC-FR-ECON-006–007. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A06"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-036",
+      "normativeLiteral": "| AC-036 | Fianza 100 entregada al proveedor; retención acreditada 20 y devolución restante no ejecutada. | Custodia real identificada; no anticipo, quedan 80 por devolver y cierre económico pendiente; Refund enlazada no duplica movimiento. Fianza desconocida no se convierte en cero. | SPEC-FR-ECON-008. |",
+      "positive": "provider custody100 retained20 return80 only fact;canonicalRefund80",
+      "negative": "return pending economic closure;shared representation no duplicate;unknown notzero",
+      "preconditions": "Deposit applies to named service and actual custody",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C06;h6005-regression-postgres-h4-019.test.ts",
+      "expected": {
+        "positive": "provider custody100 retained20 return80 only fact;canonicalRefund80",
+        "negative": "return pending economic closure;shared representation no duplicate;unknown notzero"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-036",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-036 | Fianza 100 entregada al proveedor; retención acreditada 20 y devolución restante no ejecutada. | Custodia real identificada; no anticipo, quedan 80 por devolver y cierre económico pendiente; Refund enlazada no duplica movimiento. Fianza desconocida no se convierte en cero. | SPEC-FR-ECON-008. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A07",
+          "regression39-independent.json"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-044",
+      "normativeLiteral": "| AC-044 | Cliente aporta fondos para externo y honorarios; se asigna parte al suplido, otra a Fee. | Gestión externa, factura al cliente, pago y remuneración propia separados; asignación no acredita salida ni convierte total gestionado en ingreso/coste propio; mandato ausente no aceptado. | SPEC-FR-ECON-005/009/013, SPEC-FR-ACC-005. |",
+      "positive": "managed500 and fee100 separate;own100cost20 profit80",
+      "negative": "fee allocation not managed;no mandate inferred nor own500",
+      "preconditions": "continuous sameBooking receipt700 verified,external provider/client/service",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C02;h6005-regression-postgres-h3-010.test.ts",
+      "expected": {
+        "positive": "managed500 and fee100 separate;own100cost20 profit80",
+        "negative": "fee allocation not managed;no mandate inferred nor own500"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-044",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-044 | Cliente aporta fondos para externo y honorarios; se asigna parte al suplido, otra a Fee. | Gestión externa, factura al cliente, pago y remuneración propia separados; asignación no acredita salida ni convierte total gestionado en ingreso/coste propio; mandato ausente no aceptado. | SPEC-FR-ECON-005/009/013, SPEC-FR-ACC-005. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A02",
+          "A05"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-045",
+      "normativeLiteral": "| AC-045 | Factura externa recibida y pago programado; en otro caso factura corresponde a cliente/importe diferente. | Recibida no significa Revisada/Vinculada ni Pagado; diferencia queda en incidencia/revisión sin ajustar importes para cuadrar. | SPEC-FR-ECON-010–011. |",
+      "positive": "original received,reviewed,linked correct client500 separate from payment",
+      "negative": "client/amount differences Incidencia,link rejected;programmed never paid",
+      "preconditions": "external invoice original private object and applicable evidence",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C02;C10",
+      "expected": {
+        "positive": "original received,reviewed,linked correct client500 separate from payment",
+        "negative": "client/amount differences Incidencia,link rejected;programmed never paid"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-045",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-045 | Factura externa recibida y pago programado; en otro caso factura corresponde a cliente/importe diferente. | Recibida no significa Revisada/Vinculada ni Pagado; diferencia queda en incidencia/revisión sin ajustar importes para cuadrar. | SPEC-FR-ECON-010–011. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A02",
+          "A03-recipientId",
+          "A03-amount"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-046",
+      "normativeLiteral": "| AC-046 | Pago al proveedor acreditado sin factura; luego llega documento correcto, se revisa/vincula y concilia. | Primero registra pago real y alerta/cierre documental pendiente; después puede resolver suplido con sus evidencias, sin cerrar Booking por inferencia. Nueva discrepancia reabre evaluación. | SPEC-FR-ECON-009–011, SPEC-FR-CLOSE-002/004. |",
+      "positive": "actual500paid beforeinvoice stayspending;laterreviewedlinked resolves suplido",
+      "negative": "newdiscrepancy reopensreview;suplidoresolution neverclosesBooking",
+      "preconditions": "sameBooking/client/provider/service;T07movement;B07original",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C02",
+      "expected": {
+        "positive": "actual500paid beforeinvoice stayspending;laterreviewedlinked resolves suplido",
+        "negative": "newdiscrepancy reopensreview;suplidoresolution neverclosesBooking"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-046",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-046 | Pago al proveedor acreditado sin factura; luego llega documento correcto, se revisa/vincula y concilia. | Primero registra pago real y alerta/cierre documental pendiente; después puede resolver suplido con sus evidencias, sin cerrar Booking por inferencia. Nueva discrepancia reabre evaluación. | SPEC-FR-ECON-009–011, SPEC-FR-CLOSE-002/004. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A02",
+          "A04"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-047",
+      "normativeLiteral": "| AC-047 | Se recalcula con versiones conservadas de cantidades, tarifas, descuentos, Fee y costes; coste real de una parte desconocido. | Resultado reproducible: honorarios propios menos costes propios atribuibles, con previsto/confirmado/real diferenciados; no rentabilidad definitiva de alcance incierto ni modificación histórica silenciosa. | SPEC-FR-ECON-013, SPEC-FR-HIST-002. |",
+      "positive": "own fee100-cost20=80 reproducible with versions",
+      "negative": "unknown actual cost remainsnull;history cannot silentlychange",
+      "preconditions": "approved rules/catalogue versions with separate expected/confirmed/real",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C02;C07;h6005-regression-postgres-h3-014.test.ts",
+      "expected": {
+        "positive": "own fee100-cost20=80 reproducible with versions",
+        "negative": "unknown actual cost remainsnull;history cannot silentlychange"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-047",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-047 | Se recalcula con versiones conservadas de cantidades, tarifas, descuentos, Fee y costes; coste real de una parte desconocido. | Resultado reproducible: honorarios propios menos costes propios atribuibles, con previsto/confirmado/real diferenciados; no rentabilidad definitiva de alcance incierto ni modificación histórica silenciosa. | SPEC-FR-ECON-013, SPEC-FR-HIST-002. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A05"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-048",
+      "normativeLiteral": "| AC-048 | Se usan conjunto Tararí de 2 copas y extras de 25/50 según datos aprobados. | Conjunto 15 comercial/3,80 coste, extras 175/325 comerciales separados; sin extrapolar coste de extras, factura interna, Provider o Suplido ficticios. | SPEC-FR-ECON-014, SPEC-FR-SVC-009. |",
+      "positive": "internal2drinks15/3.80expected;extras25=175/50=325commercial",
+      "negative": "extra costsunknown;internalProvider/Suplido/invoice denied",
+      "preconditions": "internalservice exactapprovedTarari constants",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C07;C10",
+      "expected": {
+        "positive": "internal2drinks15/3.80expected;extras25=175/50=325commercial",
+        "negative": "extra costsunknown;internalProvider/Suplido/invoice denied"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-048",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-048 | Se usan conjunto Tararí de 2 copas y extras de 25/50 según datos aprobados. | Conjunto 15 comercial/3,80 coste, extras 175/325 comerciales separados; sin extrapolar coste de extras, factura interna, Provider o Suplido ficticios. | SPEC-FR-ECON-014, SPEC-FR-SVC-009. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A05",
+          "A03-recipientId"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    },
+    {
+      "assignment": "E2E-05",
+      "acceptance": "AC-049",
+      "normativeLiteral": "| AC-049 | Tarifa/coste tienen unidad y tratamiento IVA explícitos; otro coste no tiene tipo fiscal verificado. | EUR y 2 decimales visibles/cobrados, componentes conservados; no se inventa tipo del segundo ni se redondea comercialmente un pack de forma automática. | SPEC-FR-CAT-002/004, SPEC-FR-ECON-014. |",
+      "positive": "EUR2decimals preserved,component/version/history trace",
+      "negative": "unknown VAT/tax not invented;no automatic pack rounding/fiscalvalidity",
+      "preconditions": "explicit unit/pricing versions;exactmoney;P16",
+      "actor": "fictitious authorized sole Administrator with independent synthetic F1/F2/session;alien actor negatives",
+      "scope": "own isolated admin scope/Booking/service/payment portions;crossscope denied",
+      "syntheticData": "SYNTHETIC fixtures;no realclient,bank,payment or fiscaldocument",
+      "actionInstrument": "C07;h6005-regression-postgres-h3-014.test.ts",
+      "expected": {
+        "positive": "EUR2decimals preserved,component/version/history trace",
+        "negative": "unknown VAT/tax not invented;no automatic pack rounding/fiscalvalidity"
+      },
+      "observed": "runs/2026-10-25T22-15-03.829Z/observed.json;regression-selection-successor-v2.json and original/successor TAP",
+      "instrument": "tests/integration/postgres-h6-005-integrated.test.ts;port-only directed regression derivatives",
+      "independentProof": {
+        "assignment": "E2E-05",
+        "AC": "AC-049",
+        "source": "specs/001-core-crm/spec.md §9,§24.2; tasks.md fichaH6-005,§2.2,§6",
+        "normativeRow": "| AC-049 | Tarifa/coste tienen unidad y tratamiento IVA explícitos; otro coste no tiene tipo fiscal verificado. | EUR y 2 decimales visibles/cobrados, componentes conservados; no se inventa tipo del segundo ni se redondea comercialmente un pack de forma automática. | SPEC-FR-CAT-002/004, SPEC-FR-ECON-014. |",
+        "preconditions": "synthetic authenticated sole Administrator mapping; full68 published migrations; separate PG61403 and Storage61400–02",
+        "actorScope": "independent_h6005-synthetic; fictitious clients/providers/Bookings; alien subject/session negative",
+        "instrument": "tests/integration/audit-h6005-original.test.ts",
+        "observations": [
+          "A05"
+        ],
+        "observedFile": "runs/attempt-06/observed.json",
+        "status": "PASS",
+        "additionalRequiredImplementationEvidence": "403-file technical candidate rehashed and independently read; no H6-002/H6-017 functional substitution"
+      },
+      "functionalStatus": "PASS_LOCAL_ISOLATED",
+      "independentVerdict": "independent/package/audit/h6-005/verdict.json"
+    }
+  ],
+  "status": "PASS_LOCAL_ISOLATED",
+  "acceptedAt": "2026-10-25T22:24:59.447927+00:00",
+  "candidateManifestSHA256": "7fc5d0f1447a00ba9568586b7d54dea7691fef8bfa17813c69714fcd730363ed",
+  "independentManifestSHA256": "4c90a631e2a6cc1886c07ebfa4f238b1da39edbdbf4c7c282db092e094d1f0b8",
+  "independentOriginalTests": 11
+}

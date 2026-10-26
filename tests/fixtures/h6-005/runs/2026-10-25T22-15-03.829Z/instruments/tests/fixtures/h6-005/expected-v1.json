@@ -1,0 +1,99 @@
+{
+  "task": "TSK-H6-005",
+  "frozenBeforeExecution": "2026-10-25T22:10:04.658241+00:00",
+  "base": "0cd5f06d2efec9741906d4927318734451b01d4a",
+  "assignment": "Tasks §6 E2E-05",
+  "formalDependencies": [
+    "TSK-H5-019"
+  ],
+  "contracts": [
+    "T05",
+    "T07",
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06"
+  ],
+  "acceptance": [
+    {
+      "id": "AC-023",
+      "literal": "| AC-023 | Reserva a 10 días con crítico confirmado y 50 % debido verificado/asignado; casos alternativos: crítico pendiente, justificante sin verificar o reserva a 6 días con solo 50 %. | Primer caso satisface guarda de cobro inicial; alternativos no confirman conjunto. A 6 días exige 100 % salvo excepción económica documentada, que nunca dispensa crítico/capacidad. | SPEC-FR-BOOK-004, SPEC-FR-ECON-001–002. |"
+    },
+    {
+      "id": "AC-025",
+      "literal": "| AC-025 | Expected Payment de 500 sin entrada y luego aviso de transferencia. | Previsión no crea dinero; aviso crea detección sin recepción/conciliación verificadas ni pago de reserva. | SPEC-FR-ECON-001/003. |"
+    },
+    {
+      "id": "AC-026",
+      "literal": "| AC-026 | Transferencia recibida verificada pero destino dudoso; después solo 200 de 500 quedan comprobados. | Recepción separada de conciliación; propuesta requiere revisión humana, 300 siguen pendientes y no se usa su porción para acreditar obligación. | SPEC-FR-ECON-004–005. |"
+    },
+    {
+      "id": "AC-027",
+      "literal": "| AC-027 | Fondos comprobados disponibles 100; dos operaciones intentan consumir 80 cada una, incluyendo caso asignación frente a Refund. | No se aplican ambas por 160; tras primer efecto, segundo detecta insuficiencia/conflicto y reevalúa. Misma porción no financia dos efectos. | SPEC-FR-ECON-005/007, SPEC-FR-CONC-002. |"
+    },
+    {
+      "id": "AC-028",
+      "literal": "| AC-028 | Aviso duplicado de una transferencia y otra transferencia real con mismo importe/fecha; un vencimiento se cubre con pagos parciales. | Duplicado no suma; segunda transferencia real se conserva; parciales muestran saldo, sin convertir toda Booking en pagada ni forzar asignación de excedente. | SPEC-FR-ECON-003–006, SPEC-FR-IDEMP-003. |"
+    },
+    {
+      "id": "AC-035",
+      "literal": "| AC-035 | Refund debida/autorizada por 200; solo hay salida acreditada de 80; se cierra Incident o cliente retira solicitud. | Devuelto 80 y resto debido/autorizado pendiente, con medio normalmente igual al del cobro; ninguna acción acredita 200 ejecutados ni extingue obligación real; conservar cobro bruto y ajustes. | SPEC-FR-ECON-006–007. |"
+    },
+    {
+      "id": "AC-036",
+      "literal": "| AC-036 | Fianza 100 entregada al proveedor; retención acreditada 20 y devolución restante no ejecutada. | Custodia real identificada; no anticipo, quedan 80 por devolver y cierre económico pendiente; Refund enlazada no duplica movimiento. Fianza desconocida no se convierte en cero. | SPEC-FR-ECON-008. |"
+    },
+    {
+      "id": "AC-044",
+      "literal": "| AC-044 | Cliente aporta fondos para externo y honorarios; se asigna parte al suplido, otra a Fee. | Gestión externa, factura al cliente, pago y remuneración propia separados; asignación no acredita salida ni convierte total gestionado en ingreso/coste propio; mandato ausente no aceptado. | SPEC-FR-ECON-005/009/013, SPEC-FR-ACC-005. |"
+    },
+    {
+      "id": "AC-045",
+      "literal": "| AC-045 | Factura externa recibida y pago programado; en otro caso factura corresponde a cliente/importe diferente. | Recibida no significa Revisada/Vinculada ni Pagado; diferencia queda en incidencia/revisión sin ajustar importes para cuadrar. | SPEC-FR-ECON-010–011. |"
+    },
+    {
+      "id": "AC-046",
+      "literal": "| AC-046 | Pago al proveedor acreditado sin factura; luego llega documento correcto, se revisa/vincula y concilia. | Primero registra pago real y alerta/cierre documental pendiente; después puede resolver suplido con sus evidencias, sin cerrar Booking por inferencia. Nueva discrepancia reabre evaluación. | SPEC-FR-ECON-009–011, SPEC-FR-CLOSE-002/004. |"
+    },
+    {
+      "id": "AC-047",
+      "literal": "| AC-047 | Se recalcula con versiones conservadas de cantidades, tarifas, descuentos, Fee y costes; coste real de una parte desconocido. | Resultado reproducible: honorarios propios menos costes propios atribuibles, con previsto/confirmado/real diferenciados; no rentabilidad definitiva de alcance incierto ni modificación histórica silenciosa. | SPEC-FR-ECON-013, SPEC-FR-HIST-002. |"
+    },
+    {
+      "id": "AC-048",
+      "literal": "| AC-048 | Se usan conjunto Tararí de 2 copas y extras de 25/50 según datos aprobados. | Conjunto 15 comercial/3,80 coste, extras 175/325 comerciales separados; sin extrapolar coste de extras, factura interna, Provider o Suplido ficticios. | SPEC-FR-ECON-014, SPEC-FR-SVC-009. |"
+    },
+    {
+      "id": "AC-049",
+      "literal": "| AC-049 | Tarifa/coste tienen unidad y tratamiento IVA explícitos; otro coste no tiene tipo fiscal verificado. | EUR y 2 decimales visibles/cobrados, componentes conservados; no se inventa tipo del segundo ni se redondea comercialmente un pack de forma automática. | SPEC-FR-CAT-002/004, SPEC-FR-ECON-014. |"
+    }
+  ],
+  "sources": {
+    "specs/001-core-crm/tasks.md": "abebce062faa0f103bf98940b6f903bcbecd96db17828e76eb8eeb4e0b9d0b8b",
+    "specs/001-core-crm/spec.md": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747",
+    "specs/001-core-crm/plan.md": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e",
+    "docs/architecture.md": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117",
+    "docs/DECISIONS.md": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe",
+    "docs/constitution.md": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a",
+    "docs/business-rules.md": "ab2504153a32ef9abfaec45efa5ee6846fc9ebcd8b5c244877d0d633ebfcbc07",
+    "docs/domain-model.md": "f9fafbb715ca57ef843d673af3a475847b4bcae6c37c0469552430c2a8558ddf",
+    "docs/state-machines.md": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240",
+    "specs/001-core-crm/closure-TSK-H5-019.md": "60e68b49caf707c9592f3fd3a92967d2f72fc079cc3377323aa782375954d4bd",
+    "specs/001-core-crm/acceptance-TSK-H5-019.md": "a89e492241bb5ddc5c1cde95ba5f62831877caf00566c0835a73eeb67b77a63a"
+  },
+  "expected": [
+    "Expected Payment/detection never creates received/verified funds",
+    "Receipt and verified correspondence separate; only verified portions assignable",
+    "No 80+80 over 100 and no shared allocation/Refund consumption",
+    "Distinct transfer identity preserved; duplicate no new funds; partial balances",
+    "Provider payment500 before invoice leaves documentary pending; correct reviewed linked client invoice resolves suplido only",
+    "Funds purpose managed500 and fee100 separate; no mandate inferred",
+    "Own fees100-cost20=80 independently of500 managed; unknown real cost profit null",
+    "Tarari2drinks15 commercial3.80 expected cost;25=175;50=325; no fake provider/suplido/invoice or extras cost",
+    "Deposit100 provider custody,retained20,return80 unresolved until fact; Refund representation no duplicate",
+    "Permissions/scope/evidence deny; immutable actor history; atomic injected failure and durable lost response replay",
+    "P16 no fiscal issuance/numbering; unknown VAT/tax stays unknown; no invented mandate"
+  ]
+}

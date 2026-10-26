@@ -1,0 +1,74 @@
+2026-10-25 23:21:52.389 CET [30768] LOG:  starting PostgreSQL 17.11 (Postgres.app) on aarch64-apple-darwin23.6.0, compiled by Apple clang version 15.0.0 (clang-1500.3.9.4), 64-bit
+2026-10-25 23:21:52.390 CET [30768] LOG:  listening on IPv4 address "127.0.0.1", port 61403
+2026-10-25 23:21:52.390 CET [30768] LOG:  listening on Unix socket "/tmp/h65a/run06/crm-independent_h6005-vWRPbt/socket/.s.PGSQL.61403"
+2026-10-25 23:21:52.392 CET [30771] LOG:  database system was shut down at 2026-10-25 23:21:52 CET
+2026-10-25 23:21:52.394 CET [30768] LOG:  database system is ready to accept connections
+2026-10-25 23:21:53.395 CET [30778] ERROR:  ALLOCATION_PORTION_UNVERIFIED
+2026-10-25 23:21:53.395 CET [30778] CONTEXT:  PL/pgSQL function crm_private.fund_assign(jsonb,jsonb,text,uuid,uuid,text,uuid) line 27 at RAISE
+	PL/pgSQL function crm_api.allocation_apply(bytea,bytea,bytea,bytea,bytea) line 45 at assignment
+2026-10-25 23:21:53.395 CET [30778] STATEMENT:  select crm_api.allocation_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:53.593 CET [30778] ERROR:  SUPLIDO_FUNDS_REQUIRED
+2026-10-25 23:21:53.593 CET [30778] CONTEXT:  PL/pgSQL function crm_private.suplido_funds(jsonb,uuid,uuid,text) line 9 at RAISE
+	PL/pgSQL function crm_api.suplido_apply(bytea,bytea,bytea,bytea,bytea) line 77 at assignment
+2026-10-25 23:21:53.593 CET [30778] STATEMENT:  select crm_api.suplido_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:53.617 CET [30783] WARNING:  there is no transaction in progress
+2026-10-25 23:21:53.622 CET [30783] WARNING:  there is no transaction in progress
+2026-10-25 23:21:53.640 CET [30783] WARNING:  there is no transaction in progress
+2026-10-25 23:21:54.074 CET [30778] ERROR:  INVOICE_LINK_REQUIRED
+2026-10-25 23:21:54.074 CET [30778] CONTEXT:  PL/pgSQL function crm_api.invoice_apply(bytea,bytea,bytea,bytea,bytea) line 88 at RAISE
+2026-10-25 23:21:54.074 CET [30778] STATEMENT:  select crm_api.invoice_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:54.191 CET [30778] ERROR:  INVOICE_LINK_REQUIRED
+2026-10-25 23:21:54.191 CET [30778] CONTEXT:  PL/pgSQL function crm_api.invoice_apply(bytea,bytea,bytea,bytea,bytea) line 88 at RAISE
+2026-10-25 23:21:54.191 CET [30778] STATEMENT:  select crm_api.invoice_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:54.248 CET [30778] ERROR:  INVOICE_BASIS_REQUIRED
+2026-10-25 23:21:54.248 CET [30778] CONTEXT:  PL/pgSQL function crm_api.invoice_apply(bytea,bytea,bytea,bytea,bytea) line 30 at RAISE
+2026-10-25 23:21:54.248 CET [30778] STATEMENT:  select crm_api.invoice_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:54.419 CET [30778] ERROR:  AUDIT005_DEFERRED_FAULT
+2026-10-25 23:21:54.419 CET [30778] CONTEXT:  PL/pgSQL function crm_private.audit6005_failure() line 1 at RAISE
+2026-10-25 23:21:54.419 CET [30778] STATEMENT:  commit
+2026-10-25 23:21:54.513 CET [30778] ERROR:  PROVIDER_PAYMENT_REPLAY_CONFLICT:E2
+2026-10-25 23:21:54.513 CET [30778] CONTEXT:  PL/pgSQL function crm_private.provider_payment_core(jsonb,text,uuid,text) line 14 at RAISE
+	PL/pgSQL function crm_api.provider_payment_apply(bytea,bytea,bytea,bytea,bytea) line 6 at assignment
+2026-10-25 23:21:54.513 CET [30778] STATEMENT:  select crm_api.provider_payment_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:54.814 CET [30783] WARNING:  there is no transaction in progress
+2026-10-25 23:21:54.818 CET [30783] WARNING:  there is no transaction in progress
+2026-10-25 23:21:54.835 CET [30783] WARNING:  there is no transaction in progress
+2026-10-25 23:21:55.014 CET [30783] WARNING:  there is no transaction in progress
+2026-10-25 23:21:55.018 CET [30783] WARNING:  there is no transaction in progress
+2026-10-25 23:21:55.030 CET [30783] WARNING:  there is no transaction in progress
+2026-10-25 23:21:55.208 CET [30778] ERROR:  PROVIDER_PAYMENT_DENIED
+2026-10-25 23:21:55.208 CET [30778] CONTEXT:  PL/pgSQL function crm_private.provider_payment_core(jsonb,text,uuid,text) line 15 at RAISE
+	PL/pgSQL function crm_api.provider_payment_apply(bytea,bytea,bytea,bytea,bytea) line 6 at assignment
+2026-10-25 23:21:55.208 CET [30778] STATEMENT:  select crm_api.provider_payment_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:55.211 CET [30778] ERROR:  PROVIDER_PAYMENT_INPUT_INVALID
+2026-10-25 23:21:55.211 CET [30778] CONTEXT:  PL/pgSQL function crm_private.provider_payment_core(jsonb,text,uuid,text) line 9 at RAISE
+	PL/pgSQL function crm_api.provider_payment_apply(bytea,bytea,bytea,bytea,bytea) line 6 at assignment
+2026-10-25 23:21:55.211 CET [30778] STATEMENT:  select crm_api.provider_payment_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:55.216 CET [30785] ERROR:  permission denied for schema crm_private at character 15
+2026-10-25 23:21:55.216 CET [30785] STATEMENT:  select * from crm_private.b05_provider_payments
+2026-10-25 23:21:55.217 CET [30785] ERROR:  permission denied for schema crm_private at character 13
+2026-10-25 23:21:55.217 CET [30785] STATEMENT:  delete from crm_private.b05_provider_payments where false
+2026-10-25 23:21:55.220 CET [30786] FATAL:  permission denied for database "independent_h6005"
+2026-10-25 23:21:55.220 CET [30786] DETAIL:  User does not have CONNECT privilege.
+2026-10-25 23:21:55.227 CET [30787] FATAL:  permission denied for database "independent_h6005"
+2026-10-25 23:21:55.227 CET [30787] DETAIL:  User does not have CONNECT privilege.
+2026-10-25 23:21:55.230 CET [30788] FATAL:  permission denied for database "independent_h6005"
+2026-10-25 23:21:55.230 CET [30788] DETAIL:  User does not have CONNECT privilege.
+2026-10-25 23:21:55.238 CET [30789] FATAL:  permission denied for database "independent_h6005"
+2026-10-25 23:21:55.238 CET [30789] DETAIL:  User does not have CONNECT privilege.
+2026-10-25 23:21:55.406 CET [30792] ERROR:  ALLOCATION_REVISION_CONFLICT:E2
+2026-10-25 23:21:55.406 CET [30792] CONTEXT:  PL/pgSQL function crm_api.allocation_apply(bytea,bytea,bytea,bytea,bytea) line 26 at RAISE
+2026-10-25 23:21:55.406 CET [30792] STATEMENT:  select crm_api.allocation_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:55.416 CET [30778] ERROR:  ALLOCATION_PORTION_USED
+2026-10-25 23:21:55.416 CET [30778] CONTEXT:  PL/pgSQL function crm_private.fund_assign(jsonb,jsonb,text,uuid,uuid,text,uuid) line 29 at RAISE
+	PL/pgSQL function crm_api.allocation_apply(bytea,bytea,bytea,bytea,bytea) line 45 at assignment
+2026-10-25 23:21:55.416 CET [30778] STATEMENT:  select crm_api.allocation_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:55.418 CET [30791] WARNING:  there is no transaction in progress
+2026-10-25 23:21:55.566 CET [30778] ERROR:  ALLOCATION_REVISION_CONFLICT:E2
+2026-10-25 23:21:55.566 CET [30778] CONTEXT:  PL/pgSQL function crm_api.allocation_apply(bytea,bytea,bytea,bytea,bytea) line 26 at RAISE
+2026-10-25 23:21:55.566 CET [30778] STATEMENT:  select crm_api.allocation_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:55.575 CET [30778] ERROR:  ALLOCATION_PORTION_USED
+2026-10-25 23:21:55.575 CET [30778] CONTEXT:  PL/pgSQL function crm_private.fund_assign(jsonb,jsonb,text,uuid,uuid,text,uuid) line 29 at RAISE
+	PL/pgSQL function crm_api.allocation_apply(bytea,bytea,bytea,bytea,bytea) line 45 at assignment
+2026-10-25 23:21:55.575 CET [30778] STATEMENT:  select crm_api.allocation_apply($1,$2,$3,$4,$5) data
+2026-10-25 23:21:55.577 CET [30794] WARNING:  there is no transaction in progress

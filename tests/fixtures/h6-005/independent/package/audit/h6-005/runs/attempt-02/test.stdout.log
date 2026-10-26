@@ -1,0 +1,56 @@
+H4-014 SQL diagnostic PostgresError: ALLOCATION_PORTION_UNVERIFIED
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-005-independent-audit/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-005-independent-audit/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-005-independent-audit/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_private.fund_assign(jsonb,jsonb,text,uuid,uuid,text,uuid) line 27 at RAISE\n' +
+    'PL/pgSQL function crm_api.allocation_apply(bytea,bytea,bytea,bytea,bytea) line 45 at assignment',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+✔ AUD005-01 forecast absent, duplicate movement, correspondence217 of503 and unverified funds denied (1583.523167ms)
+✖ AUD005-02 supplier307 fee71 cannot mix; actual payment before invoice; correct later original closes only documentary; discrepancy invalidates (409.090833ms)
+✔ AUD005-03 reviewed actual recipient or amount mismatch remains unlinked, internal service cannot create external invoice (333.693833ms)
+✔ AUD005-04 deferred T07 failure rollback, retry after lost response, operation conflict and reauthorization (292.444916ms)
+✔ AUD005-05 own margin excludes client money, unknown tax and extra costs remain pending; exact Tarari own values (100.548833ms)
+✔ AUD005-06 refund200 actual83 leaves117 and preserves gross; incident closure does not execute remaining (323.177875ms)
+✔ AUD005-07 provider custody100 retained23 leaves77 unpaid; unknown deposit is not zero (123.348083ms)
+✔ AUD005-08 cross Booking denial, private CRUD forbidden and no synthetic fiscal attributes accepted (249.321792ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3892.230417
+
+✖ failing tests:
+
+test at tests/integration/audit-h6005-original.test.ts:26:1
+✖ AUD005-02 supplier307 fee71 cannot mix; actual payment before invoice; correct later original closes only documentary; discrepancy invalidates (409.090833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Revisión'
+  - 'Documentalmente resuelto'
+  
+      at TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-005-independent-audit/crm-huescaventura-os/tests/integration/audit-h6005-original.test.ts:30:204)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Revisión',
+    expected: 'Documentalmente resuelto',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
