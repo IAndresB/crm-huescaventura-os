@@ -1,0 +1,14 @@
+{
+  "task": "TSK-H6-003",
+  "supplement": "T03-equivalent-conversion versus T04-localized-night-change",
+  "frozenBeforeExecution": true,
+  "sources": [
+    "PLAN7.2T03",
+    "PLAN7.2T04",
+    "SPEC-FR-BOOK-003",
+    "P09"
+  ],
+  "expectation": "Existing Booking identity retained exactly once per Opportunity; T03 equivalent/new operation recovers existing without rewriting current T04 detail; night2 changes21to22,night1date20 and12attendees preserved,night2=10; accepted_detail original unchanged; both root lock orders observed with two verified sessions; exact-operation replay afterward remains authorized and does not restore original operational detail",
+  "lock": "Opportunity advisory hashtextextended salt31 documented by published T03/T04 SQL; PostgreSQL pg_stat_activity waiting PIDs and transaction locks observed, no product changes",
+  "negative": "Conflicting material T03 retry rejected; reauthorized exact replay cannot mutate applied T04; no publication or real data"
+}

@@ -1,0 +1,258 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /tmp/h6003-runtime/crm-private-storage-test-X1IEFI/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /tmp/h6003-runtime/crm-private-storage-test-X1IEFI/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ H6003 F01 AC017/019 actual T03 exact10+2 rafting10 dinner12 nights12/10 four partial names with source readback (1789.464833ms)
+ℹ {"bookingId":"ec04204e-d1e4-4d45-be6f-1d405e4b0183","counts":{"rafting":10,"dinner":12,"nights":[{"date":"2026-10-20","people":12},{"date":"2026-10-21","people":10}],"nominal":4,"assignments":4},"originContributions":6}
+✔ H6003 F02 T03 rejects global overwrite, nominal duplicate or unrelated night/line before any Booking (816.180084ms)
+✔ H6003 F03 AC018 group12to14 preserves rafting confirmed10 and nights; dinner review scoped and exact application (4242.843625ms)
+ℹ {"counts":{"rafting":10,"dinner":12,"nights":[{"date":"2026-10-20","people":12},{"date":"2026-10-21","people":10}],"nominal":4,"assignments":4},"globalEstimated":14,"dinnerDate":"2026-10-22","raftingStillUsable":true}
+✔ H6003 F04 AC019 authorized night2 change preserves night1 and four names, aggregate and accepted history (749.88075ms)
+ℹ {"rafting":10,"dinner":12,"nights":[{"date":"2026-10-20","people":12},{"date":"2026-10-22","people":10}],"nominal":4,"assignments":4}
+H4-023 isolated technical SQL diagnostic PostgresError: CONFIRMATION_FACT_REQUIRED:E3
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.confirmation_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 42 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+✖ H6003 F05 AC024 confirmed18 is preserved when tentative16/date arrives; time-only ratification leaves quantity/capacity/conditions pending and Task (574.54375ms)
+✔ H6003 F06 AC038 gratuity150 on A10x150 B5x120 keeps15 attendees14payers and external debts; missing modality/noneligible guarded (311.015584ms)
+ℹ {"mode":"eligible","promotion":{"amount":"150.00","payers":14,"status":"applied","blockers":[],"modalityId":"37dd1bb7-c29f-41bd-a22c-e5de84ac48e0","calculation":{"input":{"kind":"materialize","value":"150.00"},"trace":{"reason":"SYNTHETIC materialization by authorized Administrator","sourceRef":"SYNTHETIC exact source","calculationRef":"126c29f8-20f6-4500-81c6-afd8457364e3","configurationVersions":[{"id":"126c29f8-20f6-4500-81c6-afd8457364e3","kind":"promotion","version":"1"},{"id":"3dc84cdc-8375-46a7-8c8a-691e035a3a07","kind":"pricing_form","version":"1"},{"id":"98dc90f5-43d7-4eed-863f-72497adb90c6","kind":"unit","version":"1"},{"id":"126c29f8-20f6-4500-81c6-afd8457364e3","kind":"own_economic_rule","version":"1"}]},"output":{"exact":{"decimal":"150","numerator":"150","denominator":"1"},"trace":{"reason":"SYNTHETIC materialization by authorized Administrator","sourceRef":"SYNTHETIC exact source","calculationRef":"126c29f8-20f6-4500-81c6-afd8457364e3","configurationVersions":[{"id":"126c29f8-20f6-4500-81c6-afd8457364e3","kind":"promotion","version":"1"},{"id":"3dc84cdc-8375-46a7-8c8a-691e035a3a07","kind":"pricing_form","version":"1"},{"id":"98dc90f5-43d7-4eed-863f-72497adb90c6","kind":"unit","version":"1"},{"id":"126c29f8-20f6-4500-81c6-afd8457364e3","kind":"own_economic_rule","version":"1"}]},"amount":"150.00","difference":{"decimal":"0","numerator":"0","denominator":"1"},"algorithmVersion":"h1-money-d023-d028-d029-v1"},"algorithmVersion":"h1-money-d023-d028-d029-v1"},"realAttendees":15},"bookingUnchanged":true,"providerDebtsUnchanged":true}
+ℹ {"mode":"missing-modality","promotion":{"amount":null,"payers":15,"status":"pending","blockers":["HONOREE_MODALITY_PRICE_UNVERIFIED"],"modalityId":null,"calculation":null,"realAttendees":15},"bookingUnchanged":true,"providerDebtsUnchanged":true}
+ℹ {"mode":"wrong-audience","promotion":{"amount":null,"payers":15,"status":"ineligible","blockers":["AUDIENCE_NOT_VERIFIED"],"modalityId":"8cd4896f-5208-4ff7-b9c1-16030e9e7555","calculation":null,"realAttendees":15},"bookingUnchanged":true,"providerDebtsUnchanged":true}
+✔ H6003 F07 AC043 actual time-only20 retains civil interval; date22 revises exact scope and historical evaluation remains (702.981541ms)
+ℹ {"historicalDays":7,"beforeReference":"2026-10-20","currentReference":"2026-10-22","siblingDate":"2026-10-20"}
+✔ H6003 F08 AC043 final-figure service Tasks persist hour-invariant day and date22 scoped revision without changing completed historical Task (140.674667ms)
+H4-012 isolated SQL diagnostic PostgresError: MODIFICATION_APPLICATION_REQUIRED:E3
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 96 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+H4-012 isolated SQL diagnostic PostgresError: MODIFICATION_APPROVAL_GUARD_REQUIRED:E3
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 89 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+H4-012 isolated SQL diagnostic PostgresError: MODIFICATION_PROVIDER_GUARD_REQUIRED:E3
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 91 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+H4-012 isolated SQL diagnostic PostgresError: MODIFICATION_APPROVAL_GUARD_REQUIRED:E3
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 89 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+H4-012 isolated SQL diagnostic PostgresError: MODIFICATION_EVIDENCE_REQUIRED:E3
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 16 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+H4-012 isolated SQL diagnostic PostgresError: MODIFICATION_DENIED
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 12 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+H4-012 isolated SQL diagnostic PostgresError: MODIFICATION_REVISION_CONFLICT:E2
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 20 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+✔ H6003 F09 T04 missing approval/evidence/stale scope/foreign root denied with exact original history (3636.032333ms)
+✔ H6003 F10 T04 late COMMIT failure rolls effect/history/result/task back; retry and exact replay once (1482.459333ms)
+✔ H6003 F11 T04 lost response after COMMIT recovers same operation result, no double versions (534.693125ms)
+H4-012 isolated SQL diagnostic PostgresError: MODIFICATION_SCOPE_CONFLICT:E2
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 102 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+H4-012 isolated SQL diagnostic PostgresError: MODIFICATION_SCOPE_CONFLICT:E2
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 102 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+✔ H6003 F12 T04 overlapping changes same night both orders two sessions one winner preserve sibling scopes (3451.809459ms)
+ℹ {"reverse":false,"blockedSessions":2,"winners":1,"currentNight2":{"date":"2026-10-22","people":10}}
+ℹ {"reverse":true,"blockedSessions":2,"winners":1,"currentNight2":{"date":"2026-10-22","people":10}}
+✔ H6003 F13 actor/context/SQL roles/direct historical edits/replayed result reauthorization enforced (830.261541ms)
+H4-023 isolated technical SQL diagnostic PostgresError: CONFIRMATION_SCOPE_REQUIRED:E3
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.confirmation_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 62 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+✔ H6003 F14 P09 actual price/capacity/summary outputs retain service/night grain and approved fixed units (5369.448542ms)
+ℹ {"calculated":["360.00","900.00"],"finalTotals":["1000.10","200.02"],"fixedLineAmounts":["900.00","900.00","900.00","900.00","900.00","900.00"],"nightSummary":[{"nightId":"60f3ea3e-1c7c-47d5-9ddf-db35fdb3c9d8","quantity":12,"serviceId":"23b30ac6-a638-4995-a1c7-3c495119dfa2","contributionId":null},{"nightId":"b2b37f5c-9a32-4bc0-816a-4d5f255ed8e7","quantity":10,"serviceId":"23b30ac6-a638-4995-a1c7-3c495119dfa2","contributionId":null}],"externalSummary":[{"reference":"b296633d-299b-4a7b-88d0-b92c9a3d12da","finalPersonPrice":"100.01","participants":2,"included":[{"service":"SYNTHETIC Casa completa","quantity":1,"date":"2026-10-20"},{"service":"SYNTHETIC Cena","quantity":1,"date":"2026-10-20"}]},{"reference":"b296633d-299b-4a7b-88d0-b92c9a3d12da","finalPersonPrice":"100.01","participants":10,"included":[{"service":"SYNTHETIC Rafting","quantity":1,"date":"2026-10-20"},{"service":"SYNTHETIC Casa completa","quantity":1,"date":"2026-10-20"},{"service":"SYNTHETIC Casa completa","quantity":1,"date":"2026-10-21"},{"service":"SYNTHETIC Cena","quantity":1,"date":"2026-10-20"}]}]}
+ℹ tests 14
+ℹ suites 0
+ℹ pass 13
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 25218.850917
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6-003-integrated.test.ts:30:1
+✖ H6003 F05 AC024 confirmed18 is preserved when tentative16/date arrives; time-only ratification leaves quantity/capacity/conditions pending and Task (574.54375ms)
+  Error: CONFIRMATION_FACT_REQUIRED:E3
+      at H4009ConfirmationAdapter.call (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/src/infrastructure/postgres/h4-confirmation-adapter.ts:28:62)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async H4009ConfirmationAdapter.apply (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/src/infrastructure/postgres/h4-confirmation-adapter.ts:31:10)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-003-integrated.test.ts:30:638)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+waiting for server to shut down.... done
+server stopped

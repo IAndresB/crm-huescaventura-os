@@ -1,0 +1,38 @@
+{
+  "task": "TSK-H6-003",
+  "at": "2026-10-25T22:33:57.518314+00:00",
+  "base": "0cd5f06d2efec9741906d4927318734451b01d4a",
+  "sources": {
+    "specs/001-core-crm/tasks.md": "abebce062faa0f103bf98940b6f903bcbecd96db17828e76eb8eeb4e0b9d0b8b",
+    "specs/001-core-crm/spec.md": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747",
+    "specs/001-core-crm/plan.md": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e",
+    "docs/architecture.md": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117",
+    "docs/DECISIONS.md": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe",
+    "docs/constitution.md": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a",
+    "docs/business-rules.md": "ab2504153a32ef9abfaec45efa5ee6846fc9ebcd8b5c244877d0d633ebfcbc07",
+    "docs/state-machines.md": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240",
+    "specs/001-core-crm/acceptance-TSK-H5-019.md": "a89e492241bb5ddc5c1cde95ba5f62831877caf00566c0835a73eeb67b77a63a"
+  },
+  "assignments": [
+    "| **P09** — [constitution.md](../../docs/constitution.md), § P09. Participantes por servicio y por noche | [TSK-H2-009], [TSK-H4-011], [TSK-H1-005] | [TSK-H2-011], [TSK-H4-012], [TSK-H1-006], [TSK-H6-003] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |",
+    "| **E2E-03** — [spec.md](spec.md), § 9. Core End-to-End Scenarios | [TSK-H2-009], [TSK-H4-011] | [TSK-H6-003] | Contrastar la fila normativa con casos y salidas de las fichas asignadas; evidencia V-EVI, todavía NO EJECUTADA. |"
+  ],
+  "oracle": {
+    "P09": "Quantities and participants by service/night; global totals never overwrite detail; prices/capacity/summaries use correct granularity. SPEC27P09 explicitly also AC043.",
+    "E2E03": "10A raft/2nights plus2B no raft/1night common dinner; one Booking raft10 dinner12 night1=12 night2=10.",
+    "AC017": "Exact contributions and accepted origin; no extra services/nights.",
+    "AC018": "Group12to14 leaves confirmed raft10 and nights unchanged; dinner change keeps before/after and scope-specific review.",
+    "AC019": "Change night2 leaves night1 intact;4nominal of12 count as subset, no4extra or8fictitious; no room division implied.",
+    "AC024": "Confirmed18 retained on perhaps16/newdate; onlytime ratification cannot resolve quantity/price/capacity; no auto16.",
+    "AC038": "15attendees10A150+5B120, honoreeA =>150promotion without average; attendees/debts untouched. Missingmodality pending; ineligible nopromotion.",
+    "AC043": "Samecivil-day time change leaves interval; date20to22 reevaluates affected bounds, exact before/after; specificlater figure no propagation or rewriting historical executed assessment."
+  },
+  "mechanisms": [
+    "T03 unique Booking and immutable accepted snapshots",
+    "T04 per-scope versions, approval and review protected; affected-only reevaluation",
+    "V-DAT real app+runtime SQL no superuser/BYPASSRLS, ordinary/forged/unmapped/disabled denied; replay reauthorized",
+    "V-AT rollback before/during/COMMIT; response lost postCOMMIT, equivalent retry, changed material conflict; two-session same scope races bothorders with actual lock observations"
+  ],
+  "independence": "own fixtures/instrument/expectations and PostgreSQL61600–61649; no implementer observed results read before this file",
+  "limits": "local synthetic only; no canonical/product/policy/security changes; no realAuthStorageintegration or external effects; no H6015runtimeSQLS11reentry"
+}

@@ -1,0 +1,41 @@
+2026-10-25 23:38:19.122 CET [33059] LOG:  starting PostgreSQL 17.11 (Postgres.app) on aarch64-apple-darwin23.6.0, compiled by Apple clang version 15.0.0 (clang-1500.3.9.4), 64-bit
+2026-10-25 23:38:19.123 CET [33059] LOG:  listening on IPv4 address "127.0.0.1", port 61600
+2026-10-25 23:38:19.123 CET [33059] LOG:  listening on Unix socket "/tmp/h6003-auditor-tmp/crm-h6003auditor-1jstsg/socket/.s.PGSQL.61600"
+2026-10-25 23:38:19.125 CET [33063] LOG:  database system was shut down at 2026-10-25 23:38:19 CET
+2026-10-25 23:38:19.127 CET [33059] LOG:  database system is ready to accept connections
+2026-10-25 23:38:20.690 CET [33070] ERROR:  duplicate key value violates unique constraint "b04_assignments_participant_id_service_id_night_id_key"
+2026-10-25 23:38:20.690 CET [33070] CONTEXT:  SQL statement "insert into crm_private.b04_assignments values(pid,sid,nid,s,ass->>'necessity',(ass->>'evidenceId')::uuid)"
+	PL/pgSQL function crm_api.booking_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 92 at SQL statement
+2026-10-25 23:38:20.690 CET [33070] STATEMENT:  select crm_api.booking_apply($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) data
+2026-10-25 23:38:20.779 CET [33070] ERROR:  BOOKING_NIGHT_SOURCE_INVALID
+2026-10-25 23:38:20.779 CET [33070] CONTEXT:  PL/pgSQL function crm_api.booking_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 74 at RAISE
+2026-10-25 23:38:20.779 CET [33070] STATEMENT:  select crm_api.booking_apply($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) data
+2026-10-25 23:38:22.244 CET [33072] ERROR:  column "context_id" does not exist at character 65
+2026-10-25 23:38:22.244 CET [33072] STATEMENT:  select count(*)::int n from crm_private.b07_pending_tasks where context_id=$1::uuid
+2026-10-25 23:38:24.333 CET [33070] ERROR:  AUD003_COMMIT_FAULT
+2026-10-25 23:38:24.333 CET [33070] CONTEXT:  PL/pgSQL function crm_private.aud003_fault() line 1 at RAISE
+2026-10-25 23:38:24.333 CET [33070] STATEMENT:  commit
+2026-10-25 23:38:24.542 CET [33070] ERROR:  MODIFICATION_REPLAY_CONFLICT:E2
+2026-10-25 23:38:24.542 CET [33070] CONTEXT:  PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 14 at RAISE
+2026-10-25 23:38:24.542 CET [33070] STATEMENT:  select crm_api.modification_apply($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) data
+2026-10-25 23:38:24.701 CET [33083] ERROR:  MODIFICATION_SCOPE_CONFLICT:E2
+2026-10-25 23:38:24.701 CET [33083] CONTEXT:  PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 102 at RAISE
+2026-10-25 23:38:24.701 CET [33083] STATEMENT:  select crm_api.modification_apply($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) data
+2026-10-25 23:38:25.251 CET [33070] ERROR:  MODIFICATION_SCOPE_CONFLICT:E2
+2026-10-25 23:38:25.251 CET [33070] CONTEXT:  PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 102 at RAISE
+2026-10-25 23:38:25.251 CET [33070] STATEMENT:  select crm_api.modification_apply($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) data
+2026-10-25 23:38:25.917 CET [33087] FATAL:  permission denied for database "h6003auditor"
+2026-10-25 23:38:25.917 CET [33087] DETAIL:  User does not have CONNECT privilege.
+2026-10-25 23:38:25.929 CET [33088] FATAL:  permission denied for database "h6003auditor"
+2026-10-25 23:38:25.929 CET [33088] DETAIL:  User does not have CONNECT privilege.
+2026-10-25 23:38:25.932 CET [33089] FATAL:  permission denied for database "h6003auditor"
+2026-10-25 23:38:25.932 CET [33089] DETAIL:  User does not have CONNECT privilege.
+2026-10-25 23:38:25.942 CET [33090] FATAL:  permission denied for database "h6003auditor"
+2026-10-25 23:38:25.942 CET [33090] DETAIL:  User does not have CONNECT privilege.
+2026-10-25 23:38:25.947 CET [33091] ERROR:  permission denied for schema crm_private at character 15
+2026-10-25 23:38:25.947 CET [33091] STATEMENT:  select * from crm_private.b04_operational_versions
+2026-10-25 23:38:25.947 CET [33091] ERROR:  permission denied for schema crm_private at character 13
+2026-10-25 23:38:25.947 CET [33091] STATEMENT:  delete from crm_private.b06_modification_revisions
+2026-10-25 23:38:25.948 CET [33069] ERROR:  PAYMENT_IMMUTABLE
+2026-10-25 23:38:25.948 CET [33069] CONTEXT:  PL/pgSQL function crm_private.payment_immutable() line 2 at RAISE
+2026-10-25 23:38:25.948 CET [33069] STATEMENT:  update crm_private.b06_modification_revisions set after_data='{}'where modification_id=$1::uuid

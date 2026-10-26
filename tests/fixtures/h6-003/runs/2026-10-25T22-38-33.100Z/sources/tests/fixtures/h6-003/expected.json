@@ -1,0 +1,61 @@
+{
+  "task": "TSK-H6-003",
+  "frozenBeforeExecution": true,
+  "assignments": [
+    "P09",
+    "E2E-03"
+  ],
+  "acceptanceCriteria": [
+    "AC-017",
+    "AC-018",
+    "AC-019",
+    "AC-024",
+    "AC-038",
+    "AC-043"
+  ],
+  "sources": [
+    {
+      "path": "specs/001-core-crm/tasks.md",
+      "sha256": "abebce062faa0f103bf98940b6f903bcbecd96db17828e76eb8eeb4e0b9d0b8b"
+    },
+    {
+      "path": "specs/001-core-crm/spec.md",
+      "sha256": "b6f581058c00b440dfb896404f9d6de6514c780d04f551e9acb365c905fdc747"
+    },
+    {
+      "path": "specs/001-core-crm/plan.md",
+      "sha256": "6e40e4fec9e8f3f99aa9d11215bbafcbf046189ef561b3591bcdf2c69f3f479e"
+    },
+    {
+      "path": "docs/constitution.md",
+      "sha256": "12f92ecd2e6c449a0bdbfbf1a8831d165e03498f1b975687f452a1fdde6cde6a"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "61a04ca2a7d151f5fb07e713e5f3cfda439b91837f48d547ec99ce82d6e33117"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "sha256": "994bbf572776fa3e11f299f5a79c619e3a093dc1816819e408fcad735dd3a8fe"
+    },
+    {
+      "path": "docs/state-machines.md",
+      "sha256": "683e2089227005724bff097cd79659c4bc74d0fc81c2e2fe142e9a4634edd240"
+    },
+    {
+      "path": "docs/business-rules.md",
+      "sha256": "ab2504153a32ef9abfaec45efa5ee6846fc9ebcd8b5c244877d0d633ebfcbc07"
+    }
+  ],
+  "positive": {
+    "AC-017": "One Booking modalities10+2,rafting10,dinner12,night1=12,night2=10; exact contribution origins",
+    "AC-018": "Global12to14 does not overwrite rafting10confirmed,nights12/10; authorized dinner change has before/after and scoped capacity/price/confirmation review",
+    "AC-019": "Four genuine synthetic nominal assignments within12; no16 or fictional8; house whole,no mandatory rooms; authorized night2 change leaves night1 intact",
+    "AC-024": "Confirmed18 preserved on tentative16/newdate; scoped Review and task; ratifying time does not ratify quantity/price/capacity; no automatic16",
+    "AC-038": "Eligible despedida A10x150/B5x120, honoreeA: gratuity150,15real14payers,external debts unchanged; missingmodalitypending,wrongaudiencenoautomaticpromotion",
+    "AC-043": "Hour change within20 preserves civilinterval; date22 updates affected deadline reference before/after; service-specific final figure does notpropagate or rewrite historical executed evaluation"
+  },
+  "negative": "Withdraw material guard/actor/context, cross-scope/replay, forged evidence, bulk global/nominal doublecount, stale revisions, unauthorized apply; denied without effect; do not invent policy",
+  "atomicity": "T03/T04 effect/history/result all-or-none; late faults rollback,retry recovers; lostresponsepostCOMMIT idempotence; concurrent compatible/incompatible changes bothorders onroot,nochildren protects scopes",
+  "limits": "Local synthetic only; no production or real communications/fiscal documents, no H6015runtimeSQLS11reentry; H6 IN PROGRESS"
+}

@@ -1,0 +1,2132 @@
+The files belonging to this database system will be owned by user "andres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "C".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+creating directory /tmp/h6003-runtime/crm-private-storage-test-ASyywi/data ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default "max_connections" ... 100
+selecting default "shared_buffers" ... 128MB
+selecting default time zone ... Europe/Madrid
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+Success. You can now start the database server using:
+
+    /Users/andres/Applications/Postgres.app/Contents/Versions/17/bin/pg_ctl -D /tmp/h6003-runtime/crm-private-storage-test-ASyywi/data -l logfile start
+
+waiting for server to start.... done
+server started
+✔ H6003 F01 AC017/019 actual T03 exact10+2 rafting10 dinner12 nights12/10 four partial names with source readback (1602.368458ms)
+ℹ {"bookingId":"9590ee90-3df7-4b79-96a3-a44cfdbc563e","counts":{"rafting":10,"dinner":12,"nights":[{"date":"2026-10-20","people":12},{"date":"2026-10-21","people":10}],"nominal":4,"assignments":4},"originContributions":6}
+✔ H6003 F02 T03 rejects global overwrite, nominal duplicate or unrelated night/line before any Booking (648.407292ms)
+✖ H6003 F03 AC018 group12to14 preserves rafting confirmed10 and nights; dinner review scoped and exact application (2617.906208ms)
+✖ H6003 F04 AC019 authorized night2 change preserves night1 and four names, aggregate and accepted history (739.733875ms)
+✖ H6003 F05 AC024 confirmed18 is preserved when tentative16/date arrives; time-only ratification leaves quantity/capacity/conditions pending and Task (840.960334ms)
+✔ H6003 F06 AC038 gratuity150 on A10x150 B5x120 keeps15 attendees14payers and external debts; missing modality/noneligible guarded (319.518333ms)
+ℹ {"mode":"eligible","promotion":{"amount":"150.00","payers":14,"status":"applied","blockers":[],"modalityId":"850a9bd8-8dcd-4d14-982e-eb6022626c3b","calculation":{"input":{"kind":"materialize","value":"150.00"},"trace":{"reason":"SYNTHETIC materialization by authorized Administrator","sourceRef":"SYNTHETIC exact source","calculationRef":"37020241-55ea-4e6f-8007-af776146a089","configurationVersions":[{"id":"0d93d332-98b6-476d-8a01-ab7194a738d0","kind":"unit","version":"1"},{"id":"37020241-55ea-4e6f-8007-af776146a089","kind":"promotion","version":"1"},{"id":"9bfd0e83-086c-4773-8e87-80d5f6951b46","kind":"pricing_form","version":"1"},{"id":"37020241-55ea-4e6f-8007-af776146a089","kind":"own_economic_rule","version":"1"}]},"output":{"exact":{"decimal":"150","numerator":"150","denominator":"1"},"trace":{"reason":"SYNTHETIC materialization by authorized Administrator","sourceRef":"SYNTHETIC exact source","calculationRef":"37020241-55ea-4e6f-8007-af776146a089","configurationVersions":[{"id":"0d93d332-98b6-476d-8a01-ab7194a738d0","kind":"unit","version":"1"},{"id":"37020241-55ea-4e6f-8007-af776146a089","kind":"promotion","version":"1"},{"id":"9bfd0e83-086c-4773-8e87-80d5f6951b46","kind":"pricing_form","version":"1"},{"id":"37020241-55ea-4e6f-8007-af776146a089","kind":"own_economic_rule","version":"1"}]},"amount":"150.00","difference":{"decimal":"0","numerator":"0","denominator":"1"},"algorithmVersion":"h1-money-d023-d028-d029-v1"},"algorithmVersion":"h1-money-d023-d028-d029-v1"},"realAttendees":15},"bookingUnchanged":true,"providerDebtsUnchanged":true}
+ℹ {"mode":"missing-modality","promotion":{"amount":null,"payers":15,"status":"pending","blockers":["HONOREE_MODALITY_PRICE_UNVERIFIED"],"modalityId":null,"calculation":null,"realAttendees":15},"bookingUnchanged":true,"providerDebtsUnchanged":true}
+ℹ {"mode":"wrong-audience","promotion":{"amount":null,"payers":15,"status":"ineligible","blockers":["AUDIENCE_NOT_VERIFIED"],"modalityId":"19b6c9d5-0386-4099-9f65-10af4b844ea5","calculation":null,"realAttendees":15},"bookingUnchanged":true,"providerDebtsUnchanged":true}
+✔ H6003 F07 AC043 actual time-only20 retains civil interval; date22 revises exact scope and historical evaluation remains (729.513667ms)
+ℹ {"historicalDays":7,"beforeReference":"2026-10-20","currentReference":"2026-10-22","siblingDate":"2026-10-20"}
+✔ H6003 F08 AC043 final-figure service Tasks persist hour-invariant day and date22 scoped revision without changing completed historical Task (142.043416ms)
+✖ H6003 F09 T04 missing approval/evidence/stale scope/foreign root denied with exact original history (690.229541ms)
+✔ H6003 F10 T04 late COMMIT failure rolls effect/history/result/task back; retry and exact replay once (1484.454042ms)
+✔ H6003 F11 T04 lost response after COMMIT recovers same operation result, no double versions (513.371833ms)
+H4-012 isolated SQL diagnostic PostgresError: MODIFICATION_SCOPE_CONFLICT:E2
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.modification_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 102 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+✖ H6003 F12 T04 overlapping changes same night both orders two sessions one winner preserve sibling scopes (1585.694667ms)
+✔ H6003 F13 actor/context/SQL roles/direct historical edits/replayed result reauthorization enforced (824.147458ms)
+H4-023 isolated technical SQL diagnostic PostgresError: CONFIRMATION_SCOPE_REQUIRED:E3
+    at ErrorResponse (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:815:30)
+    at handle (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:489:6)
+    at Socket.data (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/node_modules/.pnpm/postgres@3.4.9/node_modules/postgres/src/connection.js:324:9)
+    at Socket.emit (node:events:514:28)
+    at addChunk (node:internal/streams/readable:568:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)
+    at Readable.push (node:internal/streams/readable:399:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23) {
+  severity_local: 'ERROR',
+  severity: 'ERROR',
+  code: 'P0001',
+  where: 'PL/pgSQL function crm_api.confirmation_apply(bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea,bytea) line 62 at RAISE',
+  file: 'pl_exec.c',
+  line: '3911',
+  routine: 'exec_stmt_raise'
+}
+✔ H6003 F14 P09 actual price/capacity/summary outputs retain service/night grain and approved fixed units (5958.820792ms)
+ℹ {"calculated":["360.00","900.00"],"finalTotals":["1000.10","200.02"],"fixedLineAmounts":["900.00","900.00","900.00","900.00","900.00","900.00"],"nightSummary":[{"nightId":"10842f8b-b437-4110-8e8d-c558075eb2d1","quantity":10,"serviceId":"a0e09e4d-0cc0-4864-bd26-1f65d4597f69","contributionId":null},{"nightId":"99e65301-86bb-4653-845a-0095f62931ef","quantity":12,"serviceId":"a0e09e4d-0cc0-4864-bd26-1f65d4597f69","contributionId":null}],"externalSummary":[{"reference":"4118ae3e-cf1e-4f26-9038-13c2872daa3c","finalPersonPrice":"100.01","participants":2,"included":[{"service":"SYNTHETIC Casa completa","quantity":1,"date":"2026-10-20"},{"service":"SYNTHETIC Cena","quantity":1,"date":"2026-10-20"}]},{"reference":"4118ae3e-cf1e-4f26-9038-13c2872daa3c","finalPersonPrice":"100.01","participants":10,"included":[{"service":"SYNTHETIC Casa completa","quantity":1,"date":"2026-10-21"},{"service":"SYNTHETIC Rafting","quantity":1,"date":"2026-10-20"},{"service":"SYNTHETIC Casa completa","quantity":1,"date":"2026-10-20"},{"service":"SYNTHETIC Cena","quantity":1,"date":"2026-10-20"}]}]}
+ℹ tests 14
+ℹ suites 0
+ℹ pass 9
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19464.524709
+
+✖ failing tests:
+
+test at tests/integration/postgres-h6-003-integrated.test.ts:28:1
+✖ H6003 F03 AC018 group12to14 preserves rafting confirmed10 and nights; dinner review scoped and exact application (2617.906208ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      booking: {
+        acceptance_id: '07a289af-5fa3-4558-bed2-bddf87fcd822',
+        accepted_detail: {
+          assignments: [
+  ...
+              nights: [],
+  +           pendingRevalidation: true,
+  -           pendingRevalidation: false,
+              place: null,
+              provider: null,
+              revision: 1,
+              schedule: null,
+              scopeRevision: '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945',
+  ...
+            {
+  +           agendaWarnings: [],
+              approval: null,
+              bookingId: 'b1f1ab84-52f7-4fa6-84cf-06890e5adbac',
+              economic: {
+                reason: 'D019 determination and later economic application required',
+                status: 'pending'
+              },
+  +           evaluation: {
+  +             civilEvaluations: [],
+  +             impacts: {
+  +               commercial: 'SYNTHETIC exact client change agreement needed',
+  +               economic: 'pending',
+  +               operational: 'SYNTHETIC localized future coverage'
+  +             },
+  +             policy: {
+  +               id: 'SYNTHETIC accepted policy',
+  +               terms: {
+  +                 sourceRef: 'synthetic retained terms',
+  +                 text: 'Existing synthetic conditions; no mandate',
+  +                 version: 'H2-T1'
+  +               },
+  +               version: 'V1'
+  +             }
+  +           },
+  -           evaluation: null,
+              id: '4a39ac63-8e64-4533-8b71-ada54a4103ad',
+              incident: null,
+              parts: [
+                {
+                  applied: null,
+  ...
+                  id: '7893e33e-1bbe-4a8e-ac79-af1c740d44cd',
+  +               review: {
+  +                 actorId: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2',
+  +                 after: {
+  +                   date: '2026-10-22'
+  +                 },
+  +                 aspects: [
+  +                   'date',
+  +                   'capacity',
+  +                   'conditions'
+  +                 ],
+  +                 at: '2026-10-25T23:36:44.466+01:00',
+  +                 before: {
+  +                   cancelled: false,
+  +                   capacity: null,
+  +                   conditions: null,
+  +                   date: '2026-10-20',
+  +                   id: '19dff4cd-2a8e-433b-aab5-bea97f482f57',
+  +                   nature: 'external',
+  +                   place: null,
+  +                   provider: null,
+  +                   revision: 1,
+  +                   schedule: null,
+  +                   serviceRevisionId: '508446ec-6058-43ed-95e6-0a4530300114',
+  +                   variant: null
+  +                 },
+  +                 cause: 'SYNTHETIC operational independent change',
+  +                 evidenceId: 'e231232e-b681-48b3-8202-abda84147aec',
+  +                 pending: true,
+  +                 sourceRef: 'SYNTHETIC legitimate precise source'
+  +               },
+  -               review: null,
+                  scope: {
+                    id: '19dff4cd-2a8e-433b-aab5-bea97f482f57',
+                    kind: 'service'
+                  }
+                }
+              ],
+  +           progress: 'En evaluación',
+  -           progress: 'Solicitada',
+              request: {
+                cause: 'SYNTHETIC real scoped need',
+                parts: [
+                  {
+                    aspects: [
+  ...
+              review: null,
+  +           revision: 2
+  -           revision: 1
+            },
+            {
+              agendaWarnings: [],
+              approval: {
+                actorId: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2',
+  ...
+        },
+  +     material: 'c34c912d0a8c4e65452d8a85b25a8394fe380107cfdc931bc01444492a1cc03e',
+  -     material: 'a1680c67283bccca4529944b72ebe0cae31dae37a6bb99a4e4467db01b9ea87f',
+        revision: 0
+      },
+      code: 'RES-2026-0006',
+      history: [
+        {
+  
+      at TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-003-integrated.test.ts:28:1144)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { code: 'RES-2026-0006', booking: { state: 'Pendiente de preparación', terms: [Object], detail: [Object], actor_id: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2', coverage: 'SYNTHETIC AC017 accepted scope', revision: 1, booking_id: 'b1f1ab84-52f7-4fa6-84cf-06890e5adbac', source_ref: 'SYNTHETIC AC017', version_id: 'e23c36f3-042b-4e14-97f9-e800048d1469', admin_scope: 'crm_h6003_integrated-synthetic', evidence_id: 'd3ce2cec-f447-4a34-b9ef-a4224ed69051', proposal_id: 'f894efa9-d67d-4943-9a49-1df02849fb92', recorded_at: '2026-10-25T23:36:43.144775+01:00', acceptance_id: '07a289af-5fa3-4558-bed2-bddf87fcd822', chain_snapshot: [Object], opportunity_id: '02c44ede-77b9-4259-8ec3-82c16f9480c0', accepted_detail: [Object], verification_id: '0ff46984-e835-4d92-8e15-33156a172556', responsible_actor: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2', effect_fingerprint: 'ac8aed84888ba9c45db8162d5ff505a89032005ca7137ab9f09464555f96ab3e' }, history: [ [Object] ], closureAssessments: { inputs: [Object], history: [], material: 'c34c912d0a8c4e65452d8a85b25a8394fe380107cfdc931bc01444492a1cc03e', revision: 0, bookingId: 'b1f1ab84-52f7-4fa6-84cf-06890e5adbac', assessments: {}, jointClosure: [Object], invalidations: [] } },
+    expected: { code: 'RES-2026-0006', booking: { state: 'Pendiente de preparación', terms: [Object], detail: [Object], actor_id: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2', coverage: 'SYNTHETIC AC017 accepted scope', revision: 1, booking_id: 'b1f1ab84-52f7-4fa6-84cf-06890e5adbac', source_ref: 'SYNTHETIC AC017', version_id: 'e23c36f3-042b-4e14-97f9-e800048d1469', admin_scope: 'crm_h6003_integrated-synthetic', evidence_id: 'd3ce2cec-f447-4a34-b9ef-a4224ed69051', proposal_id: 'f894efa9-d67d-4943-9a49-1df02849fb92', recorded_at: '2026-10-25T23:36:43.144775+01:00', acceptance_id: '07a289af-5fa3-4558-bed2-bddf87fcd822', chain_snapshot: [Object], opportunity_id: '02c44ede-77b9-4259-8ec3-82c16f9480c0', accepted_detail: [Object], verification_id: '0ff46984-e835-4d92-8e15-33156a172556', responsible_actor: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2', effect_fingerprint: 'ac8aed84888ba9c45db8162d5ff505a89032005ca7137ab9f09464555f96ab3e' }, history: [ [Object] ], closureAssessments: { inputs: [Object], history: [], material: 'a1680c67283bccca4529944b72ebe0cae31dae37a6bb99a4e4467db01b9ea87f', revision: 0, bookingId: 'b1f1ab84-52f7-4fa6-84cf-06890e5adbac', assessments: {}, jointClosure: [Object], invalidations: [] } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-003-integrated.test.ts:29:1
+✖ H6003 F04 AC019 authorized night2 change preserves night1 and four names, aggregate and accepted history (739.733875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   cancelled: false,
+      contributionIds: [
+        '1ab7ee3f-25a4-407b-800b-7fc765eee4d0',
+        '3a14f72c-91e7-4090-bc09-241570abfd47'
+      ],
+      date: '2026-10-20',
+      id: '278f7294-7adc-4b01-aec3-189ac5af7b97',
+  +   revision: 1
+    }
+  
+      at TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-003-integrated.test.ts:29:550)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { id: '278f7294-7adc-4b01-aec3-189ac5af7b97', date: '2026-10-20', revision: 1, cancelled: false, contributionIds: [ '1ab7ee3f-25a4-407b-800b-7fc765eee4d0', '3a14f72c-91e7-4090-bc09-241570abfd47' ] },
+    expected: { id: '278f7294-7adc-4b01-aec3-189ac5af7b97', date: '2026-10-20', contributionIds: [ '1ab7ee3f-25a4-407b-800b-7fc765eee4d0', '3a14f72c-91e7-4090-bc09-241570abfd47' ] },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-003-integrated.test.ts:30:1
+✖ H6003 F05 AC024 confirmed18 is preserved when tentative16/date arrives; time-only ratification leaves quantity/capacity/conditions pending and Task (840.960334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      booking: {
+        acceptance_id: '176932e2-027b-412f-b28f-731aeb359257',
+        accepted_detail: {
+          assignments: [
+  ...
+            },
+  +         {
+  +           agendaWarnings: [],
+  +           approval: null,
+  +           bookingId: '04b3bf3a-517c-4db0-b4fc-441363abb81f',
+  +           economic: {
+  +             reason: 'D019 determination and later economic application required',
+  +             status: 'pending'
+  +           },
+  +           evaluation: {
+  +             civilEvaluations: [],
+  +             impacts: {
+  +               commercial: 'SYNTHETIC exact client change agreement needed',
+  +               economic: 'pending',
+  +               operational: 'SYNTHETIC localized future coverage'
+  +             },
+  +             policy: {
+  +               id: 'SYNTHETIC accepted policy',
+  +               terms: {
+  +                 sourceRef: 'synthetic retained terms',
+  +                 text: 'Existing synthetic conditions; no mandate',
+  +                 version: 'H2-T1'
+  +               },
+  +               version: 'V1'
+  +             }
+  +           },
+  +           id: 'c1fb94ab-009e-40de-99b8-879a81e1fedd',
+  +           incident: null,
+  +           parts: [
+  +             {
+  +               applied: null,
+  +               aspects: [
+  +                 'quantity',
+  +                 'capacity',
+  +                 'conditions',
+  +                 'time'
+  +               ],
+  +               before: {
+  +                 attendees: 18,
+  +                 cancelled: false,
+  +                 certainty: 'confirmed',
+  +                 date: '2026-10-20',
+  +                 id: '2fd62372-21d8-4a1a-bef7-8c6b0530777c',
+  +                 quantity: '1',
+  +                 revision: 2,
+  +                 unitRevisionId: 'bb5464cd-46e2-4928-85bb-f5ac4dafb38a'
+  +               },
+  +               counterpartyBefore: {
+  +                 id: '2f3c8b46-64b6-493d-b6d1-e6b25986b434',
+  +                 nature: 'external',
+  +                 provider: null,
+  +                 serviceRevisionId: '8cc8452f-d1af-4279-8092-d0d2f4ae55a3',
+  +                 variant: null
+  +               },
+  +               dependencies: [],
+  +               desired: {
+  +                 attendees: 16,
+  +                 certainty: 'estimated'
+  +               },
+  +               expectedScopeRevision: 2,
+  +               id: 'e7e35494-fb44-4038-a0a4-3d71cbd90066',
+  +               review: {
+  +                 actorId: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2',
+  +                 after: {
+  +                   attendees: 16,
+  +                   certainty: 'estimated'
+  +                 },
+  +                 aspects: [
+  +                   'quantity',
+  +                   'capacity',
+  +                   'conditions',
+  +                   'time'
+  +                 ],
+  +                 at: '2026-10-25T23:36:46.532+01:00',
+  +                 before: {
+  +                   attendees: 18,
+  +                   cancelled: false,
+  +                   certainty: 'confirmed',
+  +                   date: '2026-10-20',
+  +                   id: '2fd62372-21d8-4a1a-bef7-8c6b0530777c',
+  +                   quantity: '1',
+  +                   revision: 2,
+  +                   unitRevisionId: 'bb5464cd-46e2-4928-85bb-f5ac4dafb38a'
+  +                 },
+  +                 cause: 'SYNTHETIC operational independent change',
+  +                 evidenceId: '3b60f044-56aa-4364-90e1-c5c1729aa878',
+  +                 pending: true,
+  +                 sourceRef: 'SYNTHETIC legitimate precise source'
+  +               },
+  +               scope: {
+  +                 id: '2fd62372-21d8-4a1a-bef7-8c6b0530777c',
+  +                 kind: 'contribution',
+  +                 serviceId: '2f3c8b46-64b6-493d-b6d1-e6b25986b434'
+  +               }
+  +             }
+  +           ],
+  +           progress: 'En evaluación',
+  +           request: {
+  +             cause: 'SYNTHETIC real scoped need',
+  +             parts: [
+  +               {
+  +                 aspects: [
+  +                   'quantity',
+  +                   'capacity',
+  +                   'conditions',
+  +                   'time'
+  +                 ],
+  +                 dependencies: [],
+  +                 desired: {
+  +                   attendees: 16,
+  +                   certainty: 'estimated'
+  +                 },
+  +                 expectedScopeRevision: 2,
+  +                 id: 'e7e35494-fb44-4038-a0a4-3d71cbd90066',
+  +                 scope: {
+  +                   id: '2fd62372-21d8-4a1a-bef7-8c6b0530777c',
+  +                   kind: 'contribution',
+  +                   serviceId: '2f3c8b46-64b6-493d-b6d1-e6b25986b434'
+  +                 }
+  +               }
+  +             ],
+  +             recordId: 'ea365062-3c1e-45ae-8723-99f25db53cd9',
+  +             requester: {
+  +               id: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2',
+  +               kind: 'internal'
+  +             },
+  +             type: 'change'
+  +           },
+  +           review: null,
+  +           revision: 2
+  +         }
+          ],
+          ownEconomics: [],
+          realityPending: [],
+          refunds: [],
+          requirements: [],
+  ...
+        },
+  +     material: '17d461189d32dab5a980a795c371ae4e5ac2f91ad0099d561299b9147e482847',
+  -     material: 'c4f3da104fb765e7a5c3650dd8c0e78db90915f886c4cf42b3f6066bf7252e3a',
+        revision: 0
+      },
+      code: 'RES-2026-0010',
+      history: [
+        {
+  
+      at TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-003-integrated.test.ts:30:795)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { code: 'RES-2026-0010', booking: { state: 'Pendiente de preparación', terms: [Object], detail: [Object], actor_id: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2', coverage: 'SYNTHETIC AC017 accepted scope', revision: 1, booking_id: '04b3bf3a-517c-4db0-b4fc-441363abb81f', source_ref: 'SYNTHETIC AC017', version_id: 'ec3451ce-d6c4-4454-92bf-7ad453b8180f', admin_scope: 'crm_h6003_integrated-synthetic', evidence_id: 'b754eda7-a549-44bb-a2c0-5691ce1ca8e5', proposal_id: 'cfaa9a72-cf38-4eb2-b45b-34b15a777ff8', recorded_at: '2026-10-25T23:36:46.496063+01:00', acceptance_id: '176932e2-027b-412f-b28f-731aeb359257', chain_snapshot: [Object], opportunity_id: '9a21fab5-354f-42a8-840f-767381e83e2e', accepted_detail: [Object], verification_id: '91b292c5-fc19-4837-891d-c6c96713e24c', responsible_actor: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2', effect_fingerprint: 'ac78182da423534e16e34317fe9cee6d2950459ff1a408627e18f8a5a0bf06d0' }, history: [ [Object] ], closureAssessments: { inputs: [Object], history: [], material: '17d461189d32dab5a980a795c371ae4e5ac2f91ad0099d561299b9147e482847', revision: 0, bookingId: '04b3bf3a-517c-4db0-b4fc-441363abb81f', assessments: {}, jointClosure: [Object], invalidations: [] } },
+    expected: { code: 'RES-2026-0010', booking: { state: 'Pendiente de preparación', terms: [Object], detail: [Object], actor_id: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2', coverage: 'SYNTHETIC AC017 accepted scope', revision: 1, booking_id: '04b3bf3a-517c-4db0-b4fc-441363abb81f', source_ref: 'SYNTHETIC AC017', version_id: 'ec3451ce-d6c4-4454-92bf-7ad453b8180f', admin_scope: 'crm_h6003_integrated-synthetic', evidence_id: 'b754eda7-a549-44bb-a2c0-5691ce1ca8e5', proposal_id: 'cfaa9a72-cf38-4eb2-b45b-34b15a777ff8', recorded_at: '2026-10-25T23:36:46.496063+01:00', acceptance_id: '176932e2-027b-412f-b28f-731aeb359257', chain_snapshot: [Object], opportunity_id: '9a21fab5-354f-42a8-840f-767381e83e2e', accepted_detail: [Object], verification_id: '91b292c5-fc19-4837-891d-c6c96713e24c', responsible_actor: '2f6aa577-9b16-49b7-a45b-6e7fb87798b2', effect_fingerprint: 'ac78182da423534e16e34317fe9cee6d2950459ff1a408627e18f8a5a0bf06d0' }, history: [ [Object] ], closureAssessments: { inputs: [Object], history: [], material: 'c4f3da104fb765e7a5c3650dd8c0e78db90915f886c4cf42b3f6066bf7252e3a', revision: 0, bookingId: '04b3bf3a-517c-4db0-b4fc-441363abb81f', assessments: {}, jointClosure: [Object], invalidations: [] } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-003-integrated.test.ts:34:1
+✖ H6003 F09 T04 missing approval/evidence/stale scope/foreign root denied with exact original history (690.229541ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      access_probe: [],
+      access_recoveries: [],
+      b03_acceptance_history: [
+        {
+  ...
+          identified_at: '2026-10-25T23:36:41.593778+01:00',
+  +       last_human_activity_at: '2026-10-25T23:36:48.701897+01:00',
+  -       last_human_activity_at: '2026-10-25T23:36:48.547291+01:00',
+          session_id: '502c91b5-962a-4ba6-adee-71712681821d'
+        }
+      ],
+      identity_code_counters: [
+        {
+  
+      at noEffect (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-003-integrated.test.ts:21:119)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-003-integrated.test.ts:34:235)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: {
+      access_probe: [],
+      access_recoveries: [],
+      b03_acceptance_history: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b03_acceptance_operations: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b03_acceptance_rectifications: [],
+      b03_acceptance_verifications: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      b03_acceptances: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_history: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b03_leads: [],
+      b03_offer_history: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_offer_issuances: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_offer_operations: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_operations: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b03_opportunities: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      b03_preparations: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_proposal_history: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object]
+      ],
+      b03_proposal_lines: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      b03_proposal_modalities: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object]
+      ],
+      b03_proposal_operations: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object]
+      ],
+      b03_proposal_versions: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_proposals: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b04_assignments: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      b04_availability: [],
+      b04_availability_operations: [],
+      b04_availability_revisions: [],
+      b04_bookings: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      b04_confirmation_evaluations: [ [Object], [Object] ],
+      b04_confirmation_facts: [ [Object], [Object] ],
+      b04_confirmation_operations: [ [Object], [Object], [Object], [Object] ],
+      b04_confirmation_revisions: [ [Object], [Object], [Object], [Object] ],
+      b04_confirmations: [ [Object], [Object] ],
+      b04_contributions: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object]
+      ],
+      b04_history: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      b04_hold_operations: [],
+      b04_hold_revisions: [],
+      b04_holds: [],
+      b04_modalities: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b04_night_occupancies: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b04_nights: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ],
+      b04_operational_versions: [ [Object], [Object], [Object], [Object], [Object] ],
+      b04_operations: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      b04_participants: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      b04_preparation_approvals: [],
+      b04_preparation_evaluations: [],
+      b04_preparation_operations: [],
+      b04_reality_approvals: [],
+      b04_reality_events: [],
+      b04_reality_operations: [],
+      b04_services: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b05_allocation_acts: [],
+      b05_allocation_revisions: [],
+      b05_allocations: [],
+      b05_coverage_evaluations: [],
+      b05_customer_payments: [],
+      b05_deposit_facts: [],
+      b05_deposit_operations: [],
+      b05_deposit_revisions: [],
+      b05_deposits: [],
+      b05_expected_payments: [],
+      b05_fund_distributions: [],
+      b05_fund_history: [],
+      b05_fund_operations: [],
+      b05_fund_revisions: [],
+      b05_invoice_documents: [],
+      b05_invoice_operations: [ [Object], [Object], [Object] ],
+      b05_invoice_revisions: [ [Object], [Object], [Object] ],
+      b05_movement_keys: [],
+      b05_obligation_adjustments: [],
+      b05_obligation_history: [],
+      b05_obligation_operations: [],
+      b05_own_economic_components: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object]
+      ],
+      b05_own_economic_operations: [ [Object], [Object], [Object] ],
+      b05_own_economic_revisions: [ [Object], [Object], [Object] ],
+      b05_own_economies: [ [Object], [Object], [Object] ],
+      b05_payment_history: [],
+      b05_payment_operations: [],
+      b05_payment_policies: [],
+      b05_payment_receipts: [],
+      b05_payment_revisions: [],
+      b05_payment_schedules: [],
+      b05_provider_invoices: [ [Object], [Object], [Object] ],
+      b05_provider_outgoing_correspondences: [],
+      b05_provider_outgoing_movements: [],
+      b05_provider_payment_corrections: [],
+      b05_provider_payment_operations: [],
+      b05_provider_payment_revisions: [],
+      b05_provider_payments: [],
+      b05_reconciliation_acts: [],
+      b05_reconciliations: [],
+      b05_refund_movements: [],
+      b05_refund_operations: [],
+      b05_refund_revisions: [],
+      b05_refunds: [],
+      b05_schedule_revisions: [],
+      b05_suplido_operations: [],
+      b05_suplido_revisions: [],
+      b05_suplidos: [],
+      b06_cancellation_applications: [],
+      b06_cancellation_determinations: [],
+      b06_cancellation_operations: [],
+      b06_cancellation_revisions: [],
+      b06_closure_assessments: [],
+      b06_closure_invalidations: [],
+      b06_closure_operations: [],
+      b06_joint_closures: [],
+      b06_modification_operations: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      b06_modification_revisions: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      b06_modifications: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ],
+      b07_alerts: [],
+      b07_communication_work: [],
+      b07_document_rules: [],
+      b07_evidence_object_bindings: [],
+      b07_history: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 289 more items
+      ],
+      b07_incident_operations: [],
+      b07_incident_revisions: [],
+      b07_incidents: [],
+      b07_links: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 270 more items
+      ],
+      b07_notification_attempts: [],
+      b07_notifications: [],
+      b07_object_orphans: [],
+      b07_object_versions: [],
+      b07_operations: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 289 more items
+      ],
+      b07_pending_tasks: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ],
+      b07_records: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 270 more items
+      ],
+      b07_requirement_documents: [],
+      b07_requirement_operations: [],
+      b07_requirement_revisions: [],
+      b07_requirements: [],
+      b08_attempts: [],
+      b08_command_results: [],
+      b08_definitions: [],
+      b08_executions: [],
+      b08_parts: [],
+      b09_event_receipts: [],
+      b09_external_event_keys: [],
+      b10_diagnostic_observations: [],
+      catalog_applications: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+      catalog_history: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 176 more items
+      ],
+      catalog_items: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 35 more items
+      ],
+      catalog_operations: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 176 more items
+      ],
+      catalog_revisions: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 35 more items
+      ],
+      commercial_applications: [],
+      commercial_history: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      commercial_items: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object]
+      ],
+      commercial_operations: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      commercial_revisions: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object]
+      ],
+      crm_actors: [ [Object] ],
+      crm_sessions: [ [Object] ],
+      external_effect_records: [],
+      global_access_revocation_attempts: [],
+      global_access_revocations: [],
+      identification_epochs: [ [Object] ],
+      identity_code_counters: [ [Object], [Object], [Object] ],
+      identity_codes: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      identity_contexts: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      identity_designations: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      identity_entities: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      identity_history: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 18 more items
+      ],
+      identity_operations: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 18 more items
+      ],
+      identity_organization_contacts: [],
+      unit_attempts: [],
+      unit_history: [],
+      unit_operations: [],
+      unit_results: [],
+      unit_roots: []
+    },
+    expected: {
+      access_probe: [],
+      access_recoveries: [],
+      b03_acceptance_history: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b03_acceptance_operations: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b03_acceptance_rectifications: [],
+      b03_acceptance_verifications: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      b03_acceptances: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_history: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b03_leads: [],
+      b03_offer_history: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_offer_issuances: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_offer_operations: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_operations: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b03_opportunities: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      b03_preparations: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_proposal_history: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object]
+      ],
+      b03_proposal_lines: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      b03_proposal_modalities: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object]
+      ],
+      b03_proposal_operations: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object]
+      ],
+      b03_proposal_versions: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b03_proposals: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b04_assignments: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      b04_availability: [],
+      b04_availability_operations: [],
+      b04_availability_revisions: [],
+      b04_bookings: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      b04_confirmation_evaluations: [ [Object], [Object] ],
+      b04_confirmation_facts: [ [Object], [Object] ],
+      b04_confirmation_operations: [ [Object], [Object], [Object], [Object] ],
+      b04_confirmation_revisions: [ [Object], [Object], [Object], [Object] ],
+      b04_confirmations: [ [Object], [Object] ],
+      b04_contributions: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object]
+      ],
+      b04_history: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      b04_hold_operations: [],
+      b04_hold_revisions: [],
+      b04_holds: [],
+      b04_modalities: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b04_night_occupancies: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object]
+      ],
+      b04_nights: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ],
+      b04_operational_versions: [ [Object], [Object], [Object], [Object], [Object] ],
+      b04_operations: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      b04_participants: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      b04_preparation_approvals: [],
+      b04_preparation_evaluations: [],
+      b04_preparation_operations: [],
+      b04_reality_approvals: [],
+      b04_reality_events: [],
+      b04_reality_operations: [],
+      b04_services: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      b05_allocation_acts: [],
+      b05_allocation_revisions: [],
+      b05_allocations: [],
+      b05_coverage_evaluations: [],
+      b05_customer_payments: [],
+      b05_deposit_facts: [],
+      b05_deposit_operations: [],
+      b05_deposit_revisions: [],
+      b05_deposits: [],
+      b05_expected_payments: [],
+      b05_fund_distributions: [],
+      b05_fund_history: [],
+      b05_fund_operations: [],
+      b05_fund_revisions: [],
+      b05_invoice_documents: [],
+      b05_invoice_operations: [ [Object], [Object], [Object] ],
+      b05_invoice_revisions: [ [Object], [Object], [Object] ],
+      b05_movement_keys: [],
+      b05_obligation_adjustments: [],
+      b05_obligation_history: [],
+      b05_obligation_operations: [],
+      b05_own_economic_components: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object]
+      ],
+      b05_own_economic_operations: [ [Object], [Object], [Object] ],
+      b05_own_economic_revisions: [ [Object], [Object], [Object] ],
+      b05_own_economies: [ [Object], [Object], [Object] ],
+      b05_payment_history: [],
+      b05_payment_operations: [],
+      b05_payment_policies: [],
+      b05_payment_receipts: [],
+      b05_payment_revisions: [],
+      b05_payment_schedules: [],
+      b05_provider_invoices: [ [Object], [Object], [Object] ],
+      b05_provider_outgoing_correspondences: [],
+      b05_provider_outgoing_movements: [],
+      b05_provider_payment_corrections: [],
+      b05_provider_payment_operations: [],
+      b05_provider_payment_revisions: [],
+      b05_provider_payments: [],
+      b05_reconciliation_acts: [],
+      b05_reconciliations: [],
+      b05_refund_movements: [],
+      b05_refund_operations: [],
+      b05_refund_revisions: [],
+      b05_refunds: [],
+      b05_schedule_revisions: [],
+      b05_suplido_operations: [],
+      b05_suplido_revisions: [],
+      b05_suplidos: [],
+      b06_cancellation_applications: [],
+      b06_cancellation_determinations: [],
+      b06_cancellation_operations: [],
+      b06_cancellation_revisions: [],
+      b06_closure_assessments: [],
+      b06_closure_invalidations: [],
+      b06_closure_operations: [],
+      b06_joint_closures: [],
+      b06_modification_operations: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      b06_modification_revisions: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      b06_modifications: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ],
+      b07_alerts: [],
+      b07_communication_work: [],
+      b07_document_rules: [],
+      b07_evidence_object_bindings: [],
+      b07_history: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 289 more items
+      ],
+      b07_incident_operations: [],
+      b07_incident_revisions: [],
+      b07_incidents: [],
+      b07_links: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 270 more items
+      ],
+      b07_notification_attempts: [],
+      b07_notifications: [],
+      b07_object_orphans: [],
+      b07_object_versions: [],
+      b07_operations: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 289 more items
+      ],
+      b07_pending_tasks: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ],
+      b07_records: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 270 more items
+      ],
+      b07_requirement_documents: [],
+      b07_requirement_operations: [],
+      b07_requirement_revisions: [],
+      b07_requirements: [],
+      b08_attempts: [],
+      b08_command_results: [],
+      b08_definitions: [],
+      b08_executions: [],
+      b08_parts: [],
+      b09_event_receipts: [],
+      b09_external_event_keys: [],
+      b10_diagnostic_observations: [],
+      catalog_applications: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+      catalog_history: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 176 more items
+      ],
+      catalog_items: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 35 more items
+      ],
+      catalog_operations: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 176 more items
+      ],
+      catalog_revisions: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 35 more items
+      ],
+      commercial_applications: [],
+      commercial_history: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      commercial_items: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object]
+      ],
+      commercial_operations: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object]
+      ],
+      commercial_revisions: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object]
+      ],
+      crm_actors: [ [Object] ],
+      crm_sessions: [ [Object] ],
+      external_effect_records: [],
+      global_access_revocation_attempts: [],
+      global_access_revocations: [],
+      identification_epochs: [ [Object] ],
+      identity_code_counters: [ [Object], [Object], [Object] ],
+      identity_codes: [
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      identity_contexts: [
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object]
+      ],
+      identity_designations: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      identity_entities: [
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object], [Object], [Object],
+        [Object]
+      ],
+      identity_history: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 18 more items
+      ],
+      identity_operations: [
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object], [Object], [Object],
+        [Object], [Object], [Object], [Object],
+        ... 18 more items
+      ],
+      identity_organization_contacts: [],
+      unit_attempts: [],
+      unit_history: [],
+      unit_operations: [],
+      unit_results: [],
+      unit_roots: []
+    },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/integration/postgres-h6-003-integrated.test.ts:37:1
+✖ H6003 F12 T04 overlapping changes same night both orders two sessions one winner preserve sibling scopes (1585.694667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   cancelled: false,
+      contributionIds: [
+        '1b859e18-e089-4e50-9f94-20053abf5b16',
+        '6c0c1afe-5ba6-4d85-9c40-c259f4651453'
+      ],
+      date: '2026-10-20',
+      id: '46b804b8-07da-4064-bd7d-8cfeecb4cc32',
+  +   revision: 1
+    }
+  
+      at TestContext.<anonymous> (file:///Users/andres/.codex/worktrees/h6-003-local-isolated/crm-huescaventura-os/tests/integration/postgres-h6-003-integrated.test.ts:37:1770)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { id: '46b804b8-07da-4064-bd7d-8cfeecb4cc32', date: '2026-10-20', revision: 1, cancelled: false, contributionIds: [ '1b859e18-e089-4e50-9f94-20053abf5b16', '6c0c1afe-5ba6-4d85-9c40-c259f4651453' ] },
+    expected: { id: '46b804b8-07da-4064-bd7d-8cfeecb4cc32', date: '2026-10-20', contributionIds: [ '1b859e18-e089-4e50-9f94-20053abf5b16', '6c0c1afe-5ba6-4d85-9c40-c259f4651453' ] },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+waiting for server to shut down.... done
+server stopped

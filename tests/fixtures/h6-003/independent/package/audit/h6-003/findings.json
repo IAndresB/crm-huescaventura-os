@@ -1,0 +1,82 @@
+{
+  "task": "TSK-H6-003",
+  "materialDefectsOpen": 0,
+  "productChanges": 0,
+  "attempts": {
+    "01": {
+      "status": "STARTUP_SYNTAX_FAIL; no functional PASS claimed"
+    },
+    "02": {
+      "status": "STARTUP_SYNTAX_FAIL; no functional PASS claimed"
+    },
+    "03": {
+      "groups": 14,
+      "pass": 4,
+      "fail": 10
+    },
+    "04": {
+      "groups": 14,
+      "pass": 12,
+      "fail": 2
+    },
+    "05": {
+      "groups": 14,
+      "pass": 14,
+      "fail": 0
+    },
+    "06": {
+      "groups": 19,
+      "pass": 18,
+      "fail": 1
+    },
+    "07": {
+      "groups": 19,
+      "pass": 19,
+      "fail": 0
+    },
+    "08": {
+      "groups": 19,
+      "pass": 19,
+      "fail": 0
+    }
+  },
+  "findings": [
+    {
+      "id": "AUD003-I01",
+      "type": "syntax",
+      "original": "attempt01 missing brace,attempt02 await nonasync; sources/logs preserved",
+      "resolution": "Parser check passed before attempt03 and each subsequent changed source"
+    },
+    {
+      "id": "AUD003-I02",
+      "type": "instrument",
+      "original": "attempt03 ten FAIL due SQLsnapshot whitespace, enriched C01representation comparison, sanitized postCOMMITexception",
+      "resolution": "instrument-addendum-v1: source-aware material comparisons retain all quantities/dates/identities; source unchanged; successors"
+    },
+    {
+      "id": "AUD003-I03",
+      "type": "instrument",
+      "original": "attempt04 two FAIL nonexistent finalPersonPrice on SQLsnapshot and nonexistent context_id field",
+      "resolution": "instrument-addendum-v2 uses verified existing snapshot.final_person_price and task.identity.contextId; no schema change"
+    },
+    {
+      "id": "AUD003-I04",
+      "type": "instrument",
+      "original": "attempt06 A15 snapshot included new evidence prepared inside negative closure",
+      "resolution": "instrument-addendum-v3 constructs negative command/evidence before no-effect snapshot;07/08pass"
+    },
+    {
+      "id": "AUD003-C01",
+      "type": "coverage strengthening",
+      "original": "A06 through07 used confirmed contribution18, insufficient alone for literal ProviderConfirmation18 of AC024",
+      "resolution": "expected-supplement-v3 frozen before new observation;08 registers/evaluates ProviderConfirmation18 with currenttoken, usablebefore16, originalfact18 preserved and pendingReview isolated. Earlier PASS groups do not accredit missing literal independently."
+    },
+    {
+      "id": "AUD003-D01",
+      "type": "documentary nonmaterial",
+      "status": "Confirmed; own source locator corrected by addendum; root acceptedmatrix/erratum successor pending final closure review",
+      "detail": "SPEC AC01724.2, P09trace28.2. Implementer sealedmatrix wrongly24.1/25; own initialfrozen locator27 retained unchanged. Normative content,AC043 inclusion and functional results unchanged."
+    }
+  ],
+  "counting": "Only final08 nineteen own groups counted; no sum of repeated attempts. FAIL and syntax failures remain historical FAIL."
+}

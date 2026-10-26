@@ -1,0 +1,15 @@
+# TSK-H6-003 — Hallazgos y sucesores
+
+Cero defectos materiales de producto observados. No se modificó producto, políticas, permisos, contratos o migraciones. Los siete fallos de pruebas se conservan en tres rondas originales; son fallos de preparación/observación del instrumento y no se elevan retrospectivamente a PASS.
+
+| Ronda original | Resultado literal | Hallazgo y corrección limitada | Sucesor |
+|---|---|---|---|
+|22-36-37.451Z |9PASS/5FAIL: F03,F04,F05,F09,F12 | F03/F05 comparaban lector completo como si la evaluación no debiera añadir Review/historia/pendingRevalidation. Se comparan hechos y accepted_detail íntegros y se afirma Review por separado. F04/F12 comparaban noche original de tres claves con lector operativo de cinco: se afirman id/date/contributionIds originales y defaults revision1/cancelled=false, con lista exacta de claves. F09 construía input dentro del snapshot; la lectura de preparación actualizaba actividad humana y podía fallar antes de invocar aplicación. Se prepara y evidencia cada input antes de snapshot; denegación ocurre en contrato real de aplicación. |22-37-39.022Z14/14PASS; los campos materiales, aserciones de historia y negativos se mantienen. |
+|22-39-16.233Z |13PASS/1FAIL F05 | Al ampliar a Provider Confirmation18 real después de T04, el fixture no aportaba scopeRevision exigido para alcance operativo modificado. La guarda rechazó correctamente. Se obtiene token mediante lector real, sin fabricar un valor ni cambiar producto. |22-40-34.625Z permite registrar, pero se conserva el siguiente fallo de expectativa instrumental. |
+|22-40-34.625Z |14PASS/1FAIL F05, incluido S01PASS | Se esperaba usable=true omitiendo la revisión quantity/capacity del T04 previo a18 aún pendiente. Se ratifica expresamente esa revisión con pruebas exactas antes del nuevo hecho18. La solicitud16 posterior abre su propia revisión; ratificar horario deja quantity/capacity/conditions pendientes. No se cambia regla ni se rebaja expected. |22-41-50.363Z15/15PASS completo, con confirmación18 inicialmente usable y luego no usable por revisión16; hecho18 intacto. |
+
+Regresión dirigida:22-38-33.100Z174/174PASS limpio, cero SKIP/FAIL; copias de H2011/H4012/H3014/H5002 con aserciones intactas y puertos/rutas de salida propios. R35 de H2011 genera y retira exclusivamente un archivo temporal nuevo bajo h6-003; el log queda conservado allí. No ejecuta ni sobrescribe evidencia histórica H2011.
+
+Errores SQL impresos dentro de escenarios negativos deliberados —guardas, firma/contexto, conflicto E2, fallos controlados o intento de usar una confirmación de N1 para N2— no son FAIL del runner si la aserción esperaba ese rechazo y observa ausencia de efectos. Los contadores proceden del reporter original, no de contar la palabra ERROR.
+
+Expected original y suplemento S01 permanecen íntegros. No hay SKIP atribuido a PASS ni pérdida de originales. El cierre formal sigue reservado a coordinación tras auditoría independiente y custodia; H6 global IN PROGRESS y DM-PENDING-005 OPEN. H6-015 no se ha accedido como runtime, SQL, S11 o reentrada.

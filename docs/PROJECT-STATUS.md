@@ -1,5 +1,18 @@
 # CRM HUESCAVENTURA OS — Project Status
 
+<!-- H6-003-LOCAL-CLOSURE-BEGIN -->
+## Estado vigente H6-003 — COMPLETED local/aislado
+
+Corte `2026-10-25T23:50:13.763264+01:00`. **TSK-H6-003 COMPLETED exclusivamente local/aislado; H6 global IN PROGRESS.** P09/E2E-03 y6/6AC acreditados; focal15/15,regresión dirigida174/174 sinSKIP,unitarias212/212,typecheck/lint/build/formato/sintaxisPASS. Auditor propio19/19final08PASS,cero defectos materiales ycustodia técnica311archivos/312miembros recibida íntegramente. Acta `specs/001-core-crm/acceptance-TSK-H6-003-local.md`; matriz aceptada yclosure del mismo expediente. Manifiesto técnico `3c3e1e3f78df762e2a52d5a04a5d181cb0e9b9d31b0c5b88f4c24e4a06715f83`.
+
+T03/T04 conservan Bookingúnica,servicios/noches/cantidades,historia,permisos,atomicidad yreplay sin sobrescribir alcance operativo. Se conservan todosFAIL,errores instrumentales,sucesores yrefuerzos de coberturaAC024. ErrataAUD003-D01 corregida solo en matriz sucesora(SPEC24.2/28.2). Independencia técnica entre agentes del mismo modelo,no humana externa. No se declara regresión global limpia.
+
+H0–H5,candidatosH6cerrados,110producto y68migraciones íntegros. H6-015 conserva cuarentena,16manifiestos/4568entradas ycuatro trabajos suspendidos,sinruntimeSQLS11reentrada. Sin cambios de producto,seguridad o normativa ni datos/credenciales/efectos reales,Hosted/Production,staging/commit/push/merge/Drive/despliegue.
+
+Variante aislada yparche exacto noaplicados,nopublicación,nocombinación conH6-017/H6-002/H6-005. La ficha histórica NOT STARTED ybloques inferiores conservan sus cortes;este cierre los supersede exclusivamente respecto alestado localH6-003. H6global IN PROGRESS.
+<!-- H6-003-LOCAL-CLOSURE-END -->
+
+
 <!-- H6-005-LOCAL-CLOSURE-BEGIN -->
 ## Estado vigente H6-005 — COMPLETED local/aislado
 

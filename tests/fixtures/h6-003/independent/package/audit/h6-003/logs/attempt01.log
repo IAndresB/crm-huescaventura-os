@@ -1,0 +1,25 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+file:///Users/andres/.codex/worktrees/h6-003-independent-audit/crm-huescaventura-os/audit/h6-003/fixture.ts:37
+ const evaluate=(extra:any={})=>command('evaluate',{policy:{id:'SYNTHETIC approved test policy',version:'1',terms:f.terms},impacts:{commercial:'SYNTHETIC verified client agreement',operational:'SYNTHETIC precisely scoped',economic:'pending'},...extra});
+ const approve=async()=>{const v=await see(),part=v.parts.find((p:any)=>p.id===partId),digest=await f.hash(Object.fromEntries(Object.entries(part).filter(([k])=>!['review','applied'].includes(k))));return command('approve',{partIds:[partId],proofs:{[partId]:{client:await proof('modification:client:'+digest,f.bookingId),provider:await proof('modification:provider:'+digest,f.bookingId),constraints:await proof('modification:constraints:'+digest,f.bookingId)}});};
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^
+ const apply=async()=>command('apply',{partIds:[partId],approvalRevision:(await see()).approval.revision}),run=(q:any)=>h.auth().then((a:any)=>h.modifications.apply(a,write,q)),prepare=async()=>{await run(await request());await run(await evaluate());await run(await approve());return apply();};
+
+SyntaxError [ERR_INVALID_TYPESCRIPT_SYNTAX]: Expected ',', got ')'
+    at parseTypeScript (node:internal/modules/typescript:72:36)
+    at processTypeScriptCode (node:internal/modules/typescript:146:42)
+    at stripTypeScriptModuleTypes (node:internal/modules/typescript:215:22)
+    at ModuleLoader.<anonymous> (node:internal/modules/esm/translators:680:29)
+    at #translate (node:internal/modules/esm/loader:438:20)
+    at afterLoad (node:internal/modules/esm/loader:506:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:511:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:564:36)
+    at afterResolve (node:internal/modules/esm/loader:611:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:617:12) {
+  code: 'ERR_INVALID_TYPESCRIPT_SYNTAX'
+}
+
+Node.js v24.21.0
